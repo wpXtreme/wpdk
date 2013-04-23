@@ -17,7 +17,7 @@ and theme for WordPress evironment.
 * PHP version 5.2.4 or greater
 * MySQL version 5.0 or greater
 
-### Get Started
+### Getting Started
 
 1. Copy the `wpdk` folder in your plugin directory.
 2. Include the main `wpdk.php`
