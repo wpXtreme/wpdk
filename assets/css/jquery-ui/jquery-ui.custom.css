@@ -1,0 +1,635 @@
+/*
+ * jQuery UI CSS Framework 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+
+/* Layout helpers
+----------------------------------*/
+.wpdk-jquery-ui .ui-helper-hidden { display: none; }
+.wpdk-jquery-ui .ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.wpdk-jquery-ui .ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.wpdk-jquery-ui .ui-helper-clearfix:before, .wpdk-jquery-ui .ui-helper-clearfix:after { content: ""; display: table; }
+.wpdk-jquery-ui .ui-helper-clearfix:after { clear: both; }
+.wpdk-jquery-ui .ui-helper-clearfix { zoom: 1; }
+.wpdk-jquery-ui .ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+.ui-sortable-helper {
+    display            : inline-table !important;
+    border             : 1px dotted #222;
+    -moz-box-shadow    : 0 4px 6px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow : 0 4px 6px rgba(0, 0, 0, 0.5);
+    box-shadow         : 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Interaction Cues
+----------------------------------*/
+.wpdk-jquery-ui .ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.wpdk-jquery-ui .ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.wpdk-jquery-ui .ui-widget-overlay,
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-image: none;
+    opacity : 0.6;
+    filter  : alpha(opacity = 60);
+}
+
+
+/*
+ * jQuery UI CSS Framework 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Verdana,Arial,sans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=01_flat.png&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=02_glass.png&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=02_glass.png&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
+ */
+
+
+/* Component containers
+----------------------------------*/
+/*.wpdk-jquery-ui .ui-widget { font-family : "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 1.1em; }*/
+.wpdk-jquery-ui .ui-widget .ui-widget { font-size: 1em; }
+/*.wpdk-jquery-ui .ui-widget input, .wpdk-jquery-ui .ui-widget select, .wpdk-jquery-ui .ui-widget textarea, .wpdk-jquery-ui .ui-widget button { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 1em; }*/
+.wpdk-jquery-ui .ui-widget-content { border: 1px solid #aaaaaa; background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
+/*.wpdk-jquery-ui .ui-widget-content a { color: #222222; }*/
+.wpdk-jquery-ui .ui-widget-header { border: 1px solid #aaaaaa; background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
+.wpdk-jquery-ui .ui-widget-header a { color: #222222; }
+
+/* Interaction states
+----------------------------------*/
+.wpdk-jquery-ui .ui-state-default, .wpdk-jquery-ui .ui-widget-content .ui-state-default, .wpdk-jquery-ui .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3; background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #555555; }
+.wpdk-jquery-ui .ui-state-default a, .wpdk-jquery-ui .ui-state-default a:link, .wpdk-jquery-ui .ui-state-default a:visited { color: #555555; text-decoration: none; }
+.wpdk-jquery-ui .ui-state-hover, .wpdk-jquery-ui .ui-widget-content .ui-state-hover, .wpdk-jquery-ui .ui-widget-header .ui-state-hover, .wpdk-jquery-ui .ui-state-focus, .wpdk-jquery-ui .ui-widget-content .ui-state-focus, .wpdk-jquery-ui .ui-widget-header .ui-state-focus { border: 1px solid #999999; background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.wpdk-jquery-ui .ui-state-hover a, .wpdk-jquery-ui .ui-state-hover a:hover { color: #212121; text-decoration: none; }
+.wpdk-jquery-ui .ui-state-active, .wpdk-jquery-ui .ui-widget-content .ui-state-active, .wpdk-jquery-ui .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa; background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.wpdk-jquery-ui .ui-state-active a, .wpdk-jquery-ui .ui-state-active a:link, .wpdk-jquery-ui .ui-state-active a:visited { color: #212121; text-decoration: none; }
+.wpdk-jquery-ui .ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+.wpdk-jquery-ui .ui-state-highlight, .wpdk-jquery-ui .ui-widget-content .ui-state-highlight, .wpdk-jquery-ui .ui-widget-header .ui-state-highlight  {border: 1px solid #fcefa1; background: #fbf9ee url(images/ui-bg_glass_55_fbf9ee_1x400.png) 50% 50% repeat-x; color: #363636; }
+.wpdk-jquery-ui .ui-state-highlight a, .wpdk-jquery-ui .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
+.wpdk-jquery-ui .ui-state-error, .wpdk-jquery-ui .ui-widget-content .ui-state-error, .wpdk-jquery-ui .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x; color: #cd0a0a; }
+.wpdk-jquery-ui .ui-state-error a, .wpdk-jquery-ui .ui-widget-content .ui-state-error a, .wpdk-jquery-ui .ui-widget-header .ui-state-error a { color: #cd0a0a; }
+.wpdk-jquery-ui .ui-state-error-text, .wpdk-jquery-ui .ui-widget-content .ui-state-error-text, .wpdk-jquery-ui .ui-widget-header .ui-state-error-text { color: #cd0a0a; }
+.wpdk-jquery-ui .ui-priority-primary, .wpdk-jquery-ui .ui-widget-content .ui-priority-primary, .wpdk-jquery-ui .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.wpdk-jquery-ui .ui-priority-secondary, .wpdk-jquery-ui .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.wpdk-jquery-ui .ui-state-disabled, .wpdk-jquery-ui .ui-widget-content .ui-state-disabled, .wpdk-jquery-ui .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.wpdk-jquery-ui .ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_222222_256x240.png); }
+.wpdk-jquery-ui .ui-widget-content .ui-icon {background-image: url(images/ui-icons_222222_256x240.png); }
+.wpdk-jquery-ui .ui-widget-header .ui-icon {background-image: url(images/ui-icons_222222_256x240.png); }
+.wpdk-jquery-ui .ui-state-default .ui-icon { background-image: url(images/ui-icons_888888_256x240.png); }
+.wpdk-jquery-ui .ui-state-hover .ui-icon, .wpdk-jquery-ui .ui-state-focus .ui-icon {background-image: url(images/ui-icons_454545_256x240.png); }
+.wpdk-jquery-ui .ui-state-active .ui-icon {background-image: url(images/ui-icons_454545_256x240.png); }
+.wpdk-jquery-ui .ui-state-highlight .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
+.wpdk-jquery-ui .ui-state-error .ui-icon, .wpdk-jquery-ui .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
+
+/* positioning */
+.wpdk-jquery-ui .ui-icon-carat-1-n { background-position: 0 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-ne { background-position: -16px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-e { background-position: -32px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-se { background-position: -48px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-s { background-position: -64px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-sw { background-position: -80px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-w { background-position: -96px 0; }
+.wpdk-jquery-ui .ui-icon-carat-1-nw { background-position: -112px 0; }
+.wpdk-jquery-ui .ui-icon-carat-2-n-s { background-position: -128px 0; }
+.wpdk-jquery-ui .ui-icon-carat-2-e-w { background-position: -144px 0; }
+.wpdk-jquery-ui .ui-icon-triangle-1-n { background-position: 0 -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-e { background-position: -32px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-se { background-position: -48px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-s { background-position: -64px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-w { background-position: -96px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.wpdk-jquery-ui .ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-n { background-position: 0 -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-ne { background-position: -16px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-e { background-position: -32px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-se { background-position: -48px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-s { background-position: -64px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-sw { background-position: -80px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-w { background-position: -96px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+.wpdk-jquery-ui .ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.wpdk-jquery-ui .ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+.wpdk-jquery-ui .ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+.wpdk-jquery-ui .ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+.wpdk-jquery-ui .ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.wpdk-jquery-ui .ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.wpdk-jquery-ui .ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.wpdk-jquery-ui .ui-icon-arrow-4 { background-position: 0 -80px; }
+.wpdk-jquery-ui .ui-icon-arrow-4-diag { background-position: -16px -80px; }
+.wpdk-jquery-ui .ui-icon-extlink { background-position: -32px -80px; }
+.wpdk-jquery-ui .ui-icon-newwin { background-position: -48px -80px; }
+.wpdk-jquery-ui .ui-icon-refresh { background-position: -64px -80px; }
+.wpdk-jquery-ui .ui-icon-shuffle { background-position: -80px -80px; }
+.wpdk-jquery-ui .ui-icon-transfer-e-w { background-position: -96px -80px; }
+.wpdk-jquery-ui .ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.wpdk-jquery-ui .ui-icon-folder-collapsed { background-position: 0 -96px; }
+.wpdk-jquery-ui .ui-icon-folder-open { background-position: -16px -96px; }
+.wpdk-jquery-ui .ui-icon-document { background-position: -32px -96px; }
+.wpdk-jquery-ui .ui-icon-document-b { background-position: -48px -96px; }
+.wpdk-jquery-ui .ui-icon-note { background-position: -64px -96px; }
+.wpdk-jquery-ui .ui-icon-mail-closed { background-position: -80px -96px; }
+.wpdk-jquery-ui .ui-icon-mail-open { background-position: -96px -96px; }
+.wpdk-jquery-ui .ui-icon-suitcase { background-position: -112px -96px; }
+.wpdk-jquery-ui .ui-icon-comment { background-position: -128px -96px; }
+.wpdk-jquery-ui .ui-icon-person { background-position: -144px -96px; }
+.wpdk-jquery-ui .ui-icon-print { background-position: -160px -96px; }
+.wpdk-jquery-ui .ui-icon-trash { background-position: -176px -96px; }
+.wpdk-jquery-ui .ui-icon-locked { background-position: -192px -96px; }
+.wpdk-jquery-ui .ui-icon-unlocked { background-position: -208px -96px; }
+.wpdk-jquery-ui .ui-icon-bookmark { background-position: -224px -96px; }
+.wpdk-jquery-ui .ui-icon-tag { background-position: -240px -96px; }
+.wpdk-jquery-ui .ui-icon-home { background-position: 0 -112px; }
+.wpdk-jquery-ui .ui-icon-flag { background-position: -16px -112px; }
+.wpdk-jquery-ui .ui-icon-calendar { background-position: -32px -112px; }
+.wpdk-jquery-ui .ui-icon-cart { background-position: -48px -112px; }
+.wpdk-jquery-ui .ui-icon-pencil { background-position: -64px -112px; }
+.wpdk-jquery-ui .ui-icon-clock { background-position: -80px -112px; }
+.wpdk-jquery-ui .ui-icon-disk { background-position: -96px -112px; }
+.wpdk-jquery-ui .ui-icon-calculator { background-position: -112px -112px; }
+.wpdk-jquery-ui .ui-icon-zoomin { background-position: -128px -112px; }
+.wpdk-jquery-ui .ui-icon-zoomout { background-position: -144px -112px; }
+.wpdk-jquery-ui .ui-icon-search { background-position: -160px -112px; }
+.wpdk-jquery-ui .ui-icon-wrench { background-position: -176px -112px; }
+.wpdk-jquery-ui .ui-icon-gear { background-position: -192px -112px; }
+.wpdk-jquery-ui .ui-icon-heart { background-position: -208px -112px; }
+.wpdk-jquery-ui .ui-icon-star { background-position: -224px -112px; }
+.wpdk-jquery-ui .ui-icon-link { background-position: -240px -112px; }
+.wpdk-jquery-ui .ui-icon-cancel { background-position: 0 -128px; }
+.wpdk-jquery-ui .ui-icon-plus { background-position: -16px -128px; }
+.wpdk-jquery-ui .ui-icon-plusthick { background-position: -32px -128px; }
+.wpdk-jquery-ui .ui-icon-minus { background-position: -48px -128px; }
+.wpdk-jquery-ui .ui-icon-minusthick { background-position: -64px -128px; }
+.wpdk-jquery-ui .ui-icon-close { background-position: -80px -128px; }
+.wpdk-jquery-ui .ui-icon-closethick { background-position: -96px -128px; }
+.wpdk-jquery-ui .ui-icon-key { background-position: -112px -128px; }
+.wpdk-jquery-ui .ui-icon-lightbulb { background-position: -128px -128px; }
+.wpdk-jquery-ui .ui-icon-scissors { background-position: -144px -128px; }
+.wpdk-jquery-ui .ui-icon-clipboard { background-position: -160px -128px; }
+.wpdk-jquery-ui .ui-icon-copy { background-position: -176px -128px; }
+.wpdk-jquery-ui .ui-icon-contact { background-position: -192px -128px; }
+.wpdk-jquery-ui .ui-icon-image { background-position: -208px -128px; }
+.wpdk-jquery-ui .ui-icon-video { background-position: -224px -128px; }
+.wpdk-jquery-ui .ui-icon-script { background-position: -240px -128px; }
+.wpdk-jquery-ui .ui-icon-alert { background-position: 0 -144px; }
+.wpdk-jquery-ui .ui-icon-info { background-position: -16px -144px; }
+.wpdk-jquery-ui .ui-icon-notice { background-position: -32px -144px; }
+.wpdk-jquery-ui .ui-icon-help { background-position: -48px -144px; }
+.wpdk-jquery-ui .ui-icon-check { background-position: -64px -144px; }
+.wpdk-jquery-ui .ui-icon-bullet { background-position: -80px -144px; }
+.wpdk-jquery-ui .ui-icon-radio-off { background-position: -96px -144px; }
+.wpdk-jquery-ui .ui-icon-radio-on { background-position: -112px -144px; }
+.wpdk-jquery-ui .ui-icon-pin-w { background-position: -128px -144px; }
+.wpdk-jquery-ui .ui-icon-pin-s { background-position: -144px -144px; }
+.wpdk-jquery-ui .ui-icon-play { background-position: 0 -160px; }
+.wpdk-jquery-ui .ui-icon-pause { background-position: -16px -160px; }
+.wpdk-jquery-ui .ui-icon-seek-next { background-position: -32px -160px; }
+.wpdk-jquery-ui .ui-icon-seek-prev { background-position: -48px -160px; }
+.wpdk-jquery-ui .ui-icon-seek-end { background-position: -64px -160px; }
+.wpdk-jquery-ui .ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+.wpdk-jquery-ui .ui-icon-seek-first { background-position: -80px -160px; }
+.wpdk-jquery-ui .ui-icon-stop { background-position: -96px -160px; }
+.wpdk-jquery-ui .ui-icon-eject { background-position: -112px -160px; }
+.wpdk-jquery-ui .ui-icon-volume-off { background-position: -128px -160px; }
+.wpdk-jquery-ui .ui-icon-volume-on { background-position: -144px -160px; }
+.wpdk-jquery-ui .ui-icon-power { background-position: 0 -176px; }
+.wpdk-jquery-ui .ui-icon-signal-diag { background-position: -16px -176px; }
+.wpdk-jquery-ui .ui-icon-signal { background-position: -32px -176px; }
+.wpdk-jquery-ui .ui-icon-battery-0 { background-position: -48px -176px; }
+.wpdk-jquery-ui .ui-icon-battery-1 { background-position: -64px -176px; }
+.wpdk-jquery-ui .ui-icon-battery-2 { background-position: -80px -176px; }
+.wpdk-jquery-ui .ui-icon-battery-3 { background-position: -96px -176px; }
+.wpdk-jquery-ui .ui-icon-circle-plus { background-position: 0 -192px; }
+.wpdk-jquery-ui .ui-icon-circle-minus { background-position: -16px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-close { background-position: -32px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-triangle-e { background-position: -48px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-triangle-s { background-position: -64px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-triangle-w { background-position: -80px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-triangle-n { background-position: -96px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-arrow-s { background-position: -128px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-arrow-w { background-position: -144px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-arrow-n { background-position: -160px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-zoomin { background-position: -176px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-zoomout { background-position: -192px -192px; }
+.wpdk-jquery-ui .ui-icon-circle-check { background-position: -208px -192px; }
+.wpdk-jquery-ui .ui-icon-circlesmall-plus { background-position: 0 -208px; }
+.wpdk-jquery-ui .ui-icon-circlesmall-minus { background-position: -16px -208px; }
+.wpdk-jquery-ui .ui-icon-circlesmall-close { background-position: -32px -208px; }
+.wpdk-jquery-ui .ui-icon-squaresmall-plus { background-position: -48px -208px; }
+.wpdk-jquery-ui .ui-icon-squaresmall-minus { background-position: -64px -208px; }
+.wpdk-jquery-ui .ui-icon-squaresmall-close { background-position: -80px -208px; }
+.wpdk-jquery-ui .ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.wpdk-jquery-ui .ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.wpdk-jquery-ui .ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+.wpdk-jquery-ui .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.wpdk-jquery-ui .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.wpdk-jquery-ui .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.wpdk-jquery-ui .ui-corner-all, .wpdk-jquery-ui .ui-corner-top, .wpdk-jquery-ui .ui-corner-left, .wpdk-jquery-ui .ui-corner-tl { -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px; }
+.wpdk-jquery-ui .ui-corner-all, .wpdk-jquery-ui .ui-corner-top, .wpdk-jquery-ui .ui-corner-right, .wpdk-jquery-ui .ui-corner-tr { -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; }
+.wpdk-jquery-ui .ui-corner-all, .wpdk-jquery-ui .ui-corner-bottom, .wpdk-jquery-ui .ui-corner-left, .wpdk-jquery-ui .ui-corner-bl { -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-left-radius: 4px; -khtml-border-bottom-left-radius: 4px; border-bottom-left-radius: 4px; }
+.wpdk-jquery-ui .ui-corner-all, .wpdk-jquery-ui .ui-corner-bottom, .wpdk-jquery-ui .ui-corner-right, .wpdk-jquery-ui .ui-corner-br { -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; -khtml-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+/* Overlays */
+.wpdk-jquery-ui .ui-widget-overlay { background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+.wpdk-jquery-ui .ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/*
+ * jQuery UI Resizable 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizable#theming
+ */
+.wpdk-jquery-ui .ui-resizable { position: relative;}
+.wpdk-jquery-ui .ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block; }
+.wpdk-jquery-ui .ui-resizable-disabled .ui-resizable-handle, .wpdk-jquery-ui .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.wpdk-jquery-ui .ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+.wpdk-jquery-ui .ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+.wpdk-jquery-ui .ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
+.wpdk-jquery-ui .ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+.wpdk-jquery-ui .ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+.wpdk-jquery-ui .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.wpdk-jquery-ui .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+.wpdk-jquery-ui .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/*
+ * jQuery UI Selectable 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Selectable#theming
+ */
+.wpdk-jquery-ui .ui-selectable-helper { position: absolute; z-index: 100; border:1px dotted black; }
+/*
+ * jQuery UI Accordion 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Accordion#theming
+ */
+/* IE/Win - Fix animation bug - #4615 */
+.wpdk-jquery-ui .ui-accordion { width: 100%; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-li-fix { display: inline; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; }
+.wpdk-jquery-ui .ui-accordion-icons .ui-accordion-header a { padding-left: 2.2em; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-content { padding: 1em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.wpdk-jquery-ui .ui-accordion .ui-accordion-content-active { display: block; }
+/*
+ * jQuery UI Autocomplete 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.wpdk-jquery-ui .ui-autocomplete {
+  position   : absolute;
+  cursor     : default;
+  max-height : 150px;
+  overflow-y : auto;
+  /* prevent horizontal scrollbar */
+  overflow-x : hidden;
+}
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; height: 200px } /* without this, the menu expands to 100% in IE6 */
+
+/*
+ * jQuery UI Menu 1.8.18
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.wpdk-jquery-ui .ui-menu {
+	list-style:none;
+	padding: 2px;
+	margin: 0;
+	display:block;
+	float: left;
+}
+.wpdk-jquery-ui .ui-menu .ui-menu {
+	margin-top: -3px;
+}
+.wpdk-jquery-ui .ui-menu .ui-menu-item {
+	margin:0;
+	padding: 0;
+	zoom: 1;
+	float: left;
+	clear: left;
+	width: 100%;
+}
+.wpdk-jquery-ui .ui-menu .ui-menu-item a {
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1.5;
+	zoom:1;
+}
+.wpdk-jquery-ui .ui-menu .ui-menu-item a.ui-state-hover,
+.wpdk-jquery-ui .ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+/*
+ * jQuery UI Button 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Button#theming
+ */
+.wpdk-jquery-ui .ui-button { display: inline-block; position: relative; padding: 0; margin-right: .1em; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: hidden; *overflow: visible; } /* the overflow property removes extra width in IE */
+.wpdk-jquery-ui .ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
+.wpdk-jquery-ui button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
+.wpdk-jquery-ui .ui-button-icons-only { width: 3.4em; }
+.wpdk-jquery-ui button.ui-button-icons-only { width: 3.7em; }
+
+/*button text element */
+.wpdk-jquery-ui .ui-button .ui-button-text { display: block; line-height: 1.4;  }
+.wpdk-jquery-ui .ui-button-text-only .ui-button-text { padding: .4em 1em; }
+.wpdk-jquery-ui .ui-button-icon-only .ui-button-text, .wpdk-jquery-ui .ui-button-icons-only .ui-button-text { padding: .4em; text-indent: -9999999px; }
+.wpdk-jquery-ui .ui-button-text-icon-primary .ui-button-text, .wpdk-jquery-ui .ui-button-text-icons .ui-button-text { padding: .4em 1em .4em 2.1em; }
+.wpdk-jquery-ui .ui-button-text-icon-secondary .ui-button-text, .wpdk-jquery-ui .ui-button-text-icons .ui-button-text { padding: .4em 2.1em .4em 1em; }
+.wpdk-jquery-ui .ui-button-text-icons .ui-button-text { padding-left: 2.1em; padding-right: 2.1em; }
+/* no icon support for input elements, provide padding by default */
+.wpdk-jquery-ui input.ui-button { padding: .4em 1em; }
+
+/*button icon element(s) */
+.wpdk-jquery-ui .ui-button-icon-only .ui-icon, .wpdk-jquery-ui .ui-button-text-icon-primary .ui-icon, .wpdk-jquery-ui .ui-button-text-icon-secondary .ui-icon, .wpdk-jquery-ui .ui-button-text-icons .ui-icon, .wpdk-jquery-ui .ui-button-icons-only .ui-icon { position: absolute; top: 50%; margin-top: -8px; }
+.wpdk-jquery-ui .ui-button-icon-only .ui-icon { left: 50%; margin-left: -8px; }
+.wpdk-jquery-ui .ui-button-text-icon-primary .ui-button-icon-primary, .wpdk-jquery-ui .ui-button-text-icons .ui-button-icon-primary, .wpdk-jquery-ui .ui-button-icons-only .ui-button-icon-primary { left: .5em; }
+.wpdk-jquery-ui .ui-button-text-icon-secondary .ui-button-icon-secondary, .wpdk-jquery-ui .ui-button-text-icons .ui-button-icon-secondary, .wpdk-jquery-ui .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+.wpdk-jquery-ui .ui-button-text-icons .ui-button-icon-secondary, .wpdk-jquery-ui .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+
+/*button sets*/
+.wpdk-jquery-ui .ui-buttonset { margin-right: 7px; }
+.wpdk-jquery-ui .ui-buttonset .ui-button { margin-left: 0; margin-right: -.3em; }
+
+/* workarounds */
+.wpdk-jquery-ui button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra padding in Firefox */
+/*
+ * jQuery UI Dialog 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.wpdk-jquery-ui .ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.wpdk-jquery-ui .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.wpdk-jquery-ui .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; }
+.wpdk-jquery-ui .ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    right: .3em;
+    top: 50%;
+    width: 19px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 18px;
+    background-image: none;
+}
+.wpdk-jquery-ui .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.wpdk-jquery-ui .ui-dialog .ui-dialog-titlebar-close:hover, .wpdk-jquery-ui .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.wpdk-jquery-ui .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+
+.wpdk-jquery-ui .ui-dialog .ui-dialog-buttonpane {
+    text-align : left;
+    border-width : 1px 0 0 0;
+    background-image : none;
+    margin : .5em 0 0 0 !important;
+    padding : .3em 1em .5em .4em;
+    position: relative;
+    width : auto;
+}
+
+.wpdk-jquery-ui .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float : right;
+}
+
+.wpdk-jquery-ui .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.wpdk-jquery-ui .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.wpdk-jquery-ui .ui-draggable .ui-dialog-titlebar { cursor: move; }
+/*
+ * jQuery UI Slider 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider#theming
+ */
+.wpdk-jquery-ui .ui-slider { position: relative; text-align: left; }
+.wpdk-jquery-ui .ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
+.wpdk-jquery-ui .ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
+
+.wpdk-jquery-ui .ui-slider-horizontal { height: .8em; }
+.wpdk-jquery-ui .ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
+.wpdk-jquery-ui .ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
+.wpdk-jquery-ui .ui-slider-horizontal .ui-slider-range-min { left: 0; }
+.wpdk-jquery-ui .ui-slider-horizontal .ui-slider-range-max { right: 0; }
+
+.wpdk-jquery-ui .ui-slider-vertical { width: .8em; height: 100px; }
+.wpdk-jquery-ui .ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.wpdk-jquery-ui .ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.wpdk-jquery-ui .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.wpdk-jquery-ui .ui-slider-vertical .ui-slider-range-max { top: 0; }
+
+/*
+ * jQuery UI Tabs 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.wpdk-jquery-ui .ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-active
+{ margin-bottom: 0; padding-bottom: 1px; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li a, .wpdk-jquery-ui .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.wpdk-jquery-ui .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 16px 0; background: none; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-hide { display: none !important; }
+/* override */
+.wpdk-jquery-ui .wpdk-tabs.ui-tabs.ui-widget-content { border: none; background: none !important; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-panel.ui-widget-content { background: none; border-top: 1px solid #ddd; }
+.wpdk-jquery-ui .ui-tabs .ui-widget-header { border: none; background: none !important; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-selected,
+.wpdk-jquery-ui .ui-tabs .ui-state-active {
+    background: rgb(224,242,255);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2UwZjJmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+    background: -moz-linear-gradient(top,  rgba(224,242,255,1) 0%, rgba(255,255,255,1) 50%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(224,242,255,1)), color-stop(50%,rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top,  rgba(224,242,255,1) 0%,rgba(255,255,255,1) 50%);
+    background: -o-linear-gradient(top,  rgba(224,242,255,1) 0%,rgba(255,255,255,1) 50%);
+    background: -ms-linear-gradient(top,  rgba(224,242,255,1) 0%,rgba(255,255,255,1) 50%);
+    background: linear-gradient(top,  rgba(224,242,255,1) 0%,rgba(255,255,255,1) 50%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0f2ff', endColorstr='#ffffff',GradientType=0 );
+
+    font-weight: bold; margin-top: -4px !important; padding-top: 4px !important;
+}
+
+/*
+ * jQuery UI Datepicker 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.wpdk-jquery-ui .ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-prev, .wpdk-jquery-ui .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-prev-hover, .wpdk-jquery-ui .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-prev { left:2px; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-next { right:2px; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-prev span, .wpdk-jquery-ui .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.wpdk-jquery-ui .ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.wpdk-jquery-ui .ui-datepicker select.ui-datepicker-month,
+.wpdk-jquery-ui .ui-datepicker select.ui-datepicker-year { width: 49%;}
+.wpdk-jquery-ui .ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.wpdk-jquery-ui .ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.wpdk-jquery-ui .ui-datepicker td { border: 0; padding: 1px; }
+.wpdk-jquery-ui .ui-datepicker td span, .wpdk-jquery-ui .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.wpdk-jquery-ui .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.wpdk-jquery-ui .ui-datepicker.ui-datepicker-multi { width:auto; }
+.wpdk-jquery-ui .ui-datepicker-multi .ui-datepicker-group { float:left; }
+.wpdk-jquery-ui .ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.wpdk-jquery-ui .ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.wpdk-jquery-ui .ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.wpdk-jquery-ui .ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.wpdk-jquery-ui .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.wpdk-jquery-ui .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.wpdk-jquery-ui .ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.wpdk-jquery-ui .ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.wpdk-jquery-ui .ui-datepicker-rtl { direction: rtl; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.wpdk-jquery-ui .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.wpdk-jquery-ui .ui-datepicker-cover {
+    display: none; /*sorry for IE5*/
+    display/**/: block; /*sorry for IE5*/
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
+    filter: mask(); /*must have*/
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+}/*
+ * jQuery UI Progressbar 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar#theming
+ */
+.wpdk-jquery-ui .ui-progressbar { height:2em; text-align: left; overflow: hidden; }
+.wpdk-jquery-ui .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
