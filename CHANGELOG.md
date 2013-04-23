@@ -20,9 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.0.0
-### 2013-04-19
+## Version 1.1.0
+###
 
 #### Enhancements
 #### Experimental
 #### Bugs
+
+## Version 1.0.0
+### 2013-04-23
+
+* First open source
