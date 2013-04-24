@@ -34,7 +34,7 @@ class WPDKMetaBoxView extends WPDKView {
 /**
  * The meta box context standard constant define class
  *
- * @class           class WPDKMetaBoxContext
+ * @class           WPDKMetaBoxContext
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date            2013-02-28
@@ -57,7 +57,7 @@ class WPDKMetaBoxContext {
 /**
  * The meta box priority standard constant define class
  *
- * @class           class WPDKMetaBoxPriority
+ * @class           WPDKMetaBoxPriority
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date            2013-02-28

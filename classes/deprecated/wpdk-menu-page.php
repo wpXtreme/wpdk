@@ -1,4 +1,6 @@
 <?php
+/// @cond private
+
 /**
  * Class for create and managment WordPress menu Page.
  *
@@ -283,3 +285,5 @@ class WPDKMenuPage {
 
 
 }
+
+/// @endcond

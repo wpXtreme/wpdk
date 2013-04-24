@@ -1,5 +1,7 @@
 <?php
 
+/// @cond private
+
 /**
  * WPDKRoles class extends features of WordPress class WP_Roles.
  *
@@ -1996,3 +1998,5 @@ class WPDKRolesCaps {
   }
 
 }
+
+/// @endcond
