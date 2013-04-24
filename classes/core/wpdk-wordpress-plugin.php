@@ -352,8 +352,27 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public static function currentURL() {
     $protocol = self::protocol();
-    $port     = ( $_SERVER['SERVER_PORT'] != '80' ) ? ':' . $_SERVER['SERVER_PORT'] : '';
-    return sprintf( '%s%s%s%s', $protocol, $_SERVER['SERVER_NAME'], $port, $_SERVER['REQUEST_URI'] );
+    $port     = ( '80' != $_SERVER['SERVER_PORT'] ) ? ':' . $_SERVER['SERVER_PORT'] : '';
+
+    /* Get host by HTTP_X_FORWARDED_HOST. This is available from PHP 5.1+ and in a proxy server. */
+    if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
+      $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+      if ( !empty( $host ) ) {
+        $elements = explode( ',', $host );
+        $host     = trim( end( $elements ) );
+      }
+    }
+    else {
+      $host = $_SERVER['HTTP_HOST'];
+      if ( empty( $host ) ) {
+        $host = $_SERVER['SERVER_NAME'];
+        if ( empty( $host ) ) {
+          $host = !empty( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : '';
+        }
+      }
+    }
+
+    return sprintf( '%s%s%s%s', $protocol, $host, $port, $_SERVER['REQUEST_URI'] );
   }
 
   /**
