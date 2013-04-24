@@ -1,0 +1,27 @@
+var classWPDKUsers =
+[
+    [ "arrayRoles", "classWPDKUsers.html#a0c57ca9a823aa664867f985f1eb28b3e", null ],
+    [ "arrayUserForSDF", "classWPDKUsers.html#ab525bfbb85461986538a2ee65eac24f6", null ],
+    [ "authenticate", "classWPDKUsers.html#a4b8790ad74d11cbaa80533d117f11084", null ],
+    [ "create", "classWPDKUsers.html#affc1ed95903bb8b8466e24acd5a0ede7", null ],
+    [ "delete_user", "classWPDKUsers.html#aa0d68eb9d56ef91d16deaf541745cd13", null ],
+    [ "deleted_user", "classWPDKUsers.html#a893e78a89bd67a0fb6647f2a59d3c7ec", null ],
+    [ "edit_user_profile", "classWPDKUsers.html#a10c5dfdf42d396b485c1538f8562384a", null ],
+    [ "edit_user_profile_update", "classWPDKUsers.html#a7252df85dc19db9dacf603509f2c6eb9", null ],
+    [ "gravatar", "classWPDKUsers.html#ad4989a146081639f42ae9e77a895efa3", null ],
+    [ "init", "classWPDKUsers.html#a9f0be6ae273d3669e11c29910a0be338", null ],
+    [ "personal_options", "classWPDKUsers.html#a9168daddad6198973a6f1d4401ddd3f3", null ],
+    [ "personal_options_update", "classWPDKUsers.html#a1089afb5e1d4728835b009455f13ebbb", null ],
+    [ "profile_personal_options", "classWPDKUsers.html#af1f0b683f423ab271a20293c0a638b3e", null ],
+    [ "show_user_profile", "classWPDKUsers.html#a65e5491ee1f091ca06b0a1265703ecec", null ],
+    [ "signIn", "classWPDKUsers.html#a28f49ae615768975c4f7c332f0c146f5", null ],
+    [ "signout", "classWPDKUsers.html#a575bfc99b6a8e2f1f52d90c42a716d7c", null ],
+    [ "user_contactmethods", "classWPDKUsers.html#ac2a3f4c1629ba7b5a680df48aefd50f8", null ],
+    [ "usersWithCaps", "classWPDKUsers.html#a0525c3542c5a0a25201a1edf375dc9c8", null ],
+    [ "userWithMetaAndValue", "classWPDKUsers.html#a0c2c6bc216fcbf96596844b800631ee6", null ],
+    [ "wp_authenticate_user", "classWPDKUsers.html#adca9137e6578e9238f74318e339f8f7d", null ],
+    [ "wp_init", "classWPDKUsers.html#a6f845a700a09bf2c721a3d4c1e8aedc2", null ],
+    [ "wp_login", "classWPDKUsers.html#ad0a02215ef87407954a6b290c6c5b305", null ],
+    [ "wp_login_failed", "classWPDKUsers.html#a7b604a752057a405e70e676fd7b373ad", null ],
+    [ "wp_logout", "classWPDKUsers.html#abea69268d8d785b0d5d51f3d3539548c", null ]
+];

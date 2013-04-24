@@ -1,0 +1,9 @@
+digraph "classes/post" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_b02e4219757ae4e3a0f1714873865bbf {
+    graph [ bgcolor="#ddddee", pencolor="black", label="classes" fontname="Helvetica", fontsize="10", URL="dir_b02e4219757ae4e3a0f1714873865bbf.html"]
+  dir_4218c5399a6b0e3c32de082cfe6f93df [shape=box, label="post", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_4218c5399a6b0e3c32de082cfe6f93df.html"];
+  }
+}
