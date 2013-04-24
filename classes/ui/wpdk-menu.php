@@ -288,16 +288,9 @@ class WPDKMenu {
    * @brief Render
    */
   public function render() {
-
     $this->hookName = add_menu_page( $this->pageTitle, $this->menuTitle, $this->capability, $this->id, '', $this->icon, $this->position );
 
-    /**
-     * @var WPDKSubMenu $sub_menu
-     */
     while ( $sub_menu = current( $this->subMenus ) ) {
-      /**
-       * @var WPDKSubMenu $next
-       */
       $next = next( $this->subMenus );
       if ( is_a( $sub_menu, 'WPDKSubMenuDivider' ) ) {
         if ( isset( $next ) ) {

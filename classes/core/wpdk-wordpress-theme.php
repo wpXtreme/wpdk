@@ -19,139 +19,139 @@
 
 class WPDKWordPressTheme {
 
-    /**
-     * Your main plugin instance
-     *
-     * @brief Plugin pointer
-     *
-     * @var WPDKWordPressPlugin $plugin
-     */
-    public $plugin;
+  /**
+   * Your main plugin instance
+   *
+   * @brief Plugin pointer
+   *
+   * @var WPDKWordPressPlugin $plugin
+   */
+  public $plugin;
 
-    /**
-     * Create a WPDKWordPressTheme object instance
-     *
-     * @brief Construct
-     *
-     * @param WPDKWordPressPlugin Optional. $plugin Your main plugin instance
-     *
-     * @return WPDKWordPressPlugin
-     */
-    public function __construct( WPDKWordPressPlugin $plugin = null ) {
-        $this->plugin = $plugin;
+  /**
+   * Create a WPDKWordPressTheme object instance
+   *
+   * @brief Construct
+   *
+   * @param WPDKWordPressPlugin $plugin Optional. Your main plugin instance
+   *
+   * @return WPDKWordPressPlugin
+   */
+  public function __construct( WPDKWordPressPlugin $plugin = null ) {
+    $this->plugin = $plugin;
 
-        /* Before init */
-        add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+    /* Before init */
+    add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
-        add_action( 'wp', array( $this, 'wp' ) );
-        add_action( 'wp_head', array( $this, 'wp_head' ) );
-        add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+    add_action( 'wp', array( $this, 'wp' ) );
+    add_action( 'wp_head', array( $this, 'wp_head' ) );
+    add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
-        /* Filtro sul body class. */
-        add_filter( 'body_class', array( $this, 'body_class' ) );
+    /* Filtro sul body class. */
+    add_filter( 'body_class', array( $this, 'body_class' ) );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts') );
+    add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-        /* template-loader */
-        add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-        add_filter( 'template_include', array( $this, 'template_include' ) );
+    /* template-loader */
+    add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+    add_filter( 'template_include', array( $this, 'template_include' ) );
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------
+  // WordPress Hook
+  // -----------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Called when WordPress makes the class attribute of `body` tag
+   *
+   * @brief Adding class in body tag
+   *
+   * @param array $classes List of classes
+   *
+   * @return array New list class
+   */
+  public function body_class( $classes ) {
+
+    /* Se ho un puntatore ad un plugin inserisco il suo slug. */
+    if ( !is_null( $this->plugin ) ) {
+      $classes[] = sprintf( ' %s-body', $this->plugin->slug );
     }
+    return $classes;
+  }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // WordPress Hook
-    // -----------------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------
+  // Override
+  // -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Called when WordPress makes the class attribute of `body` tag
-     *
-     * @brief Adding class in body tag
-     *
-     * @param array $classes List of classes
-     *
-     * @return array New list class
-     */
-    public function body_class( $classes ) {
+  /**
+   * Called by after_setup_theme action
+   *
+   * @brief WordPress action to setup theme
+   */
+  public function after_setup_theme() {
+    /* To override */
+  }
 
-        /* Se ho un puntatore ad un plugin inserisco il suo slug. */
-        if( !is_null( $this->plugin ) ) {
-            $classes[] = sprintf( ' %s-body', $this->plugin->slug );
-        }
-        return $classes;
-    }
+  /**
+   * Called by `template_redirect` action. This action is called before the frontend theme is displayed.
+   *
+   * @brief WordPress action before theme is displayed
+   */
+  public function template_redirect() {
+    /* To override */
+  }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Override
-    // -----------------------------------------------------------------------------------------------------------------
+  /**
+   * Called by `template_include` filter. This filter is useful to change the defaul theme filename.
+   *
+   * @brief WordPress filter before a template is loaded
+   *
+   * @param string $template The URL of template
+   *
+   * @return string A new URl template
+   */
+  public function template_include( $template ) {
+    /* To override */
+    return $template;
+  }
 
-    /**
-     * Called by after_setup_theme action
-     *
-     * @brief WordPress action to setup theme
-     */
-    public function after_setup_theme() {
-        /* To override */
-    }
+  /**
+   * Called by `wp` action
+   *
+   * @brief WordPress action for start
+   */
+  public function wp() {
+    /* To override */
+  }
 
-    /**
-     * Called by `template_redirect` action. This action is called before the frontend theme is displayed.
-     *
-     * @brief WordPress action before theme is displayed
-     */
-    public function template_redirect( ) {
-        /* To override */
-    }
+  /**
+   * Called by `wp_head` action. This action is called after the `head` section and before the `body` tag.
+   *
+   * @brief WordPress action in head theme
+   *
+   */
+  public function wp_head() {
+    /* To override */
+  }
 
-    /**
-     * Called by `template_include` filter. This filter is useful to change the defaul theme filename.
-     *
-     * @brief WordPress filter before a template is loaded
-     *
-     * @param string $template The URL of template
-     *
-     * @return string A new URl template
-     */
-    public function template_include( $template ) {
-        /* To override */
-        return $template;
-    }
+  /**
+   * Called by wp_footer action. This action is called in the footer theme.
+   *
+   * @brief WordPress action for theme footer
+   *
+   */
+  public function wp_footer() {
+    /* To override */
+  }
 
-    /**
-     * Called by `wp` action
-     *
-     * @brief WordPress action for start
-     */
-    public function wp() {
-        /* To override */
-    }
-
-    /**
-     * Called by `wp_head` action. This action is called after the `head` section and before the `body` tag.
-     *
-     * @brief WordPress action in head theme
-     *
-     */
-    public function wp_head() {
-        /* To override */
-    }
-
-    /**
-     * Called by wp_footer action. This action is called in the footer theme.
-     *
-     * @brief WordPress action for theme footer
-     *
-     */
-    public function wp_footer() {
-        /* To override */
-    }
-
-    /**
-     * Called by `wp_enqueue_scripts` action. You will use this action to register (do a queue) scripts and styles.
-     *
-     * @brief WordPress action for scripts and styles
-     */
-    public function wp_enqueue_scripts() {
-        /* To override */
-    }
+  /**
+   * Called by `wp_enqueue_scripts` action. You will use this action to register (do a queue) scripts and styles.
+   *
+   * @brief WordPress action for scripts and styles
+   */
+  public function wp_enqueue_scripts() {
+    /* To override */
+  }
 
 }
 
@@ -244,7 +244,7 @@ class WPDKTheme {
    * @var string $classesPath
    */
   public $classPath;
-  
+
   /**
    * The array of loading path related to any WPX theme class. This array is related to the specific WPX theme
    * that extends this base class.
@@ -270,8 +270,8 @@ class WPDKTheme {
     spl_autoload_register( array( $this, 'autoloadEnvironment' ) );
 
     /* Path unix. */
-    $this->path         = trailingslashit( dirname( $file ) );
-    $this->classesPath  = $this->path . 'classes/';
+    $this->path        = trailingslashit( dirname( $file ) );
+    $this->classesPath = $this->path . 'classes/';
 
     /* @todo URL */
     $this->url           = get_template_directory_uri();
@@ -290,7 +290,7 @@ class WPDKTheme {
     $this->theme = new WP_Theme( $theme_key, $theme_root );
 
     /* Init the theme */
-    add_action( 'init', array( $this, '_init') );
+    add_action( 'init', array( $this, '_init' ) );
 
     /* Setup */
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
@@ -303,7 +303,8 @@ class WPDKTheme {
    */
   public function _init() {
     /* Load text domain */
-    load_theme_textdomain( $this->theme->get( 'TextDomain' ) , trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
+    load_theme_textdomain( $this->theme->get( 'TextDomain' ),
+      trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
   }
 
   /**

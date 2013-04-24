@@ -361,7 +361,7 @@ class WPDKUser extends WP_User {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * This method is an alias of WPDKUsers::gravatar()
+   * This method is an alias of WPDKUsers::gravatar(). Return the HTML markup for tag img. False otherwise.
    *
    * @brief Return HTML img of gravatar.
    *
@@ -369,7 +369,7 @@ class WPDKUser extends WP_User {
    * @param string $alt     Alternate string for alt attribute
    * @param string $default Optional. Gravatar ID for default (not found) gravatar image
    *
-   * @return string L'HTML del tag <img> dell'avatar, altrimenti false per errore
+   * @return string
    */
   public function gravatar( $size = 40, $alt = '', $default = "wavatar" ) {
     return WPDKUsers::init()->gravatar( $this->ID, $size, $alt, $default );
@@ -1062,7 +1062,7 @@ class WPDKUsers {
 
   /**
    * Hooks immediately after the "Show toolbar..." option on profile page (if current user).
-   * Any HTML output should take into account that this hook occurs within the "Personal Options" <table> element.
+   * Any HTML output should take into account that this hook occurs within the "Personal Options" table element.
    *
    * @brief Personal options
    *
@@ -1519,7 +1519,7 @@ class WPDKRoles extends WP_Roles {
    *
    * @brief Extended data for role
    *
-   * @var array
+   * @var array $_extendedData
    */
   private $_extendedData;
 
@@ -1647,7 +1647,7 @@ class WPDKRoles extends WP_Roles {
    *
    * @brief Counts the number of users for roles
    *
-   * @param string $role The role to get the user count for.
+   * @param string $user_role Optional. The role to get the user count for.
    *
    * @return int
    */
@@ -1966,12 +1966,11 @@ class WPDKCapabilities {
    * case this scenario comes into play.
    *
    * For those reading this note, yes, I did "accidentally" remove all capabilities from my administrator account
-   * when developing this plugin.  And yes, that was fun putting back together. ;)
+   * when developing this plugin.  And yes, that was fun putting back together.
    *
    * @brief Get all standard WordPress capabilities list
    *
-   * The Codex has a list of all the defaults:
-   * @link http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
+   * The Codex has a list of all the defaults: http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
    *
    * @return array $defaults All the default WordPress capabilities.
    */
@@ -2257,12 +2256,3 @@ class WPDKCapability {
   }
 
 }
-
-
-
-
-
-
-
-
-/// @endcond

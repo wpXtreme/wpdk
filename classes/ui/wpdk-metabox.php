@@ -16,11 +16,12 @@ class WPDKMetaBoxView extends WPDKView {
    *
    * @brief Construct
    *
-   * @param string        $id       String for use in the 'id' attribute of tags.
-   * @param string        $title    Title of the meta box.
-   * @param string|object $screen   Optional. The screen on which to show the box (post, page, link). Defaults to current screen.
-   * @param string        $context  Optional. The context within the page where the boxes should show ('normal', 'advanced').
-   * @param string        $priority Optional. The priority within the context where the boxes should show ('high', 'low').   *
+   * @param string        $id            String for use in the 'id' attribute of tags.
+   * @param string        $title         Title of the meta box.
+   * @param string|object $screen        Optional. The screen on which to show the box (post, page, link). Defaults to current screen.
+   * @param string        $context       Optional. The context within the page where the boxes should show ('normal', 'advanced').
+   * @param string        $priority      Optional. The priority within the context where the boxes should show ('high', 'low').   *
+   * @param callable      $callback_args Optional. Callable args.
    *
    * @return WPDKMetaBoxView
    */

@@ -76,7 +76,7 @@ class WPDKView {
    *
    * @brief The content
    *
-   * @var string
+   * @var string $content
    */
   public $content;
 
@@ -185,13 +185,11 @@ class WPDKView {
    *
    * @brief The view content
    *
+   * @internal WPDKView $view
+   *
    * @return string
    */
   public function display() {
-    /**
-     * @var WPDKView $view
-     */
-    $view = null;
     ?>
   <div data-type="wpdk-view"
        id="<?php echo $this->id ?>"
@@ -348,7 +346,7 @@ class WPDKViewController {
    *
    * @brief The header view
    *
-   * @var WPDKHeaderView
+   * @var WPDKHeaderView $viewHead
    */
   public $viewHead;
 
