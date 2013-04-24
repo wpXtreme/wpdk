@@ -161,7 +161,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * The Plugin URL more `assets/css/images/`
    *
    * @brief Images URL
-   * @deprecated Since 0.6.3 Use imagesURL instead
+   *
+   * @deprecated Since 0.6.3 - Use `imagesURL` instead
    *
    * @var string $url_images
    */
@@ -170,7 +171,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * The Plugin URL more `assets/js/`
    *
    * @brief Javascript URL
-   * @deprecated Since 0.6.3 Use javascriptURL instead
+   *
+   * @deprecated Since 0.6.3 - Use `javascriptURL` instead
    *
    * @var string $url_javascript
    */
@@ -330,13 +332,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   }
 
   /**
-   * Return the current complete URL with protocol (`http` or `https`), server name, port and URI
-   *
-   * @brief Return the current URL
-   *
-   * @return string The current complete URL
-   *
-   * @deprecated Since 0.6.3 - User self::currentURL() instead
+   * @deprecated Since 0.6.3 - User `currentURL()` instead
    */
   public static function current_url() {
     _deprecated_function( __METHOD__, '0.6.3', 'self::currentURL()' );
@@ -380,11 +376,11 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * The function has some facility in its first param, in order to allow both string and array loading of class
    * names ( useful in case of a group of classes that are defined in a single file ).
    *
-   * 1. $this->registerAutoloadClass( 'file.php', 'ClassName' );
+   *     1. $this->registerAutoloadClass( 'file.php', 'ClassName' );
    *
-   * 2. $this->registerAutoloadClass( array( 'file.php' => 'ClassName' ) );
+   *     2. $this->registerAutoloadClass( array( 'file.php' => 'ClassName' ) );
    *
-   * 3. $this->registerAutoloadClass( array( 'file.php' => array( 'ClassName', 'ClassName', ... ) ) );
+   *     3. $this->registerAutoloadClass( array( 'file.php' => array( 'ClassName', 'ClassName', ... ) ) );
    *
    *
    * @brief Records a WPX plugin class into autoloading register.
@@ -653,7 +649,9 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     }
   }
 
-  /* @deprecated since 0.5 Use theme() instead */
+  /**
+   * @deprecated since 0.5 - Use `theme()` instead
+   */
   public function frontend() {
     _deprecated_function( __METHOD__, '0.5', 'theme()' );
 
@@ -672,14 +670,18 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   }
 
 
-  /* @deprecated since 0.5 Use configuration() instead */
+  /**
+   * @deprecated since 0.5 - Use `configuration()` instead
+   */
   public function init_options() {
     _deprecated_function( __METHOD__, '0.5', 'configuration()' );
 
     $this->configuration();
   }
 
-  /* @deprecated since 0.7.5 Use widgets() instead */
+  /**
+   * @deprecated since 0.7.5 - Use `widgets()` instead
+   */
   public function widgets_init() {
     _deprecated_function( __METHOD__, '0.7.5', 'widgets()' );
 
