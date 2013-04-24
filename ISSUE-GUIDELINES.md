@@ -1,10 +1,10 @@
 # Issue Guidelines
 
-Please read this document before submitting an issue or pull request to WPDK.
+Please read this document before submit an issue or pull request to WPDK.
 It really helps we out and lets we know that you respect our time.
 In return, we'll show the same respect in addressing your issue.
 
-If you think this guide can be improved, please let we know.
+If you think this guide could be improved, please let us know.
 
 ## Types of issues<a name="types-of-issues"></a>
 
@@ -27,7 +27,7 @@ These are some things that don't belong in the issue tracker:
   is generally going to WPDK Support.
 
 + **Please avoid derailing issues.** Keep the discussion on topic and respect
-  the opinions of others.
+  other opinions.
 
 ## Bugs<a name="bugs"></a>
 
