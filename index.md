@@ -53,12 +53,12 @@ In the root directory of your plugin create a file named `wpdk-testplugin.php`. 
 standard comment for recognize this plugin as:
 
     /**
-     * Plugin Name: wpx CleanFix
+     * Plugin Name: CleanFix
      * Plugin URI: https://wpxtre.me
      * Description: Clean and fix tools
-     * Version: 1.0
-     * Author: WPDK
-     * Author URI: https://wpxtre.me
+     * Version: 1.0.0
+     * Author: You
+     * Author URI: http://your-domain.com
      */
 
      /* 1. Include WPDK. */
@@ -118,6 +118,47 @@ the scope of this document.
 
 
 
+@section page_how_to_plugin_2_1 Filesystem guideline
+
+In order to get all benefit from WPDK framework we suggest to you to use the standard organization for the filesystem.
+The WPDK framework prepare for you a set of standard folder reference properties to access to the main plugin or theme
+resource. For instance see below a standard plugin filesystem structure:
+
+* **Your Plugin folder**
+  * assets/
+    * css/
+      * images
+    * js/
+  * classes/
+  * localization/
+
+### Useful assets
+
+In addition WPDK framework also provides a `database` folder:
+
+* **Your Plugin folder**
+  * assets/
+    * css/
+      * images
+    * js/
+  * classes/
+  * localization/
+  * database/
+
+This filesystem tree is mapped into the follow properties:
+
+    $this->path
+    $this->classesPath
+    $this->databasePath
+
+In addition you can use the `http` URL version of:
+
+    $this->url
+    $this->assetsURL
+    $this->cssURL
+    $this->imagesURL
+    $this->javascriptURL
+
 
 @section page_how_to_plugin_3 The basic execution flow of a WPDK plugin
 
@@ -149,7 +190,7 @@ The basic code of this method prepared for you through the Product Generator of 
 
     /* Hook when the plugin is activate - only first time. */
     function activation() {
-
+      /* To override. */
     }
 
 Here you can insert the code your plugin eventually needs to execute in plugin activation phase.
@@ -168,7 +209,7 @@ The basic code of this method prepared for you through the Product Generator of 
 
     /* Hook when the plugin is deactivated. */
     function deactivation() {
-        // To override.
+      /* To override. */
     }
 
 You can insert here the code your plugin eventually needs to execute in plugin deactivation phase.
@@ -186,6 +227,7 @@ The basic code of this method is not directly included in your main class. Never
 loaded, create this method in your main class:
 
     function loaded() {
+      /* You code. */
     }
 
 and then put your own specific code in it.
@@ -205,7 +247,7 @@ AFTER** the plugin has been fully loaded from WordPress environment.
 The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
 
     function configuration() {
-        $this->config = WPDKTestPluginConfig::config();
+        $this->config = WPDKTestPluginConfig::init();
     }
 
 The instance of `WPDKTestPluginConfig` is used to load and store the plugin settings on WordPress DB, according to
@@ -239,12 +281,12 @@ The basic code of this method prepared for you through the Product Generator of 
         /* Includes all your class file here. */
 
         /* Core. */
-        require_once( 'classes/core/wpxtestplugin-config.php' );
+        require_once( $this->classesPath . 'core/wpdk-testplugin-configuration.php' );
     }
 
 The line:
 
-    require_once( 'classes/core/wpxtestplugin-config.php' );
+    require_once( $this->classesPath . 'core/wpdk-testplugin--configuration.php' );
 
 is necessary for your plugin configuration core.
 
@@ -254,9 +296,9 @@ Both `includes()` and `defines()` methods are invoked in the `WPDKTestPlugin` co
 
 @section     page_how_to_plugin_8 Writing code in your plugin specifically related to WordPress frontend
 
-Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`, through the Product
-Generator of WPDK Developer Center. In the root directory of your plugin, you have a file named `wpx-testplugin.php`.
-Inside this file, you have the declaration of a class named `WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
+Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
+plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
+`WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
 
 The method `theme` of your `WPDKTestPlugin` class is called every time your plugin is loaded, after the invocation of
 methods `loaded` and `configuration`; but this calling happens *if, and only if, the web request is related to the
@@ -266,7 +308,7 @@ activation: every single time this plugin is loaded from WordPress environment, 
 The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
 
     function theme() {
-         /** To override. *\/
+         /* To override. */
     }
 
 In this method, you can insert all code your plugin needs to execute in the front-end area of your WordPress
@@ -277,8 +319,8 @@ front-end area. Or you can directly add here some specific hooks related to fron
 For example, the WPXtreme WordPress plugin overwrites this method in this way:
 
     function theme() {
-       require_once( 'classes/frontend/wpxtreme-frontend.php' );
-       $frontend = new WPXtremeFrontend( $this );
+      require_once( $this->classesPath . 'frontend/wpdk-testplugin-frontend.php' );
+      $frontend = new WPDKTestPluginFrontend( $this );
     }
 
 All code of this plugin related to the WordPress frontend area is hence encapsulated inside the `WPXtremeFrontend`
@@ -287,10 +329,9 @@ object, thus giving a plugin more readability and flow comprehension.
 
 @section     page_how_to_plugin_8 Writing code in your plugin specifically related to WordPress admin area
 
-Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`, through the Product
-Generator of WPDK Developer Center. In the root directory of your plugin, you have a file named
-`wpx-testplugin.php`. Inside this file, you have the declaration of a class named `WPDKTestPlugin`, that extends
-`WPDKWordPressPlugin` class.
+Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
+plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
+`WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
 
 The method `admin` of your `WPDKTestPlugin` class is called every time your plugin is loaded, after the invocation of
 methods `loaded` and `configuration`; but this calling happens *if, and only if, the web request is related to the
@@ -300,11 +341,8 @@ environment, this method will be invoked.
 The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
 
     function admin() {
-        require_once( 'classes/admin/wpxtestplugin-admin.php' );
-        $admin = new WPDKTestPluginAdmin( $this );
-        /**
-         * Add your code from now on
-         * /
+      require_once( $this->classesPath . 'admin/wpdk-testplugin-admin.php' );
+      $admin = new WPDKTestPluginAdmin( $this );
     }
 
 
@@ -312,17 +350,6 @@ In this method, you can insert all code your plugin needs to execute in the admi
 For example, you can insert here the declaration of a specific class that handles all stuffs about admin area.
 Or you can directly add here some specific hooks related to administration WordPress filters, like `menu_order` or
 `admin_head`.
-
-The Product Generator of WPDK Developer Center adds automatically for you the declaration and the definition of
-the `WPDKTestPluginAdmin` object. This object handles for you some common tasks related to the admin area of
-WordPress; for example, it creates automatically for you a sample menu item in the dashboard menu with the name of
-your plugin, your plugin logo, and two related menu items, already hooked to specific methods of the object instance.
-
-You can choose to write directly in this method your code specifically related to the admin side of WordPress; or
-you can choose to extend the functionality of `WPDKTestPluginAdmin` object. In both cases, your plugin will gain more
-readability and flow comprehension.
-
-
 
 @page            page_sample Samples
 
