@@ -926,15 +926,15 @@ class WPDKPlugin {
    * Retrieve metadata from the main file of plugin.
    *
    * Searches for metadata in the first 8kiB of a file, such as a plugin or theme.
-   * Each piece of metadata must be on its own line. Fields can not span multiple
-   * lines, the value will get cut at the end of the first line.
+   * Each piece of metadata must be on its own line. Fields can not span multiple lines, the value will get cut at the
+   * end of the first line.
    *
-   * If the file data is not within that first 8kiB, then the author should correct
-   * their plugin file and move the data headers to the top.
+   * If the file data is not within that first 8kiB, then the author should correct their plugin file and move the data
+   * headers to the top.
    *
    * @since 1.0.0.b4
    *
-   * @param array $aWPXHeaders List of metadata to get, in the format array('Header Name' ==> '', ...);
+   * @param array $aWPXHeaders List of metadata to get, in the format `array( 'Header Name' ==> '', ... )`
    *
    * @return array|boolean The array with all metadata got from main file of plugin, or FALSE in case of an error.
    *
