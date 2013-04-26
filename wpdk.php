@@ -269,11 +269,10 @@ if ( !class_exists( 'WPDK' ) ) {
         // USER INTERFACE
         //------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/ui/wpdk-vc.php' => array(
+        $sPathPrefix . 'classes/ui/wpdk-view-controller.php' => array(
           'WPDKView',
           'WPDKViewController',
           'WPDKHeaderView',
-          'WPDKAboutViewController',
           'WPDKConfigurationView',
           ),
 
@@ -386,11 +385,14 @@ if ( !class_exists( 'WPDK' ) ) {
           ),
 
         $sPathPrefix . 'classes/core/wpdk-shortcode.php' => 'WPDKShortcode',
-        $sPathPrefix . 'classes/core/wpdk-wordpress-theme.php' => array( 'WPDKWordPressTheme', 'WPDKTheme' ),
+        $sPathPrefix . 'classes/core/wpdk-wordpress-theme.php' => array(
+          'WPDKWordPressTheme',
+          'WPDKTheme'
+        ),
         $sPathPrefix . 'classes/core/wpdk-wordpress-admin.php' => 'WPDKWordPressAdmin',
-        $sPathPrefix . 'classes/core/wpdk-watchdog.php' => 'WPDKWatchDog',
-        $sPathPrefix . 'classes/core/wpdk-ajax.php' => 'WPDKAjax',
-        $sPathPrefix . 'classes/core/wpdk-object.php' => 'WPDKObject',
+        $sPathPrefix . 'classes/core/wpdk-watchdog.php'        => 'WPDKWatchDog',
+        $sPathPrefix . 'classes/core/wpdk-ajax.php'            => 'WPDKAjax',
+        $sPathPrefix . 'classes/core/wpdk-object.php'          => 'WPDKObject',
 
         //------------------------------------------------------------------
         // DATABASE
@@ -406,12 +408,12 @@ if ( !class_exists( 'WPDK' ) ) {
         // WordPress & common Helper
         //------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/helper/wpdk-array.php' => 'WPDKArray',
-        $sPathPrefix . 'classes/helper/wpdk-datetime.php' => 'WPDKDateTime',
-        $sPathPrefix . 'classes/helper/wpdk-math.php' => 'WPDKMath',
+        $sPathPrefix . 'classes/helper/wpdk-array.php'       => 'WPDKArray',
+        $sPathPrefix . 'classes/helper/wpdk-datetime.php'    => 'WPDKDateTime',
+        $sPathPrefix . 'classes/helper/wpdk-math.php'        => 'WPDKMath',
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php' => 'WPDKScreenHelp',
-        $sPathPrefix . 'classes/helper/wpdk-crypt.php' => 'WPDKCrypt',
-        $sPathPrefix . 'classes/helper/wpdk-filesystem.php' => 'WPDKFilesystem',
+        $sPathPrefix . 'classes/helper/wpdk-crypt.php'       => 'WPDKCrypt',
+        $sPathPrefix . 'classes/helper/wpdk-filesystem.php'  => 'WPDKFilesystem',
 
         //------------------------------------------------------------------
         // Post
@@ -442,7 +444,7 @@ if ( !class_exists( 'WPDK' ) ) {
         // Services
         //------------------------------------------------------------------
 
-        $sPathPrefix . 'services/wpdk-service-ajax.php' => 'WPDKServiceAjax',
+        $sPathPrefix . 'services/wpdk-service-ajax.php'      => 'WPDKServiceAjax',
         $sPathPrefix . 'services/wpdk-service-shortcode.php' => 'WPDKServiceShortcode',
 
 
@@ -455,12 +457,13 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKDBTable',
           '_WPDKDBTable',
         ),
-        $sPathPrefix . 'classes/deprecated/WPDKCRUD.php' => 'WPDKCRUD',
-        $sPathPrefix . 'classes/deprecated/WPDKForm.php' => 'WPDKForm',
-        $sPathPrefix . 'classes/deprecated/wpdk-post-helper.php' => 'WPDKPost',
-        $sPathPrefix . 'classes/deprecated/wpdk-tableview.php' => 'WPDKTableView',
-        $sPathPrefix . 'classes/deprecated/wpdk-config-view.php' => 'WPDKConfigView',
-        $sPathPrefix . 'classes/deprecated/wpdk-option.php' => 'WPDKOption',
+        $sPathPrefix . 'classes/deprecated/WPDKCRUD.php'                   => 'WPDKCRUD',
+        $sPathPrefix . 'classes/deprecated/WPDKForm.php'                   => 'WPDKForm',
+        $sPathPrefix . 'classes/deprecated/wpdk-about-view-controller.php' => 'WPDKAboutViewController',
+        $sPathPrefix . 'classes/deprecated/wpdk-post-helper.php'           => 'WPDKPost',
+        $sPathPrefix . 'classes/deprecated/wpdk-tableview.php'             => 'WPDKTableView',
+        $sPathPrefix . 'classes/deprecated/wpdk-config-view.php'           => 'WPDKConfigView',
+        $sPathPrefix . 'classes/deprecated/wpdk-option.php'                => 'WPDKOption',
 
         $sPathPrefix . 'classes/deprecated/wpdk-update.php' => array(
           'WPDKUpdate',

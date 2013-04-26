@@ -27,6 +27,14 @@ For more information on SemVer, please visit http://semver.org/.
 #### Experimental
 #### Bugs
 
+
+
+## Version 1.0.1
+###
+
+* Minor fixes and improvements
+
+
 ## Version 1.0.0
 ### 2013-04-23
 
