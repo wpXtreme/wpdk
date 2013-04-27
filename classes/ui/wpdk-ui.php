@@ -318,8 +318,7 @@ class WPDKUIControl {
     $result = '';
     if ( isset( $this->item[$key] ) ) {
       $content = $this->item[$key];
-      if ( is_object( $content ) && is_a( $content, 'WPDKUIControl' )
-      ) {
+      if ( is_object( $content ) && is_a( $content, 'WPDKUIControl' ) ) {
         $result = $content->html();
       }
       elseif ( is_array( $content ) && isset( $content['type'] ) ) {
@@ -329,6 +328,9 @@ class WPDKUIControl {
       }
       elseif ( is_string( $content ) ) {
         $result = $content;
+      }
+      elseif( is_callable( $content ) ) {
+        $result = call_user_func( $content, $this->item );
       }
     }
     return $result;
@@ -846,7 +848,21 @@ class WPDKUIControlCustom extends WPDKUIControl {
    * @brief Draw
    */
   public function draw() {
-    echo isset( $this->item['content'] ) ? $this->item['content'] : '';
+    $content = '';
+    if ( isset( $this->item['content'] ) ) {
+      if ( is_callable( $this->item['content'] ) ) {
+        if ( isset( $this->item['param'] ) ) {
+          $content = call_user_func( $this->item['content'], $this->item['param'] );
+        }
+        else {
+          $content = call_user_func( $this->item['content'] );
+        }
+      }
+      elseif ( is_string( $this->item['content'] ) ) {
+        $content = $this->item['content'];
+      }
+    }
+    echo $content;
   }
 }
 
