@@ -1107,19 +1107,14 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    * @brief Draw
    */
   public function draw() {
-    /* The content options. */
-    if ( is_array( $this->_options ) && !empty( $this->_options ) ) {
-
-      /* Check for callback. */
-      if ( isset( $this->_options[0] ) && class_exists( $this->_options[0] ) &&
-        method_exists( $this->_options[0], $this->_options[1] )
-      ) {
-        $this->content = $this->options( call_user_func( $this->_options, $this ) );
-      }
-      else {
-        $this->content = $this->options( $this->_options );
-      }
+    $options = array();
+    if ( is_callable( $this->_options ) ) {
+      $options = call_user_func( $this->_options, $this );
     }
+    elseif ( is_array( $this->_options ) ) {
+      $options = $this->_options;
+    }
+    $this->content = $this->options( $options );
     parent::draw();
   }
 
