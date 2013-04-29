@@ -27,7 +27,7 @@
  * @class              _WPDKPost
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-12-12
+ * @date               2013-04-29
  * @version            0.9.1
  *
  */
@@ -37,7 +37,6 @@ class _WPDKPost {
   // -----------------------------------------------------------------------------------------------------------------
   // These properties are a one on one map of database table field name.
   // -----------------------------------------------------------------------------------------------------------------
-
 
   /**
    * The post ID
@@ -288,7 +287,12 @@ class _WPDKPost {
    * @param int $id_post Post ID
    */
   private function initPostByID( $id_post ) {
-    $post = get_post( $id_post );
+    if ( isset( $GLOBALS[__CLASS__][$id_post] ) ) {
+      $post = $GLOBALS[__CLASS__][$id_post];
+    }
+    else {
+      $GLOBALS[__CLASS__][$id_post] = $post = get_post( $id_post );
+    }
     $this->initPostByPost( $post );
   }
 
@@ -355,7 +359,6 @@ class _WPDKPost {
    * @brief Init by array arguments
    */
   private function initPostByArgs( $args ) {
-
     foreach ( $args as $property => $value ) {
       $this->$property = $value;
     }
