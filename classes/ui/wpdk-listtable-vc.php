@@ -576,11 +576,11 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Process the content of ID column
    *
-   * @param array $item The single item
+   * @param array  $item        The single item
    * @param string $column_name Optional. The column action id. Default 'description'
    * @param string $item_status Optional. Overwrite the view status for item in a specific status
    *
-   * @note You can override this method for your costum view. This method is called only there is a column named "id"
+   * @note  You can override this method for your costum view. This method is called only there is a column named "id"
    *
    * @return string
    */
@@ -655,7 +655,7 @@ class WPDKListTableViewController extends WP_List_Table {
    * @return bool TRUE to stop display the list view, FALSE to display the list.
    */
   public function process_bulk_action() {
-    die( 'Method WPDKListTableViewController::process_bulk_action() must be over-ridden in a sub-class.' );
+    die( __METHOD__ . ' must be over-ridden in a sub-class.' );
   }
 
   // -----------------------------------------------------------------------------------------------------------------
