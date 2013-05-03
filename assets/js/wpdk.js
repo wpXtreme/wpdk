@@ -1030,9 +1030,9 @@ var WPDKjQuery = (function ( $ ) {
   }
 
   /**
-   * Init an autocomplete witha jSON array embed (inner) into the element
+   * Init an autocomplete with a jSON array embed (inner) into the element
    *
-   * @brief Init inner autocomplete
+   * @brief Init embed autocomplete
    *
    * @param element DOM element
    * @private
@@ -1053,9 +1053,9 @@ var WPDKjQuery = (function ( $ ) {
   }
 
   /**
-   * Init an autocomplete witha jSON array embed (inner) into the element
+   * Init an autocomplete with a jSON array embed (inner) into the element
    *
-   * @brief Init inner autocomplete
+   * @brief Init custom autocomplete
    *
    * @param element DOM element
    * @private
