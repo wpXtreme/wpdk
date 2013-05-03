@@ -370,14 +370,21 @@ class WPDKUIControl {
 
     $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
+    if ( isset( $this->item['locked'] ) && true == $this->item['locked'] ) {
+      $input->readonly = 'readonly';
+    }
+
     $input->display();
 
     /* Add a clear field button only. */
-    if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) )
-    ) {
+    if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) ) ) {
       $span_clear = new WPDKHTMLTagSpan();
       $span_clear->class = 'wpdk-form-clear-left';
       $span_clear->display();
+    }
+
+    if ( isset( $this->item['locked'] ) && true == $this->item['locked'] ) {
+      printf( '<span title="%s" class="wpdk-form-locked wpdk-tooltip"></span>', __( 'This field is locked for your security. However you can unlock just by click here.', WPDK_TEXTDOMAIN ) );
     }
 
     echo $this->contentWithKey( 'append' );
