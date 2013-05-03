@@ -24,8 +24,18 @@ For more information on SemVer, please visit http://semver.org/.
 ###
 
 #### Enhancements
+
+* Added LICENSE.txt
+* Added `isPercentage()` method in `WPDKMath` class
+* (Re) Added locked control
+
 #### Experimental
+
+* none
+
 #### Bugs
+
+* Fixed bad post type sending in autocomplete Javascript engine
 
 
 
