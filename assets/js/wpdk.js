@@ -1002,7 +1002,7 @@ var WPDKjQuery = (function ( $ ) {
           $.post( wpdk_i18n.ajaxURL,
             {
               action      : 'wpdk_action_autocomplete_posts',
-              post_type   : $( $( element ).data( 'post_type' ) ).val(),
+              post_type   : $post_type,
               post_status : $( element ).data( 'post_status' ),
               limit       : $( element ).data( 'limit' ),
               order       : $( element ).data( 'order' ),
