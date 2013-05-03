@@ -576,15 +576,16 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Process the content of ID column
    *
-   * @param array  $item        The single item
-   * @param string $column_name Optional. The column action id. Default 'description'
-   * @param string $item_status Optional. Overwrite the view status for item in a specific status
+   * @param array  $item           The single item
+   * @param string $column_name    Optional. The column action id. Default 'description'
+   * @param string $item_status    Optional. Overwrite the view status for item in a specific status
+   * @param string $custom_content Optional. Useful tuo override `$custom_content`
    *
    * @note  You can override this method for your costum view. This method is called only there is a column named "id"
    *
    * @return string
    */
-  public function actions_column( $item, $column_name = 'description', $item_status = '' ) {
+  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' ) {
 
     /* Get the current view status. */
     $status = $this->_currentViewStatus();
@@ -605,8 +606,8 @@ class WPDKListTableViewController extends WP_List_Table {
       }
     }
 
-    $description = $item[$column_name];
-    return sprintf( '<strong>%s</strong> %s', $description, $this->row_actions( $stack ) );
+    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[$column_name] ) : $custom_content;
+    return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }
 
   /**
