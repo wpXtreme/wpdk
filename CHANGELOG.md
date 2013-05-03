@@ -28,6 +28,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Added LICENSE.txt
 * Added `isPercentage()` method in `WPDKMath` class
 * (Re) Added locked control
+* Minor improves in UI control
+* Cleanup documentation (for Doxygen)
 
 #### Experimental
 
