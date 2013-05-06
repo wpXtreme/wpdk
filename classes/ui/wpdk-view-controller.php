@@ -588,8 +588,8 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @brief Construct
    *
-   * @param string                      $id                ID key of config
-   * @param string                      $title             Title of config view
+   * @param string                      $id                ID key of configuration
+   * @param string                      $title             Title of configuration view
    * @param WPDKConfiguration           $configuration     Optional. Main configuration pointer
    * @param object|array                $sub_configuration Optional. Sub configuration
    * @param string                      $introduction      Optional. An introduction text message
