@@ -265,6 +265,8 @@ class WPDKTheme {
    * @return WPDKTheme
    */
   public function __construct( $file ) {
+
+    /* Autoload. */
     $this->_wpxThemeClassLoadingPath = array();
     spl_autoload_extensions( '.php' ); // for faster execution
     spl_autoload_register( array( $this, 'autoloadEnvironment' ) );
@@ -273,8 +275,8 @@ class WPDKTheme {
     $this->path        = trailingslashit( dirname( $file ) );
     $this->classesPath = $this->path . 'classes/';
 
-    /* @todo URL */
-    $this->url           = get_template_directory_uri();
+    /* URLs. */
+    $this->url           = trailingslashit( get_template_directory_uri() );
     $this->assetsURL     = $this->url . 'assets/';
     $this->cssURL        = $this->assetsURL . 'css/';
     $this->imagesURL     = $this->cssURL . 'images/';
@@ -303,8 +305,7 @@ class WPDKTheme {
    */
   public function _init() {
     /* Load text domain */
-    load_theme_textdomain( $this->theme->get( 'TextDomain' ),
-      trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
+    load_theme_textdomain( $this->theme->get( 'TextDomain' ), trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
   }
 
   /**
