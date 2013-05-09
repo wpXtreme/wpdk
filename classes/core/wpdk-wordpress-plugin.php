@@ -268,8 +268,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     /* Init cron jobs. */
     $this->initCronJobs();
 
-    // Load specific plugin environment ONLY when I'm sure plugin father is loaded.
-    add_action( 'init', array( $this, 'pluginLoaded' ) );
+    /* Load specific plugin environment ONLY when I'm sure plugin father is loaded. */
+    add_action( 'init', array( $this, 'pluginInit' ) );
 
     /* Admin init. */
     add_action( 'admin_init', array( $this, 'adminInit' ) );
@@ -279,8 +279,16 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     register_deactivation_hook( $file, array( $this, 'deactivation' ) );
     register_deactivation_hook( $file, array( $this, 'removeCronJobs' ) );
 
-    /* @todo To implements */
-    //register_uninstall_hook();
+    /*
+     * There are many pitfalls to using the uninstall hook. It ’ s a much cleaner, and easier, process to use the
+     * uninstall.php method for removing plugin settings and options when a plugin is deleted in WordPress.
+     *
+     * Using uninstall.php file. This is typically the preferred method because it keeps all your uninstall code in a
+     * separate file. To use this method, create an uninstall.php file and place it in the root directory of your
+     * plugin. If this file exists WordPress executes its contents when the plugin is deleted from the WordPress
+     * Plugins screen page.
+     */
+    // register_uninstall_hook( $file, array( $this, 'uninstall' ) );
 
     /* Widgets init. */
     add_action( 'widgets_init', array( $this, 'widgets' ) );
@@ -444,16 +452,16 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @brief WordPress action when the plugin is loaded
    */
-  public function pluginLoaded() {
+  public function pluginInit() {
 
     /* Mirror */
     $this->loaded();
 
-    /* Good place for init options. */
-    $this->configuration();
-
     /* Load the translation of the plugin. */
     load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
+
+    /* Good place for init options. */
+    $this->configuration();
 
     /* Check Ajax. */
     if ( wpdk_is_ajax() ) {
