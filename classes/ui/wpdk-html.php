@@ -1550,21 +1550,21 @@ class WPDKHTMLTag {
     /* Cycle for tag specify attributes. */
     foreach ( $this->attributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, $this->$attr );
+        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
       }
     }
 
     /* Cycle for global common attributes. */
     foreach ( $this->_globalAttributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, $this->$attr );
+        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
       }
     }
 
     /* Generic data attribute. */
     if ( is_array( $this->data ) ) {
       foreach ( $this->data as $attr => $value ) {
-        printf( ' data-%s="%s"', $attr, $value );
+        printf( ' data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
       }
     }
 
