@@ -279,7 +279,7 @@ class WPDKTheme {
     $this->url           = trailingslashit( get_template_directory_uri() );
     $this->assetsURL     = $this->url . 'assets/';
     $this->cssURL        = $this->assetsURL . 'css/';
-    $this->imagesURL     = $this->cssURL . 'images/';
+    $this->imagesURL     = $this->assetsURL . 'images/';
     $this->javascriptURL = $this->assetsURL . 'js/';
 
     $theme_key         = basename( dirname( $file ) );
