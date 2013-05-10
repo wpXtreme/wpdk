@@ -80,7 +80,7 @@ class WPDKTwitterBootstrap {
     $stack  = array();
     if ( !empty( $this->data ) ) {
       foreach ( $this->data as $key => $value ) {
-        $stack[] = sprintf( 'data-%s="%s"', $key, $value );
+        $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
       }
       $result = join( ' ', $stack );
     }

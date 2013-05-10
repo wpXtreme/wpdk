@@ -246,7 +246,7 @@ class WPDKView {
     $result = '';
     if ( !empty( $this->data ) ) {
       foreach ( $this->data as $attr => $value ) {
-        $result .= sprintf( ' data-%s="%s"', $attr, $value );
+        $result .= sprintf( ' data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
       }
     }
     return $result;

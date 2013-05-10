@@ -234,7 +234,7 @@ class WPDKUIControl {
       if ( is_array( $this->item['data'] ) ) {
         $stack = array();
         foreach ( $this->item['data'] as $attr => $value ) {
-          $stack[] = sprintf( ' data-%s="%s"', $attr, $value );
+          $stack[] = sprintf( 'data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
         }
         if ( !empty( $stack ) ) {
           $result = join( ' ', $stack );
@@ -2171,7 +2171,7 @@ class WPDKUI {
     if( !empty( $args['data'] ) ) {
       $stack = array();
       foreach( $args['data'] as $key => $value ) {
-        $stack[] = sprintf( 'data-%s="%s"', $key, $value );
+        $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
       }
       $data = implode( ',', $stack );
     }
