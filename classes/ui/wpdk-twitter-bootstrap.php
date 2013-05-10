@@ -88,12 +88,12 @@ class WPDKTwitterBootstrap {
   }
 
   /**
-    * Return the additional classes list
-    *
-    * @brief Classes
-    *
-    * @return string
-    */
+   * Return the additional classes list
+   *
+   * @brief Classes
+   *
+   * @return string
+   */
   protected function classes() {
     $result = '';
     if ( !empty( $this->classes ) ) {
@@ -131,7 +131,7 @@ class WPDKTwitterBootstrap {
    * @return string
    */
   public function html() {
-    die( 'Method WPDKTwitterBootstrap::html() must be over-ridden in a sub-class.' );
+    die( __METHOD__ . ' must be override in your subclass' );
   }
 
 }
@@ -200,7 +200,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
   /**
    * True for dismiss button [x] on top right
    *
-   * @brief Dismiss button
+   * @brief      Dismiss button
    *
    * @var bool $close_button
    * @deprecated Since 1.0.0.b4 - Use dismissButton instead
@@ -272,7 +272,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->static        = false;
     $this->keyboard      = 'true';
     $this->backdrop      = 'true';
-    $this->close_button  = FALSE;
+    $this->close_button  = false;
     $this->dismissButton = true;
 
     $this->buttons = array();
@@ -396,23 +396,24 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->data['backdrop'] = $this->backdrop;
 
     ob_start(); ?>
-  <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?><?php echo $this->width() ?>" class="modal <?php echo $this->static ? '' : 'hide fade' ?>" <?php echo $this->data() ?>
-       id="<?php echo $this->id ?>"
-       tabindex="-1"
-       role="dialog"
-       aria-labelledby="<?php echo $this->aria_title() ?>"
-       aria-hidden="true">
-    <div class="modal-header">
-      <?php echo $this->dismissButton() ?>
-      <h3 id="<?php echo $this->aria_title() ?>"><?php echo $this->title ?></h3>
+    <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?><?php echo $this->width() ?>"
+         class="modal <?php echo $this->static ? '' : 'hide fade' ?>" <?php echo $this->data() ?>
+         id="<?php echo $this->id ?>"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="<?php echo $this->aria_title() ?>"
+         aria-hidden="true">
+      <div class="modal-header">
+        <?php echo $this->dismissButton() ?>
+        <h3 id="<?php echo $this->aria_title() ?>"><?php echo $this->title ?></h3>
+      </div>
+      <div <?php echo $this->height() ?> class="modal-body">
+        <?php echo $this->content ?>
+      </div>
+      <?php echo $this->buttons() ?>
     </div>
-    <div <?php echo $this->height() ?> class="modal-body">
-      <?php echo $this->content ?>
-    </div>
-    <?php echo $this->buttons() ?>
-  </div>
 
-  <?php
+    <?php
     $content = ob_get_contents();
     ob_end_clean();
     return $content;
@@ -425,11 +426,11 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    */
   public function show() {
     ?>
-  <script type="text/javascript">
-    jQuery( document ).ready( function( ) {
-      jQuery( '#<?php echo $this->id ?>' ).modal( 'show' );
-    });
-  </script>
+    <script type="text/javascript">
+      jQuery( document ).ready( function () {
+        jQuery( '#<?php echo $this->id ?>' ).modal( 'show' );
+      } );
+    </script>
   <?php
   }
 
@@ -440,11 +441,11 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    */
   public function toggle() {
     ?>
-  <script type="text/javascript">
-    jQuery( document ).ready( function( ) {
-      jQuery( '#<?php echo $this->id ?>' ).modal( 'toggle' );
-    });
-  </script>
+    <script type="text/javascript">
+      jQuery( document ).ready( function () {
+        jQuery( '#<?php echo $this->id ?>' ).modal( 'toggle' );
+      } );
+    </script>
   <?php
   }
 
@@ -455,11 +456,11 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    */
   public function hide() {
     ?>
-  <script type="text/javascript">
-    jQuery( document ).ready( function( ) {
-      jQuery( '#<?php echo $this->id ?>' ).modal( 'hide' );
-    });
-  </script>
+    <script type="text/javascript">
+      jQuery( document ).ready( function () {
+        jQuery( '#<?php echo $this->id ?>' ).modal( 'hide' );
+      } );
+    </script>
   <?php
   }
 
@@ -681,12 +682,12 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public function html() {
     ob_start(); ?>
 
-  <div class="alert <?php echo $this->type ?> <?php echo $this->classes() ?> <?php echo $this->alert_block() ?>">
-    <?php echo $this->dismissButton() ?>
-    <?php echo $this->content() ?>
-  </div>
+    <div class="alert <?php echo $this->type ?> <?php echo $this->classes() ?> <?php echo $this->alert_block() ?>">
+      <?php echo $this->dismissButton() ?>
+      <?php echo $this->content() ?>
+    </div>
 
-  <?php
+    <?php
     $content = ob_get_contents();
     ob_end_clean();
     return $content;
@@ -875,13 +876,7 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
 
     $block    = $this->block ? 'btn-block' : '';
     $disabled = $this->disabled ? 'disabled' : '';
-    $class    = trim( join( ' ', array(
-                                      'btn',
-                                      $this->type,
-                                      $this->size,
-                                      $block,
-                                      $disabled
-                                 ) ) );
+    $class    = trim( join( ' ', array( 'btn', $this->type, $this->size, $block, $disabled ) ) );
 
     ob_start();
 
