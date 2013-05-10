@@ -193,7 +193,7 @@ class WPDKView {
     ?>
   <div data-type="wpdk-view"
        id="<?php echo $this->id ?>"
-       class="wpdk-view <?php echo $this->classes() ?>" <?php echo $this->data() ?> >
+       class="wpdk-view <?php echo $this->classes() ?> clearfix" <?php echo $this->data() ?> >
 
     <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
 
