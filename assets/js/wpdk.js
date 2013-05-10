@@ -1795,6 +1795,8 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
 
 })( jQuery, window, document );
 
+
+if( typeof( jQuery.fn.transition ) === 'undefined' ) {
 /* ===================================================
  * bootstrap-transition.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#transitions
@@ -1813,8 +1815,6 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================== */
-
-
 !function ($) {
 
   "use strict"; // jshint ;_;
@@ -1855,6 +1855,9 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   })
 
 }(window.jQuery);
+}
+
+if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 /* =========================================================
  * bootstrap-modal.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#modals
@@ -1873,7 +1876,6 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
-
 
 !function ($) {
 
@@ -2102,7 +2104,9 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   })
 
 }(window.jQuery);
+}
 
+if( typeof( jQuery.fn.tooltip ) === 'undefined' ) {
 /* ===========================================================
  * bootstrap-tooltip.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
@@ -2122,8 +2126,6 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================== */
-
-
 !function ($) {
 
   "use strict"; // jshint ;_;
@@ -2464,7 +2466,9 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   }
 
 }(window.jQuery);
+}
 
+if( typeof( jQuery.fn.alert ) === 'undefined' ) {
 /* ==========================================================
  * bootstrap-alert.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#alerts
@@ -2483,8 +2487,6 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================== */
-
-
 !function ($) {
 
   "use strict"; // jshint ;_;
@@ -2564,6 +2566,9 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   $(document).on('click.alert.data-api', dismiss, Alert.prototype.close)
 
 }(window.jQuery);
+}
+
+if( typeof( jQuery.fn.button ) === 'undefined' ) {
 /* ============================================================
  * bootstrap-button.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#buttons
@@ -2582,8 +2587,6 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ============================================================ */
-
-
 !function ($) {
 
   "use strict"; // jshint ;_;
@@ -2669,3 +2672,4 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   })
 
 }(window.jQuery);
+}
