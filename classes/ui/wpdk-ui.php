@@ -2101,6 +2101,32 @@ class WPDKUI {
   }
 
   /**
+   * Utility that return the HTML markup for a submit button
+   *
+   * @brief Button submit
+   *
+   * @param array $args Optional. Item description
+   *
+   * @return string
+   */
+  public function submit( $args = array() ) {
+    $default_args = array(
+      'name'  => 'button-submit',
+      'class' => 'button button-primary alignright',
+      'value' => __( 'Submit', WPDK_TEXTDOMAIN )
+    );
+
+    $item = wp_parse_args( $args, $default_args );
+
+    $item['type']  = WPDKUIControlType::SUBMIT;
+
+    $submit = new WPDKUIControlSubmit( $item );
+
+    return $submit->html();
+  }
+
+
+  /**
    * Return HTML markup for a input type
    *
    * @brief Simple button
@@ -2111,6 +2137,7 @@ class WPDKUI {
    *     'name'                  => 'button-update',
    *     'classes'               => ' btn btn-primary button-primary',
    *     'additional_classes'    => '',
+   *     'data'                  => ''
    *
    * @return string HTML input type submit
    */
@@ -2121,6 +2148,7 @@ class WPDKUI {
       'name'               => 'button-update',
       'classes'            => ' btn btn-primary button button-primary alignright',
       'additional_classes' => '',
+      'data'               => array(),
     );
 
     $args = wp_parse_args( $args, $default_args );
@@ -2138,12 +2166,22 @@ class WPDKUI {
       $name = sprintf( 'name="%s"', $args['name'] );
     }
 
+    /* Create data attributes. */
+    $data = '';
+    if( !empty( $args['data'] ) ) {
+      $stack = array();
+      foreach( $args['data'] as $key => $value ) {
+        $stack[] = sprintf( 'data-%s="%s"', $key, $value );
+      }
+      $data = implode( ',', $stack );
+    }
+
     /* Additional classes */
     $classes = '';
     if ( !empty( $args['additional_classes'] ) ) {
       if ( !is_array( $args['additional_classes'] ) ) {
         $new = explode( ' ', $args['additional_classes'] );
-        if( empty( $new  ) ) {
+        if( empty( $new ) ) {
           $new = array( $args['additional_classes'] );
         }
       }
@@ -2158,6 +2196,7 @@ class WPDKUI {
     ob_start(); ?>
 
   <input type="<?php echo $args['type'] ?>" <?php echo $name ?>
+         <?php echo $data ?>
          class="<?php echo $classes ?>"
          value="<?php echo $label ?>"/>
 
