@@ -401,7 +401,7 @@ class WPDKUIControl {
    * @return null|WPDKHTMLTagLabel
    */
   protected function label() {
-    if ( !isset( $this->item['label'] ) ) {
+    if ( !isset( $this->item['label'] ) || empty( $this->item['label'] ) ) {
       return null;
     }
 
