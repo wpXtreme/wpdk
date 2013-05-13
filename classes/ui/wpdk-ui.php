@@ -353,14 +353,15 @@ class WPDKUIControl {
     /* Display right label. */
     echo is_null( $label ) ? '' : $label->html();
 
-    $input           = new WPDKHTMLTagInput( '', $this->name, $this->id );
-    $input->type     = $type;
-    $input->class    = trim( $class . $this->class . ' wpdk-form-input' );
-    $input->data     = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value    = isset( $this->item['value'] ) ? $this->item['value'] : '';
-    $input->disabled = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
-    $input->readonly = isset( $this->item['readonly'] ) ? $this->item['readonly'] ? 'readonly' : null : null;
-    $input->required = isset( $this->item['required'] ) ? $this->item['required'] ? 'required' : null: null;
+    $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
+    $input->type         = $type;
+    $input->class        = trim( $class . $this->class . ' wpdk-form-input' );
+    $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
+    $input->disabled     = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
+    $input->readonly     = isset( $this->item['readonly'] ) ? $this->item['readonly'] ? 'readonly' : null : null;
+    $input->required     = isset( $this->item['required'] ) ? $this->item['required'] ? 'required' : null : null;
 
     if ( WPDKHTMLTagInputType::HIDDEN != $type ) {
       $input->size        = isset( $this->item['size'] ) ? $this->item['size'] : $this->sizeForType( $this->item['type'] );
