@@ -365,8 +365,8 @@ class WPDKUser extends WP_User {
    *
    * @brief Return HTML img of gravatar.
    *
-   * @param int    $size    Gravatar size
-   * @param string $alt     Alternate string for alt attribute
+   * @param int    $size    Optional. Gravatar size
+   * @param string $alt     Optional. Alternate string for alt attribute
    * @param string $default Optional. Gravatar ID for default (not found) gravatar image
    *
    * @return string
