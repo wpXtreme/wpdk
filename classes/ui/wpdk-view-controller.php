@@ -646,7 +646,10 @@ class WPDKConfigurationView extends WPDKView {
    */
   private function _introduction() {
     if ( !empty( $this->introduction ) ) {
-      return sprintf( '<p>%s</p>', $this->introduction );
+      $alert                = new WPDKTwitterBootstrapAlert( 'introduction', $this->introduction, WPDKTwitterBootstrapAlertType::INFORMATION );
+      $alert->dismissButton = false;
+      $alert->block         = true;
+      return $alert->html();
     }
     return $this->introduction;
   }
