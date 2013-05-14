@@ -760,12 +760,23 @@ var WPDKTwitterBootstrap = (function ( $ ) {
    * @brief Init this class
    */
   $this.init = function () {
+    $( document ).ready( _init );
+  };
+
+  /**
+   * Init when the document is ready
+   *
+   * @brief Document ready
+   *
+   * @private
+   */
+  function _init() {
     /* Init tooltip. */
     $( '.wpdk-tooltip' ).tooltip();
 
     /* Init alert. */
     $().alert();
-  };
+  }
 
   return $this;
 
