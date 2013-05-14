@@ -27,6 +27,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added LICENSE.txt
 * Added `isPercentage()` method in `WPDKMath` class
+* Added utility functions to enqueue script for a list of pages or template pages
 * (Re) Added locked control
 * Minor improves in UI control
 * Cleanup documentation (for Doxygen)
