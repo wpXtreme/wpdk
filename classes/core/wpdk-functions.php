@@ -522,3 +522,45 @@ function wpdk_add_page( $page_slug, $page_title, $capability, $function = '', $h
     }
     return $hookname;
 }
+
+/**
+ * Enqueue script for list of page template
+ *
+ * @brief Enqueue script
+ *
+ * @param array  $pages          Array of page slug
+ * @param string $handle         The script /unique) handle
+ * @param bool   $src            Optional. Source URI
+ * @param array  $deps           Optional. Array of other handle
+ * @param bool   $ver            Optional. Version to avoid cache
+ * @param bool   $in_footer      Optional. Load in footer
+ */
+function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false ) {
+  foreach ( $pages as $slug ) {
+    if ( is_page_template( $slug ) ) {
+      wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+      break;
+    }
+  }
+}
+
+/**
+ * Enqueue script for list of page template
+ *
+ * @brief Enqueue script
+ *
+ * @param array  $page_templates Array of page slug template
+ * @param string $handle         The script /unique) handle
+ * @param bool   $src            Optional. Source URI
+ * @param array  $deps           Optional. Array of other handle
+ * @param bool   $ver            Optional. Version to avoid cache
+ * @param bool   $in_footer      Optional. Load in footer
+ */
+function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false ) {
+  foreach ( $page_templates as $slug ) {
+    if ( is_page_template( $slug ) ) {
+      wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+      break;
+    }
+  }
+}
