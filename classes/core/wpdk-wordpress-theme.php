@@ -300,6 +300,11 @@ class WPDKTheme {
     /* Client setup. */
     add_action( 'init', array( $this, 'setup' ) );
 
+    /* Ajax setup. */
+    if ( wpdk_is_ajax() ) {
+      add_action( 'init', array( $this, 'ajax' ) );
+    }
+
     /* Theme support. */
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme_support' ) );
 
@@ -357,6 +362,15 @@ class WPDKTheme {
    * @brief Your main init
    */
   public function setup() {
+    /* You can override in your subclass. */
+  }
+
+  /**
+   * Description
+   *
+   * @brief Your main init
+   */
+  public function ajax() {
     /* You can override in your subclass. */
   }
 
