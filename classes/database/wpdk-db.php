@@ -170,6 +170,7 @@ SQL;
 
   /**
    * Return a single instance of $object class or an array of $object class. FALSE otherwise.
+   * If select more rows as array, the OBJECT_K flag is used. In this way you have the key array equal to id of the country
    *
    * @brief Select a record set
    *
@@ -182,7 +183,9 @@ SQL;
    *                           With OBJECT_K, return an associative array of row objects keyed by the value of each
    *                           row's first column's value. Duplicate keys are discarded.
    *
-   * @return object|false
+   * @todo This method should be improve with new object_query and where() method below.
+   *
+   * @return object|array
    */
   public function select( $id = false, $order_by = '', $order = 'ASC', $where = '' ) {
     global $wpdb;
@@ -207,7 +210,7 @@ WHERE 1 {$sql_where}
 ORDER BY {$order_by} {$order}
 SQL;
 
-    $rows = $wpdb->get_results( $sql );
+    $rows = $wpdb->get_results( $sql, OBJECT_K );
 
     return $rows;
   }
