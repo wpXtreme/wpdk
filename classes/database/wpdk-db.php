@@ -325,6 +325,65 @@ SQL;
     return $wpdb->query( $sql );
   }
 
+
+  /**
+   * Return the WHERE condiction string from a object
+   *
+   * @brief Build where condiction
+   *
+   * @param _WPDKDBTableRow $order_query An instance of _WPDKDBTableRow
+   * @param string $prefix Optional. Table prefix.
+   *
+   * @return string
+   */
+  public function where( $order_query, $prefix = '' )
+  {
+    $result = '';
+
+    if ( !is_null( $order_query ) ) {
+
+      /* Sanitize prefix. */
+      if ( !empty( $prefix ) ) {
+        $prefix = rtrim( $prefix, '.' ) . '.';
+      }
+
+      $desc  = $order_query->desc();
+      $stack = array();
+
+      /* Database type to be numeric. */
+      $numeric = array(
+        'bigint',
+        'int',
+        'decimal'
+      );
+
+      foreach ( $order_query as $property => $value ) {
+        if ( isset( $desc[$property] ) && !is_null( $value ) ) {
+
+          /* Remove `(` from type. */
+          $type = $desc[$property]->Type;
+          $pos  = strpos( $type, '(' );
+          $type = ( false === $pos ) ? $type : substr( $type, 0, $pos );
+
+          /* Check for numeric and string. */
+          // TODO Implement array support too when value is an array
+          if ( in_array( $type, $numeric ) ) {
+            $stack[] = sprintf( 'AND %s%s = %s', $prefix, $property, $value );
+          }
+          else {
+            $stack[] = sprintf( 'AND %s%s = \'%s\'', $prefix, $property, $value );
+          }
+        }
+      }
+
+      if ( !empty( $stack ) ) {
+        $result = implode( ' ', $stack );
+      }
+    }
+
+    return $result;
+  }
+
 }
 
 /**
@@ -458,6 +517,24 @@ class _WPDKDBTableRow {
   public static function getInstance( __WPDKDBTable $dbtable, $id = null ) {
     $instance = new _WPDKDBTableRow( $dbtable, $id );
     return $instance;
+  }
+
+
+  /**
+   * Return the DESC table
+   *
+   * @brief Description
+   *
+   * @return mixed
+   */
+  public function desc()
+  {
+    global $wpdb;
+    $sql = sprintf( 'DESC %s', $this->table->tableName );
+
+    $result = $wpdb->get_results( $sql, OBJECT_K );
+
+    return $result;
   }
 
   // -----------------------------------------------------------------------------------------------------------------
