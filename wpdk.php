@@ -86,10 +86,10 @@ if ( !class_exists( 'WPDK' ) ) {
       }
 
       /* Loading Script & style for backend */
-      add_action( 'admin_head', array( $this, 'admin_head' ) );
+      add_action( 'admin_head', array( $this, 'enqueue_scripts_styles' ) );
 
       /* Loading script & style for frontend */
-      add_action( 'wp_head', array( $this, 'wp_head' ) );
+      add_action( 'wp_head', array( $this, 'enqueue_scripts_styles' ) );
 
       /* Add some special WPDK class to body */
       add_filter( 'admin_body_class', array( $this, 'admin_body_class') );
@@ -510,11 +510,11 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * Frontend HTML head
+     * WPDK scripts and styles
      *
-     * @brief WordPress frontend head
+     * @brief WPDK Scripts and styles
      */
-    public function wp_head() {
+    public function enqueue_scripts_styles() {
       /* Dato che attualmente non vi è distinizione, riuso stili e script del backend */
 
       /* WPDK CSS styles. */
