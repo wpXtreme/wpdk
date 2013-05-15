@@ -74,14 +74,21 @@ if ( !class_exists( 'WPDK' ) ) {
       /* Load the translation of WPDK */
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-      /* WP Loaded. */
-      add_action( 'wp_loaded', array( $this, 'wp_loaded' ) );
+      /* Users enhancer. */
+      add_action( 'init', array( 'WPDKUsers', 'init' ) );
+
+      /* Shortcode. */
+      add_action( 'wp_loaded', array( 'WPDKServiceShortcode', 'init' ) );
+
+      /* Ajax. */
+      if ( wpdk_is_ajax() ) {
+        add_action( 'wp_loaded', array( 'WPDKServiceAjax', 'init' ) );
+      }
 
       /* Loading Script & style for backend */
       add_action( 'admin_head', array( $this, 'admin_head' ) );
 
       /* Loading script & style for frontend */
-      add_action( 'template_redirect', array( $this, 'template_redirect' ) );
       add_action( 'wp_head', array( $this, 'wp_head' ) );
 
       /* Add some special WPDK class to body */
@@ -503,55 +510,18 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * Load a text domain for WPDK, like a plugin. In this relase WPDK has an own text domain. This feature could
-     * miss in future release
-     *
-     * @brief Load WPDK text domain
-     */
-    public function wp_loaded() {
-
-      /* Init user enhancer manager. */
-      WPDKUsers::init();
-
-      /* Service Ajax. */
-      if ( wpdk_is_ajax() ) {
-        WPDKServiceAjax::init();
-      }
-    }
-
-    /**
-     * Called by `template_redirect` action. This action is called before the frontend theme is displayed.
-     *
-     * @brief Template redirect
-     */
-    public function template_redirect() {
-
-      /* Register own shortcode. */
-      WPDKServiceShortcode::init();
-    }
-
-    /**
      * Frontend HTML head
      *
      * @brief WordPress frontend head
      */
     public function wp_head() {
       /* Dato che attualmente non vi è distinizione, riuso stili e script del backend */
-      $this->admin_head();
-    }
 
-    /**
-     * Backend HTML head
-     *
-     * @brief WordPress backend head
-     */
-    public function admin_head() {
       /* WPDK CSS styles. */
       $this->admin_styles();
 
       /* WPDK Javascript framework engine. */
       $this->admin_scripts();
-
     }
 
     /**
