@@ -997,23 +997,25 @@ var WPDKjQuery = (function ( $ ) {
    * @private
    */
   function _initAutocompletePosts( element ) {
-    /* Check DOM element. */
-    var $post_type = '';
-    if ( $( $( element ).data( 'post_type' ) ).length ) {
-      $post_type = $( $( element ).data( 'post_type' ) ).val();
-    }
-    /* The data attribute post type contains the post type id. */
-    else {
-      $post_type = $( element ).data( 'post_type' );
-    }
 
+    /* Init. */
     $( element ).autocomplete(
       {
         source    : function ( request, response ) {
           $.post( wpdk_i18n.ajaxURL,
             {
               action      : 'wpdk_action_autocomplete_posts',
-              post_type   : $post_type,
+              post_type   : function() {
+                var $post_type = '';
+                if ( $( $( element ).data( 'post_type' ) ).length ) {
+                  $post_type = $( $( element ).data( 'post_type' ) ).val();
+                }
+                /* The data attribute post type contains the post type id. */
+                else {
+                  $post_type = $( element ).data( 'post_type' );
+                }
+                return $post_type;
+              },
               post_status : $( element ).data( 'post_status' ),
               limit       : $( element ).data( 'limit' ),
               order       : $( element ).data( 'order' ),
