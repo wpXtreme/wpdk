@@ -102,7 +102,7 @@ if ( !class_exists( 'WPDK' ) ) {
        *
        * @since 1.0.0.b4
        */
-      do_action( 'wpdk_loaded' );
+      do_action( 'WPDK' );
     }
 
     /**
