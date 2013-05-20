@@ -1186,7 +1186,8 @@ class WPDKUIControlLabel extends WPDKUIControl {
    *
    * @brief Display
    */
-  public function draw() {
+  public function draw()
+  {
     echo $this->contentWithKey( 'prepend' );
 
     $value = isset( $this->item['value'] ) ? $this->item['value'] : '';
