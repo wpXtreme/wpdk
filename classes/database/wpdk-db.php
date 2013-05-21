@@ -275,6 +275,7 @@ SQL;
    *                           With OBJECT_K, return an associative array of row objects keyed by the value of each
    *                           row's first column's value. Duplicate keys are discarded.
    *
+   * @deprecated Use _select() instead
    * @todo  This method should be improve with new object_query and where() method below.
    *
    * @return object|array
