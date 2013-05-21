@@ -408,7 +408,7 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . './classes/database/wpdk-db.php' => array(
           'WPDKDBTableStatus',
           '__WPDKDBTable',
-          '_WPDKDBTableRow'
+          'WPDKDBTableRow'
           ),
 
         //------------------------------------------------------------------
