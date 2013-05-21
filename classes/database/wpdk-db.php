@@ -33,6 +33,8 @@ class WPDKDBTableStatus {
  * Model for a classic WordPress database table
  *
  * ## Overview
+ * This class describe a database table. For default describe the table and gets the primary key name. This primary key
+ * is used for operations as delete one or more records.
  *
  * @class              __WPDKDBTable
  * @author             =undo= <info@wpxtre.me>
@@ -52,6 +54,7 @@ class __WPDKDBTable {
    * @var string $primaryKey
    */
   public $primaryKey;
+
   /**
    * The filename of SQL file with the database table structure and init data.
    *
@@ -60,6 +63,7 @@ class __WPDKDBTable {
    * @var string $sqlFilename
    */
   public $sqlFilename;
+
   /**
    * The name of the database table with the WordPress prefix
    *
@@ -79,7 +83,8 @@ class __WPDKDBTable {
    *
    * @retur __WPDKDBTable
    */
-  public function __construct( $table_name, $sql_file = '' ) {
+  public function __construct( $table_name, $sql_file = '' )
+  {
     global $wpdb;
 
     /* Add the WordPres database prefix. */
@@ -97,11 +102,12 @@ class __WPDKDBTable {
    *
    * @brief Get the primay key name column
    *
-   * @note In case you can override this method and return your pwn primary key
+   * @note  In case you can override this method and return your pwn primary key
    *
    * @return string
    */
-  public function primaryKey() {
+  public function primaryKey()
+  {
     global $wpdb;
 
     $db = DB_NAME;
@@ -117,115 +123,17 @@ SQL;
   }
 
   /**
-   * Do an update the table via WordPress dbDelta() function
-   *
-   * @brief Update table
-   */
-  public function update() {
-    if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
-      if ( !function_exists( 'dbDelta' ) ) {
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-      }
-      $content = file_get_contents( $this->sqlFilename );
-      /* @todo Check if content is empty */
-
-      /* @todo Replace sprintf() with str_replace( '%s', $this->tableName ) - because more instances */
-      $sql = sprintf( $content, $this->tableName );
-      @dbDelta( $sql );
-    }
-
-  }
-
-  /**
-   * Map the properties fields of single database row into a destination object model.
-   * The $destination_object can implement a method named `column_[property]` to override map process.
-   *
-   * @brief Map a database record into a model row
-   *
-   * @param object $source_row         Database record
-   * @param object $destination_object Object to map
-   *
-   * @return object|bool The destination object with new properties or FALSE if error.
-   */
-  public function map( $source_row, $destination_object ) {
-    if ( is_object( $source_row ) ) {
-      foreach ( $source_row as $field => $value ) {
-        $destination_object->$field = $value;
-        if ( method_exists( $destination_object, 'column_' . $field ) ) {
-          call_user_func( array( $destination_object, 'column_' . $field ), $value );
-        }
-      }
-      return $destination_object;
-    }
-    return false;
-  }
-
-  /**
-   * @deprecated Use select() instead
-   */
-  public function selectWhereID( $id, $object, $output = OBJECT ) {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.0.0', 'delete()' );
-    $this->select( $id );
-  }
-
-  /**
-   * Return a single instance of $object class or an array of $object class. FALSE otherwise.
-   * If select more rows as array, the OBJECT_K flag is used. In this way you have the key array equal to id of the country
-   *
-   * @brief Select a record set
-   *
-   * @param int    $id         ID of record or array of id
-   * @param object $object     Object to map record fields. This object is maped when id is a single number.
-   * @param string $output     Optional. Any of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants. With one of the first
-   *                           three, return an array of rows indexed from 0 by SQL result row number.
-   *                           Each row is an associative array (column => value, ...), a numerically indexed array
-   *                           (0 => value, ...), or an object. ( ->column = value ), respectively.
-   *                           With OBJECT_K, return an associative array of row objects keyed by the value of each
-   *                           row's first column's value. Duplicate keys are discarded.
-   *
-   * @todo This method should be improve with new object_query and where() method below.
-   *
-   * @return object|array
-   */
-  public function select( $id = false, $order_by = '', $order = 'ASC', $where = '' ) {
-    global $wpdb;
-
-    $sql_where = '';
-    if ( !empty( $id ) ) {
-      if ( is_array( $id ) ) {
-        $id = implode( ',', $id );
-      }
-      $sql_where = sprintf( ' AND %s IN(%s)', $this->primaryKey, $id );
-    }
-
-    if ( !empty( $where ) ) {
-      $sql_where = sprintf( '%s AND %s ', $sql_where, $where );
-    }
-
-    $order_by = empty( $order_by ) ? $this->primaryKey : $order_by;
-
-    $sql = <<< SQL
-SELECT * FROM `{$this->tableName}`
-WHERE 1 {$sql_where}
-ORDER BY {$order_by} {$order}
-SQL;
-
-    $rows = $wpdb->get_results( $sql, OBJECT_K );
-
-    return $rows;
-  }
-
-  /**
    * Return the integer count of all rows when $distinct param is emmpty or an array of distinct count for $distinct column.
    *
    * @brief Count
    *
    * @param string $distinct Optional. Name of field to distinct group by
-   * @param array $status Optional. Key value paier for where condiction on field: key = fields, vallue = value
+   * @param array  $status   Optional. Key value paier for where condiction on field: key = fields, vallue = value
    *
    * @return int|array
    */
-  public function count( $distinct = '', $status = '' ) {
+  public function count( $distinct = '', $status = '' )
+  {
     global $wpdb;
 
     $where = '';
@@ -264,6 +172,36 @@ SQL;
     }
   }
 
+
+  /**
+   * Delete one or more record from table. Return the number of rows affected/selected or false on error.
+   * Use the `primaryKey`.
+   *
+   * @brief Delete
+   *
+   * @param int|array $pks Any single int or array list of primary keys
+   *
+   * @return int|bool
+   */
+  public function delete( $pks )
+  {
+    global $wpdb;
+
+    if ( !is_array( $pks ) ) {
+      $pks = array( $pks );
+    }
+
+    $ids = implode( ',', $pks );
+
+    $sql    = <<< SQL
+DELETE FROM `{$this->tableName}`
+WHERE `$this->primaryKey` IN({$ids})
+SQL;
+    $result = $wpdb->query( $sql );
+
+    return $result;
+  }
+
   /**
    * Return a column select group by and sorter
    *
@@ -275,7 +213,8 @@ SQL;
    *
    * @return array
    */
-  public function groupBy( $column, $order_by = true, $order = 'ASC' ) {
+  public function groupBy( $column, $order_by = true, $order = 'ASC' )
+  {
     global $wpdb;
 
     $sql_order = $order_by ? sprintf( 'ORDER BY `%s` %s', $column, $order ) : '';
@@ -296,46 +235,142 @@ SQL;
     return $result;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Delete
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
-   * @deprecated Use delete() instead
+   * Map the properties fields of single database row into a destination object model.
+   * The $destination_object can implement a method named `column_[property]` to override map process.
+   *
+   * @brief Map a database record into a model row
+   *
+   * @param object $source_row         Database record
+   * @param object $destination_object Object to map
+   *
+   * @return object|bool The destination object with new properties or FALSE if error.
    */
-  public function deleteWherePrimaryKey( $id ) {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.0.0', 'delete()' );
-    $this->delete( $id );
+  public function map( $source_row, $destination_object )
+  {
+    if ( is_object( $source_row ) ) {
+      foreach ( $source_row as $field => $value ) {
+        $destination_object->$field = $value;
+        if ( method_exists( $destination_object, 'column_' . $field ) ) {
+          call_user_func( array( $destination_object, 'column_' . $field ), $value );
+        }
+      }
+      return $destination_object;
+    }
+    return false;
   }
 
   /**
-   * Delete one or more record
+   * Return a single instance of $object class or an array of $object class. FALSE otherwise.
+   * If select more rows as array, the OBJECT_K flag is used. In this way you have the key array equal to id of the country
    *
-   * @brief Delete
+   * @brief Select a record set
    *
-   * @param int|array $id Any id or array of id values
+   * @param int    $id         ID of record or array of id
+   * @param object $object     Object to map record fields. This object is maped when id is a single number.
+   * @param string $output     Optional. Any of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants. With one of the first
+   *                           three, return an array of rows indexed from 0 by SQL result row number.
+   *                           Each row is an associative array (column => value, ...), a numerically indexed array
+   *                           (0 => value, ...), or an object. ( ->column = value ), respectively.
+   *                           With OBJECT_K, return an associative array of row objects keyed by the value of each
+   *                           row's first column's value. Duplicate keys are discarded.
    *
-   * @return mixed
+   * @todo  This method should be improve with new object_query and where() method below.
+   *
+   * @return object|array
    */
-  public function delete( $id ) {
+  public function select( $id = false, $order_by = '', $order = 'ASC', $where = '' ) {
     global $wpdb;
 
-    if ( is_array( $id ) ) {
-      $id = join( ',', $id );
+    $sql_where = '';
+    if ( !empty( $id ) ) {
+      if ( is_array( $id ) ) {
+        $id = implode( ',', $id );
+      }
+      $sql_where = sprintf( ' AND %s IN(%s)', $this->primaryKey, $id );
     }
 
-    $sql = sprintf( 'DELETE FROM `%s` WHERE %s IN(%s)', $this->tableName, $this->primaryKey, $id );
-    return $wpdb->query( $sql );
+    if ( !empty( $where ) ) {
+      $sql_where = sprintf( '%s AND %s ', $sql_where, $where );
+    }
+
+    $order_by = empty( $order_by ) ? $this->primaryKey : $order_by;
+
+    $sql = <<< SQL
+SELECT * FROM `{$this->tableName}`
+WHERE 1 {$sql_where}
+ORDER BY {$order_by} {$order}
+SQL;
+
+    $rows = $wpdb->get_results( $sql, OBJECT_K );
+
+    return $rows;
   }
 
+  /**
+   * Return an array key-value with key as primary key of records.
+   *
+   * @brief Select
+   *
+   * @param object $query    Optional. $query An object used for build the where. Usualy a subclass of WPDKDBTableRow
+   * @param string $order_by Optional. Order by column name
+   * @param string $order    Optional. Order. Default `ASC`
+   *
+   * @return array
+   */
+  public function _select( $query = null, $order_by = '', $order = 'ASC' )
+  {
+    global $wpdb;
+
+    /* Sanitize order by. */
+    $order_by = empty( $order_by ) ? $this->primaryKey : $order_by;
+
+    /* Build where condiction from an obejct (single record). */
+    $where = $this->where( $query );
+
+    $sql = <<<SQL
+SELECT * FROM {$this->tableName}
+WHERE 1 = 1
+
+{$where}
+
+ORDER BY {$order_by} {$order}
+SQL;
+
+    $results = $wpdb->get_results( $sql, OBJECT_K );
+
+    return $results;
+  }
+
+  /**
+   * Do an update the table via WordPress dbDelta() function. Apply a new SQL file on the exists (or do not exists)
+   * table.
+   *
+   * @brief Update table
+   */
+  public function update()
+  {
+    if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
+      if ( !function_exists( 'dbDelta' ) ) {
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      }
+      $content = file_get_contents( $this->sqlFilename );
+      /* @todo Check if content is empty */
+
+      /* @todo Replace sprintf() with str_replace( '%s', $this->tableName ) - because more instances */
+      $sql = sprintf( $content, $this->tableName );
+      @dbDelta( $sql );
+    }
+
+  }
 
   /**
    * Return the WHERE condiction string from a object
    *
    * @brief Build where condiction
    *
-   * @param _WPDKDBTableRow $order_query An instance of _WPDKDBTableRow
-   * @param string $prefix Optional. Table prefix.
+   * @param WPDKDBTableRow $order_query An instance of WPDKDBTableRow
+   * @param string         $prefix      Optional. Table prefix.
    *
    * @return string
    */
@@ -387,13 +422,30 @@ SQL;
     return $result;
   }
 
+  /**
+   * @deprecated Use delete() instead
+   */
+  public function deleteWherePrimaryKey( $id )
+  {
+    _deprecated_function( __METHOD__, '1.0.0', 'delete()' );
+    $this->delete( $id );
+  }
+
+  /**
+   * @deprecated Use select() instead
+   */
+  public function selectWhereID( $id, $object, $output = OBJECT ) {
+    _deprecated_function( __METHOD__, '1.0.0', 'delete()' );
+    $this->select( $id );
+  }
+
 }
 
 /**
  * CRUD model for a single (record) row of database table
  *
  * ## Overview
- * This class is a map of a single record on database. When a record is loaded the column are mapped as propertis of
+ * This class is a map of a single record on database. When a record is loaded the column are mapped as properties of
  * this class. For this reason exist the internal private property `_excludeProperties`. It is used to avoid get the
  * class properties.
  *
@@ -401,16 +453,16 @@ SQL;
  * To avoid property override, all `protected`, `private` or `public` property of this class **must** start with a
  * underscore prefix.
  *
- * @class              _WPDKDBTableRow
+ * @class              WPDKDBTableRow
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-05-21
+ * @version            1.0.0
  * @note               No stable - Used by SmartShop carrier
  *
  */
 
-class _WPDKDBTableRow {
+class WPDKDBTableRow {
 
   /**
    * Used for bypass null properties
@@ -419,6 +471,7 @@ class _WPDKDBTableRow {
    *
    */
   const NULL_VALUE = '!NULL!';
+
   /**
    * An instance of table of record
    *
@@ -429,50 +482,51 @@ class _WPDKDBTableRow {
   public $table;
 
   /**
-   * Create an instance of _WPDKDBTableRow class
+   * Create an instance of WPDKDBTableRow class
    *
    * @brief Construct
    *
    * @param _WPDKDBTable     $dbtable    Object of database class
-   * @param int|array|object $id         Optional. Any id, array or object
+   * @param int|array|object $pk         Optional. Any id, array or object
    *
-   * @return _WPDKDBTableRow
+   * @return WPDKDBTableRow
    */
-  public function __construct( __WPDKDBTable $dbtable, $id = null ) {
-
+  public function __construct( __WPDKDBTable $dbtable, $pk = null )
+  {
     $this->table = $dbtable;
 
-    if ( !is_null( $id ) ) {
-      if ( is_numeric( $id ) ) {
-        $this->initByID( $id );
+    if ( !is_null( $pk ) ) {
+      if ( is_numeric( $pk ) ) {
+        $this->initByID( $pk );
       }
-      elseif ( is_array( $id ) ) {
+      elseif ( is_array( $pk ) ) {
         /* @todo */
       }
-      elseif ( is_object( $id ) ) {
+      elseif ( is_object( $pk ) ) {
         /* @todo */
       }
     }
   }
 
   /**
-   * Return the array row and init this instance of _WPDKDBTableRow from record ID. Return false if an error occour.
+   * Return the array row and init this instance of WPDKDBTableRow from record ID. Return false if an error occour.
    *
    * @brief Init by record ID
    *
-   * @param int $id Record ID
+   * @param int $pk Record ID - primary key
    *
    * @return bool|array
    */
-  private function initByID( $id ) {
+  private function initByID( $pk )
+  {
     global $wpdb;
 
     /* @todo You can use $this->table->selectWithID( $id ); insetad */
 
-    $sql = sprintf( 'SELECT * FROM %s WHERE %s = %s', $this->table->tableName, $this->table->primaryKey, $id );
+    $sql = sprintf( 'SELECT * FROM %s WHERE %s = %s', $this->table->tableName, $this->table->primaryKey, $pk );
 
     /* Override. */
-    $sql = $this->get_sql( $id, $sql );
+    $sql = $this->get_sql( $pk, $sql );
 
     /* Notify to all */
     $sql = apply_filters( 'wpdk_db_table_' . $this->table->tableName . '_sql', $sql );
@@ -496,32 +550,33 @@ class _WPDKDBTableRow {
    *
    * @brief SQL
    *
-   * @param int    $id  The primary id of record
+   * @param int    $pk  The primary id of record
    * @param string $sql The SQL select used to retrive the single record information
    *
    * @return string
    */
-  public function get_sql( $id, $sql ) {
+  public function get_sql( $pk, $sql )
+  {
     return $sql;
   }
 
   /**
-   * Return an instance of _WPDKDBTableRow class
+   * Return an instance of WPDKDBTableRow class
    *
    * @brief Get a row
    *
-   * @param __WPDKDBTable    $dbtable Pointer to table
-   * @param int|array|object $id      Optional. Any id, array or object
+   * @param __WPDKDBTable    $dbtable An instance of __WPDKDBTable class
+   * @param int|array|object $pk      Optional. Any id, array or object
    *
-   * @note Not uset yet
+   * @note  Not uset yet
    *
-   * @return _WPDKDBTableRow
+   * @return WPDKDBTableRow
    */
-  public static function getInstance( __WPDKDBTable $dbtable, $id = null ) {
-    $instance = new _WPDKDBTableRow( $dbtable, $id );
+  public static function getInstance( __WPDKDBTable $dbtable, $pk = null )
+  {
+    $instance = new WPDKDBTableRow( $dbtable, $pk );
     return $instance;
   }
-
 
   /**
    * Return the DESC table
@@ -539,101 +594,6 @@ class _WPDKDBTableRow {
 
     return $result;
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // CRUD Model - Create, Read, Update and Delete
-  // -----------------------------------------------------------------------------------------------------------------
-
-//  /**
-//   * Create a new row. The Key value pairs array field => value is get form object properties. If a property is null or
-//   * not set, the field => value is not passed to sql insert. For insert a NULL value use the constant
-//   * `self::NULL_VALUE`
-//   *
-//   * @brief Create (insert) a new row
-//   *
-//   * @return bool|int Number of insert record or FALSE if error or not properties set
-//   */
-//  public function insert() {
-//
-//    $data = array();
-//
-//    foreach ( $this as $property => $value ) {
-//      if ( !in_array( $property, $this->_excludeProperties ) ) {
-//        if ( !is_null( $value ) ) {
-//          $data[$property] = ( $value == self::NULL_VALUE ) ? null : $value;
-//        }
-//      }
-//    }
-//
-//    if ( !empty( $data ) ) {
-//      $result = $this->_wpdb->insert( $this->_table->tableName, $data );
-//      return $result;
-//    }
-//
-//    return false;
-//  }
-//
-//  /**
-//   * @brief Update a row
-//   *
-//   * @param array $and_where Key value pairs array for addition where condictions
-//   *
-//   * @return int|bool The number of rows updated, or FALSE on error.
-//   */
-//  public function update( $and_where = array() ) {
-//
-//    $index_name = $this->_indexName;
-//    if ( empty( $this->$index_name ) ) {
-//      return false;
-//    }
-//
-//    $where = array(
-//      $index_name => $this->$index_name
-//    );
-//
-//    if ( !empty( $and_where ) ) {
-//      $where = array_merge( $where, $and_where );
-//    }
-//
-//    $data = array();
-//
-//    foreach ( $this as $property => $value ) {
-//      if ( !in_array( $property, $this->_excludeProperties ) && $this->_indexName !== $property ) {
-//        if ( !is_null( $value ) ) {
-//          $data[$property] = ( $value == self::NULL_VALUE ) ? null : $value;
-//        }
-//      }
-//    }
-//
-//    if ( !empty( $data ) ) {
-//      $result = $this->_wpdb->update( $this->_table->tableName, $data, $where );
-//      return $result;
-//    }
-//
-//    return false;
-//  }
-//
-//  /**
-//   * Utility for return a generic object (stdClass) with properties and values mapped on record.
-//   *
-//   * @brief Return the original record object
-//   *
-//   * @return stdClass
-//   */
-//  public function toString() {
-//    $data = new stdClass();
-//
-//    foreach ( $this as $property => $value ) {
-//      if ( !in_array( $property, $this->_excludeProperties ) ) {
-//        if ( !is_null( $value ) ) {
-//          $data->$property = ( $value == self::NULL_VALUE ) ? null : $value;
-//        }
-//      }
-//    }
-//
-//    return $data;
-//  }
-
 }
 
 /// @endcond
