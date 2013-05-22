@@ -27,16 +27,36 @@
  * @class              _WPDKPost
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-04-29
- * @version            0.9.1
+ * @date               2013-05-22
+ * @version            1.0.0
  *
  */
 
 class _WPDKPost {
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // These properties are a one on one map of database table field name.
-  // -----------------------------------------------------------------------------------------------------------------
+  const COLUMN_COMMENT_COUNT         = 'comment_count';
+  const COLUMN_COMMENT_STATUS        = 'comment_status';
+  const COLUMN_GUID                  = 'guid';
+  const COLUMN_ID                    = 'ID';
+  const COLUMN_MENU_ORDER            = 'menu_order';
+  const COLUMN_PINGED                = 'pinged';
+  const COLUMN_PING_STATUS           = 'ping_status';
+  const COLUMN_POST_AUTHOR           = 'post_author';
+  const COLUMN_POST_CONTENT          = 'post_content';
+  const COLUMN_POST_CONTENT_FILTERED = 'post_content_filtered';
+  const COLUMN_POST_DATE             = 'post_date';
+  const COLUMN_POST_DATE_GMT         = 'post_date_gmt';
+  const COLUMN_POST_EXCERPT          = 'post_excerpt';
+  const COLUMN_POST_MIME_TYPE        = 'post_mime_type';
+  const COLUMN_POST_MODIFIED         = 'post_modified';
+  const COLUMN_POST_MODIFIED_GMT     = 'post_modified_gmt';
+  const COLUMN_POST_NAME             = 'post_name';
+  const COLUMN_POST_PARENT           = 'post_parent';
+  const COLUMN_POST_PASSWORD         = 'post_password';
+  const COLUMN_POST_STATUS           = 'post_status';
+  const COLUMN_POST_TITLE            = 'post_title';
+  const COLUMN_POST_TYPE             = 'post_type';
+  const COLUMN_TO_PING               = 'to_ping';
 
   /**
    * The post ID
@@ -369,27 +389,6 @@ class _WPDKPost {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Update this post on database. Also this method check if you are in admin backend area for this custom post.
-   * In this case the post update if turn off and save the post meta only.
-   *
-   * @brief Update
-   *
-   * @since 0.9
-   * @uses  wp_update_post()
-   * @uses  self::updatePostMeta()
-   *
-   * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-   */
-  public function update() {
-    /* Avoid update when we are in admin backend area. */
-    global $pagenow;
-
-    if ( 'post.php' != $pagenow ) {
-      return wp_update_post( $this, true );
-    }
-  }
-
-  /**
    * Delete permately this post from database
    *
    * @brief Delete
@@ -431,10 +430,32 @@ class _WPDKPost {
   public function untrash() {
     return wp_untrash_post( $this->ID );
   }
+
+  /**
+   * Update this post on database. Also this method check if you are in admin backend area for this custom post.
+   * In this case the post update if turn off and save the post meta only.
+   *
+   * @brief Update
+   *
+   * @since 0.9
+   * @uses  wp_update_post()
+   * @uses  self::updatePostMeta()
+   *
+   * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
+   */
+  public function update() {
+    /* Avoid update when we are in admin backend area. */
+    global $pagenow;
+
+    if ( 'post.php' != $pagenow ) {
+      return wp_update_post( $this, true );
+    }
+  }
 }
 
 /**
- * WordPress standard Post Status at 3.4 release
+ * WordPress stan
+dard Post Status at 3.4 release
  *
  * @class              WPDKPostStatus
  * @author             =undo= <info@wpxtre.me>
@@ -457,7 +478,8 @@ class WPDKPostStatus {
 }
 
 /**
- * WordPress standard Post Type at 3.4 release
+ * WordPress stan
+dard Post Type at 3.4 release
  *
  * @class              WPDKPostType
  * @author             =undo= <info@wpxtre.me>
@@ -476,7 +498,8 @@ class WPDKPostType {
 
 
 /**
- * WordPress Posts model
+ * WordPress Post
+s model
  *
  * ## Overview
  *
@@ -507,7 +530,8 @@ class WPDKPosts {
 
 
 /**
- * Utility for post meta
+ * Utility for po
+st meta
  *
  * @class              WPDKPostMeta
  * @author             =undo= <info@wpxtre.me>
@@ -529,7 +553,8 @@ class WPDKPostMeta {
   private $_post;
 
   /**
-   * Create an instance of WPDKPostMeta class
+   * Create an
+instance of WPDKPostMeta class
    *
    * @brief Construct
    *
@@ -542,7 +567,8 @@ class WPDKPostMeta {
   }
 
   /**
-   * @brief Update or delete a post meta
+   * @brief Upd
+ate or delete a post meta
    *
    * Update a post meta with key `$meta_key` for post `$id_post`. If value is NULL the post meta is deleted.
    *
@@ -571,7 +597,8 @@ class WPDKPostMeta {
   }
 
   /**
-   * Return a single value with a specific meta key
+   * Return a s
+ingle value with a specific meta key
    *
    * @param string $key A meta key
    *
@@ -589,7 +616,8 @@ class WPDKPostMeta {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Return ana array of values with a specific meta key
+   * Return ana
+ array of values with a specific meta key
    *
    * @param string $key A meta key
    *
