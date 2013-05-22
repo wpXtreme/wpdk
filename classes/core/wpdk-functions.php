@@ -564,3 +564,120 @@ function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = fals
     }
   }
 }
+
+/**
+ * Set/update the value of a user transient.
+ *
+ * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
+ *
+ * @brief Set
+ * @since 1.0.0
+ *
+ * @uses  apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be
+ *        stored.
+ * @uses  do_action() Calls 'set_user_transient_$transient' and 'setted_transient' hooks on success.
+ *
+ * @param string $transient  Transient name. Expected to not be SQL-escaped.
+ * @param mixed  $value      Transient value. Expected to not be SQL-escaped.
+ * @param int    $expiration Time until expiration in seconds, default 0
+ * @param int    $user_id    Optional. User ID. If null the current user id is used instead
+ *
+ * @return bool False if value was not set and true if value was set.
+ */
+function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id = null )
+{
+  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+  $value = apply_filters( 'pre_set_user_transient_' . $transient, $value, $user_id );
+
+  $transient_timeout = '_transient_timeout_' . $transient;
+  $transient         = '_transient_' . $transient;
+  if ( false === get_user_meta( $user_id, $transient, true ) ) {
+    if ( $expiration ) {
+      update_user_meta( $user_id, $transient_timeout, time() + $expiration );
+    }
+    $result = update_user_meta( $user_id, $transient, $value );
+  }
+  else {
+    if ( $expiration ) {
+      update_user_meta( $user_id, $transient_timeout, time() + $expiration );
+    }
+    $result = update_user_meta( $user_id, $transient, $value );
+  }
+
+  if ( $result ) {
+    do_action( 'set_user_transient_' . $transient );
+    do_action( 'setted_user_transient', $transient, $user_id );
+  }
+  return $result;
+}
+
+/**
+ * Get the value of a user transient.
+ * If the transient does not exist or does not have a value, then the return value will be false.
+ *
+ * @brief Get
+ * @since 1.0.0
+ *
+ * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
+ *        false will "short-circuit" the retrieval of the transient and return the returned value.
+ * @uses  apply_filters() Calls 'user_transient_$transient' hook, after checking the transient, with the transient value.
+ *
+ * @param string $transient Transient name. Expected to not be SQL-escaped
+ * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+ *
+ * @return mixed Value of transient
+ */
+function wpdk_get_user_transient( $transient, $user_id = null )
+{
+  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+  $pre = apply_filters( 'pre_user_transient_' . $transient, false, $user_id );
+  if ( false !== $pre ) {
+    return $pre;
+  }
+
+  $transient_timeout = '_transient_timeout_' . $transient;
+  $transient         = '_transient_' . $transient;
+  if ( get_user_meta( $user_id, $transient_timeout, true ) < time() ) {
+    delete_user_meta( $user_id, $transient );
+    delete_user_meta( $user_id, $transient_timeout );
+    return false;
+  }
+
+  $value = get_user_meta( $user_id, $transient, true );
+
+  return apply_filters( 'user_transient_' . $transient, $value, $user_id );
+}
+
+/**
+ * Delete a user transient.
+ *
+ * @brief Delete
+ * @since 1.1.0
+ *
+ * @uses  do_action() Calls 'delete_user_transient_$transient' hook before transient is deleted.
+ * @uses  do_action() Calls 'deleted_user_transient' hook on success.
+ *
+ * @param string $transient Transient name. Expected to not be SQL-escaped.
+ * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+ *
+ * @return bool true if successful, false otherwise
+ */
+function wpdk_delete_user_transient( $transient, $user_id = null )
+{
+
+  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+  do_action( 'delete_user_transient_' . $transient, $transient, $user_id );
+
+  $transient_timeout = '_transient_timeout_' . $transient;
+  $transient         = '_transient_' . $transient;
+  $result            = delete_user_meta( $user_id, $transient );
+  if ( $result ) {
+    delete_user_meta( $user_id, $transient_timeout );
+    do_action( 'deleted_user_transient', $transient, $user_id );
+  }
+
+  return $result;
+}
