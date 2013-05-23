@@ -56,17 +56,37 @@ class WPDKDateTime {
    * @param string $deprecated Optional. Not used.
    * @param string $to         Destination/outout format, default `m/d/Y H:i`
    *
-   * @return string Data convertita
+   * @deprecated Use format() instead
+   *
+   * @return string
    */
   public static function formatFromFormat( $date, $deprecated = '', $to = 'm/d/Y H:i' ) {
     if ( !empty( $deprecated ) && func_num_args() > 2 ) {
       _deprecated_argument( __METHOD__, '1.0.0.b2' );
     }
+
+    _deprecated_function( __METHOD__, '1.0.0', 'format()' );
+
+    return self::format( $date, $to );
+  }
+
+  /**
+   * Format a date time in your custom own format. The source format is auto-detect.
+   *
+   * @brief Format a date time
+   * @since 1.0.0
+   *
+   * @param string $date       Source date string format
+   * @param string $to         Optional. Destination/outout format, default `m/d/Y H:i`
+   *
+   * @return string
+   */
+  public static function format( $date, $to = 'm/d/Y H:i' )
+  {
     $result = $date;
     if ( !empty( $date ) ) {
       $timestamp = strtotime( $date );
       $result    = date( $to, $timestamp );
-
     }
     return $result;
   }
