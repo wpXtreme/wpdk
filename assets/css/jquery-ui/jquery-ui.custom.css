@@ -533,7 +533,7 @@
 .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-active
 { margin-bottom: 0; padding-bottom: 1px; }
 .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
-.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li a, .wpdk-jquery-ui .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.wpdk-jquery-ui .ui-tabs .ui-tabs-nav li a, .wpdk-jquery-ui .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; outline: none } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .wpdk-jquery-ui .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 16px 0; background: none; }
 .wpdk-jquery-ui .ui-tabs .ui-tabs-hide { display: none !important; }
 /* override */
