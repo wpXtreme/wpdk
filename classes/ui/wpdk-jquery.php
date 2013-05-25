@@ -96,6 +96,15 @@ class WPDKjQueryTabsView extends WPDKView {
   public $tabs;
 
   /**
+   * Set to true to display the border. Default is true
+   *
+   * @brief Border
+   *
+   * @var bool $border
+   */
+  public $border;
+
+  /**
    * Create an instance of WPDKjQueryTabsView class
    *
    * @brief Construct
@@ -108,6 +117,7 @@ class WPDKjQueryTabsView extends WPDKView {
   public function __construct( $id, $tabs = array() ) {
     parent::__construct( $id, 'wpdk-jquery-ui' );
     $this->tabs = $tabs;
+    $this->border = true;
   }
 
   /**
@@ -160,7 +170,7 @@ class WPDKjQueryTabsView extends WPDKView {
       $html_content .= sprintf( '%s', $tab->content );
     }
     ?>
-    <div class="wpdk-border-container">
+    <div class="<?php echo $this->border ? 'wpdk-border-container' : '' ?>">
       <div id="<?php echo $this->id . '-tabs-view' ?>" class="wpdk-tabs">
         <ul>
           <?php echo $html_titles ?>
