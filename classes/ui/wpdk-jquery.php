@@ -55,14 +55,22 @@ class WPDKjQueryTab {
    *
    * @brief Construct
    *
-   * @param string $id      The tab ID
-   * @param string $title   The tab title
-   * @param string $content HTML markup of content
+   * @param string|WPDKView $id      The tab ID or an instance of WPDKView
+   * @param string          $title   The tab title
+   * @param string          $content Optional. HTML markup of content
    */
-  function __construct( $id, $title, $content = '' ) {
-    $this->id      = sanitize_key( $id );
-    $this->title   = $title;
-    $this->content = $content;
+  function __construct( $id, $title, $content = '' )
+  {
+    if ( is_a( $id, 'WPDKView' ) ) {
+      $this->id      = sanitize_key( $id->id );
+      $this->title   = $title;
+      $this->content = $id->html();
+    }
+    else {
+      $this->id      = sanitize_key( $id );
+      $this->title   = $title;
+      $this->content = $content;
+    }
   }
 }
 
@@ -93,7 +101,7 @@ class WPDKjQueryTabsView extends WPDKView {
    * @brief Construct
    *
    * @param string $id   The view ID
-   * @param array  $tabs A tabs list
+   * @param array  $tabs A tabs list. Instances of WPDKjQueryTab class
    *
    * @return WPDKjQueryTabsView
    */
@@ -189,22 +197,12 @@ class WPDKjQueryTabsViewController extends WPDKViewController {
    *
    * @return WPDKjQueryTabsViewController
    */
-  public function __construct( $id, $title, $view ) {
+  public function __construct( $id, $title, $view )
+  {
     parent::__construct( $id, $title );
     $this->view->addSubview( $view );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**
