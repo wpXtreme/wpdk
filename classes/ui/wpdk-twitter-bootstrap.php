@@ -556,8 +556,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
  * @class              WPDKTwitterBootstrapAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-28
- * @version            1.1.1
+ * @date               2013-05-27
+ * @version            1.5.0
  */
 class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
 
@@ -622,10 +622,6 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     $this->dismissButton = true;
     $this->block         = false;
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Private methods
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return alert-block class style
@@ -701,6 +697,27 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     else {
       return $this->html();
     }
+  }
+
+  /**
+   * Return an array item description in Control Layout Array format
+   *
+   * @brief Brief
+   * @since 1.0.0
+   *
+   * @return array
+   */
+  public function toControl()
+  {
+    $item = array(
+      'type'           => WPDKUIControlType::ALERT,
+      'id'             => $this->id,
+      'alert_type'     => $this->type,
+      'dismiss_button' => $this->dismissButton,
+      'block'          => $this->block,
+      'value'          => $this->content
+    );
+    return array( $item );
   }
 }
 
