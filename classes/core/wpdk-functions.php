@@ -681,3 +681,43 @@ function wpdk_delete_user_transient( $transient, $user_id = null )
 
   return $result;
 }
+
+/**
+ * Return true if the $verb param in input match with REQUEST METHOD
+ *
+ * @brief Check request
+ * @since 1.1.0
+ *
+ * @param string $verb The verb, for instance; GET, post, delete, etc...
+ *
+ * @return bool
+ */
+function wpdk_is_request( $verb )
+{
+  $verb = strtolower( $verb );
+  return ( $verb == strtolower( $_SERVER['REQUEST_METHOD'] ) );
+}
+
+/**
+ * Return true if the REQUEST METHOD is GET
+ *
+ * @brief Check if request id get
+ *
+ * @return bool
+ */
+function wpdk_is_request_get()
+{
+  return wpdk_is_request( 'get' );
+}
+
+/**
+ * Return true if the REQUEST METHOD is POST
+ *
+ * @brief Check if request is post
+ *
+ * @return bool
+ */
+function wpdk_is_request_post()
+{
+  return wpdk_is_request( 'post' );
+}
