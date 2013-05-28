@@ -2686,3 +2686,85 @@ if( typeof( jQuery.fn.alert ) === 'undefined' ) {
 
 }(window.jQuery);
 }
+
+/**
+ * Tribute to Amiga - Software failure / Guru Meditation
+ * Usage: GuruMeditation.display( 'Your custom messahe' );
+ *
+ * @class           GuruMeditation
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-05-28
+ * @version         1.0.0
+ */
+var GuruMeditation = (function ( $ ) {
+
+  var $this = {};
+  var div, timer;
+
+  $this.version = '1.0.0';
+
+  // Not used yet
+  $( document ).ready( function () {} );
+
+  // Display
+  $this.display = function ( $error ) {
+
+    _init( $error );
+
+    if ( !$( 'body > #guru-meditation' ).length ) {
+      $( 'body' ).prepend( div );
+      timer = setInterval( function () {
+        $( '#guru-meditation' ).toggleClass( 'red' );
+      }, 1000 );
+      $( '#guru-meditation' ).on( 'click', function ( event ) {
+        $this.hide();
+      } );
+    }
+  }
+
+  // Hide
+  $this.hide = function () {
+    if ( $( 'body > #guru-meditation' ).length ) {
+      clearInterval( timer );
+      $( '#guru-meditation' ).remove();
+      $( '#guru-meditation-style' ).remove();
+    }
+  }
+
+  // Init markup
+  function _init( $error ) {
+
+    if ( 'undefined' == typeof( $error) ) {
+      $error = '#00000025.65045330';
+    }
+
+    div = '<style id="guru-meditation-style" type="text/css">' +
+      '#guru-meditation {' +
+      'height:120px;' +
+      'background-color:#111;' +
+      'border:6px solid #111;' +
+      'text-align:center;' +
+      '}' +
+      '#guru-meditation.red {' +
+      'border-color:#b00' +
+      '}' +
+      '#guru-meditation p {' +
+      'font-size:18px;' +
+      'font-family: \'Times New Roman\';' +
+      'margin:24px 0;' +
+      'color: #b00;' +
+      'text-align:center;' +
+      '}' +
+      '</style>' +
+      '<div id="guru-meditation">' +
+      '<p>Software Failure. Press left mouse button to continue.</p>' +
+      '<p>Guru meditation <span>' +
+      $error +
+      '</span></p>' +
+      '</div>';
+  }
+
+  return $this;
+
+})( jQuery );
