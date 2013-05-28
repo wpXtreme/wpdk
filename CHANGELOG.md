@@ -1,4 +1,4 @@
-# WPDK CHANGELOG
+# CHANGELOG
 
 ---
 
@@ -34,11 +34,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Experimental
 
-* none
+* Added GuruMeditation class
 
 #### Bugs
 
 * Fixed bad post type sending in autocomplete Javascript engine
+* Added check if twitter bootstrap is already loaded
 
 
 
