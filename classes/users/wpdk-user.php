@@ -271,6 +271,11 @@ class WPDKUser extends WP_User {
     elseif ( is_array( $user ) && isset( $user['ID'] ) ) {
       $id_user = absint( $user['ID'] );
     }
+    /* Get by email. */
+    elseif ( is_string( $user ) && is_email( $user ) ) {
+      $user    = get_user_by( 'email', $user );
+      $id_user = $user->ID;
+    }
 
     parent::__construct( $id_user, $name, $blog_id );
 
