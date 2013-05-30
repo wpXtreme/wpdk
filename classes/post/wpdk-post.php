@@ -460,13 +460,14 @@ dard Post Status at 3.4 release
  * @class              WPDKPostStatus
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-05-30
+ * @version            1.0.0
  *
  */
 class WPDKPostStatus {
   const AUTO_DRAFT = 'auto-draft';
   const DRAFT      = 'draft';
+  const FUTURE     = 'future';
   const INHERIT    = 'inherit';
   const PENDING    = 'pending';
   /**
