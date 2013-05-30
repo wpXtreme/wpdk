@@ -485,7 +485,7 @@ class WPDKPostStatus {
    *
    * @return mixed|void
    */
-  public function statuses()
+  public static function statuses()
   {
     $statuses = array(
       self::AUTO_DRAFT => __( 'A newly created post, with no content', WPDK_TEXTDOMAIN ),
