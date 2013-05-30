@@ -476,6 +476,30 @@ class WPDKPostStatus {
   const PRIVATE_ = 'private';
   const PUBLISH  = 'publish';
   const TRASH    = 'trash';
+
+  /**
+   * Return a readable and filtered key-value array with the list of status for a post.
+   *
+   * @brief Readable post statuses
+   * @uses  apply_filters() calls `wpdk-posts-statuses` hook to allow overwriting the statuses list.
+   *
+   * @return mixed|void
+   */
+  public function statuses()
+  {
+    $statuses = array(
+      self::AUTO_DRAFT => __( 'A newly created post, with no content', WPDK_TEXTDOMAIN ),
+      self::DRAFT      => __( 'The post is draft', WPDK_TEXTDOMAIN ),
+      self::FUTURE     => __( 'The post to publish in the future', WPDK_TEXTDOMAIN ),
+      self::INHERIT    => __( 'The post is a revision', WPDK_TEXTDOMAIN ),
+      self::PENDING    => __( 'The post is pending review', WPDK_TEXTDOMAIN ),
+      self::PRIVATE_   => __( 'Not visible to users who are not logged in', WPDK_TEXTDOMAIN ),
+      self::PUBLISH    => __( 'A published post or page', WPDK_TEXTDOMAIN ),
+      self::TRASH      => __( 'The post is in trashbin', WPDK_TEXTDOMAIN ),
+    );
+
+    return apply_filters( 'wpdk-posts-statuses', $statuses );
+  }
 }
 
 /**
