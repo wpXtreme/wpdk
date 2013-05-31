@@ -257,6 +257,8 @@ class WPDKUser extends WP_User {
    */
   public function __construct( $user = 0, $name = '', $blog_id = '' ) {
 
+    $id_user = 0;
+
     /* Sanitize $id. */
     if ( is_numeric( $user ) ) {
       $id_user = $user;
