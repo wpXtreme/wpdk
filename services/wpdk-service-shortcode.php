@@ -19,8 +19,8 @@
  * @class              WPDKServiceShortcode
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-09
- * @version            0.9.2
+ * @date               2013-06-04
+ * @version            1.0.0
  */
 class WPDKServiceShortcode extends WPDKShortcode {
 
@@ -31,7 +31,8 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @return WPDKServiceShortcode
    */
-  public static function init() {
+  public static function init()
+  {
     return self::getInstance();
   }
 
@@ -42,7 +43,8 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @return WPDKServiceShortcode
    */
-  public static function getInstance() {
+  public static function getInstance()
+  {
     static $instance = null;
     if ( is_null( $instance ) ) {
       $instance = new WPDKServiceShortcode();
@@ -55,12 +57,13 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @brief Display a content for user logged in
    *
-   * @param array       $attrs   Attribute into the shortcode
-   * @param null|string $content HTML content
+   * @param array  $attrs     Attribute into the shortcode
+   * @param string $content   Optional. $content HTML content
    *
    * @return bool|string
    */
-  public function wpdk_is_user_logged_in( $attrs, $content = null ) {
+  public function wpdk_is_user_logged_in( $attrs, $content = null )
+  {
     if ( is_user_logged_in() && !is_null( $content ) ) {
       return $content;
     }
@@ -71,15 +74,32 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @brief Display a content for NOT user logged in
    *
-   * @param array       $attrs   Attribute into the shortcode
-   * @param null|string $content HTML content
+   * @param array  $attrs     Attribute into the shortcode
+   * @param string $content   Optional. $content HTML content
    *
    * @return bool|string
    */
-  public function wpdk_is_user_not_logged_in( $attrs, $content = null ) {
+  public function wpdk_is_user_not_logged_in( $attrs, $content = null )
+  {
     if ( !is_user_logged_in() && !is_null( $content ) ) {
       return $content;
     }
+  }
+
+  /**
+   * Return the GitHub include script Gist. Use [wpdk_gist id="762771662"]
+   *
+   * @brief GitHub Gist
+   *
+   * @param array  $attrs     Attribute into the shortcode
+   * @param string $content   Optional. $content HTML content
+   *
+   * @return string
+   */
+  public function wpdk_gist( $attrs, $content = null )
+  {
+    return sprintf( '<script src="https://gist.github.com/%s.js%s"></script>', $attrs['id'], $attrs['file'] ?
+      '?file=' . $attrs['file'] : '' );
   }
 
   /**
@@ -89,10 +109,12 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @return array Shortcode array
    */
-  protected function shortcodes() {
+  protected function shortcodes()
+  {
     $shortcodes = array(
       'wpdk_is_user_logged_in'     => true,
       'wpdk_is_user_not_logged_in' => true,
+      'wpdk_gist'                  => true,
     );
     return $shortcodes;
   }
