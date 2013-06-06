@@ -871,7 +871,7 @@ var WPDKjQuery = (function ( $ ) {
     }
     else {
       if ( typeof window.console !== 'undefined' ) {
-        console.log( 'Date Time Picker not loaded' );
+        alert( 'Date Time Picker not loaded' );
       }
     }
 
