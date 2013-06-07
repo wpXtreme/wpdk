@@ -47,7 +47,7 @@ class WPDKWordPressTheme {
     add_action( 'wp_head', array( $this, 'wp_head' ) );
     add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
-    /* Filtro sul body class. */
+    /* Add classes to body class. */
     add_filter( 'body_class', array( $this, 'body_class' ) );
 
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
