@@ -2111,7 +2111,7 @@ class WPDKUI {
    *
    * @return string
    */
-  public function submit( $args = array() ) {
+  public static function submit( $args = array() ) {
     $default_args = array(
       'name'  => 'button-submit',
       'class' => 'button button-primary alignright',
