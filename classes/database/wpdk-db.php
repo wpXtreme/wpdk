@@ -370,23 +370,23 @@ SQL;
    *
    * @brief Build where condiction
    *
-   * @param WPDKDBTableRow $order_query An instance of WPDKDBTableRow
+   * @param WPDKDBTableRow $query An instance of WPDKDBTableRow
    * @param string         $prefix      Optional. Table prefix.
    *
    * @return string
    */
-  public function where( $order_query, $prefix = '' )
+  public function where( $query, $prefix = '' )
   {
     $result = '';
 
-    if ( !is_null( $order_query ) ) {
+    if ( !is_null( $query ) ) {
 
       /* Sanitize prefix. */
       if ( !empty( $prefix ) ) {
         $prefix = rtrim( $prefix, '.' ) . '.';
       }
 
-      $desc  = $order_query->desc();
+      $desc  = $query->desc();
       $stack = array();
 
       /* Database type to be numeric. */
@@ -396,7 +396,7 @@ SQL;
         'decimal'
       );
 
-      foreach ( $order_query as $property => $value ) {
+      foreach ( $query as $property => $value ) {
         if ( isset( $desc[$property] ) && !is_null( $value ) ) {
 
           /* Remove `(` from type. */
