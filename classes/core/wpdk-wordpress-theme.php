@@ -305,11 +305,8 @@ class WPDKTheme {
       add_action( 'init', array( $this, 'ajax' ) );
     }
 
-    /* Theme support. */
-    add_action( 'after_setup_theme', array( $this, 'after_setup_theme_support' ) );
-
-    /* Thumbnails. */
-    add_action( 'after_setup_theme', array( $this, 'after_setup_theme_thumbnail' ) );
+    /* After setup. */
+    add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
     /* Add script and styles. */
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
@@ -322,29 +319,7 @@ class WPDKTheme {
    * @brief Set Up
    */
   public function init_theme() {
-
-    /* Load text domain. */
-    load_theme_textdomain( $this->theme->get( 'TextDomain' ), trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
-
-    /**
-     * Patch WordPress per gestire avanti e indietro nei CPT
-     */
-    add_filter( 'index_rel_link', '__return_false' );
-    add_filter( 'parent_post_rel_link', '__return_false' );
-    add_filter( 'start_post_rel_link', '__return_false' );
-    add_filter( 'previous_post_rel_link', '__return_false' );
-    add_filter( 'next_post_rel_link', '__return_false' );
-
-    /* Clean wp head */
-    remove_action( 'wp_head', 'feed_links_extra', 3 );                    // Category Feeds
-   	remove_action( 'wp_head', 'feed_links', 2 );                          // Post and Comment Feeds
-   	remove_action( 'wp_head', 'rsd_link' );                               // EditURI link
-   	remove_action( 'wp_head', 'wlwmanifest_link' );                       // Windows Live Writer
-   	remove_action( 'wp_head', 'index_rel_link' );                         // index link
-   	remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );            // previous link
-   	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );             // start link
-   	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 ); // Links for Adjacent Posts
-   	remove_action( 'wp_head', 'wp_generator' );                           // WP vers
+    /* You can override in your subclass. */
   }
 
   /**
@@ -372,47 +347,6 @@ class WPDKTheme {
    */
   public function ajax() {
     /* You can override in your subclass. */
-  }
-
-  /**
-   * Description
-   *
-   * @brief Theme support
-   */
-  public function after_setup_theme_support() {
-    /* Post and Page Thumbnails. */
-    add_theme_support( 'post-thumbnails' );
-
-    /* Add default posts and comments RSS feed links to <head>. */
-    add_theme_support( 'automatic-feed-links' );
-
-    /* Menus. */
-    add_theme_support( 'menus' );
-
-    /* Editor styles. */
-    add_editor_style( 'assets/css/editor-style.css' );
-
-    add_theme_support( 'post-formats',
-      array(
-           'aside',    // title less blurb
-           'gallery',  // gallery of images
-           'link',     // quick link to other site
-           'image',    // an image
-           'quote',    // a quick quote
-           'status',   // a Facebook like status update
-           'video',    // video
-           'audio',    // audio
-           'chat',     // chat transcript
-      ) );
-  }
-
-  /**
-   * Description
-   *
-   * @brief Thumbnail init
-   */
-  public function after_setup_theme_thumbnail() {
-    die( __METHOD__ . ' must be override in your subclass' );
   }
 
   /**
