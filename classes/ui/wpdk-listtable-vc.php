@@ -109,7 +109,6 @@ class WPDKListTableViewController extends WP_List_Table {
     /* Init the internal view controller. */
     $this->viewController                = new WPDKViewController( $this->id, $this->title );
     $this->viewController->view->class[] = 'wpdk-list-table-box';
-
   }
 
   // -------------------------------------------------------------------------------------------------------------------
