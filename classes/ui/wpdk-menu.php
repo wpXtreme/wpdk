@@ -146,12 +146,14 @@ class WPDKMenu {
    *
    * @return string
    */
-  public static function url( $view_controller ) {
+  public static function url( $view_controller )
+  {
     $info = self::menu( $view_controller );
 
     $url = '';
     if ( !empty( $info ) ) {
-      if ( $info['parent'] == $info['page'] ) {
+
+      if ( false === strpos( '.php', $info['parent'] ) ) {
         $url = add_query_arg( array( 'page' => $info['page'] ), admin_url( 'admin.php' ) );
       }
       else {
