@@ -20,8 +20,16 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.1.0
+## Version 1.1.1
 ###
+
+#### Bugs
+
+* Fixed and improve menu uri
+
+
+## Version 1.1.0
+### 2013-06-11
 
 #### Enhancements
 
@@ -44,7 +52,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 
 ## Version 1.0.1
-###
+### 2013-05-23
 
 * Minor fixes and improvements
 
