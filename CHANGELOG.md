@@ -20,7 +20,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## VErsion 1.1.1
+## Version 1.1.1
 ###
 
 #### Bugs
