@@ -487,6 +487,50 @@ function wpdk_is_bool( $mixed ) {
 })( jQuery, document );
 
 /**
+ * WPDK Swipe Control extend
+ *
+ * @param v
+ * @returns {*}
+ */
+jQuery.fn.swipe = function ( v ) {
+  if ( jQuery( this ).hasClass( 'wpdk-form-swipe' ) ) {
+    /* Get main control. */
+    var $control = jQuery( this );
+
+    /* Get sub-elements. */
+    var $knob = $control.children( 'span' ).eq( 0 );
+    var $input = $control.children( 'input[type=hidden]' ).eq( 0 );
+
+    /* Set. */
+    if ( typeof( v ) != 'undefined' ) {
+
+      /* On. */
+      if ( 'on' === v ) {
+        $input.val( 'on' );
+        $control.triggerHandler( 'change', [ $control, 'on' ] );
+        $knob.animate( { marginLeft : '23px' }, 100, function () {
+          $control.addClass( 'wpdk-form-swipe-on' );
+        } );
+      }
+
+      /* Off. */
+      else {
+        $input.val( 'off' );
+        $control.triggerHandler( 'change', [ $control, 'off' ] );
+        $knob.animate( { marginLeft : '0' }, 100, function () {
+          $control.removeClass( 'wpdk-form-swipe-on' );
+        } );
+      }
+    }
+
+    /* Get. */
+    else {
+      return $input.val();
+    }
+  }
+};
+
+/**
  * This class manage all forms controles and fields, attach new event and perform special actions.
  *
  * @class           WPDKControls
@@ -608,45 +652,6 @@ var WPDKControls = (function ( $ ) {
         $control.swipe( $enabled );
       }
     } );
-
-    /* Extends. */
-    $.fn.swipe = function ( v ) {
-      if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
-        /* Get main control. */
-        var $control = $( this );
-
-        /* Get sub-elements. */
-        var $knob = $control.children( 'span' ).eq( 0 );
-        var $input = $control.children( 'input[type=hidden]' ).eq( 0 );
-
-        /* Set. */
-        if ( typeof( v ) != 'undefined' ) {
-
-          /* On. */
-          if ( 'on' === v ) {
-            $input.val( 'on' );
-            $control.triggerHandler( 'change', [ $control, 'on' ] );
-            $knob.animate( { marginLeft : '23px' }, 100, function () {
-              $control.addClass( 'wpdk-form-swipe-on' );
-            } );
-          }
-
-          /* Off. */
-          else {
-            $input.val( 'off' );
-            $control.triggerHandler( 'change', [ $control, 'off' ] );
-            $knob.animate( { marginLeft : '0' }, 100, function () {
-              $control.removeClass( 'wpdk-form-swipe-on' );
-            } );
-          }
-        }
-
-        /* Get. */
-        else {
-          return $input.val();
-        }
-      }
-    };
   }
 
   /**
@@ -1718,6 +1723,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   }
 
 };
+
 
 /**
  * Plugin ribbonize
