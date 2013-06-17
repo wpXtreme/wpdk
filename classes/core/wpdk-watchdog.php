@@ -26,17 +26,12 @@
  * @class              WPDKWatchDog
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-06-17
+ * @version            1.0.0
  *
  */
 
 class WPDKWatchDog {
-
-  /* @deprecated Use WPDKResult instead */
-  const ERROR   = 'error';
-  const WARNING = 'warning';
-  const STATUS  = 'status';
 
   /**
    * Used as separator between log events
@@ -129,7 +124,8 @@ class WPDKWatchDog {
    * @return WPDKWatchDog
    *
    */
-  public function __construct( $path, $folder = 'logs', $extension = 'php' ) {
+  public function __construct( $path, $folder = 'logs', $extension = 'php' )
+  {
     $this->path              = trailingslashit( trailingslashit( $path ) . $folder );
     $this->enabled           = true;
     $this->triggerError      = false;
@@ -166,15 +162,16 @@ class WPDKWatchDog {
    *
    * @brief Do log
    *
-   * @param mixed  $txt   Content to log. Usually this is a string or number. However you can set this param direcly to
-   *                      object or array. In this case the log method recognize the not string param and do
-   *                      a `var_dump`.
+   * @param mixed  $txt    Content to log. Usually this is a string or number. However you can set this param direcly to
+   *                       object or array. In this case the log method recognize the not string param and do
+   *                       a `var_dump`.
    *
-   * @param string $title Optional. Any free string text to context the log
+   * @param string $title  Optional. Any free string text to context the log
    *
    * @return bool
    */
-  public function log( $txt, $title = '' ) {
+  public function log( $txt, $title = '' )
+  {
     if ( $this->enabled && $this->available ) {
 
       /* If not a pre-formatted string, grab the var dump object, array or mixed for output */
@@ -204,237 +201,6 @@ class WPDKWatchDog {
     }
     return $this->available;
   }
-
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Deprecated
-  // -----------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Display or return a formatted output for WP_Error object. For each error in WP_Error object a formatted
-   * output is done with code error and error data.
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error WP_Error object
-   * @param bool     $echo  TRUE to display or FALSE to get output
-   *
-   * @return string|void Formatted output if $echo is FALSE
-   */
-  public static function displayWPError( $error, $echo = true ) {
-
-    _deprecated_function( __FUNCTION__, '0.65', 'WPDKResult' );
-
-    $message = '<div class="wpdk-watchdog-wp-error">';
-
-    if ( is_wp_error( $error ) ) {
-
-      foreach ( $error->errors as $code => $single ) {
-        $message .= sprintf( '<code>Code: 0x%x, Description: %s</code>', $code, $single[0] );
-        $error_data = $error->get_error_data( $code );
-        if ( !empty( $error_data ) ) {
-          if ( is_array( $error_data ) ) {
-            foreach ( $error_data as $key => $data ) {
-              $message .= sprintf( '<code>Key: %s, Data: %s</code>', $key, urldecode( $data ) );
-            }
-          }
-          else {
-            $message .= sprintf( '<code>Data: %s</code>', urldecode( $error_data ) );
-          }
-        }
-      }
-
-    }
-    else {
-      $message .= __( 'No error detected', WPDK_TEXTDOMAIN );
-    }
-
-    /* log to file if enabled */
-    //self::watchDog( __CLASS__, esc_attr( wp_strip_all_tags( $message ) ) );
-
-    $message .= '</div>';
-
-    if ( $echo ) {
-      echo $message;
-      return true;
-    }
-    return $message;
-  }
-
-  /**
-   * Return the WPDK error type. The WPDK error type is formatted as [type]-[code] or [prefix]_[type]-[code].
-   * Example of WPDK error type are:
-   *
-   *     wpss_warning-too_many_file
-   *     warning-too_many_file
-   *
-   * In both case above, getErrorType() returns ever `warning`
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error WP_Error object
-   *
-   * @return bool|string WPDK Error type, FALSE if something wrong.
-   */
-  public static function getErrorType( WP_Error $error ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    if ( is_wp_error( $error ) ) {
-      $code  = $error->get_error_code();
-      $parts = explode( '-', $code );
-      if ( false !== strpos( $parts[0], '_' ) ) {
-        $prefix = explode( '_', $parts[0] );
-        return $prefix[1];
-      }
-      return $parts[0];
-    }
-    return false;
-  }
-
-  /**
-   * Return the WPDK error code. The WPDK error code id formatted as [type]-[code] or [prefix]_[type]-[code].
-   * Example of WPDK error code are:
-   *
-   *     wpss_warning-too_many_file
-   *     warning-too_many_file
-   *
-   * In both case above, getErrorCode() returns ever `too_many_file`
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error WP_Error object
-   *
-   * @return bool|string WPDK Error code, FALSE if something wrong.
-   */
-  public static function getErrorCode( WP_Error $error ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    if ( is_wp_error( $error ) ) {
-      $code  = $error->get_error_code();
-      $parts = explode( '-', $code );
-      return $parts[1];
-    }
-    return false;
-  }
-
-  /**
-   * This is an alias for getErrorCode(). This method exists only for clean.
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $status WP_Error object
-   *
-   * @return bool|string WPDK Status code, FALSE if something wrong.
-   */
-  public static function getStatusCode( WP_Error $status ) {
-    return self::getErrorCode( $status );
-  }
-
-  /**
-   * Return TRUE if WPDK error
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error WP_Error object
-   *
-   * @return bool Restituisce true se il codice è nel formato [prefix]_[error]-[message] o [error]-[message]
-   */
-  public static function isError( $error ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    $type = self::getErrorType( $error );
-    return ( $type && $type == self::ERROR );
-  }
-
-  /**
-   * Verifica se status
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error Oggetto errore
-   *
-   * @return bool Restituisce true se il codice è nel formato [prefix]_[error]-[message] o [error]-[message]
-   */
-  public static function isStatus( $error ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    $type = self::getErrorType( $error );
-    return ( $type && $type == self::STATUS );
-  }
-
-  /**
-   * Verifica se warning
-   *
-   * @deprecated Use WPDKResult instead
-   *
-   * @param WP_Error $error Oggetto errore
-   *
-   * @return bool Restituisce true se il codice è nel formato [prefix]_[error]-[message] o [error]-[message]
-   */
-  public static function isWarning( $error ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    $type = self::getErrorType( $error );
-    return ( $type && $type == self::WARNING );
-  }
-
-  /**
-   * @deprecated Use WPDKResult instead
-   *
-   * @param $content
-   *
-   * @return string
-   */
-  public static function get_var_dump( $content ) {
-    _deprecated_function( __METHOD__, '0.65', 'WPDKResult' );
-
-    ob_start();
-    ?>
-    <pre><?php var_dump( $content ) ?></pre><?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
-  }
-
-  /**
-   * Funzione proprietaria per la generazione di un log su disco. Questa crea un file di log in modalità append nella
-   * cartella del plugin. Se da un lato le informazioni e la formattazione delle stesse sono a nostra discrezione e
-   * completamente personalizzabili, bisogna passare le informazioni di classe, funzione e linea manualmente.
-   *
-   * In alternativa o in concorrnza è possibile usare trigger_error()
-   *
-   * @deprecated Use log() instead
-   *
-   * @param string $class    Nome della classe
-   * @param string $txt      (opzionale) Testo libero aggiuntivo. Se omesso viene emessa una riga separatrice
-   *
-   */
-  public static function watchDog( $class, $txt = null ) {
-
-    _deprecated_function( __METHOD__, '0.65', 'log()' );
-
-    if ( defined( 'WPDK_WATCHDOG_DEBUG' ) && WPDK_WATCHDOG_DEBUG ) {
-
-      if ( is_null( $txt ) ) {
-        $txt = '---------------------------------------------------------------------------------------------';
-      }
-
-      /* Comune su file o sul trigger_error() é */
-      $output = sprintf( "[%s] %s: %s\n", date( 'Y-m-d H:i:s' ), $class, $txt );
-
-      if ( defined( 'WPDK_WATCHDOG_DEBUG_ON_FILE' ) && WPDK_WATCHDOG_DEBUG_ON_FILE ) {
-        $handle = fopen( WPDK_LOG_FILE, "a+" );
-        fwrite( $handle, $output );
-        fclose( $handle );
-      }
-
-      if ( defined( 'WPDK_WATCHDOG_DEBUG_ON_TRIGGER_ERROR' ) && WPDK_WATCHDOG_DEBUG_ON_TRIGGER_ERROR ) {
-        trigger_error( $output );
-      }
-
-    }
-  }
-
 }
 
 /// @endcond
