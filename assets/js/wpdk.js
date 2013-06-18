@@ -1288,7 +1288,6 @@ var WPDK = (function ( $ ) {
     WPDKControls.init();
     WPDKjQuery.init();
     WPDKTwitterBootstrap.init();
-    WPDKTableView.init();
   };
 
   /**
