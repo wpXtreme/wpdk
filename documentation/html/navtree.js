@@ -1,6 +1,24 @@
 var NAVTREE =
 [
   [ "WPDK", "index.html", [
+    [ "Overview", "page_overview.html", null ],
+    [ "Getting Started", "page_getting_started.html", [
+      [ "System Requirements", "page_getting_started.html#section_getting_started_1", null ],
+      [ "Installation", "page_getting_started.html#section_getting_started_2", null ]
+    ] ],
+    [ "How to write a simple Plugin", "page_how_to.html", [
+      [ "Overview", "page_how_to.html#page_how_to_plugin_1", null ],
+      [ "WPDKWordPressPlugin class", "page_how_to.html#page_how_to_plugin_2", null ],
+      [ "Filesystem guideline", "page_how_to.html#page_how_to_plugin_2_1", null ],
+      [ "The basic execution flow of a WPDK plugin", "page_how_to.html#page_how_to_plugin_3", null ],
+      [ "Plugin activation", "page_how_to.html#page_how_to_plugin_4", null ],
+      [ "Plugin deactivation", "page_how_to.html#page_how_to_plugin_5", null ],
+      [ "Plugin configuration", "page_how_to.html#page_how_to_plugin_6", null ],
+      [ "Commodity", "page_how_to.html#page_how_to_plugin_7", null ],
+      [ "Writing code in your plugin specifically related to WordPress admin area", "page_how_to.html#page_how_to_plugin_8", null ]
+    ] ],
+    [ "Samples", "page_sample.html", null ],
+    [ "Thanks", "page_thanks.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Data Structures", null, [
@@ -26,7 +44,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "WPDKCRUD_8php.html",
-"classWPDKViewController.html#a8f89b1a28e11ba12220b125031c0f384"
+"classWPDKViewController.html#a8b267aa0adca2018097f6f6f4c804d46",
+"wpdk-view-controller_8php.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

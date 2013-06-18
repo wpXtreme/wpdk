@@ -423,6 +423,108 @@ $(document).ready(function(){initNavTree('wpdk-functions_8php_source.html','');}
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    }</div>
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keywordflow">return</span> $hookname;</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;}</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;</div>
+<div class="line"><a name="l00538"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc">  538</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc" title="Enqueue script.">wpdk_enqueue_script_page</a>( $pages, $handle, $src = <span class="keyword">false</span>, $deps = array(), $ver = <span class="keyword">false</span>, $in_footer = <span class="keyword">false</span> ) {</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;  <span class="keywordflow">foreach</span> ( $pages as $slug ) {</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    <span class="keywordflow">if</span> ( is_page_template( $slug ) ) {</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;      wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    }</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;  }</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;}</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;</div>
+<div class="line"><a name="l00559"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a507b63c0d6880d883125ad0ba2c10ecf">  559</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a507b63c0d6880d883125ad0ba2c10ecf" title="Enqueue script.">wpdk_enqueue_script_page_teplate</a>( $page_templates, $handle, $src = <span class="keyword">false</span>, $deps = array(), $ver = <span class="keyword">false</span>, $in_footer = <span class="keyword">false</span> ) {</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;  <span class="keywordflow">foreach</span> ( $page_templates as $slug ) {</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    <span class="keywordflow">if</span> ( is_page_template( $slug ) ) {</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;      wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    }</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;  }</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;}</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;</div>
+<div class="line"><a name="l00587"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a4a0557a80e4051cbc9e4786d4bff9c41">  587</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a4a0557a80e4051cbc9e4786d4bff9c41" title="Set.">wpdk_set_user_transient</a>( $transient, $value, $expiration = 0, $user_id = null )</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;{</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;  $value = apply_filters( <span class="stringliteral">&#39;pre_set_user_transient_&#39;</span> . $transient, $value, $user_id );</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;  $transient_timeout = <span class="stringliteral">&#39;_transient_timeout_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;  $transient         = <span class="stringliteral">&#39;_transient_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;  <span class="keywordflow">if</span> ( <span class="keyword">false</span> === get_user_meta( $user_id, $transient, <span class="keyword">true</span> ) ) {</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    <span class="keywordflow">if</span> ( $expiration ) {</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;      update_user_meta( $user_id, $transient_timeout, time() + $expiration );</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    }</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    $result = update_user_meta( $user_id, $transient, $value );</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;  }</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;  <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    <span class="keywordflow">if</span> ( $expiration ) {</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;      update_user_meta( $user_id, $transient_timeout, time() + $expiration );</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    }</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    $result = update_user_meta( $user_id, $transient, $value );</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;  }</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;  <span class="keywordflow">if</span> ( $result ) {</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    do_action( <span class="stringliteral">&#39;set_user_transient_&#39;</span> . $transient );</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    do_action( <span class="stringliteral">&#39;setted_user_transient&#39;</span>, $transient, $user_id );</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;  }</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;  <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;}</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;</div>
+<div class="line"><a name="l00631"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a17b4f713e72eee3dd86e66fbbb0ac1ea">  631</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a17b4f713e72eee3dd86e66fbbb0ac1ea" title="Get.">wpdk_get_user_transient</a>( $transient, $user_id = null )</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;{</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;  $pre = apply_filters( <span class="stringliteral">&#39;pre_user_transient_&#39;</span> . $transient, <span class="keyword">false</span>, $user_id );</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;  <span class="keywordflow">if</span> ( <span class="keyword">false</span> !== $pre ) {</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    <span class="keywordflow">return</span> $pre;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;  }</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;  $transient_timeout = <span class="stringliteral">&#39;_transient_timeout_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;  $transient         = <span class="stringliteral">&#39;_transient_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;  <span class="keywordflow">if</span> ( get_user_meta( $user_id, $transient_timeout, <span class="keyword">true</span> ) &lt; time() ) {</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;    delete_user_meta( $user_id, $transient );</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;    delete_user_meta( $user_id, $transient_timeout );</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;  }</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;  $value = get_user_meta( $user_id, $transient, <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;  <span class="keywordflow">return</span> apply_filters( <span class="stringliteral">&#39;user_transient_&#39;</span> . $transient, $value, $user_id );</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;}</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;</div>
+<div class="line"><a name="l00667"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a5c1a6f2d700670af495ce0838bf2d0fb">  667</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a5c1a6f2d700670af495ce0838bf2d0fb" title="Delete.">wpdk_delete_user_transient</a>( $transient, $user_id = null )</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;{</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;  do_action( <span class="stringliteral">&#39;delete_user_transient_&#39;</span> . $transient, $transient, $user_id );</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;  $transient_timeout = <span class="stringliteral">&#39;_transient_timeout_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;  $transient         = <span class="stringliteral">&#39;_transient_&#39;</span> . $transient;</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;  $result            = delete_user_meta( $user_id, $transient );</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;  <span class="keywordflow">if</span> ( $result ) {</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    delete_user_meta( $user_id, $transient_timeout );</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    do_action( <span class="stringliteral">&#39;deleted_user_transient&#39;</span>, $transient, $user_id );</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;  }</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;  <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;}</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;</div>
+<div class="line"><a name="l00695"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a469446fdf96d6949ea4fd5b1df2dd2ca">  695</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a469446fdf96d6949ea4fd5b1df2dd2ca" title="Check request.">wpdk_is_request</a>( $verb )</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;{</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;  $verb = strtolower( $verb );</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;  <span class="keywordflow">return</span> ( $verb == strtolower( $_SERVER[<span class="stringliteral">&#39;REQUEST_METHOD&#39;</span>] ) );</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;}</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;</div>
+<div class="line"><a name="l00708"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a31a423e2efc0e044297552de1af7685a">  708</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a31a423e2efc0e044297552de1af7685a" title="Check if request id get.">wpdk_is_request_get</a>()</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;{</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="wpdk-functions_8php.html#a469446fdf96d6949ea4fd5b1df2dd2ca" title="Check request.">wpdk_is_request</a>( <span class="stringliteral">&#39;get&#39;</span> );</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;}</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;</div>
+<div class="line"><a name="l00720"></a><span class="lineno"><a class="code" href="wpdk-functions_8php.html#a4fb7477c52483626c231a6ec582fef4f">  720</a></span>&#160;<span class="keyword">function</span> <a class="code" href="wpdk-functions_8php.html#a4fb7477c52483626c231a6ec582fef4f" title="Check if request is post.">wpdk_is_request_post</a>()</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;{</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="wpdk-functions_8php.html#a469446fdf96d6949ea4fd5b1df2dd2ca" title="Check request.">wpdk_is_request</a>( <span class="stringliteral">&#39;post&#39;</span> );</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

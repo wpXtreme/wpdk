@@ -6,5 +6,6 @@ var searchData=
   ['sidebar',['sidebar',['../classWPDKScreenHelp.html#a55ce159f4d70f76b0e8491ca6081c6db',1,'WPDKScreenHelp']]],
   ['signin',['signIn',['../classWPDKUsers.html#a28f49ae615768975c4f7c332f0c146f5',1,'WPDKUsers']]],
   ['signout',['signout',['../classWPDKUsers.html#a575bfc99b6a8e2f1f52d90c42a716d7c',1,'WPDKUsers']]],
-  ['statuses',['statuses',['../classWPDKUserStatus.html#a43c388d886c72260c10539e52bc8ab59',1,'WPDKUserStatus']]]
+  ['statuses',['statuses',['../classWPDKUserStatus.html#a43c388d886c72260c10539e52bc8ab59',1,'WPDKUserStatus']]],
+  ['submit',['submit',['../classWPDKUI.html#a71a9399e528623547bd9c1f2f7f1dfa6',1,'WPDKUI']]]
 ];

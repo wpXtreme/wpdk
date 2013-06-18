@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['wpdk_2dabout_2dview_2dcontroller_2ephp',['wpdk-about-view-controller.php',['../wpdk-about-view-controller_8php.html',1,'']]],
   ['wpdk_2dajax_2ephp',['wpdk-ajax.php',['../wpdk-ajax_8php.html',1,'']]],
   ['wpdk_2dapi_2ephp',['wpdk-api.php',['../wpdk-api_8php.html',1,'']]],
   ['wpdk_2darray_2ephp',['wpdk-array.php',['../wpdk-array_8php.html',1,'']]],
@@ -37,7 +38,7 @@ var searchData=
   ['wpdk_2dupdate_2ephp',['wpdk-update.php',['../wpdk-update_8php.html',1,'']]],
   ['wpdk_2duser_2dhelper_2ephp',['wpdk-user-helper.php',['../wpdk-user-helper_8php.html',1,'']]],
   ['wpdk_2duser_2ephp',['wpdk-user.php',['../wpdk-user_8php.html',1,'']]],
-  ['wpdk_2dvc_2ephp',['wpdk-vc.php',['../wpdk-vc_8php.html',1,'']]],
+  ['wpdk_2dview_2dcontroller_2ephp',['wpdk-view-controller.php',['../wpdk-view-controller_8php.html',1,'']]],
   ['wpdk_2dwatchdog_2ephp',['wpdk-watchdog.php',['../wpdk-watchdog_8php.html',1,'']]],
   ['wpdk_2dwordpress_2dadmin_2ephp',['wpdk-wordpress-admin.php',['../wpdk-wordpress-admin_8php.html',1,'']]],
   ['wpdk_2dwordpress_2dplugin_2ephp',['wpdk-wordpress-plugin.php',['../wpdk-wordpress-plugin_8php.html',1,'']]],

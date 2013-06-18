@@ -27,11 +27,10 @@ var dir_8315e34a19e74be451e8523970b07219 =
     [ "wpdk-ui.php", "wpdk-ui_8php.html", [
       [ "WPDKUI", "classWPDKUI.html", "classWPDKUI" ]
     ] ],
-    [ "wpdk-vc.php", "wpdk-vc_8php.html", [
+    [ "wpdk-view-controller.php", "wpdk-view-controller_8php.html", [
       [ "WPDKView", "classWPDKView.html", "classWPDKView" ],
       [ "WPDKViewController", "classWPDKViewController.html", "classWPDKViewController" ],
       [ "WPDKHeaderView", "classWPDKHeaderView.html", "classWPDKHeaderView" ],
-      [ "WPDKAboutViewController", "classWPDKAboutViewController.html", "classWPDKAboutViewController" ],
       [ "WPDKConfigurationView", "classWPDKConfigurationView.html", "classWPDKConfigurationView" ]
     ] ]
 ];

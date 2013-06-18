@@ -1,5 +1,8 @@
 var dir_39c15720d96c86d35dc4b886d4554506 =
 [
+    [ "wpdk-about-view-controller.php", "wpdk-about-view-controller_8php.html", [
+      [ "WPDKAboutViewController", "classWPDKAboutViewController.html", "classWPDKAboutViewController" ]
+    ] ],
     [ "wpdk-api.php", "wpdk-api_8php.html", null ],
     [ "wpdk-config-view.php", "wpdk-config-view_8php.html", null ],
     [ "wpdk-db-table.php", "wpdk-db-table_8php.html", null ],

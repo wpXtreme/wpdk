@@ -20,7 +20,6 @@ var classWPDKUsers =
     [ "usersWithCaps", "classWPDKUsers.html#a0525c3542c5a0a25201a1edf375dc9c8", null ],
     [ "userWithMetaAndValue", "classWPDKUsers.html#a0c2c6bc216fcbf96596844b800631ee6", null ],
     [ "wp_authenticate_user", "classWPDKUsers.html#adca9137e6578e9238f74318e339f8f7d", null ],
-    [ "wp_init", "classWPDKUsers.html#a6f845a700a09bf2c721a3d4c1e8aedc2", null ],
     [ "wp_login", "classWPDKUsers.html#ad0a02215ef87407954a6b290c6c5b305", null ],
     [ "wp_login_failed", "classWPDKUsers.html#a7b604a752057a405e70e676fd7b373ad", null ],
     [ "wp_logout", "classWPDKUsers.html#abea69268d8d785b0d5d51f3d3539548c", null ]

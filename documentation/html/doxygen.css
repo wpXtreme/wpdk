@@ -1,7 +1,7 @@
 /* The standard CSS for doxygen 1.8.3.1 */
 
 body, table, div, p, dl {
-  font       : 400 14px/19px "Lucida Grande", sans-serif;
+  font : 400 14px/19px "Lucida Grande", sans-serif;
 }
 
 /* @group Heading Levels */
@@ -14,6 +14,7 @@ h1.groupheader {
   font-size   : 150%;
   font-weight : bold;
   margin      : 10px 2px;
+  line-height : 130%;
 }
 
 h2.groupheader {
@@ -38,10 +39,11 @@ h1, h2, h3, h4, h5, h6 {
   -o-transition      : text-shadow 0.5s linear;
   transition         : text-shadow 0.5s linear;
   margin-right       : 15px;
+  line-height        : 120%;
 }
 
 h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
-  text-shadow : 0 0 15px cyan;
+  text-shadow : 0 0 15px #4158cd;
 }
 
 dt {
@@ -129,6 +131,12 @@ a.qindexHL {
   border           : 1px double #4a6aab;
 }
 
+a.el {
+  color       : #36c;
+  font-family : Monaco, "Courier New";
+  font-size   : 12px;
+}
+
 .contents a.qindexHL:visited {
   color : #fff;
 }
@@ -155,16 +163,24 @@ dl.el {
 }
 
 pre.fragment {
-  border           : 1px solid #c4cfe5;
-  background-color : #fbfcfd;
-  padding          : 4px 6px;
-  margin           : 4px 8px 4px 2px;
-  overflow         : auto;
-  word-wrap        : break-word;
-  font-size        : 9pt;
-  line-height      : 125%;
-  font-family      : monospace, fixed;
-  font-size        : 105%;
+  border                : 1px solid #a9b3c8;
+  background-color      : #f8f8ff;
+  padding               : 12px 16px;
+  margin                : 4px 8px 4px 2px;
+  overflow              : auto;
+  word-wrap             : break-word;
+  font-size             : 9pt;
+  line-height           : 125%;
+  font-family           : monospace, fixed;
+  font-size             : 105%;
+
+  -moz-box-shadow       : inset 0 0 12px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow    : inset 0 0 12px rgba(0, 0, 0, 0.2);
+  box-shadow            : inset 0 0 12px rgba(0, 0, 0, 0.2);
+
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
 }
 
 div.fragment {
@@ -520,8 +536,10 @@ table.memberdecls {
 }
 
 .memname {
+  font-family : Monaco, "Courier New";
   font-weight : bold;
   margin-left : 6px;
+  font-size   : 12px;
 }
 
 .memname td {
@@ -939,7 +957,7 @@ dl.deprecated {
   margin-left  : -7px;
   padding-left : 3px;
   border-left  : 4px solid;
-  border-color : #505050;
+  border-color : #e50;
 }
 
 dl.todo {
@@ -1212,3 +1230,12 @@ tr.heading h2 {
 #wpdk-footer {
 }
 
+.contents code {
+  background-color      : #f4f4ff;
+  border                : 1px solid #ccc;
+  padding               : 2px 6px;
+
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+}

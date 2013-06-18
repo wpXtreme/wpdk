@@ -16,7 +16,7 @@ var classWPDKWordPressPlugin =
     [ "frontend", "classWPDKWordPressPlugin.html#a04aaf20c5027a10f5b55db8886e10065", null ],
     [ "init_options", "classWPDKWordPressPlugin.html#a91ce0f5030cad9538adc08f16a18c48d", null ],
     [ "loaded", "classWPDKWordPressPlugin.html#a3f07a4aa73e71d525744db933bc2aff4", null ],
-    [ "pluginLoaded", "classWPDKWordPressPlugin.html#ac121e85414d647a3e9d85b2b43f1f041", null ],
+    [ "pluginInit", "classWPDKWordPressPlugin.html#a9f003a95144a93aafcb1f5ec1f72901c", null ],
     [ "protocol", "classWPDKWordPressPlugin.html#af333118ecad34f52f49b623858a049ae", null ],
     [ "registerAutoloadClass", "classWPDKWordPressPlugin.html#a2ed1791e7b36d8c772f31ab5fd03582d", null ],
     [ "reloadTextDomain", "classWPDKWordPressPlugin.html#a3a81101ba40cef9764e7241471403ed2", null ],

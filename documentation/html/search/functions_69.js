@@ -12,5 +12,6 @@ var searchData=
   ['is_5fwpdk_5ferror',['is_wpdk_error',['../wpdk-functions_8php.html#a99721aa6ed18f1b7294ccd54006fe231',1,'wpdk-functions.php']]],
   ['is_5fwpdk_5fstatus',['is_wpdk_status',['../wpdk-functions_8php.html#a7a2bbc9bb09636bf59fc55ec59a02824',1,'wpdk-functions.php']]],
   ['is_5fwpdk_5fwarning',['is_wpdk_warning',['../wpdk-functions_8php.html#a1dd6030646e7e5e51c7dda4012f7de34',1,'wpdk-functions.php']]],
+  ['ispercentage',['isPercentage',['../classWPDKMath.html#ac530fec0aaf88d19acde2b1f6b6434d8',1,'WPDKMath']]],
   ['items',['items',['../classWPDKDynamicTable.html#a5d2c6ea97e26121f29be3601d32af982',1,'WPDKDynamicTable']]]
 ];

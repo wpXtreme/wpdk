@@ -6,6 +6,7 @@ var searchData=
   ['_24arraycountusersbyrole',['$arrayCountUsersByRole',['../classWPDKRoles.html#a1887b73c914674a0866f2e78a598b6c3',1,'WPDKRoles']]],
   ['_24assetsurl',['$assetsURL',['../classWPDKWordPressPlugin.html#a7fc50b18e4cca258844ee31b0c95c0c9',1,'WPDKWordPressPlugin']]],
   ['_24bodyclasses',['$bodyClasses',['../classWPDKWordPressAdmin.html#a02948281a55a5d255166ae0d0c7ce2a0',1,'WPDKWordPressAdmin']]],
+  ['_24border',['$border',['../classWPDKjQueryTabsView.html#aaa22d2aef99616e075c1a365747a74ce',1,'WPDKjQueryTabsView']]],
   ['_24capabilities',['$capabilities',['../classWPDKCapabilities.html#a73e57f9212e0aad59d38383e3b6a25cc',1,'WPDKCapabilities']]],
   ['_24capability',['$capability',['../classWPDKMenu.html#aedfca3224946be11d79e7c3aa4178658',1,'WPDKMenu\$capability()'],['../classWPDKSubMenu.html#a38b2392b03e92bf045133b4407fab618',1,'WPDKSubMenu\$capability()']]],
   ['_24class',['$class',['../classWPDKView.html#ae3a588e9d7b17fad7aac8dba9a513ae9',1,'WPDKView']]],
