@@ -536,8 +536,8 @@ jQuery.fn.swipe = function ( v ) {
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-01-21
- * @version         0.9.5
+ * @date            2013-06-18
+ * @version         1.0.0
  *
  */
 var WPDKControls = (function ( $ ) {
@@ -558,7 +558,7 @@ var WPDKControls = (function ( $ ) {
    *
    * @brief Version
    */
-  $this.version = "0.9.5";
+  $this.version = "1.0.0";
 
   /**
    * Init this class
@@ -627,7 +627,7 @@ var WPDKControls = (function ( $ ) {
    * @private
    */
   function _initClearInput() {
-    $( 'span.wpdk-form-clear-left' ).live( 'click', function () {
+    $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function () {
       $( this ).prev().val( '' ).triggerHandler( 'change' );
     } );
   }
@@ -643,7 +643,7 @@ var WPDKControls = (function ( $ ) {
    * @private
    */
   function _initSwipeControl() {
-    $( 'span.wpdk-form-swipe span' ).live( 'click', function () {
+    $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function () {
       var $control = $( this ).parent();
       var $status = wpdk_is_bool( $control.swipe() );
       var $enabled = $status ? 'off' : 'on';
@@ -663,7 +663,7 @@ var WPDKControls = (function ( $ ) {
    * @private
    */
   function _initLockedControl() {
-    $( '.wpdk-form-locked' ).live( 'click', function () {
+    $( document ).on( 'click', '.wpdk-form-locked', false, function () {
       if ( confirm( wpdk_i18n.messageUnLockField ) ) {
         $( this )
           .attr( 'class', 'wpdk-form-unlocked' )
@@ -1112,7 +1112,7 @@ var WPDKjQuery = (function ( $ ) {
     } );
 
     /* Copy & Paste */
-    $( '.wpdk-form-button-copy-paste' ).live( 'click', function () {
+    $( document ).on( 'click', '.wpdk-form-button-copy-paste', false, function () {
       /* Recupero options */
       var options = $( this ).attr( 'data-options' ) ? $( this ).attr( 'data-options' ).split( ' ' ) : [];
 
@@ -1152,98 +1152,10 @@ var WPDKjQuery = (function ( $ ) {
     } );
 
     /* Remove. */
-    $( '.wpdk-form-button-remove' ).live( 'click', function () {
+    $( document ).on( 'click', '.wpdk-form-button-remove', false, function () {
       var remove_from = $( this ).attr( 'data-remove_from' );
       $( 'option:selected', '#' + remove_from ).remove();
     } );
-  }
-
-  return $this;
-
-})( jQuery );
-
-/**
- * This class manage all WPDKTableView
- *
- * @class           WPDKTableView
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2012-11-28
- * @version         0.8.1
- *
- * @deprecated      To replace
- *
- */
-var WPDKTableView = (function ( $ ) {
-
-  /**
-   * Internal class pointer
-   *
-   * @brief This object
-   */
-  var $this = {};
-
-  /* @todo Questo non va bene, fare qui quello che è stato fatto per il Product Picker */
-  var _paged = 1;
-
-  /**
-   * Utility property
-   *
-   * @brief Image animation for Ajax
-   *
-   * @type {String}
-   * @private
-   */
-  var _wait16x16 = '<img style="margin:6px 4px 0 8px;float:right;display:block;width:16px;height:16px;border:none" border="0" alt="Wait" src="data:image/gif;base64,R0lGODlhEgASAMQaAHl5d66urMXFw3l5dpSUk5WVlKOjoq+vrsbGw6Sko7u7uaWlpbm5t3h4doiIhtLSz4aGhJaWlsbGxNHRzrCwr5SUkqKiobq6uNHRz4eHhf///wAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAAaACwAAAAAEgASAAAFaaAmjmRplstyrkmbrCNFaUZtaFF0HvyhWRZNYVgwBY4BEmFJOB1NlYpJoYBpHI7RZXtZZb4ZEbd7AodFDIYVAjFJJCYA4ISoI0hyuUnAF2geDxoDgwMnfBoYiRgaDQ1WiIqPJBMTkpYaIQAh+QQFAAAaACwBAAEAEAAQAAAFY6AmjhpFkSh5rEc6KooWzIG2LOilX3Kd/AnSjjcyGA0oBiNlsZAkEtcoEtEgrghpYVsQeAVSgpig8UpFlQrp8Ug5HCiMHEPK2DOkOR0A0NzxJBMTGnx8GhAQZwOLA2ckDQ0uIQAh+QQFAAAaACwBAAEAEAAQAAAFZKAmjpqikCh5rVc6SpLGthSFIjiiMYx2/AeSYCggBY4B1DB1JD0ertFiocFYMdGENnHFugxgg2YyiYosFhIAkIpEUOs1qUAvkAb4gcbh0BD+BCgNDRoZhhkaFRVmh4hmIxAQLiEAIfkEBQAAGgAsAQABABAAEAAABWOgJo6aJJEoiaxIOj6PJsyCpigopmNyff0X0o43AgZJk0mKwSABAK4RhaJ5PqOH7GHAHUQD4ICm0YiKwCSHI7VYoDLwDClBT5Di8khEY+gbUBAQGgWEBRoWFmYEiwRmJBUVLiEAIfkEBQAAGgAsAQABABAAEAAABWSgJo7a85Aoia1YOgKAxraShMKwNk0a4iOkgXBAEhgFqEYjZSQ5HK6RQqHJWDPRi/Zyxbq2Fw0EEhUxGKRIJEWhoArwAulAP5AIeIJmsdAE/gEoFRUaCYYJfoFRBowGZSQWFi4hACH5BAUAABoALAEAAQAQABAAAAVloCaOGgCQKGma6eg42iAP2vOgWZ5pTaNhQAxJtxsFhSQIJDWZkCKR1kgi0RSuBSliiyB4CVKBWKCpVKQiMWmxSCkUqIQ8QbrYLySD3qChUDR3eCQWFhoHhwcaDAxoAY4BaCSOLSEAIfkEBQAAGgAsAQABABAAEAAABWOgJo6a45Aoma1ZOkaRxrYAgBZ4oUGQVtckgpBAGhgHqEol1WiQFgvX6PHQJK4JKWaLMXgNWq7GYpGKJhMShZKSSFCH+IGEqCNIgXxAo1BoBIACKHkaF4YXf4JSh4hmIwwMLiEAIfkEBQAAGgAsAQABABAAEAAABWSgJo5aFJEoWaxFOi6LRsyE5jhooidaVWmZYIZkKBpIwiHJYklBICQKxTUCADSH7IFqtQa+AepgPNB8qaJGg6RQpB4P1GV+IWHuGBK9LpFo8HkkDAwaCIYIGhMTaAKNAmgkjS4hADs=" />';
-
-  /**
-   * The WPDKTableView version
-   *
-   * @brief Version
-   */
-  $this.version = "0.8.1";
-
-  /**
-   * Init this class
-   *
-   * @brief Init this class
-   */
-  $this.init = function () {
-    /* Se esiste... */
-    if ( $( '.wpdk-tableview' ).length ) {
-
-      /* Display more rows */
-      $( '.wpdk-tableview tbody tr' ).live( 'click', _tableViewDisplaydMoreRows );
-    }
-  };
-
-  /**
-   * Attach event on the row and on the last row "more"
-   *
-   * @brief Attacj event
-   *
-   * @private
-   */
-  function _tableViewDisplaydMoreRows() {
-    var id = $( this ).attr( 'id' );
-    if ( id != '' ) {
-      var pa = id.split( '_' );
-      var kc = pa[1];
-      $( this ).parents( '.wpdk-tableview' ).triggerHandler( 'wpdkTableViewRowDidSelected', [kc, $( this )] );
-    }
-    else if ( $( this ).hasClass( 'wpdk-tableview-moreitems' ) ) {
-      $( this ).prepend( _wait16x16 );
-      var ajaxHook = $( '.wpdk-tableview #wpdk-tableview-ajaxhook' ).val();
-      _paged++;
-      $.post( wpdk_i18n.ajaxURL, {
-          action : ajaxHook,
-          paged  : _paged
-        }, function ( data ) {
-          $( 'tr.wpdk-tableview-moreitems' ).remove();
-          $( 'table.wpdk-tableview-table tbody' ).append( data );
-        }
-      );
-    }
   }
 
   return $this;
@@ -1256,8 +1168,8 @@ var WPDKTableView = (function ( $ ) {
  * @class           WPDKDynamicTable
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2012-11-28
- * @version         0.8.1
+ * @date            2013-06-18
+ * @version         1.0.0
  */
 var WPDKDynamicTable = (function ( $ ) {
 
@@ -1273,7 +1185,7 @@ var WPDKDynamicTable = (function ( $ ) {
    *
    * @brief Version
    */
-  $this.version = "1.0";
+  $this.version = "1.0.0";
 
   /**
    * Return a singleton instance of WPDKDynamicTable class
@@ -1283,10 +1195,8 @@ var WPDKDynamicTable = (function ( $ ) {
    * @return WPDKDynamicTable
    */
   $this.init = function () {
-    if ( typeof $this.instance == 'undefined' ) {
-      $this.instance = __construct();
-    }
-    return $this.instance;
+    $( document ).ready( _init );
+    return $this;
   };
 
   /**
@@ -1295,27 +1205,19 @@ var WPDKDynamicTable = (function ( $ ) {
    * @return {WPDKDynamicTable}
    * @private
    */
-  function __construct() {
-    $( 'input.wpdk-dt-add-row' ).live( 'click', _addRow );
-    $( 'input.wpdk-dt-delete-row' ).live( 'click', _deleteRow );
+  function _init() {
+    if ( $( 'table.wpdk-dynamic-table' ).length ) {
+      $( 'table.wpdk-dynamic-table' ).on( 'click', 'input.wpdk-dt-add-row', false, _addRow );
+      $( 'table.wpdk-dynamic-table' ).on( 'click', 'input.wpdk-dt-delete-row', false, _deleteRow );
+      /* Sortable. */
+      $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
+        axis   : "y",
+        cursor : "n-resize",
+        start  : function ( e, ui ) {},
+        stop   : function () {}
+      } );
+    }
 
-    $( 'input.wpdk-dt-delete-row' ).live( 'mouseenter', function () {
-      $( this ).parents( 'tr' ).addClass( 'wpdk-dt-highlight-delete' );
-    } );
-
-    $( 'input.wpdk-dt-delete-row' ).live( 'mouseleave', function () {
-      $( this ).parents( 'tr' ).removeClass( 'wpdk-dt-highlight-delete' );
-    } );
-
-    /* Sortable. */
-    $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
-      axis   : "y",
-      cursor : "n-resize",
-      start  : function ( e, ui ) {},
-      stop   : function () {}
-    } );
-
-    return $this;
   }
 
   /**
@@ -1386,7 +1288,6 @@ var WPDK = (function ( $ ) {
     WPDKControls.init();
     WPDKjQuery.init();
     WPDKTwitterBootstrap.init();
-    WPDKTableView.init();
   };
 
   /**
