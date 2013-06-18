@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.1.1
 ###
 
+#### Enhancements
+
+* Replaced jQuery .live() with .on()
+
 #### Bugs
 
 * Fixed and improve menu uri
