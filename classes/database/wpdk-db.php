@@ -351,6 +351,7 @@ SQL;
    */
   public function update()
   {
+    ob_start();
     if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
       if ( !function_exists( 'dbDelta' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -362,7 +363,7 @@ SQL;
       $sql = sprintf( $content, $this->tableName );
       @dbDelta( $sql );
     }
-
+    ob_end_clean();
   }
 
   /**
