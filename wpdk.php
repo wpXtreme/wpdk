@@ -100,7 +100,7 @@ if ( !class_exists( 'WPDK' ) ) {
       add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins' ) );
 
       /* Callback hook */
-      do_action( __CLASS__ );
+      do_action( 'WPDK' );
     }
 
     /**
@@ -619,7 +619,7 @@ if ( !class_exists( 'WPDK' ) ) {
   }
 
   /* Let's dance */
-  $GLOBALS[__CLASS__] = WPDK::init();
+  $GLOBALS['WPDK'] = WPDK::init();
 }
 
 /// @endcond
