@@ -292,7 +292,7 @@ div.wpdk-accordion
   position           : relative;
   height             : 0;
   overflow           : hidden;
-  overflow           : visible    \9;
+  overflow           : visible      \9;
   -webkit-transition : height 0.35s ease;
   -moz-transition    : height 0.35s ease;
   -o-transition      : height 0.35s ease;
@@ -364,7 +364,7 @@ textarea.wpdk-form-textarea:focus
 {
   border-color       : rgba(82, 168, 236, 0.8);
   outline            : 0;
-  outline            : thin dotted    \9;
+  outline            : thin dotted      \9;
   /* IE6-9 */
   -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
   -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
@@ -625,20 +625,13 @@ span.wpdk-form-swipe
   padding               : 2px 2px 0;
   margin                : 0 8px 0 2px;
   vertical-align        : middle;
-  background            : #ff3019;
-  background            : -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
-  background            : -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404));
-  background            : -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
-  background            : -o-linear-gradient(top, #ff3019 0%, #cf0404 100%);
-  background            : -ms-linear-gradient(top, #ff3019 0%, #cf0404 100%);
-  background            : linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
-  filter                : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0);
-  -moz-box-shadow       : 0 3px 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 0 #fff;
-  -webkit-box-shadow    : 0 3px 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 0 #fff;
-  box-shadow            : 0 3px 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 0 #fff;
-  -moz-border-radius    : 3px;
-  -webkit-border-radius : 3px;
-  border-radius         : 3px;
+  background-color      : #ff3020;
+  -moz-box-shadow       : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow            : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  -moz-border-radius    : 32px;
+  -webkit-border-radius : 32px;
+  border-radius         : 32px;
 }
 
 span.wpdk-form-swipe span
@@ -646,33 +639,16 @@ span.wpdk-form-swipe span
   display               : block;
   width                 : 16px;
   height                : 16px;
-  background-color      : #ebebeb;
-  background-image      : -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#aaa)); /* Saf4+, Chrome */
-  background-image      : -webkit-linear-gradient(top, #ebebeb, #aaa); /* Chrome 10+, Saf5.1+ */
-  background-image      : -moz-linear-gradient(top, #ebebeb, #aaa); /* FF3.6 */
-  background-image      : -ms-linear-gradient(top, #ebebeb, #aaa); /* IE10 */
-  background-image      : -o-linear-gradient(top, #ebebeb, #aaa); /* Opera 11.10+ */
-  background-image      : linear-gradient(top, #ebebeb, #aaa);
-  filter                : progid:DXImageTransform.Microsoft.gradient(startColorStr='#ebebeb', EndColorStr='#aaaaaa'); /* IE6–IE9 */
-  -moz-box-shadow       : inset 0 0 1px rgba(0, 0, 0, 0.7);
-  -webkit-box-shadow    : inset 0 0 1px rgba(0, 0, 0, 0.7);
-  box-shadow            : inset 0 0 1px rgba(0, 0, 0, 0.7);
-  -moz-border-radius    : 2px;
-  -webkit-border-radius : 2px;
-  border-radius         : 2px;
+  background-color      : #fff;
+  -moz-border-radius    : 100%;
+  -webkit-border-radius : 100%;
+  border-radius         : 100%;
   cursor                : pointer;
 }
 
 span.wpdk-form-swipe.wpdk-form-swipe-on
 {
-  background : #e3f5ab;
-  background : -moz-linear-gradient(top, #e3f5ab 0%, #b7df2d 100%);
-  background : -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e3f5ab), color-stop(100%, #b7df2d));
-  background : -webkit-linear-gradient(top, #e3f5ab 0%, #b7df2d 100%);
-  background : -o-linear-gradient(top, #e3f5ab 0%, #b7df2d 100%);
-  background : -ms-linear-gradient(top, #e3f5ab 0%, #b7df2d 100%);
-  background : linear-gradient(to bottom, #e3f5ab 0%, #b7df2d 100%);
-  filter     : progid:DXImageTransform.Microsoft.gradient(startColorstr='#e3f5ab', endColorstr='#b7df2d', GradientType=0);
+  background : #ACDC3D;
 }
 
 span.wpdk-form-swipe.wpdk-form-swipe-on span

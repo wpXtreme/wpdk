@@ -28,6 +28,7 @@ For more information on SemVer, please visit http://semver.org/.
 * Added static method `WPDKMenu::addSubMenuAt()` to add a sub menu
 * Improved on `WPDKPosts` class
 * Minor fixes
+* Restyling swipe button color (flat)
 
 
 
