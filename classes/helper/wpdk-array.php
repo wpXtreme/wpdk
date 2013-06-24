@@ -51,7 +51,7 @@ class WPDKArray {
    *
    * @return array
    */
-  public static function insert( $arr, $new, $index = 0 ) {
+  public static function insert( &$arr, $new, $index = 0 ) {
     $arrayEnd   = array_splice( $arr, $index );
     $arrayStart = array_splice( $arr, 0, $index );
     return ( array_merge( $arrayStart, $new, $arrayEnd ) );

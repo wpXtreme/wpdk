@@ -268,7 +268,8 @@ class _WPDKPost {
    *
    * @return WPDKPost
    */
-  public function __construct( $record = null, $post_type = 'page' ) {
+  public function __construct( $record = null, $post_type = 'page' )
+  {
 
     /* Get post by id. */
     if ( !is_null( $record ) && is_numeric( $record ) ) {
@@ -306,7 +307,8 @@ class _WPDKPost {
    *
    * @param int $id_post Post ID
    */
-  private function initPostByID( $id_post ) {
+  private function initPostByID( $id_post )
+  {
     if ( isset( $GLOBALS[__CLASS__][$id_post] ) ) {
       $post = $GLOBALS[__CLASS__][$id_post];
     }
@@ -323,7 +325,8 @@ class _WPDKPost {
    *
    * @param object $post The post database record
    */
-  private function initPostByPost( $post ) {
+  private function initPostByPost( $post )
+  {
     if ( is_object( $post ) ) {
       /* Get properties. */
       foreach ( $post as $property => $value ) {
@@ -340,7 +343,8 @@ class _WPDKPost {
    *
    * @return array
    */
-  private function postEmpty() {
+  private function postEmpty()
+  {
     $args = array(
       'ID'                    => 0,
       'post_author'           => 0,
@@ -378,7 +382,8 @@ class _WPDKPost {
    *
    * @brief Init by array arguments
    */
-  private function initPostByArgs( $args ) {
+  private function initPostByArgs( $args )
+  {
     foreach ( $args as $property => $value ) {
       $this->$property = $value;
     }
@@ -398,7 +403,8 @@ class _WPDKPost {
    *
    * @return mixed False on failure
    */
-  public function delete() {
+  public function delete()
+  {
     return wp_delete_post( $this->ID, true );
   }
 
@@ -413,7 +419,8 @@ class _WPDKPost {
    *
    * @return mixed False on failure
    */
-  public function trash() {
+  public function trash()
+  {
     return wp_trash_post( $this->ID );
   }
 
@@ -427,7 +434,8 @@ class _WPDKPost {
    *
    * @return mixed False on failure
    */
-  public function untrash() {
+  public function untrash()
+  {
     return wp_untrash_post( $this->ID );
   }
 
@@ -443,7 +451,8 @@ class _WPDKPost {
    *
    * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
    */
-  public function update() {
+  public function update()
+  {
     /* Avoid update when we are in admin backend area. */
     global $pagenow;
 
@@ -454,8 +463,7 @@ class _WPDKPost {
 }
 
 /**
- * WordPress stan
-dard Post Status at 3.4 release
+ * WordPress stan dard Post Status at 3.4 release
  *
  * @class              WPDKPostStatus
  * @author             =undo= <info@wpxtre.me>
@@ -503,8 +511,7 @@ class WPDKPostStatus {
 }
 
 /**
- * WordPress stan
-dard Post Type at 3.4 release
+ * WordPress standard Post Type at 3.4 release
  *
  * @class              WPDKPostType
  * @author             =undo= <info@wpxtre.me>
@@ -523,11 +530,9 @@ class WPDKPostType {
 
 
 /**
- * WordPress Post
-s model
+ * WordPress Posts model
  *
  * ## Overview
- *
  * Manage posts model
  *
  * @class           WPDKPosts
@@ -546,17 +551,15 @@ class WPDKPosts {
    *
    * @return WPDKPosts
    */
-  public function __construct() {
+  public function __construct()
+  {
   }
 
 }
 
 
-
-
 /**
- * Utility for po
-st meta
+ * Utility for post meta
  *
  * @class              WPDKPostMeta
  * @author             =undo= <info@wpxtre.me>
@@ -578,8 +581,7 @@ class WPDKPostMeta {
   private $_post;
 
   /**
-   * Create an
-instance of WPDKPostMeta class
+   * Create aninstance of WPDKPostMeta class
    *
    * @brief Construct
    *
@@ -587,13 +589,13 @@ instance of WPDKPostMeta class
    *
    * @return WPDKPostMeta
    */
-  public function __construct( $post ) {
+  public function __construct( $post )
+  {
     $this->_post = new _WPDKPost( $post );
   }
 
   /**
-   * @brief Upd
-ate or delete a post meta
+   * @brief Upd ate or delete a post meta
    *
    * Update a post meta with key `$meta_key` for post `$id_post`. If value is NULL the post meta is deleted.
    *
@@ -601,7 +603,8 @@ ate or delete a post meta
    * @param string      $meta_key   Meta key
    * @param string|null $meta_value Meta value. If NULL the post meta is deleted.
    */
-  public static function updatePostMetaWithDeleteIfNotSet( $id_post, $meta_key, $meta_value = null ) {
+  public static function updatePostMetaWithDeleteIfNotSet( $id_post, $meta_key, $meta_value = null )
+  {
 
     /* Sanitize post id. */
     $id_post = absint( $id_post );
@@ -622,14 +625,14 @@ ate or delete a post meta
   }
 
   /**
-   * Return a s
-ingle value with a specific meta key
+   * Return a single value with a specific meta key
    *
    * @param string $key A meta key
    *
    * @return mixed|null
    */
-  public function value( $key ) {
+  public function value( $key )
+  {
     if ( !empty( $key ) && !empty( $this->_post ) ) {
       return get_post_meta( $this->_post->ID, $key, true );
     }
@@ -641,14 +644,14 @@ ingle value with a specific meta key
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Return ana
- array of values with a specific meta key
+   * Return ana array of values with a specific meta key
    *
    * @param string $key A meta key
    *
    * @return array|null
    */
-  public function values( $key ) {
+  public function values( $key )
+  {
     if ( !empty( $key ) && !empty( $this->_post ) ) {
       return get_post_meta( $this->_post->ID, $key, false );
     }

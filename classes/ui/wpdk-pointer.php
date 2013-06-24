@@ -30,6 +30,7 @@ class WPDKPointer {
    * @var string $align
    */
   public $align;
+
   /**
    * This is the dismiss/close button. For default this button perform an Ajax call and write in option that this
    * pointer is no longer to display.
@@ -39,6 +40,7 @@ class WPDKPointer {
    * @var array $buttonClose
    */
   public $buttonClose;
+
   /**
    * This is a custom primary button shows on the left of dismiss button
    *
@@ -123,6 +125,7 @@ class WPDKPointer {
     $this->buttonClose = array(
       'id'       => 'wpdk-pointer-button-close',
       'label'    => __( 'Dismiss', WPDK_TEXTDOMAIN ),
+      'dismiss'  => true,
       'function' => '',
       'page'     => ''
     );
@@ -197,11 +200,14 @@ class WPDKPointer {
           },
 
           close : function () {
+            var button = jQuery( '#<?php echo $this->buttonClose['id'] ?>' );
             <?php if ( empty( $this->buttonClose['function'] ) ) : ?>
-            $.post( ajaxurl, {
-              pointer : '<?php echo $pointer_id; ?>',
-              action  : 'wpdk_action_dismiss_wp_pointer'
-            } );
+            if( button.data('dismiss') ) {
+              $.post( ajaxurl, {
+                pointer : '<?php echo $pointer_id; ?>',
+                action  : 'wpdk_action_dismiss_wp_pointer'
+              } );
+            }
             <?php else: ?>
             <?php echo $this->buttonClose['function'] ?>
             <?php endif; ?>
@@ -266,7 +272,11 @@ class WPDKPointer {
    * @return string
    */
   private function _buttonClose() {
-    $result = sprintf( '<a id="%s" class="button-secondary">%s</a>', $this->buttonClose['id'], $this->buttonClose['label'] );
+    $dismiss = '';
+    if( isset( $this->buttonClose['dismiss']) && true ===  $this->buttonClose['dismiss'] ) {
+      $dismiss = 'data-dismiss="true"';
+    }
+    $result = sprintf( '<a id="%s" %s class="button-secondary">%s</a>', $this->buttonClose['id'], $dismiss, $this->buttonClose['label'] );
     return $result;
   }
 
@@ -283,5 +293,24 @@ class WPDKPointer {
   }
 
 }
+
+/**
+ * @prototype
+ *
+ * @class           WPDKPointerButton
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-06-19
+ * @version         1.0.0
+ *
+ */
+class WPDKPointerButton {
+
+  public $id;
+  public $page;
+  public $dismiss;
+
+}
+
 
 /// @endcond

@@ -302,6 +302,66 @@ class WPDKMenu {
       $sub_menu->render();
     }
   }
+
+  /**
+   * Add a submenu item at index position into the `$menus` array,
+   *
+   * ### Sample
+   *
+   *     $menus = array(
+   *       'wpx_ras_main' => array(
+   *         'menuTitle'  => __( 'REST API Server', WPXRESTAPISERVER_TEXTDOMAIN ),
+   *         'capability' => self::MENU_CAPABILITY,
+   *         'icon'       => $icon_menu,
+   *         'subMenus'   => array(
+   *
+   *           array(
+   *             'menuTitle' =>  __( 'Servers', WPXRESTAPISERVER_TEXTDOMAIN ),
+   *             'viewController' => 'WPXRESTAPIServerServersListTableViewController',
+   *             'capability'     => self::MENU_CAPABILITY,
+   *           ),
+   *
+   *           WPDKSubMenuDivider::DIVIDER,
+   *
+   *           array(
+   *             'menuTitle' =>  __( 'Preferences' ),
+   *             'viewController' => 'WPXRESTAPIServerConfigurationCoreViewController',
+   *             'capability'     => self::MENU_CAPABILITY,
+   *           ),
+   *           array(
+   *             'menuTitle' =>  __( 'About' ),
+   *             'capability'     => self::MENU_CAPABILITY,
+   *             'viewController' => 'WPXRESTAPIServerAboutViewController',
+   *           ),
+   *         )
+   *       )
+   *     );
+   *
+   *     $new = array(
+   *       'menuTitle'      => __( 'New Menu' ),
+   *       'viewController' => 'WPXRESTAPIServerConfigurationCoreViewController',
+   *       'capability'     => self::MENU_CAPABILITY,
+   *     );
+   *
+   *     WPDKMenu::addSubMenuAt( $menus, $new, 2 );
+   *
+   *     WPDKMenu::renderByArray( $menus );
+   *
+   *
+   * @brief Add submenu
+   *
+   * @param array $menus     Array menu used in WPDKMenu::renderByArray() method
+   * @param array $menu_item Single new array to add
+   * @param int   $index     Start position from the first menu item (zero base).
+   *
+   * @return array
+   */
+  public static function addSubMenuAt( &$menus, $menu_item, $index) {
+    $key = key( $menus );
+    $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
+    return $menus;
+  }
+
 }
 
 /**

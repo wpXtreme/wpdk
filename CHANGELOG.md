@@ -20,12 +20,25 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.1.2
+### 2013-06-??
+
+#### Enhancements
+
+* Added static method `WPDKMenu::addSubMenuAt()` to add a sub menu
+* Improved on `WPDKPosts` class
+* Minor fixes
+* Restyling swipe button color (flat)
+
+
+
 ## Version 1.1.1
-###
+### 2013-06-18
 
 #### Enhancements
 
 * Replaced jQuery .live() with .on()
+* Improved on `WPDKPosts` class
 
 #### Bugs
 
