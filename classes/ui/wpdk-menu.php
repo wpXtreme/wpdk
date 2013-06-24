@@ -302,6 +302,14 @@ class WPDKMenu {
       $sub_menu->render();
     }
   }
+
+  // TODO
+  public static function addSubMenuAt( &$menus, $menu_item, $index) {
+    $key = key( $menus );
+    $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
+    return $menus;
+  }
+
 }
 
 /**
