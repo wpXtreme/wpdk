@@ -348,6 +348,32 @@ class WPDKTerms {
   }
 
   /**
+   * Return the array of term from parent
+   *
+   * @brief Bread Crumbs
+   *
+   * @param int|object|string $term     If integer, will get from database.
+   *                                    If object will apply filters and return $term.
+   *                                    If string started with `%` will get by `get_term_by( 'name' )`
+   *                                    Else if string will get by `get_term_by( 'slug' )`
+   *
+   * @return array
+   */
+  public function breadCrumbs( $term )
+  {
+    $from      = $this->term( $term );
+    $stack     = array( $from );
+    $id_parent = $from->parent;
+
+    while ( !empty( $id_parent ) ) {
+      $stack[]   = $term = $this->term( $id_parent );
+      $id_parent = $term->parent;
+    }
+
+    return array_reverse( $stack );
+  }
+
+  /**
    * Return a single term by id, object, name or slug
    *
    * @brief Get single term
