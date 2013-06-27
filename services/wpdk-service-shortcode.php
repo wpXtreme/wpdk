@@ -91,15 +91,15 @@ class WPDKServiceShortcode extends WPDKShortcode {
    *
    * @brief GitHub Gist
    *
-   * @param array  $attrs     Attribute into the shortcode
+   * @param array  $atts      Attribute into the shortcode
    * @param string $content   Optional. $content HTML content
    *
    * @return string
    */
-  public function wpdk_gist( $attrs, $content = null )
+  public function wpdk_gist( $atts, $content = null )
   {
-    return sprintf( '<script src="https://gist.github.com/%s.js%s"></script>', $attrs['id'], $attrs['file'] ?
-      '?file=' . $attrs['file'] : '' );
+    return sprintf( '<script src="https://gist.github.com/%s.js%s"></script>', $atts['id'], isset( $atts['file'] ) ?
+        '?file=' . $atts['file'] : '' );
   }
 
   /**
