@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-20 11:40+0100\n"
-"PO-Revision-Date: 2013-04-20 11:40+0100\n"
+"POT-Creation-Date: 2013-06-25 17:24+0100\n"
+"PO-Revision-Date: 2013-06-25 17:24+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "MIME-Version: 1.0\n"
@@ -13,61 +13,62 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpdk.php:637
+#: ../wpdk.php:601
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
 msgstr ""
 
-#: ../wpdk.php:639 ../classes/deprecated/WPDKForm.php:182
+#: ../wpdk.php:603 ../classes/deprecated/WPDKForm.php:182
 msgid "Choose Time"
 msgstr ""
 
-#: ../wpdk.php:640 ../classes/deprecated/WPDKForm.php:183
+#: ../wpdk.php:604 ../classes/deprecated/WPDKForm.php:183
 msgid "Time"
 msgstr ""
 
-#: ../wpdk.php:641 ../classes/deprecated/WPDKForm.php:184
+#: ../wpdk.php:605 ../classes/deprecated/WPDKForm.php:184
 msgid "Hour"
 msgstr ""
 
-#: ../wpdk.php:642 ../classes/deprecated/WPDKForm.php:185
+#: ../wpdk.php:606 ../classes/deprecated/WPDKForm.php:185
 msgid "Minute"
 msgstr ""
 
-#: ../wpdk.php:643 ../classes/deprecated/WPDKForm.php:186
+#: ../wpdk.php:607 ../classes/deprecated/WPDKForm.php:186
 msgid "Seconds"
 msgstr ""
 
-#: ../wpdk.php:644 ../classes/deprecated/WPDKForm.php:187
+#: ../wpdk.php:608 ../classes/deprecated/WPDKForm.php:187
 msgid "Now"
 msgstr ""
 
-#: ../wpdk.php:645 ../classes/deprecated/WPDKForm.php:188
+#: ../wpdk.php:609 ../classes/deprecated/WPDKForm.php:188
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr ""
 
-#: ../wpdk.php:646 ../classes/deprecated/WPDKForm.php:189
+#: ../wpdk.php:610 ../classes/deprecated/WPDKForm.php:189
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
 msgstr ""
 
-#: ../wpdk.php:647
+#: ../wpdk.php:611
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr ""
 
-#: ../wpdk.php:648 ../classes/deprecated/WPDKForm.php:190
+#: ../wpdk.php:612 ../classes/deprecated/WPDKForm.php:190
 msgid "Close"
 msgstr ""
 
-#: ../wpdk.php:649 ../classes/deprecated/WPDKForm.php:191
+#: ../wpdk.php:613 ../classes/deprecated/WPDKForm.php:191
 msgid "mm/dd/yy"
 msgstr ""
 
-#: ../wpdk.php:650
+#: ../wpdk.php:614
 msgid "HH:mm"
 msgstr ""
 
@@ -87,20 +88,16 @@ msgstr ""
 msgid "User email"
 msgstr ""
 
-#: ../classes/core/wpdk-watchdog.php:252
-msgid "No error detected"
-msgstr ""
-
-#: ../classes/core/wpdk-wordpress-plugin.php:551
+#: ../classes/core/wpdk-wordpress-plugin.php:574
 msgid "Half hour"
 msgstr ""
 
-#: ../classes/core/wpdk-wordpress-plugin.php:555
+#: ../classes/core/wpdk-wordpress-plugin.php:578
 msgid "Two minutes"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
-#: ../classes/ui/wpdk-vc.php:826
+#: ../classes/ui/wpdk-view-controller.php:689
 msgid "No Reset to default settings implement yet!"
 msgstr ""
 
@@ -123,121 +120,121 @@ msgstr ""
 msgid "No settings update!"
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:134
-#: ../classes/deprecated/wpdk-roles-caps.php:1160
+#: ../classes/deprecated/wpdk-roles-caps.php:136
+#: ../classes/deprecated/wpdk-roles-caps.php:1162
 msgid "Role data cannot be empty."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:141
-#: ../classes/deprecated/wpdk-roles-caps.php:1167
+#: ../classes/deprecated/wpdk-roles-caps.php:143
+#: ../classes/deprecated/wpdk-roles-caps.php:1169
 #, php-format
 msgid "Role data cannot be more than %s chars."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:147
+#: ../classes/deprecated/wpdk-roles-caps.php:149
 msgid "Role name can contain only letters, digits, '_' and '-' chars."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:152
-#: ../classes/deprecated/wpdk-roles-caps.php:1178
+#: ../classes/deprecated/wpdk-roles-caps.php:154
+#: ../classes/deprecated/wpdk-roles-caps.php:1180
 #, php-format
 msgid "Can't create two roles with the same name '%s'."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:185
-#: ../classes/deprecated/wpdk-roles-caps.php:1209
+#: ../classes/deprecated/wpdk-roles-caps.php:187
+#: ../classes/deprecated/wpdk-roles-caps.php:1211
 msgid "Capability name cannot be empty."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:190
-#: ../classes/deprecated/wpdk-roles-caps.php:1214
+#: ../classes/deprecated/wpdk-roles-caps.php:192
+#: ../classes/deprecated/wpdk-roles-caps.php:1216
 msgid "Capability name can contain only letters, digits, _ and - chars."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:196
-#: ../classes/deprecated/wpdk-roles-caps.php:1220
+#: ../classes/deprecated/wpdk-roles-caps.php:198
+#: ../classes/deprecated/wpdk-roles-caps.php:1222
 #, php-format
 msgid "Can't add a capability to the unexistent role %s."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:201
-#: ../classes/deprecated/wpdk-roles-caps.php:1225
+#: ../classes/deprecated/wpdk-roles-caps.php:203
+#: ../classes/deprecated/wpdk-roles-caps.php:1227
 msgid "Can't add a capability with the same name of an already existent one."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:231
-#: ../classes/deprecated/wpdk-roles-caps.php:276
-#: ../classes/deprecated/wpdk-roles-caps.php:322
-#: ../classes/deprecated/wpdk-roles-caps.php:789
-#: ../classes/deprecated/wpdk-roles-caps.php:1255
-#: ../classes/deprecated/wpdk-roles-caps.php:1300
-#: ../classes/deprecated/wpdk-roles-caps.php:1346
-#: ../classes/deprecated/wpdk-roles-caps.php:1813
+#: ../classes/deprecated/wpdk-roles-caps.php:233
+#: ../classes/deprecated/wpdk-roles-caps.php:278
+#: ../classes/deprecated/wpdk-roles-caps.php:324
+#: ../classes/deprecated/wpdk-roles-caps.php:791
+#: ../classes/deprecated/wpdk-roles-caps.php:1257
+#: ../classes/deprecated/wpdk-roles-caps.php:1302
+#: ../classes/deprecated/wpdk-roles-caps.php:1348
+#: ../classes/deprecated/wpdk-roles-caps.php:1815
 #, php-format
 msgid "User %d does not exist in system."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:236
-#: ../classes/deprecated/wpdk-roles-caps.php:360
-#: ../classes/deprecated/wpdk-roles-caps.php:403
-#: ../classes/deprecated/wpdk-roles-caps.php:445
-#: ../classes/deprecated/wpdk-roles-caps.php:1260
-#: ../classes/deprecated/wpdk-roles-caps.php:1384
-#: ../classes/deprecated/wpdk-roles-caps.php:1427
-#: ../classes/deprecated/wpdk-roles-caps.php:1469
+#: ../classes/deprecated/wpdk-roles-caps.php:238
+#: ../classes/deprecated/wpdk-roles-caps.php:362
+#: ../classes/deprecated/wpdk-roles-caps.php:405
+#: ../classes/deprecated/wpdk-roles-caps.php:447
+#: ../classes/deprecated/wpdk-roles-caps.php:1262
+#: ../classes/deprecated/wpdk-roles-caps.php:1386
+#: ../classes/deprecated/wpdk-roles-caps.php:1429
+#: ../classes/deprecated/wpdk-roles-caps.php:1471
 #, php-format
 msgid "Role %s does not exist in system."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:243
-#: ../classes/deprecated/wpdk-roles-caps.php:1267
+#: ../classes/deprecated/wpdk-roles-caps.php:245
+#: ../classes/deprecated/wpdk-roles-caps.php:1269
 #, php-format
 msgid "The main role of user \"%s\" is already \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:281
-#: ../classes/deprecated/wpdk-roles-caps.php:1305
+#: ../classes/deprecated/wpdk-roles-caps.php:283
+#: ../classes/deprecated/wpdk-roles-caps.php:1307
 #, php-format
 msgid "Unable to add unexistent capability \"%s\" to user \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:289
-#: ../classes/deprecated/wpdk-roles-caps.php:1313
+#: ../classes/deprecated/wpdk-roles-caps.php:291
+#: ../classes/deprecated/wpdk-roles-caps.php:1315
 #, php-format
 msgid "User \"%s\" has already the capability \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:329
-#: ../classes/deprecated/wpdk-roles-caps.php:1353
+#: ../classes/deprecated/wpdk-roles-caps.php:331
+#: ../classes/deprecated/wpdk-roles-caps.php:1355
 #, php-format
 msgid "User \"%s\" does not have the capability \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:365
-#: ../classes/deprecated/wpdk-roles-caps.php:1389
+#: ../classes/deprecated/wpdk-roles-caps.php:367
+#: ../classes/deprecated/wpdk-roles-caps.php:1391
 #, php-format
 msgid "Unable to add unexistent capability \"%s\" to role \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:371
-#: ../classes/deprecated/wpdk-roles-caps.php:1395
+#: ../classes/deprecated/wpdk-roles-caps.php:373
+#: ../classes/deprecated/wpdk-roles-caps.php:1397
 #, php-format
 msgid "Role \"%s\" has already the capability \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:408
-#: ../classes/deprecated/wpdk-roles-caps.php:1432
+#: ../classes/deprecated/wpdk-roles-caps.php:410
+#: ../classes/deprecated/wpdk-roles-caps.php:1434
 #, php-format
 msgid "Unable to delete unexistent capability \"%s\" to role \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:414
-#: ../classes/deprecated/wpdk-roles-caps.php:1438
+#: ../classes/deprecated/wpdk-roles-caps.php:416
+#: ../classes/deprecated/wpdk-roles-caps.php:1440
 #, php-format
 msgid "Role \"%s\" has not the capability \"%s\"."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-roles-caps.php:1172
+#: ../classes/deprecated/wpdk-roles-caps.php:1174
 msgid "Role name can contain only letters, digits, _ and - chars."
 msgstr ""
 
@@ -441,7 +438,7 @@ msgid "Last login"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-user-helper.php:475
-#: ../classes/users/wpdk-user.php:1010
+#: ../classes/users/wpdk-user.php:1030
 msgid "Last logout"
 msgstr ""
 
@@ -535,8 +532,8 @@ msgid ""
 msgstr ""
 
 #: ../classes/deprecated/wpdk-user-helper.php:1573
-#: ../classes/users/wpdk-user.php:976 ../classes/users/wpdk-user.php:992
-#: ../classes/users/wpdk-user.php:1011
+#: ../classes/users/wpdk-user.php:996 ../classes/users/wpdk-user.php:1012
+#: ../classes/users/wpdk-user.php:1031
 msgid "m/d/Y H:i"
 msgstr ""
 
@@ -607,66 +604,108 @@ msgstr ""
 msgid "Thanks, please check your email for retrive username and password"
 msgstr ""
 
-#: ../classes/ui/wpdk-dynamic-table.php:198
-msgid "Add"
+#: ../classes/post/wpdk-post.php:499
+msgid "A newly created post, with no content"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:500
+msgid "The post is draft"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:501
+msgid "The post to publish in the future"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:502
+msgid "The post is a revision"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:503
+msgid "The post is pending review"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:504
+msgid "Not visible to users who are not logged in"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:505
+msgid "A published post or page"
+msgstr ""
+
+#: ../classes/post/wpdk-post.php:506
+msgid "The post is in trashbin"
 msgstr ""
 
 #: ../classes/ui/wpdk-dynamic-table.php:199
+msgid "Add"
+msgstr ""
+
+#: ../classes/ui/wpdk-dynamic-table.php:200
 msgid "Add a new empty row"
 msgstr ""
 
-#: ../classes/ui/wpdk-dynamic-table.php:215
+#: ../classes/ui/wpdk-dynamic-table.php:216
 msgid "Delete"
 msgstr ""
 
-#: ../classes/ui/wpdk-dynamic-table.php:216
+#: ../classes/ui/wpdk-dynamic-table.php:217
 msgid "Delete entire row"
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:375
+#: ../classes/ui/wpdk-listtable-vc.php:374
 msgid "Add New"
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:392
+#: ../classes/ui/wpdk-listtable-vc.php:391
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:397
+#: ../classes/ui/wpdk-listtable-vc.php:396
 msgid "Please, check again your search parameters."
 msgstr ""
 
-#: ../classes/ui/wpdk-pointer.php:125
+#: ../classes/ui/wpdk-pointer.php:127
 msgid "Dismiss"
 msgstr ""
 
-#: ../classes/ui/wpdk-pointer.php:132
+#: ../classes/ui/wpdk-pointer.php:135
 msgid "Next"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:488 ../classes/ui/wpdk-ui.php:491
+#: ../classes/ui/wpdk-ui.php:388
+msgid ""
+"This field is locked for your security. However you can unlock just by click "
+"here."
+msgstr ""
+
+#: ../classes/ui/wpdk-ui.php:498 ../classes/ui/wpdk-ui.php:501
 msgid "Guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:494
+#: ../classes/ui/wpdk-ui.php:504
 msgid "Open the guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2073
+#: ../classes/ui/wpdk-ui.php:2098
 msgid "Reset to default"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2107
+#: ../classes/ui/wpdk-ui.php:2118
+msgid "Submit"
+msgstr ""
+
+#: ../classes/ui/wpdk-ui.php:2160
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-vc.php:811
+#: ../classes/ui/wpdk-view-controller.php:674
 #, php-format
 msgid ""
 "<strong>%s</strong> settings were successfully restored to defaults values!"
 msgstr ""
 
-#: ../classes/ui/wpdk-vc.php:880
+#: ../classes/ui/wpdk-view-controller.php:743
 #, php-format
 msgid "<strong>%s</strong> settings values were successfully updated!"
 msgstr ""
@@ -679,291 +718,291 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:954
+#: ../classes/users/wpdk-user.php:974
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, have a look below for additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:970
+#: ../classes/users/wpdk-user.php:990
 msgid "Login information"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:975
+#: ../classes/users/wpdk-user.php:995
 msgid "Last success login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:982
+#: ../classes/users/wpdk-user.php:1002
 msgid "# success login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:991
+#: ../classes/users/wpdk-user.php:1011
 msgid "Last wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:998
+#: ../classes/users/wpdk-user.php:1018
 msgid "# wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1005
+#: ../classes/users/wpdk-user.php:1025
 msgid "Logout information"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1017 ../classes/users/wpdk-user.php:1022
+#: ../classes/users/wpdk-user.php:1037 ../classes/users/wpdk-user.php:1042
 msgid "Status"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1032
+#: ../classes/users/wpdk-user.php:1052
 msgid "Description"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1033
+#: ../classes/users/wpdk-user.php:1053
 msgid "Describe the status"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1072
+#: ../classes/users/wpdk-user.php:1092
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
 "additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1741
+#: ../classes/users/wpdk-user.php:1761
 msgid "Somebody who has access to all the administration features"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1742
+#: ../classes/users/wpdk-user.php:1762
 msgid ""
 "Somebody who can publish and manage posts and pages as well as manage other "
 "users posts, etc."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1743
+#: ../classes/users/wpdk-user.php:1763
 msgid "Somebody who can publish and manage their own posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1744
+#: ../classes/users/wpdk-user.php:1764
 msgid "Somebody who can write and manage their posts but not publish them"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1745
+#: ../classes/users/wpdk-user.php:1765
 msgid "Somebody who can only manage their profile"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1982
+#: ../classes/users/wpdk-user.php:2001
 msgid "Allows access to Administration Panel options: Plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1983
+#: ../classes/users/wpdk-user.php:2002
 msgid "add_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1984
+#: ../classes/users/wpdk-user.php:2003
 msgid "create_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1985
+#: ../classes/users/wpdk-user.php:2004
 msgid "delete_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1986
+#: ../classes/users/wpdk-user.php:2005
 msgid "delete_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1987
+#: ../classes/users/wpdk-user.php:2006
 msgid "delete_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1988
+#: ../classes/users/wpdk-user.php:2007
 msgid "delete_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1989
+#: ../classes/users/wpdk-user.php:2008
 msgid "delete_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1990
+#: ../classes/users/wpdk-user.php:2009
 msgid "delete_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1991
+#: ../classes/users/wpdk-user.php:2010
 msgid "delete_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1992
+#: ../classes/users/wpdk-user.php:2011
 msgid "delete_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1993
+#: ../classes/users/wpdk-user.php:2012
 msgid "delete_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1994
+#: ../classes/users/wpdk-user.php:2013
 msgid "delete_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1995
+#: ../classes/users/wpdk-user.php:2014
 msgid "edit_dashboard"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1996
+#: ../classes/users/wpdk-user.php:2015
 msgid "No longer used."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1997
+#: ../classes/users/wpdk-user.php:2016
 msgid "edit_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1998
+#: ../classes/users/wpdk-user.php:2017
 msgid "edit_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1999
+#: ../classes/users/wpdk-user.php:2018
 msgid "edit_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2000
+#: ../classes/users/wpdk-user.php:2019
 msgid "edit_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2001
+#: ../classes/users/wpdk-user.php:2020
 msgid "edit_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2002
+#: ../classes/users/wpdk-user.php:2021
 msgid "edit_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2003
+#: ../classes/users/wpdk-user.php:2022
 msgid "edit_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2004
+#: ../classes/users/wpdk-user.php:2023
 msgid "edit_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2005
+#: ../classes/users/wpdk-user.php:2024
 msgid "edit_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2006
+#: ../classes/users/wpdk-user.php:2025
 msgid ""
 "Allows access to Administration Panel options: Appearance > Widgets, "
 "Appearance > Menus, Appearance > Theme Options if they are supported by the "
 "current theme, Appearance > Background, Appearance > Header "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2007
+#: ../classes/users/wpdk-user.php:2026
 msgid "edit_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2008
+#: ../classes/users/wpdk-user.php:2027
 msgid "Allows access to Administration Panel options: Users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2009
+#: ../classes/users/wpdk-user.php:2028
 msgid "import"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2010
+#: ../classes/users/wpdk-user.php:2029
 msgid "Allows access to Administration Panel options: Plugins > Add New "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2011
+#: ../classes/users/wpdk-user.php:2030
 msgid ""
 "Allows access to Administration Panel options: Appearance > Add New Themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2012
+#: ../classes/users/wpdk-user.php:2031
 msgid "list_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2013
+#: ../classes/users/wpdk-user.php:2032
 msgid ""
 "Allows access to Administration Panel options: Posts > Categories, Links > "
 "Categories"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2014
+#: ../classes/users/wpdk-user.php:2033
 msgid "Allows access to Administration Panel options: Links Links > Add New"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2015
+#: ../classes/users/wpdk-user.php:2034
 msgid ""
 "Allows access to Administration Panel options: Settings > General, Settings "
 "> Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, "
 "Settings > Miscellaneous"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2016
+#: ../classes/users/wpdk-user.php:2035
 msgid ""
 "Allows users to moderate comments from the Comments SubPanel (although a "
 "user needs the edit_posts Capability in order to access this)"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2017
+#: ../classes/users/wpdk-user.php:2036
 msgid "promote_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2018
+#: ../classes/users/wpdk-user.php:2037
 msgid "publish_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2019
+#: ../classes/users/wpdk-user.php:2038
 msgid ""
 "See and use the \"publish\" button when editing their post (otherwise they "
 "can only save drafts). Can use XML-RPC to publish (otherwise they get a "
 "\"Sorry, you can not post on this weblog or category.\")"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2020
+#: ../classes/users/wpdk-user.php:2039
 msgid ""
 "Allows access to Administration Panel options: Dashboard, Users > Your "
 "Profile. Used nowhere in the core code except the menu.php"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2021
+#: ../classes/users/wpdk-user.php:2040
 msgid "read_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2022
+#: ../classes/users/wpdk-user.php:2041
 msgid "read_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2023
+#: ../classes/users/wpdk-user.php:2042
 msgid "remove_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2024
+#: ../classes/users/wpdk-user.php:2043
 msgid ""
 "Allows access to Administration Panel options: Appearance, Appearance > "
 "Themes "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2025
+#: ../classes/users/wpdk-user.php:2044
 msgid ""
 "Allows user to post HTML markup or even JavaScript code in pages, posts, and "
 "comments. Note: Enabling this option for untrusted users may result in their "
 "posting malicious or poorly formatted code. "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2026
+#: ../classes/users/wpdk-user.php:2045
 msgid "unfiltered_upload"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2027
+#: ../classes/users/wpdk-user.php:2046
 msgid "update_core"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2028
+#: ../classes/users/wpdk-user.php:2047
 msgid "update_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2029
+#: ../classes/users/wpdk-user.php:2048
 msgid "update_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2030
+#: ../classes/users/wpdk-user.php:2049
 msgid "Allows access to Administration Panel options: Media, Media > Add New "
 msgstr ""
 

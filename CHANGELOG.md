@@ -30,6 +30,15 @@ For more information on SemVer, please visit http://semver.org/.
 * Minor fixes
 * Restyling swipe button color (flat)
 
+#### Experimental
+
+* Added `WPDKTerms` and `WPDKTerm` model class
+
+#### Bugs
+
+* Fixed notice/warning on shortcode `wpdk_gist` when missing attribute `file`
+
+
 
 
 ## Version 1.1.1

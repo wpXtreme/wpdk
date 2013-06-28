@@ -100,25 +100,29 @@ function wpdk_is_ajax() {
  *
  * @return bool TRUE if the current page is a child of another
  */
-function wpdk_is_child( $parent = '' ) {
-    global $post;
+function wpdk_is_child( $parent = '' )
+{
+  global $post;
 
-    $parent_obj   = get_page( $post->post_parent, ARRAY_A );
-    $parent       = (string)$parent;
-    $parent_array = (array)$parent;
+  $parent_obj   = get_page( $post->post_parent, ARRAY_A );
+  $parent       = (string)$parent;
+  $parent_array = (array)$parent;
 
-    if ( $parent_obj && isset( $parent_obj['ID'] ) ) {
-        if ( in_array( (string)$parent_obj['ID'], $parent_array ) ) {
-            return true;
-        } elseif ( in_array( (string)$parent_obj['post_title'], $parent_array ) ) {
-            return true;
-        } elseif ( in_array( (string)$parent_obj['post_name'], $parent_array ) ) {
-            return true;
-        } else {
-            return false;
-        }
+  if ( $parent_obj && isset( $parent_obj['ID'] ) ) {
+    if ( in_array( (string)$parent_obj['ID'], $parent_array ) ) {
+      return true;
     }
-    return false;
+    elseif ( in_array( (string)$parent_obj['post_title'], $parent_array ) ) {
+      return true;
+    }
+    elseif ( in_array( (string)$parent_obj['post_name'], $parent_array ) ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  return false;
 }
 
 // -----------------------------------------------------------------------------------------------------------------
