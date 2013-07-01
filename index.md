@@ -2,13 +2,13 @@ Welcome to the official documentation of **WPDK**.
 
 WPDK is the acronym of **WordPress Development Kit**. It is a framework written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, easy and enjoyable the creation and maintenance of plugins and themes**.
 
-If you want to read an overview of WPDK and its purpose, please [click here].
+If you want to read an overview of WPDK and its purpose, please [click here](@ref page_overview).
 
 These are the main characteristics of WPDK:
 
 * **Completely object oriented** [read more]
 * **MVC pattern compliant** [read more]
-* **Internal help and documentation in Doxygen syntax** [read more]
+* **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** [read more]
 * **Availability of tons of useful classes and helpers for enhancing your WordPress creations** [read more]
 * **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** [read more]
 
@@ -16,16 +16,28 @@ These are the main advantages and facilities you will have in developing with WP
 
 * **Your WordPress develop becomes easier**, thanks to the evergrowing WordPress objects that WPDK makes immediately available for you: quickly generation of plugin infrastructure, shortcodes manipulation, filesystem and datetime helpers, ecc.
 
-* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and doxygen internal documentation allows full and direct help inline during develop.
+* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and internal documentation written in PHPDoc format allows full and direct help inline during develop.
 
 * **Your WordPress develop becomes enjoyable**, thanks to the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations.
 
-* **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you load, parse and execute only the PHP source code necessary to the HTTP request incoming from client. *Any other not necessary PHP source code is simply not loaded at all*.
+* **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute only the PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*.
 
 @page page_overview Overview
 
-These are the main rules to follow in order to write a WordPress plugin/theme compatible with the WPDK.
+Developing WordPress plugins and themes in a productive, easy and enjoyable form is one of the goals of every WordPress developer.
 
+For this reason, wpXtreme team has created *a PHP framework* that makes this goal more easy to achieve. This framework is called **WPDK**, an acronym for *WordPress Development Kit*. It is substantially a collection of objects expressly created to allow developer to focus the idea, instead of the environment in which the idea has to be manifested.
+
+WPDK encapsulates many aspects of developing a WordPress plugin or theme, and automatically performs tasks that in general are always demanded to a developer. For example, in creating the main object that contains the basic infrastructure of your plugin, you can simply extends the WPDKWordPressPlugin object, and with this simple action you will have a great series of advantages, including:
+
+* The immediate availability of your plugin data, like name, version and textdomain.
+* The immediate availability of useful paths related to your plugin, like the plugin folder, the plugin main file name, the css and javascript folders, ecc.
+* The automatic creation of hooks to WordPress filters related to activation, loading and deactivation of the plugin.
+* A clear flow distinction between code executed in WordPress admin area, and WordPress front end. In this way, you can quickly and easily insert your code in the right place, thus increasing readability, and plugin performance.
+
+But you have also a great number of useful extensions for your develop: an enhanced database handling, an infrastructure to handle plugin specific configuration, many helpers on array, date and time, crypting, a powerful and dynamic way to create HTML forms and sections for a better user experience, and so on.
+
+You can get all documentation you need about WPDK framework through your PHP IDE ( all code is documented in PHPDoc format compatible with the Doxygen tool ), or navigating this documentation.
 
 @page            page_getting_started Getting Started
 
