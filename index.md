@@ -1,6 +1,6 @@
 Welcome to the official documentation of **WPDK**.
 
-WPDK is the acronym of **WordPress Development Kit**. It is a framework written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, easy and enjoyable the creation and maintenance of plugins and themes**.
+WPDK is the acronym of **WordPress Development Kit**. It is a *PHP framework* written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, easy and enjoyable the creation and maintenance of plugins and themes**.
 
 If you want to read an overview of WPDK and its purpose, please [click here](@ref page_overview).
 
@@ -12,15 +12,15 @@ These are the main characteristics of WPDK:
 * **Availability of tons of useful classes and helpers for enhancing your WordPress creations** [read more]
 * **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** [read more]
 
-These are the main advantages and facilities you will have in developing with WPDK framework:
+Using WPDK framework in your WordPress creations, these are the main advantages and facilities you will have:
 
-* **Your WordPress develop becomes easier**, thanks to the evergrowing WordPress objects that WPDK makes immediately available for you: quickly generation of plugin infrastructure, shortcodes manipulation, filesystem and datetime helpers, ecc.
+* **Your WordPress develop becomes easier**, thanks to the evergrowing WordPress objects that WPDK makes immediately available for you: quick generation of a plugin infrastructure, shortcodes manipulation, filesystem and datetime helpers, ecc.
 
-* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and internal documentation written in PHPDoc format allows full and direct help inline during develop.
+* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and the internal documentation written in PHPDoc format allows you full and direct help inline during develop.
 
 * **Your WordPress develop becomes enjoyable**, thanks to the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations.
 
-* **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute only the PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*.
+* **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
 
 @page page_overview Overview
 
