@@ -1,6 +1,26 @@
-Welcome to WordPress Development Kit (WPDK), the first true MVC and Object Oriented framework for WordPress.
-The WPDK has been create to improve WordPress kernel, enhanced its functions and class and dmake easy write plugin
-and theme for WordPress evironment.
+Welcome to the official documentation of **WPDK**.
+
+WPDK is the acronym of **WordPress Development Kit**. It is a framework written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, easy and enjoyable the creation and maintenance of plugins and themes**.
+
+If you want to read an overview of WPDK and its purpose, please [click here].
+
+These are the main characteristics of WPDK:
+
+* **Completely object oriented** [read more]
+* **MVC pattern compliant** [read more]
+* **Internal help and documentation in Doxygen syntax** [read more]
+* **Availability of tons of useful classes and helpers for enhancing your WordPress creations** [read more]
+* **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** [read more]
+
+These are the main advantages and facilities you will have in developing with WPDK framework:
+
+* **Your WordPress develop becomes easier**, thanks to the evergrowing WordPress objects that WPDK makes immediately available for you: quickly generation of plugin infrastructure, shortcodes manipulation, filesystem and datetime helpers, ecc.
+
+* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and doxygen internal documentation allows full and direct help inline during develop.
+
+* **Your WordPress develop becomes enjoyable**, thanks to the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations.
+
+* **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you load, parse and execute only the PHP source code necessary to the HTTP request incoming from client. *Any other not necessary PHP source code is simply not loaded at all*.
 
 @page page_overview Overview
 
