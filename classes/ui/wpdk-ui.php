@@ -355,8 +355,8 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = implode( ' ', array( trim( $class), trim( $this->class ) , 'wpdk-form-input' ) );
-    $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->class        = implode( ' ', array( trim( $class ), trim( $this->class ), 'wpdk-form-input' ) );
+    $input->data = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
     $input->disabled     = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
