@@ -16,9 +16,11 @@ Using WPDK framework in your WordPress creations, these are the main advantages 
 
 * **Your WordPress develop becomes easier**, thanks to the evergrowing WordPress objects that WPDK makes immediately available for you: quick generation of a plugin infrastructure, shortcodes manipulation, filesystem and datetime helpers, ecc.
 
+* **Your WordPress develop becomes productive**, because you stop writing the same source code for the same purpose in your WordPress creations. Basic infrastructures for developing plugins and themes for WordPress are embedded into WPDK, and thus immediately available to you in any creation you develop.
+
 * **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and the internal documentation written in PHPDoc format allows you full and direct help inline during develop.
 
-* **Your WordPress develop becomes enjoyable**, thanks to the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations.
+* **Your WordPress develop becomes enjoyable**, because of the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations. But especially because *you can quickly get efficient and powerful results*. See the [WPDK how to] for demos, or [take a look to wpXtreme plugins], all developed using the WPDK technology.
 
 * **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
 
