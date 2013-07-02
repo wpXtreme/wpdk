@@ -4,6 +4,8 @@ WPDK is the acronym of **WordPress Development Kit**. It is a *PHP framework* wr
 
 If you want to read an overview of WPDK and its purpose, please [click here](@ref page_overview).
 
+If you want to see WPDK in action through our how-to, please [click here](@ref page_howto).
+
 These are the main characteristics of WPDK:
 
 * **Completely object oriented** [read more]
@@ -30,7 +32,7 @@ Developing WordPress plugins and themes in a productive, easy and enjoyable form
 
 For this reason, wpXtreme team has created *a PHP framework* that makes this goal more easy to achieve. This framework is called **WPDK**, an acronym for *WordPress Development Kit*. It is substantially a collection of objects expressly created to allow developer to focus the idea, instead of the environment in which the idea has to be manifested.
 
-WPDK encapsulates many aspects of developing a WordPress plugin or theme, and automatically performs tasks that in general are always demanded to a developer. For example, in creating the main object that contains the basic infrastructure of your plugin, you can simply extends the WPDKWordPressPlugin object, and with this simple action you will have a great series of advantages, including:
+*WPDK* encapsulates many aspects of developing a WordPress plugin or theme, and automatically performs tasks that in general are always demanded to a developer. For example, in creating the main object that contains the basic infrastructure of your plugin, you can simply extends the WPDKWordPressPlugin object, and with this simple action you will have a great series of advantages, including:
 
 * The immediate availability of your plugin data, like name, version and textdomain.
 * The immediate availability of useful paths related to your plugin, like the plugin folder, the plugin main file name, the css and javascript folders, ecc.
@@ -39,7 +41,7 @@ WPDK encapsulates many aspects of developing a WordPress plugin or theme, and au
 
 But you have also a great number of useful extensions for your develop: an enhanced database handling, an infrastructure to handle plugin specific configuration, many helpers on array, date and time, crypting, a powerful and dynamic way to create HTML forms and sections for a better user experience, and so on.
 
-You can get all documentation you need about WPDK framework through your PHP IDE ( all code is documented in PHPDoc format compatible with the Doxygen tool ), or navigating this documentation.
+You can get all documentation you need about WPDK framework through your PHP IDE ( all source code is documented in PHPDoc format compatible with the Doxygen tool ), or navigating this documentation.
 
 @page            page_getting_started Getting Started
 
