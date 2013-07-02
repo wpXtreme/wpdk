@@ -4,7 +4,7 @@ WPDK is the acronym of **WordPress Development Kit**. It is a *PHP framework* wr
 
 If you want to read an overview of WPDK and its purpose, please [click here](@ref page_overview).
 
-If you want to see WPDK in action through our how-to, please [click here](@ref page_howto).
+If you want to see examples and how-to about WPDK in action, please [click here](@ref page_howto).
 
 These are the main characteristics of WPDK:
 
@@ -43,20 +43,28 @@ But you have also a great number of useful extensions for your develop: an enhan
 
 You can get all documentation you need about WPDK framework through your PHP IDE ( all source code is documented in PHPDoc format compatible with the Doxygen tool ), or navigating this documentation.
 
-@page            page_getting_started Getting Started
+@page page_install Installing WPDK in your WordPress environment
 
-To start to develop with WPDK framework you just follow these fews rules and suggestions.
+To start developing with *WPDK framework*, first of all you have to install *WPDK* in your WordPress environment. Please follow these simple rules to accomplish this task.
 
-@section         section_getting_started_1 System Requirements
+1. Verify the system requirements:
+  * Wordpress 3.4 or higher (last stable version is highly suggested) - **Note: WordPress MU is not yet supported.**
+  * PHP version 5.2.4 or greater
+  * MySQL version 5.0 or greater
+  * We suggest to update your browser always at its last version, because *WPDK* uses *javascript* language to accomplish some tasks.
+2. Download the zip of *WPDK* framework from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk/tree/production). This is the official stable (production) branch of the framework. If you want to download the framework from other branches of this repo, please remember that *their source code is still experimental*, and then it is not ready to be used in any production environment.
+3. Unzip the framework. You will have its root directory named `wpdk-production`
+4. Copy the entire `wpdk-production` folder in the `wp-content/plugins` directory of your WordPress environment.
 
-* Wordpress 3.4 or higher (last version is suggest)
-* PHP version 5.2.4 or greater
-* MySQL version 5.0 or greater
+Done. *WPDK* framework is installed in your environment.
 
-### Browser compatibility
+**Please note that you won't see WPDK framework in your WordPress plugins dashboard, because WPDK does not need to be activated. Once installed, WPDK is immediately ready and available.**
 
-* We suggest to update your browser always at its last version.
+@page page_howto WPDK How-to
 
+Here you can find a set of examples and how-to about WPDK in action into a WordPress environment.
+
+Any example and/or how-to is available to anyone through GitHub interface. If you want to download and use these examples in your environment, you naturally have to install *WPDK* first: please [follow these rules](@ref page_install) to do that.
 
 @section         section_getting_started_2 Installation
 
