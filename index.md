@@ -66,7 +66,9 @@ Here you can find a set of examples and how-to about WPDK in action into a WordP
 
 Any example and/or how-to is available to anyone through GitHub interface. If you want to download and use these examples in your environment, you naturally have to install *WPDK* first: please [follow these rules](@ref page_install) to do that.
 
-@section         section_getting_started_2 Installation
+* The Hello World! WordPress plugin with *WPDK* - [click here](@ref section_hello_world)
+
+@section  section_hello_world The Hello World! WordPress plugin
 
 1. Copy the `wpdk` folder in your plugin/theme tree
 2. Include the main `wpdk.php`
