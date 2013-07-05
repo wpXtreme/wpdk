@@ -1,6 +1,6 @@
 Welcome to the official documentation of **WPDK**.
 
-WPDK is the acronym of **WordPress Development Kit**. It is a *PHP framework* written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, easy and enjoyable the creation and maintenance of plugins and themes**.
+WPDK is the acronym of **WordPress Development Kit**. It is a *PHP framework* written for WordPress environment, that improves WordPress kernel and enhances its base functions and classes. The primary goal of WPDK is **to make productive, solid and easy to maintain the creation and the evolution of your plugins and themes**.
 
 If you want to read an overview of WPDK and its purpose, please [click here](@ref page_overview).
 
@@ -20,19 +20,23 @@ Using WPDK framework in your WordPress creations, these are the main advantages 
 
 * **Your WordPress develop becomes productive**, because you stop writing the same source code for the same purpose in your WordPress creations. Basic infrastructures for developing plugins and themes for WordPress are embedded into WPDK, and thus immediately available to you in any creation you develop.
 
-* **Your WordPress develop becomes faster**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the OO pattern of WPDK allows smart intellisense, and the internal documentation written in PHPDoc format allows you full and direct help inline during develop.
+* **Your WordPress develop becomes more solid**, thanks to internal structure of WPDK: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the object oriented pattern of WPDK allows smart intellisense, and the internal documentation written in PHPDoc format allows you full and direct help inline during develop.
 
 * **Your WordPress develop becomes enjoyable**, because of the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations. But especially because *you can quickly get efficient and powerful results*. See the [WPDK how to] for demos, or [take a look to wpXtreme plugins], all developed using the WPDK technology.
+
+* **Your WordPress creations becomes easy to maintain**, thanks to object oriented internal infrastructure, and *MVC pattern* compatibility. Encapsulation, inheritance, physical separation between model and view in your develop approach, make clearer, more readable and easier to maintain all your WordPress creations.
 
 * **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
 
 @page page_overview Overview
 
-Developing WordPress plugins and themes in a productive, easy and enjoyable form is one of the goals of every WordPress developer.
+Developing WordPress plugins and themes in a productive, solid form that is also easy to maintain is one of the goals (dreams) of every WordPress developer.
 
 For this reason, wpXtreme team has created *a PHP framework* that makes this goal more easy to achieve. This framework is called **WPDK**, an acronym for *WordPress Development Kit*. It is substantially a collection of objects expressly created to allow developer to focus the idea, instead of the environment in which the idea has to be manifested.
 
-*WPDK* encapsulates many aspects of developing a WordPress plugin or theme, and automatically performs tasks that in general are always demanded to a developer. For example, in creating the main object that contains the basic infrastructure of your plugin, you can simply extends the WPDKWordPressPlugin object, and with this simple action you will have a great series of advantages, including:
+Through its object oriented infrastructure, *WPDK* encapsulates many aspects of developing a WordPress plugin or theme, and automatically performs tasks that in general are always demanded to the right approach of a developer. 
+
+For example, in creating the main object that contains the basic infrastructure of your plugin, using WPDK you can simply extends the WPDKWordPressPlugin object, and with this simple action you will have a great series of advantages, including:
 
 * The immediate availability of your plugin data, like name, version and textdomain.
 * The immediate availability of useful paths related to your plugin, like the plugin folder, the plugin main file name, the css and javascript folders, ecc.
