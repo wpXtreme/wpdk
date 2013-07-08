@@ -8,7 +8,7 @@ If you want to see examples and how-to about WPDK in action, please [click here]
 
 These are the main characteristics of WPDK:
 
-* **Completely object oriented** [read more]
+* **Completely object oriented** [read more](@ref section_object_oriented)
 * **MVC pattern compliant** [read more]
 * **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** [read more]
 * **Availability of tons of useful classes and helpers for enhancing your WordPress creations** [read more]
@@ -27,6 +27,12 @@ Using WPDK framework in your WordPress creations, these are the main advantages 
 * **Your WordPress creations becomes easy to maintain**, thanks to object oriented internal infrastructure, and *MVC pattern* compatibility. Encapsulation, inheritance, physical separation between model and view in your develop approach: all these facts make clearer, more readable and easier to maintain all your WordPress creations.
 
 * **Your WordPress creations become up to 50% faster**, thanks to the WPDK internal autoloading infrastructure: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
+
+@section  section_object_oriented WPDK is completely object oriented
+
+Any element that improves WordPress kernel and enhances its base functions and classes developed into WPDK follows object oriented paradigm, according to the current *PHP* model.
+
+This choice ensures an easier maintenance of source code, and allows you to easily extend the basic features of this framework to create solid and stable results. For example 
 
 @page page_overview Overview
 
@@ -74,15 +80,15 @@ Any example and/or how-to is available to anyone through GitHub interface. If yo
 
 @section  section_hello_world_1 Hello World! WordPress plugin using WPDK - the basic
 
-This how-to creates a simple WordPress plugin and generates through *WPDK* an `Hello World!` menu item in the administration area of your WordPress environment. This code is very simple, and shows a basic, not "*invasive*" way of using *WPDK* in developing a WordPress plugin.
+This how-to creates a simple WordPress plugin and generates, through *WPDK* object WPDKMenu, an `Hello World!` menu item in the administration area of your WordPress environment. This code is very simple, and shows a basic, not *invasive* way of using *WPDK* in developing a WordPress plugin.
 
 Please follow these instructions to see this how-to in action in your WordPress environment.
 
-1. Install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
+1. If not already done, install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
 2. Download the zip of this how-to from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk-sample-menu-1).
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-1-master`
 4. Copy the entire `wpdk-sample-menu-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
-5. Activate the plugin: a new `Hello World!` menu item will appear in admin menu of your WordPress dashboard.
+5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen.
 
 @page   page_how_to How to write a simple Plugin
 
