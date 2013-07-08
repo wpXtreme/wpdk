@@ -11,7 +11,7 @@ These are the main features of *WPDK*:
 * **Completely object oriented** - [read more](@ref page_features)
 * **MVC pattern compliant** - [read more](@ref page_features)
 * **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** - [read more](@ref page_features)
-* **Availability of tons of useful classes and helpers for enhancing your WordPress creations** [read more]
+* **Availability of tons of useful classes and helpers for enhancing your WordPress creations** - [read more](@ref page_features)
 * **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** [read more]
 
 Using *WPDK* framework in your WordPress creations, these are the main advantages and facilities you will have:
@@ -77,6 +77,16 @@ This approach is not embedded at all in WordPress source code. *WPDK* aims to fi
 All *WPDK* documentation is embedded in source code, and is written in *PHPDoc* format compatible to <a href="http://www.stack.nl/~dimitri/doxygen/index.html">Doxygen</a> syntax.
 
 The use of this standard format means that using your preferred IDE ( *PHPStorm, Netbeans, Eclipse, Aptana, ecc.* ), you will always have help inline during develop with *WPDK*. This help is constantly enriched from *WPDK* developers with examples, better explanation of methods and properties, better description of classes, ecc. whenever this framework is updated. No need to search on the net: all documentation about stable *WPDK* objects is always available, and aligned to a well known and popular format.
+
+@section  section_tons_classes WPDK useful classes and helpers
+
+In addition to specific targeted objects, *WPDK* makes available objects that embed some specific features that can enhance and simplify your WordPress develop. These evergrowing available objects are called *helpers*, and include:
+
+* array manipulation - `WPDKArray`
+* crypting data - `WPDKCrypt`
+* local filesystem navigation - `WPDKFilesystem`
+* math functions - `WPDKMath`
+* basic WordPress screen content manipulation - `WPDKScreenHelp`
 
 @page page_install Installing WPDK in your WordPress environment
 
