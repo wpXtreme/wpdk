@@ -124,6 +124,7 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-1-master`
 4. Copy the entire `wpdk-sample-menu-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with WPDK.
 
 @page   page_how_to How to write a simple Plugin
 
