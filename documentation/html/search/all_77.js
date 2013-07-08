@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['wpdk_20how_2dtos',['WPDK How-tos',['../page_howto.html',1,'']]],
   ['widgets',['widgets',['../classWPDKWordPressPlugin.html#a0617a6c6ccf765e6f2effb33968de93b',1,'WPDKWordPressPlugin']]],
   ['widgets_5finit',['widgets_init',['../classWPDKWordPressPlugin.html#a7267980b175ddae08c2cb3dd545e9fae',1,'WPDKWordPressPlugin']]],
   ['willload',['willLoad',['../classWPDKViewController.html#a91e6c8d9df570bd8688e13fc74a68afb',1,'WPDKViewController']]],
@@ -45,6 +46,7 @@ var searchData=
   ['wpdk_2dsettings_2ephp',['wpdk-settings.php',['../wpdk-settings_8php.html',1,'']]],
   ['wpdk_2dshortcode_2ephp',['wpdk-shortcode.php',['../wpdk-shortcode_8php.html',1,'']]],
   ['wpdk_2dtableview_2ephp',['wpdk-tableview.php',['../wpdk-tableview_8php.html',1,'']]],
+  ['wpdk_2dterms_2ephp',['wpdk-terms.php',['../wpdk-terms_8php.html',1,'']]],
   ['wpdk_2dtwitter_2dbootstrap_2ephp',['wpdk-twitter-bootstrap.php',['../wpdk-twitter-bootstrap_8php.html',1,'']]],
   ['wpdk_2dui_2ephp',['wpdk-ui.php',['../wpdk-ui_8php.html',1,'']]],
   ['wpdk_2dupdate_2ephp',['wpdk-update.php',['../wpdk-update_8php.html',1,'']]],

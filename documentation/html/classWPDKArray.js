@@ -5,7 +5,7 @@ var classWPDKArray =
     [ "arrayToObject", "classWPDKArray.html#a7a974739484e790f47d81f150ded04ad", null ],
     [ "arrayWithKey", "classWPDKArray.html#af2987ffc653c76a8e14657375be11cae", null ],
     [ "httpBuildQuery", "classWPDKArray.html#abdb28acf4949a56165ef319dc5d6a92d", null ],
-    [ "insert", "classWPDKArray.html#abd0ad6a38baab47609a4fb794a9f40c0", null ],
+    [ "insert", "classWPDKArray.html#ad246335ed1f11dbc1fe13ba489b22ea9", null ],
     [ "insertKeyValuePairs", "classWPDKArray.html#a30ef796539cee3af7901dba9d091dcf5", null ],
     [ "objectToArray", "classWPDKArray.html#af6a0304133f3cf578a4349a9ccde4dab", null ],
     [ "prepend", "classWPDKArray.html#a128effb7f1359ce25f6ea42d69b5f59e", null ],

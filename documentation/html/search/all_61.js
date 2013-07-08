@@ -7,6 +7,7 @@ var searchData=
   ['addcronjob',['addCronJob',['../classWPDKWordPressPlugin.html#acddd1805e272179f61c77c6f70994008',1,'WPDKWordPressPlugin']]],
   ['adddivider',['addDivider',['../classWPDKMenu.html#ac8d0fdfd401255b427461f7dee81a11a',1,'WPDKMenu']]],
   ['addsubmenu',['addSubMenu',['../classWPDKMenu.html#a582e3977d65929930826b5f9c35ffaf8',1,'WPDKMenu']]],
+  ['addsubmenuat',['addSubMenuAt',['../classWPDKMenu.html#a1029c4a578eb45309167a1240eea6a59',1,'WPDKMenu']]],
   ['addsubview',['addSubview',['../classWPDKView.html#a951afa7efc6afd3c538a839092153522',1,'WPDKView']]],
   ['addtab',['addTab',['../classWPDKScreenHelp.html#a443ac36fe3007c1a9e44867342ebe168',1,'WPDKScreenHelp\addTab()'],['../classWPDKjQueryTabsView.html#ab68804d653925867d756ddf1c5b759a1',1,'WPDKjQueryTabsView\addTab()']]],
   ['admin',['admin',['../classWPDKWordPressPlugin.html#a0418d22e14785132c232ef68a32d0659',1,'WPDKWordPressPlugin']]],

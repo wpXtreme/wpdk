@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.1.2</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -123,7 +123,7 @@ $(document).ready(function(){initNavTree('wpdk-array_8php_source.html','');});
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> ( array_merge( $arrayStart, array( $key =&gt; $val ), $arrayEnd ) );</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classWPDKArray.html#abd0ad6a38baab47609a4fb794a9f40c0">   54</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKArray.html#abd0ad6a38baab47609a4fb794a9f40c0" title="Insert an array in array.">insert</a>( $arr, $new, $index = 0 ) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classWPDKArray.html#ad246335ed1f11dbc1fe13ba489b22ea9">   54</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKArray.html#ad246335ed1f11dbc1fe13ba489b22ea9" title="Insert an array in array.">insert</a>( &amp;$arr, $new, $index = 0 ) {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    $arrayEnd   = array_splice( $arr, $index );</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    $arrayStart = array_splice( $arr, 0, $index );</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> ( array_merge( $arrayStart, $new, $arrayEnd ) );</div>

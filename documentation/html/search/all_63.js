@@ -11,5 +11,6 @@ var searchData=
   ['credits',['credits',['../classWPDKAboutViewController.html#a948ca09d965201f36e3f9b9f39488f7a',1,'WPDKAboutViewController']]],
   ['cron_5fschedules',['cron_schedules',['../classWPDKWordPressPlugin.html#acb31a0355c030aa974c8a401646ef53a',1,'WPDKWordPressPlugin']]],
   ['current_5furl',['current_url',['../classWPDKWordPressPlugin.html#a0d67067dab147220191c4e729e1c4bc1',1,'WPDKWordPressPlugin']]],
-  ['currenturl',['currentURL',['../classWPDKWordPressPlugin.html#a1ab68ee97aef151c675bc3484de2f4b5',1,'WPDKWordPressPlugin']]]
+  ['currenturl',['currentURL',['../classWPDKWordPressPlugin.html#a1ab68ee97aef151c675bc3484de2f4b5',1,'WPDKWordPressPlugin']]],
+  ['credits',['Credits',['../page_credits.html',1,'']]]
 ];

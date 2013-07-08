@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.1.2</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -140,6 +140,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a47efba9d1e4441c79e5b97d66f5caf2c"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKMenu.html#a47efba9d1e4441c79e5b97d66f5caf2c">renderByArray</a> ($menus)</td></tr>
 <tr class="memdesc:a47efba9d1e4441c79e5b97d66f5caf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render by array.  <a href="#a47efba9d1e4441c79e5b97d66f5caf2c">More...</a><br/></td></tr>
 <tr class="separator:a47efba9d1e4441c79e5b97d66f5caf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1029c4a578eb45309167a1240eea6a59"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKMenu.html#a1029c4a578eb45309167a1240eea6a59">addSubMenuAt</a> (&amp;$menus, $menu_item, $index)</td></tr>
+<tr class="memdesc:a1029c4a578eb45309167a1240eea6a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add submenu.  <a href="#a1029c4a578eb45309167a1240eea6a59">More...</a><br/></td></tr>
+<tr class="separator:a1029c4a578eb45309167a1240eea6a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -325,6 +328,99 @@ $menu-&gt;render();
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classWPDKSubMenu.html">WPDKSubMenu</a> </dd></dl>
 
 <p>Definition at line <a class="el" href="wpdk-menu_8php_source.html#l00274">274</a> of file <a class="el" href="wpdk-menu_8php_source.html">wpdk-menu.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1029c4a578eb45309167a1240eea6a59"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static addSubMenuAt </td>
+          <td>(</td>
+          <td class="paramtype">&amp;&#160;</td>
+          <td class="paramname"><em>$menus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$menu_item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add submenu. </p>
+<p>Add a submenu item at index position into the <code>$menus</code> array,</p>
+<h3>Sample</h3>
+<pre class="fragment">$menus = array(
+  'wpx_ras_main' =&gt; array(
+    'menuTitle'  =&gt; __( 'REST API Server', WPXRESTAPISERVER_TEXTDOMAIN ),
+    'capability' =&gt; self::MENU_CAPABILITY,
+    'icon'       =&gt; $icon_menu,
+    'subMenus'   =&gt; array(
+
+      array(
+        'menuTitle' =&gt;  __( 'Servers', WPXRESTAPISERVER_TEXTDOMAIN ),
+        'viewController' =&gt; 'WPXRESTAPIServerServersListTableViewController',
+        'capability'     =&gt; self::MENU_CAPABILITY,
+      ),
+
+      WPDKSubMenuDivider::DIVIDER,
+
+      array(
+        'menuTitle' =&gt;  __( 'Preferences' ),
+        'viewController' =&gt; 'WPXRESTAPIServerConfigurationCoreViewController',
+        'capability'     =&gt; self::MENU_CAPABILITY,
+      ),
+      array(
+        'menuTitle' =&gt;  __( 'About' ),
+        'capability'     =&gt; self::MENU_CAPABILITY,
+        'viewController' =&gt; 'WPXRESTAPIServerAboutViewController',
+      ),
+    )
+  )
+);
+
+$new = array(
+  'menuTitle'      =&gt; __( 'New Menu' ),
+  'viewController' =&gt; 'WPXRESTAPIServerConfigurationCoreViewController',
+  'capability'     =&gt; self::MENU_CAPABILITY,
+);
+
+WPDKMenu::addSubMenuAt( $menus, $new, 2 );
+
+WPDKMenu::renderByArray( $menus );
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$menus</td><td>Array menu used in <a class="el" href="classWPDKMenu.html#a47efba9d1e4441c79e5b97d66f5caf2c" title="Render by array.">WPDKMenu::renderByArray()</a> method </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$menu_item</td><td>Single new array to add </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$index</td><td>Start position from the first menu item (zero base).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+
+<p>Definition at line <a class="el" href="wpdk-menu_8php_source.html#l00359">359</a> of file <a class="el" href="wpdk-menu_8php_source.html">wpdk-menu.php</a>.</p>
 
 </div>
 </div>

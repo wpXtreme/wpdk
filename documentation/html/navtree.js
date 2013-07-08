@@ -2,9 +2,9 @@ var NAVTREE =
 [
   [ "WPDK", "index.html", [
     [ "Overview", "page_overview.html", null ],
-    [ "Getting Started", "page_getting_started.html", [
-      [ "System Requirements", "page_getting_started.html#section_getting_started_1", null ],
-      [ "Installation", "page_getting_started.html#section_getting_started_2", null ]
+    [ "Installing WPDK in your WordPress environment", "page_install.html", null ],
+    [ "WPDK How-tos", "page_howto.html", [
+      [ "Hello World! WordPress plugin using WPDK - the basic", "page_howto.html#section_hello_world_1", null ]
     ] ],
     [ "How to write a simple Plugin", "page_how_to.html", [
       [ "Overview", "page_how_to.html#page_how_to_plugin_1", null ],
@@ -17,8 +17,7 @@ var NAVTREE =
       [ "Commodity", "page_how_to.html#page_how_to_plugin_7", null ],
       [ "Writing code in your plugin specifically related to WordPress admin area", "page_how_to.html#page_how_to_plugin_8", null ]
     ] ],
-    [ "Samples", "page_sample.html", null ],
-    [ "Thanks", "page_thanks.html", null ],
+    [ "Credits", "page_credits.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Data Structures", null, [
@@ -44,8 +43,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "WPDKCRUD_8php.html",
-"classWPDKViewController.html#a8b267aa0adca2018097f6f6f4c804d46",
-"wpdk-view-controller_8php.html"
+"classWPDKViewController.html#a5ef02115477cfad473df2455da5a908e",
+"wpdk-user-helper_8php_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

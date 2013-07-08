@@ -3,6 +3,7 @@ var classWPDKMenu =
     [ "__construct", "classWPDKMenu.html#abb6a9572b09068650cfc96625e89f0a1", null ],
     [ "addDivider", "classWPDKMenu.html#ac8d0fdfd401255b427461f7dee81a11a", null ],
     [ "addSubMenu", "classWPDKMenu.html#a582e3977d65929930826b5f9c35ffaf8", null ],
+    [ "addSubMenuAt", "classWPDKMenu.html#a1029c4a578eb45309167a1240eea6a59", null ],
     [ "menu", "classWPDKMenu.html#a3a2115914dd3e97649dad05a1a13d032", null ],
     [ "render", "classWPDKMenu.html#afde88292c44dc59faf017738dae6dffb", null ],
     [ "renderByArray", "classWPDKMenu.html#a47efba9d1e4441c79e5b97d66f5caf2c", null ],

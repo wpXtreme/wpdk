@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.1.2</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -299,8 +299,8 @@ $(document).ready(function(){initNavTree('wpdk-ui_8php_source.html','');});
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    $input               = <span class="keyword">new</span> WPDKHTMLTagInput( <span class="stringliteral">&#39;&#39;</span>, $this-&gt;name, $this-&gt;<span class="keywordtype">id</span> );</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    $input-&gt;type         = $type;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    $input-&gt;class        = implode( <span class="charliteral">&#39; &#39;</span>, array( trim( $class), trim( $this-&gt;<span class="keyword">class</span> ) , <span class="stringliteral">&#39;wpdk-form-input&#39;</span> ) );</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    $input-&gt;data         = isset( $this-&gt;item[<span class="stringliteral">&#39;data&#39;</span>] ) ? $this-&gt;item[<span class="stringliteral">&#39;data&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    $input-&gt;class        = implode( <span class="charliteral">&#39; &#39;</span>, array( trim( $class ), trim( $this-&gt;<span class="keyword">class</span> ), <span class="stringliteral">&#39;wpdk-form-input&#39;</span> ) );</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    $input-&gt;data = isset( $this-&gt;item[<span class="stringliteral">&#39;data&#39;</span>] ) ? $this-&gt;item[<span class="stringliteral">&#39;data&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    $input-&gt;value        = isset( $this-&gt;item[<span class="stringliteral">&#39;value&#39;</span>] ) ? $this-&gt;item[<span class="stringliteral">&#39;value&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    $input-&gt;autocomplete = isset( $this-&gt;item[<span class="stringliteral">&#39;autocomplete&#39;</span>] ) ? $this-&gt;item[<span class="stringliteral">&#39;autocomplete&#39;</span>] : null;</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    $input-&gt;disabled     = isset( $this-&gt;item[<span class="stringliteral">&#39;disabled&#39;</span>] ) ? $this-&gt;item[<span class="stringliteral">&#39;disabled&#39;</span>] ? <span class="stringliteral">&#39;disabled&#39;</span> : null : null;</div>
