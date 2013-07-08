@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['wpdkaboutviewcontroller',['WPDKAboutViewController',['../classWPDKAboutViewController.html',1,'']]],
   ['wpdkarray',['WPDKArray',['../classWPDKArray.html',1,'']]],
   ['wpdkcapabilities',['WPDKCapabilities',['../classWPDKCapabilities.html',1,'']]],
   ['wpdkcapability',['WPDKCapability',['../classWPDKCapability.html',1,'']]],

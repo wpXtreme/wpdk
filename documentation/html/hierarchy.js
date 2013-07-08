@@ -45,7 +45,6 @@ var hierarchy =
       [ "WPDKMetaBoxView", "classWPDKMetaBoxView.html", null ]
     ] ],
     [ "WPDKViewController", "classWPDKViewController.html", [
-      [ "WPDKAboutViewController", "classWPDKAboutViewController.html", null ],
       [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", null ]
     ] ],
     [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ],

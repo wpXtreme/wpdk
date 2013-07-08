@@ -1,6 +1,5 @@
 var annotated =
 [
-    [ "WPDKAboutViewController", "classWPDKAboutViewController.html", "classWPDKAboutViewController" ],
     [ "WPDKArray", "classWPDKArray.html", "classWPDKArray" ],
     [ "WPDKCapabilities", "classWPDKCapabilities.html", "classWPDKCapabilities" ],
     [ "WPDKCapability", "classWPDKCapability.html", "classWPDKCapability" ],

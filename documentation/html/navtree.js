@@ -42,9 +42,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"WPDKCRUD_8php.html",
-"classWPDKViewController.html#a5ef02115477cfad473df2455da5a908e",
-"wpdk-user-helper_8php_source.html"
+"annotated.html",
+"classWPDKWordPressAdmin.html#a02948281a55a5d255166ae0d0c7ce2a0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
