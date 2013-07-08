@@ -68,7 +68,7 @@ For example, *WPDK* implements a generic `WPDKViewController` object, that handl
 
 Two specializations of this basic object are `WPDKAboutViewController`, that handles display of credits/info about a plugin, and `WPDKjQueryTabsViewController`, that handles display of jQuery tabs.
 
-Following this approach, you can easily build complex and powerful views, separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
+Following *MVC* approach, you can easily build complex and powerful views, separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
 
 This approach is not embedded at all in WordPress source code. *WPDK* aims to fill this gap.
 
@@ -80,7 +80,7 @@ The use of this standard format means that using your preferred IDE ( *PHPStorm,
 
 @section  section_tons_classes WPDK useful classes and helpers
 
-In addition to specific targeted objects, *WPDK* makes available objects that embed some specific features that can enhance and simplify your WordPress develop. These evergrowing available objects are called *helpers*, and include:
+In addition to specific targeted objects, *WPDK* makes available a set of objects that embed some specific features that can enhance and simplify your WordPress develop. These evergrowing available objects are called *helpers*, and include:
 
 * array manipulation - `WPDKArray`
 * crypting data - `WPDKCrypt`
