@@ -68,7 +68,7 @@ For example, *WPDK* implements a generic `WPDKViewController` object, that handl
 
 Two specializations of this basic object are `WPDKAboutViewController`, that handles display of credits/info about a plugin, and `WPDKjQueryTabsViewController`, that handles display of jQuery tabs.
 
-Following *MVC* approach, you can easily build complex and powerful views, separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
+Following *MVC* approach, you can easily build complex and powerful views, by separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
 
 This approach is not embedded at all in WordPress source code. *WPDK* aims to fill this gap.
 
