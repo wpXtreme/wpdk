@@ -126,6 +126,7 @@ Here you can find a set of examples and how-tos about *WPDK* in action into a Wo
 Any example and/or how-to is available to anyone through GitHub interface. If you want to download and use these examples in your environment, you naturally have to install *WPDK* first: please [follow these rules](@ref page_install) to do that.
 
 * Hello World! WordPress plugin using *WPDK* - the basic - [click here](@ref section_hello_world_1)
+* Hello World! WordPress plugin using *WPDK* - intermediate - [click here](@ref section_hello_world_2)
 
 @section  section_hello_world_1 Hello World! WordPress plugin using WPDK - the basic
 
@@ -138,6 +139,21 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-1-master`
 4. Copy the entire `wpdk-sample-menu-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with WPDK.
+
+@section  section_hello_world_2 Hello World! WordPress plugin using WPDK - intermediate
+
+This how-to creates a simple WordPress plugin and generates, through *WPDK* object `WPDKMenu`, an `Hello World!` menu item in the administration area of your WordPress environment. This code is relatively more complex than first Hello World! example: the plugin menu is made of two submenu items, each one with its own function called whenever the item is clicked; and the main menu item has an attached icon, as other main menu item in WordPress menu of Administration Screen.
+
+The plugin menu is built through another *WPDK* way of creating menu in Administration Screen: as an array, with specific array items, processed by `renderByArray` static method of `WPDKMenu` class. It is another powerful, readable and easy way to accomplish this task with *WPDK*.
+
+Please follow these instructions to see this how-to in action in your WordPress environment.
+
+1. If not already done, install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
+2. Download the zip of this how-to from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk-sample-menu-2).
+3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-2-master`
+4. Copy the entire `wpdk-sample-menu-2-master` folder in the `wp-content/plugins` directory of your WordPress environment.
+5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items.
 6. The source code of this plugin is well documented, and can be an easy starting point for your develop with WPDK.
 
 @page   page_how_to How to write a simple Plugin
