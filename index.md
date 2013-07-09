@@ -8,11 +8,11 @@ If you want to see examples and how-to about *WPDK* in action, please [click her
 
 These are the main features of *WPDK*:
 
-* **Completely object oriented** - [read more](@ref page_features)
-* **MVC pattern compliant** - [read more](@ref page_features)
-* **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** - [read more](@ref page_features)
-* **Availability of tons of useful classes and helpers for enhancing your WordPress creations** - [read more](@ref page_features)
-* **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** [read more]
+* **Completely object oriented** - [read more](@ref section_object_oriented)
+* **MVC pattern compliant** - [read more](@ref section_mvc_compliant)
+* **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** - [read more](@ref section_help_doxygen)
+* **Availability of tons of useful classes and helpers for enhancing your WordPress creations** - [read more](@ref section_tons_classes)
+* **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** - [read more](@ref section_autoload)
 
 Using *WPDK* framework in your WordPress creations, these are the main advantages and facilities you will have:
 
@@ -26,7 +26,7 @@ Using *WPDK* framework in your WordPress creations, these are the main advantage
 
 * **Your WordPress creations becomes easy to maintain**, thanks to object oriented internal infrastructure, and *MVC pattern* compatibility. Encapsulation, inheritance, physical separation between model and view in your develop approach: all these facts make clearer, more readable and easier to maintain all your WordPress creations.
 
-* **Your WordPress creations become up to 50% faster**, thanks to the *WPDK* internal autoloading infrastructure: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
+* **Your WordPress creations become up to 50% faster**, thanks to the *WPDK autoloading technology*: you can load, parse and execute the sole PHP source code necessary to fulfil the HTTP request incoming from client. *Any other WPDK PHP source code that is not involved in the HTTP transaction is simply not loaded at all*, thus dramatically increasing the speed of loading and execution of your code.
 
 @page page_overview Overview
 
@@ -87,6 +87,20 @@ In addition to specific targeted objects, *WPDK* makes available a set of object
 * local filesystem navigation - `WPDKFilesystem`
 * math functions - `WPDKMath`
 * basic WordPress screen content manipulation - `WPDKScreenHelp`
+
+@section  section_autoload WPDK embeds object autoloading
+
+*WPDK* natively implements <a href="http://www.php.net/manual/en/language.oop5.autoload.php">PHP autoloading classes</a> feature. This is a key point, in *WPDK* technology, that deserves additional information.
+
+As you have seen, *WPDK* is totally object oriented: that is, all *WPDK* elements are always objects, defined as *PHP classes*. Thanks to *PHP autoloading feature*, whenever a client sends an *HTTP request* that involves one or more *WPDK* objects, **WPDK loads and execute the sole source code involved in the HTTP transaction**.
+
+Consider this: in any *HTTP transaction*, WordPress loads always itself entirely, even if the transaction does not need the 80-90% of the source code loaded and executed. *WPDK* does not behave in this way: if your *HTTP request* is directed to a web page that uses, for example, `WPDKMenu` and `WPDKArray` objects, *only those two WPDK objects are loaded and parsed*. The entire remaining *WPDK* source code is not considered at all.
+
+This is made possible through the embedded *WPDK autoloading technology*, based on *PHP autoloading classes* above.
+
+But that's not all. If you develop your WordPress creation following some simple rules ( that includes a full object oriented approach to your develop ), the *WPDK autoloading technology* becomes available also to your creation, even it is totally external to *WPDK*. This is another key point, that can dramatically increasing the speed of loading and execution of your code, *up to 50% faster than normal file inclusion*.
+
+[Click here](questo link da fare) to see how easy is developing your WordPress creation using *WPDK* for automatically gaining *WPDK autoloading technology* in your own code.
 
 @page page_install Installing WPDK in your WordPress environment
 
