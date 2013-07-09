@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.1.2
-### 2013-07s-09
+### 2013-07-09
 
 #### Enhancements
 
