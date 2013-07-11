@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['wpdk_20features',['WPDK features',['../page_features.html',1,'']]],
   ['wpdk_20how_2dtos',['WPDK How-tos',['../page_howto.html',1,'']]],
   ['widgets',['widgets',['../classWPDKWordPressPlugin.html#a0617a6c6ccf765e6f2effb33968de93b',1,'WPDKWordPressPlugin']]],
   ['widgets_5finit',['widgets_init',['../classWPDKWordPressPlugin.html#a7267980b175ddae08c2cb3dd545e9fae',1,'WPDKWordPressPlugin']]],

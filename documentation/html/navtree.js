@@ -2,9 +2,17 @@ var NAVTREE =
 [
   [ "WPDK", "index.html", [
     [ "Overview", "page_overview.html", null ],
+    [ "WPDK features", "page_features.html", [
+      [ "WPDK is completely object oriented", "page_features.html#section_object_oriented", null ],
+      [ "WPDK follows MVC pattern", "page_features.html#section_mvc_compliant", null ],
+      [ "Full Doxygen compatibility of WPDK documentation", "page_features.html#section_help_doxygen", null ],
+      [ "WPDK useful classes and helpers", "page_features.html#section_tons_classes", null ],
+      [ "WPDK embeds object autoloading", "page_features.html#section_autoload", null ]
+    ] ],
     [ "Installing WPDK in your WordPress environment", "page_install.html", null ],
     [ "WPDK How-tos", "page_howto.html", [
-      [ "Hello World! WordPress plugin using WPDK - the basic", "page_howto.html#section_hello_world_1", null ]
+      [ "Hello World! WordPress plugin using WPDK - the basic", "page_howto.html#section_hello_world_1", null ],
+      [ "Hello World! WordPress plugin using WPDK - intermediate", "page_howto.html#section_hello_world_2", null ]
     ] ],
     [ "How to write a simple Plugin", "page_how_to.html", [
       [ "Overview", "page_how_to.html#page_how_to_plugin_1", null ],
