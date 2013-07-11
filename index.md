@@ -102,11 +102,11 @@ But that's not all. If you develop your WordPress creation following some simple
 
 [Click here](questo link da fare) to see how easy is developing your WordPress creation using *WPDK* for automatically gaining *WPDK autoloading technology* in your own code.
 
-@page page_view_controller A little in-depth analysis of View and View Controller sub-model
+@page page_view_controller A little in-depth analysis of View and View Controller sub-pattern
 
 In *MVC pattern*, there is a separation between model and its views. In pure pattern, a model interacts with its views through a controller(s).
 
-*WPDK* implements this model by the creation of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: `WPDKView`, and `WPDKViewController` classes.
+*WPDK* implements this pattern by the use of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: `WPDKView`, and `WPDKViewController` classes.
 
 `WPDKViewController` class exposes methods and properties to manage the whole *HTML* display into the work area of WordPress Administration Screen. Upon request, it provides a view that can be displayed or interacted with. Often, this view is the root view for a more complex hierarchy of views, implemented by specialized instances of `WPDKView` class. The view controller acts as the central coordinating agent for the view hierarchy, handling exchanges between the views and any relevant controller or data objects.
 
@@ -119,7 +119,7 @@ Overriding `display` method in specialized `WPDKViewController` class allows a d
 
 Why using this complexity? For `WPDKView` class, to encapsulate specialized behaviours *that can be reusable anywhere*, simply creating a new instance of the specialized `WPDKView` class that implements them. For `WPDKViewController` class, to centralize handling of low-level *HTML* into the whole work area of WordPress Administration Screen; you don't need to create everytime by hand all the `<div></div>` parts of your *HTML* view into the work area: simply set your own specific *HTML* content overriding `display` method, and then call it, if necessary.
 
-To see how all this theory turns to action, go to [WPDK How-To](@ref page_howto) and get the source code that use this model.
+To see how all this theory turns to action, go to [WPDK How-To](@ref page_howto) and get the source code that use this pattern.
 
 @page page_install Installing WPDK in your WordPress environment
 
