@@ -342,7 +342,7 @@ To override this method and put all the code you need to execute whenever your p
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
       
-        /* Hook when the plugin is activate - only first time. */
+        /* Called when the plugin is activate - only first time. */
         function activation() {
           /* To override. */
         }
@@ -352,47 +352,98 @@ To override this method and put all the code you need to execute whenever your p
 
     $GLOBALS['TestPlugin'] = new TestPlugin();
 
-
 In `activation` method you can insert the code your plugin eventually needs to execute in plugin activation phase.
 
 @section page_how_to_plugin_5 Plugin deactivation
 
-The method `deactivation` of your `WPDKTestPlugin` class is invoked every time your plugin is deactivated. The
-deactivation of a WordPress plugin happens just once, normally through `plugin` page of WordPress admin area, when a
-user choose to deactivate a plugin. From that moment on, the plugin becomes *inactive*, and this method is not
-invoked anymore.
+The method `deactivation` of your `TestPlugin` class is invoked every time your plugin is deactivated. The deactivation of a WordPress plugin happens just once, normally through `plugin` page of WordPress admin area, when a user choose to deactivate a plugin. From that moment on, the plugin becomes *inactive*, and this method is not invoked anymore.
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+To override this method and put all the code you need to execute whenever your plugin is deactivated, you have to declare it into `TestPlugin` class definition, in this way:
 
-    /* Hook when the plugin is deactivated. */
-    function deactivation() {
-      /* To override. */
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+
+      }
     }
 
-You can insert here the code your plugin eventually needs to execute in plugin deactivation phase.
+    $GLOBALS['TestPlugin'] = new TestPlugin();
 
-
-
+In `deactivation` method you can insert the code your plugin eventually needs to execute in plugin deactivation phase.
 
 @section page_how_to_plugin_6 Plugin loaded
 
-The method `loaded` of your `WPDKTestPlugin` class is invoked every time your plugin is loaded. Loading is not
-activation: every single time this plugin is loaded from WordPress environment, this method will be invoked.
+The method `loaded` of your `TestPlugin` class is invoked every time your plugin is loaded. Please note that **loading is not activation**: every single time this plugin is loaded by WordPress environment, this method will be invoked.
 
-The basic code of this method is not directly included in your main class. Nevertheless, it is in
-`WPDKWordPressPlugin` class, so you can override it. If you need to execute some tasks every time your plugin is
-loaded, create this method in your main class:
+To override this method and put all the code you need to execute whenever your plugin is loaded, you have to declare it into `TestPlugin` class definition, in this way:
 
-    function loaded() {
-      /* You code. */
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+        
+        /* Called when the plugin is loaded. */
+        function loaded() {
+          /* To override. */
+        }
+        
+      }
     }
 
-and then put your own specific code in it.
+    $GLOBALS['TestPlugin'] = new TestPlugin();
+
+In `loaded` method you can insert the code your plugin eventually needs to execute in plugin loading.
 
 
 
 
-@section page_how_to_plugin_6 Plugin configuration
+
+@section page_how_to_plugin_7 Plugin configuration
 
 The method `configuration` of your `WPDKTestPlugin` class is invoked every time your plugin is loaded. Loading is not
 activation: every single time this plugin is loaded from WordPress environment, this method will be invoked.
@@ -414,7 +465,7 @@ eventually needs to execute in configuration phase.
 
 
 
-@section page_how_to_plugin_7 Commodity
+@section page_how_to_plugin_8 Commodity
 
 Your main class has also some commodity methods, useful to group together some similar tasks.
 
@@ -451,7 +502,7 @@ Both `includes()` and `defines()` methods are invoked in the `WPDKTestPlugin` co
 
 
 
-@section     page_how_to_plugin_8 Writing code in your plugin specifically related to WordPress frontend
+@section     page_how_to_plugin_9 Writing code in your plugin specifically related to WordPress frontend
 
 Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
 plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
@@ -484,7 +535,7 @@ All code of this plugin related to the WordPress frontend area is hence encapsul
 object, thus giving a plugin more readability and flow comprehension.
 
 
-@section     page_how_to_plugin_8 Writing code in your plugin specifically related to WordPress admin area
+@section     page_how_to_plugin_10 Writing code in your plugin specifically related to WordPress admin area
 
 Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
 plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
