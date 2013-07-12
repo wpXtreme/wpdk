@@ -68,7 +68,7 @@ For example, *WPDK* implements a generic `WPDKViewController` object, that handl
 
 Two specializations of this basic object are `WPDKAboutViewController`, that handles display of credits/info about a plugin, and `WPDKjQueryTabsViewController`, that handles display of jQuery tabs.
 
-Following *MVC* approach, you can easily build complex and powerful views, by separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
+Following *MVC* approach, you can easily build complex and powerful views, separating from them the model that phisically contains data to be shown. Maybe you can have, at the end, more source code that you really need. But you gain clarity, solidity, ease in readability and maintenance of your source code.
 
 This approach is not embedded at all in WordPress source code. *WPDK* aims to fill this gap.
 
@@ -102,6 +102,25 @@ But that's not all. If you develop your WordPress creation following some simple
 
 [Click here](questo link da fare) to see how easy is developing your WordPress creation using *WPDK* for automatically gaining *WPDK autoloading technology* in your own code.
 
+@page page_view_controller A little in-depth analysis of View and View Controller sub-pattern
+
+In *MVC pattern*, there is a separation between model and its views. In pure pattern, a model interacts with its views through a controller(s).
+
+*WPDK* implements this pattern by the use of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: `WPDKView`, and `WPDKViewController` classes.
+
+`WPDKViewController` class exposes methods and properties to manage the whole *HTML* display into the work area of WordPress Administration Screen. Upon request, it provides a view that can be displayed or interacted with. Often, this view is the root view for a more complex hierarchy of views, implemented by specialized instances of `WPDKView` class. The view controller acts as the central coordinating agent for the view hierarchy, handling exchanges between the views and any relevant controller or data objects.
+
+This is the typical hierarchy handled by a specialized instance of `WPDKViewController` class:
+
+ * header with icon and title + optional button add = an instance of `WPDKHeaderView` class.
+ * one or more views, that can be specialized instances of `WPDKView` class.
+
+Overriding `display` method in specialized `WPDKViewController` class allows a developer to set a custom content for its instances. The same for `WPDKView` class.
+
+Why using this complexity? For `WPDKView` class, to encapsulate specialized behaviours *that can be reusable anywhere*, simply creating a new instance of the specialized `WPDKView` class that implements them. For `WPDKViewController` class, to centralize handling of low-level *HTML* into the whole work area of WordPress Administration Screen; you don't need to create everytime by hand all the `<div></div>` parts of your *HTML* view into the work area: simply set your own specific *HTML* content overriding `display` method, and then call it, if necessary.
+
+To see how all this theory turns to action, go to [WPDK How-To](@ref page_howto) and get the source code that use this pattern.
+
 @page page_install Installing WPDK in your WordPress environment
 
 To start developing with *WPDK framework*, first of all you have to install *WPDK* in your WordPress environment. Please follow these simple rules to accomplish this task.
@@ -127,6 +146,7 @@ Any example and/or how-to is available to anyone through GitHub interface. If yo
 
 * Hello World! WordPress plugin using *WPDK* - the basic - [click here](@ref section_hello_world_1)
 * Hello World! WordPress plugin using *WPDK* - intermediate - [click here](@ref section_hello_world_2)
+* Sample #1 of WordPress plugin using *WPDK* - [click here](@ref section_plugin_1)
 
 @section  section_hello_world_1 Hello World! WordPress plugin using WPDK - the basic
 
@@ -139,7 +159,7 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-1-master`
 4. Copy the entire `wpdk-sample-menu-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen.
-6. The source code of this plugin is well documented, and can be an easy starting point for your develop with WPDK.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
 
 @section  section_hello_world_2 Hello World! WordPress plugin using WPDK - intermediate
 
@@ -154,7 +174,26 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-menu-2-master`
 4. Copy the entire `wpdk-sample-menu-2-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `Hello World!` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items.
-6. The source code of this plugin is well documented, and can be an easy starting point for your develop with WPDK.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
+
+@section  section_plugin_1 Sample #1 of WordPress plugin using WPDK
+
+This how-to is the first basic sample of a WordPress plugin developed using *WPDK*: a little more complex sample than #1 and #2 above.
+
+This is the structure:
+
+* Create a main menu with two submenu items, through method `addSubMenu` and `render` of `WPDKMenu` class.
+* Connect each submenu item to a specific specialized `WPDKViewController` class instance. These specialized instances handle the *HTML* output shown in the work area of WordPress Administration Screen, and their source code is in `plugin_root_dir/classes/wpdk-sample-vc.php` file.
+* Customize method `display` of any specialized `WPDKViewController` class instance, in order to show my own content whenever the related submenu item is clicked.
+
+Please follow these instructions to see this how-to in action in your WordPress environment.
+
+1. If not already done, install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
+2. Download the zip of this how-to from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk-sample-plugin-1).
+3. Unzip this how-to. You will have its root directory named `wpdk-sample-plugin-1-master`
+4. Copy the entire `wpdk-sample-plugin-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
+5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#1` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
 
 @page   page_how_to How to write a simple Plugin
 
