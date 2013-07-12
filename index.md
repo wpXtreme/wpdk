@@ -270,6 +270,16 @@ that you have to put at the end of the class definition. In this way, your plugi
     // Define of include your main plugin class
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
+ 
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+        }
+
       }
     }
 
@@ -318,6 +328,8 @@ In addition, you have also the following `http` URL properties:
 
 All of them are accessible through the instance of `TestPlugin` class you defined above.
 
+> **Remember that mapping is not dynamic!** Paths are not dynamically extracted from your own folder tree; for obvious reasons, all filesystem properties have a constant init. `$this->cssURL`, for example, is always equal to `trailingslashit( plugin_dir_url( $main_file ) ) . "css/";`.
+
 @section page_how_to_plugin_4 Plugin activation
 
 The method `activation` of your `TestPlugin` class is invoked every time your plugin is activated. Please note that **activation is not loading**: the activation of a WordPress plugin happens just once, normally through `plugin` page of WordPress admin area, when a user choose to activate a plugin. From that moment on, the plugin becomes *active*, and this method is not invoked anymore.
@@ -342,6 +354,15 @@ To override this method and put all the code you need to execute whenever your p
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
       
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+        }
+
         /* Called when the plugin is activate - only first time. */
         function activation() {
           /* To override. */
@@ -377,6 +398,15 @@ To override this method and put all the code you need to execute whenever your p
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
       
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+        }
+
         /* Called when the plugin is activate - only first time. */
         function activation() {
           /* To override. */
@@ -417,6 +447,15 @@ To override this method and put all the code you need to execute whenever your p
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
       
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+        }
+
         /* Called when the plugin is activate - only first time. */
         function activation() {
           /* To override. */
@@ -443,7 +482,7 @@ In `loaded` method you can insert the code your plugin eventually needs to execu
 
 The method `configuration` of your `TestPlugin` class is invoked every time your plugin is loaded. Please note that **loading is not activation**: every single time this plugin is loaded from WordPress environment, this method will be invoked.
 
-Here you can put all stuffs about the configuration of your plugin; it is a commodity: you can perform the same task in another way. Nevertheless, it can be really useful for you to use this hook, because this method is always executed **AFTER the plugin has been fully loaded from WordPress environment**.
+Here you can put all stuffs about the configuration of your plugin: for example, the load of current plugin configuration from WordPress DB; it is a commodity: you can perform the same task in another way. Nevertheless, it can be really useful for you to use this hook, because this method is always executed **AFTER the plugin has been fully loaded from WordPress environment**.
 
 To override this method and put all the code you need to execute whenever your plugin is loaded, you have to declare it into `TestPlugin` class definition, in this way:
 
@@ -464,6 +503,15 @@ To override this method and put all the code you need to execute whenever your p
     if( !class_exists( 'TestPlugin' ) ) {
       class TestPlugin extends WPDKWordPressPlugin {
       
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+        }
+
         /* Called when the plugin is activate - only first time. */
         function activation() {
           /* To override. */
@@ -495,7 +543,7 @@ In `configuration` method you can insert the code your plugin eventually needs t
 
 Your `TestPlugin` main class has also some commodity methods, useful to group together some similar tasks.
 
-For example, with the method `_defines`, you can insert the definition of all *PHP* `define` used by your class. You can write your own *PHP* `define` directly in this method, or you can also put your `define` in file `defines.php`, stored whatever in your plugin folders tree, and included by this method.
+For example, with `_defines` method, you can insert the definition of all *PHP* `define` used by your class. You can write your own *PHP* `define` directly in this method, or you can also put your `define` in file `defines.php`, stored whatever in your plugin folders tree, and included by this method.
 
 `_defines()` internal method has to be invoked in the `TestPlugin` constructor. It is not attached to any WordPress action.
 
@@ -563,59 +611,164 @@ Your code, now:
 
 @section     page_how_to_plugin_9 Writing code in your plugin specifically related to WordPress frontend
 
-Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
-plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
-`WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
+The method `theme` of your `TestPlugin` class is called every time your plugin is loaded, after the invocation of `loaded` and `configuration` methods; but this calling happens **if, and only if, the web request is related to the front-end side of WordPress**: that is to say, not related in any way to the admin side of WordPress. Loading is not activation: every single time this plugin is loaded from WordPress environment, this method will be invoked.
 
-The method `theme` of your `WPDKTestPlugin` class is called every time your plugin is loaded, after the invocation of
-methods `loaded` and `configuration`; but this calling happens *if, and only if, the web request is related to the
-front-end side of WordPress*: that is to say, not related in any way to the admin side of WordPress. Loading is not
-activation: every single time this plugin is loaded from WordPress environment, this method will be invoked.
+To override this method and put all the code you need to execute whenever your plugin is loaded, you have to declare it into `TestPlugin` class definition, in this way:
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
 
-    function theme() {
-         /* To override. */
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+          $this->_defines();
+
+        }
+
+        /**
+          * Include the external file with my own defines
+          */
+        private function _defines() {
+          include_once( 'defines.php' );
+        }
+
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+        
+        /* Called when the plugin is loaded. */
+        function loaded() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is fully loaded. */
+        function configuration() {
+          /* To override. */    
+        }
+
+        /* Called only if the web request is related to the front-end side of WordPress */
+        function theme() {
+          /* To override. */
+        }
+    
+      }
     }
 
-In this method, you can insert all code your plugin needs to execute in the front-end area of your WordPress
-environment. For example, you can insert here the declaration of a specific class that handles all stuffs about
-front-end area. Or you can directly add here some specific hooks related to front-end WordPress filters, like
-`the_title` or `the_content`.
+    $GLOBALS['TestPlugin'] = new TestPlugin( __FILE__ );
 
-For example, the WPXtreme WordPress plugin overwrites this method in this way:
-
-    function theme() {
-      require_once( $this->classesPath . 'frontend/wpdk-testplugin-frontend.php' );
-      $frontend = new WPDKTestPluginFrontend( $this );
-    }
-
-All code of this plugin related to the WordPress frontend area is hence encapsulated inside the `WPXtremeFrontend`
-object, thus giving a plugin more readability and flow comprehension.
-
+In `theme` method, you can insert all code your plugin needs to execute in the front-end area of your WordPress environment. For example, you can insert here the declaration of a specific class instance that handles all stuffs about front-end area. Or you can directly add here some specific hooks related to front-end WordPress filters, like `the_title` or `the_content`. This gives your plugin more readability and flow comprehension.
 
 @section     page_how_to_plugin_10 Writing code in your plugin specifically related to WordPress admin area
 
-Let's always assume that you created a new WPDK plugin for WordPress, named `Test Plugin`. In the root directory of your
-plugin, you have a file named `wpdk-testplugin.php`. Inside this file, you have the declaration of a class named
-`WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
-
-The method `admin` of your `WPDKTestPlugin` class is called every time your plugin is loaded, after the invocation of
-methods `loaded` and `configuration`; but this calling happens *if, and only if, the web request is related to the
-admin side of WordPress*. Loading is not activation: every single time this plugin is loaded from WordPress
+The method `admin` of your `TestPlugin` class is called every time your plugin is loaded, after the invocation of methods `loaded` and `configuration`; but this calling happens **if, and only if, the web request is related to the admin side of WordPress**. Loading is not activation: every single time this plugin is loaded from WordPress
 environment, this method will be invoked.
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+To override this method and put all the code you need to execute whenever your plugin is loaded, you have to declare it into `TestPlugin` class definition, in this way:
 
-    function admin() {
-      require_once( $this->classesPath . 'admin/wpdk-testplugin-admin.php' );
-      $admin = new WPDKTestPluginAdmin( $this );
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+          $this->_defines();
+
+        }
+
+        /**
+          * Include the external file with my own defines
+          */
+        private function _defines() {
+          include_once( 'defines.php' );
+        }
+
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+        
+        /* Called when the plugin is loaded. */
+        function loaded() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is fully loaded. */
+        function configuration() {
+          /* To override. */    
+        }
+
+        /* Called only if the web request is related to the front-end side of WordPress */
+        function theme() {
+          /* To override. */
+        }
+
+        /* Called only if the web request is related to the admin side of WordPress */
+        function admin() {
+          /* To override. */
+        }
+    
+      }
     }
 
+    $GLOBALS['TestPlugin'] = new TestPlugin( __FILE__ );
 
-In this method, you can insert all code your plugin needs to execute in the admin area of your WordPress environment.
-For example, you can insert here the declaration of a specific class that handles all stuffs about admin area.
-Or you can directly add here some specific hooks related to administration WordPress filters, like `menu_order` or
-`admin_head`.
+In `admin` method, you can insert all code your plugin needs to execute in the admin area of your WordPress environment. For example, you can insert here the declaration of a specific class instance that handles all stuffs about admin area ( plugin main menu item creation, css and javascript enqueuing, ecc. ) . Or you can directly add here some specific hooks related to administration WordPress filters, like `menu_order` or `admin_head`.  This gives your plugin more readability and flow comprehension.
+
+@section     page_how_to_plugin_11 Introduction to available plugin enhancements 
+
+### WPDKWordPressAdmin class
+
+*WPDK* has another most important class that encapsulates tasks to perform in the admin side of WordPress: `WPDKWordPressAdmin`. See related documentation or [the How-To section](@ref page_howto) for all details.
+
+### WPDK autoloading technology
+
+This is a basic guide, that shows you how to develop your plugin in order to made it full compatible with all *WPDK* features. To make use of powerful *WPDK autoloading technology*, see [the How-To section](@ref page_howto) for examples of use of this technology integrated in this plugin model.
 
 @page            page_credits Credits
