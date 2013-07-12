@@ -147,7 +147,7 @@ class WPDKTwitterBootstrap {
  * For do this just instance this class like:
  *
  *     $modal = new WPDKTwitterBootstrapModal( 'myDialog', 'Dialog title', 'The content' );
- *     $modal->add_buttons( 'close', 'Close dialog' );
+ *     $modal->addButton( 'close', 'Close dialog' );
  *     $modal->modal();
  *
  * That's all
