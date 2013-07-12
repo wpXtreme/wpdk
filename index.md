@@ -439,68 +439,127 @@ To override this method and put all the code you need to execute whenever your p
 
 In `loaded` method you can insert the code your plugin eventually needs to execute in plugin loading.
 
-
-
-
-
 @section page_how_to_plugin_7 Plugin configuration
 
-The method `configuration` of your `WPDKTestPlugin` class is invoked every time your plugin is loaded. Loading is not
-activation: every single time this plugin is loaded from WordPress environment, this method will be invoked.
+The method `configuration` of your `TestPlugin` class is invoked every time your plugin is loaded. Please note that **loading is not activation**: every single time this plugin is loaded from WordPress environment, this method will be invoked.
 
-Here you can put all stuffs about the configuration of your plugin; it is a commodity: you can perform the same task
-in another way. Nevertheless, it can be really useful for you to use this hook, because this method is executed
-AFTER** the plugin has been fully loaded from WordPress environment.
+Here you can put all stuffs about the configuration of your plugin; it is a commodity: you can perform the same task in another way. Nevertheless, it can be really useful for you to use this hook, because this method is always executed **AFTER the plugin has been fully loaded from WordPress environment**.
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+To override this method and put all the code you need to execute whenever your plugin is loaded, you have to declare it into `TestPlugin` class definition, in this way:
 
-    function configuration() {
-        $this->config = WPDKTestPluginConfig::init();
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+        
+        /* Called when the plugin is loaded. */
+        function loaded() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is fully loaded. */
+        function configuration() {
+          /* To override. */    
+        }
+    
+      }
     }
 
-The instance of `WPDKTestPluginConfig` is used to load and store the plugin settings on WordPress DB, according to
-WPDK framework specs. But you can safely use your own code. In any case, you can insert here the code your plugin
-eventually needs to execute in configuration phase.
+    $GLOBALS['TestPlugin'] = new TestPlugin();
 
-
-
+In `configuration` method you can insert the code your plugin eventually needs to execute about its configuration.
 
 @section page_how_to_plugin_8 Commodity
 
-Your main class has also some commodity methods, useful to group together some similar tasks.
+Your `TestPlugin` main class has also some commodity methods, useful to group together some similar tasks.
 
-In the method `defines`, you can insert the definition of all *PHP* `define` used by your class.
+For example, with the method `_defines`, you can insert the definition of all *PHP* `define` used by your class. You can write your own *PHP* `define` directly in this method, or you can also put your `define` in file `defines.php`, stored whatever in your plugin folders tree, and included by this method.
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+`_defines()` internal method has to be invoked in the `TestPlugin` constructor. It is not attached to any WordPress action.
 
-    public function defines() {
-        include_once( 'defines.php' );
+Your code, now:
+
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /**
+          * Create an instance of TestPlugin class
+          */
+        public function __construct( $file ) {
+
+          parent::__construct( $file );
+
+          $this->_defines();
+
+        }
+
+        /**
+          * Include the external file with my own defines
+          */
+        private function _defines() {
+          include_once( 'defines.php' );
+        }
+
+        /* Called when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is deactivated. */
+        function deactivation() {
+          /* To override. */
+        }
+        
+        /* Called when the plugin is loaded. */
+        function loaded() {
+          /* To override. */
+        }
+
+        /* Called when the plugin is fully loaded. */
+        function configuration() {
+          /* To override. */    
+        }
+    
+      }
     }
 
-You can write your own *PHP* `define` directly in this method, or you can also put your `define` in file
-`defines.php`, stored in your plugin root directory, and included by this method.
-
-In the method `includes`, you can include all *PHP* files used by your class, through *PHP* directives `include`,
-`require`, `require_once`, ecc.
-
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
-
-    public static function includes() {
-        /* Includes all your class file here. */
-
-        /* Core. */
-        require_once( $this->classesPath . 'core/wpdk-testplugin-configuration.php' );
-    }
-
-The line:
-
-    require_once( $this->classesPath . 'core/wpdk-testplugin--configuration.php' );
-
-is necessary for your plugin configuration core.
-
-Both `includes()` and `defines()` methods are invoked in the `WPDKTestPlugin` constructor.
-
-
+    $GLOBALS['TestPlugin'] = new TestPlugin( __FILE__ );
 
 @section     page_how_to_plugin_9 Writing code in your plugin specifically related to WordPress frontend
 
