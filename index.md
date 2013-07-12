@@ -195,92 +195,93 @@ Please follow these instructions to see this how-to in action in your WordPress 
 5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#1` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
 6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
 
-@page   page_how_to How to write a simple Plugin
+@page   page_writing_wpdk_plugin How to write a WordPress plugin with full WPDK support
 
 @section page_how_to_plugin_1 Overview
 
-The main class of your WPDK plugin for WordPress, your "plugin" from now on, is declared and engaged in the
-plugin main file, the one that contains the comment header used by WordPress to recognize and extract informations
-about any plugin.
+Writing a WordPress plugin with full *WPDK* support means using all the *WPDK* features in your code to create a solid product, that is fast to execute, and easy to maintain and evolve.
 
-Let's assume that you are creating a new plugin for WordPress, named `Test Plugin`.
+For reaching this goal, you have to follow some simple rules and you have to use some simple tricks in your source code. All of them are described in this page, step by step. If you don't follow them, you can anyway use *WPDK* for specific tasks; but you loose all the major gains *WPDK* is ready to give you.
 
-In the root directory of your plugin create a file named `wpdk-testplugin.php`. Inside this file, insert the WordPress
-standard comment for recognize this plugin as:
+First of all, you have to completely develop your plugin in an object oriented approach, extending some basic *WPDK* object. This is necessary not only for a better encapsulation of data, but also to make a full use of [WPDK autoloading technology](@ref section_autoload).
+
+Let's assume that you are creating a new WordPress plugin, named `Test Plugin`.
+
+Your first step is defining the main class of your WordPress plugin, your *plugin* from now on. You can define it directly in the plugin main file, the one that contains *the comment header* used by WordPress to recognize and extract informations about any plugin.
+
+In the root directory of your plugin, create a file named `testplugin.php`. Inside this file, insert the WordPress standard comment for recognize this plugin, and the definition of the main class:
 
     /**
-     * Plugin Name: CleanFix
-     * Plugin URI: https://wpxtre.me
-     * Description: Clean and fix tools
-     * Version: 1.0.0
-     * Author: You
-     * Author URI: http://your-domain.com
-     */
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
 
-     /* 1. Include WPDK. */
-     require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk/wpdk.php' );
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
 
-     /* 2. Define of include your main plugin class. */
-     if ( !class_exists( 'WPDKTestPlugin' ) ) {
-       class WPDKTestPlugin extends WPDKWordPressPlugin {
-       ....
-       }
-     }
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      }
+    }
 
-Please note  the declaration of a class named `WPDKTestPlugin`, that extends `WPDKWordPressPlugin` class.
+Please note the declaration of a class named `TestPlugin`, that extends `WPDKWordPressPlugin` class. We have to deepen the behaviour of the `WPDKWordPressPlugin` class, because your main class inherits all things it needs directly from it.
 
-This is the main class of your plugin. Through it, you can control every aspect of your plugin and manage what to do
-exactly where you want ( in WordPress front end, in WordPress admin area, in both worlds, and so on ). Using this
-class as a manager, you can write all code you need to fulfil the scope of your plugin.
+The `WPDKWordPressPlugin` class is one of the most important class of the whole *WPDK framework*. It encapsulates all init procedures for a plugin, and provides the fundamental startup of a plugin in order to make it full compatible with the WPDK standard. You rarely (never) instantiate `WPDKWordPressPlugin` object directly. Instead, you instantiate subclasses of the `WPDKWordPressPlugin` class.
 
-When WordPress loads your plugin through this file, this class is also engaged, through the line:
+In *WPDK* environment, this class **must** be used to extend the main class of a plugin: its goal is to initialize the environment in which the plugin itself operates.
 
-    $GLOBALS['WPDKTestPlugin'] = new WPDKTestPlugin();
+In addition to initializing, `WPDKWordPressPlugin` class performs automatically for you a large series of standard procedures needed in normal coding of a WordPress standard Plugin, and gives access to a lot of properties and methods really useful for your develop:
 
-at the end of the class definition. In this way, your plugin becomes up and running, obviously if it was previously
-activated.
+* Gets directly from WordPress comments, and stores in its properties, information about your plugin : plugin name, version, the text and the text domain path.
+* Prepares a set of standard properties with most commonly used paths and urls.
+* Provides a lot of hooks to wrap (filters and actions) among the most used in WordPress environment.
+* Prepares an instance of `WPDKWatchDog` object for your own log.
 
-For a better comprehension, we have to deepen the behaviour of the `WPDKWordPressPlugin` class, because your main
-class inherits all things it needs directly from it.
+All properties and methods of this class are documented in **PHPDoc** format compatible with *Doxygen* tool, so you can extract all detailed info and help through your PHP IDE.
 
+The class `TestPlugin`, extending `WPDKWordPressPlugin`, is the main class of your plugin. Through it, you can control every aspect of your plugin and manage what to do
+exactly where you want ( in WordPress front end, in WordPress admin area, in both worlds, and so on ). Using this class as a manager, you can write all code you need to fulfil the scope of your plugin.
 
+When WordPress loads your plugin through this file, this class have also to be engaged, through the line:
 
+    $GLOBALS['TestPlugin'] = new TestPlugin();
 
-@section page_how_to_plugin_2 WPDKWordPressPlugin class
+that you have to put at the end of the class definition. In this way, your plugin becomes up and running, obviously if it was previously activated. Now our test code becomes this:
 
-The `WPDKWordPressPlugin` class is the most important class of the whole WordPress Development Kit (WPDK). It
-performs all init procedures for a plugin in order to make it compatible with the WPDK standard.
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
 
-This class provides the fundamental startup of a WPDK plugin. You rarely (never) instantiate `WPDKWordPressPlugin`
-object directly. Instead, you instantiate subclasses of the `WPDKWordPressPlugin` class.
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
 
-So, this class **must** be used to extend the main class of your WPDK plugin: its function is to initialize the
-environment in which the plugin itself operates, and record the plugin for updates incoming from WPDK Store.
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      }
+    }
 
-In addition to initializing and recording, `WPDKWordPressPlugin` class performs automatically for you a large series
-of standard procedures needed in normal coding of a WordPress standard Plugin, and gives access to a lot of
-properties and methods really useful:
+    $GLOBALS['TestPlugin'] = new TestPlugin();
 
- * Gets directly from WordPress comments information about your plugin : plugin name, version, the text and the text
-domain path.
-
- * Prepares a set of standard properties with paths and urls most commonly used.
- * Provides a lot of hooks to wrap (filters and actions) among the most used in WordPress environment.
- * Prepare an instance of `WPDKWatchDog` object for your own log.
-
-All properties and methods of this class has been documented in `PHPDoc` format compatible with `Doxygen` tool, so
-you can extract all detailed info and help through your PHP IDE. Describing in details the WPDK framework is outside
-the scope of this document.
-
-
+Please note that creating an instance of `TestPlugin` class *does not mean activating the whole plugin into the WordPress environment*. The physical activation of plugin is as usual demanded to normal WordPress flow.
 
 @section page_how_to_plugin_2_1 Filesystem guideline
 
-In order to get all benefit from WPDK framework we suggest to you to use the standard organization for the filesystem.
-The WPDK framework prepare for you a set of standard folder reference properties to access to the main plugin or theme
-resource. For instance see below a standard plugin filesystem structure:
+In order to get all benefits from *WPDK framework* we suggest you to use a standard organization for your plugin filesystem. The *WPDK framework* prepares for you a set of standard folder reference properties accessible from `TestPlugin` main class instance. The standard plugin filesystem recognised from *WPDK* has this form:
 
-* **Your Plugin folder**
+* **Your Plugin main folder**
   * assets/
     * css/
       * images
@@ -290,7 +291,7 @@ resource. For instance see below a standard plugin filesystem structure:
 
 ### Useful assets
 
-In addition WPDK framework also provides a `database` folder:
+In addition, *WPDK framework* also provides a `database` folder reference:
 
 * **Your Plugin folder**
   * assets/
@@ -301,13 +302,13 @@ In addition WPDK framework also provides a `database` folder:
   * localization/
   * database/
 
-This filesystem tree is mapped into the follow properties:
+This filesystem tree is mapped into the following properties of the `TestPlugin` main class:
 
     $this->path
     $this->classesPath
     $this->databasePath
 
-In addition you can use the `http` URL version of:
+In addition, you have also the following `http` URL properties:
 
     $this->url
     $this->assetsURL
@@ -315,44 +316,44 @@ In addition you can use the `http` URL version of:
     $this->imagesURL
     $this->javascriptURL
 
-
-@section page_how_to_plugin_3 The basic execution flow of a WPDK plugin
-
-Now that you have properly obtained and configured your basic WPDK plugin framework, it's time to write your code
-in order to put the right things in the right place.
-
-Let's always assume that you are created a new WPDK plugin for WordPress, named `Test Plugin`, through the
-Product Generator of WPDK Developer Center. In the root directory of your plugin, you have a file named
-`wpx-testplugin.php`. Inside this file, you have the declaration of a class named `WPDKTestPlugin`, that extends
-`WPDKWordPressPlugin` class. In this way:
-
-    if ( !class_exists( 'WPDKTestPlugin' ) ) {
-      class WPDKTestPlugin extends WPDKWordPressPlugin {
-      ....
-      }
-    }
-
-
-
+All of them are accessible through the instance of `TestPlugin` class you defined above.
 
 @section page_how_to_plugin_4 Plugin activation
 
-The method `activation` of your `WPDKTestPlugin` class is invoked every time your plugin is activated. Activation is
-not loading: the activation of a WordPress plugin happens just once, normally through `plugin` page of WordPress
-admin area, when a user choose to activate a plugin. From that moment on, the plugin becomes *active*, and this
-method is not invoked anymore.
+The method `activation` of your `TestPlugin` class is invoked every time your plugin is activated. Please note that **activation is not loading**: the activation of a WordPress plugin happens just once, normally through `plugin` page of WordPress admin area, when a user choose to activate a plugin. From that moment on, the plugin becomes *active*, and this method is not invoked anymore.
 
-The basic code of this method prepared for you through the Product Generator of WPDK Developer Center is this:
+To override this method and put all the code you need to execute whenever your plugin is activated, you have to declare it into `TestPlugin` class definition, in this way:
 
-    /* Hook when the plugin is activate - only first time. */
-    function activation() {
-      /* To override. */
+
+    /**
+      * Plugin Name: Test Plugin
+      * Plugin URI: http://your-domain.com
+      * Description: my WordPress plugin with full WPDK support
+      * Version: 1.0.0
+      * Author: You
+      * Author URI: http://your-domain.com
+      */
+
+    // Include WPDK framework - the root directory name of WPDK may be different.
+    // Please change the line below according to your environment.
+    require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk-production/wpdk.php' );
+
+    // Define of include your main plugin class
+    if( !class_exists( 'TestPlugin' ) ) {
+      class TestPlugin extends WPDKWordPressPlugin {
+      
+        /* Hook when the plugin is activate - only first time. */
+        function activation() {
+          /* To override. */
+        }
+
+      }
     }
 
-Here you can insert the code your plugin eventually needs to execute in plugin activation phase.
+    $GLOBALS['TestPlugin'] = new TestPlugin();
 
 
-
+In `activation` method you can insert the code your plugin eventually needs to execute in plugin activation phase.
 
 @section page_how_to_plugin_5 Plugin deactivation
 
