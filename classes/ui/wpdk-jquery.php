@@ -110,7 +110,7 @@ class WPDKjQueryTabsView extends WPDKView {
    * @brief Construct
    *
    * @param string $id   The view ID
-   * @param array  $tabs A tabs list. Instances of WPDKjQueryTab class
+   * @param array  $tabs Optional. A tabs list. Instances of WPDKjQueryTab class
    *
    * @return WPDKjQueryTabsView
    */
@@ -159,14 +159,13 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @brief Draw view content
    */
-  public function draw() {
-
+  public function draw()
+  {
     $html_titles  = '';
     $html_content = '';
 
     foreach ( $this->tabs as $tab ) {
       $html_titles .= sprintf( '<li class="%s"><a href="#%s">%s</a></li>', $tab->id, $tab->id, $tab->title );
-      //$html_content .= sprintf( '<div id="%s" class="clearfix">%s</div>', $tab->id, $tab->content );
       $html_content .= sprintf( '%s', $tab->content );
     }
     ?>
