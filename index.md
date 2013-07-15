@@ -10,7 +10,7 @@ These are the main features of *WPDK*:
 
 * **Completely object oriented** - [read more](@ref section_object_oriented)
 * **MVC pattern compliant** - [read more](@ref section_mvc_compliant)
-* **Graphic Controls easy to use and customize** - [read more](@ref section_cla) 
+* **Graphic Controls that are easy to use and customize** - [read more](@ref section_cla) 
 * **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** - [read more](@ref section_help_doxygen)
 * **Availability of tons of useful classes and helpers for enhancing your WordPress creations** - [read more](@ref section_tons_classes)
 * **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** - [read more](@ref section_autoload)
