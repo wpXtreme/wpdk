@@ -216,7 +216,7 @@ Please follow these instructions to see this how-to in action in your WordPress 
 This how-to is the second sample of a WordPress plugin developed using *WPDK*. This is the structure:
 
 * Create a main menu with two submenu items, through methods `addSubMenu` and `render` of `WPDKMenu` class.
-* The first submenu item is connected to a specific specialized `WPDKViewController` class instance. This specialized instance embeds a specific `WPDKView` class that shows all the available **WPDK graphic controls** you can easily use in your own code. Following this simple use case, you can easily build and customize the views that control all aspects and parameters of your WordPress creation. This sample doesn't have a way to store user choices in a custom configuration: it is only a container of all available *WPDK graphic controls*. Next how-to will show you how to save and reload your own preferences using the same internal architecture.
+* The first submenu item is connected to a specific specialized `WPDKViewController` class instance. This specialized instance embeds a specific `WPDKView` class that shows all the available **WPDK graphic controls** you can easily use in your own code. Following this simple use case, you can easily build and customize the views that control all aspects and parameters of your WordPress creation. This sample doesn't store user choices in a custom configuration: it is only a container of all available *WPDK graphic controls*. Next how-to will show you how to save and reload your own preferences using the same internal architecture.
 
 Please follow these instructions to see this how-to in action in your WordPress environment.
 
