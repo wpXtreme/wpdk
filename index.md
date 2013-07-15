@@ -10,6 +10,7 @@ These are the main features of *WPDK*:
 
 * **Completely object oriented** - [read more](@ref section_object_oriented)
 * **MVC pattern compliant** - [read more](@ref section_mvc_compliant)
+* **Graphic Controls easy to use and customize** - [read more](@ref section_cla) 
 * **Internal help and documentation in PHPDoc format compatible to Doxygen syntax** - [read more](@ref section_help_doxygen)
 * **Availability of tons of useful classes and helpers for enhancing your WordPress creations** - [read more](@ref section_tons_classes)
 * **Autoloading internal infrastructure of the sole PHP source code involved in the single HTTP transaction** - [read more](@ref section_autoload)
@@ -22,7 +23,7 @@ Using *WPDK* framework in your WordPress creations, these are the main advantage
 
 * **Your WordPress develop becomes more solid**, thanks to internal structure of *WPDK*: using your preferred IDE ( PHPStorm, Eclipse, Netbeans, ecc. ), the object oriented pattern of *WPDK* allows smart intellisense, and the internal documentation written in PHPDoc format allows you full and direct help inline during develop.
 
-* **Your WordPress develop becomes enjoyable**, because of the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations. But especially because *you can quickly get efficient and powerful results*. See the [WPDK how to] for demos, or [take a look to wpXtreme plugins], all developed using the *WPDK* technology.
+* **Your WordPress develop becomes enjoyable**, because of the improving of WordPress UI, that makes pleasant the user experience of your WordPress creations. But especially because *you can quickly get efficient and powerful results*. See the [WPDK how to](@ref page_howto) for demos, or [take a look to wpXtreme plugins](https://wpxtre.me/), all developed using the *WPDK* technology.
 
 * **Your WordPress creations becomes easy to maintain**, thanks to object oriented internal infrastructure, and *MVC pattern* compatibility. Encapsulation, inheritance, physical separation between model and view in your develop approach: all these facts make clearer, more readable and easier to maintain all your WordPress creations.
 
@@ -78,6 +79,20 @@ All *WPDK* documentation is embedded in source code, and is written in *PHPDoc* 
 
 The use of this standard format means that using your preferred IDE ( *PHPStorm, Netbeans, Eclipse, Aptana, ecc.* ), you will always have help inline during develop with *WPDK*. This help is constantly enriched from *WPDK* developers with examples, better explanation of methods and properties, better description of classes, ecc. whenever this framework is updated. No need to search on the net: all documentation about stable *WPDK* objects is always available, and aligned to a well known and popular format.
 
+@section  section_cla WPDK has all graphic controls you need
+
+In your WordPress creations, one of the most important aspect is the user interface.
+
+Instead of creating by yourself everytime a brand new user interface, with forms, data saving and restoring, HTML code, CSS, and so on, you can use the numerous, ever growing, and powerful **WPDK graphic controls**, immediately available for your develop.
+
+With a simple syntax, you can use and customize input text, buttons, checkbox, radio buttons, single and multiple combo, textarea, file selector, simple label, swipe buttons. But that's not all. You can also insert *TwitterBootstrap Alert* in your own code, following a specific operation that your code executes, and leaving to *WPDK* the internal handling.
+
+This is a key point. Because using this approach, *you can create a standard and pleasant user interface for all your WordPress creations*, leaving to *WPDK* all the internal stuff. You don't have to worry about how to put a swipe button into your WordPress administrative page: *WPDK* can make this task for you in a while.
+
+The entire [wpXtreme ecosystem](https://wpxtre.me/) uses this *WPDK* feature to standardize user interface, and to create efficient and powerful results in all its WordPress creations.
+
+Go to the [WPDK How-To section](@ref page_howto), see how easy is creating and using a graphic control in your own code, get the source code that use this pattern, and customize it to your own needs.
+
 @section  section_tons_classes WPDK useful classes and helpers
 
 In addition to specific targeted objects, *WPDK* makes available a set of objects that embed some specific features that can enhance and simplify your WordPress develop. These evergrowing available objects are called *helpers*, and include:
@@ -98,7 +113,7 @@ Consider this: in any *HTTP transaction*, WordPress loads always itself entirely
 
 This is made possible through the embedded *WPDK autoloading technology*, based on *PHP autoloading classes* above.
 
-But that's not all. If you develop your WordPress creation following some simple rules ( that includes a full object oriented approach to your develop ), the *WPDK autoloading technology* becomes available also to your creation, even it is totally external to *WPDK*. This is another key point, that can dramatically increasing the speed of loading and execution of your code, *up to 50% faster than normal file inclusion*.
+But that's not all. If you develop your WordPress creation following some simple rules ( that include a full object oriented approach to your develop ), the *WPDK autoloading technology* becomes available also to your creation, even it is totally external to *WPDK*. This is another key point, that can dramatically increasing the speed of loading and execution of your code, *up to 50% faster than normal file inclusion*.
 
 [Click here](questo link da fare) to see how easy is developing your WordPress creation using *WPDK* for automatically gaining *WPDK autoloading technology* in your own code.
 
@@ -147,6 +162,7 @@ Any example and/or how-to is available to anyone through GitHub interface. If yo
 * Hello World! WordPress plugin using *WPDK* - the basic - [click here](@ref section_hello_world_1)
 * Hello World! WordPress plugin using *WPDK* - intermediate - [click here](@ref section_hello_world_2)
 * Sample #1 of WordPress plugin using *WPDK* - [click here](@ref section_plugin_1)
+* Sample #2 of WordPress plugin using *WPDK* - [click here](@ref section_plugin_2)
 
 @section  section_hello_world_1 Hello World! WordPress plugin using WPDK - the basic
 
@@ -182,7 +198,7 @@ This how-to is the first basic sample of a WordPress plugin developed using *WPD
 
 This is the structure:
 
-* Create a main menu with two submenu items, through method `addSubMenu` and `render` of `WPDKMenu` class.
+* Create a main menu with two submenu items, through methods `addSubMenu` and `render` of `WPDKMenu` class.
 * Connect each submenu item to a specific specialized `WPDKViewController` class instance. These specialized instances handle the *HTML* output shown in the work area of WordPress Administration Screen, and their source code is in `plugin_root_dir/classes/wpdk-sample-vc.php` file.
 * Customize method `display` of any specialized `WPDKViewController` class instance, in order to show my own content whenever the related submenu item is clicked.
 
@@ -193,6 +209,22 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-plugin-1-master`
 4. Copy the entire `wpdk-sample-plugin-1-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#1` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
+
+@section  section_plugin_2 Sample #2 of WordPress plugin using WPDK
+
+This how-to is the second sample of a WordPress plugin developed using *WPDK*. This is the structure:
+
+* Create a main menu with two submenu items, through methods `addSubMenu` and `render` of `WPDKMenu` class.
+* The first submenu item is connected to a specific specialized `WPDKViewController` class instance. This specialized instance embeds a specific `WPDKView` class that shows all the available **WPDK graphic controls** you can easily use in your own code. Following this simple use case, you can easily build and customize the views that control all aspects and parameters of your WordPress creation. This sample doesn't have a way to store user choices in a custom configuration: it is only a container of all available *WPDK graphic controls*. Next how-to will show you how to save and reload your own preferences using the same internal architecture.
+
+Please follow these instructions to see this how-to in action in your WordPress environment.
+
+1. If not already done, install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
+2. Download the zip of this how-to from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk-sample-plugin-2).
+3. Unzip this how-to. You will have its root directory named `wpdk-sample-plugin-2-master`
+4. Copy the entire `wpdk-sample-plugin-2-master` folder in the `wp-content/plugins` directory of your WordPress environment.
+5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#2` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
 6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
 
 @page   page_writing_wpdk_plugin How to write a WordPress plugin with full WPDK support
