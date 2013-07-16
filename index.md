@@ -161,8 +161,9 @@ Any example and/or how-to is available to anyone through GitHub interface. If yo
 
 * Hello World! WordPress plugin using *WPDK* - the basic - [click here](@ref section_hello_world_1)
 * Hello World! WordPress plugin using *WPDK* - intermediate - [click here](@ref section_hello_world_2)
-* Sample #1 of WordPress plugin using *WPDK* - [click here](@ref section_plugin_1)
-* Sample #2 of WordPress plugin using *WPDK* - [click here](@ref section_plugin_2)
+* Sample #1 of WordPress plugin using *WPDK* - two submenu item connected to simple view-controllers - [click here](@ref section_plugin_1)
+* Sample #2 of WordPress plugin using *WPDK* - shows all available *WPDK graphic controls* - [click here](@ref section_plugin_2)
+* Sample #3 of WordPress plugin using *WPDK* - two submenu item connected to specialized view-controllers - example of plugin configuration handling -[click here](@ref section_plugin_3)
 
 @section  section_hello_world_1 Hello World! WordPress plugin using WPDK - the basic
 
@@ -225,6 +226,24 @@ Please follow these instructions to see this how-to in action in your WordPress 
 3. Unzip this how-to. You will have its root directory named `wpdk-sample-plugin-2-master`
 4. Copy the entire `wpdk-sample-plugin-2-master` folder in the `wp-content/plugins` directory of your WordPress environment.
 5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#2` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
+6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
+
+@section  section_plugin_3 Sample #3 of WordPress plugin using WPDK
+
+This how-to is the third sample of a WordPress plugin developed using *WPDK*. This is the structure:
+
+* Create a main menu with two submenu items, through methods `addSubMenu` and `render` of `WPDKMenu` class.
+* The first submenu item is connected to a specific specialized `WPDKViewController` class instance. This specialized instance embeds a specific `WPDKConfigurationView` class called `ControlsConfigurationView`, that shows a little subset of *WPDK graphic controls* driving plugin configuration. You can set values and store them into DB, clicking the *Update* button; or you can restore values to their default, clicking the *Reset to default* button. Following this simple use case, you can easily build and customize your own plugin configuration, creating a property into `ControlsSettings` model, and setting its value with a specific *WPDK graphic control* defined into the `ControlsConfigurationView` specialized view.
+* `updatePostData` method of `ControlsConfigurationView` class processes the *Update* request incoming from related button in the view.
+* `resetToDefault` method of `ControlsConfigurationView` class processes the *Reset to default* request incoming from related button in the view.
+
+Please follow these instructions to see this how-to in action in your WordPress environment.
+
+1. If not already done, install *WPDK* in your environment - please [follow these rules](@ref page_install) to do that.
+2. Download the zip of this how-to from official GitHub repository [clicking here](https://github.com/wpXtreme/wpdk-sample-plugin-3).
+3. Unzip this how-to. You will have its root directory named `wpdk-sample-plugin-3-master`
+4. Copy the entire `wpdk-sample-plugin-3-master` folder in the `wp-content/plugins` directory of your WordPress environment.
+5. Activate the plugin in your WordPress administration area: a new `WPDK Plug#3` menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.
 6. The source code of this plugin is well documented, and can be an easy starting point for your develop with *WPDK*.
 
 @page   page_writing_wpdk_plugin How to write a WordPress plugin with full WPDK support
