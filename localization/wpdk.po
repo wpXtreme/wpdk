@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 17:24+0100\n"
-"PO-Revision-Date: 2013-06-25 17:24+0100\n"
+"POT-Creation-Date: 2013-07-16 12:52+0100\n"
+"PO-Revision-Date: 2013-07-16 12:53+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "MIME-Version: 1.0\n"
@@ -12,63 +12,63 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpdk.php:601
+#: ../wpdk.php:610
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
 msgstr ""
 
-#: ../wpdk.php:603 ../classes/deprecated/WPDKForm.php:182
+#: ../wpdk.php:612 ../classes/deprecated/WPDKForm.php:182
 msgid "Choose Time"
 msgstr ""
 
-#: ../wpdk.php:604 ../classes/deprecated/WPDKForm.php:183
+#: ../wpdk.php:613 ../classes/deprecated/WPDKForm.php:183
 msgid "Time"
 msgstr ""
 
-#: ../wpdk.php:605 ../classes/deprecated/WPDKForm.php:184
+#: ../wpdk.php:614 ../classes/deprecated/WPDKForm.php:184
 msgid "Hour"
 msgstr ""
 
-#: ../wpdk.php:606 ../classes/deprecated/WPDKForm.php:185
+#: ../wpdk.php:615 ../classes/deprecated/WPDKForm.php:185
 msgid "Minute"
 msgstr ""
 
-#: ../wpdk.php:607 ../classes/deprecated/WPDKForm.php:186
+#: ../wpdk.php:616 ../classes/deprecated/WPDKForm.php:186
 msgid "Seconds"
 msgstr ""
 
-#: ../wpdk.php:608 ../classes/deprecated/WPDKForm.php:187
+#: ../wpdk.php:617 ../classes/deprecated/WPDKForm.php:187
 msgid "Now"
 msgstr ""
 
-#: ../wpdk.php:609 ../classes/deprecated/WPDKForm.php:188
+#: ../wpdk.php:618 ../classes/deprecated/WPDKForm.php:188
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr ""
 
-#: ../wpdk.php:610 ../classes/deprecated/WPDKForm.php:189
+#: ../wpdk.php:619 ../classes/deprecated/WPDKForm.php:189
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
 msgstr ""
 
-#: ../wpdk.php:611
+#: ../wpdk.php:620
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr ""
 
-#: ../wpdk.php:612 ../classes/deprecated/WPDKForm.php:190
+#: ../wpdk.php:621 ../classes/deprecated/WPDKForm.php:190
 msgid "Close"
 msgstr ""
 
-#: ../wpdk.php:613 ../classes/deprecated/WPDKForm.php:191
+#: ../wpdk.php:622 ../classes/deprecated/WPDKForm.php:191
 msgid "mm/dd/yy"
 msgstr ""
 
-#: ../wpdk.php:614
+#: ../wpdk.php:623
 msgid "HH:mm"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgid "Two minutes"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
-#: ../classes/ui/wpdk-view-controller.php:689
+#: ../classes/ui/wpdk-view-controller.php:690
 msgid "No Reset to default settings implement yet!"
 msgstr ""
 
@@ -699,13 +699,13 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:674
+#: ../classes/ui/wpdk-view-controller.php:675
 #, php-format
 msgid ""
 "<strong>%s</strong> settings were successfully restored to defaults values!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:743
+#: ../classes/ui/wpdk-view-controller.php:744
 #, php-format
 msgid "<strong>%s</strong> settings values were successfully updated!"
 msgstr ""
@@ -757,7 +757,7 @@ msgid "Description"
 msgstr ""
 
 #: ../classes/users/wpdk-user.php:1053
-msgid "Describe the status"
+msgid "eg: this user is disabled because..."
 msgstr ""
 
 #: ../classes/users/wpdk-user.php:1092
