@@ -8,7 +8,6 @@ var searchData=
   ['delete_5fuser',['delete_user',['../classWPDKUsers.html#aa0d68eb9d56ef91d16deaf541745cd13',1,'WPDKUsers']]],
   ['deleted_5fuser',['deleted_user',['../classWPDKUsers.html#a893e78a89bd67a0fb6647f2a59d3c7ec',1,'WPDKUsers']]],
   ['delta',['delta',['../classWPDKConfiguration.html#ac63686fdb9da56ca51e01aa786934b07',1,'WPDKConfiguration']]],
-  ['deprecated_20list',['Deprecated List',['../deprecated.html',1,'']]],
   ['didheadload',['didHeadLoad',['../classWPDKViewController.html#a8f89b1a28e11ba12220b125031c0f384',1,'WPDKViewController']]],
   ['disabled',['DISABLED',['../classWPDKUserStatus.html#a30966ddcb9e02419716b353279bda3ef',1,'WPDKUserStatus']]],
   ['display',['display',['../classWPDKScreenHelp.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8',1,'WPDKScreenHelp\display()'],['../classWPDKDynamicTable.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8',1,'WPDKDynamicTable\display()'],['../classWPDKjQueryTabs.html#aaa3cf81bb80c6b942a8f994f91b2cb34',1,'WPDKjQueryTabs\display()'],['../classWPDKView.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8',1,'WPDKView\display()'],['../classWPDKViewController.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8',1,'WPDKViewController\display()']]],

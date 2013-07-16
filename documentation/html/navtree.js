@@ -6,28 +6,31 @@ var NAVTREE =
       [ "WPDK is completely object oriented", "page_features.html#section_object_oriented", null ],
       [ "WPDK follows MVC pattern", "page_features.html#section_mvc_compliant", null ],
       [ "Full Doxygen compatibility of WPDK documentation", "page_features.html#section_help_doxygen", null ],
+      [ "WPDK has all graphic controls you need", "page_features.html#section_cla", null ],
       [ "WPDK useful classes and helpers", "page_features.html#section_tons_classes", null ],
       [ "WPDK embeds object autoloading", "page_features.html#section_autoload", null ]
     ] ],
+    [ "A little in-depth analysis of View and View Controller sub-pattern", "page_view_controller.html", null ],
     [ "Installing WPDK in your WordPress environment", "page_install.html", null ],
     [ "WPDK How-tos", "page_howto.html", [
       [ "Hello World! WordPress plugin using WPDK - the basic", "page_howto.html#section_hello_world_1", null ],
-      [ "Hello World! WordPress plugin using WPDK - intermediate", "page_howto.html#section_hello_world_2", null ]
+      [ "Hello World! WordPress plugin using WPDK - intermediate", "page_howto.html#section_hello_world_2", null ],
+      [ "Sample #1 of WordPress plugin using WPDK", "page_howto.html#section_plugin_1", null ],
+      [ "Sample #2 of WordPress plugin using WPDK", "page_howto.html#section_plugin_2", null ]
     ] ],
-    [ "How to write a simple Plugin", "page_how_to.html", [
-      [ "Overview", "page_how_to.html#page_how_to_plugin_1", null ],
-      [ "WPDKWordPressPlugin class", "page_how_to.html#page_how_to_plugin_2", null ],
-      [ "Filesystem guideline", "page_how_to.html#page_how_to_plugin_2_1", null ],
-      [ "The basic execution flow of a WPDK plugin", "page_how_to.html#page_how_to_plugin_3", null ],
-      [ "Plugin activation", "page_how_to.html#page_how_to_plugin_4", null ],
-      [ "Plugin deactivation", "page_how_to.html#page_how_to_plugin_5", null ],
-      [ "Plugin configuration", "page_how_to.html#page_how_to_plugin_6", null ],
-      [ "Commodity", "page_how_to.html#page_how_to_plugin_7", null ],
-      [ "Writing code in your plugin specifically related to WordPress admin area", "page_how_to.html#page_how_to_plugin_8", null ]
+    [ "How to write a WordPress plugin with full WPDK support", "page_writing_wpdk_plugin.html", [
+      [ "Overview", "page_writing_wpdk_plugin.html#page_how_to_plugin_1", null ],
+      [ "Filesystem guideline", "page_writing_wpdk_plugin.html#page_how_to_plugin_2_1", null ],
+      [ "Plugin activation", "page_writing_wpdk_plugin.html#page_how_to_plugin_4", null ],
+      [ "Plugin deactivation", "page_writing_wpdk_plugin.html#page_how_to_plugin_5", null ],
+      [ "Plugin loaded", "page_writing_wpdk_plugin.html#page_how_to_plugin_6", null ],
+      [ "Plugin configuration", "page_writing_wpdk_plugin.html#page_how_to_plugin_7", null ],
+      [ "Commodity", "page_writing_wpdk_plugin.html#page_how_to_plugin_8", null ],
+      [ "Writing code in your plugin specifically related to WordPress frontend", "page_writing_wpdk_plugin.html#page_how_to_plugin_9", null ],
+      [ "Writing code in your plugin specifically related to WordPress admin area", "page_writing_wpdk_plugin.html#page_how_to_plugin_10", null ],
+      [ "Introduction to available plugin enhancements", "page_writing_wpdk_plugin.html#page_how_to_plugin_11", null ]
     ] ],
     [ "Credits", "page_credits.html", null ],
-    [ "Todo List", "todo.html", null ],
-    [ "Deprecated List", "deprecated.html", null ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Structure Index", "classes.html", null ],

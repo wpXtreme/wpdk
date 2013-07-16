@@ -191,7 +191,7 @@ $(document).ready(function(){initNavTree('wpdk-configuration_8php_source.html','
 <div class="line"><a name="l00432"></a><span class="lineno"><a class="code" href="classWPDKConfiguration.html#aa8b434f58ffed5c625d40082f09b06e1">  432</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKConfiguration.html#aa8b434f58ffed5c625d40082f09b06e1">init</a>( $name, $class_name ) {</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keyword">static</span> $instance = array();</div>
 <div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    $name = sanitize_key( $name );</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    $name = sanitize_title( $name );</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">if</span> ( !isset( $instance[$name] ) ) {</div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;      $instance[$name] = get_option( $name );</div>
 <div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    }</div>
@@ -208,7 +208,7 @@ $(document).ready(function(){initNavTree('wpdk-configuration_8php_source.html','
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  }</div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
 <div class="line"><a name="l00458"></a><span class="lineno"><a class="code" href="classWPDKConfiguration.html#a4717bbfc70a40a57ee741ed70766c309">  458</a></span>&#160;  <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code" href="classWPDKConfiguration.html#a4717bbfc70a40a57ee741ed70766c309" title="Construct.">__construct</a>( $name ) {</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    $this-&gt;name = sanitize_key( $name );</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    $this-&gt;name = sanitize_title( $name );</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;  }</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;</div>
 <div class="line"><a name="l00469"></a><span class="lineno"><a class="code" href="classWPDKConfiguration.html#ac63686fdb9da56ca51e01aa786934b07">  469</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKConfiguration.html#ac63686fdb9da56ca51e01aa786934b07" title="Delta (align) object.">delta</a>() {</div>

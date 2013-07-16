@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3.1"/>
-<title>WPDK: Todo List</title>
+<title>WPDK: A little in-depth analysis of View and View Controller sub-pattern</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('todo.html','');});
+$(document).ready(function(){initNavTree('page_view_controller.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -100,17 +100,20 @@ $(document).ready(function(){initNavTree('todo.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Todo List </div>  </div>
+<div class="title">A little in-depth analysis of View and View Controller sub-pattern </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><dl class="reflist">
-<dt><a class="anchor" id="_todo000001"></a>Global <a class="el" href="classWPDKUser.html#aa692b29288b91a41d7bbdfbb2a57029e">WPDKUser::age</a>  ($birthday)</dt>
-<dd>To improve in date format </dd>
-<dt><a class="anchor" id="_todo000003"></a>Global <a class="el" href="classWPDKUsers.html#ab525bfbb85461986538a2ee65eac24f6">WPDKUsers::arrayUserForSDF</a>  ()</dt>
-<dd>Sicuramente da migliorare in quanto poco flessibile </dd>
-<dt><a class="anchor" id="_todo000002"></a>Global <a class="el" href="classWPDKUsers.html#ac2a3f4c1629ba7b5a680df48aefd50f8">WPDKUsers::user_contactmethods</a>  ($contacts)</dt>
-<dd>Not used yet</dd>
-</dl>
+<div class="textblock"><p>In <em>MVC pattern</em>, there is a separation between model and its views. In pure pattern, a model interacts with its views through a controller(s).</p>
+<p><em>WPDK</em> implements this pattern by the use of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: <code><a class="el" href="classWPDKView.html">WPDKView</a></code>, and <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> classes.</p>
+<p><code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class exposes methods and properties to manage the whole <em>HTML</em> display into the work area of WordPress Administration Screen. Upon request, it provides a view that can be displayed or interacted with. Often, this view is the root view for a more complex hierarchy of views, implemented by specialized instances of <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class. The view controller acts as the central coordinating agent for the view hierarchy, handling exchanges between the views and any relevant controller or data objects.</p>
+<p>This is the typical hierarchy handled by a specialized instance of <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class:</p>
+<ul>
+<li>header with icon and title + optional button add = an instance of <code><a class="el" href="classWPDKHeaderView.html">WPDKHeaderView</a></code> class.</li>
+<li>one or more views, that can be specialized instances of <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class.</li>
+</ul>
+<p>Overriding <code>display</code> method in specialized <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class allows a developer to set a custom content for its instances. The same for <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class.</p>
+<p>Why using this complexity? For <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class, to encapsulate specialized behaviours <em>that can be reusable anywhere</em>, simply creating a new instance of the specialized <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class that implements them. For <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class, to centralize handling of low-level <em>HTML</em> into the whole work area of WordPress Administration Screen; you don't need to create everytime by hand all the <code>&lt;div&gt;&lt;/div&gt;</code> parts of your <em>HTML</em> view into the work area: simply set your own specific <em>HTML</em> content overriding <code>display</code> method, and then call it, if necessary.</p>
+<p>To see how all this theory turns to action, go to <a class="el" href="page_howto.html">WPDK How-To</a> and get the source code that use this pattern. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

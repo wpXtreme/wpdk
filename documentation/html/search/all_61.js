@@ -27,5 +27,6 @@ var searchData=
   ['arrayuserforsdf',['arrayUserForSDF',['../classWPDKUsers.html#ab525bfbb85461986538a2ee65eac24f6',1,'WPDKUsers']]],
   ['arraywithkey',['arrayWithKey',['../classWPDKArray.html#af2987ffc653c76a8e14657375be11cae',1,'WPDKArray']]],
   ['authenticate',['authenticate',['../classWPDKUsers.html#a4b8790ad74d11cbaa80533d117f11084',1,'WPDKUsers']]],
-  ['autoloadenvironment',['autoloadEnvironment',['../classWPDKWordPressPlugin.html#a9101252a66d394c171e8ff38f95ab51b',1,'WPDKWordPressPlugin']]]
+  ['autoloadenvironment',['autoloadEnvironment',['../classWPDKWordPressPlugin.html#a9101252a66d394c171e8ff38f95ab51b',1,'WPDKWordPressPlugin']]],
+  ['a_20little_20in_2ddepth_20analysis_20of_20view_20and_20view_20controller_20sub_2dpattern',['A little in-depth analysis of View and View Controller sub-pattern',['../page_view_controller.html',1,'']]]
 ];
