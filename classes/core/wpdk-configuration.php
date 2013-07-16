@@ -432,7 +432,7 @@ class WPDKConfiguration {
   public static function init( $name, $class_name ) {
     static $instance = array();
 
-    $name = sanitize_key( $name );
+    $name = sanitize_title( $name );
     if ( !isset( $instance[$name] ) ) {
       $instance[$name] = get_option( $name );
     }
@@ -456,7 +456,7 @@ class WPDKConfiguration {
    * @param string $name A string used as name for options. Make it unique more possible.
    */
   protected function __construct( $name ) {
-    $this->name = sanitize_key( $name );
+    $this->name = sanitize_title( $name );
   }
 
   /**
