@@ -57,10 +57,11 @@ class WPDKWordPressAdmin {
     }
 
     /* Register this plugin in body. */
-    add_filter( 'admin_body_class', array( $this, '_admin_body_class' ) );
+    add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
     /* Loading Script & style for backend */
     add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ class WPDKWordPressAdmin {
    *
    * @return string
    */
-  public function _admin_body_class( $classes ) {
+  public function admin_body_class( $classes ) {
     if ( !empty( $this->bodyClasses ) ) {
       $stack = array();
       foreach ( $this->bodyClasses as $key => $enabled ) {
