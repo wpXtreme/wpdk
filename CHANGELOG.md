@@ -20,6 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.1.3
+### 2013-07-
+
+#### Improvements
+
+* Restyling some css
+
+
+
 ## Version 1.1.2
 ### 2013-07-09
 

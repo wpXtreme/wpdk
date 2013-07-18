@@ -81,11 +81,11 @@
 
 /* Interaction states
 ----------------------------------*/
-.wpdk-jquery-ui .ui-state-default, .wpdk-jquery-ui .ui-widget-content .ui-state-default, .wpdk-jquery-ui .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3; background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #555555; }
+.wpdk-jquery-ui .ui-state-default, .wpdk-jquery-ui .ui-widget-content .ui-state-default, .wpdk-jquery-ui .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3; background: #ddd; font-weight: normal; color: #555555; }
 .wpdk-jquery-ui .ui-state-default a, .wpdk-jquery-ui .ui-state-default a:link, .wpdk-jquery-ui .ui-state-default a:visited { color: #555555; text-decoration: none; }
-.wpdk-jquery-ui .ui-state-hover, .wpdk-jquery-ui .ui-widget-content .ui-state-hover, .wpdk-jquery-ui .ui-widget-header .ui-state-hover, .wpdk-jquery-ui .ui-state-focus, .wpdk-jquery-ui .ui-widget-content .ui-state-focus, .wpdk-jquery-ui .ui-widget-header .ui-state-focus { border: 1px solid #999999; background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.wpdk-jquery-ui .ui-state-hover, .wpdk-jquery-ui .ui-widget-content .ui-state-hover, .wpdk-jquery-ui .ui-widget-header .ui-state-hover, .wpdk-jquery-ui .ui-state-focus, .wpdk-jquery-ui .ui-widget-content .ui-state-focus, .wpdk-jquery-ui .ui-widget-header .ui-state-focus { border: 1px solid #999999; background-color: rgb(250,250,250); font-weight: normal; color: #212121; }
 .wpdk-jquery-ui .ui-state-hover a, .wpdk-jquery-ui .ui-state-hover a:hover { color: #212121; text-decoration: none; }
-.wpdk-jquery-ui .ui-state-active, .wpdk-jquery-ui .ui-widget-content .ui-state-active, .wpdk-jquery-ui .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa; background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.wpdk-jquery-ui .ui-state-active, .wpdk-jquery-ui .ui-widget-content .ui-state-active, .wpdk-jquery-ui .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa; background-color: rgb(250,250,250) ; font-weight: normal; color: #212121; }
 .wpdk-jquery-ui .ui-state-active a, .wpdk-jquery-ui .ui-state-active a:link, .wpdk-jquery-ui .ui-state-active a:visited { color: #212121; text-decoration: none; }
 .wpdk-jquery-ui .ui-widget :active { outline: none; }
 
@@ -543,14 +543,7 @@
 .wpdk-jquery-ui .ui-tabs .ui-tabs-selected,
 .wpdk-jquery-ui .ui-tabs .ui-state-active
 {
-  background: rgb(240,239,252); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(240,239,252,1) 0%, rgba(255,255,255,1) 50%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(240,239,252,1)), color-stop(50%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(240,239,252,1) 0%,rgba(255,255,255,1) 50%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(240,239,252,1) 0%,rgba(255,255,255,1) 50%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(240,239,252,1) 0%,rgba(255,255,255,1) 50%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(240,239,252,1) 0%,rgba(255,255,255,1) 50%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0effc', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  background-color: rgb(250,250,250);
   font-weight : bold; margin-top : -4px !important; padding-top : 4px !important;
 }
 
