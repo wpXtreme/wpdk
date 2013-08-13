@@ -34,6 +34,7 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKResult::isWarning()` public static method to replace `wpdk_is_warning()` the inline (deprecated) function
 * Added `WPDKResult::isStatus()` public static method to replace `wpdk_is_status()` the inline (deprecated) function
 * Added `WPDKMath::isInfinity()` public static method to replace `wpdk_is_infinity()` the inline (deprecated) function
+* Added `WPDKHTMLTagSelect::selected()` public static method to replace `wpdk_selected()` the inline (deprecated) function
 
 
 ## Version 1.1.2
