@@ -27,6 +27,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Restyling some css
 
+#### Enhancements
+
+* Added `WPDKObject::delta()` public static method to replace `wpdk_delta_object()` the inline (deprecated) function
+* Added `WPDKResult::isError()` public static method to replace `wpdk_is_error()` the inline (deprecated) function
+* Added `WPDKResult::isWarning()` public static method to replace `wpdk_is_warning()` the inline (deprecated) function
+* Added `WPDKResult::isStatus()` public static method to replace `wpdk_is_status()` the inline (deprecated) function
 
 
 ## Version 1.1.2
