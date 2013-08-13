@@ -65,18 +65,20 @@ function wpdk_is_url( $url )
 /**
  * Check if infinity
  *
- * @brief Infinity
+ * @brief      Infinity
  *
  * @param float|string $value Check value
  *
  * @return bool TRUE if $value is equal to INF (php) or WPDKMath::INFINITY
  *
- * @file  wpdk-functions.php
+ * @file       wpdk-functions.php
+ * @deprecated Since 1.1.3 Use WPDKMath::isInfinity() instead
  *
  */
 function wpdk_is_infinity( $value )
 {
-  return ( is_infinite( floatval( $value ) ) || ( is_string( $value ) && $value == WPDKMath::INFINITY ) );
+  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKMath::isInfinity()' );
+  return WPDKMath::isInfinity( $value );
 }
 
 /**
