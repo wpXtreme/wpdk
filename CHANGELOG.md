@@ -21,11 +21,18 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.1.3
-### 2013-07-
+### 2013-08-
 
 #### Improvements
 
 * Restyling some css
+* Update jQuery cookie plugin to 1.3.1
+* Minor Javascript improvement for WordPress 3.6
+* Added Javascript version info by cookie
+
+#### Bugs
+
+* Fixed jQuery tabs cookie
 
 #### Enhancements
 
