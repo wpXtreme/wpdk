@@ -1156,6 +1156,38 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
     <?php endforeach;
   }
 
+  /**
+   * Return HTML `selected` attribute or empty string.
+   * Commodity to extends selected() WordPress function with array check.
+   *
+   * @brief WordPress selected() replacement
+   * @since 1.1.3
+   *
+   * @param string|array $haystack Single value or array
+   * @param mixed        $current  (true) The other value to compare if not just true
+   *
+   * @example
+   *
+   *     <select name="test">
+   *       <option <?php echo WPDKHTMLTagSelect::selected( 'value', $value ) ?>>Value</option>
+   *       ...
+   *     </select>
+   *
+   *     <select name="test">
+   *       <option <?php echo WPDKHTMLTagSelect::selected( array( '1', '14', '16'), $value ) ?>>Value</option>
+   *       ...
+   *     </select>
+   *
+   * @return string HTML attribute or empty string
+   */
+  public static function selected( $haystack, $current )
+  {
+    if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
+      $current = $haystack = 1;
+    }
+    return selected( $haystack, $current, false );
+  }
+
 }
 
 /**

@@ -20,8 +20,33 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.1.3
+### 2013-08-
+
+#### Improvements
+
+* Restyling some css
+* Update jQuery cookie plugin to 1.3.1
+* Minor Javascript improvement for WordPress 3.6
+* Added Javascript version info by cookie
+
+#### Bugs
+
+* Fixed jQuery tabs cookie
+
+#### Enhancements
+
+* Added `WPDKObject::delta()` public static method to replace `wpdk_delta_object()` the inline (deprecated) function
+* Added `WPDKResult::isError()` public static method to replace `wpdk_is_error()` the inline (deprecated) function
+* Added `WPDKResult::isWarning()` public static method to replace `wpdk_is_warning()` the inline (deprecated) function
+* Added `WPDKResult::isStatus()` public static method to replace `wpdk_is_status()` the inline (deprecated) function
+* Added `WPDKMath::isInfinity()` public static method to replace `wpdk_is_infinity()` the inline (deprecated) function
+* Added `WPDKHTMLTagSelect::selected()` public static method to replace `wpdk_selected()` the inline (deprecated) function
+* Added `label` key for `WPDKUIControlSubmit` control
+
+
 ## Version 1.1.2
-### 2013-07s-09
+### 2013-07-09
 
 #### Enhancements
 

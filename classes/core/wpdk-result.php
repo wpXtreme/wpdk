@@ -15,8 +15,8 @@
  * @class              WPDKResultType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-08-13
+ * @version            1.0.0
  *
  */
 class WPDKResultType {
@@ -52,7 +52,8 @@ class WPDKResult extends WP_Error {
    *
    * @return WPDKResult
    */
-  public function __construct( $code, $type = WPDKResultType::STATUS, $message = '', $data = '' ) {
+  public function __construct( $code, $type = WPDKResultType::STATUS, $message = '', $data = '' )
+  {
     $new_code      = sprintf( '%s-%s', $type, $code );
     $sanitize_code = $this->sanitizeCode( $new_code );
     parent::__construct( $sanitize_code, $message, $data );
@@ -69,7 +70,8 @@ class WPDKResult extends WP_Error {
    *
    * @return string|void Formatted output if $echo is FALSE
    */
-  public function display( $echo = true, $log = null ) {
+  public function display( $echo = true, $log = null )
+  {
     $message = '<div class="wpdk-watchdog-wp-error">';
 
     foreach ( $this->errors as $code => $single ) {
@@ -110,10 +112,11 @@ class WPDKResult extends WP_Error {
    *
    * @return string
    */
-  public function getVarDump( $content ) {
+  public function getVarDump( $content )
+  {
     ob_start();
     ?>
-  <pre><?php var_dump( $content ) ?></pre><?php
+    <pre><?php var_dump( $content ) ?></pre><?php
     $content = ob_get_contents();
     ob_end_clean();
     return $content;
@@ -128,7 +131,8 @@ class WPDKResult extends WP_Error {
    *
    * @return string
    */
-  protected function sanitizeCode( $code ) {
+  protected function sanitizeCode( $code )
+  {
     $replace = array(
       ' ' => '_',
       '-' => '_'
@@ -136,6 +140,74 @@ class WPDKResult extends WP_Error {
     $code    = strtr( $code, $replace );
     return strtolower( $code );
   }
+
+
+  /**
+   * Return true if $thing is an object of $class class name
+   *
+   * @brief Generic object compare
+   *
+   * @param mixed  $thing Check if unknown variable is WPDKError object.
+   * @param string $class Class name
+   *
+   * @return bool
+   */
+  protected static function _is( $thing, $class = 'WPDKError' )
+  {
+    if ( is_object( $thing ) && is_a( $thing, $class ) ) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Looks at the object and if a WPDKError class. Does not check to see if the parent is also WPDKError or a WPDKResult,
+   * so can't inherit both the classes and still use this function.
+   *
+   * @brief Check whether variable is a WPDK result error.
+   * @since 1.1.3
+   *
+   * @param mixed $thing Check if unknown variable is WPDKError object.
+   *
+   * @return bool TRUE, if WPDKError. FALSE, if not WPDKError.
+   */
+  public static function isError( $thing )
+  {
+    return self::_is( $thing );
+  }
+
+  /**
+   * Looks at the object and if a WPDKWarning class. Does not check to see if the parent is also WPDKWarning or a WPDKResult,
+   * so can't inherit both the classes and still use this function.
+   *
+   * @brief Check whether variable is a WPDK result warning.
+   * @since 1.1.3
+   *
+   * @param mixed $thing Check if unknown variable is WPDKWarning object.
+   *
+   * @return bool TRUE, if WPDKWarning. FALSE, if not WPDKWarning.
+   */
+  public static function isWarning( $thing )
+  {
+    return self::_is( $thing, 'WPDKWarning' );
+  }
+
+  /**
+   * Looks at the object and if a WPDKStatus class. Does not check to see if the parent is also WPDKStatus or a WPDKResult,
+   * so can't inherit both the classes and still use this function.
+   *
+   * @brief Check whether variable is a WPDK result status.
+   * @since 1.1.3
+   *
+   * @param mixed $thing Check if unknown variable is WPDKStatus object.
+   *
+   * @return bool TRUE, if WPDKStatus. FALSE, if not WPDKStatus.
+   */
+  public static function isStatus( $thing )
+  {
+    return self::_is( $thing, 'WPDKStatus' );
+  }
+
 }
 
 
@@ -162,7 +234,8 @@ class WPDKError extends WPDKResult {
    *
    * @return WPDKError
    */
-  public function __construct( $code, $message = '', $data = '' ) {
+  public function __construct( $code, $message = '', $data = '' )
+  {
     parent::__construct( $code, WPDKResultType::ERROR, $message, $data );
   }
 
@@ -192,7 +265,8 @@ class WPDKWarning extends WPDKResult {
    *
    * @return WPDKWarning
    */
-  public function __construct( $code, $message = '', $data = '' ) {
+  public function __construct( $code, $message = '', $data = '' )
+  {
     parent::__construct( $code, WPDKResultType::WARNING, $message, $data );
   }
 
@@ -221,7 +295,8 @@ class WPDKStatus extends WPDKResult {
    *
    * @return WPDKStatus
    */
-  public function __construct( $code, $message = '', $data = '' ) {
+  public function __construct( $code, $message = '', $data = '' )
+  {
     parent::__construct( $code, WPDKResultType::STATUS, $message, $data );
   }
 }

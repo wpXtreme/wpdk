@@ -1621,6 +1621,7 @@ class WPDKUIControlSelectList extends WPDKUIControl {
  *         'id'             => 'id',
  *         'name'           => 'name',
  *         'value'          => 'Button Text',
+ *         'label'          => 'Optional label',
  *         'attrs'          => '',
  *         'data'           => '',
  *         'class'          => '',
@@ -1633,8 +1634,8 @@ class WPDKUIControlSelectList extends WPDKUIControl {
  * @class              WPDKUIControlSubmit
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-08-14
+ * @version            0.8.2
  *
  */
 class WPDKUIControlSubmit extends WPDKUIControl {
@@ -1661,6 +1662,11 @@ class WPDKUIControlSubmit extends WPDKUIControl {
    */
   public function draw() {
     echo $this->contentWithKey( 'prepend' );
+
+    $label = $this->label();
+
+    /* Display right label. */
+    echo is_null( $label ) ? '' : $label->html();
 
     $input        = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type  = WPDKHTMLTagInputType::SUBMIT;
@@ -1883,7 +1889,7 @@ class WPDKUIControlTextarea extends WPDKUIControl {
   public function draw() {
     echo $this->contentWithKey( 'prepend' );
 
-    /* Create the label. @todo usually you li ke set this label n the top. */
+    /* Create the label. @todo usually you like set this label on the top. */
     $label = $this->label();
 
     /* Display right label. */

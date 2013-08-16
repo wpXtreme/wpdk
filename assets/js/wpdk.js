@@ -412,36 +412,56 @@ function wpdk_is_bool( $mixed ) {
   } );
 })( jQuery );
 
-/**
- * jQuery Cookie Plugin v1.3
+/*!
+ * jQuery Cookie Plugin v1.3.1
  * https://github.com/carhartl/jquery-cookie
  *
- * Copyright 2011, Klaus Hartl
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.opensource.org/licenses/GPL-2.0
+ * Copyright 2013 Klaus Hartl
+ * Released under the MIT license
  */
-(function ( $, document, undefined ) {
+(function ( factory )
+{
+  if ( typeof define === 'function' && define.amd ) {
+    // AMD. Register as anonymous module.
+    define( ['jquery'], factory );
+  }
+  else {
+    // Browser globals.
+    factory( jQuery );
+  }
+}( function ( $ )
+{
 
   var pluses = /\+/g;
 
-  function raw( s ) {
+  function raw( s )
+  {
     return s;
   }
 
-  function decoded( s ) {
+  function decoded( s )
+  {
     return decodeURIComponent( s.replace( pluses, ' ' ) );
   }
 
-  var config = $.cookie = function ( key, value, options ) {
+  function converted( s )
+  {
+    if ( s.indexOf( '"' ) === 0 ) {
+      // This is a quoted cookie as according to RFC2068, unescape
+      s = s.slice( 1, -1 ).replace( /\\"/g, '"' ).replace( /\\\\/g, '\\' );
+    }
+    try {
+      return config.json ? JSON.parse( s ) : s;
+    } catch (er) {
+    }
+  }
+
+  var config = $.cookie = function ( key, value, options )
+  {
 
     // write
     if ( value !== undefined ) {
       options = $.extend( {}, config.defaults, options );
-
-      if ( value === null ) {
-        options.expires = -1;
-      }
 
       if ( typeof options.expires === 'number' ) {
         var days = options.expires, t = options.expires = new Date();
@@ -451,9 +471,10 @@ function wpdk_is_bool( $mixed ) {
       value = config.json ? JSON.stringify( value ) : String( value );
 
       return (document.cookie = [
-        encodeURIComponent( key ), '=', config.raw ? value : encodeURIComponent( value ),
-        options.expires ? '; expires=' + options.expires.toUTCString() : '',
-        // use expires attribute, max-age is not supported by IE
+        config.raw ? key : encodeURIComponent( key ),
+        '=',
+        config.raw ? value : encodeURIComponent( value ),
+        options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
         options.path ? '; path=' + options.path : '',
         options.domain ? '; domain=' + options.domain : '',
         options.secure ? '; secure' : ''
@@ -463,28 +484,39 @@ function wpdk_is_bool( $mixed ) {
     // read
     var decode = config.raw ? raw : decoded;
     var cookies = document.cookie.split( '; ' );
+    var result = key ? undefined : {};
     for ( var i = 0, l = cookies.length; i < l; i++ ) {
       var parts = cookies[i].split( '=' );
-      if ( decode( parts.shift() ) === key ) {
-        var cookie = decode( parts.join( '=' ) );
-        return config.json ? JSON.parse( cookie ) : cookie;
+      var name = decode( parts.shift() );
+      var cookie = decode( parts.join( '=' ) );
+
+      if ( key && key === name ) {
+        result = converted( cookie );
+        break;
+      }
+
+      if ( !key ) {
+        result[name] = converted( cookie );
       }
     }
 
-    return null;
+    return result;
   };
 
   config.defaults = {};
 
-  $.removeCookie = function ( key, options ) {
-    if ( $.cookie( key ) !== null ) {
-      $.cookie( key, null, options );
+  $.removeCookie = function ( key, options )
+  {
+    if ( $.cookie( key ) !== undefined ) {
+      // Must not alter options, thus extending a fresh object...
+      $.cookie( key, '', $.extend( {}, options, { expires : -1 } ) );
       return true;
     }
     return false;
   };
 
-})( jQuery, document );
+} ));
+
 
 /**
  * WPDK Swipe Control extend
@@ -793,8 +825,8 @@ var WPDKTwitterBootstrap = (function ( $ ) {
  * @class           WPDKjQuery
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2012-11-28
- * @version         1.0.0
+ * @date            2013-08-14
+ * @version         1.1.0
  */
 var WPDKjQuery = (function ( $ ) {
 
@@ -810,7 +842,30 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @brief Version
    */
-  $this.version = "1.0.0";
+  $this.version = "1.1.0";
+
+  /**
+   * Return the jQury version.
+   *
+   * @return string
+   */
+  $this.jQueryVersion = function ()
+  {
+    return $().jquery;
+  }
+
+  /**
+   * Return the jQury UI version. Return false if jQuery UI is not loaded
+   *
+   * @return bool|string
+   */
+  $this.jQueryUIVersion = function ()
+  {
+    if ( $.ui && $.ui.version ) {
+      return $.ui.version;
+    }
+    return false;
+  }
 
   /**
    * Called by default when an Ajax request is perform. Display the Ajax animation on the center of page.
@@ -899,6 +954,7 @@ var WPDKjQuery = (function ( $ ) {
    * @private
    */
   function _initTabs() {
+
     if ( document.location.href.indexOf( '#' ) > 0 ) {
       $( ".wpdk-tabs" ).tabs();
     }
@@ -906,19 +962,29 @@ var WPDKjQuery = (function ( $ ) {
       $( ".wpdk-tabs" ).each( function () {
         var id = $( this ).attr( "id" );
         if ( typeof id === 'undefined' || id == null || id == "" ) {
-          $( this ).tabs( {
-            cookie : {
-              expires : 1
-            }
-          } );
+
+//          $( this ).tabs( {
+//            cookie : {
+//              expires : 1
+//            }
+//          } );
         }
         else {
+
           $( this ).tabs( {
-            cookie : {
-              expires : 1,
-              name    : id
-            }
+            activate : function ( e, ui )
+            {
+              $.cookie( id, ui.newTab.index(), { path : '/' } );
+            },
+            active   : $.cookie( id )
           } );
+
+//          $( this ).tabs( {
+//            cookie : {
+//              expires : 1,
+//              name    : id
+//            }
+//          } );
         }
       } );
     }
@@ -1411,6 +1477,8 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    * @type {WPDKTwitterBootstrapModal}
    */
   var $this = this;
+
+  $this.version = '0.1.0';
 
   $this.id = $id;
   $this.title = $title;
@@ -2673,5 +2741,37 @@ var GuruMeditation = (function ( $ ) {
   }
 
   return $this;
+
+})( jQuery );
+
+/*!
+ * Write a cookie to debug the javascript library versions
+ * Use this cookie from PHP for debug.
+ */
+(function ( $ )
+{
+  var versions =
+  {
+    'jQuery'                    : WPDKjQuery.jQueryVersion(),
+    'jQuery UI'                 : WPDKjQuery.jQueryUIVersion(),
+    'WPDK'                      : WPDK.version,
+    'WPDKControls'              : WPDKControls.version,
+    'WPDKTwitterBootstrap'      : WPDKTwitterBootstrap.version,
+    'WPDKjQuery'                : WPDKjQuery.version,
+    'WPDKDynamicTable'          : WPDKDynamicTable.version,
+    'GuruMeditation'            : GuruMeditation.version
+  };
+
+  var cookie = [];
+
+  for ( version in versions ) {
+    cookie.push( sprintf( '"%s":"v.%s"', version, versions[version] ) );
+  }
+
+  var json = sprintf( '{%s}', cookie.join(',') );
+
+  console.log( json );
+
+  jQuery.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
 
 })( jQuery );

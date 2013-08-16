@@ -5,8 +5,8 @@
  * @class              WPDKMath
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-05-02
- * @version            1.0.0
+ * @date               2013-08-13
+ * @version            1.0.1
  */
 
 class WPDKMath {
@@ -17,10 +17,6 @@ class WPDKMath {
    * @brief Infinity constant
    */
   const INFINITY = 'infinity';
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Math functions
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC
@@ -34,7 +30,8 @@ class WPDKMath {
    *
    * @return integer
    */
-  public static function rModulus( $a, $n ) {
+  public static function rModulus( $a, $n )
+  {
     return ( $a - ( $n * round( $a / $n ) ) );
   }
 
@@ -45,8 +42,25 @@ class WPDKMath {
    *
    * @return bool
    */
-  public function isPercentage( $value ) {
+  public static function isPercentage( $value )
+  {
     return ( substr( trim( $value ), -1, 1 ) == '%' );
+  }
+
+  /**
+   * Check if infinity
+   *
+   * @brief Infinity
+   * @since 1.1.3
+   *
+   * @param float|string $value Check value
+   *
+   * @return bool true if $value is equal to INF (php) or WPDKMath::INFINITY
+   *
+   */
+  public static function isInfinity( $value )
+  {
+    return ( is_infinite( floatval( $value ) ) || ( is_string( $value ) && $value == self::INFINITY ) );
   }
 
 }

@@ -399,8 +399,8 @@ class WPDKConfigBranch {
  * @class              WPDKConfiguration
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-07-16
+ * @version            0.8.2
  * @since              0.6.2
  *
  */
@@ -427,12 +427,12 @@ class WPDKConfiguration {
    * @param string $name       A string used as name for options. Make it unique more possible.
    * @param string $class_name The subclass class name,
    *
-   * @return object
+   * @return WPDKConfiguration
    */
   public static function init( $name, $class_name ) {
     static $instance = array();
 
-    $name = sanitize_key( $name );
+    $name = sanitize_title( $name );
     if ( !isset( $instance[$name] ) ) {
       $instance[$name] = get_option( $name );
     }
@@ -456,7 +456,7 @@ class WPDKConfiguration {
    * @param string $name A string used as name for options. Make it unique more possible.
    */
   protected function __construct( $name ) {
-    $this->name = sanitize_key( $name );
+    $this->name = sanitize_title( $name );
   }
 
   /**
