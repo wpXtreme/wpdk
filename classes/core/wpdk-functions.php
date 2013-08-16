@@ -29,8 +29,6 @@
  *
  * @file       wpdk-functions.php
  *
- * @deprecated Since 1.1.3 Use WPDKFunctions::is_bool instead
- *
  */
 function wpdk_is_bool( $str )
 {
