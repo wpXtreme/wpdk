@@ -2139,8 +2139,9 @@ class WPDKUI {
    *
    * @brief Simple button
    *
-   * @param string $label Button label
-   * @param string $args  Array key value
+   * @param string $label Optional. Button label. If empty default is 'Update'
+   * @param string $args  Optional. A keys value array for additional settings
+   *
    *     'type'                  => 'submit',
    *     'name'                  => 'button-update',
    *     'classes'               => ' btn btn-primary button-primary',
