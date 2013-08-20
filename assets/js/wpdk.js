@@ -953,24 +953,17 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initTabs() {
+  function _initTabs()
+  {
+    $( ".wpdk-tabs" ).tabs();
 
     if ( document.location.href.indexOf( '#' ) > 0 ) {
-      $( ".wpdk-tabs" ).tabs();
     }
     else {
-      $( ".wpdk-tabs" ).each( function () {
+      $( ".wpdk-tabs" ).each( function ()
+      {
         var id = $( this ).attr( "id" );
-        if ( typeof id === 'undefined' || id == null || id == "" ) {
-
-//          $( this ).tabs( {
-//            cookie : {
-//              expires : 1
-//            }
-//          } );
-        }
-        else {
-
+        if ( 'undefined' !== typeof(id) ) {
           $( this ).tabs( {
             activate : function ( e, ui )
             {
@@ -978,13 +971,6 @@ var WPDKjQuery = (function ( $ ) {
             },
             active   : $.cookie( id )
           } );
-
-//          $( this ).tabs( {
-//            cookie : {
-//              expires : 1,
-//              name    : id
-//            }
-//          } );
         }
       } );
     }
