@@ -14,16 +14,17 @@
  *     $view = WPDKView::initWithContent( 'my-view', '', 'Hello World' );
  *     $view->display();
  *
- * Or
+ * Or, suggested method
  *
  *     class MyView extends WPDKView {
- *         function __construct( $id, $class = '' ) {
- *         }
+ *       public function __construct() {
+ *         parent::__construct( 'my-id', 'additional class' );
+ *       }
  *
- *         // Override
- *         function draw() {
- *             echo 'Hello World';
- *         }
+ *       // Override
+ *       public function draw() {
+ *         echo 'Hello World';
+ *       }
  *     }
  *
  * ### draw() VS content
@@ -36,27 +37,26 @@
  *
  *     add_action( 'wpdk_view_did_draw_content', array( $this, 'wpdk_view_did_draw_content') );
  *
- *     function wpdk_view_did_draw_content( $view ) {
- *         if ( is_a( $view, 'WPDKHeaderView' ) ) {
- *             // Do something
- *         }
+ *     public function wpdk_view_did_draw_content( $view ) {
+ *       if ( is_a( $view, 'WPDKHeaderView' ) ) {
+ *           // Do something
+ *       }
  *     }
  *
  * In this case we had used the "is_a" function to understand which type of view was passed. Alternatively you can check
  * the view id, for example.
  *
- *     function wpdk_view_did_draw_content( $view ) {
- *         if ( 'my_id' == $view->id ) {
- *             // Do something
- *         }
+ *     public function wpdk_view_did_draw_content( $view ) {
+ *       if ( 'my_id' == $view->id ) {
+ *           // Do something
+ *       }
  *     }
- *
  *
  * @class              WPDKView
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-08-19
+ * @version            1.0.0
  *
  */
 
@@ -117,7 +117,7 @@ class WPDKView {
   /**
    * An array list with views of this view controller
    *
-   * @brief List of views
+   * @brief      List of views
    * @deprecated Since 1.0.0.b4 - Use subviews instead
    *
    * @var array $views;
@@ -130,12 +130,13 @@ class WPDKView {
    * @brief Construct
    *
    * @param string       $id    The unique id for this view
-   * @param array|string $class The CSS classes for this view
+   * @param array|string $class Optional. The CSS classes for this view
    *
    * @return WPDKView
    */
-  public function __construct( $id, $class = '' ) {
-    $this->id        = sanitize_key( $id );
+  public function __construct( $id, $class = '' )
+  {
+    $this->id        = sanitize_title( $id );
     $this->class     = $class;
     $this->content   = '';
     $this->superview = null;
@@ -153,7 +154,8 @@ class WPDKView {
    *
    * @return bool|WPDKView Return an instance of WPDKView or FALSE if error
    */
-  public static function initWithContent( $id, $class = '', $content = '' ) {
+  public static function initWithContent( $id, $class = '', $content = '' )
+  {
     if ( !empty( $content ) ) {
       $instance          = new WPDKView( $id, $class );
       $instance->content = $content;
@@ -163,7 +165,9 @@ class WPDKView {
   }
 
   /* @todo Experimental */
-  public static function initWithFrame( $id, $rect ) {}
+  public static function initWithFrame( $id, $rect )
+  {
+  }
 
   /**
    * Return the HTML markup content of this view
@@ -172,7 +176,8 @@ class WPDKView {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     ob_start();
     $this->display();
     $content = ob_get_contents();
@@ -183,17 +188,18 @@ class WPDKView {
   /**
    * Return the HTML markup content for this view
    *
-   * @brief The view content
+   * @brief    The view content
    *
    * @internal WPDKView $view
    *
    * @return string
    */
-  public function display() {
+  public function display()
+  {
     ?>
-  <div data-type="wpdk-view"
-       id="<?php echo $this->id ?>"
-       class="wpdk-view <?php echo $this->classes() ?> clearfix" <?php echo $this->data() ?> >
+    <div data-type="wpdk-view"
+         id="<?php echo $this->id ?>"
+         class="wpdk-view <?php echo $this->classes() ?> clearfix" <?php echo $this->data() ?> >
 
     <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
 
@@ -204,8 +210,8 @@ class WPDKView {
     <?php do_action( 'wpdk_view_' . $this->id . '_after_draw', $this ) ?>
 
     <?php if ( is_array( $this->subviews ) ) : ?>
-    <?php foreach ( $this->subviews as $view ) : ?>
-      <?php $view->display() ?>
+      <?php foreach ( $this->subviews as $view ) : ?>
+        <?php $view->display() ?>
       <?php endforeach ?>
     <?php endif ?>
 
@@ -223,7 +229,8 @@ class WPDKView {
    *
    * @return string
    */
-  private function classes() {
+  private function classes()
+  {
     if ( !empty( $this->class ) ) {
       if ( is_string( $this->class ) ) {
         return $this->class;
@@ -242,7 +249,8 @@ class WPDKView {
    *
    * @return string
    */
-  private function data() {
+  private function data()
+  {
     $result = '';
     if ( !empty( $this->data ) ) {
       foreach ( $this->data as $attr => $value ) {
@@ -256,9 +264,10 @@ class WPDKView {
    * Draw the view content
    *
    * @brief Draw
-   * @note This method can be over-ridden in a sub-class.
+   * @note  This method can be over-ridden in a sub-class.
    */
-  public function draw() {
+  public function draw()
+  {
     /* This method can be over-ridden in a sub-class. */
     echo $this->content;
   }
@@ -289,7 +298,8 @@ class WPDKView {
    *
    * @brief Remove this view
    */
-  public function removeFromSuperview() {
+  public function removeFromSuperview()
+  {
     if ( !empty( $this->superview ) ) {
       unset( $this->superview->subviews[$this->id] );
     }
@@ -361,8 +371,9 @@ class WPDKViewController {
    *
    * @return WPDKViewController
    */
-  public function __construct( $id, $title ) {
-    $this->id       = sanitize_key( $id );
+  public function __construct( $id, $title )
+  {
+    $this->id       = sanitize_title( $id );
     $this->title    = $title;
     $this->view     = new WPDKView( $id . '-view-root', array( 'wrap' ) );
     $this->viewHead = new WPDKHeaderView( $id . '-header-view', $this->title );
@@ -381,7 +392,8 @@ class WPDKViewController {
    *
    * @return bool|WPDKViewController The view controller or FALSE if error
    */
-  public static function initWithView( $id, $title, $view ) {
+  public static function initWithView( $id, $title, $view )
+  {
     if ( !is_object( $view ) || !is_a( $view, 'WPDKView' ) ) {
       return false;
     }
@@ -398,7 +410,8 @@ class WPDKViewController {
    *
    * @brief Head
    */
-  public static function didHeadLoad() {
+  public static function didHeadLoad()
+  {
     /* To override */
   }
 
@@ -408,7 +421,8 @@ class WPDKViewController {
    *
    * @brief Head
    */
-  public static function willLoad() {
+  public static function willLoad()
+  {
     /* To override */
   }
 
@@ -423,7 +437,8 @@ class WPDKViewController {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     ob_start();
     $this->display();
     $content = ob_get_contents();
@@ -436,18 +451,19 @@ class WPDKViewController {
    *
    * @brief Display the view controller
    */
-  public function display() {
+  public function display()
+  {
     ?>
 
-  <?php do_action( $this->id . '_will_view_appear', $this ) ?>
+    <?php do_action( $this->id . '_will_view_appear', $this ) ?>
 
-  <?php do_action( 'wpdk_view_controller_will_view_appear', $this->view, $this ); // @deprecated ?>
+    <?php do_action( 'wpdk_view_controller_will_view_appear', $this->view, $this ); // @deprecated ?>
 
-  <?php $this->view->display() ?>
+    <?php $this->view->display() ?>
 
-  <?php do_action( 'wpdk_view_controller_did_view_appear', $this->view, $this ); // @deprecated ?>
+    <?php do_action( 'wpdk_view_controller_did_view_appear', $this->view, $this ); // @deprecated ?>
 
-  <?php do_action( $this->id . '_did_view_appear', $this ) ?>
+    <?php do_action( $this->id . '_did_view_appear', $this ) ?>
 
   <?php
   }
@@ -484,7 +500,8 @@ class WPDKHeaderView extends WPDKView {
    *
    * @return WPDKHeaderView
    */
-  public function __construct( $id, $title = '' ) {
+  public function __construct( $id, $title = '' )
+  {
     parent::__construct( $id, 'clearfix wpdk-header-view' );
 
     /* WPDKHeaderView property. */
@@ -496,28 +513,191 @@ class WPDKHeaderView extends WPDKView {
    *
    * @brief Draw content
    */
-  public function draw() {
+  public function draw()
+  {
     ?>
-  <div data-type="wpdk-header-view" id="<?php echo $this->id ?>" class="wpdk-vc-header-icon"></div>
-  <h2><?php echo $this->title ?>
-    <?php
-    /* @todo Add action docs. */
-    do_action( 'wpdk_header_view_' . $this->id . '_title_did_appear', $this );
-    // @deprecated
-    do_action( 'wpdk_header_view_title_did_appear', $this );
-    ?></h2>
-  <div class="wpdk-vc-header-after-title">
+    <div data-type="wpdk-header-view" id="<?php echo $this->id ?>" class="wpdk-vc-header-icon"></div>
+    <h2><?php echo $this->title ?>
+      <?php
+      /* @todo Add action docs. */
+      do_action( 'wpdk_header_view_' . $this->id . '_title_did_appear', $this );
+      // @deprecated
+      do_action( 'wpdk_header_view_title_did_appear', $this );
+      ?></h2>
+    <div class="wpdk-vc-header-after-title">
     <?php
     do_action( 'wpdk_header_view_' . $this->id . '_after_title', $this );
     // @deprecated
     do_action( 'wpdk_header_view_after_title', $this );
     ?>
   </div>
-  <?php
+    <?php
     parent::draw();
   }
 
 }
+
+
+/**
+ * Useful view controller (tabs) for preferences
+ *
+ * @class           WPDKPreferencesViewController
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-20
+ * @version         1.0.0
+ *
+ */
+class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
+
+  /**
+   * Create an instance of WPDKPreferencesViewController class
+   *
+   * @brief Construct
+   *
+   * @return WPDKPreferencesViewController
+   */
+  public function __construct( $id, $title, $tabs )
+  {
+    $view = new WPDKjQueryTabsView( $id, $tabs );
+    parent::__construct( $id, $title, $view );
+  }
+
+}
+
+/**
+ * Useful view for preferences
+ *
+ * @class           WPDKPreferencesView
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-20
+ * @version         1.0.0
+ *
+ */
+class WPDKPreferencesView extends WPDKView {
+
+  /**
+   * An instance of WPDKPreferences class
+   *
+   * @brief Preferences
+   *
+   * @var WPDKPreferences $preferences
+   */
+  public $preferences;
+
+  /**
+   * An instance of WPDKPreferencesBranch class
+   *
+   * @brief Branch
+   *
+   * @var WPDKPreferencesBranch $preferences
+   */
+  public $branch;
+
+  /**
+   * Branch property name
+   *
+   * @brief Branch property name
+   *
+   * @var string $branch_property
+   */
+  private $branch_property;
+
+  /**
+   * Create an instance of WPDKPreferencesView class
+   *
+   * @brief Construct
+   *
+   * @param WPDKPreferences $preferences   An instance of WPDKPreferences clas
+   * @param string          $property      Preferences branch property name
+   *
+   * @return WPDKPreferencesView
+   */
+  public function __construct( $preferences, $property )
+  {
+    parent::__construct( 'wpdk_preferences_view-' . $property );
+    $this->preferences = $preferences;
+    if ( !empty( $property ) && isset( $this->preferences->$property ) ) {
+      $this->branch_property = $property;
+      $this->branch          = $this->preferences->$property;
+    }
+  }
+
+  /**
+   * Display
+   *
+   * @brief Display
+   */
+  public function draw()
+  {
+    /* Create a nonce key. */
+    $nonce                     = md5( $this->id );
+    $input_hidden_nonce        = new WPDKHTMLTagInput( '', $nonce, $nonce );
+    $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;
+    $input_hidden_nonce->value = wp_create_nonce( $this->id );
+
+    $input_hidden_branch        = new WPDKHTMLTagInput( '', 'wpdk_preferences_branch' );
+    $input_hidden_branch->type  = WPDKHTMLTagInputType::HIDDEN;
+    $input_hidden_branch->value = $this->branch_property;
+
+    $layout       = new WPDKUIControlsLayout( $this->fields( $this->branch ) );
+    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
+    $form->name   = 'wpdk_preferences_view_form-' . $this->id;
+    $form->id     = $form->name;
+    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->id;
+    $form->method = 'post';
+    $form->action = '';
+
+    do_action( 'wpdk_preferences_feedback-' . $this->branch_property );
+
+    $form->display();
+  }
+
+  /**
+   * Override to return the array fields
+   *
+   * @brief Fields
+   *
+   * @param WPDKPreferencesBranch $branch
+   */
+  public function fields( $branch ) {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  /**
+   * Return the HTML markup for standard [Reset to default] and [Update] buttons. You can override this method to hide
+   * or change the default buttons on bottom form.
+   *
+   * @brief Buttons Reset and Update
+   *
+   * @return string
+   */
+  public function buttonsUpdateReset()
+  {
+    $args         = array(
+      'name'    => 'update-preferences',
+    );
+    $button_update = WPDKUI::button( __( 'Update', WPDK_TEXTDOMAIN ), $args );
+
+    $args         = array(
+      'name'    => 'reset-to-default-preferences',
+      'classes' => 'button-secondary'
+    );
+    $button_reset = WPDKUI::button( __( 'Reset to default', WPDK_TEXTDOMAIN ), $args );
+
+    return sprintf( '<p>%s%s</p>', $button_reset, $button_update );
+  }
+
+}
+
+
+
+
+
+
+
+
 
 
 /**
@@ -542,6 +722,7 @@ class WPDKHeaderView extends WPDKView {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
+ * @deprecated         since 1.1.3 User WPDKPreferencesViewController and WPDKPreferencesView
  */
 
 class WPDKConfigurationView extends WPDKView {
@@ -589,15 +770,16 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @brief Construct
    *
-   * @param string                      $id                ID key of configuration
-   * @param string                      $title             Title of configuration view
-   * @param WPDKConfiguration           $configuration     Optional. Main configuration pointer
-   * @param object|array                $sub_configuration Optional. Sub configuration
-   * @param string                      $introduction      Optional. An introduction text message
+   * @param string            $id                ID key of configuration
+   * @param string            $title             Title of configuration view
+   * @param WPDKConfiguration $configuration     Optional. Main configuration pointer
+   * @param object|array      $sub_configuration Optional. Sub configuration
+   * @param string            $introduction      Optional. An introduction text message
    *
    * @return WPDKConfigurationView
    */
-  public function __construct( $id, $title, $configuration = null, $sub_configuration = null, $introduction = '' ) {
+  public function __construct( $id, $title, $configuration = null, $sub_configuration = null, $introduction = '' )
+  {
     $this->id                = sanitize_key( $id );
     $this->title             = $title;
     $this->_configuration    = $configuration;
@@ -614,7 +796,8 @@ class WPDKConfigurationView extends WPDKView {
    * @brief Update sequence
    *
    */
-  private function _processPost() {
+  private function _processPost()
+  {
 
     $nonce = md5( $this->id );
 
@@ -632,7 +815,10 @@ class WPDKConfigurationView extends WPDKView {
           if ( !is_null( $this->_configuration ) ) {
             $this->_configuration->update();
           }
-          add_action( 'wpdk_header_view_after_title', array( $this, 'wpdk_header_view_after_title' ) );
+          add_action( 'wpdk_header_view_after_title', array(
+                                                           $this,
+                                                           'wpdk_header_view_after_title'
+                                                      ) );
         }
       }
     }
@@ -645,7 +831,8 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @return string
    */
-  private function _introduction() {
+  private function _introduction()
+  {
     if ( !empty( $this->introduction ) ) {
       $alert                = new WPDKTwitterBootstrapAlert( 'introduction', $this->introduction, WPDKTwitterBootstrapAlertType::INFORMATION );
       $alert->dismissButton = false;
@@ -659,11 +846,12 @@ class WPDKConfigurationView extends WPDKView {
    * Reset to default values of sub configuration branch. You can override this method if your sub configuration
    * branch is not an object or not implements a `defaults()` method.
    *
-   * @note You can override this method
+   * @note  You can override this method
    *
    * @brief Reset to default
    */
-  public function resetToDefault() {
+  public function resetToDefault()
+  {
     /* Check if sub configuration is set and if it implements the standard defaults() method. */
     if ( is_object( $this->_subConfiguration ) && method_exists( $this->_subConfiguration, 'resetToDefault' ) ) {
       $this->_subConfiguration->resetToDefault();
@@ -700,7 +888,8 @@ class WPDKConfigurationView extends WPDKView {
    * @brief Display the content view form
    *
    */
-  public function draw() {
+  public function draw()
+  {
 
     /* Create a nonce key. */
     $nonce                     = md5( $this->id );
@@ -709,8 +898,8 @@ class WPDKConfigurationView extends WPDKView {
     $input_hidden_nonce->value = wp_create_nonce( $this->id );
 
     $layout       = new WPDKUIControlsLayout( $this->fields() );
-    $form         = new WPDKHTMLTagForm(
-      $input_hidden_nonce->html() . $this->_introduction() . $layout->html() . $this->buttonsUpdateReset() );
+    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $this->_introduction() . $layout->html() .
+    $this->buttonsUpdateReset() );
     $form->name   = 'wpdk_configuration_view_form-' . $this->id;
     $form->id     = $form->name;
     $form->class  = 'wpdk-form wpdk-configuration-view-' . $this->id;
@@ -724,12 +913,13 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @brief Update configuration
    *
-   * @note You can override this method
+   * @note  You can override this method
    *
    * @return bool TRUE to update the configuration and display the standard sucessfully message, or FALSE to avoid
-   * the update configuration and do a custom display.
+   *        the update configuration and do a custom display.
    */
-  public function updatePostData() {
+  public function updatePostData()
+  {
     return true;
   }
 
@@ -740,7 +930,8 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @param WPDKHeaderView $header_view
    */
-  public function wpdk_header_view_after_title( $header_view ) {
+  public function wpdk_header_view_after_title( $header_view )
+  {
     $message = sprintf( __( '<strong>%s</strong> settings values were successfully updated!', WPDK_TEXTDOMAIN ), $this->title );
     $alert   = new WPDKTwitterBootstrapAlert( 'success', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
     $alert->display();
@@ -752,11 +943,12 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @brief Buttons Reset and Update
    * @since 1.0.0.b3
-   * @note You can overide this method
+   * @note  You can overide this method
    *
    * @return string
    */
-  public function buttonsUpdateReset() {
+  public function buttonsUpdateReset()
+  {
     return WPDKUI::buttonsUpdateReset();
   }
 
@@ -765,10 +957,11 @@ class WPDKConfigurationView extends WPDKView {
    *
    * @brief Return a SDF array for build the form fields
    *
-   * @note You can override this method
+   * @note  You can override this method
    *
    */
-  public function fields() {
+  public function fields()
+  {
     /* To override */
     return array();
   }

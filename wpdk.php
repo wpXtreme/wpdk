@@ -263,6 +263,9 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKViewController',
           'WPDKHeaderView',
           'WPDKConfigurationView',
+
+          'WPDKPreferencesViewController',
+          'WPDKPreferencesView',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-metabox.php'                       => array(
@@ -363,7 +366,12 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-configuration.php'               => array(
           'WPDKConfig',
           'WPDKConfigBranch',
-          'WPDKConfiguration'
+          'WPDKConfiguration',
+        ),
+
+        $sPathPrefix . 'classes/core/wpdk-preferences.php'                 => array(
+          'WPDKPreferences',
+          'WPDKPreferencesBranch',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-wordpress-plugin.php'            => array(
