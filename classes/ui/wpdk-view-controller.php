@@ -727,6 +727,117 @@ class WPDKPreferencesView extends WPDKView {
 }
 
 
+/**
+ * Useful view for import/export preferences
+ *
+ * @class           WPDKPreferencesImportExportView
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-21
+ * @version         1.0.0
+ *
+ */
+class WPDKPreferencesImportExportView extends WPDKView {
+
+  /**
+   * An instance of WPDKPreferences class
+   *
+   * @brief Preferences
+   *
+   * @var WPDKPreferences $preferences
+   */
+  public $preferences;
+
+  /**
+   * Create an instance of WPDKPreferencesImportExportView class
+   *
+   * @brief Construct
+   *
+   * @param WPDKPreferences $preferences An instance of WPDKPreferences clas
+   *
+   * @return WPDKPreferencesImportExportView
+   */
+  public function __construct( $preferences )
+  {
+    parent::__construct( 'wpdk_preferences_import_export_view' );
+    $this->preferences = $preferences;
+  }
+
+  /**
+   * Display
+   *
+   * @brief Display
+   */
+  public function draw()
+  {
+    /* Create a nonce key. */
+    $nonce                     = md5( $this->id );
+    $input_hidden_nonce        = new WPDKHTMLTagInput( '', $nonce, $nonce );
+    $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;
+    $input_hidden_nonce->value = wp_create_nonce( $this->id );
+
+    /* Layout fields. */
+    $layout = new WPDKUIControlsLayout( $this->fields() );
+
+    /* Form. */
+    $form          = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $layout->html() );
+    $form->name    = 'wpdk_preferences_import_export-' . $this->id;
+    $form->id      = $form->name;
+    $form->class   = 'wpdk-form' . $this->id;
+    $form->method  = 'post';
+    $form->enctype = 'multipart/form-data';
+    $form->action  = '';
+
+    $form->display();
+  }
+
+  /**
+   * Override to return the array fields
+   *
+   * @brief Fields
+   *
+   * @return array
+   */
+  public function fields()
+  {
+    $fields = array(
+      __( 'Import', WPDK_TEXTDOMAIN ) => array(
+
+        apply_filters( 'wpdk_preferences_import_export_feedback', '' ),
+
+        array(
+          array(
+            'type'  => WPDKUIControlType::FILE,
+            'name'  => 'file',
+            'label' => __( 'Select a <code>.wpx</code> export file', WPDK_TEXTDOMAIN ),
+          ),
+          array(
+            'type'  => WPDKUIControlType::SUBMIT,
+            'name'  => 'wpdk_preferences_import',
+            'class' => 'button button-primary button-large',
+            'value' => __( 'Import', WPDK_TEXTDOMAIN ),
+          ),
+        ),
+      ),
+
+      __( 'Export', WPDK_TEXTDOMAIN ) => array(
+
+        array(
+          array(
+            'type'  => WPDKUIControlType::SUBMIT,
+            'name'  => 'wpdk_preferences_export',
+            'class' => 'button button-primary button-large',
+            'value' => __( 'Export', WPDK_TEXTDOMAIN ),
+            'label' => __( 'Export preferences', WPDK_TEXTDOMAIN ),
+          )
+        ),
+      ),
+    );
+    return $fields;
+  }
+}
+
+
 
 
 
@@ -850,10 +961,7 @@ class WPDKConfigurationView extends WPDKView {
           if ( !is_null( $this->_configuration ) ) {
             $this->_configuration->update();
           }
-          add_action( 'wpdk_header_view_after_title', array(
-                                                           $this,
-                                                           'wpdk_header_view_after_title'
-                                                      ) );
+          add_action( 'wpdk_header_view_after_title', array( $this, 'wpdk_header_view_after_title' ) );
         }
       }
     }
