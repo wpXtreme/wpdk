@@ -33,6 +33,7 @@ For more information on SemVer, please visit http://semver.org/.
 #### Bugs
 
 * Fixed jQuery tabs cookie
+* Minor fixes
 
 #### Enhancements
 
