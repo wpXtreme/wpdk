@@ -20,7 +20,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.1.3
+## Version 1.2.0
 ### 2013-08-
 
 #### Improvements
@@ -44,6 +44,7 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKHTMLTagSelect::selected()` public static method to replace `wpdk_selected()` the inline (deprecated) function
 * Added `label` key for `WPDKUIControlSubmit` control
 * Added new `WPDKPreferences`, `WPDKPreferencesBranch`, `WPDKPreferencesViewController` and `WPDKPreferencesView`
+* Added new `WPDKPreferencesImportExport` and `WPDKPreferencesImportExportView`
 
 #### Deprecated
 

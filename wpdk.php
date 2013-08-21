@@ -266,6 +266,7 @@ if ( !class_exists( 'WPDK' ) ) {
 
           'WPDKPreferencesViewController',
           'WPDKPreferencesView',
+          'WPDKPreferencesImportExportView'
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-metabox.php'                       => array(
@@ -366,6 +367,7 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-preferences.php'                 => array(
           'WPDKPreferences',
           'WPDKPreferencesBranch',
+          'WPDKPreferencesImportExport',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-wordpress-plugin.php'            => array(
