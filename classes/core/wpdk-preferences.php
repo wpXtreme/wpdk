@@ -163,17 +163,25 @@ class WPDKPreferences {
           $preferences->$branch->defaults();
           $preferences->update();
         }
+
         /* Update a specified branch. */
         elseif ( isset( $_POST['update-preferences'] ) ) {
           add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
           $preferences->$branch->update();
           $preferences->update();
         }
+
       }
+
       /* Reset all preferences. */
       elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
         $preferences->defaults();
         $preferences->update();
+      }
+
+      /* Try for import/export. */
+      else {
+        $preferences = WPDKPreferencesImportExport::init( $preferences )->preferences;
       }
     }
 
@@ -293,26 +301,14 @@ class WPDKPreferences {
 class WPDKPreferencesBranch {
 
   /**
-   * An instance of WPDKPreferences parent class
-   *
-   * @brief Parent preferences
-   *
-   * @var WPDKPreferences $preferences
-   */
-  private $preferences;
-
-  /**
    * Create an instance of WPDKPreferencesBranch class
    *
    * @brief Construct
    *
-   * @param WPDKPreferences $preferences
-   *
    * @return WPDKPreferencesBranch
    */
-  public function __construct( $preferences )
+  public function __construct()
   {
-    //$this->preferences = $preferences;
     $this->defaults();
   }
 
@@ -342,5 +338,195 @@ class WPDKPreferencesBranch {
   {
     // Override to process post data
   }
+
+}
+
+
+/**
+ * Manage a generic import/export of preferences
+ *
+ * @class           WPDKPreferencesImportExport
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-21
+ * @version         1.0.0
+ *
+ */
+class WPDKPreferencesImportExport {
+
+  const ERROR_NONE           = false;
+  const ERROR_READ_FILE      = 1;
+  const ERROR_MALFORMED_FILE = 2;
+  const ERROR_VERSION        = 3;
+
+  /**
+   * Used for feedback hook
+   *
+   * @brief Error
+   *
+   * @var bool|int $error
+   */
+  private $error;
+
+  /**
+   * An instance of WPDKPreferences read from disk
+   *
+   * @brief Importanted file
+   *
+   * @var WPDKPreferences $import
+   */
+  private $import;
+
+  /**
+   * An instance of class WPDKPreferences
+   *
+   * @brief Preferences
+   *
+   * @var WPDKPreferences $preferences
+   */
+  public $preferences;
+
+  /**
+   * Return and create a sngleton instance of WPDKPreferencesImportExport class
+   *
+   * @brief Singleton
+   *
+   * @param WPDKPreferences $preferences An instance of WPDKPreferences class
+   *
+   * @return WPDKPreferencesImportExport
+   */
+  public static function init( $preferences) {
+    static $instance = null;
+    if( is_null( $instance ) ) {
+      $instance = new WPDKPreferencesImportExport( $preferences );
+    }
+    return $instance;
+  }
+
+  /**
+   * Create an instance of WPDKPreferencesImportExport class
+   *
+   * @brief Construct
+   *
+   * @param WPDKPreferences $preferences An instance of WPDKPreferences class
+   *
+   * @return WPDKPreferencesImportExport
+   */
+  public function __construct( $preferences )
+  {
+    $this->preferences = $preferences;
+    $this->import      = '';
+    $this->error       = false;
+
+    /* Check post data. */
+    if ( isset( $_POST['wpdk_preferences_export'] ) ) {
+      $this->download();
+    }
+    /* Import. */
+    elseif ( isset( $_POST['wpdk_preferences_import'] ) ) {
+      add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
+
+      if ( $_FILES['file']['error'] > 0 ) {
+        $this->error = self::ERROR_READ_FILE;
+      }
+      else {
+        $this->import( $_FILES['file']['tmp_name'] );
+      }
+    }
+  }
+
+  /**
+   * Import procedure
+   *
+   * @brief Import
+   *
+   * @param string $filename Unix path of the import file
+   */
+  public function import( $filename )
+  {
+    $this->import = unserialize( gzinflate( file_get_contents( $filename ) ) );
+
+    if ( !is_object( $this->import ) || !is_a( $this->import, get_class( $this->preferences ) ) ) {
+      $this->error = self::ERROR_MALFORMED_FILE;
+      return;
+    }
+
+    if( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
+      $this->error = self::ERROR_VERSION;
+      return;
+    }
+
+    $this->preferences = $this->import;
+
+    /* Apply. */
+    $this->preferences->update();
+  }
+
+  /**
+   * Do a download by filename and buffer
+   *
+   * @brief Download
+   */
+  public function download()
+  {
+    /* Create a filtrable filename. Default `name-preferences.wpx`. */
+    $filename = sprintf( '%s.wpx', $this->preferences->name );
+    $filename = apply_filters( 'wpdk_preferences_export_filename', $filename, $this->preferences );
+
+    /* GZIP the object. */
+    $buffer = gzdeflate( serialize( $this->preferences ) );
+
+    header( 'Content-Type: application/download' );
+    header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+    header( 'Cache-Control: public' );
+    header( "Content-Length: " . strlen( $buffer ) );
+    header( 'Pragma: no-cache' );
+    header( 'Expires: 0' );
+
+    echo $buffer;
+    exit;
+  }
+
+  /**
+   * Hook for feedback. See `error` property too.
+   *
+   * @brief Feedback
+   *
+   * @param string $str Output feedback
+   *
+   * @return array
+   */
+  public function wpdk_preferences_import_export_feedback( $str )
+  {
+    switch ( $this->error ) {
+      /* All ok. */
+      case self::ERROR_NONE;
+        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Successfully!', WPDK_TEXTDOMAIN ), __( 'Import complete.', WPDK_TEXTDOMAIN ) );
+        break;
+      /* Error while reading upload file. */
+      case self::ERROR_READ_FILE:
+        $str = sprintf( '<h3>%s</h3><p>%s %s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Error while read file! Error code:', WPDK_TEXTDOMAIN ), $_FILES['file']['error'] );
+        break;
+      /* Error while uncompress upload file. */
+      case self::ERROR_MALFORMED_FILE:
+        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Malformed file.', WPDK_TEXTDOMAIN ) );
+        break;
+      /* Version export error. */
+      case self::ERROR_VERSION:
+        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Wrong file version! You are try to import a most recent of export file. Please update your plugin before continue.', WPDK_TEXTDOMAIN ) );
+        break;
+    }
+
+    $alert = array(
+      array(
+        'type'           => WPDKUIControlType::ALERT,
+        'alert_type'     => empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::ALERT,
+        'value'          => $str,
+        'block'          => true,
+      )
+    );
+
+    return $alert;
+  }  
 
 }
