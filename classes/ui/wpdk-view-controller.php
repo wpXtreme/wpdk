@@ -555,6 +555,10 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
    *
    * @brief Construct
    *
+   * @param string $id    View controller ID
+   * @param string $title The title of view controller
+   * @param array  $tabs  Tabs array
+   *
    * @return WPDKPreferencesViewController
    */
   public function __construct( $id, $title, $tabs )
@@ -683,9 +687,12 @@ class WPDKPreferencesView extends WPDKView {
    *
    * @brief Fields
    *
-   * @param WPDKPreferencesBranch $branch
+   * @param WPDKPreferencesBranch $branch An instance of preferences branch
+   *
+   * @return array
    */
-  public function fields( $branch ) {
+  public function fields( $branch )
+  {
     die( __METHOD__ . ' must be override in your subclass' );
   }
 
