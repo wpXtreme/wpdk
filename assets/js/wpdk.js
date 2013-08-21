@@ -1305,6 +1305,85 @@ var WPDKDynamicTable = (function ( $ ) {
 })( jQuery );
 
 /**
+ * This class manage the Preferences view
+ *
+ * @class           WPDKPreferences
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-21
+ * @version         1.0.0
+ *s
+ */
+
+var WPDKPreferences = (function ( $ )
+{
+
+  /**
+   * Internal class pointer
+   *
+   * @brief This object
+   *
+   * @var WPDKPreferences $this
+   */
+  var $this = {};
+
+  /**
+   * The WPDKPreferences version
+   *
+   * @brief Version
+   */
+  $this.version = "1.0.0";
+
+  /**
+   * Return an instance of WPDKPreferences class
+   *
+   * @brief Init this class
+   *
+   * @return WPDKPreferences
+   */
+  $this.init = function ()
+  {
+    $( document ).ready( _init );
+
+    return $this;
+  }
+
+  /**
+   * Init when the document is ready
+   *
+   * @brief Document ready
+   *
+   * @private
+   */
+  function _init()
+  {
+    /* Display an confirm dialog box before reset all configuration. */
+    $( 'form#wpdk-preferences-reset-all' ).submit( function ()
+    {
+      return confirm( $( this ).data( 'confirm' ) );
+    } );
+
+    /* Display a confirm dialog box before reset a specified branch to default values. */
+    $( 'input[name=reset-to-default-preferences]' ).click( function ()
+    {
+      return confirm( $( this ).data( 'confirm' ) );
+    } );
+  }
+
+  /**
+   * This method is used to update the event when the DOM is changed
+   *
+   * @brief Update event in DOM
+   */
+  $this.update = function () {}
+
+  return $this.init();
+
+})( jQuery );
+
+
+
+/**
  * This is a little Javascript framework to improve the UI and checking control specially in the form management.
  *
  * @class           WPDK

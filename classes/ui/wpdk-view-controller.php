@@ -561,6 +561,30 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
   {
     $view = new WPDKjQueryTabsView( $id, $tabs );
     parent::__construct( $id, $title, $view );
+
+    /* Provide a reset all button. */
+    add_action( 'wpdk_header_view_' . $this->id . '-header-view_title_did_appear', array( $this, 'display_button_reset_all' ) );
+  }
+
+  /**
+   * Hook used to display a form/button reset all preferences
+   *
+   * @brief Reset all
+   */
+  public function display_button_reset_all()
+  {
+    $confirm = __( "Are you sure to reset All preferences to default value?\n\nThis operation is not reversible!", WPDK_TEXTDOMAIN );
+    $confirm = apply_filters( 'wpdk_preferences_reset_all_confirm_message', $confirm );
+    ?>
+    <form id="wpdk-preferences-reset-all"
+          method="post"
+          data-confirm="<?php echo $confirm ?>">
+      <input name="wpdk_preferences_reset_all"
+             type="submit"
+             class="button button-primary"
+             value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
+    </form>
+  <?php
   }
 
 }
@@ -680,9 +704,13 @@ class WPDKPreferencesView extends WPDKView {
     );
     $button_update = WPDKUI::button( __( 'Update', WPDK_TEXTDOMAIN ), $args );
 
+    $confirm = __( "Are you sure to reset this preferences to default values?\n\nThis operation is not reversible!", WPDK_TEXTDOMAIN );
+    $confirm = apply_filters( 'wpdk_preferences_reset_to_default_confirm_message', $confirm );
+
     $args         = array(
       'name'    => 'reset-to-default-preferences',
-      'classes' => 'button-secondary'
+      'classes' => 'button-secondary',
+      'data'    => array( 'confirm' => $confirm )
     );
     $button_reset = WPDKUI::button( __( 'Reset to default', WPDK_TEXTDOMAIN ), $args );
 
