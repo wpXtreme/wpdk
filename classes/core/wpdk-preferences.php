@@ -156,20 +156,22 @@ class WPDKPreferences {
     if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
       if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
         $branch = $_POST['wpdk_preferences_branch'];
+
+        /* Reset to defaul a specified branch. */
         if ( isset( $_POST['reset-to-default-preferences'] ) ) {
           add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
           $preferences->$branch->defaults();
           $preferences->update();
         }
+        /* Update a specified branch. */
         elseif ( isset( $_POST['update-preferences'] ) ) {
           add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
           $preferences->$branch->update();
           $preferences->update();
         }
       }
-
-      /* @interal use only. */
-      if ( isset( $_GET['reset_all'] ) ) {
+      /* Reset all preferences. */
+      elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
         $preferences->defaults();
         $preferences->update();
       }
