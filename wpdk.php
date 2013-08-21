@@ -363,12 +363,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKStatus'
         ),
 
-        $sPathPrefix . 'classes/core/wpdk-configuration.php'               => array(
-          'WPDKConfig',
-          'WPDKConfigBranch',
-          'WPDKConfiguration',
-        ),
-
         $sPathPrefix . 'classes/core/wpdk-preferences.php'                 => array(
           'WPDKPreferences',
           'WPDKPreferencesBranch',
@@ -462,10 +456,18 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKSettings',
           'WPDKSettingsView'
         ),
+
         $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'              => array(
           'WPDKDBTable',
           '_WPDKDBTable',
         ),
+
+        $sPathPrefix . 'classes/deprecated/wpdk-configuration.php'               => array(
+          'WPDKConfig',
+          'WPDKConfigBranch',
+          'WPDKConfiguration',
+        ),
+
         $sPathPrefix . 'classes/deprecated/WPDKCRUD.php'                   => 'WPDKCRUD',
         $sPathPrefix . 'classes/deprecated/WPDKForm.php'                   => 'WPDKForm',
         $sPathPrefix . 'classes/deprecated/wpdk-about-view-controller.php' => 'WPDKAboutViewController',
@@ -487,7 +489,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKAPIErrorCode',
           'WPDKAPIResource'
         ),
-
 
         /* Extra libs */
         /* @todo Find a good-well PDF library */
