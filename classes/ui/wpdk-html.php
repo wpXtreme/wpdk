@@ -1151,7 +1151,7 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
         <?php $this->_options( $option ); ?>
       </optgroup>
       <?php else : ?>
-        <option class="wpdk-form-option" <?php if ( !empty( $this->value ) ) WPDKHTMLTagSelect::selected( $this->value, $key ) ?>
+        <option class="wpdk-form-option" <?php if ( !empty( $this->value ) ) echo WPDKHTMLTagSelect::selected( $this->value, $key ) ?>
                 value="<?php echo $key ?>"><?php echo $option ?></option>
       <?php endif; ?>
     <?php endforeach;
