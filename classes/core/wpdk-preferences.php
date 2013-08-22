@@ -107,6 +107,15 @@ class WPDKPreferences {
   public $version;
 
   /**
+   * Used to store the preferences for user
+   *
+   * @brief User ID
+   *
+   * @var int $user_id
+   */
+  public $user_id;
+
+  /**
    * Return the preferences object from the option. If not exists then an object is create runtime for you.
    * This is a utility method but you have to override if you don't like insert name and class name parameters. In
    * you own class just use:
@@ -121,13 +130,21 @@ class WPDKPreferences {
    *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION );
    *     }
    *
+   * If you wish store preferences for each user use:
+   *
+   *     public static function init() {
+   *       $user_id = get_current_user_id();
+   *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION, $user_id );
+   *     }
+   *
    * @param string      $name       A string used as name for options. Make it unique more possible.
    * @param string      $class_name The subclass class name
    * @param bool|string $version    Optional. Version compare
+   * @param bool|int    $user_id    Optional. User ID
    *
    * @return WPDKPreferences
    */
-  public static function init( $name, $class_name, $version = false )
+  public static function init( $name, $class_name, $version = false, $user_id = false )
   {
     static $instance = array();
 
@@ -137,7 +154,7 @@ class WPDKPreferences {
     $preferences = null;
 
     $name        = sanitize_title( $name );
-    $preferences = isset( $instance[$name] ) ? $instance[$name] : get_option( $name );
+    $preferences = isset( $instance[$name] ) ? $instance[$name] : ( empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true ) );
 
     if ( !is_object( $preferences ) || !is_a( $preferences, $class_name ) ) {
       $preferences = new $class_name( $name );
@@ -170,7 +187,6 @@ class WPDKPreferences {
           $preferences->$branch->update();
           $preferences->update();
         }
-
       }
 
       /* Reset all preferences. */
@@ -195,11 +211,13 @@ class WPDKPreferences {
    *
    * @brief Construct
    *
-   * @param string $name A string used as name for options. Make it unique more possible.
+   * @param string   $name    A string used as name for options. Make it unique more possible.
+   * @param bool|int $user_id Optional. User ID
    */
-  protected function __construct( $name )
+  protected function __construct( $name, $user_id = false )
   {
-    $this->name = sanitize_title( $name );
+    $this->name    = sanitize_title( $name );
+    $this->user_id = $user_id;
     $this->defaults();
   }
 
@@ -219,6 +237,16 @@ class WPDKPreferences {
     $alert->display();
   }
 
+  /**
+   * Helper to get the preferences from global options or for single users.
+   *
+   * @brief Get preferences from store
+   *
+   * @return WPDKPreferences
+   */
+  public function get() {
+    return empty( $this->user_id ) ? get_option( $this->name ) : get_user_meta( $this->user_id, $this->name, true );
+  }
 
 
   /**
@@ -242,7 +270,7 @@ class WPDKPreferences {
   {
 
     /* Check if exists a store version. */
-    $store_version = get_option( $this->name );
+    $store_version = $this->get();
 
     /* Get subclass name. */
     $subclass_name = get_class( $this );
@@ -273,7 +301,12 @@ class WPDKPreferences {
    */
   public function update()
   {
-    update_option( $this->name, $this );
+    if ( empty( $this->user_id ) ) {
+      update_option( $this->name, $this );
+    }
+    else {
+      update_user_meta( $this->user_id, $this->name, $this );
+    }
   }
 
   /**
@@ -283,7 +316,12 @@ class WPDKPreferences {
    */
   public function delete()
   {
-    delete_option( $this->name );
+    if ( empty( $this->user_id ) ) {
+      delete_option( $this->name );
+    }
+    else {
+      delete_user_meta( $this->user_id, $this->name );
+    }
   }
 
 }
@@ -348,8 +386,10 @@ class WPDKPreferencesBranch {
  * @class           WPDKPreferencesImportExport
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-08-21
- * @version         1.0.0
+ * @date            2013-08-22
+ * @version         1.0.1
+ *
+ * @note            In this release you can import preferences from other users
  *
  */
 class WPDKPreferencesImportExport {
@@ -358,6 +398,7 @@ class WPDKPreferencesImportExport {
   const ERROR_READ_FILE      = 1;
   const ERROR_MALFORMED_FILE = 2;
   const ERROR_VERSION        = 3;
+  const ERROR_USER_ID        = 4; // Not used at this momnent
 
   /**
    * Used for feedback hook
@@ -446,15 +487,27 @@ class WPDKPreferencesImportExport {
   {
     $this->import = unserialize( gzinflate( file_get_contents( $filename ) ) );
 
+    /* Check for error in file structure. */
     if ( !is_object( $this->import ) || !is_a( $this->import, get_class( $this->preferences ) ) ) {
       $this->error = self::ERROR_MALFORMED_FILE;
       return;
     }
 
+    /* Check for wrong version. */
     if( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
       $this->error = self::ERROR_VERSION;
       return;
     }
+
+    /* @todo Check for import preferences from other users
+    if ( !empty( $this->import->user_id ) ) {
+      $user_id = get_current_user_id();
+      if ( $user_id !== $this->import->user_id ) {
+        $this->error = self::ERROR_USER_ID;
+        return;
+      }
+    }
+    */
 
     $this->preferences = $this->import;
 
