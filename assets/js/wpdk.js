@@ -611,12 +611,29 @@ var WPDKControls = (function ( $ ) {
    *
    * @brief Get the form
    * @since 0.9.5
+   * @deprecated since 1.2.0 use preferencesForm() instead
    *
    * @param {string} $id Configuration view ID
    * @return {*|jQuery|HTMLElement}
    */
-  $this.configurationForm = function ( $id ) {
+  $this.configurationForm = function ( $id )
+  {
     return $( 'form#wpdk_configuration_view_form-' + $id );
+  };
+
+  /**
+   * Return the standard form for a preferences view. See wpdk-ui.php for more detail.
+   *
+   * @brief Get the form ID
+   * @since 1.2.0
+   *
+   * @param {string} $id Preferences form ID
+   *
+   * @return {*|jQuery|HTMLElement}
+   */
+  $this.preferencesForm = function ( $id )
+  {
+    return $( 'form#wpdk_preferences_view_form-' + $id );
   };
 
   /**

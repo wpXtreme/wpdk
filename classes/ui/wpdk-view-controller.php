@@ -524,13 +524,11 @@ class WPDKHeaderView extends WPDKView {
       // @deprecated
       do_action( 'wpdk_header_view_title_did_appear', $this );
       ?></h2>
-    <div class="wpdk-vc-header-after-title">
     <?php
     do_action( 'wpdk_header_view_' . $this->id . '_after_title', $this );
     // @deprecated
     do_action( 'wpdk_header_view_after_title', $this );
     ?>
-  </div>
     <?php
     parent::draw();
   }
@@ -567,7 +565,7 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
     parent::__construct( $id, $title, $view );
 
     /* Provide a reset all button. */
-    add_action( 'wpdk_header_view_' . $this->id . '-header-view_title_did_appear', array( $this, 'display_button_reset_all' ) );
+    add_action( 'wpdk_header_view_' . $this->id . '-header-view_after_title', array( $this, 'display_button_reset_all' ) );
   }
 
   /**
@@ -580,14 +578,17 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
     $confirm = __( "Are you sure to reset All preferences to default value?\n\nThis operation is not reversible!", WPDK_TEXTDOMAIN );
     $confirm = apply_filters( 'wpdk_preferences_reset_all_confirm_message', $confirm );
     ?>
-    <form id="wpdk-preferences-reset-all"
-          method="post"
-          data-confirm="<?php echo $confirm ?>">
-      <input name="wpdk_preferences_reset_all"
-             type="submit"
-             class="button button-primary"
-             value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
-    </form>
+    <div class="tablenav top">
+      <form id="wpdk-preferences-reset-all"
+            method="post"
+            data-confirm="<?php echo $confirm ?>">
+        <input name="wpdk_preferences_reset_all"
+               type="submit"
+               class="button button-primary"
+               value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
+        <?php do_action( 'wpdk_preferences_view_controller-' . $this->id . '-tablenav-top', $this ) ?>
+      </form>
+    </div>
   <?php
   }
 
@@ -665,15 +666,19 @@ class WPDKPreferencesView extends WPDKView {
     $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;
     $input_hidden_nonce->value = wp_create_nonce( $this->id );
 
+    $input_hidden_class        = new WPDKHTMLTagInput( '', 'wpdk_preferences_class' );
+    $input_hidden_class->type  = WPDKHTMLTagInputType::HIDDEN;
+    $input_hidden_class->value = get_class( $this->preferences );
+
     $input_hidden_branch        = new WPDKHTMLTagInput( '', 'wpdk_preferences_branch' );
     $input_hidden_branch->type  = WPDKHTMLTagInputType::HIDDEN;
     $input_hidden_branch->value = $this->branch_property;
 
     $layout       = new WPDKUIControlsLayout( $this->fields( $this->branch ) );
-    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
-    $form->name   = 'wpdk_preferences_view_form-' . $this->id;
+    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_class->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
+    $form->name   = 'wpdk_preferences_view_form-' . $this->branch_property;
     $form->id     = $form->name;
-    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->id;
+    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
     $form->method = 'post';
     $form->action = '';
 
