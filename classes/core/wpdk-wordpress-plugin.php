@@ -462,6 +462,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
 
     /* Good place for init options. */
     $this->configuration();
+    $this->preferences();
 
     /* Check Ajax. */
     if ( wpdk_is_ajax() ) {
@@ -491,8 +492,18 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * Called after `loaded()` method. Use this for init your own configuration.
    *
    * @brief Action for init configuration
+   * @deprecated since 1.2.0 use preferences() instead
    */
   public function configuration() {
+    /* To override. */
+  }
+
+  /**
+   * Called after `loaded()` method. Use this for init your own preferences.
+   *
+   * @brief Init Preferences
+   */
+  public function preferences() {
     /* To override. */
   }
 
