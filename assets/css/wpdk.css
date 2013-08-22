@@ -285,7 +285,7 @@ div.wpdk-accordion
   position           : relative;
   height             : 0;
   overflow           : hidden;
-  overflow           : visible       \9;
+  overflow           : visible        \9;
   -webkit-transition : height 0.35s ease;
   -moz-transition    : height 0.35s ease;
   -o-transition      : height 0.35s ease;
@@ -357,7 +357,7 @@ textarea.wpdk-form-textarea:focus
 {
   border-color       : rgba(82, 168, 236, 0.8);
   outline            : 0;
-  outline            : thin dotted       \9;
+  outline            : thin dotted        \9;
   /* IE6-9 */
   -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
   -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
@@ -1058,9 +1058,15 @@ div.wpdk-watchdog-wp-error
  * PREFERENCES
  * =====================================================================================================================
  */
-form#wpdk-preferences-reset-all
+form#wpdk-preferences
 {
 }
+
+form#wpdk-preferences input[name=wpdk_preferences_export]
+{ margin : 4px }
+
+form#wpdk-preferences input[name=wpdk_preferences_reset_all]
+{ margin : 4px }
 
 /* =====================================================================================================================
  * CREDITS / INFORMATION

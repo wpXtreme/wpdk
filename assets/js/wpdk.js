@@ -1374,8 +1374,8 @@ var WPDKPreferences = (function ( $ )
    */
   function _init()
   {
-    /* Display an confirm dialog box before reset all configuration. */
-    $( 'form#wpdk-preferences-reset-all' ).submit( function ()
+    /* Display a confirm dialog box before reset a specified branch to default values. */
+    $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
     {
       return confirm( $( this ).data( 'confirm' ) );
     } );

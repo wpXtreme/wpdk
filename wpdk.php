@@ -266,7 +266,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
           'WPDKPreferencesViewController',
           'WPDKPreferencesView',
-          'WPDKPreferencesImportExportView'
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-metabox.php'                       => array(
