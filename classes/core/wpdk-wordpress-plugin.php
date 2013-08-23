@@ -492,6 +492,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * Called after `loaded()` method. Use this for init your own configuration.
    *
    * @brief      Action for init configuration
+   *
    * @deprecated since 1.2.0 use preferences() instead
    */
   public function configuration()
