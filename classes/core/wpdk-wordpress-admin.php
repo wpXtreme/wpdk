@@ -53,7 +53,8 @@ class WPDKWordPressAdmin {
       add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
     }
     else {
-      add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+      /* Let's add menu at last */
+      add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
     }
 
     /* Register this plugin in body. */
