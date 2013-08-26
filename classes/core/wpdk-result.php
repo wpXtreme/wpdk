@@ -165,7 +165,7 @@ class WPDKResult extends WP_Error {
    * so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result error.
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param mixed $thing Check if unknown variable is WPDKError object.
    *
@@ -181,7 +181,7 @@ class WPDKResult extends WP_Error {
    * so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result warning.
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param mixed $thing Check if unknown variable is WPDKWarning object.
    *
@@ -197,7 +197,7 @@ class WPDKResult extends WP_Error {
    * so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result status.
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param mixed $thing Check if unknown variable is WPDKStatus object.
    *

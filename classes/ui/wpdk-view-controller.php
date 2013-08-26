@@ -790,7 +790,7 @@ class WPDKPreferencesView extends WPDKView {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
- * @deprecated         since 1.1.3 Use WPDKPreferencesViewController and WPDKPreferencesView instead
+ * @deprecated         since 1.2.0 Use WPDKPreferencesViewController and WPDKPreferencesView instead
  */
 
 class WPDKConfigurationView extends WPDKView {

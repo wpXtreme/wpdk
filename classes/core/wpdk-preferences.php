@@ -83,7 +83,7 @@
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2013-08-20
  * @version            1.0.0
- * @since              1.1.3
+ * @since              1.2.0
  *
  */
 class WPDKPreferences {
