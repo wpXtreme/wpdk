@@ -401,6 +401,7 @@ if ( !class_exists( 'WPDK' ) ) {
         //------------------------------------------------------------------
 
         $sPathPrefix . 'classes/helper/wpdk-array.php'                     => 'WPDKArray',
+        $sPathPrefix . 'classes/helper/wpdk-colors.php'                    => 'WPDKColors',
         $sPathPrefix . 'classes/helper/wpdk-datetime.php'                  => 'WPDKDateTime',
         $sPathPrefix . 'classes/helper/wpdk-math.php'                      => 'WPDKMath',
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php'               => 'WPDKScreenHelp',

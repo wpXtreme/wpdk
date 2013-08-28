@@ -1,10 +1,6 @@
 <?php
 /**
- * Description
- *
- * ## Overview
- *
- * Description
+ * Manange color conversions and more
  *
  * @class           WPDKColors
  * @author          =undo= <info@wpxtre.me>
@@ -16,14 +12,17 @@
 class WPDKColors {
 
   /**
-   * Convert a hex decimal color code to its RGB equivalent and vice versa
+   * Convert a hex decimal color code to its RGB equivalent and vice versa.
+   *
+   *     echo WPDKColors::rgb2hex( 'FFCC00' );   // array( 255, 240, 0 )
+   *     echo WPDKColors::rgb2hex( '1,200,16' ); // '#01C810'
    *
    * @param string $value
    *
    * @brief RGB to HEX
-   * @since 1.2.1
+   * @since 1.2.0
    *
-   * @return bool|string
+   * @return bool|string!array
    */
   public static function rgb2hex( $value )
   {
@@ -72,11 +71,13 @@ class WPDKColors {
   /**
    * Perform adding (or subtracting) operation on a hexadecimal colour code
    *
-   * @brief Hex addition
-   * @since 1.2.1
+   *     echo WPDKColors::hexAddition( 'C00001', '1' ); // #C10102
    *
-   * @param string $hex
-   * @param string $num
+   * @brief Hex addition
+   * @since 1.2.0
+   *
+   * @param string $hex Color hexdecimal value like 'C00001'
+   * @param string $num Value hexdecimal to add like 1
    *
    * @return string
    */

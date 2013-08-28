@@ -47,6 +47,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Added new `WPDKPreferences`, `WPDKPreferencesBranch`, `WPDKPreferencesViewController` and `WPDKPreferencesView`
 * Removed Ajax loader
 
+#### Experimental
+
+* Added `WPDKColors` helper class for RGB/HEX color conversion
+
 #### Deprecated
 
 * `WPDKConfiguration` use new `WPDKPreferences`
