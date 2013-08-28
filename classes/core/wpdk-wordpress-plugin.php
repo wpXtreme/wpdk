@@ -245,10 +245,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     $this->imagesURL     = $this->cssURL . 'images/';
     $this->javascriptURL = $this->assetsURL . 'js/';
 
-    /* @deprecated Since 0.6.3 */
-    $this->url_images     = $this->cssURL . 'images/';
-    $this->url_javascript = $this->assetsURL . 'js/';
-
     /* Only folder name. */
     $this->folderName = trailingslashit( basename( dirname( $file ) ) );
 
@@ -337,14 +333,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
         }
       }
     }
-  }
-
-  /**
-   * @deprecated Since 0.6.3 - User `currentURL()` instead
-   */
-  public static function current_url() {
-    _deprecated_function( __METHOD__, '0.6.3', 'self::currentURL()' );
-    return self::currentURL();
   }
 
   /**
@@ -1189,7 +1177,6 @@ class WPDKWordPressPaths {
   public static function pluginsURL( $path = '', $plugin = '' ) {
     return trailingslashit( plugins_url( $path, $plugin ) );
   }
-
 
 }
 
