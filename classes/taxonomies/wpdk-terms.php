@@ -103,13 +103,25 @@ class WPDKTerm {
   /**
    * Return the ancestor (top parent) WPDKTerm object. If FALSE no ancestor object found.
    *
-   * @brief Top parent
+   * @brief Ancestor
+   *
+   * @return bool|WPDKTerm
+   */
+  public function ancestor()
+  {
+    return $this->ancestorOfTerm( $this );
+  }
+
+  /**
+   * Return the ancestor (top parent) WPDKTerm object. If FALSE no ancestor object found.
+   *
+   * @brief Ancestor
    *
    * @param WPDKTerm $term An instance of WPDKTerm class
    *
    * @return bool|WPDKTerm
    */
-  public static function ancestor( WPDKterm $term )
+  public static function ancestorOfTerm( WPDKterm $term )
   {
 
     $term_id = false;
