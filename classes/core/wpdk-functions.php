@@ -47,9 +47,6 @@ function wpdk_is_bool( $str )
  * @return bool
  *
  * @file       wpdk-functions.php
- *
- * @deprecated Use WPDKFunctions::is_url
- *
  */
 function wpdk_is_url( $url )
 {
