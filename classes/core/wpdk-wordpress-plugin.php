@@ -157,26 +157,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @see self::urlAjax() static method
    */
   public $urlAjax;
-  /**
-   * The Plugin URL more `assets/css/images/`
-   *
-   * @brief Images URL
-   *
-   * @deprecated Since 0.6.3 - Use `imagesURL` instead
-   *
-   * @var string $url_images
-   */
-  public $url_images;
-  /**
-   * The Plugin URL more `assets/js/`
-   *
-   * @brief Javascript URL
-   *
-   * @deprecated Since 0.6.3 - Use `javascriptURL` instead
-   *
-   * @var string $url_javascript
-   */
-  public $url_javascript;
+
   /**
    * Array key value pairs with list of cron jobs
    *
