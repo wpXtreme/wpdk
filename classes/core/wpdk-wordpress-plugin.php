@@ -568,8 +568,9 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return array
    */
-  public function cron_schedules( $schedules ) {
-    $schedules = array(
+  public function cron_schedules( $schedules )
+  {
+    $new_schedules = array(
       'half_hour'   => array(
         'interval' => 1800,
         'display'  => __( 'Half hour', WPDK_TEXTDOMAIN )
@@ -579,7 +580,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
         'display'  => __( 'Two minutes', WPDK_TEXTDOMAIN )
       ),
     );
-    return $schedules;
+    return array_merge( $schedules, $new_schedules );
   }
 
   /**
