@@ -493,7 +493,7 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         /* Extra libs */
-        /* @todo Find a good-well PDF library */
+
       );
 
       $this->registerAutoloadClass( $includes );
