@@ -109,7 +109,6 @@ if ( wpdk_is_ajax() ) {
       $pattern         = esc_attr( $_POST['term'] );
       $autocomplete_id = esc_attr( $_POST['autocomplete_id'] );
 
-      /* @todo Do docs */
       $result = apply_filters( 'wpdk_autocomplete', array(), $pattern, $autocomplete_id );
       echo json_encode( $result );
       die();
