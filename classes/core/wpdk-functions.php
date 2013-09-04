@@ -196,6 +196,7 @@ function wpdk_checked( $haystack, $current, $echo = true )
 function wpdk_selected( $haystack, $current, $echo = true )
 {
   _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKHTMLTagSelect::selected()' );
+
   if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
     $current = $haystack = 1;
   }
