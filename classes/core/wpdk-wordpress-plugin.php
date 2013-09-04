@@ -553,11 +553,11 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   {
     $new_schedules = array(
       'half_hour'   => array(
-        'interval' => 1800,
+        'interval' => HOUR_IN_SECONDS / 2,
         'display'  => __( 'Half hour', WPDK_TEXTDOMAIN )
       ),
       'two_minutes' => array(
-        'interval' => 60 * 2,
+        'interval' => MINUTE_IN_SECONDS * 2,
         'display'  => __( 'Two minutes', WPDK_TEXTDOMAIN )
       ),
     );
