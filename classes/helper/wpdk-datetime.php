@@ -9,10 +9,6 @@
  *
  */
 
-/* This defines are for global access. Use static constant in WPDKDateTime class instead. */
-define( 'MYSQL_DATE', 'Y-m-d' );
-define( 'MYSQL_DATE_TIME', 'Y-m-d H:i:s' );
-
 /**
  * This class is useful to convert date and date time from a lot of format. It was design for MySQL conversion and
  * jQuery date and datetime picker manage.
@@ -32,14 +28,14 @@ class WPDKDateTime {
    *
    * @brief MySQL date format
    */
-  const MYSQL_DATE = MYSQL_DATE;
+  const MYSQL_DATE = 'Y-m-d';
 
   /**
    * This is the standard MySQL date and time format
    *
    * @brief MySQL date time format
    */
-  const MYSQL_DATE_TIME = MYSQL_DATE_TIME;
+  const MYSQL_DATE_TIME = 'Y-m-d H:i:s';
 
   // -----------------------------------------------------------------------------------------------------------------
   // Date
