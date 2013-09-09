@@ -159,6 +159,26 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   public $urlAjax;
 
   /**
+   * The Plugin URL more `assets/css/images/`
+   *
+   * @brief Images URL
+   *
+   * @deprecated Since 0.6.3 - Use `imagesURL` instead
+   *
+   * @var string $url_images
+   */
+  public $url_images;
+  /**
+   * The Plugin URL more `assets/js/`
+   *
+   * @brief Javascript URL
+   *
+   * @deprecated Since 0.6.3 - Use `javascriptURL` instead
+   *
+   * @var string $url_javascript
+   */
+  public $url_javascript;
+  /**
    * Array key value pairs with list of cron jobs
    *
    *     array(
@@ -226,6 +246,10 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     $this->imagesURL     = $this->cssURL . 'images/';
     $this->javascriptURL = $this->assetsURL . 'js/';
 
+    /* @deprecated Since 0.6.3 */
+    $this->url_images     = $this->imagesURL;
+    $this->url_javascript = $this->javascriptURL;
+
     /* Only folder name. */
     $this->folderName = trailingslashit( basename( dirname( $file ) ) );
 
@@ -278,7 +302,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return string `http` or `https`
    */
-  public static function protocol() {
+  public static function protocol()
+  {
     return ( isset( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
   }
 
@@ -289,7 +314,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return string Standard URL for Ajax request
    */
-  public static function urlAjax() {
+  public static function urlAjax()
+  {
     return admin_url( 'admin-ajax.php', self::protocol() );
   }
 
@@ -299,7 +325,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @brief Init cron jobs
    * @since 1.0.0.b2
    */
-  private function initCronJobs() {
+  private function initCronJobs()
+  {
 
     /* Add custom periodic. */
     add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
@@ -314,6 +341,15 @@ class WPDKWordPressPlugin extends WPDKPlugin {
         }
       }
     }
+  }
+
+  /**
+   * @deprecated Since 0.6.3 - User `currentURL()` instead
+   */
+  public static function current_url()
+  {
+    _deprecated_function( __METHOD__, '0.6.3', 'self::currentURL()' );
+    return self::currentURL();
   }
 
   /**
