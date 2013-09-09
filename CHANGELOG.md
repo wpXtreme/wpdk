@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.2.0
-### 2013-08-
+### 2013-09-??
 
 #### Improvements
 
@@ -46,6 +46,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `label` key for `WPDKUIControlSubmit` control
 * Added new `WPDKPreferences`, `WPDKPreferencesBranch`, `WPDKPreferencesViewController` and `WPDKPreferencesView`
 * Removed Ajax loader
+
+#### Experimental
+
+* Added `WPDKColors` helper class for RGB/HEX color conversion
 
 #### Deprecated
 

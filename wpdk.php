@@ -88,7 +88,7 @@ if ( !class_exists( 'WPDK' ) ) {
       }
 
       /* Loading Script & style for backend */
-      add_action( 'admin_head', array( $this, 'enqueue_scripts_styles' ) );
+      add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ) );
 
       /* Loading script & style for frontend */
       add_action( 'wp_head', array( $this, 'enqueue_scripts_styles' ) );
@@ -401,6 +401,7 @@ if ( !class_exists( 'WPDK' ) ) {
         //------------------------------------------------------------------
 
         $sPathPrefix . 'classes/helper/wpdk-array.php'                     => 'WPDKArray',
+        $sPathPrefix . 'classes/helper/wpdk-colors.php'                    => 'WPDKColors',
         $sPathPrefix . 'classes/helper/wpdk-datetime.php'                  => 'WPDKDateTime',
         $sPathPrefix . 'classes/helper/wpdk-math.php'                      => 'WPDKMath',
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php'               => 'WPDKScreenHelp',
@@ -492,7 +493,7 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         /* Extra libs */
-        /* @todo Find a good-well PDF library */
+
       );
 
       $this->registerAutoloadClass( $includes );

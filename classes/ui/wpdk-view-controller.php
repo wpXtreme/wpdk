@@ -199,7 +199,7 @@ class WPDKView {
     ?>
     <div data-type="wpdk-view"
          id="<?php echo $this->id ?>"
-         class="wpdk-view <?php echo $this->classes() ?> clearfix" <?php echo $this->data() ?> >
+         class="<?php echo $this->classes() ?>" <?php echo $this->data() ?> >
 
     <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
 
@@ -233,11 +233,12 @@ class WPDKView {
   {
     if ( !empty( $this->class ) ) {
       if ( is_string( $this->class ) ) {
-        return $this->class;
+        $this->class = explode( ' ', $this->class );
       }
-      elseif ( is_array( $this->class ) ) {
-        return join( ' ', $this->class );
-      }
+      $this->class[] = 'wpdk-view';
+      $this->class[] = 'clearfix';
+      $this->class   = array_unique( $this->class );
+      return join( ' ', $this->class );
     }
     return '';
   }

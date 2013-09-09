@@ -61,6 +61,7 @@ class WPDKWordPressAdmin {
     add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
     /* Loading Script & style for backend */
+    add_action( 'admin_enqueue_scripts', array( $this, 'wp_pointer' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
   }
@@ -70,11 +71,12 @@ class WPDKWordPressAdmin {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Used for load scrit and styles
+   * Used for load wp pointer scripts & styles
    *
-   * @brief Admin backend area head
+   * @brief WP Pointer
    */
-  public function admin_enqueue_scripts() {
+  public function wp_pointer()
+  {
     /* WordPress Pointer. */
     wp_enqueue_style( 'wp-pointer' );
     wp_enqueue_script( 'wp-pointer' );
@@ -116,6 +118,15 @@ class WPDKWordPressAdmin {
    */
   public function admin_menu() {
     /* To override. */
+  }
+
+  /**
+   * Used for load scrit and styles
+   *
+   * @brief Admin backend area head
+   */
+  public function admin_enqueue_scripts() {
+    /* Override */
   }
 
 }

@@ -123,7 +123,7 @@ class WPDKMenu {
   /**
    * Return the WPDK menu info by name of view controller of submenu item
    *
-   * @param string $view_controller The view controller class
+   * @param string $view_controller The view controller class name
    *
    * @return array
    */
@@ -161,6 +161,46 @@ class WPDKMenu {
       }
     }
     return $url;
+  }
+
+  /**
+   * Return the hook id for a view controller
+   *
+   * @brief Hook id
+   * @since 1.2.0
+   *
+   * @param string $view_controller Class name of view controller
+   *
+   * @return string
+   */
+  public static function hook( $view_controller )
+  {
+    $info = self::menu( $view_controller );
+
+    if ( !empty( $info ) ) {
+      return $info['hook'];
+    }
+    return false;
+  }
+
+  /**
+   * Return the page id for a view controller
+   *
+   * @brief Page id
+   * @since 1.2.0
+   *
+   * @param string $view_controller Class name of view controller
+   *
+   * @return string
+   */
+  public static function page( $view_controller )
+  {
+    $info = self::menu( $view_controller );
+
+    if ( !empty( $info ) ) {
+      return $info['page'];
+    }
+    return false;
   }
 
   /**
@@ -362,6 +402,25 @@ class WPDKMenu {
     return $menus;
   }
 
+  /**
+   * Return TRUE if the displayed page is the view controller
+   *
+   * @brief Check displayed page
+   * @since 1.2.0
+   *
+   * @param string $id The menu id
+   *
+   * @return bool
+   */
+  public static function isPageWithMenu( $id )
+  {
+    global $plugin_page;
+    if ( $id === $plugin_page ) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 /**
@@ -495,6 +554,8 @@ class WPDKSubMenu {
    */
   public function render() {
 
+    global $plugin_page;
+
     $hook = '';
 
     if ( !empty( $this->viewController ) ) {
@@ -521,6 +582,13 @@ class WPDKSubMenu {
     /* Create the menu item. */
     $this->hookName = add_submenu_page( $this->parent, $this->pageTitle, $menu_title, $this->capability, $this->id, $hook );
 
+    /* Execute this action when the page displayed ids for this submenu view. */
+    if( !empty( $plugin_page ) ) {
+      if( $this->id === $plugin_page ) {
+        do_action( 'wpdk_submenu_page', $this, $plugin_page );
+      }
+    }
+
     if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
 
       $GLOBALS[WPDKMenu::GLOBAL_MENU][$this->viewController]['hook']       = $this->hookName;
@@ -537,11 +605,7 @@ class WPDKSubMenu {
 }
 
 /**
- * Description
- *
- * ## Overview
- *
- * Description
+ * Submenu divider
  *
  * @class           WPDKSubMenuDivider
  * @author          =undo= <info@wpxtre.me>

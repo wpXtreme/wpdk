@@ -543,8 +543,14 @@
 .wpdk-jquery-ui .ui-tabs .ui-tabs-selected,
 .wpdk-jquery-ui .ui-tabs .ui-state-active
 {
-  background-color: rgb(250,250,250);
+  background-color: rgb(255,255,255);
   font-weight : bold; margin-top : -4px !important; padding-top : 4px !important;
+}
+/* Override */
+.wpdk-jquery-ui .wpdk-border-container .ui-tabs .ui-tabs-selected,
+.wpdk-jquery-ui .wpdk-border-container .ui-tabs .ui-state-active
+{
+  background-color: rgb(250,250,250);
 }
 
 /*

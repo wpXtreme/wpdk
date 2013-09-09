@@ -228,7 +228,11 @@ class WPDKPreferences {
     $this->defaults();
   }
 
-  // TODO
+  /**
+   * Restored feedback message
+   *
+   * @brief Feedback
+   */
   public function wpdk_preferences_feedback_reset()
   {
     $message = __( $_POST['wpdk_preferences_branch'] . ' Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
@@ -236,7 +240,11 @@ class WPDKPreferences {
     $alert->display();
   }
 
-  // TODO
+  /**
+   * Updated feedback message
+   *
+   * @brief Feedback
+   */
   public function wpdk_preferences_feedback_update()
   {
     $message = __( 'Your preferences values were successfully updated!', WPDK_TEXTDOMAIN );
