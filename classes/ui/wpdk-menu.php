@@ -396,9 +396,15 @@ class WPDKMenu {
    *
    * @return array
    */
-  public static function addSubMenuAt( &$menus, $menu_item, $index) {
+  public static function addSubMenuAt( &$menus, $menu_item, $index )
+  {
     $key = key( $menus );
-    $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
+    if ( isset( $menus[$key]['subMenus'] ) ) {
+      $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
+    }
+    else {
+      $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu_item ), $index );
+    }
     return $menus;
   }
 
