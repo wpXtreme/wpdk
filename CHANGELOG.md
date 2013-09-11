@@ -25,7 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
-* Restyling some css
+* Restyling some CSS
 * Update jQuery cookie plugin to 1.3.1
 * Minor Javascript improvement for WordPress 3.6
 * Added Javascript version info by cookie
