@@ -522,7 +522,7 @@ class WPDKSubMenu {
     $index  = 1;
     foreach ( $sub_menus as $parent => $sub_menu ) {
       foreach ( $sub_menu as $sub_item ) {
-
+        $item = false;
         if ( is_string( $sub_item ) && WPDKSubMenuDivider::DIVIDER === $sub_item ) {
           $item = new WPDKSubMenuDivider( $parent );
         }
@@ -539,10 +539,13 @@ class WPDKSubMenu {
             }
           }
         }
-        $item->render();
-
+        if( !empty( $item ) ) {
+          $item->render();
+        }
       }
-      $result[] = $item;
+      if( !empty( $item ) ) {
+        $result[] = $item;
+      }
     }
     return $result;
   }
