@@ -147,6 +147,7 @@ class WPDKPreferences {
   public static function init( $name, $class_name, $version = false, $user_id = false )
   {
     static $instance = array();
+    static $busy = false;
 
     /**
      * @var WPDKPreferences $preferences
@@ -157,7 +158,6 @@ class WPDKPreferences {
     $preferences = isset( $instance[$name] ) ? $instance[$name] : ( empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true ) );
 
     if ( !is_object( $preferences ) || !is_a( $preferences, $class_name ) ) {
-    //if ( empty( $preferences ) ) {
       $preferences = new $class_name( $name, $user_id );
     }
 
@@ -172,12 +172,9 @@ class WPDKPreferences {
 
     /* Check for post data. */
     if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
-      if ( isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) &&
-        $_POST['wpdk_preferences_class'] == get_class( $preferences )
-      ) {
-
-        if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] )
-        ) {
+      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) && $_POST['wpdk_preferences_class'] == get_class( $preferences ) ) {
+        $busy = true;
+        if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
           $branch = $_POST['wpdk_preferences_branch'];
 
           /* Reset to default a specified branch. */
@@ -206,6 +203,7 @@ class WPDKPreferences {
           $preferences = WPDKPreferencesImportExport::init( $preferences );
         }
       }
+      $busy = false;
     }
 
     $instance[$name] = $preferences;
