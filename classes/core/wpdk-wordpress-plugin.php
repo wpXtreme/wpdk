@@ -157,6 +157,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @see self::urlAjax() static method
    */
   public $urlAjax;
+
   /**
    * The Plugin URL more `assets/css/images/`
    *
@@ -246,8 +247,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     $this->javascriptURL = $this->assetsURL . 'js/';
 
     /* @deprecated Since 0.6.3 */
-    $this->url_images     = $this->cssURL . 'images/';
-    $this->url_javascript = $this->assetsURL . 'js/';
+    $this->url_images     = $this->imagesURL;
+    $this->url_javascript = $this->javascriptURL;
 
     /* Only folder name. */
     $this->folderName = trailingslashit( basename( dirname( $file ) ) );
@@ -301,7 +302,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return string `http` or `https`
    */
-  public static function protocol() {
+  public static function protocol()
+  {
     return ( isset( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
   }
 
@@ -312,7 +314,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return string Standard URL for Ajax request
    */
-  public static function urlAjax() {
+  public static function urlAjax()
+  {
     return admin_url( 'admin-ajax.php', self::protocol() );
   }
 
@@ -322,7 +325,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @brief Init cron jobs
    * @since 1.0.0.b2
    */
-  private function initCronJobs() {
+  private function initCronJobs()
+  {
 
     /* Add custom periodic. */
     add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
@@ -342,7 +346,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   /**
    * @deprecated Since 0.6.3 - User `currentURL()` instead
    */
-  public static function current_url() {
+  public static function current_url()
+  {
     _deprecated_function( __METHOD__, '0.6.3', 'self::currentURL()' );
     return self::currentURL();
   }
@@ -462,6 +467,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
 
     /* Good place for init options. */
     $this->configuration();
+    $this->preferences();
 
     /* Check Ajax. */
     if ( wpdk_is_ajax() ) {
@@ -490,9 +496,21 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   /**
    * Called after `loaded()` method. Use this for init your own configuration.
    *
-   * @brief Action for init configuration
+   * @brief      Action for init configuration
+   *
+   * @deprecated since 1.2.0 use preferences() instead
    */
-  public function configuration() {
+  public function configuration()
+  {
+    /* To override. */
+  }
+
+  /**
+   * Called after `loaded()` method. Use this for init your own preferences.
+   *
+   * @brief Init Preferences
+   */
+  public function preferences() {
     /* To override. */
   }
 
@@ -567,18 +585,19 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return array
    */
-  public function cron_schedules( $schedules ) {
-    $schedules = array(
+  public function cron_schedules( $schedules )
+  {
+    $new_schedules = array(
       'half_hour'   => array(
-        'interval' => 1800,
+        'interval' => HOUR_IN_SECONDS / 2,
         'display'  => __( 'Half hour', WPDK_TEXTDOMAIN )
       ),
       'two_minutes' => array(
-        'interval' => 60 * 2,
+        'interval' => MINUTE_IN_SECONDS * 2,
         'display'  => __( 'Two minutes', WPDK_TEXTDOMAIN )
       ),
     );
-    return $schedules;
+    return array_merge( $schedules, $new_schedules );
   }
 
   /**
@@ -591,8 +610,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @param string $hook       Action hook, the execution of which will be unscheduled.
    * @param array  $args       Optional. Arguments to pass to the hook's callback function.
    */
-  public function addCronJob( $recurrence, $hook, $args = array() ) {
-
+  public function addCronJob( $recurrence, $hook, $args = array() )
+  {
     /* If this cron jobs is not scheduled then add to the WP list. */
     if ( !wp_next_scheduled( $hook, $args ) ) {
       wp_schedule_event( time(), $recurrence, $hook, $args );
@@ -613,7 +632,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @param string $hook
    * @param array  $args
    */
-  public function removeCronJob( $hook, $args = array() ) {
+  public function removeCronJob( $hook, $args = array() )
+  {
     if ( !empty( $this->_cronJobs ) ) {
       $key = md5( serialize( $args ) );
 
@@ -635,7 +655,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @since 1.0.0.b2
    *
    */
-  public function clearCronJobs() {
+  public function clearCronJobs()
+  {
     $this->removeCronJobs();
     $this->_cronJobs = array();
     update_option( $this->_cronJobsOptionName, $this->_cronJobs );
@@ -647,7 +668,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @brief Remove all cron jobs
    * @since 1.0.0.b2
    */
-  public function removeCronJobs() {
+  public function removeCronJobs()
+  {
     if ( !empty( $this->_cronJobs ) ) {
       foreach ( $this->_cronJobs as $recurrence => $hooks ) {
         foreach ( $hooks as $hook => $value ) {
@@ -660,7 +682,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   /**
    * @deprecated since 0.5 - Use `theme()` instead
    */
-  public function frontend() {
+  public function frontend()
+  {
     _deprecated_function( __METHOD__, '0.5', 'theme()' );
 
     $this->theme();
@@ -671,9 +694,10 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @brief Theme
    *
-   * @sa admin()
+   * @sa    admin()
    */
-  public function theme() {
+  public function theme()
+  {
     /* To override. */
   }
 
@@ -681,7 +705,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   /**
    * @deprecated since 0.5 - Use `configuration()` instead
    */
-  public function init_options() {
+  public function init_options()
+  {
     _deprecated_function( __METHOD__, '0.5', 'configuration()' );
 
     $this->configuration();
@@ -690,7 +715,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   /**
    * @deprecated since 0.7.5 - Use `widgets()` instead
    */
-  public function widgets_init() {
+  public function widgets_init()
+  {
     _deprecated_function( __METHOD__, '0.7.5', 'widgets()' );
 
     $this->widgets();
@@ -703,7 +729,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @since 0.7.5
    */
-  public function widgets() {
+  public function widgets()
+  {
     /* To override. */
   }
 
@@ -871,8 +898,6 @@ class WPDKPlugin {
     $this->file = $file;
 
     if ( !is_null( $this->file ) ) {
-
-      /* @todo Replace this code below with a custom method. */
 
       /* Use WordPress get_plugin_data() function for auto retrive plugin information. */
       if ( !function_exists( 'get_plugin_data' ) ) {
@@ -1176,7 +1201,6 @@ class WPDKWordPressPaths {
   public static function pluginsURL( $path = '', $plugin = '' ) {
     return trailingslashit( plugins_url( $path, $plugin ) );
   }
-
 
 }
 

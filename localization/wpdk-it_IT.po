@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-16 12:53+0100\n"
-"PO-Revision-Date: 2013-07-16 12:53+0100\n"
+"POT-Creation-Date: 2013-08-26 11:05+0100\n"
+"PO-Revision-Date: 2013-08-26 11:05+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpdk.php:610
+#: ../wpdk.php:620
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -25,35 +25,35 @@ msgstr ""
 "Devi confermare prima di sbloccare questo campo.\n"
 "Vuoi bloccare questo campo?"
 
-#: ../wpdk.php:612 ../classes/deprecated/WPDKForm.php:182
+#: ../wpdk.php:622 ../classes/deprecated/WPDKForm.php:182
 msgid "Choose Time"
 msgstr "Scegli un orario"
 
-#: ../wpdk.php:613 ../classes/deprecated/WPDKForm.php:183
+#: ../wpdk.php:623 ../classes/deprecated/WPDKForm.php:183
 msgid "Time"
 msgstr "Orario"
 
-#: ../wpdk.php:614 ../classes/deprecated/WPDKForm.php:184
+#: ../wpdk.php:624 ../classes/deprecated/WPDKForm.php:184
 msgid "Hour"
 msgstr "Ora"
 
-#: ../wpdk.php:615 ../classes/deprecated/WPDKForm.php:185
+#: ../wpdk.php:625 ../classes/deprecated/WPDKForm.php:185
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../wpdk.php:616 ../classes/deprecated/WPDKForm.php:186
+#: ../wpdk.php:626 ../classes/deprecated/WPDKForm.php:186
 msgid "Seconds"
 msgstr "Secondi"
 
-#: ../wpdk.php:617 ../classes/deprecated/WPDKForm.php:187
+#: ../wpdk.php:627 ../classes/deprecated/WPDKForm.php:187
 msgid "Now"
 msgstr "Adesso"
 
-#: ../wpdk.php:618 ../classes/deprecated/WPDKForm.php:188
+#: ../wpdk.php:628 ../classes/deprecated/WPDKForm.php:188
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Do,Lu,Ma,Me,Gi,Ve,Sa"
 
-#: ../wpdk.php:619 ../classes/deprecated/WPDKForm.php:189
+#: ../wpdk.php:629 ../classes/deprecated/WPDKForm.php:189
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -61,19 +61,19 @@ msgstr ""
 "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,"
 "Novembre,Dicembre"
 
-#: ../wpdk.php:620
+#: ../wpdk.php:630
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic"
 
-#: ../wpdk.php:621 ../classes/deprecated/WPDKForm.php:190
+#: ../wpdk.php:631 ../classes/deprecated/WPDKForm.php:190
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../wpdk.php:622 ../classes/deprecated/WPDKForm.php:191
+#: ../wpdk.php:632 ../classes/deprecated/WPDKForm.php:191
 msgid "mm/dd/yy"
 msgstr "dd/mm/yy"
 
-#: ../wpdk.php:623
+#: ../wpdk.php:633
 msgid "HH:mm"
 msgstr ""
 
@@ -93,16 +93,52 @@ msgstr ""
 msgid "User email"
 msgstr ""
 
-#: ../classes/core/wpdk-wordpress-plugin.php:574
+#: ../classes/core/wpdk-preferences.php:234
+msgid " Your preferences were successfully restored to defaults values!"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:242
+msgid "Your preferences values were successfully updated!"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:563
+msgid "Successfully!"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:563
+msgid "Import complete."
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:567
+#: ../classes/core/wpdk-preferences.php:571
+#: ../classes/core/wpdk-preferences.php:575
+msgid "Warning!"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:567
+msgid "Error while read file! Error code:"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:571
+msgid "Malformed file."
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:575
+msgid ""
+"Wrong file version! You are try to import a most recent of export file. "
+"Please update your plugin before continue."
+msgstr ""
+
+#: ../classes/core/wpdk-wordpress-plugin.php:587
 msgid "Half hour"
 msgstr ""
 
-#: ../classes/core/wpdk-wordpress-plugin.php:578
+#: ../classes/core/wpdk-wordpress-plugin.php:591
 msgid "Two minutes"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
-#: ../classes/ui/wpdk-view-controller.php:690
+#: ../classes/ui/wpdk-view-controller.php:943
 msgid "No Reset to default settings implement yet!"
 msgstr ""
 
@@ -698,25 +734,51 @@ msgstr ""
 msgid "Open the guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2098
+#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:754
 msgid "Reset to default"
 msgstr "Ripristina predefiniti"
 
-#: ../classes/ui/wpdk-ui.php:2118
+#: ../classes/ui/wpdk-ui.php:2124
 msgid "Submit"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2160
+#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:744
 msgid "Update"
 msgstr "Aggiorna"
 
-#: ../classes/ui/wpdk-view-controller.php:675
+#: ../classes/ui/wpdk-view-controller.php:588
+msgid ""
+"Are you sure to reset All preferences to default value?\n"
+"\n"
+"This operation is not reversible!"
+msgstr ""
+
+#: ../classes/ui/wpdk-view-controller.php:603
+msgid "Import"
+msgstr ""
+
+#: ../classes/ui/wpdk-view-controller.php:608
+msgid "Export"
+msgstr ""
+
+#: ../classes/ui/wpdk-view-controller.php:614
+msgid "Reset All"
+msgstr ""
+
+#: ../classes/ui/wpdk-view-controller.php:746
+msgid ""
+"Are you sure to reset this preferences to default values?\n"
+"\n"
+"This operation is not reversible!"
+msgstr ""
+
+#: ../classes/ui/wpdk-view-controller.php:928
 #, php-format
 msgid ""
 "<strong>%s</strong> settings were successfully restored to defaults values!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:744
+#: ../classes/ui/wpdk-view-controller.php:1000
 #, php-format
 msgid "<strong>%s</strong> settings values were successfully updated!"
 msgstr ""

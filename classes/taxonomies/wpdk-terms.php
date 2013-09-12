@@ -11,17 +11,25 @@
 
 
 /**
- * Description
+ * A replacement experimental of standrd WordPress term object.
  *
  * ## Overview
  *
- * Description
+ * This class introducing a lot of feature for term management.
+ *
+ *     $term = WPDKterm::term( '%colors' );      // get by name
+ *     $term = WPDKterm::term( 'colors-house' ); // get by slug
+ *     $term = WPDKterm::term( 116 );            // get by id
+ *
+ *     $term = WPDKterm::term( 116, 'custom-tax' );  // get by id witha custom taxonomy
+ *
+ *     $ancestor = WPDKterm::ancestor( $term );  // get the ancestor (top parent)
  *
  * @class           WPDKTerm
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-06-26
- * @version         1.0.0
+ * @date            2013-08-29
+ * @version         1.0.1
  *
  */
 class WPDKTerm {
@@ -30,6 +38,7 @@ class WPDKTerm {
   public $description;
   public $name;
   public $parent;
+  public $parent_term;
   public $slug;
   public $taxonomy;
   public $term_group;
@@ -53,22 +62,23 @@ class WPDKTerm {
   }
 
   /**
-   * Description
+   * Return an instance of WPDKTerm class as extended-map of WordPress term.
    *
-   * @brief Brief
+   * @brief Get term
    *
    * @param int|object|string $term     If integer, will get from database.
    *                                    If object will apply filters and return $term.
    *                                    If string started with `%` will get by `get_term_by( 'name' )`
    *                                    Else if string will get by `get_term_by( 'slug' )`
    * @param string            $taxonomy Taxonomy name that $term is part of.
-   * @param string            $output   Constant OBJECT, ARRAY_A, or ARRAY_N
-   * @param string            $filter   Optional, default is raw or no WordPress defined filter will applied.
+   * @param string            $output   Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
+   * @param string            $filter   Optional. Default is raw or no WordPress defined filter will applied.
+   * @param bool              $parent   Optional. If TRUE an object WPDKTerm is create in parent_term property
    *
    * @return WPDKTerm|WP_Error Term Row from database. Will return null if $term is empty. If taxonomy does not
    *        exist then WP_Error will be returned.
    */
-  public static function term( $term, $taxonomy, $output = OBJECT, $filter = 'raw' )
+  public static function term( $term, $taxonomy, $output = OBJECT, $filter = 'raw', $parent = false )
   {
     if ( is_object( $term ) || is_numeric( $term ) ) {
       $term = get_term( $term, $taxonomy, $output, $filter );
@@ -81,9 +91,53 @@ class WPDKTerm {
 
     if ( !is_wp_error( $term ) ) {
       $instance = new WPDKTerm( $term );
+      /* Get a WPDKTerm object if $parent param is TRUE and a parent id exists. */
+      if ( true === $parent && !empty( $instance->parent ) ) {
+        $instance->term_parent = self::term( $instance->parent, $taxonomy );
+      }
       return $instance;
     }
     return $term;
+  }
+
+  /**
+   * Return the ancestor (top parent) WPDKTerm object. If FALSE no ancestor object found.
+   *
+   * @brief Ancestor
+   *
+   * @return bool|WPDKTerm
+   */
+  public function ancestor()
+  {
+    return $this->ancestorOfTerm( $this );
+  }
+
+  /**
+   * Return the ancestor (top parent) WPDKTerm object. If FALSE no ancestor object found.
+   *
+   * @brief Ancestor
+   *
+   * @param WPDKTerm $term An instance of WPDKTerm class
+   *
+   * @return bool|WPDKTerm
+   */
+  public static function ancestorOfTerm( WPDKterm $term )
+  {
+
+    $term_id = false;
+    $result  = false;
+
+    if ( is_a( $term, 'WPDKTerm' ) ) {
+      $term_id = $term->term_id;
+    }
+
+    if ( !empty( $term_id ) ) {
+      while ( !empty( $term->parent ) ) {
+        $term   = self::term( $term->parent, $term->taxonomy );
+        $result = self::term( $term->term_id, $term->taxonomy );
+      }
+    }
+    return $result;
   }
 
 }

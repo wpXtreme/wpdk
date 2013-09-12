@@ -83,7 +83,7 @@
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2013-08-20
  * @version            1.0.0
- * @since              1.1.3
+ * @since              1.2.0
  *
  */
 class WPDKPreferences {
@@ -107,6 +107,15 @@ class WPDKPreferences {
   public $version;
 
   /**
+   * Used to store the preferences for user
+   *
+   * @brief User ID
+   *
+   * @var int $user_id
+   */
+  public $user_id;
+
+  /**
    * Return the preferences object from the option. If not exists then an object is create runtime for you.
    * This is a utility method but you have to override if you don't like insert name and class name parameters. In
    * you own class just use:
@@ -121,15 +130,24 @@ class WPDKPreferences {
    *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION );
    *     }
    *
+   * If you wish store preferences for each user use:
+   *
+   *     public static function init() {
+   *       $user_id = get_current_user_id();
+   *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION, $user_id );
+   *     }
+   *
    * @param string      $name       A string used as name for options. Make it unique more possible.
    * @param string      $class_name The subclass class name
    * @param bool|string $version    Optional. Version compare
+   * @param bool|int    $user_id    Optional. User ID
    *
    * @return WPDKPreferences
    */
-  public static function init( $name, $class_name, $version = false )
+  public static function init( $name, $class_name, $version = false, $user_id = false )
   {
     static $instance = array();
+    static $busy = false;
 
     /**
      * @var WPDKPreferences $preferences
@@ -137,10 +155,10 @@ class WPDKPreferences {
     $preferences = null;
 
     $name        = sanitize_title( $name );
-    $preferences = isset( $instance[$name] ) ? $instance[$name] : get_option( $name );
+    $preferences = isset( $instance[$name] ) ? $instance[$name] : ( empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true ) );
 
     if ( !is_object( $preferences ) || !is_a( $preferences, $class_name ) ) {
-      $preferences = new $class_name( $name );
+      $preferences = new $class_name( $name, $user_id );
     }
 
     if ( !empty( $version ) ) {
@@ -154,35 +172,38 @@ class WPDKPreferences {
 
     /* Check for post data. */
     if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
-      if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
-        $branch = $_POST['wpdk_preferences_branch'];
+      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) && $_POST['wpdk_preferences_class'] == get_class( $preferences ) ) {
+        $busy = true;
+        if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
+          $branch = $_POST['wpdk_preferences_branch'];
 
-        /* Reset to defaul a specified branch. */
-        if ( isset( $_POST['reset-to-default-preferences'] ) ) {
-          add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
-          $preferences->$branch->defaults();
+          /* Reset to default a specified branch. */
+          if ( isset( $_POST['reset-to-default-preferences'] ) ) {
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
+            $preferences->$branch->defaults();
+            $preferences->update();
+          }
+
+          /* Update a specified branch. */
+          elseif ( isset( $_POST['update-preferences'] ) ) {
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
+            $preferences->$branch->update();
+            $preferences->update();
+          }
+        }
+
+        /* Reset all preferences. */
+        elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
+          $preferences->defaults();
           $preferences->update();
         }
 
-        /* Update a specified branch. */
-        elseif ( isset( $_POST['update-preferences'] ) ) {
-          add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
-          $preferences->$branch->update();
-          $preferences->update();
+        /* Try for import/export. */
+        else {
+          $preferences = WPDKPreferencesImportExport::init( $preferences );
         }
-
       }
-
-      /* Reset all preferences. */
-      elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
-        $preferences->defaults();
-        $preferences->update();
-      }
-
-      /* Try for import/export. */
-      else {
-        $preferences = WPDKPreferencesImportExport::init( $preferences )->preferences;
-      }
+      $busy = false;
     }
 
     $instance[$name] = $preferences;
@@ -195,23 +216,33 @@ class WPDKPreferences {
    *
    * @brief Construct
    *
-   * @param string $name A string used as name for options. Make it unique more possible.
+   * @param string   $name    A string used as name for options. Make it unique more possible.
+   * @param bool|int $user_id Optional. User ID
    */
-  protected function __construct( $name )
+  protected function __construct( $name, $user_id = false )
   {
-    $this->name = sanitize_title( $name );
+    $this->name    = sanitize_title( $name );
+    $this->user_id = $user_id;
     $this->defaults();
   }
 
-  // TODO
+  /**
+   * Restored feedback message
+   *
+   * @brief Feedback
+   */
   public function wpdk_preferences_feedback_reset()
   {
-    $message = __( $_POST['wpdk_preferences_branch'] . ' Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
+    $message = __( 'Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
     $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
     $alert->display();
   }
 
-  // TODO
+  /**
+   * Updated feedback message
+   *
+   * @brief Feedback
+   */
   public function wpdk_preferences_feedback_update()
   {
     $message = __( 'Your preferences values were successfully updated!', WPDK_TEXTDOMAIN );
@@ -219,6 +250,16 @@ class WPDKPreferences {
     $alert->display();
   }
 
+  /**
+   * Helper to get the preferences from global options or for single users.
+   *
+   * @brief Get preferences from store
+   *
+   * @return WPDKPreferences
+   */
+  public function get() {
+    return empty( $this->user_id ) ? get_option( $this->name ) : get_user_meta( $this->user_id, $this->name, true );
+  }
 
 
   /**
@@ -242,7 +283,7 @@ class WPDKPreferences {
   {
 
     /* Check if exists a store version. */
-    $store_version = get_option( $this->name );
+    $store_version = $this->get();
 
     /* Get subclass name. */
     $subclass_name = get_class( $this );
@@ -273,7 +314,12 @@ class WPDKPreferences {
    */
   public function update()
   {
-    update_option( $this->name, $this );
+    if ( empty( $this->user_id ) ) {
+      update_option( $this->name, $this );
+    }
+    else {
+      update_user_meta( $this->user_id, $this->name, $this );
+    }
   }
 
   /**
@@ -283,7 +329,12 @@ class WPDKPreferences {
    */
   public function delete()
   {
-    delete_option( $this->name );
+    if ( empty( $this->user_id ) ) {
+      delete_option( $this->name );
+    }
+    else {
+      delete_user_meta( $this->user_id, $this->name );
+    }
   }
 
 }
@@ -348,8 +399,10 @@ class WPDKPreferencesBranch {
  * @class           WPDKPreferencesImportExport
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-08-21
- * @version         1.0.0
+ * @date            2013-08-22
+ * @version         1.0.1
+ *
+ * @note            In this release you can import preferences from other users
  *
  */
 class WPDKPreferencesImportExport {
@@ -358,6 +411,7 @@ class WPDKPreferencesImportExport {
   const ERROR_READ_FILE      = 1;
   const ERROR_MALFORMED_FILE = 2;
   const ERROR_VERSION        = 3;
+  const ERROR_USER_ID        = 4; // Not used at this momnent
 
   /**
    * Used for feedback hook
@@ -387,20 +441,18 @@ class WPDKPreferencesImportExport {
   public $preferences;
 
   /**
-   * Return and create a sngleton instance of WPDKPreferencesImportExport class
+   * Return the original or imported preferences
    *
-   * @brief Singleton
+   * @brief Init the import/export
    *
    * @param WPDKPreferences $preferences An instance of WPDKPreferences class
    *
-   * @return WPDKPreferencesImportExport
+   * @return WPDKPreferences
    */
-  public static function init( $preferences) {
-    static $instance = null;
-    if( is_null( $instance ) ) {
-      $instance = new WPDKPreferencesImportExport( $preferences );
-    }
-    return $instance;
+  public static function init( $preferences )
+  {
+    $import_export = new WPDKPreferencesImportExport( $preferences );
+    return $import_export->preferences;
   }
 
   /**
@@ -412,7 +464,7 @@ class WPDKPreferencesImportExport {
    *
    * @return WPDKPreferencesImportExport
    */
-  public function __construct( $preferences )
+  private function __construct( $preferences )
   {
     $this->preferences = $preferences;
     $this->import      = '';
@@ -424,7 +476,8 @@ class WPDKPreferencesImportExport {
     }
     /* Import. */
     elseif ( isset( $_POST['wpdk_preferences_import'] ) ) {
-      add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
+      //add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
+      add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
 
       if ( $_FILES['file']['error'] > 0 ) {
         $this->error = self::ERROR_READ_FILE;
@@ -442,19 +495,31 @@ class WPDKPreferencesImportExport {
    *
    * @param string $filename Unix path of the import file
    */
-  public function import( $filename )
+  private function import( $filename )
   {
     $this->import = unserialize( gzinflate( file_get_contents( $filename ) ) );
 
+    /* Check for error in file structure. */
     if ( !is_object( $this->import ) || !is_a( $this->import, get_class( $this->preferences ) ) ) {
       $this->error = self::ERROR_MALFORMED_FILE;
       return;
     }
 
+    /* Check for wrong version. */
     if( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
       $this->error = self::ERROR_VERSION;
       return;
     }
+
+    /* @todo Check for import preferences from other users
+    if ( !empty( $this->import->user_id ) ) {
+      $user_id = get_current_user_id();
+      if ( $user_id !== $this->import->user_id ) {
+        $this->error = self::ERROR_USER_ID;
+        return;
+      }
+    }
+    */
 
     $this->preferences = $this->import;
 
@@ -467,7 +532,7 @@ class WPDKPreferencesImportExport {
    *
    * @brief Download
    */
-  public function download()
+  private function download()
   {
     /* Create a filtrable filename. Default `name-preferences.wpx`. */
     $filename = sprintf( '%s.wpx', $this->preferences->name );
@@ -496,7 +561,7 @@ class WPDKPreferencesImportExport {
    *
    * @return array
    */
-  public function wpdk_preferences_import_export_feedback( $str )
+  public function wpdk_preferences_import_export_feedback()
   {
     switch ( $this->error ) {
       /* All ok. */
@@ -517,16 +582,9 @@ class WPDKPreferencesImportExport {
         break;
     }
 
-    $alert = array(
-      array(
-        'type'           => WPDKUIControlType::ALERT,
-        'alert_type'     => empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::ALERT,
-        'value'          => $str,
-        'block'          => true,
-      )
-    );
-
-    return $alert;
-  }  
+    $alert = new WPDKTwitterBootstrapAlert( 'feedback', $str, empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::ALERT );
+    $alert->block = true;
+    $alert->display();
+  }
 
 }

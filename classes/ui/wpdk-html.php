@@ -1162,7 +1162,7 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    * Commodity to extends selected() WordPress function with array check.
    *
    * @brief WordPress selected() replacement
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param string|array $haystack Single value or array
    * @param mixed        $current  (true) The other value to compare if not just true

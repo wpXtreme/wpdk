@@ -199,7 +199,7 @@ class WPDKView {
     ?>
     <div data-type="wpdk-view"
          id="<?php echo $this->id ?>"
-         class="wpdk-view <?php echo $this->classes() ?> clearfix" <?php echo $this->data() ?> >
+         class="<?php echo $this->classes() ?>" <?php echo $this->data() ?> >
 
     <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
 
@@ -233,11 +233,12 @@ class WPDKView {
   {
     if ( !empty( $this->class ) ) {
       if ( is_string( $this->class ) ) {
-        return $this->class;
+        $this->class = explode( ' ', $this->class );
       }
-      elseif ( is_array( $this->class ) ) {
-        return join( ' ', $this->class );
-      }
+      $this->class[] = 'wpdk-view';
+      $this->class[] = 'clearfix';
+      $this->class   = array_unique( $this->class );
+      return join( ' ', $this->class );
     }
     return '';
   }
@@ -524,13 +525,11 @@ class WPDKHeaderView extends WPDKView {
       // @deprecated
       do_action( 'wpdk_header_view_title_did_appear', $this );
       ?></h2>
-    <div class="wpdk-vc-header-after-title">
     <?php
     do_action( 'wpdk_header_view_' . $this->id . '_after_title', $this );
     // @deprecated
     do_action( 'wpdk_header_view_after_title', $this );
     ?>
-  </div>
     <?php
     parent::draw();
   }
@@ -551,43 +550,73 @@ class WPDKHeaderView extends WPDKView {
 class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
 
   /**
+   * Preferences
+   *
+   * @brief Preferences
+   *
+   * @var WPDKPreferences $preferences
+   */
+  private $preferences;
+
+  /**
    * Create an instance of WPDKPreferencesViewController class
    *
    * @brief Construct
    *
-   * @param string $id    View controller ID
-   * @param string $title The title of view controller
-   * @param array  $tabs  Tabs array
+   * @param WPDKPreferences $preferences    An instance of WPDKPreferences class
+   * @param string          $title          The title of view controller
+   * @param array           $tabs           Tabs array
    *
    * @return WPDKPreferencesViewController
    */
-  public function __construct( $id, $title, $tabs )
+  public function __construct( $preferences, $title, $tabs )
   {
-    $view = new WPDKjQueryTabsView( $id, $tabs );
-    parent::__construct( $id, $title, $view );
+    $this->preferences = $preferences;
+    $view = new WPDKjQueryTabsView( $preferences->name, $tabs );
+    parent::__construct( $preferences->name, $title, $view );
 
     /* Provide a reset all button. */
-    add_action( 'wpdk_header_view_' . $this->id . '-header-view_title_did_appear', array( $this, 'display_button_reset_all' ) );
+    add_action( 'wpdk_header_view_' . $this->id . '-header-view_after_title', array( $this, 'display_toolbar' ) );
   }
 
   /**
-   * Hook used to display a form/button reset all preferences
+   * Hook used to display a form toolbar preferences
    *
-   * @brief Reset all
+   * @brief Tolbar
    */
-  public function display_button_reset_all()
+  public function display_toolbar()
   {
     $confirm = __( "Are you sure to reset All preferences to default value?\n\nThis operation is not reversible!", WPDK_TEXTDOMAIN );
     $confirm = apply_filters( 'wpdk_preferences_reset_all_confirm_message', $confirm );
     ?>
-    <form id="wpdk-preferences-reset-all"
-          method="post"
-          data-confirm="<?php echo $confirm ?>">
-      <input name="wpdk_preferences_reset_all"
-             type="submit"
-             class="button button-primary"
-             value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
-    </form>
+    <div class="tablenav top">
+      <form id="wpdk-preferences"
+            enctype="multipart/form-data"
+            method="post">
+
+        <input type="hidden"
+               name="wpdk_preferences_class"
+               value="<?php echo get_class( $this->preferences ) ?>" />
+        <input type="file" name="file" />
+        <input type="submit"
+                 name="wpdk_preferences_import"
+                 class="button button-primary"
+                 value="<?php _e( 'Import', WPDK_TEXTDOMAIN ) ?>" />
+
+        <input type="submit"
+               name="wpdk_preferences_export"
+               class="button button-secondary right"
+               value="<?php _e( 'Export', WPDK_TEXTDOMAIN ) ?>" />
+
+        <input type="submit"
+               name="wpdk_preferences_reset_all"
+               class="button button-primary right"
+               data-confirm="<?php echo $confirm ?>"
+               value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
+
+        <?php do_action( 'wpdk_preferences_view_controller-' . $this->id . '-tablenav-top', $this ) ?>
+      </form>
+    </div>
   <?php
   }
 
@@ -665,15 +694,19 @@ class WPDKPreferencesView extends WPDKView {
     $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;
     $input_hidden_nonce->value = wp_create_nonce( $this->id );
 
+    $input_hidden_class        = new WPDKHTMLTagInput( '', 'wpdk_preferences_class' );
+    $input_hidden_class->type  = WPDKHTMLTagInputType::HIDDEN;
+    $input_hidden_class->value = get_class( $this->preferences );
+
     $input_hidden_branch        = new WPDKHTMLTagInput( '', 'wpdk_preferences_branch' );
     $input_hidden_branch->type  = WPDKHTMLTagInputType::HIDDEN;
     $input_hidden_branch->value = $this->branch_property;
 
     $layout       = new WPDKUIControlsLayout( $this->fields( $this->branch ) );
-    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
-    $form->name   = 'wpdk_preferences_view_form-' . $this->id;
+    $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_class->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
+    $form->name   = 'wpdk_preferences_view_form-' . $this->branch_property;
     $form->id     = $form->name;
-    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->id;
+    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
     $form->method = 'post';
     $form->action = '';
 
@@ -727,116 +760,6 @@ class WPDKPreferencesView extends WPDKView {
 }
 
 
-/**
- * Useful view for import/export preferences
- *
- * @class           WPDKPreferencesImportExportView
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-08-21
- * @version         1.0.0
- *
- */
-class WPDKPreferencesImportExportView extends WPDKView {
-
-  /**
-   * An instance of WPDKPreferences class
-   *
-   * @brief Preferences
-   *
-   * @var WPDKPreferences $preferences
-   */
-  public $preferences;
-
-  /**
-   * Create an instance of WPDKPreferencesImportExportView class
-   *
-   * @brief Construct
-   *
-   * @param WPDKPreferences $preferences An instance of WPDKPreferences clas
-   *
-   * @return WPDKPreferencesImportExportView
-   */
-  public function __construct( $preferences )
-  {
-    parent::__construct( 'wpdk_preferences_import_export_view' );
-    $this->preferences = $preferences;
-  }
-
-  /**
-   * Display
-   *
-   * @brief Display
-   */
-  public function draw()
-  {
-    /* Create a nonce key. */
-    $nonce                     = md5( $this->id );
-    $input_hidden_nonce        = new WPDKHTMLTagInput( '', $nonce, $nonce );
-    $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;
-    $input_hidden_nonce->value = wp_create_nonce( $this->id );
-
-    /* Layout fields. */
-    $layout = new WPDKUIControlsLayout( $this->fields() );
-
-    /* Form. */
-    $form          = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $layout->html() );
-    $form->name    = 'wpdk_preferences_import_export-' . $this->id;
-    $form->id      = $form->name;
-    $form->class   = 'wpdk-form' . $this->id;
-    $form->method  = 'post';
-    $form->enctype = 'multipart/form-data';
-    $form->action  = '';
-
-    $form->display();
-  }
-
-  /**
-   * Override to return the array fields
-   *
-   * @brief Fields
-   *
-   * @return array
-   */
-  public function fields()
-  {
-    $fields = array(
-      __( 'Import', WPDK_TEXTDOMAIN ) => array(
-
-        apply_filters( 'wpdk_preferences_import_export_feedback', '' ),
-
-        array(
-          array(
-            'type'  => WPDKUIControlType::FILE,
-            'name'  => 'file',
-            'label' => __( 'Select a <code>.wpx</code> export file', WPDK_TEXTDOMAIN ),
-          ),
-          array(
-            'type'  => WPDKUIControlType::SUBMIT,
-            'name'  => 'wpdk_preferences_import',
-            'class' => 'button button-primary button-large',
-            'value' => __( 'Import', WPDK_TEXTDOMAIN ),
-          ),
-        ),
-      ),
-
-      __( 'Export', WPDK_TEXTDOMAIN ) => array(
-
-        array(
-          array(
-            'type'  => WPDKUIControlType::SUBMIT,
-            'name'  => 'wpdk_preferences_export',
-            'class' => 'button button-primary button-large',
-            'value' => __( 'Export', WPDK_TEXTDOMAIN ),
-            'label' => __( 'Export preferences', WPDK_TEXTDOMAIN ),
-          )
-        ),
-      ),
-    );
-    return $fields;
-  }
-}
-
 
 
 
@@ -868,7 +791,7 @@ class WPDKPreferencesImportExportView extends WPDKView {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
- * @deprecated         since 1.1.3 Use WPDKPreferencesViewController and WPDKPreferencesView instead
+ * @deprecated         since 1.2.0 Use WPDKPreferencesViewController and WPDKPreferencesView instead
  */
 
 class WPDKConfigurationView extends WPDKView {

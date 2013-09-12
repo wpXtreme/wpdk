@@ -21,11 +21,11 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.2.0
-### 2013-08-
+### 2013-09-??
 
 #### Improvements
 
-* Restyling some css
+* Restyling some CSS
 * Update jQuery cookie plugin to 1.3.1
 * Minor Javascript improvement for WordPress 3.6
 * Added Javascript version info by cookie
@@ -45,7 +45,11 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKHTMLTagSelect::selected()` public static method to replace `wpdk_selected()` the inline (deprecated) function
 * Added `label` key for `WPDKUIControlSubmit` control
 * Added new `WPDKPreferences`, `WPDKPreferencesBranch`, `WPDKPreferencesViewController` and `WPDKPreferencesView`
-* Added new `WPDKPreferencesImportExport` and `WPDKPreferencesImportExportView`
+* Removed Ajax loader
+
+#### Experimental
+
+* Added `WPDKColors` helper class for RGB/HEX color conversion
 
 #### Deprecated
 
