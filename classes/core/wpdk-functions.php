@@ -29,8 +29,6 @@
  *
  * @file       wpdk-functions.php
  *
- * @deprecated Since 1.1.3 Use WPDKFunctions::is_bool instead
- *
  */
 function wpdk_is_bool( $str )
 {
@@ -49,9 +47,6 @@ function wpdk_is_bool( $str )
  * @return bool
  *
  * @file       wpdk-functions.php
- *
- * @deprecated Use WPDKFunctions::is_url
- *
  */
 function wpdk_is_url( $url )
 {
@@ -72,12 +67,12 @@ function wpdk_is_url( $url )
  * @return bool TRUE if $value is equal to INF (php) or WPDKMath::INFINITY
  *
  * @file       wpdk-functions.php
- * @deprecated Since 1.1.3 Use WPDKMath::isInfinity() instead
+ * @deprecated Since 1.2.0 Use WPDKMath::isInfinity() instead
  *
  */
 function wpdk_is_infinity( $value )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKMath::isInfinity()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKMath::isInfinity()' );
   return WPDKMath::isInfinity( $value );
 }
 
@@ -196,11 +191,12 @@ function wpdk_checked( $haystack, $current, $echo = true )
  * @param bool         $echo     Whether to echo or just return the string
  *
  * @return string html attribute or empty string
- * @deprecated Since 1.1.3 Use WPDKHTMLTagSelect::selected() instead
+ * @deprecated Since 1.2.0 Use WPDKHTMLTagSelect::selected() instead
  */
 function wpdk_selected( $haystack, $current, $echo = true )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKHTMLTagSelect::selected()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKHTMLTagSelect::selected()' );
+
   if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
     $current = $haystack = 1;
   }
@@ -319,11 +315,11 @@ SQL;
  *
  * @return Object the delta Object tree
  *
- * @deprecated Since 1.1.3 Use WPDKObject::delta() instead
+ * @deprecated Since 1.2.0 Use WPDKObject::delta() instead
  */
 function wpdk_delta_object( $last_version, $old_version )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKObject::delta()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::delta()' );
   return WPDKObject::delta( $last_version, $old_version );
 }
 
@@ -418,12 +414,12 @@ function wpdk_get_image_from_attachments( $id_post )
  *
  * @return bool TRUE, if WPDKError. FALSE, if not WPDKError.
  *
- * @deprecated Since 1.1.3 Use WPDKResult::isError() instead
+ * @deprecated Since 1.2.0 Use WPDKResult::isError() instead
  *
  */
 function is_wpdk_error( $thing )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKResult::isError()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKResult::isError()' );
   return WPDKResult::isError( $thing );
 }
 
@@ -437,11 +433,11 @@ function is_wpdk_error( $thing )
  *
  * @return bool TRUE, if WPDKWarning. FALSE, if not WPDKWarning.
  *
- * @deprecated Since 1.1.3 Use WPDKResult::isWarning() instead
+ * @deprecated Since 1.2.0 Use WPDKResult::isWarning() instead
  */
 function is_wpdk_warning( $thing )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKResult::isWarning()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKResult::isWarning()' );
   return WPDKResult::isWarning( $thing );
 }
 
@@ -455,11 +451,11 @@ function is_wpdk_warning( $thing )
  *
  * @return bool TRUE, if WPDKStatus. FALSE, if not WPDKStatus.
  *
- * @deprecated Since 1.1.3 Use WPDKResult::isStatus() instead
+ * @deprecated Since 1.2.0 Use WPDKResult::isStatus() instead
  */
 function is_wpdk_status( $thing )
 {
-  _deprecated_function( __FUNCTION__, '1.1.3', 'WPDKResult::isStatus()' );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKResult::isStatus()' );
   return WPDKResult::isWarning( $thing );
 }
 

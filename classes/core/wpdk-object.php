@@ -14,18 +14,33 @@
  *
  * This abstract class - when inerith - add a more efficent management of properties. Thanks to `__get()` and `__set()`
  * magic method you can set a public property and use `get` and `set` prefix to set itself, like Objective-C.
+ * WPDKObject is the root class of most WPDK class hierarchies. Through WPDKObject, objects inherit a basic interface to
+ * the runtime system and the ability to behave as WPDK objects.
  *
  * @class              WPDKObject
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-08-13
- * @version            0.2.0
+ * @date               2013-08-26
+ * @version            0.3.0
  *
  */
 class WPDKObject {
 
   /**
-   * Get accessor
+   * Returns the version number assigned to the class.
+   * If no version has been set, the default is 0.
+   * Version numbers are needed for decoding or unarchiving, so older versions of an object can be detected and decoded
+   * correctly.
+   *
+   * @brief The version number assigned to the class.
+   * @since 1.2.0
+   *
+   * @var string|int $version
+   */
+   public $version = 0;
+
+  /**
+   * Get accessor for undeclared properties
    *
    * @brief Get accessor
    *
@@ -46,7 +61,7 @@ class WPDKObject {
   }
 
   /**
-   * Isset accessor
+   * Isset accessor for undeclared properties.
    *
    * @brief Isset accessor
    *
@@ -65,7 +80,7 @@ class WPDKObject {
   }
 
   /**
-   * Set accessor
+   * Set accessor for undeclared properties.
    *
    * @brief Set accessor
    *
@@ -80,7 +95,7 @@ class WPDKObject {
   }
 
   /**
-   * Unset accessor
+   * Unset accessor for undeclared properties.
    *
    * @brief Unset accessor
    *
@@ -94,12 +109,95 @@ class WPDKObject {
   }
 
   /**
+   * This method is called when a clone of this object is perform
+   *
+   * @brief Clone
+   * @since 1.2.0
+   *
+   */
+  public function __clone()
+  {
+  }
+
+  /**
+   * Returns the class name. Returns FALSE if called from outside a class.
+   *
+   * @brief Returns the class object.
+   * @since 1.2.0
+   *
+   * @return string
+   */
+  public function className()
+  {
+    return get_called_class();
+  }
+
+  /**
+   * Returns the name of the parent class of the class of which object is an instance or the name.
+   *
+   * @brief Returns the class object for the receiver’s superclass.
+   * @since 1.2.0
+   *
+   * @return string
+   */
+  public function parentClass()
+  {
+    return get_parent_class( $this );
+  }
+
+  /**
+   * Return TRUE if the instance is an instance of $class.
+   * This method is different from `is_a()`:
+   *
+   *     class a extends WPDKObject {}
+   *     class b extends a {}
+   *
+   *     $b = new b();
+   *
+   *     echo is_a( $b, 'a' );     // TRUE
+   *     echo $b->isClass( 'a' );  // FALSE
+   *
+   * @brief Brief
+   * @since 1.2.0
+   *
+   * @param string $class Class name
+   *
+   * @return bool
+   */
+  public function isClass( $class ) {
+    return (  $class == get_class( $this ) );
+  }
+
+  /**
+   * Returns a Boolean value that indicates whether the receiving class is a subclass of, or identical to, a given class.
+   *
+   *     class a extends WPDKObject {}
+   *     class b extends a {}
+   *
+   *     $b = new b();
+   *
+   *     echo $b->isSubclassOfClass( 'a' );           // TRUE
+   *     echo $b->isSubclassOfClass( 'WPDKObject' );  // TRUE
+   *
+   * @brief Return TRUE if the receiving class is a subclass of —or identical to— $class, otherwise FALSE.
+   * @since 1.2.0
+   *
+   * @param object $class A class object
+   *
+   * @return bool
+   */
+  public function isSubclassOfClass( $class )
+  {
+    return is_subclass_of( $this, $class );
+  }
+
+  /**
    * Do a merge/combine between two object tree.
    * If the old version not contains an object or property, that is added.
    * If the old version contains an object or property less in last version, that is deleted.
    *
    * @brief Object delta compare for combine
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param mixed $last_version Object tree with new or delete object/value
    * @param mixed $old_version  Current Object tree, loaded from serialize or database for example
@@ -159,7 +257,6 @@ class WPDKObject {
     /* Ok, $old_version ora è allineata. */
     return $old_version;
   }
-
 }
 
 /// @endcond

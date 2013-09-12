@@ -402,6 +402,7 @@ class WPDKConfigBranch {
  * @date               2013-07-16
  * @version            0.8.2
  * @since              0.6.2
+ * @deprecated         since 1.2.0 use WPDKPreferences instead
  *
  */
 class WPDKConfiguration {

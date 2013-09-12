@@ -12,8 +12,8 @@
  * @class              WPDKShortcode
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-06-04
- * @version            0.2.0
+ * @date               2013-08-27
+ * @version            1.0.0
  * @since              0.9.0
  *
  */

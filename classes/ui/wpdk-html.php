@@ -1143,15 +1143,16 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @param array $options A key value pairs array. If the value is an array then an optio group is created.
    */
-  private function _options( $options ) {
+  private function _options( $options )
+  {
     foreach ( $options as $key => $option ) : ?>
-    <?php if ( is_array( $option ) ) : ?>
-      <optgroup class="wpdk-form-optiongroup" label="<?php echo $key ?>">
+      <?php if ( is_array( $option ) ) : ?>
+        <optgroup class="wpdk-form-optiongroup" label="<?php echo $key ?>">
         <?php $this->_options( $option ); ?>
       </optgroup>
       <?php else : ?>
-      <option class="wpdk-form-option" <?php if ( !empty( $this->value ) ) wpdk_selected( $this->value, $key ) ?>
-              value="<?php echo $key ?>"><?php echo $option ?></option>
+        <option class="wpdk-form-option" <?php if ( !empty( $this->value ) ) echo WPDKHTMLTagSelect::selected( $this->value, $key ) ?>
+                value="<?php echo $key ?>"><?php echo $option ?></option>
       <?php endif; ?>
     <?php endforeach;
   }
@@ -1161,7 +1162,7 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    * Commodity to extends selected() WordPress function with array check.
    *
    * @brief WordPress selected() replacement
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param string|array $haystack Single value or array
    * @param mixed        $current  (true) The other value to compare if not just true

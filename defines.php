@@ -4,13 +4,13 @@
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-08-21
+ * @version            1.0.0
  *
  */
 
 /* WPDK version. */
-define( 'WPDK_VERSION', '1.1.3' );
+define( 'WPDK_VERSION', '1.2.0' );
 
 /*
  * Path unix: /var/

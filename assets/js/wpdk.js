@@ -611,12 +611,29 @@ var WPDKControls = (function ( $ ) {
    *
    * @brief Get the form
    * @since 0.9.5
+   * @deprecated since 1.2.0 use preferencesForm() instead
    *
    * @param {string} $id Configuration view ID
    * @return {*|jQuery|HTMLElement}
    */
-  $this.configurationForm = function ( $id ) {
+  $this.configurationForm = function ( $id )
+  {
     return $( 'form#wpdk_configuration_view_form-' + $id );
+  };
+
+  /**
+   * Return the standard form for a preferences view. See wpdk-ui.php for more detail.
+   *
+   * @brief Get the form ID
+   * @since 1.2.0
+   *
+   * @param {string} $id Preferences form ID
+   *
+   * @return {*|jQuery|HTMLElement}
+   */
+  $this.preferencesForm = function ( $id )
+  {
+    return $( 'form#wpdk_preferences_view_form-' + $id );
   };
 
   /**
@@ -796,7 +813,8 @@ var WPDKTwitterBootstrap = (function ( $ ) {
    *
    * @brief Init this class
    */
-  $this.init = function () {
+  $this.init = function ()
+  {
     $( document ).ready( _init );
   };
 
@@ -825,8 +843,8 @@ var WPDKTwitterBootstrap = (function ( $ ) {
  * @class           WPDKjQuery
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-08-14
- * @version         1.1.0
+ * @date            2013-08-23
+ * @version         1.1.1
  */
 var WPDKjQuery = (function ( $ ) {
 
@@ -867,23 +885,7 @@ var WPDKjQuery = (function ( $ ) {
     return false;
   }
 
-  /**
-   * Called by default when an Ajax request is perform. Display the Ajax animation on the center of page.
-   *
-   * @brief Display Ajax waiting
-   */
-  $( document ).ajaxStart( function () {
-    $( '<div />' ).addClass( 'wpxm-loader' ).appendTo( 'body' ).fadeIn( 500 );
-  } );
 
-  /**
-   * Called by default when an Ajax request is over. Remove the Ajax animation on the center of page.
-   *
-   * @brief Remove Ajax waiting
-   */
-  $( document ).ajaxComplete( function () {
-    $( 'div.wpxm-loader' ).fadeOut( function () { $( this ).remove() } );
-  } );
 
   /**
    * Init this class
@@ -891,6 +893,15 @@ var WPDKjQuery = (function ( $ ) {
    * @brief Init this class
    */
   $this.init = function () {
+    $( document ).ready( _init );
+  };
+
+  /**
+   * Init ehrn the document is ready
+   * @private
+   */
+  function _init()
+  {
     _initDatePicker();
     _initTabs();
     __initAutocomplete();
@@ -899,7 +910,7 @@ var WPDKjQuery = (function ( $ ) {
 
     /* Wrap the date picker with my pwn class. */
     $( '#ui-datepicker-div' ).wrap( '<div class="wpdk-jquery-ui"/>' );
-  };
+  }
 
   /**
    * Initialize the Date Picker
@@ -908,7 +919,8 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initDatePicker() {
+  function _initDatePicker()
+  {
 
     /* Enable Date Picker on wpdk input class. */
     $( 'input.wpdk-form-date' ).datepicker();
@@ -953,24 +965,17 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initTabs() {
+  function _initTabs()
+  {
+    $( ".wpdk-tabs" ).tabs();
 
     if ( document.location.href.indexOf( '#' ) > 0 ) {
-      $( ".wpdk-tabs" ).tabs();
     }
     else {
-      $( ".wpdk-tabs" ).each( function () {
+      $( ".wpdk-tabs" ).each( function ()
+      {
         var id = $( this ).attr( "id" );
-        if ( typeof id === 'undefined' || id == null || id == "" ) {
-
-//          $( this ).tabs( {
-//            cookie : {
-//              expires : 1
-//            }
-//          } );
-        }
-        else {
-
+        if ( 'undefined' !== typeof(id) ) {
           $( this ).tabs( {
             activate : function ( e, ui )
             {
@@ -978,13 +983,6 @@ var WPDKjQuery = (function ( $ ) {
             },
             active   : $.cookie( id )
           } );
-
-//          $( this ).tabs( {
-//            cookie : {
-//              expires : 1,
-//              name    : id
-//            }
-//          } );
         }
       } );
     }
@@ -1000,11 +998,14 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function __initAutocomplete() {
-    $( 'input[data-autocomplete_action]' ).each( function ( index, element ) {
+  function __initAutocomplete()
+  {
+    $( 'input[data-autocomplete_action]' ).each( function ( index, element )
+    {
       $( element ).autocomplete(
         {
-          source    : function ( request, response ) {
+          source    : function ( request, response )
+          {
             $.post( wpdk_i18n.ajaxURL,
               {
                 action          : $( element ).data( 'autocomplete_action' ),
@@ -1012,11 +1013,13 @@ var WPDKjQuery = (function ( $ ) {
                 data            : $( element ).data( 'user_data' ),
                 term            : request.term
               },
-              function ( data ) {
+              function ( data )
+              {
                 response( $.parseJSON( data ) );
               } );
           },
-          select    : function ( event, ui ) {
+          select    : function ( event, ui )
+          {
             if ( typeof ui.item.href !== 'undefined' ) {
               document.location = ui.item.href;
             }
@@ -1038,8 +1041,10 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initAutocomplete() {
-    $( 'input[data-autocomplete]' ).each( function ( index, element ) {
+  function _initAutocomplete()
+  {
+    $( 'input[data-autocomplete]' ).each( function ( index, element )
+    {
       switch ( $( element ).data( 'autocomplete' ) ) {
         case 'posts':
           _initAutocompletePosts( element );
@@ -1067,16 +1072,19 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initAutocompletePosts( element ) {
+  function _initAutocompletePosts( element )
+  {
 
     /* Init. */
     $( element ).autocomplete(
       {
-        source    : function ( request, response ) {
+        source    : function ( request, response )
+        {
           $.post( wpdk_i18n.ajaxURL,
             {
               action      : 'wpdk_action_autocomplete_posts',
-              post_type   : function() {
+              post_type   : function ()
+              {
                 var $post_type = '';
                 if ( $( $( element ).data( 'post_type' ) ).length ) {
                   $post_type = $( $( element ).data( 'post_type' ) ).val();
@@ -1093,11 +1101,13 @@ var WPDKjQuery = (function ( $ ) {
               orderby     : $( element ).data( 'orderby' ),
               term        : request.term
             },
-            function ( data ) {
+            function ( data )
+            {
               response( $.parseJSON( data ) );
             } );
         },
-        select    : function ( event, ui ) {
+        select    : function ( event, ui )
+        {
           if ( typeof ui.item.href !== 'undefined' ) {
             document.location = ui.item.href;
           }
@@ -1121,7 +1131,8 @@ var WPDKjQuery = (function ( $ ) {
    * @param element DOM element
    * @private
    */
-  function _initAutocompleteEmbed( element ) {
+  function _initAutocompleteEmbed( element )
+  {
     var $source = $( element ).data( 'source' );
 
     if ( !empty( $source ) ) {
@@ -1144,7 +1155,8 @@ var WPDKjQuery = (function ( $ ) {
    * @param element DOM element
    * @private
    */
-  function _initAutocompleteCustom( element ) {
+  function _initAutocompleteCustom( element )
+  {
     var $source = $.parseJSON( $( element ).data( 'source' ).replace( /'/g, "\"" ) );
     var $function = $( element ).data( 'function' );
     var $select = $( element ).data( 'select' );
@@ -1164,11 +1176,14 @@ var WPDKjQuery = (function ( $ ) {
    *
    * @private
    */
-  function _initCopyPaste() {
+  function _initCopyPaste()
+  {
 
     /* This is a hack to send in POST/GET the new value in the multiple select tag. */
-    $( 'form' ).submit( function () {
-      $( '[data-paste]' ).each( function () {
+    $( 'form' ).submit( function ()
+    {
+      $( '[data-paste]' ).each( function ()
+      {
         var paste = $( '#' + $( this ).attr( 'data-paste' ) );
         var element_paste_type = paste.get( 0 ).tagName;
         if ( element_paste_type.toLowerCase() == 'select' && paste.attr( 'multiple' ) !== 'undefined' ) {
@@ -1178,7 +1193,8 @@ var WPDKjQuery = (function ( $ ) {
     } );
 
     /* Copy & Paste */
-    $( document ).on( 'click', '.wpdk-form-button-copy-paste', false, function () {
+    $( document ).on( 'click', '.wpdk-form-button-copy-paste', false, function ()
+    {
       /* Recupero options */
       var options = $( this ).attr( 'data-options' ) ? $( this ).attr( 'data-options' ).split( ' ' ) : [];
 
@@ -1218,7 +1234,8 @@ var WPDKjQuery = (function ( $ ) {
     } );
 
     /* Remove. */
-    $( document ).on( 'click', '.wpdk-form-button-remove', false, function () {
+    $( document ).on( 'click', '.wpdk-form-button-remove', false, function ()
+    {
       var remove_from = $( this ).attr( 'data-remove_from' );
       $( 'option:selected', '#' + remove_from ).remove();
     } );
@@ -1317,6 +1334,85 @@ var WPDKDynamicTable = (function ( $ ) {
   return $this.init();
 
 })( jQuery );
+
+/**
+ * This class manage the Preferences view
+ *
+ * @class           WPDKPreferences
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-08-21
+ * @version         1.0.0
+ *s
+ */
+
+var WPDKPreferences = (function ( $ )
+{
+
+  /**
+   * Internal class pointer
+   *
+   * @brief This object
+   *
+   * @var WPDKPreferences $this
+   */
+  var $this = {};
+
+  /**
+   * The WPDKPreferences version
+   *
+   * @brief Version
+   */
+  $this.version = "1.0.0";
+
+  /**
+   * Return an instance of WPDKPreferences class
+   *
+   * @brief Init this class
+   *
+   * @return WPDKPreferences
+   */
+  $this.init = function ()
+  {
+    $( document ).ready( _init );
+
+    return $this;
+  }
+
+  /**
+   * Init when the document is ready
+   *
+   * @brief Document ready
+   *
+   * @private
+   */
+  function _init()
+  {
+    /* Display a confirm dialog box before reset a specified branch to default values. */
+    $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
+    {
+      return confirm( $( this ).data( 'confirm' ) );
+    } );
+
+    /* Display a confirm dialog box before reset a specified branch to default values. */
+    $( 'input[name=reset-to-default-preferences]' ).click( function ()
+    {
+      return confirm( $( this ).data( 'confirm' ) );
+    } );
+  }
+
+  /**
+   * This method is used to update the event when the DOM is changed
+   *
+   * @brief Update event in DOM
+   */
+  $this.update = function () {}
+
+  return $this.init();
+
+})( jQuery );
+
+
 
 /**
  * This is a little Javascript framework to improve the UI and checking control specially in the form management.

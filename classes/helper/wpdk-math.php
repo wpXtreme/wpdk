@@ -51,7 +51,7 @@ class WPDKMath {
    * Check if infinity
    *
    * @brief Infinity
-   * @since 1.1.3
+   * @since 1.2.0
    *
    * @param float|string $value Check value
    *

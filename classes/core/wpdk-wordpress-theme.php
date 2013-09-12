@@ -262,6 +262,8 @@ class WPDKTheme {
    *
    * @brief Construct
    *
+   * @param string $file
+   *
    * @return WPDKTheme
    */
   public function __construct( $file ) {
