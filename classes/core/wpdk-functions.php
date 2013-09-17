@@ -571,7 +571,7 @@ function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = fals
  */
 function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id = null )
 {
-  __dep_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'WPDKUser::setTransientWithUser()' );
+  _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'WPDKUser::setTransientWithUser()' );
   return WPDKUser::setTransientWithUser( $transient, $value, $expiration, $user_id );
 }
 
