@@ -25,7 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
-* Added `WPDKAjax:add()` useful static method to add an action ajax hook
+* Added `WPDKAjax::add()` useful static method to add an action ajax hook
+* Added `WPDKObject::dump()` Useful static method to dump any variable with a <pre> HTML tag wrap
 
 
 ## Version 1.2.0
