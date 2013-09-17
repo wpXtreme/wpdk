@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.3.0
+### 2013-10-??
+
+#### Enhancements
+
+* Added `WPDKAjax:add()` useful static method to add an action ajax hook
+
+
 ## Version 1.2.0
 ### 2013-09-12
 
