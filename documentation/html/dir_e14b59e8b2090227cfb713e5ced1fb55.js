@@ -1,15 +1,17 @@
 var dir_e14b59e8b2090227cfb713e5ced1fb55 =
 [
     [ "wpdk-ajax.php", "wpdk-ajax_8php.html", null ],
-    [ "wpdk-configuration.php", "wpdk-configuration_8php.html", [
-      [ "WPDKConfiguration", "classWPDKConfiguration.html", "classWPDKConfiguration" ]
-    ] ],
     [ "wpdk-functions.php", "wpdk-functions_8php.html", "wpdk-functions_8php" ],
     [ "wpdk-mail.php", "wpdk-mail_8php.html", [
       [ "WPDKMail", "classWPDKMail.html", "classWPDKMail" ],
       [ "WPDKMailPlaceholder", "classWPDKMailPlaceholder.html", "classWPDKMailPlaceholder" ]
     ] ],
     [ "wpdk-object.php", "wpdk-object_8php.html", null ],
+    [ "wpdk-preferences.php", "wpdk-preferences_8php.html", [
+      [ "WPDKPreferences", "classWPDKPreferences.html", "classWPDKPreferences" ],
+      [ "WPDKPreferencesBranch", "classWPDKPreferencesBranch.html", "classWPDKPreferencesBranch" ],
+      [ "WPDKPreferencesImportExport", "classWPDKPreferencesImportExport.html", "classWPDKPreferencesImportExport" ]
+    ] ],
     [ "wpdk-result.php", "wpdk-result_8php.html", null ],
     [ "wpdk-shortcode.php", "wpdk-shortcode_8php.html", null ],
     [ "wpdk-watchdog.php", "wpdk-watchdog_8php.html", null ],

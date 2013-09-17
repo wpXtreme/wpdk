@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.2</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -126,6 +126,7 @@ Inheritance diagram for WPDKView:</div>
 <area href="classWPDKHeaderView.html" alt="WPDKHeaderView" shape="rect" coords="162,56,314,80"/>
 <area href="classWPDKjQueryTabsView.html" alt="WPDKjQueryTabsView" shape="rect" coords="324,56,476,80"/>
 <area href="classWPDKMetaBoxView.html" alt="WPDKMetaBoxView" shape="rect" coords="486,56,638,80"/>
+<area href="classWPDKPreferencesView.html" alt="WPDKPreferencesView" shape="rect" coords="648,56,800,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -194,15 +195,16 @@ $view-&gt;display();
 </pre><p>Or </p>
 <pre class="fragment">$view = WPDKView::initWithContent( 'my-view', '', 'Hello World' );
 $view-&gt;display();
-</pre><p>Or </p>
+</pre><p>Or, suggested method </p>
 <pre class="fragment">class MyView extends WPDKView {
-    function __construct( $id, $class = '' ) {
-    }
+  public function __construct() {
+    parent::__construct( 'my-id', 'additional class' );
+  }
 
-    // Override
-    function draw() {
-        echo 'Hello World';
-    }
+  // Override
+  public function draw() {
+    echo 'Hello World';
+  }
 }
 </pre><h3><a class="el" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6" title="Draw.">draw()</a> VS content</h3>
 <p>If you like use a <code><a class="el" href="classWPDKView.html">WPDKView</a></code> directly, you will use the <code>content</code> property. Otherwise, you can sub class the <code><a class="el" href="classWPDKView.html">WPDKView</a></code> and then use the method <code><a class="el" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6" title="Draw.">draw()</a></code> to diplay the content of the view.</p>
@@ -210,21 +212,21 @@ $view-&gt;display();
 <p>You can observe some event via filters and actions. For example you can catch when a content has been drawed. For fo this you can use the filter <code>wpdk_view_did_draw_content</code>: </p>
 <pre class="fragment">add_action( 'wpdk_view_did_draw_content', array( $this, 'wpdk_view_did_draw_content') );
 
-function wpdk_view_did_draw_content( $view ) {
-    if ( is_a( $view, 'WPDKHeaderView' ) ) {
-        // Do something
-    }
+public function wpdk_view_did_draw_content( $view ) {
+  if ( is_a( $view, 'WPDKHeaderView' ) ) {
+      // Do something
+  }
 }
 </pre><p>In this case we had used the "is_a" function to understand which type of view was passed. Alternatively you can check the view id, for example. </p>
-<pre class="fragment">function wpdk_view_did_draw_content( $view ) {
-    if ( 'my_id' == $view-&gt;id ) {
-        // Do something
-    }
+<pre class="fragment">public function wpdk_view_did_draw_content( $view ) {
+  if ( 'my_id' == $view-&gt;id ) {
+      // Do something
+  }
 }
 </pre><dl class="section author"><dt>Author</dt><dd>=undo= <a href="#" onclick="location.href='mai'+'lto:'+'inf'+'o@'+'wpx'+'tr'+'e.m'+'e'; return false;">info@<span style="display: none;">.nosp@m.</span>wpxt<span style="display: none;">.nosp@m.</span>re.me</a> </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-11-28 </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.8.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2013-08-19 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0.0 </dd></dl>
 
 <p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00063">63</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -257,7 +259,7 @@ function wpdk_view_did_draw_content( $view ) {
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$id</td><td>The unique id for this view </td></tr>
-    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$class</td><td>The CSS classes for this view</td></tr>
+    <tr><td class="paramtype">array&#160;|&#160;string</td><td class="paramname">$class</td><td>Optional. The CSS classes for this view</td></tr>
   </table>
   </dd>
 </dl>
@@ -292,7 +294,7 @@ function wpdk_view_did_draw_content( $view ) {
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classWPDKView.html">WPDKView</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00276">276</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00286">286</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -312,7 +314,7 @@ function wpdk_view_did_draw_content( $view ) {
 <p>The view content. </p>
 <p>Return the HTML markup content for this view </p>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00192">192</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00197">197</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -333,7 +335,7 @@ function wpdk_view_did_draw_content( $view ) {
 <p>Draw the view content</p>
 <dl class="section note"><dt>Note</dt><dd>This method can be over-ridden in a sub-class. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00261">261</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00270">270</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -354,7 +356,7 @@ function wpdk_view_did_draw_content( $view ) {
 <p>Return the HTML markup content of this view</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00175">175</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00179">179</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -408,7 +410,7 @@ function wpdk_view_did_draw_content( $view ) {
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool|WPDKView Return an instance of <a class="el" href="classWPDKView.html">WPDKView</a> or FALSE if error </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00156">156</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00157">157</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -444,7 +446,7 @@ function wpdk_view_did_draw_content( $view ) {
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00166">166</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00168">168</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>
@@ -464,7 +466,7 @@ function wpdk_view_did_draw_content( $view ) {
 <p>Remove this view. </p>
 <p>Remove this view from its superview </p>
 
-<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00292">292</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-view-controller_8php_source.html#l00302">302</a> of file <a class="el" href="wpdk-view-controller_8php_source.html">wpdk-view-controller.php</a>.</p>
 
 </div>
 </div>

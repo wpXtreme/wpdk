@@ -3,6 +3,9 @@ var dir_b48720ed164f7e0ea201f06e54719566 =
     [ "wpdk-array.php", "wpdk-array_8php.html", [
       [ "WPDKArray", "classWPDKArray.html", "classWPDKArray" ]
     ] ],
+    [ "wpdk-colors.php", "wpdk-colors_8php.html", [
+      [ "WPDKColors", "classWPDKColors.html", "classWPDKColors" ]
+    ] ],
     [ "wpdk-crypt.php", "wpdk-crypt_8php.html", [
       [ "WPDKCrypt", "classWPDKCrypt.html", "classWPDKCrypt" ]
     ] ],

@@ -15,7 +15,7 @@ var hierarchy =
     [ "WPDKArray", "classWPDKArray.html", null ],
     [ "WPDKCapabilities", "classWPDKCapabilities.html", null ],
     [ "WPDKCapability", "classWPDKCapability.html", null ],
-    [ "WPDKConfiguration", "classWPDKConfiguration.html", null ],
+    [ "WPDKColors", "classWPDKColors.html", null ],
     [ "WPDKCrypt", "classWPDKCrypt.html", null ],
     [ "WPDKDynamicTable", "classWPDKDynamicTable.html", null ],
     [ "WPDKFilesystem", "classWPDKFilesystem.html", null ],
@@ -30,6 +30,9 @@ var hierarchy =
     [ "WPDKPlugin", null, [
       [ "WPDKWordPressPlugin", "classWPDKWordPressPlugin.html", null ]
     ] ],
+    [ "WPDKPreferences", "classWPDKPreferences.html", null ],
+    [ "WPDKPreferencesBranch", "classWPDKPreferencesBranch.html", null ],
+    [ "WPDKPreferencesImportExport", "classWPDKPreferencesImportExport.html", null ],
     [ "WPDKScreenHelp", "classWPDKScreenHelp.html", null ],
     [ "WPDKSubMenu", "classWPDKSubMenu.html", [
       [ "WPDKSubMenuDivider", "classWPDKSubMenuDivider.html", null ]
@@ -42,10 +45,13 @@ var hierarchy =
       [ "WPDKConfigurationView", "classWPDKConfigurationView.html", null ],
       [ "WPDKHeaderView", "classWPDKHeaderView.html", null ],
       [ "WPDKjQueryTabsView", "classWPDKjQueryTabsView.html", null ],
-      [ "WPDKMetaBoxView", "classWPDKMetaBoxView.html", null ]
+      [ "WPDKMetaBoxView", "classWPDKMetaBoxView.html", null ],
+      [ "WPDKPreferencesView", "classWPDKPreferencesView.html", null ]
     ] ],
     [ "WPDKViewController", "classWPDKViewController.html", [
-      [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", null ]
+      [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", [
+        [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", null ]
+      ] ]
     ] ],
     [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ],
     [ "WPDKWordPressTheme", "classWPDKWordPressTheme.html", null ]

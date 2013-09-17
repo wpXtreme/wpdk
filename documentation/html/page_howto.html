@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.2</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -103,20 +103,21 @@ $(document).ready(function(){initNavTree('page_howto.html','');});
 <div class="title">WPDK How-tos </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Here you can find a set of examples and how-tos about <em>WPDK</em> in action into a WordPress environment.</p>
-<p>Any example and/or how-to is available to anyone through GitHub interface. If you want to download and use these examples in your environment, you naturally have to install <em>WPDK</em> first: please <a class="el" href="page_install.html">follow these rules</a> to do that.</p>
+<div class="textblock"><p>Here you can find a set of examples and how-tos about WPDK in action into a WordPress environment.</p>
+<p>Any example and/or how-to is available to anyone through GitHub interface. If you want to download and use these examples in your environment, you naturally have to install WPDK first: please <a class="el" href="page_install.html">follow these rules</a> to do that.</p>
 <ul>
-<li>Hello World! WordPress plugin using <em>WPDK</em> - the basic - <a class="el" href="page_howto.html#section_hello_world_1">click here</a></li>
-<li>Hello World! WordPress plugin using <em>WPDK</em> - intermediate - <a class="el" href="page_howto.html#section_hello_world_2">click here</a></li>
-<li>Sample #1 of WordPress plugin using <em>WPDK</em> - <a class="el" href="page_howto.html#section_plugin_1">click here</a></li>
-<li>Sample #2 of WordPress plugin using <em>WPDK</em> - <a class="el" href="page_howto.html#section_plugin_2">click here</a></li>
+<li>Hello World! WordPress plugin using WPDK - the basic - <a class="el" href="page_howto.html#section_hello_world_1">click here</a></li>
+<li>Hello World! WordPress plugin using WPDK - intermediate - <a class="el" href="page_howto.html#section_hello_world_2">click here</a></li>
+<li>Sample #1 of WordPress plugin using WPDK - two submenu item connected to simple view-controllers - <a class="el" href="page_howto.html#section_plugin_1">click here</a></li>
+<li>Sample #2 of WordPress plugin using WPDK - shows all available <em>WPDK graphic controls</em> - <a class="el" href="page_howto.html#section_plugin_2">click here</a></li>
+<li>Sample #3 of WordPress plugin using WPDK - two submenu item connected to specialized view-controllers - example of plugin configuration handling -<a class="el" href="page_howto.html#section_plugin_3">click here</a></li>
 </ul>
 <h1><a class="anchor" id="section_hello_world_1"></a>
 Hello World! WordPress plugin using WPDK - the basic</h1>
-<p>This how-to creates a simple WordPress plugin and generates, through <em>WPDK</em> object <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code>, an <code>Hello World!</code> menu item in the administration area of your WordPress environment. This code is very simple, and shows a basic, not <em>invasive</em> way of using <em>WPDK</em> in developing a WordPress plugin.</p>
+<p>This how-to creates a simple WordPress plugin and generates, through WPDK object <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code>, an <code>Hello World!</code> menu item in the administration area of your WordPress environment. This code is very simple, and shows a basic, not <em>invasive</em> way of using WPDK in developing a WordPress plugin.</p>
 <p>Please follow these instructions to see this how-to in action in your WordPress environment.</p>
 <ol type="1">
-<li>If not already done, install <em>WPDK</em> in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
+<li>If not already done, install WPDK in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
 <li>Download the zip of this how-to from official GitHub repository <a href="https://github.com/wpXtreme/wpdk-sample-menu-1">clicking here</a>.</li>
 <li>Unzip this how-to. You will have its root directory named <code>wpdk-sample-menu-1-master</code></li>
 <li>Copy the entire <code>wpdk-sample-menu-1-master</code> folder in the <code>wp-content/plugins</code> directory of your WordPress environment.</li>
@@ -125,11 +126,11 @@ Hello World! WordPress plugin using WPDK - the basic</h1>
 </ol>
 <h1><a class="anchor" id="section_hello_world_2"></a>
 Hello World! WordPress plugin using WPDK - intermediate</h1>
-<p>This how-to creates a simple WordPress plugin and generates, through <em>WPDK</em> object <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code>, an <code>Hello World!</code> menu item in the administration area of your WordPress environment. This code is relatively more complex than first Hello World! example: the plugin menu is made of two submenu items, each one with its own function called whenever the item is clicked; and the main menu item has an attached icon, as other main menu item in WordPress menu of Administration Screen.</p>
-<p>The plugin menu is built through another <em>WPDK</em> way of creating menu in Administration Screen: as an array, with specific array items, processed by <code>renderByArray</code> static method of <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code> class. It is another powerful, readable and easy way to accomplish this task with <em>WPDK</em>.</p>
+<p>This how-to creates a simple WordPress plugin and generates, through WPDK object <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code>, an <code>Hello World!</code> menu item in the administration area of your WordPress environment. This code is relatively more complex than first Hello World! example: the plugin menu is made of two submenu items, each one with its own function called whenever the item is clicked; and the main menu item has an attached icon, as other main menu item in WordPress menu of Administration Screen.</p>
+<p>The plugin menu is built through another WPDK way of creating menu in Administration Screen: as an array, with specific array items, processed by <code>renderByArray</code> static method of <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code> class. It is another powerful, readable and easy way to accomplish this task with <em>WPDK</em>.</p>
 <p>Please follow these instructions to see this how-to in action in your WordPress environment.</p>
 <ol type="1">
-<li>If not already done, install <em>WPDK</em> in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
+<li>If not already done, install WPDK in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
 <li>Download the zip of this how-to from official GitHub repository <a href="https://github.com/wpXtreme/wpdk-sample-menu-2">clicking here</a>.</li>
 <li>Unzip this how-to. You will have its root directory named <code>wpdk-sample-menu-2-master</code></li>
 <li>Copy the entire <code>wpdk-sample-menu-2-master</code> folder in the <code>wp-content/plugins</code> directory of your WordPress environment.</li>
@@ -147,7 +148,7 @@ Sample #1 of WordPress plugin using WPDK</h1>
 </ul>
 <p>Please follow these instructions to see this how-to in action in your WordPress environment.</p>
 <ol type="1">
-<li>If not already done, install <em>WPDK</em> in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
+<li>If not already done, install WPDK in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
 <li>Download the zip of this how-to from official GitHub repository <a href="https://github.com/wpXtreme/wpdk-sample-plugin-1">clicking here</a>.</li>
 <li>Unzip this how-to. You will have its root directory named <code>wpdk-sample-plugin-1-master</code></li>
 <li>Copy the entire <code>wpdk-sample-plugin-1-master</code> folder in the <code>wp-content/plugins</code> directory of your WordPress environment.</li>
@@ -163,11 +164,29 @@ Sample #2 of WordPress plugin using WPDK</h1>
 </ul>
 <p>Please follow these instructions to see this how-to in action in your WordPress environment.</p>
 <ol type="1">
-<li>If not already done, install <em>WPDK</em> in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
+<li>If not already done, install WPDK in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
 <li>Download the zip of this how-to from official GitHub repository <a href="https://github.com/wpXtreme/wpdk-sample-plugin-2">clicking here</a>.</li>
 <li>Unzip this how-to. You will have its root directory named <code>wpdk-sample-plugin-2-master</code></li>
 <li>Copy the entire <code>wpdk-sample-plugin-2-master</code> folder in the <code>wp-content/plugins</code> directory of your WordPress environment.</li>
 <li>Activate the plugin in your WordPress administration area: a new <code>WPDK Plug#2</code> menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.</li>
+<li>The source code of this plugin is well documented, and can be an easy starting point for your develop with <em>WPDK</em>.</li>
+</ol>
+<h1><a class="anchor" id="section_plugin_3"></a>
+Sample #3 of WordPress plugin using WPDK</h1>
+<p>This how-to is the third sample of a WordPress plugin developed using <em>WPDK</em>. This is the structure:</p>
+<ul>
+<li>Create a main menu with two submenu items, through methods <code>addSubMenu</code> and <code>render</code> of <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code> class.</li>
+<li>The first submenu item is connected to a specific specialized <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class instance. This specialized instance embeds a specific <code><a class="el" href="classWPDKConfigurationView.html">WPDKConfigurationView</a></code> class called <code>ControlsConfigurationView</code>, that shows a little subset of <em>WPDK graphic controls</em> driving plugin configuration. You can set values and store them into DB, clicking the <em>Update</em> button; or you can restore values to their default, clicking the <em>Reset to default</em> button. Following this simple use case, you can easily build and customize your own plugin configuration, creating a property into <code>ControlsSettings</code> model, and setting its value with a specific <em>WPDK graphic control</em> defined into the <code>ControlsConfigurationView</code> specialized view.</li>
+<li><code>updatePostData</code> method of <code>ControlsConfigurationView</code> class processes the <em>Update</em> request incoming from related button in the view.</li>
+<li><code>resetToDefault</code> method of <code>ControlsConfigurationView</code> class processes the <em>Reset to default</em> request incoming from related button in the view.</li>
+</ul>
+<p>Please follow these instructions to see this how-to in action in your WordPress environment.</p>
+<ol type="1">
+<li>If not already done, install WPDK in your environment - please <a class="el" href="page_install.html">follow these rules</a> to do that.</li>
+<li>Download the zip of this how-to from official GitHub repository <a href="https://github.com/wpXtreme/wpdk-sample-plugin-3">clicking here</a>.</li>
+<li>Unzip this how-to. You will have its root directory named <code>wpdk-sample-plugin-3-master</code></li>
+<li>Copy the entire <code>wpdk-sample-plugin-3-master</code> folder in the <code>wp-content/plugins</code> directory of your WordPress environment.</li>
+<li>Activate the plugin in your WordPress administration area: a new <code>WPDK Plug#3</code> menu item will appear in the main navigation menu at the left side of the screen, with an icon at the left, and two related submenu items. Click them to see result.</li>
 <li>The source code of this plugin is well documented, and can be an easy starting point for your develop with <em>WPDK</em>. </li>
 </ol>
 </div></div><!-- contents -->

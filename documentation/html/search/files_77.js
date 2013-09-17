@@ -2,7 +2,7 @@ var searchData=
 [
   ['wpdk_2dajax_2ephp',['wpdk-ajax.php',['../wpdk-ajax_8php.html',1,'']]],
   ['wpdk_2darray_2ephp',['wpdk-array.php',['../wpdk-array_8php.html',1,'']]],
-  ['wpdk_2dconfiguration_2ephp',['wpdk-configuration.php',['../wpdk-configuration_8php.html',1,'']]],
+  ['wpdk_2dcolors_2ephp',['wpdk-colors.php',['../wpdk-colors_8php.html',1,'']]],
   ['wpdk_2dcrypt_2ephp',['wpdk-crypt.php',['../wpdk-crypt_8php.html',1,'']]],
   ['wpdk_2ddatetime_2ephp',['wpdk-datetime.php',['../wpdk-datetime_8php.html',1,'']]],
   ['wpdk_2ddb_2ephp',['wpdk-db.php',['../wpdk-db_8php.html',1,'']]],
@@ -19,6 +19,7 @@ var searchData=
   ['wpdk_2dobject_2ephp',['wpdk-object.php',['../wpdk-object_8php.html',1,'']]],
   ['wpdk_2dpointer_2ephp',['wpdk-pointer.php',['../wpdk-pointer_8php.html',1,'']]],
   ['wpdk_2dpost_2ephp',['wpdk-post.php',['../wpdk-post_8php.html',1,'']]],
+  ['wpdk_2dpreferences_2ephp',['wpdk-preferences.php',['../wpdk-preferences_8php.html',1,'']]],
   ['wpdk_2dresult_2ephp',['wpdk-result.php',['../wpdk-result_8php.html',1,'']]],
   ['wpdk_2dscreen_2dhelp_2ephp',['wpdk-screen-help.php',['../wpdk-screen-help_8php.html',1,'']]],
   ['wpdk_2dshortcode_2ephp',['wpdk-shortcode.php',['../wpdk-shortcode_8php.html',1,'']]],

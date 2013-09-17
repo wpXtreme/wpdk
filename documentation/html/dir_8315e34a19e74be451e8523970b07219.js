@@ -31,6 +31,8 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKView", "classWPDKView.html", "classWPDKView" ],
       [ "WPDKViewController", "classWPDKViewController.html", "classWPDKViewController" ],
       [ "WPDKHeaderView", "classWPDKHeaderView.html", "classWPDKHeaderView" ],
+      [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", "classWPDKPreferencesViewController" ],
+      [ "WPDKPreferencesView", "classWPDKPreferencesView.html", "classWPDKPreferencesView" ],
       [ "WPDKConfigurationView", "classWPDKConfigurationView.html", "classWPDKConfigurationView" ]
     ] ]
 ];

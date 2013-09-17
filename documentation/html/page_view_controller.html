@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.1.2</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('page_view_controller.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>In <em>MVC pattern</em>, there is a separation between model and its views. In pure pattern, a model interacts with its views through a controller(s).</p>
-<p><em>WPDK</em> implements this pattern by the use of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: <code><a class="el" href="classWPDKView.html">WPDKView</a></code>, and <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> classes.</p>
+<p>WPDK implements this pattern by the use of two fundamental classes, that a developer can (have to) specialize extending them with its own needs: <code><a class="el" href="classWPDKView.html">WPDKView</a></code>, and <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> classes.</p>
 <p><code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class exposes methods and properties to manage the whole <em>HTML</em> display into the work area of WordPress Administration Screen. Upon request, it provides a view that can be displayed or interacted with. Often, this view is the root view for a more complex hierarchy of views, implemented by specialized instances of <code><a class="el" href="classWPDKView.html">WPDKView</a></code> class. The view controller acts as the central coordinating agent for the view hierarchy, handling exchanges between the views and any relevant controller or data objects.</p>
 <p>This is the typical hierarchy handled by a specialized instance of <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class:</p>
 <ul>

@@ -16,7 +16,8 @@ var NAVTREE =
       [ "Hello World! WordPress plugin using WPDK - the basic", "page_howto.html#section_hello_world_1", null ],
       [ "Hello World! WordPress plugin using WPDK - intermediate", "page_howto.html#section_hello_world_2", null ],
       [ "Sample #1 of WordPress plugin using WPDK", "page_howto.html#section_plugin_1", null ],
-      [ "Sample #2 of WordPress plugin using WPDK", "page_howto.html#section_plugin_2", null ]
+      [ "Sample #2 of WordPress plugin using WPDK", "page_howto.html#section_plugin_2", null ],
+      [ "Sample #3 of WordPress plugin using WPDK", "page_howto.html#section_plugin_3", null ]
     ] ],
     [ "How to write a WordPress plugin with full WPDK support", "page_writing_wpdk_plugin.html", [
       [ "Overview", "page_writing_wpdk_plugin.html#page_how_to_plugin_1", null ],
@@ -37,7 +38,7 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Data Fields", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
@@ -54,7 +55,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classWPDKWordPressAdmin.html#a02948281a55a5d255166ae0d0c7ce2a0"
+"classWPDKUsers.html#ab525bfbb85461986538a2ee65eac24f6",
+"wpdk-functions_8php.html#ace333f28e37b33007a022348756abec8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
