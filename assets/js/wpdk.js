@@ -1743,7 +1743,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    *
    * @param string $id      Unique id for button
    * @param string $label   Text label
-   * @param bool   $dismiss True for data-dismiss
+   * @param bool   $dismiss TRUE for data-dismiss
    * @param string $class   Addition CSS class
    */
   $this.add_buttons = function ( $id, $label, $dismiss, $class ) {
