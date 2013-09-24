@@ -84,6 +84,7 @@ class WPDKListTableViewController extends WP_List_Table {
    * An instance of __WPDKDBTable class
    *
    * @brief Model
+   * @since 1.3.0
    *
    * @var __WPDKDBTable $model
    */
