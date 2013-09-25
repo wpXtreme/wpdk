@@ -187,10 +187,21 @@ class WPDKObject {
    * @param mixed $var SOme variable
    *
    */
-  public static function dump( $var )
+  public static function dump( $var, $monitor = false )
   {
-    ?>
-    <pre><?php var_dump( $var ) ?></pre><?php
+    ob_start(); ?>
+    <pre <?php if( $monitor ) : ?> style="height:100px;overflow-y:scroll;background-color:#222;color:#ffa841" <?php endif; ?>><?php var_dump( $var ) ?></pre><?php
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    $replaces = array(
+      "=>\n" => ' => ',
+      '  '   => ' ',
+      "\t"   => '',
+    );
+
+    $content = strtr( $content, $replaces );
+    echo $content;
   }
 
 }
