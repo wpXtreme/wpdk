@@ -203,7 +203,6 @@ class WPDKObject {
     $content = strtr( $content, $replaces );
     echo $content;
   }
-
 }
 
 /// @endcond

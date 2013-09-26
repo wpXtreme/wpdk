@@ -28,6 +28,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKAjax::add()` useful static method to add an action ajax hook
 * Added `WPDKObject::dump()` Useful static method to dump any variable with a <pre> HTML tag wrap
 
+#### Experimental
+
+* Introducing stripKeys() and fit()
+
 #### Bugs
 
 * Minor stable fixes
