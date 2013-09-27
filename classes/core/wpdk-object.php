@@ -35,9 +35,9 @@ class WPDKObject {
    * @brief The version number assigned to the class.
    * @since 1.2.0
    *
-   * @var string|int $version
+   * @var string $version
    */
-   public $version = 0;
+   public $version = '1.0.0';
 
   /**
    * Returns the class name. Returns FALSE if called from outside a class.
