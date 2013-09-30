@@ -50,8 +50,8 @@ class WPDKDBTableStatus extends WPDKObject {
   {
     $statuses = array(
       self::ALL     => __( 'All', WPDK_TEXTDOMAIN ),
-      self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
       self::DRAFT   => __( 'Draft', WPDK_TEXTDOMAIN ),
+      self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
       self::TRASH   => __( 'Trash', WPDK_TEXTDOMAIN ),
     );
     return $statuses;
