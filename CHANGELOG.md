@@ -30,7 +30,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Experimental
 
-* Introducing stripKeys() and fit()
+* Introducing `stripKeys()` and `fit()` in `WPDKArray` class
+* Began to extend base class with `WPDKObject`
 
 #### Bugs
 
