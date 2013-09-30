@@ -20,8 +20,8 @@
  * @class              WPDKObject
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-08-26
- * @version            0.3.0
+ * @date               2013-09-17
+ * @version            0.4.0
  *
  */
 class WPDKObject {
@@ -35,89 +35,9 @@ class WPDKObject {
    * @brief The version number assigned to the class.
    * @since 1.2.0
    *
-   * @var string|int $version
+   * @var string $version
    */
-   public $version = 0;
-
-  /**
-   * Get accessor for undeclared properties
-   *
-   * @brief Get accessor
-   *
-   * @param string $name Property name
-   *
-   * @return mixed
-   */
-  public function __get( $name )
-  {
-    //NSLog("%s::%s - %s", __CLASS__, __FUNCTION__, $name);
-
-    if ( method_exists( $this, ( $method = 'get' . ucfirst( $name ) ) ) ) {
-      return $this->$method();
-    }
-    else {
-      return $this->$name;
-    }
-  }
-
-  /**
-   * Isset accessor for undeclared properties.
-   *
-   * @brief Isset accessor
-   *
-   * @param string $name Property name
-   *
-   * @return mixed
-   */
-  public function __isset( $name )
-  {
-    if ( method_exists( $this, ( $method = 'isset' . ucfirst( $name ) ) ) ) {
-      return $this->$method();
-    }
-    else {
-      return;
-    }
-  }
-
-  /**
-   * Set accessor for undeclared properties.
-   *
-   * @brief Set accessor
-   *
-   * @param string $name  Property name
-   * @param mixed  $value Some value
-   */
-  public function __set( $name, $value )
-  {
-    if ( method_exists( $this, ( $method = 'set' . ucfirst( $name ) ) ) ) {
-      $this->$method( $value );
-    }
-  }
-
-  /**
-   * Unset accessor for undeclared properties.
-   *
-   * @brief Unset accessor
-   *
-   * @param string $name Property name
-   */
-  public function __unset( $name )
-  {
-    if ( method_exists( $this, ( $method = 'unset' . ucfirst( $name ) ) ) ) {
-      $this->$method();
-    }
-  }
-
-  /**
-   * This method is called when a clone of this object is perform
-   *
-   * @brief Clone
-   * @since 1.2.0
-   *
-   */
-  public function __clone()
-  {
-  }
+   public $version = '1.0.0';
 
   /**
    * Returns the class name. Returns FALSE if called from outside a class.
@@ -256,6 +176,32 @@ class WPDKObject {
     }
     /* Ok, $old_version ora è allineata. */
     return $old_version;
+  }
+
+  /**
+   * Useful static method to dump any variable with a <pre> HTML tag wrap
+   *
+   * @brief Dump a variable
+   * @since 1.3.0
+   *
+   * @param mixed $var SOme variable
+   *
+   */
+  public static function dump( $var, $monitor = false )
+  {
+    ob_start(); ?>
+    <pre <?php if( $monitor ) : ?> style="height:100px;overflow-y:scroll;background-color:#222;color:#ffa841" <?php endif; ?>><?php var_dump( $var ) ?></pre><?php
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    $replaces = array(
+      "=>\n" => ' => ',
+      '  '   => ' ',
+      "\t"   => '',
+    );
+
+    $content = strtr( $content, $replaces );
+    echo $content;
   }
 }
 

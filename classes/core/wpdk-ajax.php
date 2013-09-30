@@ -14,8 +14,8 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2012-11-28
-   * @version            0.5
+   * @date               2013-09-17
+   * @version            1.0.0
    * @since              0.7.5
    *
    */
@@ -28,7 +28,8 @@ if ( wpdk_is_ajax() ) {
      *
      * @return WPXCleanFixAjax
      */
-    public function __construct() {
+    public function __construct()
+    {
       $this->registerActions();
     }
 
@@ -38,13 +39,32 @@ if ( wpdk_is_ajax() ) {
      * @brief Register the ajax methods
      *
      */
-    public function registerActions() {
+    public function registerActions()
+    {
       $actions = $this->actions();
       foreach ( $actions as $method => $nopriv ) {
         add_action( 'wp_ajax_' . $method, array( $this, $method ) );
         if ( $nopriv ) {
           add_action( 'wp_ajax_nopriv_' . $method, array( $this, $method ) );
         }
+      }
+    }
+
+    /**
+     * Useful static method to add an action ajax hook
+     *
+     * @brief Add an Ajax hook
+     * @since 1.3.0
+     *
+     * @param string   $method   Method name, eg: wpxkk_action_replace
+     * @param callback $callable A callable function/method hook
+     * @param bool     $nopriv   Set to TRUE for enable no privilege
+     */
+    public static function add( $method, $callable, $nopriv = false )
+    {
+      add_action( 'wp_ajax_' . $method, $callable );
+      if ( $nopriv ) {
+        add_action( 'wp_ajax_nopriv_' . $method, $callable );
       }
     }
 
@@ -56,7 +76,8 @@ if ( wpdk_is_ajax() ) {
      *
      * @return array
      */
-    protected function actions() {
+    protected function actions()
+    {
       /* To override. */
       return array();
     }

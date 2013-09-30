@@ -554,12 +554,13 @@ function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = fals
  *
  * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
  *
- * @brief Set
- * @since 1.0.0
+ * @brief      Set
+ * @since      1.0.0
+ * @deprecated since 1.3.0 - Use WPDKUser::setTransientWithUser()
  *
- * @uses  apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be
- *        stored.
- * @uses  do_action() Calls 'set_user_transient_$transient' and 'setted_transient' hooks on success.
+ * @uses       apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be
+ *             stored.
+ * @uses       do_action() Calls 'set_user_transient_$transient' and 'setted_transient' hooks on success.
  *
  * @param string $transient  Transient name. Expected to not be SQL-escaped.
  * @param mixed  $value      Transient value. Expected to not be SQL-escaped.
@@ -570,30 +571,8 @@ function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = fals
  */
 function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id = null )
 {
-  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
-
-  $value = apply_filters( 'pre_set_user_transient_' . $transient, $value, $user_id );
-
-  $transient_timeout = '_transient_timeout_' . $transient;
-  $transient         = '_transient_' . $transient;
-  if ( false === get_user_meta( $user_id, $transient, true ) ) {
-    if ( $expiration ) {
-      update_user_meta( $user_id, $transient_timeout, time() + $expiration );
-    }
-    $result = update_user_meta( $user_id, $transient, $value );
-  }
-  else {
-    if ( $expiration ) {
-      update_user_meta( $user_id, $transient_timeout, time() + $expiration );
-    }
-    $result = update_user_meta( $user_id, $transient, $value );
-  }
-
-  if ( $result ) {
-    do_action( 'set_user_transient_' . $transient );
-    do_action( 'setted_user_transient', $transient, $user_id );
-  }
-  return $result;
+  _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'WPDKUser::setTransientWithUser()' );
+  return WPDKUser::setTransientWithUser( $transient, $value, $expiration, $user_id );
 }
 
 /**

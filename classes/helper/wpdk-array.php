@@ -8,8 +8,8 @@
  * @class              WPDKArray
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-09-26
+ * @version            1.0.0
  *
  */
 
@@ -32,7 +32,8 @@ class WPDKArray {
    *
    * @return array
    */
-  public static function insertKeyValuePairs( $arr, $key, $val, $index = 0 ) {
+  public static function insertKeyValuePairs( $arr, $key, $val, $index = 0 )
+  {
     $arrayEnd   = array_splice( $arr, $index );
     $arrayStart = array_splice( $arr, 0, $index );
     return ( array_merge( $arrayStart, array( $key => $val ), $arrayEnd ) );
@@ -47,11 +48,12 @@ class WPDKArray {
    * @param array $new   New array
    * @param int   $index Optional. Index zero base
    *
-   * @note For key as int see this workround http://stackoverflow.com/a/15413637/205350
+   * @note  For key as int see this workround http://stackoverflow.com/a/15413637/205350
    *
    * @return array
    */
-  public static function insert( &$arr, $new, $index = 0 ) {
+  public static function insert( &$arr, $new, $index = 0 )
+  {
     $arrayEnd   = array_splice( $arr, $index );
     $arrayStart = array_splice( $arr, 0, $index );
     return ( array_merge( $arrayStart, $new, $arrayEnd ) );
@@ -65,11 +67,12 @@ class WPDKArray {
    * @param array $array Source array to prepend
    * @param array $dest  Reference to destination array
    *
-   * @note For key as int see this workround http://stackoverflow.com/a/15413637/205350
+   * @note  For key as int see this workround http://stackoverflow.com/a/15413637/205350
    *
    * @return array
    */
-  public static function prepend( $array, &$dest ) {
+  public static function prepend( $array, &$dest )
+  {
     $dest = self::insert( $dest, $array );
     return $dest;
   }
@@ -82,11 +85,12 @@ class WPDKArray {
    * @param array $array Source array to prepend
    * @param array $dest  Reference to destination array
    *
-   * @note For key as int see this workround http://stackoverflow.com/a/15413637/205350
+   * @note  For key as int see this workround http://stackoverflow.com/a/15413637/205350
    *
    * @return array
    */
-  public static function append( $array, &$dest ) {
+  public static function append( $array, &$dest )
+  {
     $dest = self::insert( $dest, $array, count( $dest ) );
     return $dest;
   }
@@ -99,9 +103,10 @@ class WPDKArray {
    * @param $array An array
    *
    * @return array
-   * @note Prototype
+   * @note  Prototype
    */
-  public static function wrapArray( $array ) {
+  public static function wrapArray( $array )
+  {
     $result = array();
     foreach ( $array as $element ) {
       $result[] = array( $element );
@@ -118,11 +123,12 @@ class WPDKArray {
    * @param array $array_key     A key value pairs array with the keys to match
    * @param array $array_extract A source key value pairs array that have to match with a specific key
    *
-   * @note Well done name and synopsis in arrayExtractByKey()
+   * @note  Well done name and synopsis in arrayExtractByKey()
    *
    * @return array
    */
-  public static function arrayWithKey( $array_key, $array_extract ) {
+  public static function arrayWithKey( $array_key, $array_extract )
+  {
     $keys   = array_keys( $array_key );
     $result = array();
     foreach ( $array_extract as $key => $value ) {
@@ -144,7 +150,8 @@ class WPDKArray {
    *
    * @return array
    */
-  public static function arrayExtractByKey( $sourceArray, $arrayKeys ) {
+  public static function arrayExtractByKey( $sourceArray, $arrayKeys )
+  {
     $keys   = array_keys( $arrayKeys );
     $result = array();
     foreach ( $sourceArray as $key => $value ) {
@@ -168,7 +175,8 @@ class WPDKArray {
    *
    * @return  object
    */
-  public static function arrayToObject( $array ) {
+  public static function arrayToObject( $array )
+  {
     // First we convert the array to a json string
     $json = json_encode( $array );
 
@@ -188,7 +196,8 @@ class WPDKArray {
    *
    * @return  array
    */
-  public static function objectToArray( $object ) {
+  public static function objectToArray( $object )
+  {
     // First we convert the object into a json string
     $json = json_encode( $object );
 
@@ -196,6 +205,46 @@ class WPDKArray {
     $array = json_decode( $json, true );
 
     return $array;
+  }
+
+  /**
+   * Return a key pairs array start from source without the keys not present in keeplist
+   *
+   * @brief Brief
+   * @since 1.3.0
+   *
+   * @param array $source   Source key pairs array
+   * @param array $keeplist Key pairs array with the list of key to keep
+   *
+   * @return mixed
+   */
+  public static function stripKeys( $source, $keeplist )
+  {
+    $keys = array_keys( $keeplist );
+    foreach ( $source as $key => $value ) {
+      if ( !in_array( $key, $keys ) ) {
+        unset( $source[$key] );
+      }
+    }
+    return $source;
+  }
+
+  /**
+   * Return a merged array from default and source. If source array has some key miss in defaults array, an unset on
+   * that key is performed.
+   *
+   * @brief One to one merge
+   * @since 1.3.0
+   *
+   * @param array $source   A key pairs array
+   * @param array $defaults A key pairs array with default keys and values
+   *
+   * @return array
+   */
+  public static function fit( $source, $defaults )
+  {
+    $source = self::stripKeys( $source, $defaults );
+    return array_merge( $defaults, $source );
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -213,7 +262,8 @@ class WPDKArray {
    *
    * @return string
    */
-  public static function httpBuildQuery( $formdata, $numeric_prefix = null, $arg_separator = null ) {
+  public static function httpBuildQuery( $formdata, $numeric_prefix = null, $arg_separator = null )
+  {
 
     /* Get PHP version. */
     if ( defined( 'PHP_MAJOR_VERSION' ) && PHP_MAJOR_VERSION >= 5 ) {
