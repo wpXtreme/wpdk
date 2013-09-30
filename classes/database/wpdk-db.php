@@ -19,14 +19,66 @@
  * @class              __WPDKDBTable
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-12-10
- * @version            0.1.0
+ * @date               2013-09-30
+ * @version            1.0.0
  *
  */
-class WPDKDBTableStatus {
+class WPDKDBTableStatus extends WPDKObject {
   const ALL     = 'all';
   const PUBLISH = 'publish';
+  const DRAFT   = 'draft';
   const TRASH   = 'trash';
+
+  /**
+   * Override WPDKObject version
+   *
+   * @brief Version
+   *
+   * @var string
+   */
+  public $version = '1.0.0';
+
+  /**
+   * Return a key pairs array with the list of statuses
+   *
+   * @brief Statuses
+   * @since 1.3.0
+   *
+   * @return array
+   */
+  public static function statuses()
+  {
+    $statuses = array(
+      self::ALL     => __( 'All', WPDK_TEXTDOMAIN ),
+      self::DRAFT   => __( 'Draft', WPDK_TEXTDOMAIN ),
+      self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
+      self::TRASH   => __( 'Trash', WPDK_TEXTDOMAIN ),
+    );
+    return $statuses;
+  }
+
+  /**
+   * Return a sanitized status
+   *
+   * @brief Sanitize status
+   * @since 1.3.0
+   *
+   * @param string $status   Single status usually pass via $_POST or $_GET
+   * @param array  $statuses Optional. A key pairs array of allowed statuses, if null get self::statuses
+   *
+   * @return bool|string
+   */
+  public static function sanitizeStatus( $status, $statuses = null )
+  {
+    $status   = esc_attr( $status );
+    $statuses = is_null( $statuses ) ? self::statuses() : $statuses;
+    $allowed  = array_keys( $statuses );
+    if ( !in_array( $status, $allowed ) ) {
+      return false;
+    }
+    return $status;
+  }
+
 }
 
 /**
