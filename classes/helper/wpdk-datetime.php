@@ -16,8 +16,8 @@
  * @class              WPDKDateTime
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-11
- * @version            0.9
+ * @date               2013-09-24
+ * @version            1.0.0
  *
  */
 
@@ -36,35 +36,6 @@ class WPDKDateTime {
    * @brief MySQL date time format
    */
   const MYSQL_DATE_TIME = 'Y-m-d H:i:s';
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Date
-  // -----------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Format a date time. You can select a source format and destination format in order to return the right output
-   * for you.
-   *
-   * @brief Format a date time
-   * @since 1.0.0.b2 Deprecated argument
-   *
-   * @param string $date       Source date string format
-   * @param string $deprecated Optional. Not used.
-   * @param string $to         Destination/outout format, default `m/d/Y H:i`
-   *
-   * @deprecated Use format() instead
-   *
-   * @return string
-   */
-  public static function formatFromFormat( $date, $deprecated = '', $to = 'm/d/Y H:i' ) {
-    if ( !empty( $deprecated ) && func_num_args() > 2 ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-
-    _deprecated_function( __METHOD__, '1.0.0', 'format()' );
-
-    return self::format( $date, $to );
-  }
 
   /**
    * Format a date time in your custom own format. The source format is auto-detect.
@@ -88,30 +59,6 @@ class WPDKDateTime {
   }
 
   /**
-   * Return a timestamp from a specific format of date
-   *
-   * @brief Timestamp from format
-   * @deprecated Since 1.0.0.b2 - Use strtotime() PHP function instead
-   *
-   * @param string $format Format
-   * @param string $date   Date and time
-   *
-   * @return int Timestamp
-   */
-  public static function makeTimeFrom( $format, $date ) {
-
-    _deprecated_function( __METHOD__, '1.0.0.b2', 'strtotime() PHP function' );
-
-    /* Get date in m/d/Y H:i */
-    $sanitize_date = self::formatFromFormat( $date, $format );
-    $split         = explode( ' ', $sanitize_date );
-    $date_part     = explode( '/', $split[0] );
-    $time_part     = explode( ':', $split[1] );
-    $time          = mktime( $time_part[0], $time_part[1], 0, $date_part[0], $date_part[1], $date_part[2] );
-    return $time;
-  }
-
-  /**
    * Return a timestamp as sum from $date and $duration/$duration_type
    *
    * @brief Return expiration timestamp date
@@ -120,11 +67,12 @@ class WPDKDateTime {
    * @param int    $duration      Duration
    * @param string $duration_type Type as `days`, `minutes`, `months
    *
-   * @sa daysToDate()
+   * @sa    daysToDate()
    *
    * @return int
    */
-  static function expirationDate( $date, $duration, $duration_type ) {
+  static function expirationDate( $date, $duration, $duration_type )
+  {
     $expiredate = strtotime( "+{$duration} {$duration_type}", strtotime( $date ) );
     return $expiredate;
   }
@@ -138,15 +86,12 @@ class WPDKDateTime {
    *
    * @return float
    */
-  static function daysToDate( $date ) {
+  static function daysToDate( $date )
+  {
     $diff = $date - time();
     $days = floatval( round( $diff / ( 60 * 60 * 24 ) ) );
     return $days;
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // UI
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Utility per porre l'orario su una nuova riga. Aggiunge un tag br nello spazio tra la data e l'ora
@@ -155,13 +100,10 @@ class WPDKDateTime {
    *
    * @return string Data, tag br e ora
    */
-  static function timeNewLine( $datetime ) {
+  static function timeNewLine( $datetime )
+  {
     return str_replace( ' ', '<br/>', $datetime );
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // has/is zone
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return TRUE if $expiration date is past
@@ -172,7 +114,8 @@ class WPDKDateTime {
    *
    * @return bool
    */
-  static function isExpired( $exipration ) {
+  static function isExpired( $exipration )
+  {
     return ( ( $exipration - time() ) <= 0 );
   }
 
@@ -188,7 +131,8 @@ class WPDKDateTime {
    *
    * @return bool
    */
-  public static function isInRangeDatetime( $date_start, $date_expire, $format = 'YmdHis', $timestamp = false ) {
+  public static function isInRangeDatetime( $date_start, $date_expire, $format = 'YmdHis', $timestamp = false )
+  {
     if ( !empty( $date_start ) || !empty( $date_expire ) ) {
 
       /* Get now in timestamp */
@@ -213,70 +157,52 @@ class WPDKDateTime {
     return false;
   }
 
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Alias
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
-   * Return any date/time in simple mySQL date format: `YYYY-MM-DD`
+   * Return a date in MySQL format `YYYY-MM-DD`.
    *
-   * @brief Date for mySQL
+   * @brief MySQL Date
+   * @since 1.3.0
    *
-   * @param string $date       Date
-   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
-   *
-   * @return string Data nel formato YYYY-MM-DD
-   */
-  public static function date2MySql( $date, $deprecated = '' ) {
-    if ( !empty( $deprecated ) ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-    return self::formatFromFormat( $date, '', 'Y-m-d' );
-  }
-
-  /**
-   * Formatta una data e ora per essere inserita in mySQL, quindi in formato YYYY-MM-DD HH:MM:SS
-   * Return any date/time in simple mySQL date format: `YYYY-MM-DD HH:MM:SS`
-   *
-   * @brief Date and time for mySQL
-   *
-   * @param string $datetime   Date
-   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
+   * @param string $date A string date
    *
    * @return string
    */
-  public static function dateTime2MySql( $datetime, $deprecated = '' ) {
-    if ( !empty( $deprecated ) ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-    return self::formatFromFormat( $datetime, '', 'Y-m-d H:i:s' );
+  public static function mySQLDate( $date )
+  {
+    return self::format( $date, self::MYSQL_DATE );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Time
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
-   * Elimina i secondi da un time
+   * Return a date and time in MySQL format `YYYY-MM-DD HH:MM:SS`.
    *
+   * @brief MySQL Date
+   * @since 1.3.0
    *
-   * @param string $time Orario in hh:mm:ss
+   * @param string $datetime A string date
    *
    * @return string
    */
-  public static function stripSecondsFromTime( $time ) {
+  public static function mySQLDateTime( $datetime )
+  {
+    return self::format( $datetime, self::MYSQL_DATE_TIME );
+  }
+
+  /**
+   * Strip seconds from a date string (with time)
+   *
+   * @param string $time Time in hh:mm:ss
+   *
+   * @return string
+   */
+  public static function stripSecondsFromTime( $time )
+  {
     return substr( $time, 0, 5 ); // 00:00
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Time Calculation
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Returns number of days to start of this week.
    *
-   * @brief Days number
+   * @brief      Days number
    *
    * @author     =stid= <s.furiosi@wpxtre.me>
    *
@@ -285,7 +211,8 @@ class WPDKDateTime {
    *
    * @return int $date
    */
-  public static function daysToWeekStart( $date, $first_day = 'monday' ) {
+  public static function daysToWeekStart( $date, $first_day = 'monday' )
+  {
 
     $week_days = array(
       'monday'    => 0,
@@ -310,22 +237,128 @@ class WPDKDateTime {
    *
    * @author     =stid= <s.furiosi@wpxtre.me>
    *
-   *
    * @param string $date
    * @param string $first_day
    *
    * @return     $date
    */
-  public static function beginningOfWeek( $date, $first_day = 'monday' ) {
+  public static function beginningOfWeek( $date, $first_day = 'monday' )
+  {
     $days_to_start = WPDKDateTime::daysToWeekStart( $date, $first_day );
     return ( $date - $days_to_start );
   }
 
-  /// TO DO
-  public static function compareDate() { }
+  // -----------------------------------------------------------------------------------------------------------------
+  // TODOS
+  // -----------------------------------------------------------------------------------------------------------------
+
 
   /// TO DO
-  public static function compareDatetime() { }
+  public static function compareDate()
+  {
+  }
+
+  /// TO DO
+  public static function compareDatetime()
+  {
+  }
+
+
+  // -----------------------------------------------------------------------------------------------------------------
+  // DEPRECATED
+  // -----------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Format a date time. You can select a source format and destination format in order to return the right output
+   * for you.
+   *
+   * @brief      Format a date time
+   * @since      1.0.0.b2 Deprecated argument
+   *
+   * @param string $date       Source date string format
+   * @param string $deprecated Optional. Not used.
+   * @param string $to         Destination/outout format, default `m/d/Y H:i`
+   *
+   * @deprecated Use format() instead
+   *
+   * @return string
+   */
+  public static function formatFromFormat( $date, $deprecated = '', $to = 'm/d/Y H:i' )
+  {
+    if ( !empty( $deprecated ) && func_num_args() > 2 ) {
+      _deprecated_argument( __METHOD__, '1.0.0.b2' );
+    }
+
+    _deprecated_function( __METHOD__, '1.0.0', 'format()' );
+
+    return self::format( $date, $to );
+  }
+
+  /**
+   * Return a timestamp from a specific format of date
+   *
+   * @brief      Timestamp from format
+   * @deprecated Since 1.0.0.b2 - Use strtotime() PHP function instead
+   *
+   * @param string $format Format
+   * @param string $date   Date and time
+   *
+   * @return int Timestamp
+   */
+  public static function makeTimeFrom( $format, $date )
+  {
+
+    _deprecated_function( __METHOD__, '1.0.0.b2', 'strtotime() PHP function' );
+
+    /* Get date in m/d/Y H:i */
+    $sanitize_date = self::formatFromFormat( $date, $format );
+    $split         = explode( ' ', $sanitize_date );
+    $date_part     = explode( '/', $split[0] );
+    $time_part     = explode( ':', $split[1] );
+    $time          = mktime( $time_part[0], $time_part[1], 0, $date_part[0], $date_part[1], $date_part[2] );
+    return $time;
+  }
+
+  /**
+   * Return any date/time in simple mySQL date format: `YYYY-MM-DD`
+   *
+   * @brief Date for mySQL
+   * @deprecated since 1.3.0 use mySQLDate() instead
+   *
+   * @param string $date       Date
+   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
+   *
+   * @return string Data nel formato YYYY-MM-DD
+   */
+  public static function date2MySql( $date, $deprecated = '' )
+  {
+    if ( !empty( $deprecated ) ) {
+      _deprecated_argument( __METHOD__, '1.0.0.b2' );
+    }
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDate()' );
+    return self::mySQLDate( $date );
+  }
+
+  /**
+   * Formatta una data e ora per essere inserita in mySQL, quindi in formato YYYY-MM-DD HH:MM:SS
+   * Return any date/time in simple mySQL date format: `YYYY-MM-DD HH:MM:SS`
+   *
+   * @brief Date and time for mySQL
+   * @deprecated since 1.3.0 use mySQLDateTime() instead
+   *
+   * @param string $datetime   Date
+   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
+   *
+   * @return string
+   */
+  public static function dateTime2MySql( $datetime, $deprecated = '' )
+  {
+    if ( !empty( $deprecated ) ) {
+      _deprecated_argument( __METHOD__, '1.0.0.b2' );
+    }
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDateTime()' );
+    return self::mySQLDateTime( $datetime );
+  }
 
 
 }

@@ -165,8 +165,8 @@ class WPDKUserStatus {
  * @class              WPDKUser
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-09-17
+ * @version            1.0.0
  *
  */
 class WPDKUser extends WP_User {
@@ -296,10 +296,6 @@ class WPDKUser extends WP_User {
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Sanitizer
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * Compose the first letter of first name and append last name, Eg. John Gold -> J.Gold
    *
@@ -322,7 +318,7 @@ class WPDKUser extends WP_User {
    *
    * @param string $firstName First name
    * @param string $lastName  Last name
-   * @param bool   $nameFirst Order
+   * @param bool   $nameFirst Optional. Default to TRUE [firstname lastname]. Set to FALSE to invert order
    *
    * @return string
    */
@@ -336,32 +332,99 @@ class WPDKUser extends WP_User {
     return $result;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Signin/login
-  // -----------------------------------------------------------------------------------------------------------------
-
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Signup/create
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * This method is an alias of WPDKUsers::create()
    *
    * @brief Create a WordPress user.
    *
-   * @param string        $first_name First name
-   * @param string        $last_name  Last name
-   * @param string        $email      Email address
-   * @param bool|string   $password   Optional. Clear password, if set to FALSE a random password is created
-   * @param bool          $enabled    Optional. If TRUE the user is enabled, FALSE to set in pending
-   * @param string        $role       Optional. User role, default 'subscriber'
+   * @param string      $first_name First name
+   * @param string      $last_name  Last name
+   * @param string      $email      Email address
+   * @param bool|string $password   Optional. Clear password, if set to FALSE a random password is created
+   * @param bool        $enabled    Optional. If TRUE the user is enabled, FALSE to set in pending
+   * @param string      $role       Optional. User role, default 'subscriber'
    *
    * @return int|WP_Error
    */
-  public function create( $first_name, $last_name, $email, $password = false, $enabled = false, $role = 'subscriber' ) {
+  public function create( $first_name, $last_name, $email, $password = false, $enabled = false, $role = 'subscriber' )
+  {
     return WPDKUsers::init()->create( $first_name, $last_name, $email, $password, $enabled, $role );
   }
+
+  // -----------------------------------------------------------------------------------------------------------------
+  // User transient
+  // -----------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Set/update the value of a user transient.
+   *
+   * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
+   *
+   * @brief Set
+   * @since 1.3.0
+   *
+   * @uses  apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be
+   *        stored.
+   * @uses  do_action() Calls 'set_user_transient_$transient' and 'setted_transient' hooks on success.
+   *
+   * @param string $transient  Transient name. Expected to not be SQL-escaped.
+   * @param mixed  $value      Transient value. Expected to not be SQL-escaped.
+   * @param int    $expiration Time until expiration in seconds, default 0
+   * @param int    $user_id    Optional. User ID. If null the current user id is used instead
+   *
+   * @return bool False if value was not set and true if value was set.
+   */
+  public static function setTransientWithUser( $transient, $value, $expiration = 0, $user_id = null )
+  {
+    $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+    $value = apply_filters( 'pre_set_user_transient_' . $transient, $value, $user_id );
+
+    $transient_timeout = '_transient_timeout_' . $transient;
+    $transient         = '_transient_' . $transient;
+    if ( false === get_user_meta( $user_id, $transient, true ) ) {
+      if ( $expiration ) {
+        update_user_meta( $user_id, $transient_timeout, time() + $expiration );
+      }
+      $result = update_user_meta( $user_id, $transient, $value );
+    }
+    else {
+      if ( $expiration ) {
+        update_user_meta( $user_id, $transient_timeout, time() + $expiration );
+      }
+      $result = update_user_meta( $user_id, $transient, $value );
+    }
+
+    if ( $result ) {
+      do_action( 'set_user_transient_' . $transient );
+      do_action( 'setted_user_transient', $transient, $user_id );
+    }
+    return $result;
+  }
+
+  /**
+   * Set/update the value of this WPDKUser transient.
+   *
+   * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
+   *
+   * @brief Set
+   * @since 1.3.0
+   *
+   * @uses  self::setTransientWithUser()
+   *
+   * @param string $transient  Transient name. Expected to not be SQL-escaped.
+   * @param mixed  $value      Transient value. Expected to not be SQL-escaped.
+   * @param int    $expiration Time until expiration in seconds, default 0
+   *
+   * @return bool False if value was not set and true if value was set.
+   */
+  public function setTransient( $transient, $value, $expiration = 0 )
+  {
+    if ( !empty( $this->ID ) ) {
+      self::setTransientWithUser( $transient, $value, $expiration, $this->ID );
+    }
+  }
+
 
   // -----------------------------------------------------------------------------------------------------------------
   // User info
@@ -378,7 +441,8 @@ class WPDKUser extends WP_User {
    *
    * @return string
    */
-  public function gravatar( $size = 40, $alt = '', $default = "wavatar" ) {
+  public function gravatar( $size = 40, $alt = '', $default = "wavatar" )
+  {
     return WPDKUsers::init()->gravatar( $this->ID, $size, $alt, $default );
   }
 
@@ -448,8 +512,7 @@ class WPDKUser extends WP_User {
   }
 
   /**
-   * Restituisce il 'nome' del ruolo di un utente
-   *
+   * Return the role name of a user
    *
    * @param int $id_user User ID
    *
@@ -468,10 +531,6 @@ class WPDKUser extends WP_User {
     }
     return false;
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Capabilities
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Restutuisce true se l'utente passato negli inputs (o l'utente corrente se non viene passato id utente) possiede

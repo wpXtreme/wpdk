@@ -24,8 +24,8 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-03-05
- * @version            0.8.1
+ * @date               2013-09-24
+ * @version            1.0.0
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -80,6 +80,15 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   private $args;
 
+  /**
+   * An instance of __WPDKDBTable class
+   *
+   * @brief Model
+   * @since 1.3.0
+   *
+   * @var __WPDKDBTable $model
+   */
+  public $model;
 
   /**
    * The child class should call this constructor from it's own constructor.
@@ -90,12 +99,13 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @param string $id    List table id
    * @param string $title Title of view controller
-   * @param array $args  Standard WP_List_Table args
+   * @param array  $args  Standard WP_List_Table args
    *
    * @return WPDKListTableViewController
    *
    */
-  public function __construct( $id, $title, $args ) {
+  public function __construct( $id, $title, $args )
+  {
 
     /* Create an instance of WP_List_Table class. */
     parent::__construct( $args );
@@ -120,11 +130,12 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Return the list of columns
    *
-   * @note To override
+   * @note  To override
    *
    * @return array
    */
-  public function get_columns() {
+  public function get_columns()
+  {
     return array();
   }
 
@@ -133,11 +144,12 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Statuses
    *
-   * @note To override
+   * @note  To override
    *
    * @return array
    */
-  public function get_statuses() {
+  public function get_statuses()
+  {
     return array();
   }
 
@@ -145,13 +157,14 @@ class WPDKListTableViewController extends WP_List_Table {
    * Return the count of specific status
    *
    * @brief Count status
-   * @note To override
+   * @note  To override
    *
    * @param string $status
    *
    * @return int
    */
-  public function get_status( $status ) {
+  public function get_status( $status )
+  {
     return;
   }
 
@@ -159,14 +172,15 @@ class WPDKListTableViewController extends WP_List_Table {
    * Return tha array with the action for the current status
    *
    * @brief Action with status
-   * @note To override
+   * @note  To override
    *
    * @param mixed  $item   The item
    * @param string $status Current status
    *
    * @return array
    */
-  public function get_actions_with_status( $item, $status ) {
+  public function get_actions_with_status( $item, $status )
+  {
     return array();
   }
 
@@ -174,13 +188,14 @@ class WPDKListTableViewController extends WP_List_Table {
    * Return the array with the buk action for the combo menu for a status of view
    *
    * @brief Bulk actions
-   * @note To override
+   * @note  To override
    *
    * @param string $status Current status
    *
    * @return array
    */
-  public function get_bulk_actions_with_status( $status ) {
+  public function get_bulk_actions_with_status( $status )
+  {
     return array();
   }
 
@@ -211,7 +226,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  private function _defaultStatus() {
+  private function _defaultStatus()
+  {
     $default_status = '';
     $statuses       = $this->get_statuses();
     foreach ( $statuses as $status ) {
@@ -234,7 +250,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  private function _defaultSortableColumn() {
+  private function _defaultSortableColumn()
+  {
     $sortable_columns = $this->get_sortable_columns();
     if ( !empty( $sortable_columns ) ) {
       foreach ( $sortable_columns as $column_name => $value ) {
@@ -253,9 +270,10 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  private function _currentViewStatus() {
-   $current_status = isset( $_REQUEST[$this->getStatusID] ) ? $_REQUEST[$this->getStatusID] : $this->_defaultStatus();
-   return $current_status;
+  private function _currentViewStatus()
+  {
+    $current_status = isset( $_REQUEST[$this->getStatusID] ) ? $_REQUEST[$this->getStatusID] : $this->_defaultStatus();
+    return $current_status;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -271,7 +289,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  private function _SQLDefaultOrder( $default_order = 'ASC' ) {
+  private function _SQLDefaultOrder( $default_order = 'ASC' )
+  {
     $column_name = $this->_defaultSortableColumn();
     $order_by    = isset( $_GET['order_by'] ) ? $_GET['order_by'] : $column_name;
     $order       = isset( $_GET['order'] ) ? $_GET['order'] : $default_order;
@@ -285,7 +304,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  private function _SQLStatus() {
+  private function _SQLStatus()
+  {
     $status_field   = $this->getStatusID;
     $current_status = $this->_currentViewStatus();
 
@@ -300,12 +320,16 @@ class WPDKListTableViewController extends WP_List_Table {
   /**
    * @brief To override
    */
-  public static function willLoad() {}
+  public static function willLoad()
+  {
+  }
 
   /**
    * @brief To override
    */
-  public static function didHeadLoad() {}
+  public static function didHeadLoad()
+  {
+  }
 
   // -----------------------------------------------------------------------------------------------------------------
   // Display
@@ -316,7 +340,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Display the list table view
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
 
@@ -325,12 +350,13 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Get the list table view
    *
-   * @note This is a low level method that create the HTML markup for list table view. You'll notice that the display
-   * method above has an input param for echo/display. For now this method html() is here for backward compatibility.
+   * @note  This is a low level method that create the HTML markup for list table view. You'll notice that the display
+   *        method above has an input param for echo/display. For now this method html() is here for backward compatibility.
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     /* Buffering... */
     ob_start();
 
@@ -338,20 +364,20 @@ class WPDKListTableViewController extends WP_List_Table {
     if ( !$this->prepare_items() ) :
       $this->views(); ?>
 
-    <form id="<?php echo $this->id ?>" class="wpdk-list-table-form" method="get" action="">
+      <form id="<?php echo $this->id ?>" class="wpdk-list-table-form" method="get" action="">
 
       <?php if ( isset( $_REQUEST['page'] ) ) : ?>
-        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>"/>
+        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
       <?php endif; ?>
 
-      <?php if ( isset( $_REQUEST['post_type'] ) ) : ?>
-        <input type="hidden" name="post_type" value="<?php echo $_REQUEST['post_type'] ?>"/>
-      <?php endif; ?>
+        <?php if ( isset( $_REQUEST['post_type'] ) ) : ?>
+          <input type="hidden" name="post_type" value="<?php echo $_REQUEST['post_type'] ?>" />
+        <?php endif; ?>
 
-      <?php parent::display() ?>
+        <?php parent::display() ?>
     </form>
     <?php endif; ?>
-  <?php
+    <?php
     $content = ob_get_contents();
     ob_end_clean();
 
@@ -369,7 +395,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @param WPDKHeaderView $view The header view
    */
-  public function wpdk_header_view_title_did_appear( $view ) {
+  public function wpdk_header_view_title_did_appear( $view )
+  {
     if ( 'new' != $this->current_action() ) {
       printf( '<a class="add-new-h2 button-primary" href="%s">%s</a>', $this->urlAddNew(), __( 'Add New', WPDK_TEXTDOMAIN ) );
     }
@@ -386,7 +413,8 @@ class WPDKListTableViewController extends WP_List_Table {
    * @brief Called when no items found
    *
    */
-  public function no_items() {
+  public function no_items()
+  {
     /* Default message. */
     printf( __( 'No %s found.', WPDK_TEXTDOMAIN ), $this->title );
 
@@ -416,7 +444,8 @@ class WPDKListTableViewController extends WP_List_Table {
    * @return array
    *
    */
-  public function get_views() {
+  public function get_views()
+  {
     $views         = array();
     $get_status_id = $this->getStatusID;
     $filter_status = isset( $_GET[$get_status_id] ) ? $_GET[$get_status_id] : $this->_defaultStatus();
@@ -428,10 +457,14 @@ class WPDKListTableViewController extends WP_List_Table {
 
       /* Recompute! */
       $count = $this->get_status( $key );
-      if ( ! empty( $count ) ) {
+      if ( !empty( $count ) ) {
 
         $current = ( $filter_status == $key ) ? 'class="current"' : '';
-        $href    = add_query_arg( array( 'status' => $key, 'action' => false, $this->_args['singular'] => false ) );
+        $href    = add_query_arg( array(
+                                       'status'                 => $key,
+                                       'action'                 => false,
+                                       $this->_args['singular'] => false
+                                  ) );
 
         $views[$key] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
@@ -446,7 +479,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @param $statuses
    */
-  public function statuses( $statuses ) {
+  public function statuses( $statuses )
+  {
     return $statuses;
   }
 
@@ -458,7 +492,8 @@ class WPDKListTableViewController extends WP_List_Table {
    * @return boolean
    *
    */
-  public function prepare_items() {
+  public function prepare_items()
+  {
 
     /* First, lets decide how many records per page to show. */
     $id_user = get_current_user_id();
@@ -486,9 +521,7 @@ class WPDKListTableViewController extends WP_List_Table {
       return true;
     }
     /* This is required because some GET params keep in the url. */
-    $remove = array(
-      'action'
-    );
+    $remove  = array( 'action' );
     $_SERVER['REQUEST_URI'] = remove_query_arg( $remove, stripslashes( $_SERVER['REQUEST_URI'] ) );
 
     /* Get data. */
@@ -545,7 +578,11 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return array
    */
-  public function data() {
+  public function data()
+  {
+    if( !empty( $this->model ) && method_exists( $this->model, 'select' ) ) {
+      return $this->model->select( $_REQUEST );
+    }
     return array();
   }
 
@@ -554,14 +591,15 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Process the content of a column
    *
-   * @note I suggest to you to override this method
+   * @note  I suggest to you to override this method
    *
    * @param array  $item        The single item
    * @param string $column_name Column name
    *
    * @return mixed
    */
-  public function column_default( $item, $column_name ) {
+  public function column_default( $item, $column_name )
+  {
     switch ( $column_name ) {
       default:
         return print_r( $item, true );
@@ -584,23 +622,24 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' ) {
+  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' )
+  {
 
     /* Get the current view status. */
     $status = $this->_currentViewStatus();
 
-    if( !empty( $item_status ) ) {
+    if ( !empty( $item_status ) ) {
       $status = $item_status;
     }
 
     $stack = array();
-    foreach( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
-      if( !empty( $action ) ) {
-        $args = array(
-          'action' => $action,
+    foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
+      if ( !empty( $action ) ) {
+        $args           = array(
+          'action'                => $action,
           $this->args['singular'] => $item[$this->args['singular']]
         );
-        $href = add_query_arg( $args );
+        $href           = add_query_arg( $args );
         $stack[$action] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
@@ -614,13 +653,14 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Standard checkbox for group actions
    *
-   * @note You can override this method for your custom view. This method is called only there is a column named "cb"
+   * @note  You can override this method for your custom view. This method is called only there is a column named "cb"
    *
    * @param $item
    *
    * @return string
    */
-  public function column_cb( $item ) {
+  public function column_cb( $item )
+  {
     $name  = $this->args['singular'];
     $value = $item[$name];
     return sprintf( '<input type="checkbox" name="%s[]" value="%s" />', $name, $value );
@@ -633,7 +673,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return array
    */
-  public function get_bulk_actions() {
+  public function get_bulk_actions()
+  {
     /* Get the current status, could be empty. */
     $current_status = isset( $_REQUEST[$this->getStatusID] ) ? $_REQUEST[$this->getStatusID] : $this->_defaultStatus();
     return $this->get_bulk_actions_with_status( $current_status );
@@ -650,11 +691,12 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Process the bulk actions and standard actions
    *
-   * @sa prepare_items() for detail
+   * @sa    prepare_items() for detail
    *
    * @return bool TRUE to stop display the list view, FALSE to display the list.
    */
-  public function process_bulk_action() {
+  public function process_bulk_action()
+  {
     die( __METHOD__ . ' must be over-ridden in a sub-class.' );
   }
 
@@ -665,7 +707,7 @@ class WPDKListTableViewController extends WP_List_Table {
   /**
    * Utility for build a right actions list when the list table is showing trash items.
    *
-   * @brief Return the only used action
+   * @brief      Return the only used action
    *
    * @param array  $args
    * @param string $status
@@ -674,14 +716,18 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return mixed
    */
-  public static function actions( $args, $status ) {
+  public static function actions( $args, $status )
+  {
 
     $id       = key( $args );
     $id_value = $args[$id];
-    $actions = array();
+    $actions  = array();
 
     foreach ( $args['actions'] as $key => $label ) {
-      $href          = add_query_arg( array( 'action' => $key, $id => $id_value ) );
+      $href          = add_query_arg( array(
+                                           'action' => $key,
+                                           $id      => $id_value
+                                      ) );
       $actions[$key] = sprintf( '<a href="%s">%s</a>', $href, $label );
     }
 
@@ -708,7 +754,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  public function urlRemveAction() {
+  public function urlRemveAction()
+  {
     $remove = array(
       'action',
       $this->_args['singular']
@@ -724,7 +771,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  public function urlRemoveNonce() {
+  public function urlRemoveNonce()
+  {
     $remove = array(
       '_wp_http_referer',
       '_wpnonce',
@@ -741,7 +789,8 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @return string
    */
-  public function urlAddNew() {
+  public function urlAddNew()
+  {
     $add = array(
       'action' => 'new',
       'page'   => $_REQUEST['page']
@@ -750,7 +799,8 @@ class WPDKListTableViewController extends WP_List_Table {
     return $url;
   }
 
-  public function redirect() {
+  public function redirect()
+  {
     $url = $this->urlRemveAction();
     wp_redirect( $url );
     exit;

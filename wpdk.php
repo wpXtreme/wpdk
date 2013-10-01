@@ -266,7 +266,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKView',
           'WPDKViewController',
           'WPDKHeaderView',
-          'WPDKConfigurationView',
 
           'WPDKPreferencesViewController',
           'WPDKPreferencesView',
@@ -472,6 +471,7 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKConfig',
           'WPDKConfigBranch',
           'WPDKConfiguration',
+          'WPDKConfigurationView',
         ),
 
         $sPathPrefix . 'classes/deprecated/WPDKCRUD.php'                   => 'WPDKCRUD',

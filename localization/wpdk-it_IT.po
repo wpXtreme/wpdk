@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-12 10:07+0100\n"
-"PO-Revision-Date: 2013-09-12 10:07+0100\n"
+"POT-Creation-Date: 2013-09-19 14:51+0100\n"
+"PO-Revision-Date: 2013-09-23 10:06+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.7\n"
@@ -138,7 +138,7 @@ msgid "Two minutes"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
-#: ../classes/ui/wpdk-view-controller.php:944
+#: ../classes/deprecated/wpdk-configuration.php:687
 msgid "No Reset to default settings implement yet!"
 msgstr ""
 
@@ -161,6 +161,17 @@ msgstr ""
 #: ../classes/deprecated/wpdk-config-view.php:218
 #: ../classes/deprecated/wpdk-settings.php:295
 msgid "No settings update!"
+msgstr ""
+
+#: ../classes/deprecated/wpdk-configuration.php:672
+#, php-format
+msgid ""
+"<strong>%s</strong> settings were successfully restored to defaults values!"
+msgstr ""
+
+#: ../classes/deprecated/wpdk-configuration.php:744
+#, php-format
+msgid "<strong>%s</strong> settings values were successfully updated!"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-roles-caps.php:136
@@ -481,7 +492,7 @@ msgid "Last login"
 msgstr "Ultimo login"
 
 #: ../classes/deprecated/wpdk-user-helper.php:475
-#: ../classes/users/wpdk-user.php:1030
+#: ../classes/users/wpdk-user.php:1089
 msgid "Last logout"
 msgstr "Ultimo logout"
 
@@ -575,8 +586,8 @@ msgid ""
 msgstr ""
 
 #: ../classes/deprecated/wpdk-user-helper.php:1573
-#: ../classes/users/wpdk-user.php:996 ../classes/users/wpdk-user.php:1012
-#: ../classes/users/wpdk-user.php:1031
+#: ../classes/users/wpdk-user.php:1055 ../classes/users/wpdk-user.php:1071
+#: ../classes/users/wpdk-user.php:1090
 msgid "m/d/Y H:i"
 msgstr "d/m/Y H:i"
 
@@ -772,17 +783,6 @@ msgid ""
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:929
-#, php-format
-msgid ""
-"<strong>%s</strong> settings were successfully restored to defaults values!"
-msgstr ""
-
-#: ../classes/ui/wpdk-view-controller.php:1001
-#, php-format
-msgid "<strong>%s</strong> settings values were successfully updated!"
-msgstr ""
-
 #: ../classes/users/wpdk-user.php:151
 msgid "Not set"
 msgstr ""
@@ -791,291 +791,291 @@ msgstr ""
 msgid "Disabled"
 msgstr "Disabilitato"
 
-#: ../classes/users/wpdk-user.php:974
+#: ../classes/users/wpdk-user.php:1033
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, have a look below for additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:990
+#: ../classes/users/wpdk-user.php:1049
 msgid "Login information"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:995
+#: ../classes/users/wpdk-user.php:1054
 msgid "Last success login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1002
+#: ../classes/users/wpdk-user.php:1061
 msgid "# success login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1011
+#: ../classes/users/wpdk-user.php:1070
 msgid "Last wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1018
+#: ../classes/users/wpdk-user.php:1077
 msgid "# wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1025
+#: ../classes/users/wpdk-user.php:1084
 msgid "Logout information"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1037 ../classes/users/wpdk-user.php:1042
+#: ../classes/users/wpdk-user.php:1096 ../classes/users/wpdk-user.php:1101
 msgid "Status"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1052
+#: ../classes/users/wpdk-user.php:1111
 msgid "Description"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1053
+#: ../classes/users/wpdk-user.php:1112
 msgid "eg: this user is disabled because..."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1092
+#: ../classes/users/wpdk-user.php:1151
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
 "additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1761
+#: ../classes/users/wpdk-user.php:1820
 msgid "Somebody who has access to all the administration features"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1762
+#: ../classes/users/wpdk-user.php:1821
 msgid ""
 "Somebody who can publish and manage posts and pages as well as manage other "
 "users posts, etc."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1763
+#: ../classes/users/wpdk-user.php:1822
 msgid "Somebody who can publish and manage their own posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1764
+#: ../classes/users/wpdk-user.php:1823
 msgid "Somebody who can write and manage their posts but not publish them"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1765
+#: ../classes/users/wpdk-user.php:1824
 msgid "Somebody who can only manage their profile"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2001
+#: ../classes/users/wpdk-user.php:2060
 msgid "Allows access to Administration Panel options: Plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2002
+#: ../classes/users/wpdk-user.php:2061
 msgid "add_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2003
+#: ../classes/users/wpdk-user.php:2062
 msgid "create_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2004
+#: ../classes/users/wpdk-user.php:2063
 msgid "delete_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2005
+#: ../classes/users/wpdk-user.php:2064
 msgid "delete_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2006
+#: ../classes/users/wpdk-user.php:2065
 msgid "delete_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2007
+#: ../classes/users/wpdk-user.php:2066
 msgid "delete_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2008
+#: ../classes/users/wpdk-user.php:2067
 msgid "delete_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2009
+#: ../classes/users/wpdk-user.php:2068
 msgid "delete_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2010
+#: ../classes/users/wpdk-user.php:2069
 msgid "delete_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2011
+#: ../classes/users/wpdk-user.php:2070
 msgid "delete_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2012
+#: ../classes/users/wpdk-user.php:2071
 msgid "delete_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2013
+#: ../classes/users/wpdk-user.php:2072
 msgid "delete_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2014
+#: ../classes/users/wpdk-user.php:2073
 msgid "edit_dashboard"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2015
+#: ../classes/users/wpdk-user.php:2074
 msgid "No longer used."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2016
+#: ../classes/users/wpdk-user.php:2075
 msgid "edit_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2017
+#: ../classes/users/wpdk-user.php:2076
 msgid "edit_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2018
+#: ../classes/users/wpdk-user.php:2077
 msgid "edit_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2019
+#: ../classes/users/wpdk-user.php:2078
 msgid "edit_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2020
+#: ../classes/users/wpdk-user.php:2079
 msgid "edit_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2021
+#: ../classes/users/wpdk-user.php:2080
 msgid "edit_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2022
+#: ../classes/users/wpdk-user.php:2081
 msgid "edit_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2023
+#: ../classes/users/wpdk-user.php:2082
 msgid "edit_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2024
+#: ../classes/users/wpdk-user.php:2083
 msgid "edit_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2025
+#: ../classes/users/wpdk-user.php:2084
 msgid ""
 "Allows access to Administration Panel options: Appearance > Widgets, "
 "Appearance > Menus, Appearance > Theme Options if they are supported by the "
 "current theme, Appearance > Background, Appearance > Header "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2026
+#: ../classes/users/wpdk-user.php:2085
 msgid "edit_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2027
+#: ../classes/users/wpdk-user.php:2086
 msgid "Allows access to Administration Panel options: Users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2028
+#: ../classes/users/wpdk-user.php:2087
 msgid "import"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2029
+#: ../classes/users/wpdk-user.php:2088
 msgid "Allows access to Administration Panel options: Plugins > Add New "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2030
+#: ../classes/users/wpdk-user.php:2089
 msgid ""
 "Allows access to Administration Panel options: Appearance > Add New Themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2031
+#: ../classes/users/wpdk-user.php:2090
 msgid "list_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2032
+#: ../classes/users/wpdk-user.php:2091
 msgid ""
 "Allows access to Administration Panel options: Posts > Categories, Links > "
 "Categories"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2033
+#: ../classes/users/wpdk-user.php:2092
 msgid "Allows access to Administration Panel options: Links Links > Add New"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2034
+#: ../classes/users/wpdk-user.php:2093
 msgid ""
 "Allows access to Administration Panel options: Settings > General, Settings "
 "> Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, "
 "Settings > Miscellaneous"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2035
+#: ../classes/users/wpdk-user.php:2094
 msgid ""
 "Allows users to moderate comments from the Comments SubPanel (although a "
 "user needs the edit_posts Capability in order to access this)"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2036
+#: ../classes/users/wpdk-user.php:2095
 msgid "promote_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2037
+#: ../classes/users/wpdk-user.php:2096
 msgid "publish_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2038
+#: ../classes/users/wpdk-user.php:2097
 msgid ""
 "See and use the \"publish\" button when editing their post (otherwise they "
 "can only save drafts). Can use XML-RPC to publish (otherwise they get a "
 "\"Sorry, you can not post on this weblog or category.\")"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2039
+#: ../classes/users/wpdk-user.php:2098
 msgid ""
 "Allows access to Administration Panel options: Dashboard, Users > Your "
 "Profile. Used nowhere in the core code except the menu.php"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2040
+#: ../classes/users/wpdk-user.php:2099
 msgid "read_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2041
+#: ../classes/users/wpdk-user.php:2100
 msgid "read_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2042
+#: ../classes/users/wpdk-user.php:2101
 msgid "remove_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2043
+#: ../classes/users/wpdk-user.php:2102
 msgid ""
 "Allows access to Administration Panel options: Appearance, Appearance > "
 "Themes "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2044
+#: ../classes/users/wpdk-user.php:2103
 msgid ""
 "Allows user to post HTML markup or even JavaScript code in pages, posts, and "
 "comments. Note: Enabling this option for untrusted users may result in their "
 "posting malicious or poorly formatted code. "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2045
+#: ../classes/users/wpdk-user.php:2104
 msgid "unfiltered_upload"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2046
+#: ../classes/users/wpdk-user.php:2105
 msgid "update_core"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2047
+#: ../classes/users/wpdk-user.php:2106
 msgid "update_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2048
+#: ../classes/users/wpdk-user.php:2107
 msgid "update_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2049
+#: ../classes/users/wpdk-user.php:2108
 msgid "Allows access to Administration Panel options: Media, Media > Add New "
 msgstr ""
 

@@ -20,6 +20,24 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.3.0
+### 2013-10-??
+
+#### Enhancements
+
+* Added `WPDKAjax::add()` useful static method to add an action ajax hook
+* Added `WPDKObject::dump()` Useful static method to dump any variable with a <pre> HTML tag wrap
+
+#### Experimental
+
+* Introducing `stripKeys()` and `fit()` in `WPDKArray` class
+* Began to extend base class with `WPDKObject`
+
+#### Bugs
+
+* Minor stable fixes
+
+
 ## Version 1.2.0
 ### 2013-09-12
 

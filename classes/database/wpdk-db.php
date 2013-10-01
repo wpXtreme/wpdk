@@ -19,14 +19,66 @@
  * @class              __WPDKDBTable
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-12-10
- * @version            0.1.0
+ * @date               2013-09-30
+ * @version            1.0.0
  *
  */
-class WPDKDBTableStatus {
+class WPDKDBTableStatus extends WPDKObject {
   const ALL     = 'all';
   const PUBLISH = 'publish';
+  const DRAFT   = 'draft';
   const TRASH   = 'trash';
+
+  /**
+   * Override WPDKObject version
+   *
+   * @brief Version
+   *
+   * @var string
+   */
+  public $version = '1.0.0';
+
+  /**
+   * Return a key pairs array with the list of statuses
+   *
+   * @brief Statuses
+   * @since 1.3.0
+   *
+   * @return array
+   */
+  public static function statuses()
+  {
+    $statuses = array(
+      self::ALL     => __( 'All', WPDK_TEXTDOMAIN ),
+      self::DRAFT   => __( 'Draft', WPDK_TEXTDOMAIN ),
+      self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
+      self::TRASH   => __( 'Trash', WPDK_TEXTDOMAIN ),
+    );
+    return $statuses;
+  }
+
+  /**
+   * Return a sanitized status
+   *
+   * @brief Sanitize status
+   * @since 1.3.0
+   *
+   * @param string $status   Single status usually pass via $_POST or $_GET
+   * @param array  $statuses Optional. A key pairs array of allowed statuses, if null get self::statuses
+   *
+   * @return bool|string
+   */
+  public static function sanitizeStatus( $status, $statuses = null )
+  {
+    $status   = esc_attr( $status );
+    $statuses = is_null( $statuses ) ? self::statuses() : $statuses;
+    $allowed  = array_keys( $statuses );
+    if ( !in_array( $status, $allowed ) ) {
+      return false;
+    }
+    return $status;
+  }
+
 }
 
 /**
@@ -252,7 +304,10 @@ SQL;
       foreach ( $source_row as $field => $value ) {
         $destination_object->$field = $value;
         if ( method_exists( $destination_object, 'column_' . $field ) ) {
-          call_user_func( array( $destination_object, 'column_' . $field ), $value );
+          call_user_func( array(
+                               $destination_object,
+                               'column_' . $field
+                          ), $value );
         }
       }
       return $destination_object;
@@ -264,7 +319,7 @@ SQL;
    * Return a single instance of $object class or an array of $object class. FALSE otherwise.
    * If select more rows as array, the OBJECT_K flag is used. In this way you have the key array equal to id of the country
    *
-   * @brief Select a record set
+   * @brief      Select a record set
    *
    * @param int    $id         ID of record or array of id
    * @param object $object     Object to map record fields. This object is maped when id is a single number.
@@ -276,11 +331,12 @@ SQL;
    *                           row's first column's value. Duplicate keys are discarded.
    *
    * @deprecated Use _select() instead
-   * @todo  This method should be improve with new object_query and where() method below.
+   * @todo       This method should be improve with new object_query and where() method below.
    *
    * @return object|array
    */
-  public function select( $id = false, $order_by = '', $order = 'ASC', $where = '' ) {
+  public function select( $id = false, $order_by = '', $order = 'ASC', $where = '' )
+  {
     global $wpdb;
 
     $sql_where = '';
@@ -371,7 +427,7 @@ SQL;
    *
    * @brief Build where condiction
    *
-   * @param WPDKDBTableRow $query An instance of WPDKDBTableRow
+   * @param WPDKDBTableRow $query       An instance of WPDKDBTableRow
    * @param string         $prefix      Optional. Table prefix.
    *
    * @return string
@@ -436,8 +492,9 @@ SQL;
   /**
    * @deprecated Use select() instead
    */
-  public function selectWhereID( $id, $object, $output = OBJECT ) {
-    _deprecated_function( __METHOD__, '1.0.0', 'delete()' );
+  public function selectWhereID( $id, $object, $output = OBJECT )
+  {
+    _deprecated_function( __METHOD__, '1.0.0', 'select()' );
     $this->select( $id );
   }
 
@@ -458,8 +515,8 @@ SQL;
  * @class              WPDKDBTableRow
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-05-21
- * @version            1.0.0
+ * @date               2013-09-27
+ * @version            1.0.1
  * @note               No stable - Used by SmartShop carrier
  *
  */
@@ -595,6 +652,17 @@ class WPDKDBTableRow {
     $result = $wpdb->get_results( $sql, OBJECT_K );
 
     return $result;
+  }
+
+  /**
+   * Override this method to return a filtered key pairs array with column name and default value
+   *
+   * @brief Defaults value
+   */
+  public function defaults()
+  {
+    /* Override */
+    return array();
   }
 }
 
