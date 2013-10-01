@@ -2048,7 +2048,7 @@ ul#adminmenu .wp-submenu li.current a
   display           : inline-block;
   width             : 24px;
   height            : 24px;
-  margin            : 0 .3em;
+  margin            : -3px .3em 0;
   *margin-right     : .3em;
   line-height       : 24px;
   vertical-align    : middle;
