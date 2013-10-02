@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `wpdkTooltip` jQuery extension (ovveride Twitter Bootstrap tooltip)
 * Added `WPDKAjax::add()` useful static method to add an action ajax hook
 * Added `WPDKObject::dump()` Useful static method to dump any variable with a <pre> HTML tag wrap
 
@@ -35,6 +36,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Removed some javascript conflict
 * Minor stable fixes
 
 
