@@ -2027,6 +2027,11 @@ ul#adminmenu .wp-submenu li.current a
   *zoom          : 1;
 }
 
+.btn-group label
+{
+  font-weight : normal !important;
+}
+
 .btn-group:first-child
 {
   *margin-left : 0;
