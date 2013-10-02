@@ -2905,8 +2905,6 @@ var GuruMeditation = (function ( $ ) {
 
   var json = sprintf( '{%s}', cookie.join(',') );
 
-  console.log( json );
-
   jQuery.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
 
 })( jQuery );
