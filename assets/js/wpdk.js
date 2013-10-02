@@ -1552,8 +1552,8 @@ var WPDK = (function ( $ ) {
  * @class           WPDK
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-01-17
- * @version         0.1.0
+ * @date            2013-10-02
+ * @version         0.1.1
  *
  */
 var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
@@ -1574,7 +1574,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    */
   var $this = this;
 
-  $this.version = '0.1.0';
+  $this.version = '0.1.1';
 
   $this.id = $id;
   $this.title = $title;
@@ -1732,6 +1732,11 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
     $( 'body' ).append( $this.html() );
     $( '#' + $this.id ).modal( 'show' );
     $( '#' + $this.id ).on( 'hidden', function () {
+      $( this ).remove();
+    } );
+
+    /* Twitter Bootstrap v.3.0.0 */
+    $( '#' + $this.id ).on( 'hidden.bs.modal', function () {
       $( this ).remove();
     } );
   };
@@ -2579,7 +2584,7 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
 }(window.jQuery);
 }
 
-if( typeof( jQuery.fn.button.toggle ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkButton ) === 'undefined' ) {
 /* ========================================================================
  * Bootstrap: button.js v3.0.0
  * http://twbs.github.com/bootstrap/javascript.html#buttons
@@ -2651,29 +2656,29 @@ if( typeof( jQuery.fn.button.toggle ) === 'undefined' ) {
   // BUTTON PLUGIN DEFINITION
   // ========================
 
-  var old = $.fn.button
+  var old = $.fn.wpdkButton
 
-  $.fn.button = function (option) {
+  $.fn.wpdkButton = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var data    = $this.data('bs.button')
+      var data    = $this.data('bs.wpdkButton')
       var options = typeof option == 'object' && option
 
-      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+      if (!data) $this.data('bs.wpdkButton', (data = new Button(this, options)))
 
       if (option == 'toggle') data.toggle()
       else if (option) data.setState(option)
     })
   }
 
-  $.fn.button.Constructor = Button
+  $.fn.wpdkButton.Constructor = Button
 
 
   // BUTTON NO CONFLICT
   // ==================
 
-  $.fn.button.noConflict = function () {
-    $.fn.button = old
+  $.fn.wpdkButton.noConflict = function () {
+    $.fn.wpdkButton = old
     return this
   }
 
@@ -2681,10 +2686,10 @@ if( typeof( jQuery.fn.button.toggle ) === 'undefined' ) {
   // BUTTON DATA-API
   // ===============
 
-  $(document).on('click.bs.button.data-api', '[data-toggle^=button]', function (e) {
+  $(document).on('click.bs.wpdkButton.data-api', '[data-toggle^=button]', function (e) {
     var $btn = $(e.target)
     if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
-    $btn.button('toggle')
+    $btn.wpdkButton('toggle')
     e.preventDefault()
   })
 
