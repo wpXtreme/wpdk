@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-27 16:55+0100\n"
-"PO-Revision-Date: 2013-09-27 16:59+0100\n"
+"POT-Creation-Date: 2013-10-03 09:46+0100\n"
+"PO-Revision-Date: 2013-10-03 09:46+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +130,22 @@ msgstr ""
 
 #: ../classes/core/wpdk-wordpress-plugin.php:597
 msgid "Two minutes"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:52
+msgid "All"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:53
+msgid "Draft"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:54
+msgid "Publish"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:55
+msgid "Trash"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
