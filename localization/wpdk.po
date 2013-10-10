@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-03 09:46+0100\n"
-"PO-Revision-Date: 2013-10-03 09:46+0100\n"
+"POT-Creation-Date: 2013-10-10 17:49+0100\n"
+"PO-Revision-Date: 2013-10-10 17:50+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "MIME-Version: 1.0\n"
@@ -750,7 +750,7 @@ msgstr ""
 msgid "Open the guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:755
+#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:773
 msgid "Reset to default"
 msgstr ""
 
@@ -758,30 +758,30 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:745
+#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:763
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:589
+#: ../classes/ui/wpdk-view-controller.php:607
 msgid ""
 "Are you sure to reset All preferences to default value?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:604
+#: ../classes/ui/wpdk-view-controller.php:622
 msgid "Import"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:609
+#: ../classes/ui/wpdk-view-controller.php:627
 msgid "Export"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:615
+#: ../classes/ui/wpdk-view-controller.php:633
 msgid "Reset All"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:747
+#: ../classes/ui/wpdk-view-controller.php:765
 msgid ""
 "Are you sure to reset this preferences to default values?\n"
 "\n"
