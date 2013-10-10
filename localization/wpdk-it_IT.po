@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 14:51+0100\n"
-"PO-Revision-Date: 2013-09-23 10:06+0100\n"
+"POT-Creation-Date: 2013-10-10 17:49+0100\n"
+"PO-Revision-Date: 2013-10-10 17:49+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
@@ -135,6 +135,22 @@ msgstr ""
 
 #: ../classes/core/wpdk-wordpress-plugin.php:597
 msgid "Two minutes"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:52
+msgid "All"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:53
+msgid "Draft"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:54
+msgid "Publish"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:55
+msgid "Trash"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-config-view.php:184
@@ -710,16 +726,16 @@ msgstr "Elimina"
 msgid "Delete entire row"
 msgstr "Elimina l'intera riga"
 
-#: ../classes/ui/wpdk-listtable-vc.php:374
+#: ../classes/ui/wpdk-listtable-vc.php:401
 msgid "Add New"
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:391
+#: ../classes/ui/wpdk-listtable-vc.php:419
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:396
+#: ../classes/ui/wpdk-listtable-vc.php:424
 msgid "Please, check again your search parameters."
 msgstr ""
 
@@ -745,7 +761,7 @@ msgstr ""
 msgid "Open the guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:755
+#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:773
 msgid "Reset to default"
 msgstr "Ripristina predefiniti"
 
@@ -753,30 +769,30 @@ msgstr "Ripristina predefiniti"
 msgid "Submit"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:745
+#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:763
 msgid "Update"
 msgstr "Aggiorna"
 
-#: ../classes/ui/wpdk-view-controller.php:589
+#: ../classes/ui/wpdk-view-controller.php:607
 msgid ""
 "Are you sure to reset All preferences to default value?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:604
+#: ../classes/ui/wpdk-view-controller.php:622
 msgid "Import"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:609
+#: ../classes/ui/wpdk-view-controller.php:627
 msgid "Export"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:615
+#: ../classes/ui/wpdk-view-controller.php:633
 msgid "Reset All"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:747
+#: ../classes/ui/wpdk-view-controller.php:765
 msgid ""
 "Are you sure to reset this preferences to default values?\n"
 "\n"

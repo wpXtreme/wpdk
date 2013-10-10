@@ -20,8 +20,17 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.3.0
+## Version 1.3.1
 ### 2013-10-??
+
+#### Enhancements
+
+* Improved wpdk_is_user_logged_in shortcode with roles, caps, emails and ids attributes
+
+
+
+## Version 1.3.0
+### 2013-10-05
 
 #### Enhancements
 
