@@ -4,7 +4,6 @@ var annotated =
     [ "WPDKCapabilities", "classWPDKCapabilities.html", "classWPDKCapabilities" ],
     [ "WPDKCapability", "classWPDKCapability.html", "classWPDKCapability" ],
     [ "WPDKColors", "classWPDKColors.html", "classWPDKColors" ],
-    [ "WPDKConfigurationView", "classWPDKConfigurationView.html", "classWPDKConfigurationView" ],
     [ "WPDKCrypt", "classWPDKCrypt.html", "classWPDKCrypt" ],
     [ "WPDKDynamicTable", "classWPDKDynamicTable.html", "classWPDKDynamicTable" ],
     [ "WPDKFilesystem", "classWPDKFilesystem.html", "classWPDKFilesystem" ],

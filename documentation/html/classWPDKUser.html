@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -132,6 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:affc1ed95903bb8b8466e24acd5a0ede7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#affc1ed95903bb8b8466e24acd5a0ede7">create</a> ($first_name, $last_name, $email, $password=false, $enabled=false, $role= 'subscriber')</td></tr>
 <tr class="memdesc:affc1ed95903bb8b8466e24acd5a0ede7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a WordPress user.  <a href="#affc1ed95903bb8b8466e24acd5a0ede7">More...</a><br/></td></tr>
 <tr class="separator:affc1ed95903bb8b8466e24acd5a0ede7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af500f62f19a5cfa023400bd686cd2ba2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#af500f62f19a5cfa023400bd686cd2ba2">setTransient</a> ($transient, $value, $expiration=0)</td></tr>
+<tr class="memdesc:af500f62f19a5cfa023400bd686cd2ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set.  <a href="#af500f62f19a5cfa023400bd686cd2ba2">More...</a><br/></td></tr>
+<tr class="separator:af500f62f19a5cfa023400bd686cd2ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a347accaa3d8845425aa91fd3dddb2eac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#a347accaa3d8845425aa91fd3dddb2eac">gravatar</a> ($size=40, $alt= '', $default=&quot;wavatar&quot;)</td></tr>
 <tr class="memdesc:a347accaa3d8845425aa91fd3dddb2eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return HTML img of gravatar.  <a href="#a347accaa3d8845425aa91fd3dddb2eac">More...</a><br/></td></tr>
 <tr class="separator:a347accaa3d8845425aa91fd3dddb2eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +156,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa85f8004e2eb6c46e0e8acea4868b8b9"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#aa85f8004e2eb6c46e0e8acea4868b8b9">full_name</a> ($firstName, $lastName, $nameFirst=true)</td></tr>
 <tr class="memdesc:aa85f8004e2eb6c46e0e8acea4868b8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sanitize a full name.  <a href="#aa85f8004e2eb6c46e0e8acea4868b8b9">More...</a><br/></td></tr>
 <tr class="separator:aa85f8004e2eb6c46e0e8acea4868b8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f9250968e9cde18c6fe49d7054e0909"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#a1f9250968e9cde18c6fe49d7054e0909">setTransientWithUser</a> ($transient, $value, $expiration=0, $user_id=null)</td></tr>
+<tr class="memdesc:a1f9250968e9cde18c6fe49d7054e0909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set.  <a href="#a1f9250968e9cde18c6fe49d7054e0909">More...</a><br/></td></tr>
+<tr class="separator:a1f9250968e9cde18c6fe49d7054e0909"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d212faf6e57b80211a65849774e2c95"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#a7d212faf6e57b80211a65849774e2c95">roleNameForUserID</a> ($id_user)</td></tr>
 <tr class="separator:a7d212faf6e57b80211a65849774e2c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c364950564827a3f748ce7cc9714319"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUser.html#a6c364950564827a3f748ce7cc9714319">hasCap</a> ($cap, $id_user=null)</td></tr>
@@ -196,8 +202,8 @@ Data Fields</h2></td></tr>
 <p>In the <a class="el" href="classWPDKUser.html">WPDKUser</a> class you find all method and properties loose in standard WordPress WP_User class.</p>
 <dl class="section author"><dt>Author</dt><dd>=undo= <a href="#" onclick="location.href='mai'+'lto:'+'inf'+'o@'+'wpx'+'tr'+'e.m'+'e'; return false;">info@<span style="display: none;">.nosp@m.</span>wpxt<span style="display: none;">.nosp@m.</span>re.me</a> </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-11-28 </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.8.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2013-09-17 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0.0 </dd></dl>
 
 <p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00172">172</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -272,7 +278,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int Age </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00396">396</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00460">460</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -299,7 +305,7 @@ Data Fields</h2></td></tr>
 <p>Restituisce la lista di tutte le capabilities attualmente presenti in WordPress, scorrendo tutti i ruoli presenti ed estraendo le capabilities.</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00530">530</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00589">589</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -366,7 +372,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int|WP_Error </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00362">362</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00349">349</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -414,13 +420,13 @@ Data Fields</h2></td></tr>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$firstName</td><td>First name </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$lastName</td><td>Last name </td></tr>
-    <tr><td class="paramtype">bool</td><td class="paramname">$nameFirst</td><td>Order</td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$nameFirst</td><td>Optional. Default to TRUE [firstname lastname]. Set to FALSE to invert order</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00329">329</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00325">325</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -466,7 +472,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00381">381</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00444">444</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -513,7 +519,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool True se l'utente supporta la capability </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00487">487</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00546">546</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -541,7 +547,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool Se almeno uno dei permessi è presente restituisce true, altrimenti false </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00507">507</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00566">566</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -569,7 +575,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool TRUE if user has the role, else FALSE. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00429">429</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00493">493</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -616,7 +622,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00313">313</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00309">309</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -641,7 +647,7 @@ Data Fields</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restituisce il 'nome' del ruolo di un utente</p>
+<p>Return the role name of a user</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">int</td><td class="paramname">$id_user</td><td>User ID</td></tr>
@@ -650,7 +656,120 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool|string Ruolo utente o FALSE se errore. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00458">458</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00521">521</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af500f62f19a5cfa023400bd686cd2ba2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setTransient </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$transient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$expiration</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set. </p>
+<p>Set/update the value of this <a class="el" href="classWPDKUser.html">WPDKUser</a> transient.</p>
+<p>You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.</p>
+<dl class="section since"><dt>Since</dt><dd>1.3.0</dd></dl>
+<p>self::setTransientWithUser()</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$transient</td><td>Transient name. Expected to not be SQL-escaped. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$value</td><td>Transient value. Expected to not be SQL-escaped. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$expiration</td><td>Time until expiration in seconds, default 0</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool False if value was not set and true if value was set. </dd></dl>
+
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00421">421</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1f9250968e9cde18c6fe49d7054e0909"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static setTransientWithUser </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$transient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$expiration</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$user_id</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set. </p>
+<p>Set/update the value of a user transient.</p>
+<p>You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.</p>
+<dl class="section since"><dt>Since</dt><dd>1.3.0</dd></dl>
+<p>apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be stored.  do_action() Calls 'set_user_transient_$transient' and 'setted_transient' hooks on success.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$transient</td><td>Transient name. Expected to not be SQL-escaped. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$value</td><td>Transient value. Expected to not be SQL-escaped. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$expiration</td><td>Time until expiration in seconds, default 0 </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$user_id</td><td>Optional. User ID. If null the current user id is used instead</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool False if value was not set and true if value was set. </dd></dl>
+
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00377">377</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -701,7 +820,7 @@ Data Fields</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00557">557</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l00616">616</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>

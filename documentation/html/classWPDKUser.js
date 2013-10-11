@@ -11,6 +11,8 @@ var classWPDKUser =
     [ "hasRoles", "classWPDKUser.html#af627cf9c74802cea730f7a61348e68c0", null ],
     [ "nice_name", "classWPDKUser.html#ae4c1f0abf6454d9468a6c16a673728aa", null ],
     [ "roleNameForUserID", "classWPDKUser.html#a7d212faf6e57b80211a65849774e2c95", null ],
+    [ "setTransient", "classWPDKUser.html#af500f62f19a5cfa023400bd686cd2ba2", null ],
+    [ "setTransientWithUser", "classWPDKUser.html#a1f9250968e9cde18c6fe49d7054e0909", null ],
     [ "updateUserCapabilities", "classWPDKUser.html#a7dfe8cc455d3360d08d15d80936ed335", null ],
     [ "$display_name", "classWPDKUser.html#acacbc53b2590b86b5202eb93916b357c", null ],
     [ "$email", "classWPDKUser.html#aa5809edde76526314aef4529d7d285e9", null ],

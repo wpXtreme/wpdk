@@ -14,5 +14,6 @@ var classWPDKView =
     [ "$id", "classWPDKView.html#a426cfb78b707e9d9541e9c8ea5a6af57", null ],
     [ "$subviews", "classWPDKView.html#a69b5607df96db1388087c74e0907942b", null ],
     [ "$superview", "classWPDKView.html#a242edfa9d655588de35fb3f2c91e6ec3", null ],
+    [ "$version", "classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f", null ],
     [ "$views", "classWPDKView.html#a1ca6e5e3b2b33e9dbba03dac00d81ee2", null ]
 ];

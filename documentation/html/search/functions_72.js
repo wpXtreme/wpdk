@@ -11,7 +11,6 @@ var searchData=
   ['removetab',['removeTab',['../classWPDKjQueryTabsView.html#af2cff7313d617c7b279bc721ead93fb1',1,'WPDKjQueryTabsView']]],
   ['render',['render',['../classWPDKMenu.html#afde88292c44dc59faf017738dae6dffb',1,'WPDKMenu\render()'],['../classWPDKSubMenu.html#afde88292c44dc59faf017738dae6dffb',1,'WPDKSubMenu\render()']]],
   ['renderbyarray',['renderByArray',['../classWPDKMenu.html#a47efba9d1e4441c79e5b97d66f5caf2c',1,'WPDKMenu\renderByArray()'],['../classWPDKSubMenu.html#a442e822713ec20dd22b9a3601964eca8',1,'WPDKSubMenu\renderByArray()']]],
-  ['resettodefault',['resetToDefault',['../classWPDKConfigurationView.html#a3ec7e442d2631a1cd2ba465f63eee4c6',1,'WPDKConfigurationView']]],
   ['rgb2hex',['rgb2hex',['../classWPDKColors.html#aeef9c72fa6eec56bfa5c8c28473dc978',1,'WPDKColors']]],
   ['rmodulus',['rModulus',['../classWPDKMath.html#ae587715aa35dba635ee6a4b43ca23c54',1,'WPDKMath']]],
   ['rolecapabilities',['roleCapabilities',['../classWPDKCapabilities.html#abd1073b0cc0da7dbef689b6103520e58',1,'WPDKCapabilities']]],

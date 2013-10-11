@@ -27,6 +27,19 @@ var hierarchy =
     [ "WPDKMenu", "classWPDKMenu.html", null ],
     [ "WPDKMetaBoxContext", "classWPDKMetaBoxContext.html", null ],
     [ "WPDKMetaBoxPriority", "classWPDKMetaBoxPriority.html", null ],
+    [ "WPDKObject", null, [
+      [ "WPDKView", "classWPDKView.html", [
+        [ "WPDKHeaderView", "classWPDKHeaderView.html", null ],
+        [ "WPDKjQueryTabsView", "classWPDKjQueryTabsView.html", null ],
+        [ "WPDKMetaBoxView", "classWPDKMetaBoxView.html", null ],
+        [ "WPDKPreferencesView", "classWPDKPreferencesView.html", null ]
+      ] ],
+      [ "WPDKViewController", "classWPDKViewController.html", [
+        [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", [
+          [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", null ]
+        ] ]
+      ] ]
+    ] ],
     [ "WPDKPlugin", null, [
       [ "WPDKWordPressPlugin", "classWPDKWordPressPlugin.html", null ]
     ] ],
@@ -41,18 +54,6 @@ var hierarchy =
     [ "WPDKUserMeta", "classWPDKUserMeta.html", null ],
     [ "WPDKUsers", "classWPDKUsers.html", null ],
     [ "WPDKUserStatus", "classWPDKUserStatus.html", null ],
-    [ "WPDKView", "classWPDKView.html", [
-      [ "WPDKConfigurationView", "classWPDKConfigurationView.html", null ],
-      [ "WPDKHeaderView", "classWPDKHeaderView.html", null ],
-      [ "WPDKjQueryTabsView", "classWPDKjQueryTabsView.html", null ],
-      [ "WPDKMetaBoxView", "classWPDKMetaBoxView.html", null ],
-      [ "WPDKPreferencesView", "classWPDKPreferencesView.html", null ]
-    ] ],
-    [ "WPDKViewController", "classWPDKViewController.html", [
-      [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", [
-        [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", null ]
-      ] ]
-    ] ],
     [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ],
     [ "WPDKWordPressTheme", "classWPDKWordPressTheme.html", null ]
 ];

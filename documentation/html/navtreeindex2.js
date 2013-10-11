@@ -1,9 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"wpdk-functions_8php.html#ace333f28e37b33007a022348756abec8":[8,0,0,0,1,13],
-"wpdk-functions_8php.html#add9e56bbb0f2295e5eec6802a678e1af":[8,0,0,0,1,3],
-"wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc":[8,0,0,0,1,8],
-"wpdk-functions_8php_source.html":[8,0,0,0,1],
 "wpdk-html_8php.html":[8,0,0,5,1],
 "wpdk-html_8php_source.html":[8,0,0,5,1],
 "wpdk-jquery_8php.html":[8,0,0,5,2],

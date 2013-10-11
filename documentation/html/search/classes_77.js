@@ -4,7 +4,6 @@ var searchData=
   ['wpdkcapabilities',['WPDKCapabilities',['../classWPDKCapabilities.html',1,'']]],
   ['wpdkcapability',['WPDKCapability',['../classWPDKCapability.html',1,'']]],
   ['wpdkcolors',['WPDKColors',['../classWPDKColors.html',1,'']]],
-  ['wpdkconfigurationview',['WPDKConfigurationView',['../classWPDKConfigurationView.html',1,'']]],
   ['wpdkcrypt',['WPDKCrypt',['../classWPDKCrypt.html',1,'']]],
   ['wpdkdynamictable',['WPDKDynamicTable',['../classWPDKDynamicTable.html',1,'']]],
   ['wpdkfilesystem',['WPDKFilesystem',['../classWPDKFilesystem.html',1,'']]],

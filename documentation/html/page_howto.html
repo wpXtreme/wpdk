@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -176,7 +176,7 @@ Sample #3 of WordPress plugin using WPDK</h1>
 <p>This how-to is the third sample of a WordPress plugin developed using <em>WPDK</em>. This is the structure:</p>
 <ul>
 <li>Create a main menu with two submenu items, through methods <code>addSubMenu</code> and <code>render</code> of <code><a class="el" href="classWPDKMenu.html">WPDKMenu</a></code> class.</li>
-<li>The first submenu item is connected to a specific specialized <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class instance. This specialized instance embeds a specific <code><a class="el" href="classWPDKConfigurationView.html">WPDKConfigurationView</a></code> class called <code>ControlsConfigurationView</code>, that shows a little subset of <em>WPDK graphic controls</em> driving plugin configuration. You can set values and store them into DB, clicking the <em>Update</em> button; or you can restore values to their default, clicking the <em>Reset to default</em> button. Following this simple use case, you can easily build and customize your own plugin configuration, creating a property into <code>ControlsSettings</code> model, and setting its value with a specific <em>WPDK graphic control</em> defined into the <code>ControlsConfigurationView</code> specialized view.</li>
+<li>The first submenu item is connected to a specific specialized <code><a class="el" href="classWPDKViewController.html">WPDKViewController</a></code> class instance. This specialized instance embeds a specific <code>WPDKConfigurationView</code> class called <code>ControlsConfigurationView</code>, that shows a little subset of <em>WPDK graphic controls</em> driving plugin configuration. You can set values and store them into DB, clicking the <em>Update</em> button; or you can restore values to their default, clicking the <em>Reset to default</em> button. Following this simple use case, you can easily build and customize your own plugin configuration, creating a property into <code>ControlsSettings</code> model, and setting its value with a specific <em>WPDK graphic control</em> defined into the <code>ControlsConfigurationView</code> specialized view.</li>
 <li><code>updatePostData</code> method of <code>ControlsConfigurationView</code> class processes the <em>Update</em> request incoming from related button in the view.</li>
 <li><code>resetToDefault</code> method of <code>ControlsConfigurationView</code> class processes the <em>Reset to default</em> request incoming from related button in the view.</li>
 </ul>
