@@ -503,11 +503,16 @@ class WPDKListTableViewController extends WP_List_Table {
      */
     $screen = get_current_screen();
 
-    $option   = $screen->get_option( 'per_page', 'option' );
-    $per_page = get_user_meta( $id_user, $option, true );
+    $option = $screen->get_option( 'per_page', 'option' );
+    if( !empty( $option ) ) {
+      $per_page = get_user_meta( $id_user, $option, true );
+    }
 
     if ( empty ( $per_page ) || $per_page < 1 ) {
       $per_page = $screen->get_option( 'per_page', 'default' );
+      if( empty( $per_page ) ) {
+        $per_page = 10;
+      }
     }
 
     /* Columns Header */
