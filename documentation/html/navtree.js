@@ -32,6 +32,7 @@ var NAVTREE =
       [ "Introduction to available plugin enhancements", "page_writing_wpdk_plugin.html#page_how_to_plugin_11", null ]
     ] ],
     [ "Credits", "page_credits.html", null ],
+    [ "Deprecated List", "deprecated.html", null ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -56,7 +57,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classWPDKUsers.html#af1f0b683f423ab271a20293c0a638b3e",
-"wpdk-html_8php.html"
+"wpdk-functions_8php_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
