@@ -644,7 +644,7 @@ class WPDKListTableViewController extends WP_List_Table {
           'action'                => $action,
           $this->args['singular'] => $item[$this->args['singular']]
         );
-        $href           = add_query_arg( $args );
+        $href           = apply_filters( 'wpdk_listtable_action_' . $action, add_query_arg( $args ), $args );
         $stack[$action] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
