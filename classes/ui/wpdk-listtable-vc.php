@@ -486,6 +486,7 @@ class WPDKListTableViewController extends WP_List_Table {
 
   /**
    * Processing data items to view.
+   * You can override this method to customize your retrived data.
    *
    * @brief Processing data to view
    *
@@ -552,13 +553,13 @@ class WPDKListTableViewController extends WP_List_Table {
      * to ensure that the data is trimmed to only the current page. We can use
      * array_slice() to
      */
-    $data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+    $slice_data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
     /**
      * REQUIRED. Now we can add our *sorted* data to the items property, where
      * it can be used by the rest of the class.
      */
-    $this->items = $data;
+    $this->items = apply_filters( 'wpdk_listtable_items_' . $this->id, $slice_data, $data );
 
     /**
      * REQUIRED. We also have to register our pagination options & calculations.
