@@ -545,7 +545,7 @@ class WPDKListTableViewController extends WP_List_Table {
      * without filtering. We'll need this later, so you should always include it
      * in your own package classes.
      */
-    $total_items = count( $data );
+    $total_items = apply_filters( 'wpdk_listtable_total_items_' . $this->id, count( $data ) );
 
     /**
      * The WP_List_Table class does not handle pagination for us, so we need
