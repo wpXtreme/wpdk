@@ -462,6 +462,7 @@ class WPDKListTableViewController extends WP_List_Table {
         $current = ( $filter_status == $key ) ? 'class="current"' : '';
         $href    = add_query_arg( array(
                                        'status'                 => $key,
+                                       'paged'                  => false,
                                        'action'                 => false,
                                        $this->_args['singular'] => false
                                   ) );
