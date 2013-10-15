@@ -486,6 +486,7 @@ class WPDKListTableViewController extends WP_List_Table {
 
   /**
    * Processing data items to view.
+   * You can override this method to customize your retrived data.
    *
    * @brief Processing data to view
    *
@@ -503,11 +504,16 @@ class WPDKListTableViewController extends WP_List_Table {
      */
     $screen = get_current_screen();
 
-    $option   = $screen->get_option( 'per_page', 'option' );
-    $per_page = get_user_meta( $id_user, $option, true );
+    $option = $screen->get_option( 'per_page', 'option' );
+    if( !empty( $option ) ) {
+      $per_page = get_user_meta( $id_user, $option, true );
+    }
 
     if ( empty ( $per_page ) || $per_page < 1 ) {
       $per_page = $screen->get_option( 'per_page', 'default' );
+      if( empty( $per_page ) ) {
+        $per_page = 10;
+      }
     }
 
     /* Columns Header */
@@ -540,20 +546,20 @@ class WPDKListTableViewController extends WP_List_Table {
      * without filtering. We'll need this later, so you should always include it
      * in your own package classes.
      */
-    $total_items = count( $data );
+    $total_items = apply_filters( 'wpdk_listtable_total_items_' . $this->id, count( $data ) );
 
     /**
      * The WP_List_Table class does not handle pagination for us, so we need
      * to ensure that the data is trimmed to only the current page. We can use
      * array_slice() to
      */
-    $data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+    $slice_data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
     /**
      * REQUIRED. Now we can add our *sorted* data to the items property, where
      * it can be used by the rest of the class.
      */
-    $this->items = $data;
+    $this->items = apply_filters( 'wpdk_listtable_items_' . $this->id, $slice_data, $data );
 
     /**
      * REQUIRED. We also have to register our pagination options & calculations.
@@ -639,7 +645,7 @@ class WPDKListTableViewController extends WP_List_Table {
           'action'                => $action,
           $this->args['singular'] => $item[$this->args['singular']]
         );
-        $href           = add_query_arg( $args );
+        $href           = apply_filters( 'wpdk_listtable_action_' . $action, add_query_arg( $args ), $args );
         $stack[$action] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
