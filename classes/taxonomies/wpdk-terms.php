@@ -173,7 +173,7 @@ class WPDKTerms {
   /**
    * Get all descendents of this term. Default is 0.
    *
-   * @brief
+   * @brief Child of
    *
    * @var int $child_of
    */
