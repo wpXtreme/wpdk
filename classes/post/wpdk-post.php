@@ -460,6 +460,42 @@ class _WPDKPost {
       return wp_update_post( $this, true );
     }
   }
+
+  /**
+   * Return a single post meta value
+   *
+   * @brief Meta value
+   * @since 1.3.1
+   *
+   * @param string $meta_key Meta key
+   *
+   * @return bool|mixed
+   */
+  public function metaValue( $meta_key )
+  {
+    if ( empty( $this->ID ) ) {
+      return false;
+    }
+    return get_post_meta( $this->ID, $meta_key, true );
+  }
+
+  /**
+   * Return post meta values
+   *
+   * @brief Meta values
+   * @since 1.3.1
+   *
+   * @param string $meta_key Meta key
+   *
+   * @return bool|mixed
+   */
+  public function metaValues( $meta_key )
+  {
+    if ( empty( $this->ID ) ) {
+      return false;
+    }
+    return get_post_meta( $this->ID, $meta_key );
+  }
 }
 
 /**
