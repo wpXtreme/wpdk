@@ -462,12 +462,13 @@ class _WPDKPost {
   }
 
   /**
-   * Return a single post meta value
+   * Return or set a single post meta value
    *
    * @brief Meta value
    * @since 1.3.1
    *
    * @param string $meta_key Meta key
+   * @internal mixed $value Optional. If set is the value to store
    *
    * @return bool|mixed
    */
@@ -476,16 +477,21 @@ class _WPDKPost {
     if ( empty( $this->ID ) ) {
       return false;
     }
+    if ( func_num_args() > 1 ) {
+      $value = func_get_arg( 1 );
+      return update_post_meta( $this->ID, $meta_key, $value );
+    }
     return get_post_meta( $this->ID, $meta_key, true );
   }
 
   /**
-   * Return post meta values
+   * Return o set post meta values
    *
    * @brief Meta values
    * @since 1.3.1
    *
    * @param string $meta_key Meta key
+   * @internal mixed $value Optional. If set is the value to store
    *
    * @return bool|mixed
    */
@@ -493,6 +499,10 @@ class _WPDKPost {
   {
     if ( empty( $this->ID ) ) {
       return false;
+    }
+    if ( func_num_args() > 1 ) {
+      $value = func_get_arg( 1 );
+      return update_post_meta( $this->ID, $meta_key, $value );
     }
     return get_post_meta( $this->ID, $meta_key );
   }
