@@ -15,8 +15,8 @@
  * @class              WPDKHTMLTagName
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-16
+ * @version            0.8.2
  */
 class WPDKHTMLTagName {
 
@@ -25,6 +25,7 @@ class WPDKHTMLTagName {
   const BUTTON   = 'button';
   const FIELDSET = 'fieldset';
   const FORM     = 'form';
+  const IMG      = 'img';
   const INPUT    = 'input';
   const LABEL    = 'label';
   const LEGEND   = 'legend';
@@ -571,8 +572,108 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
   }
 }
 
+
 /**
+ * Wrapper model for tag Img.
+ * Remeber to add this tag in WPDKHTMLTagName
  *
+ * @class              WPDKHTMLTagImg
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @created            2013-10-18
+ * @version            1.0.0
+ * @since              1.3.1
+ *
+ */
+class WPDKHTMLTagImg extends WPDKHTMLTag {
+
+  /* Interface. */
+
+  /**
+   * Specifies an alternate text for an image
+   *
+   * @var string $alt
+   */
+  public $alt;
+
+  /**
+   * Allow images from third-party sites that allow cross-origin access to be used with canvas:
+   * anonymous, use-credentials
+   *
+   * @var string $crossorigin
+   */
+  public $crossorigin;
+
+  /**
+   * Specifies the height of an image
+   *
+   * @var string $height
+   */
+  public $height;
+
+  /**
+   * Specifies an image as a server-side image-map: ismap
+   *
+   * @var string $ismap
+   */
+  public $ismap;
+
+  /**
+   * Specifies the URL of an image
+   *
+   * @var string $src
+   */
+  public $src;
+
+  /**
+   * Specifies an image as a client-side image-map. Values #mapnam
+   *
+   * @var string $usemap
+   */
+  public $usemap;
+
+  /**
+   * Specifies the width of an image
+   *
+   * @var string $width
+   */
+  public $width;
+
+  /**
+   * Create an instance of WPDKHTMLTagImg class
+   *
+   * @brief Construct
+   *
+   * @param string $src    Optional. Specifies the URL of an image
+   * @param string $alt    Optional. Specifies an alternate text for an image
+   * @param string $width  Optional. Specifies the width of an image
+   * @param string $height Optional. Specifies the height of an image
+   *
+   * @return WPDKHTMLTagImg
+   */
+  public function __construct( $src = '', $alt = '', $width = '', $height = '' )
+  {
+    /* Create an WPDKHTMLTag instance. */
+    parent::__construct( WPDKHTMLTagName::IMG );
+
+    /* Setting. */
+    $this->open       = '<img';
+    $this->close      = '/>';
+    $this->attributes = array(
+      'alt',
+      'crossorigin',
+      'height',
+      'ismap',
+      'src',
+      'usemap',
+      'width',
+    );
+  }
+
+}
+
+
+/**
  * Wrapper model for tag INPUT.
  * Remeber to add this tag in WPDKHTMLTagName
  *
@@ -1514,25 +1615,18 @@ class WPDKHTMLTag {
     $this->_globalAttributes = array(
       'accesskey',
       'class',
-      'contenteditable',
-      // HTML 5
-      'contextmenu',
-      // HTML 5
+      'contenteditable', // HTML 5
+      'contextmenu', // HTML 5
       'dir',
-      'draggable',
-      // HTML 5
-      'dropzone',
-      // HTML 5
-      'hidden',
-      // HTML 5
+      'draggable', // HTML 5
+      'dropzone', // HTML 5
+      'hidden', // HTML 5
       'id',
       'lang',
-      'spellcheck',
-      // HTML 5
+      'spellcheck', // HTML 5
       'style',
       'tabindex',
       'title',
-
       'onclick'
     );
   }
