@@ -656,6 +656,11 @@ class WPDKHTMLTagImg extends WPDKHTMLTag {
     /* Create an WPDKHTMLTag instance. */
     parent::__construct( WPDKHTMLTagName::IMG );
 
+    $this->src    = $src;
+    $this->alt    = $alt;
+    $this->width  = $width;
+    $this->height = $height;
+
     /* Setting. */
     $this->open       = '<img';
     $this->close      = '/>';
