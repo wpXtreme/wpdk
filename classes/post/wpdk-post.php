@@ -506,6 +506,67 @@ class _WPDKPost {
     }
     return get_post_meta( $this->ID, $meta_key );
   }
+
+  /**
+   * Return an instance of WPDKHTMLTagImg class with thumbmail image description. If the thumbnail is not found return
+   * FALSE. You can use the WPDKHTMLTagImg instance to read the property, get the HTML markup or display the image.
+   *
+   * @brief Get thumbnail image
+   * @since 1.3.1
+   *
+   * @param string $size Optional. Default 'full'
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public function thumbnail( $size = 'full' )
+  {
+    return self::thumbnailWithID( $this->ID, $size );
+  }
+
+  /**
+   * Return an instance of WPDKHTMLTagImg class with thumbmail image description. If the thumbnail is not found return
+   * FALSE. You can use the WPDKHTMLTagImg instance to read the property, get the HTML markup or display the image.
+   *
+   * @brief Get thumbnail image
+   * @since 1.3.1
+   *
+   * @param string $size Optional. Default 'full'
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public static function thumbnailWithID( $post_id, $size = 'full' )
+  {
+    if ( empty( $post_id ) || $post_id != absint( $post_id ) ) {
+      return false;
+    }
+
+    if ( function_exists( 'has_post_thumbnail' ) ) {
+      if ( has_post_thumbnail( $post_id ) ) {
+        $thumbnail_id = get_post_thumbnail_id( $post_id );
+        $image        = wp_get_attachment_image_src( $thumbnail_id, $size );
+
+        /* Get src attribute */
+        $src = $image[0];
+
+        /* Get the attachment alt text. */
+        $alt = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
+
+        /* Get the attachment caption. */
+        $caption = get_post_field( 'post_excerpt', $thumbnail_id );
+
+        $img = new WPDKHTMLTagImg( $src, $alt );
+        if ( !empty( $caption ) ) {
+          $img->addData( 'caption', $caption );
+        }
+        $img->addData( 'thumbnail_id', $thumbnail_id );
+        $img->addData( 'post_id', $post_id );
+        $img->addData( 'size', $size );
+
+        return $img;
+      }
+    }
+    return false;
+  }
 }
 
 /**
