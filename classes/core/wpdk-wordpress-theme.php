@@ -58,7 +58,7 @@ class WPDKWordPressTheme extends WPDKObject {
     add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
     /* Add classes to body class. */
-    add_filter( 'body_class', array( $this, 'body_class' ) );
+    add_filter( 'body_class', array( $this, '_body_class' ) );
 
     /* Scripts and styles. */
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
@@ -81,9 +81,8 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @return array New list class
    */
-  public function body_class( $classes )
+  public function _body_class( $classes )
   {
-
     /* Auto insert the plugin slug in body class */
     if ( !is_null( $this->plugin ) ) {
       $classes[] = sprintf( ' %s-body', $this->plugin->slug );
