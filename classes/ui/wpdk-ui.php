@@ -413,7 +413,7 @@ class WPDKUIControl {
     }
 
     $before_label = isset( $this->item['beforelabel'] ) ? $this->item['beforelabel'] : '';
-    $after_label  = isset( $this->item['afterlabel'] ) ? $this->item['afterlabel'] : ':';
+    $after_label  = isset( $this->item['afterlabel'] ) ? $this->item['afterlabel'] : '';
 
     /* Special behavior (before) for these controls. */
     switch ( $this->item['type'] ) {
@@ -1176,7 +1176,8 @@ class WPDKUIControlLabel extends WPDKUIControl {
    *
    * @return WPDKUIControlLabel
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::LABEL;
     parent::__construct( $item );
   }
