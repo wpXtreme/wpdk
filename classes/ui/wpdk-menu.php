@@ -447,8 +447,9 @@ class WPDKMenu {
       }
     }
     else {
+      $pos = ( $index < 0 ) ? count( $menus[$key] ) + 1 : $index;
       foreach ( $submenus as $menu ) {
-        $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu ), $index );
+        $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu ), $pos++ );
       }
     }
     return $menus;
@@ -594,7 +595,11 @@ class WPDKSubMenu {
             $item = new WPDKSubMenuDivider( $parent, $sub_item[WPDKSubMenuDivider::DIVIDER] );
           }
           else {
-            $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'] ), $index++ );
+            if( is_array( $sub_item['viewController'] ) ) {
+              $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'][1] ), $index++ );
+            } else {
+              $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'] ), $index++ );
+            }
             $item = new WPDKSubMenu( $parent, $id, $sub_item['menuTitle'], $sub_item['viewController'] );
             /* Extra properties */
             foreach ( $sub_item as $property => $svalue ) {
