@@ -400,10 +400,56 @@ class WPDKMenu {
   {
     $key = key( $menus );
     if ( isset( $menus[$key]['subMenus'] ) ) {
+      $index = ( $index < 0 ) ? count( $menus[$key]['subMenus'] ) + 1 : $index;
       $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
     }
     else {
       $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu_item ), $index );
+    }
+    return $menus;
+  }
+
+  /**
+   * Recursive version of ::addSubMenuAt()
+   *
+   *     $submenus = array(
+   *       WPDKSubMenuDivider::DIVIDER,
+   *       array(
+   *         'menuTitle'      => __( 'Extensions', WPXTREME_TEXTDOMAIN ),
+   *         'capability'     => self::MENU_CAPABILITY,
+   *         'viewController' => array( $this, 'about' ),
+   *       ),
+   *       array(
+   *         'menuTitle'      => __( 'About', WPXTREME_TEXTDOMAIN ),
+   *         'capability'     => self::MENU_CAPABILITY,
+   *         'viewController' => array( $this, 'about' ),
+   *       )
+   *     );
+   *
+   *     WPDKMenu::addSubMenusAt( $this->menus, $submenus, -1 );
+   *
+   * @brief Brief
+   * @since 1.3.1
+   *
+   * @param array $menus     Array menu used in WPDKMenu::renderByArray() method
+   * @param array $submenus  Array of new menu
+   * @param int   $index     Start position from the first menu item (zero base).
+   *
+   * @return mixed
+   */
+  public static function addSubMenusAt( &$menus, $submenus, $index )
+  {
+    $key = key( $menus );
+    if ( isset( $menus[$key]['subMenus'] ) ) {
+      $pos = ( $index < 0 ) ? count( $menus[$key]['subMenus'] ) + 1 : $index;
+      foreach ( $submenus as $menu ) {
+        $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu ), $pos++ );
+      }
+    }
+    else {
+      foreach ( $submenus as $menu ) {
+        $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu ), $index );
+      }
     }
     return $menus;
   }
