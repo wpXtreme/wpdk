@@ -1138,7 +1138,7 @@ div.wpdk-credits ul li a:hover
  * =====================================================================================================================
  */
 
-.tooltip
+.wpdk-tooltip-box
 {
   position    : absolute;
   z-index     : 1030;
@@ -1150,31 +1150,31 @@ div.wpdk-credits ul li a:hover
   visibility  : visible;
 }
 
-.tooltip.in
+.wpdk-tooltip-box.in
 {
   opacity : 0.9;
   filter  : alpha(opacity=90);
 }
 
-.tooltip.top
+.wpdk-tooltip-box.top
 {
   padding    : 5px 0;
   margin-top : -3px;
 }
 
-.tooltip.right
+.wpdk-tooltip-box.right
 {
   padding     : 0 5px;
   margin-left : 3px;
 }
 
-.tooltip.bottom
+.wpdk-tooltip-box.bottom
 {
   padding    : 5px 0;
   margin-top : 3px;
 }
 
-.tooltip.left
+.wpdk-tooltip-box.left
 {
   padding     : 0 5px;
   margin-left : -3px;
@@ -1202,7 +1202,7 @@ div.wpdk-credits ul li a:hover
   border-style : solid;
 }
 
-.tooltip.top .tooltip-arrow
+.wpdk-tooltip-box.top .tooltip-arrow
 {
   bottom           : 0;
   left             : 50%;
@@ -1211,7 +1211,7 @@ div.wpdk-credits ul li a:hover
   border-width     : 5px 5px 0;
 }
 
-.tooltip.top-left .tooltip-arrow
+.wpdk-tooltip-box.top-left .tooltip-arrow
 {
   bottom           : 0;
   left             : 5px;
@@ -1219,7 +1219,7 @@ div.wpdk-credits ul li a:hover
   border-width     : 5px 5px 0;
 }
 
-.tooltip.top-right .tooltip-arrow
+.wpdk-tooltip-box.top-right .tooltip-arrow
 {
   right            : 5px;
   bottom           : 0;
@@ -1227,7 +1227,7 @@ div.wpdk-credits ul li a:hover
   border-width     : 5px 5px 0;
 }
 
-.tooltip.right .tooltip-arrow
+.wpdk-tooltip-box.right .tooltip-arrow
 {
   top                : 50%;
   left               : 0;
@@ -1236,7 +1236,7 @@ div.wpdk-credits ul li a:hover
   border-width       : 5px 5px 5px 0;
 }
 
-.tooltip.left .tooltip-arrow
+.wpdk-tooltip-box.left .tooltip-arrow
 {
   top               : 50%;
   right             : 0;
@@ -1245,7 +1245,7 @@ div.wpdk-credits ul li a:hover
   border-width      : 5px 0 5px 5px;
 }
 
-.tooltip.bottom .tooltip-arrow
+.wpdk-tooltip-box.bottom .tooltip-arrow
 {
   top                 : 0;
   left                : 50%;
@@ -1254,7 +1254,7 @@ div.wpdk-credits ul li a:hover
   border-width        : 0 5px 5px;
 }
 
-.tooltip.bottom-left .tooltip-arrow
+.wpdk-tooltip-box.bottom-left .tooltip-arrow
 {
   top                 : 0;
   left                : 5px;
@@ -1262,7 +1262,7 @@ div.wpdk-credits ul li a:hover
   border-width        : 0 5px 5px;
 }
 
-.tooltip.bottom-right .tooltip-arrow
+.wpdk-tooltip-box.bottom-right .tooltip-arrow
 {
   top                 : 0;
   right               : 5px;
