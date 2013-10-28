@@ -313,6 +313,8 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUI'
         ),
 
+        $sPathPrefix . 'classes/ui/wpdk-glyphicons.php'                    => 'WPDKGlyphIcons',
+
         $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'             => array(
           'WPDKTwitterBootstrap',
           'WPDKTwitterBootstrapModal',
