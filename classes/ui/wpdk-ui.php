@@ -42,6 +42,7 @@ class WPDKUIControlType {
   const SELECT_LIST = 'WPDKUIControlSelectList';
   const SUBMIT      = 'WPDKUIControlSubmit';
   const SWIPE       = 'WPDKUIControlSwipe';
+  const SWITCHBOX   = 'WPDKUIControlSwitch';
   const TEXT        = 'WPDKUIControlText';
   const TEXTAREA    = 'WPDKUIControlTextarea';
 }
@@ -446,6 +447,13 @@ class WPDKUIControl {
     switch ( $this->item['type'] ) {
       case WPDKUIControlType::CHECKBOX:
         $label->class .= ' wpdk-form-checkbox';
+        break;
+
+      case WPDKUIControlType::SWITCHBOX:
+        if ( !isset( $this->item['label_placement'] ) || 'left' == $this->item['label_placement'] ) {
+          $label->class .= ' wpdk-form-switch-left';
+        }
+        $label->data = $this->item['data'];
         break;
 
       case WPDKUIControlType::SWIPE:
@@ -1765,6 +1773,87 @@ class WPDKUIControlSwipe extends WPDKUIControl {
     }
 
     echo $this->contentWithKey( 'append' );
+  }
+}
+
+/**
+ * SwitchBox control.
+ * Experimental for override a standard checkbox
+ *
+ *     $item = array(
+ *         'type'            => WPDKUIControlType::SWITCHBOX,
+ *         'label'           => 'label',
+ *         'label_placement' => 'left|right',
+ *         'id'              => 'id',
+ *         'name'            => 'name',
+ *         'value'           => 'on',
+ *         'checked'         => 'on',
+ *         'attrs'           => '',
+ *         'data'            => '',
+ *         'class'           => '',
+ *         'style'           => '',
+ *         'title'           => 'This title is Twitter Bootstrap Tooltips',
+ *         'prepend'         => '',
+ *         'append'          => '',
+ *     );
+ *
+ * @class              WPDKUIControlSwitch
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-10-28
+ * @version            1.0.0
+ * @since              1.3.1
+ *
+ */
+class WPDKUIControlSwitch extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlSwipe class
+   *
+   * @brief Construct
+   * @since 1.0.0.b3
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlSwipe
+   */
+  public function __construct( $item ) {
+    $item['type'] = WPDKUIControlType::SWITCHBOX;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    echo $this->contentWithKey( 'prepend' );
+
+    $input        = new WPDKHTMLTagInput( '', $this->name, $this->id );
+    $input->type  = WPDKHTMLTagInputType::CHECKBOX;
+    $input->class = 'wpdk-form-switch ' . $this->class;
+    $input->data  = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $input->title = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+
+    if ( isset( $this->item['checked'] ) ) {
+      if ( $input->value === $this->item['checked'] ) {
+        $input->checked = 'checked';
+      }
+    }
+
+    $input->display();
+
+    /* Create the label. */
+    $label = $this->label();
+    $label->display();
+
+    echo $this->contentWithKey( 'append' );
+
+    echo ' ' . $this->guide();
   }
 }
 
