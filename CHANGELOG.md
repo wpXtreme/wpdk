@@ -25,6 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKGlyphIcons`
+* Introducing WPDK fonts ( see assets/fonts/ folder for detail )
 * Added `WPDKMenu::addSubMenusAt()` utility method
 * Added `WPDKHTMLTagImg` class
 * Added `_WPDKPost::metaValue()` and `_WPDKPost::metaValues()` utility methods
