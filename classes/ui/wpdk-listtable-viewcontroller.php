@@ -631,7 +631,6 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' )
   {
-
     /* Get the current view status. */
     $status = $this->_currentViewStatus();
 
