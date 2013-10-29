@@ -1508,11 +1508,20 @@ class WPDKHTMLTagTextarea extends WPDKHTMLTag {
  * @class              WPDKHTMLTag
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-29
+ * @version            1.0.0
  *
  */
-class WPDKHTMLTag {
+class WPDKHTMLTag extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.1.0';
 
   /**
    * Here there are all late binding tag attributes. Image...
@@ -1527,8 +1536,8 @@ class WPDKHTMLTag {
 
   /* Global attributes. */
 
-  public $accesskey;
-  public $class;
+  public $accesskey = '';
+  public $class = array();
   /**
    * HTML inner content of tag.
    *
@@ -1536,9 +1545,10 @@ class WPDKHTMLTag {
    *
    * @var string $content
    */
-  public $content;
+  public $content = '';
   public $contenteditable;
   public $contextmenu;
+
   /**
    * Key value pairs array Attribute data: data-attribute = value
    *
@@ -1546,7 +1556,7 @@ class WPDKHTMLTag {
    *
    * @var array $data
    */
-  public $data;
+  public $data = array();
   public $dir;
   public $draggable;
   public $dropzone;
@@ -1557,6 +1567,7 @@ class WPDKHTMLTag {
   public $spellcheck;
   public $style;
   public $tabindex;
+
   /**
    * The TAG name
    *
@@ -1568,6 +1579,7 @@ class WPDKHTMLTag {
 
   /* Global events */
   public $title;
+
   /**
    * Override. List of tag attributes that can be used on any HTML element.
    *
@@ -1575,7 +1587,8 @@ class WPDKHTMLTag {
    *
    * @var array $attributes
    */
-  protected $attributes;
+  protected $attributes = array();
+
   /**
    * Override. Close format Eg. '</a>' or '/>'
    *
@@ -1584,6 +1597,7 @@ class WPDKHTMLTag {
    * @var string $close
    */
   protected $close;
+
   /**
    * Override. Open format Eg. '<a'
    *
@@ -1592,6 +1606,7 @@ class WPDKHTMLTag {
    * @var string $open
    */
   protected $open;
+
   /**
    * List of global common attributes for all HTML tags
    *
@@ -1636,20 +1651,16 @@ class WPDKHTMLTag {
     );
   }
 
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Override
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
-   * Add a data attribute
+   * Utility to add a data attribute. You can access directly to `data` array property instead
    *
    * @brief Add data attribute
    *
    * @param string $name  Data attribute name
    * @param string $value Data attribute value
    */
-  public function addData( $name, $value ) {
+  public function addData( $name, $value )
+  {
     $this->data[$name] = $value;
   }
 
@@ -1658,13 +1669,10 @@ class WPDKHTMLTag {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Public
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the HTML markup for this tag
@@ -1775,6 +1783,201 @@ class WPDKHTMLTag {
       }
     }
   }
+
+  /**
+   * Return key value pairs array unique with css class list. In this way you can unset a secified class.
+   * If the input is a string (space separate strings) will return an array with css classes.
+   *
+   *     $class = 'a b c c';
+   *     echo self::sanitizeClasses( $class );
+   *
+   *     array(
+   *       'a' => 'a',
+   *       'b' => 'b',
+   *       'c' => 'c',
+   *      )
+   *
+   * @brief Sanitize CSS Classes list
+   *
+   * @param string|array $classes Any string or array with classes
+   *
+   * @return array
+   */
+  public static function sanitizeClasses( $classes )
+  {
+    /* Convert the string classes in array */
+    if ( is_string( $classes ) ) {
+      $classes = explode( ' ', $classes );
+    }
+
+    $classes = array_unique( $classes, SORT_STRING );
+
+    return array_combine( $classes, $classes );
+  }
+
+  /**
+   * Return a sanitize and inline list of css classes
+   *
+   *     $classes = array(
+   *       'color',
+   *       'modal',
+   *     );
+   *     echo self::classInline( $data, array( 'modal', 'hide' ) );
+   *     // 'color modal hide   *
+   *
+   *     echo self::classInline( $data, 'delta modal' );
+   *     // 'color delta modal'
+   *
+   * @brief Inline CSS class
+   *
+   * @param array|string $classes            List of css classes
+   * @param array|bool   $additional_classes Optional. Additional classes
+   *
+   * @return string
+   */
+  public static function classInline( $classes, $additional_classes = false )
+  {
+    $classes = self::sanitizeClasses( $classes );
+
+    if ( !empty( $additional_classes ) ) {
+      $additional_classes = self::sanitizeClasses( $additional_classes );
+      if ( !empty( $additional_classes ) ) {
+        $classes = array_merge( $classes, $additional_classes );
+      }
+    }
+
+    $keys = array_keys( $classes );
+
+    return join( ' ', $keys );
+  }
+
+  /**
+   * Return a inline data attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
+   *     // 'data-color="red" data-size="12" data-modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $data            Key value pairs array with data attribute list
+   * @param array|bool $additional_data Optional. Additional data
+   *
+   * @return string
+   */
+  public static function dataInline( $data, $additional_data = false )
+  {
+    $data = self::sanitizeData( $data );
+
+    if ( !empty( $additional_data ) ) {
+      $additional_data = self::sanitizeData( $additional_data );
+      $data = array_merge( $data, $additional_data );
+    }
+    $stack = array();
+    foreach ( $data as $key => $value ) {
+      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a inline generic attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
+   *     // 'color="red" size="12" modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $attributes            Key value pairs array with data attribute list
+   * @param array|bool $additional_attributes Optional. Additional data
+   *
+   * @return string
+   */
+  public static function attributeInline( $attributes, $additional_attributes = false )
+  {
+
+    $attributes = self::sanitizeAttributes( $attributes );
+
+    if ( !empty( $additional_attributes ) ) {
+      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
+      $attributes = array_merge( $attributes, $additional_attributes );
+    }
+    $stack = array();
+    foreach ( $attributes as $key => $value ) {
+      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a key value pairs array with generic attribute list
+   *
+   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize attributes
+   *
+   * @param string $attributes Attribute inline
+   *
+   * @return array
+   */
+  private static function sanitizeAttributes( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts            = explode( '=', $attribute );
+        $stack[$parts[0]] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      return $attributes;
+    }
+
+    return $stack;
+  }
+
+  /**
+   * Return a key value pairs array with data attribute list
+   *
+   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize data attributes
+   *
+   * @param string $attributes Data attribute inline
+   *
+   * @return array
+   */
+  private static function sanitizeData( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts                              = explode( '=', $attribute );
+        $stack[ltrim( $parts[0], 'data-' )] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      foreach ( $attributes as $key => $value ) {
+        $stack[ltrim( $key, 'data-' )] = trim( $value, "\"''" );
+      }
+    }
+
+    return $stack;
+  }
+
 }
 
 /// @endcond
