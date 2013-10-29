@@ -1161,10 +1161,6 @@ div.wpdk-credits ul li a
   text-decoration : none;
 }
 
-div.wpdk-credits ul li a:hover
-{
-}
-
 /* =====================================================================================================================
  * START TWITTER BOOTSTRAP INTEGRATION
  * =====================================================================================================================
@@ -1329,9 +1325,192 @@ div.wpdk-credits ul li a:hover
 }
 
 /* =====================================================================================================================
- * START TWITTER BOOTSTRAP MODAL
+ * START WPDK MODAL BASED ON TWITTER BOOTSTRAP MODAL
  * =====================================================================================================================
  */
+
+.wpdk-modal .close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.wpdk-modal .close:hover,
+.wpdk-modal .close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.wpdk-modal button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.wpdk-modal-open {
+  overflow: hidden;
+}
+
+body.wpdk-modal-open,
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+  margin-right: 15px;
+}
+
+.wpdk-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  display: none;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
+.wpdk-modal.fade .modal-dialog {
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+     -moz-transition: -moz-transform 0.3s ease-out;
+       -o-transition: -o-transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
+}
+
+.wpdk-modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.wpdk-modal .modal-dialog {
+  z-index: 1050;
+  width: auto;
+  padding: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wpdk-modal .modal-content {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  outline: none;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: #000000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.modal-backdrop.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.wpdk-modal .modal-header {
+  min-height: 16.428571429px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.wpdk-modal .modal-header .close {
+  margin-top: -2px;
+}
+
+.wpdk-modal .modal-title {
+  margin      : 0;
+  line-height : 1.428571429;
+  font-size   : 18px; /* WP */
+}
+
+.wpdk-modal .modal-body {
+  position: relative;
+  padding: 20px;
+}
+
+.wpdk-modal .modal-footer {
+  padding: 19px 20px 20px;
+  margin-top: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.wpdk-modal .modal-footer:before,
+.wpdk-modal .modal-footer:after {
+  display: table;
+  content: " ";
+}
+
+.wpdk-modal .modal-footer:after {
+  clear: both;
+}
+
+.wpdk-modal .modal-footer:before,
+.wpdk-modal .modal-footer:after {
+  display: table;
+  content: " ";
+}
+
+.wpdk-modal .modal-footer:after {
+  clear: both;
+}
+
+.wpdk-modal .modal-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+.wpdk-modal .modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .wpdk-modal .modal-dialog {
+    right: auto;
+    left: 50%;
+    width: 600px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .wpdk-modal .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---- START BACKWARD COMPATIBILITY - to remove asap --- */
 
 .close
 {
@@ -1364,28 +1543,6 @@ button.close
   -webkit-appearance : none;
 }
 
-.modal-backdrop
-{
-  position         : fixed;
-  top              : 0;
-  right            : 0;
-  bottom           : 0;
-  left             : 0;
-  z-index          : 1040;
-  background-color : #000;
-}
-
-.modal-backdrop.fade
-{
-  opacity : 0;
-}
-
-.modal-backdrop,
-.modal-backdrop.fade.in
-{
-  opacity : 0.8;
-  filter  : alpha(opacity=80);
-}
 
 .modal
 {
@@ -1500,10 +1657,109 @@ button.close
   margin-left : 0;
 }
 
+/* ---- END BACKWARD COMPATIBILITY - to remove asap --- */
+
 /* =====================================================================================================================
  * START TWITTER BOOTSTRAP ALERT
  * =====================================================================================================================
  */
+
+.wpdk-alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.wpdk-alert h4 {
+  margin-top: 0;
+  font-size: 16px;
+  color: inherit;
+}
+
+.wpdk-alert .alert-link {
+  font-weight: bold;
+}
+
+.wpdk-alert > p,
+.wpdk-alert > ul {
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.wpdk-alert > p + p {
+  margin-top: 5px;
+}
+
+.wpdk-alert.alert-dismissable {
+  padding-right: 35px;
+}
+
+.wpdk-alert.alert-dismissable .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.wpdk-alert.alert-success {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.wpdk-alert.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+
+.wpdk-alert.alert-success .alert-link {
+  color: #356635;
+}
+
+.wpdk-alert.alert-info {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.wpdk-alert.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+
+.wpdk-alert.alert-info .alert-link {
+  color: #2d6987;
+}
+
+.wpdk-alert.alert-warning {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #fbeed5;
+}
+
+.wpdk-alert.alert-warning hr {
+  border-top-color: #f8e5be;
+}
+
+.wpdk-alert.alert-warning .alert-link {
+  color: #a47e3c;
+}
+
+.wpdk-alert.alert-danger {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.wpdk-alert.alert-danger hr {
+  border-top-color: #e6c1c7;
+}
+
+.wpdk-alert.alert-danger .alert-link {
+  color: #953b39;
+}
+
+/* ---- START BACKWARD COMPATIBILITY - to remove asap --- */
 
 .alert
 {
