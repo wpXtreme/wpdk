@@ -262,7 +262,7 @@ if ( !class_exists( 'WPDK' ) ) {
         // USER INTERFACE
         //------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/ui/wpdk-view-controller.php'               => array(
+        $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'               => array(
           'WPDKView',
           'WPDKViewController',
           'WPDKHeaderView',
@@ -348,7 +348,7 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKSubMenu',
           'WPDKSubMenuDivider',
         ),
-        $sPathPrefix . 'classes/ui/wpdk-listtable-vc.php'                  => 'WPDKListTableViewController',
+        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'                  => 'WPDKListTableViewController',
         $sPathPrefix . 'classes/ui/wpdk-pointer.php'                       => 'WPDKPointer',
 
         //------------------------------------------------------------------
