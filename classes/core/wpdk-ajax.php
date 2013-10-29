@@ -14,12 +14,22 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2013-09-17
-   * @version            1.0.0
+   * @date               2013-10-29
+   * @version            1.0.1
    * @since              0.7.5
    *
    */
-  class WPDKAjax {
+  class WPDKAjax extends WPDKObject {
+
+    /**
+     * Override version
+     *
+     * @brief Version
+     *
+     * @var string $version
+     */
+
+    public $version = '1.0.1';
 
     /**
      * Create an instance of WPXCleanFixAjax class
