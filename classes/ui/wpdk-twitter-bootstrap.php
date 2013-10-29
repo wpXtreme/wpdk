@@ -573,16 +573,18 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @param string $id      This alert id
    * @param string $content An HTML content for this alert
-   * @param string $type    See WPDKTwitterBootstrapAlertType
+   * @param string $type    Optional. See WPDKTwitterBootstrapAlertType. Default WPDKTwitterBootstrapAlertType::INFORMATION
+   * @param string $title   Optional. Title of alert
    *
    * @return WPDKTwitterBootstrapAlert
    */
-  public function __construct( $id, $content, $type = WPDKTwitterBootstrapAlertType::INFORMATION )
+  public function __construct( $id, $content, $type = WPDKTwitterBootstrapAlertType::INFORMATION, $title = '' )
   {
     parent::__construct( $id );
 
     $this->content             = $content;
     $this->type                = $type;
+    $this->title               = $title;
     $this->class['wpdk-alert'] = 'wpdk-alert';
   }
 
