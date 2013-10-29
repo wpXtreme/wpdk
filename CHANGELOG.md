@@ -25,6 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Several improvements (no conflict) to align to Bootstrap v3.0.0
+* Added several utility static methods in `WPDKHTMLTag`
 * Added `WPDKGlyphIcons`
 * Introducing WPDK fonts ( see assets/fonts/ folder for detail )
 * Added `WPDKMenu::addSubMenusAt()` utility method
