@@ -72,8 +72,8 @@ class WPDKUIControlType {
  * @class              WPDKUI
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-31
- * @version            0.8.4
+ * @date               2013-10-29
+ * @version            1.0.0
  *
  */
 class WPDKUIControl {
@@ -96,19 +96,19 @@ class WPDKUIControl {
   protected $attrs;
 
   /**
-   * A string with CSS classes
+   * A string or an array with CSS classes
    *
    * @brief CSS classes
    *
-   * @var string $class
+   * @var string|array $class
    */
   protected $class;
   /**
-   * A string with list of data attributes
+   * A string or an array with list of data attributes
    *
    * @brief Data attributes
    *
-   * @var string $data
+   * @var string|array $data
    */
   protected $data;
   /**
@@ -229,21 +229,11 @@ class WPDKUIControl {
    *
    * @return string
    */
-  protected function data() {
+  protected function data()
+  {
     $result = '';
-    if ( isset( $this->item['data'] ) ) {
-      if ( is_array( $this->item['data'] ) ) {
-        $stack = array();
-        foreach ( $this->item['data'] as $attr => $value ) {
-          $stack[] = sprintf( 'data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
-        }
-        if ( !empty( $stack ) ) {
-          $result = join( ' ', $stack );
-        }
-      }
-      elseif ( is_string( $this->item['data'] ) ) {
-        $result = $this->item['data'];
-      }
+    if ( isset( $this->item['data'] ) && !empty( $this->item['data'] ) ) {
+      $result = WPDKHTMLTag::dataInline( $this->item['data'] );
     }
     return $result;
   }
@@ -255,21 +245,11 @@ class WPDKUIControl {
    *
    * @return string
    */
-  protected function classes() {
+  protected function classes()
+  {
     $result = '';
-    if ( isset( $this->item['class'] ) ) {
-      if ( is_array( $this->item['class'] ) ) {
-        $stack = array();
-        foreach ( $this->item['class'] as $value ) {
-          $stack[] = $value;
-        }
-        if ( !empty( $stack ) ) {
-          $result = join( ' ', $stack );
-        }
-      }
-      elseif ( is_string( $this->item['class'] ) ) {
-        $result = $this->item['class'];
-      }
+    if ( isset( $this->item['class'] ) && !empty( $this->item['class'] ) ) {
+      $result = WPDKHTMLTag::classInline( $this->item['class'] );
     }
     return $result;
   }
@@ -279,7 +259,8 @@ class WPDKUIControl {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
 
@@ -357,7 +338,7 @@ class WPDKUIControl {
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
     $input->class        = implode( ' ', array( trim( $class ), trim( $this->class ), 'wpdk-form-input' ) );
-    $input->data = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
     $input->disabled     = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
