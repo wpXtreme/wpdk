@@ -585,7 +585,6 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     $this->content             = $content;
     $this->type                = $type;
     $this->title               = $title;
-    $this->class['wpdk-alert'] = 'wpdk-alert';
   }
 
   /**
@@ -635,7 +634,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   {
     ob_start(); ?>
 
-    <div class="<?php echo self::classInline( $this->class, $this->type )  ?> fade in">
+    <div class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
       <?php echo $this->content() ?>
@@ -662,8 +661,8 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
       'id'             => $this->id,
       'alert_type'     => $this->type,
       'dismiss_button' => $this->dismissButton,
-      'block'          => $this->block,
-      'value'          => $this->content
+      'value'          => $this->content,
+      'title'          => $this->title,
     );
     return array( $item );
   }

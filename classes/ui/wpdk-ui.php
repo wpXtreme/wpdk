@@ -91,9 +91,9 @@ class WPDKUIControl {
    *
    * @brief Attributes
    *
-   * @var string $attrs
+   * @var array|string $attrs
    */
-  protected $attrs;
+  protected $attrs = array();
 
   /**
    * A string or an array with CSS classes
@@ -102,7 +102,7 @@ class WPDKUIControl {
    *
    * @var string|array $class
    */
-  protected $class;
+  protected $class = array();
   /**
    * A string or an array with list of data attributes
    *
@@ -110,7 +110,7 @@ class WPDKUIControl {
    *
    * @var string|array $data
    */
-  protected $data;
+  protected $data = array();
   /**
    * A sanitize attribute id
    *
@@ -118,7 +118,7 @@ class WPDKUIControl {
    *
    * @var string $id
    */
-  protected $id;
+  protected $id = '';
   /**
    * A key value pairs array with the WPDK ui control description
    *
@@ -126,7 +126,7 @@ class WPDKUIControl {
    *
    * @var array $item
    */
-  protected $item;
+  protected $item = '';
   /**
    * The name attribute
    *
@@ -134,7 +134,7 @@ class WPDKUIControl {
    *
    * @var string $name
    */
-  protected $name;
+  protected $name = '';
   /**
    * A string with inlibe CSS styles
    *
@@ -142,7 +142,7 @@ class WPDKUIControl {
    *
    * @var string $style
    */
-  protected $style;
+  protected $style = '';
   /**
    * Keep an array with input size attribute for specific type
    *
@@ -151,7 +151,7 @@ class WPDKUIControl {
    *
    * @var array $_sizeForType
    */
-  private $_sizeForType;
+  private $_sizeForType = array();
 
   /**
    * Create an instance of WPDKUIControl class
@@ -160,7 +160,8 @@ class WPDKUIControl {
    *
    * @param array $item_control Control array
    */
-  public function __construct( $item_control ) {
+  public function __construct( $item_control )
+  {
     $this->item = $item_control;
 
     /* Sanitize the common array key. */
@@ -542,8 +543,9 @@ class WPDKUIControl {
  *         'alert_type'     => WPDKTwitterBootstrapAlertType::INFORMATION,
  *         'id'             => 'id',
  *         'value'          => 'Alert content',
+ *         'title'          => 'Alert title',
+ *         'class'          => '' | array(),
  *         'dismiss_button' => true,
- *         'block'          => false,
  *         'prepend'        => '',
  *         'append'         => ''
  *     );
@@ -551,8 +553,8 @@ class WPDKUIControl {
  * @class              WPDKUIControlAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-29
+ * @version            0.9.0
  *
  */
 class WPDKUIControlAlert extends WPDKUIControl {
@@ -564,12 +566,13 @@ class WPDKUIControlAlert extends WPDKUIControl {
    */
   public function draw() {
     $value      = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $title      = isset( $this->item['title'] ) ? $this->item['title'] : '';
     $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKTwitterBootstrapAlertType::INFORMATION;
 
-    $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type );
+    $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type, $title );
     $alert->dismissButton = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
-    $alert->block         = isset( $this->item['block'] ) ? $this->item['block'] : false;
-    $alert->classes       = isset( $this->item['classes'] ) ? $this->item['classes'] : '';
+    $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] :
+                            isset( $this->item['class'] ) ? $this->item['class'] : '';
 
     echo $this->contentWithKey( 'prepend' );
 

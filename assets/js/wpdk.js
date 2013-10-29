@@ -1660,7 +1660,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
       var $buttons = '';
       for ( $key in $this.buttons ) {
         var $value = $this.buttons[$key];
-        var $class = isset( $value['classes'] ) ? $value['classes'] : '';
+        var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
         var $label = isset( $value['label'] ) ? $value['label'] : '';
         var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
         $buttons += sprintf( '<button id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $key, $class, $data_dismiss, $label );

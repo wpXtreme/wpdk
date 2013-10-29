@@ -1805,6 +1805,10 @@ class WPDKHTMLTag extends WPDKObject {
    */
   public static function sanitizeClasses( $classes )
   {
+    if( empty( $classes) || is_null( $classes ) ) {
+      return array();
+    }
+
     /* Convert the string classes in array */
     if ( is_string( $classes ) ) {
       $classes = explode( ' ', $classes );
