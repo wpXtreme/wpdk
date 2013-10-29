@@ -118,7 +118,22 @@ final class WPDKGlyphIcons extends WPDKObject {
    */
   public static function html( $glypho, $size = '', $color = '', $tag = 'i' )
   {
-    $result = sprintf( '<%s style="" class="%s"></%s>', $tag, $glypho, $tag );
+    $stack = array();
+    $style = '';
+
+    if ( !empty( $size ) ) {
+      $stack[] = sprintf( 'font-size:%s', $size );
+    }
+
+    if ( !empty( $color ) ) {
+      $stack[] = sprintf( 'color:%s', $color );
+    }
+
+    if( !empty( $stack ) ) {
+      $style = sprintf( 'style="%s"', implode(';', $stack ) );
+    }
+
+    $result = sprintf( '<%s %s class="%s"></%s>', $tag, $style, $glypho, $tag );
     return $result;
   }
 
