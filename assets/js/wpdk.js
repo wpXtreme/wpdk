@@ -1552,8 +1552,8 @@ var WPDK = (function ( $ ) {
  * @class           WPDK
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-10-02
- * @version         0.1.1
+ * @date            2013-10-29
+ * @version         0.2.1
  *
  */
 var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
@@ -1574,7 +1574,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    */
   var $this = this;
 
-  $this.version = '0.1.1';
+  $this.version = '0.2.1';
 
   $this.id = $id;
   $this.title = $title;
@@ -1704,21 +1704,27 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
   $this.html = function () {
     var $content = '';
 
-    $content = '<div class="modal hide fade" ' + data() +
+    $content =
+      '<div class="wpdk-modal hide fade" ' +
+      data() +
       'id="' + $this.id + '"' +
       'tabindex="-1"' +
       'role="dialog"' +
       'aria-labelledby="' + aria_title() + '"' +
       'aria-hidden="true">' +
-      '<div class="modal-header">' +
-      close_button() +
-      '<h3 id="' + aria_title() + '">' + $this.title + '</h3>' +
-      '</div>' +
-      '<div class="modal-body" ' + size() + ' >' +
-      $this.content +
-      '</div>' +
-      buttons() +
-      '</div>';
+       '<div class="modal-dialog">' +
+        '<div class="modal-content">' +
+         '<div class="modal-header">' +
+          close_button() +
+          '<h4 class="modal-title" id="' + aria_title() + '">' + $this.title + '</h4>' +
+         '</div>' +
+         '<div class="modal-body" ' + size() + ' >' +
+          $this.content +
+         '</div>' +
+         buttons() +
+        '</div><!-- /.modal-content -->' +
+       '</div><!-- /.modal-dialog -->' +
+      '</div><!-- /.wpdk-modal -->';
 
     return $content;
   };
@@ -1730,13 +1736,13 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    */
   $this.display = function () {
     $( 'body' ).append( $this.html() );
-    $( '#' + $this.id ).modal( 'show' );
+    $( '#' + $this.id ).wpdkModal( 'show' );
     $( '#' + $this.id ).on( 'hidden', function () {
       $( this ).remove();
     } );
 
     /* Twitter Bootstrap v.3.0.0 */
-    $( '#' + $this.id ).on( 'hidden.bs.modal', function () {
+    $( '#' + $this.id ).on( 'hidden.wpdk.modal', function () {
       $( this ).remove();
     } );
   };
@@ -1945,9 +1951,9 @@ if( typeof( jQuery.fn.transition ) === 'undefined' ) {
 
 }
 
-if( typeof( jQuery.fn.modal ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkModal ) === 'undefined' ) {
 /* ========================================================================
- * Bootstrap: modal.js v3.0.0
+ * wpdkModal based on Bootstrap: modal.js v3.0.0
  * http://twbs.github.com/bootstrap/javascript.html#modals
  * ========================================================================
  * Copyright 2012 Twitter, Inc.
@@ -1992,7 +1998,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
   Modal.prototype.show = function (_relatedTarget) {
     var that = this
-    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
+    var e    = $.Event('show.wpdk.modal', { relatedTarget: _relatedTarget })
 
     this.$element.trigger(e)
 
@@ -2023,7 +2029,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
       that.enforceFocus()
 
-      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+      var e = $.Event('shown.wpdk.modal', { relatedTarget: _relatedTarget })
 
       transition ?
         that.$element.find('.modal-dialog') // wait for modal to slide in
@@ -2038,7 +2044,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
   Modal.prototype.hide = function (e) {
     if (e) e.preventDefault()
 
-    e = $.Event('hide.bs.modal')
+    e = $.Event('hide.wpdk.modal')
 
     this.$element.trigger(e)
 
@@ -2048,7 +2054,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
     this.escape()
 
-    $(document).off('focusin.bs.modal')
+    $(document).off('focusin.wpdk.modal')
 
     this.$element
       .removeClass('in')
@@ -2064,8 +2070,8 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
   Modal.prototype.enforceFocus = function () {
     $(document)
-      .off('focusin.bs.modal') // guard against infinite focus loop
-      .on('focusin.bs.modal', $.proxy(function (e) {
+      .off('focusin.wpdk.modal') // guard against infinite focus loop
+      .on('focusin.wpdk.modal', $.proxy(function (e) {
         if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
           this.$element.focus()
         }
@@ -2074,11 +2080,11 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
   Modal.prototype.escape = function () {
     if (this.isShown && this.options.keyboard) {
-      this.$element.on('keyup.dismiss.bs.modal', $.proxy(function (e) {
+      this.$element.on('keyup.dismiss.wpdk.modal', $.proxy(function (e) {
         e.which == 27 && this.hide()
       }, this))
     } else if (!this.isShown) {
-      this.$element.off('keyup.dismiss.bs.modal')
+      this.$element.off('keyup.dismiss.wpdk.modal')
     }
   }
 
@@ -2087,7 +2093,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
     this.$element.hide()
     this.backdrop(function () {
       that.removeBackdrop()
-      that.$element.trigger('hidden.bs.modal')
+      that.$element.trigger('hidden.wpdk.modal')
     })
   }
 
@@ -2143,28 +2149,28 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
   // MODAL PLUGIN DEFINITION
   // =======================
 
-  var old = $.fn.modal
+  var old = $.fn.wpdkModal
 
-  $.fn.modal = function (option, _relatedTarget) {
+  $.fn.wpdkModal = function (option, _relatedTarget) {
     return this.each(function () {
       var $this   = $(this)
-      var data    = $this.data('bs.modal')
+      var data    = $this.data('wpdk.modal')
       var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
-      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
+      if (!data) $this.data('wpdk.modal', (data = new Modal(this, options)))
       if (typeof option == 'string') data[option](_relatedTarget)
       else if (options.show) data.show(_relatedTarget)
     })
   }
 
-  $.fn.modal.Constructor = Modal
+  $.fn.wpdkModal.Constructor = Modal
 
 
   // MODAL NO CONFLICT
   // =================
 
-  $.fn.modal.noConflict = function () {
-    $.fn.modal = old
+  $.fn.wpdkModal.noConflict = function () {
+    $.fn.wpdkModal = old
     return this
   }
 
@@ -2172,7 +2178,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
   // MODAL DATA-API
   // ==============
 
-  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+  $(document).on('click.wpdk.modal.data-api', '[data-toggle="modal"]', function (e) {
     var $this   = $(this)
     var href    = $this.attr('href')
     var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) //strip for ie7
@@ -2188,8 +2194,8 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
   })
 
   $(document)
-    .on('show.bs.modal',  '.modal', function () { $(document.body).addClass('modal-open') })
-    .on('hidden.bs.modal', '.modal', function () { $(document.body).removeClass('modal-open') })
+    .on('show.wpdk.modal',  '.wpdk-modal', function () { $(document.body).addClass('wpdk-modal-open') })
+    .on('hidden.wpdk.modal', '.wpdk-modal', function () { $(document.body).removeClass('wpdk-modal-open') })
 
 }(window.jQuery);
 
@@ -2197,7 +2203,7 @@ if( typeof( jQuery.fn.modal ) === 'undefined' ) {
 
 if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
 /* ========================================================================
- * Bootstrap: tooltip.js v3.0.0
+ * wpdkTooltip based on Bootstrap: tooltip.js v3.0.0
  * http://twbs.github.com/bootstrap/javascript.html#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
@@ -2696,9 +2702,9 @@ if( typeof( jQuery.fn.wpdkButton ) === 'undefined' ) {
 }(window.jQuery);
 }
 
-if( typeof( jQuery.fn.alert ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
 /* ========================================================================
- * Bootstrap: alert.js v3.0.0
+ * wpdkAlert based on Bootstrap: alert.js v3.0.0
  * http://twbs.github.com/bootstrap/javascript.html#alerts
  * ========================================================================
  * Copyright 2013 Twitter, Inc.
@@ -2744,14 +2750,14 @@ if( typeof( jQuery.fn.alert ) === 'undefined' ) {
       $parent = $this.hasClass('alert') ? $this : $this.parent()
     }
 
-    $parent.trigger(e = $.Event('close.bs.alert'))
+    $parent.trigger(e = $.Event('close.wpdk.alert'))
 
     if (e.isDefaultPrevented()) return
 
     $parent.removeClass('in')
 
     function removeElement() {
-      $parent.trigger('closed.bs.alert').remove()
+      $parent.trigger('closed.wpdk.alert').remove()
     }
 
     $.support.transition && $parent.hasClass('fade') ?
@@ -2765,26 +2771,26 @@ if( typeof( jQuery.fn.alert ) === 'undefined' ) {
   // ALERT PLUGIN DEFINITION
   // =======================
 
-  var old = $.fn.alert
+  var old = $.fn.wpdkAlert
 
-  $.fn.alert = function (option) {
+  $.fn.wpdkAlert = function (option) {
     return this.each(function () {
       var $this = $(this)
-      var data  = $this.data('bs.alert')
+      var data  = $this.data('wpdk.alert')
 
-      if (!data) $this.data('bs.alert', (data = new Alert(this)))
+      if (!data) $this.data('wpdk.alert', (data = new Alert(this)))
       if (typeof option == 'string') data[option].call($this)
     })
   }
 
-  $.fn.alert.Constructor = Alert
+  $.fn.wpdkAlert.Constructor = Alert
 
 
   // ALERT NO CONFLICT
   // =================
 
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
+  $.fn.wpdkAlert.noConflict = function () {
+    $.fn.wpdkAlert = old
     return this
   }
 
@@ -2792,7 +2798,7 @@ if( typeof( jQuery.fn.alert ) === 'undefined' ) {
   // ALERT DATA-API
   // ==============
 
-  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+  $(document).on('click.wpdk.alert.data-api', dismiss, Alert.prototype.close)
 
 }(window.jQuery);
 }
