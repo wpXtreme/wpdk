@@ -373,7 +373,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     <script type="text/javascript">
       jQuery( document ).ready( function ()
       {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'show' );
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'show' );
       } );
     </script>
   <?php
@@ -390,7 +390,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     <script type="text/javascript">
       jQuery( document ).ready( function ()
       {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'toggle' );
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'toggle' );
       } );
     </script>
   <?php
@@ -407,7 +407,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     <script type="text/javascript">
       jQuery( document ).ready( function ()
       {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'hide' );
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'hide' );
       } );
     </script>
   <?php
