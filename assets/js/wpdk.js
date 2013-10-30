@@ -1552,8 +1552,8 @@ var WPDK = (function ( $ ) {
  * @class           WPDK
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-10-29
- * @version         0.2.1
+ * @date            2013-10-30
+ * @version         0.2.2
  *
  */
 var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
@@ -1574,7 +1574,7 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    */
   var $this = this;
 
-  $this.version = '0.2.1';
+  $this.version = '0.2.2';
 
   $this.id = $id;
   $this.title = $title;
@@ -1623,28 +1623,25 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
    * @return string
    */
   function size() {
-    var $result = '';
-    var $styles = [];
+    var result = '', styles = {}, style, stack = [];
 
     if ( !empty( $this.width ) ) {
-      $styles['width'] = $this.width + 'px';
+      styles.width = $this.width + 'px';
     }
 
     if ( !empty( $this.height ) ) {
-      $styles['height'] = $this.height + 'px';
+      styles.height = $this.height + 'px';
     }
 
-    var $inline_style = '';
-    for ( $key in $styles ) {
-      $inline_style += $key + ':' + $styles[$key] + ';';
+    for ( style in styles ) {
+      stack.push( style + ':' + styles[style] );
     }
 
-    if ( !empty( $inline_style ) ) {
-      $result = 'style="' + $inline_style + '"';
+    if ( !empty( stack ) ) {
+      result = 'style="' + implode(';', stack ) + '"';
     }
 
-    return $result;
-
+    return result;
   }
 
   /**
@@ -1712,13 +1709,13 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
       'role="dialog"' +
       'aria-labelledby="' + aria_title() + '"' +
       'aria-hidden="true">' +
-       '<div class="modal-dialog">' +
+       '<div ' + size() + ' class="modal-dialog">' +
         '<div class="modal-content">' +
          '<div class="modal-header">' +
           close_button() +
           '<h4 class="modal-title" id="' + aria_title() + '">' + $this.title + '</h4>' +
          '</div>' +
-         '<div class="modal-body" ' + size() + ' >' +
+         '<div class="modal-body">' +
           $this.content +
          '</div>' +
          buttons() +
