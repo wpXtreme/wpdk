@@ -1667,6 +1667,7 @@ class WPDKHTMLTag extends WPDKObject {
    * Utility to add a class. You can access directly to `class` array property instead
    *
    * @brief Add CSS Class
+   * @since 1.3.1
    *
    * @param string $class
    */
