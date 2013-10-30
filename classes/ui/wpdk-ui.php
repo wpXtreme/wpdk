@@ -166,9 +166,9 @@ class WPDKUIControl {
 
     /* Sanitize the common array key. */
 
-    $this->attrs = WPDKHTMLTag::sanitizeAttributes( $this->attrs );
-    $this->data  = WPDKHTMLTag::sanitizeData( $this->data );
-    $this->class = WPDKHTMLTag::sanitizeClasses( $this->class );
+    $this->attrs = WPDKHTMLTag::sanitizeAttributes( isset( $this->item['attrs'] ) ? $this->item['attrs'] : array() );
+    $this->data  = WPDKHTMLTag::sanitizeData( isset( $this->item['data'] ) ? $this->item['data'] : array() );
+    $this->class = WPDKHTMLTag::sanitizeClasses( isset( $this->item['class'] ) ? $this->item['class'] : array() );
 
     if ( isset( $this->item['id'] ) ) {
       $this->id = sanitize_key( $this->item['id'] );
