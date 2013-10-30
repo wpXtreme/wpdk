@@ -1628,9 +1628,6 @@ class WPDKHTMLTag extends WPDKObject {
     /* Store this tag name. */
     $this->tagName = $tag_name;
 
-    /* Init the data attribute array. */
-    $this->data = array();
-
     /* The global attributes below can be used on any HTML element. */
     $this->_globalAttributes = array(
       'accesskey',
@@ -1661,7 +1658,23 @@ class WPDKHTMLTag extends WPDKObject {
    */
   public function addData( $name, $value )
   {
-    $this->data[$name] = $value;
+    if ( !empty( $name ) ) {
+      $this->data[$name] = $value;
+    }
+  }
+
+  /**
+   * Utility to add a class. You can access directly to `class` array property instead
+   *
+   * @brief Add CSS Class
+   *
+   * @param string $class
+   */
+  public function addClass( $class )
+  {
+    if ( !empty( $class ) ) {
+      $this->class[$class] = $class;
+    }
   }
 
   /**
@@ -1697,15 +1710,22 @@ class WPDKHTMLTag extends WPDKObject {
     /* Cycle for global common attributes. */
     foreach ( $this->_globalAttributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        if ( 'class' == $attr ) {
+          $classes = self::classInline( $this->$attr );
+          if( !empty( $classes ) ) {
+            printf( ' class="%s"', $classes );
+          }
+        }
+        else {
+          printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        }
       }
     }
 
     /* Generic data attribute. */
-    if ( is_array( $this->data ) ) {
-      foreach ( $this->data as $attr => $value ) {
-        printf( ' data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
-      }
+    $data = self::dataInline( $this->data );
+    if ( !empty( $data ) ) {
+      printf( ' %s', $data );
     }
 
     /* Content, only for enclousure TAG. */
@@ -1814,7 +1834,7 @@ class WPDKHTMLTag extends WPDKObject {
       $classes = explode( ' ', $classes );
     }
 
-    $classes = array_unique( $classes, SORT_STRING );
+    $classes = array_filter( array_unique( $classes, SORT_STRING ) );
 
     return array_combine( $classes, $classes );
   }
@@ -1932,10 +1952,10 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @return array
    */
-  private static function sanitizeAttributes( $attributes )
+  public static function sanitizeAttributes( $attributes )
   {
     $stack = array();
-    if ( is_string( $attributes ) ) {
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
       $single_attrobutes = explode( ' ', $attributes );
       foreach ( $single_attrobutes as $attribute ) {
         $parts            = explode( '=', $attribute );
@@ -1962,20 +1982,27 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @return array
    */
-  private static function sanitizeData( $attributes )
+  public static function sanitizeData( $attributes )
   {
     $stack = array();
-    if ( is_string( $attributes ) ) {
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
       $single_attrobutes = explode( ' ', $attributes );
       foreach ( $single_attrobutes as $attribute ) {
-        $parts                              = explode( '=', $attribute );
-        $stack[ltrim( $parts[0], 'data-' )] = trim( $parts[1], "\"''" );
+        $parts = explode( '=', $attribute );
+        $key   = $parts[0];
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $parts[1], "\"''" );
       }
     }
 
     if ( is_array( $attributes ) ) {
       foreach ( $attributes as $key => $value ) {
-        $stack[ltrim( $key, 'data-' )] = trim( $value, "\"''" );
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $value, "\"''" );
       }
     }
 
