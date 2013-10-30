@@ -724,7 +724,7 @@ class WPDKPreferencesView extends WPDKView {
     $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_class->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
     $form->name   = 'wpdk_preferences_view_form-' . $this->branch_property;
     $form->id     = $form->name;
-    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
+    $form->class[]  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
     $form->method = 'post';
     $form->action = '';
 
