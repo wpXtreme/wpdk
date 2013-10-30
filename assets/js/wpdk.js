@@ -830,7 +830,7 @@ var WPDKTwitterBootstrap = (function ( $ ) {
     $( '.wpdk-tooltip' ).wpdkTooltip();
 
     /* Init alert. */
-    $().alert();
+    $().wpdkAlert();
   }
 
   return $this;
