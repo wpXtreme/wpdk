@@ -214,10 +214,6 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->buttons = array();
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Private methods
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * Return the HTML aria title format
    *
@@ -334,7 +330,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->data['backdrop'] = $this->backdrop;
 
     ob_start(); ?>
-    <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?><?php echo $this->width() ?>"
+    <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?>"
          class="wpdk-modal <?php echo $this->static ? '' : 'hide fade' ?>"
          <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
@@ -342,7 +338,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
          role="dialog"
          aria-labelledby="<?php echo $this->aria_title() ?>"
          aria-hidden="true">
-      <div class="modal-dialog">
+      <div style="<?php echo $this->width() ?>" class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <?php echo $this->dismissButton() ?>
