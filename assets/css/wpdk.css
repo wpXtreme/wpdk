@@ -1364,13 +1364,6 @@ body.wpdk-modal-open
   overflow: hidden;
 }
 
-body.wpdk-modal-open,
-body.wpdk-modal-open .navbar-fixed-top,
-body.wpdk-modal-open .navbar-fixed-bottom
-{
-  /*margin-right : 15px;*/
-}
-
 .wpdk-modal
 {
   position   : fixed;
