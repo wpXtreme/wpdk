@@ -25,6 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `_WPDKPost::imageContent()` and `_WPDKPost::imageContentWithID()` to get the first post content image
+* Added `_WPDKPost::imageAttachments()` and `_WPDKPost::imageAttachmentsWithID()` to get attachments post images
 * Several improvements (no conflict) to align to Bootstrap v3.0.0
 * Added several utility static methods in `WPDKHTMLTag`
 * Introducing `WPDKGlyphIcons` ( see assets/fonts/ folder for detail )
