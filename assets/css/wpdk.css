@@ -1359,16 +1359,16 @@ div.wpdk-credits ul li a
   -webkit-appearance : none;
 }
 
-.wpdk-modal-open
+body.wpdk-modal-open
 {
-  overflow : hidden;
+  overflow: hidden;
 }
 
 body.wpdk-modal-open,
-.modal-open .navbar-fixed-top,
-.modal-open .navbar-fixed-bottom
+body.wpdk-modal-open .navbar-fixed-top,
+body.wpdk-modal-open .navbar-fixed-bottom
 {
-  margin-right : 15px;
+  /*margin-right : 15px;*/
 }
 
 .wpdk-modal
