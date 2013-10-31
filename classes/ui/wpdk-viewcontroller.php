@@ -55,8 +55,8 @@
  * @class              WPDKView
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-10
- * @version            1.0.1
+ * @date               2013-10-17
+ * @version            1.1.0
  *
  */
 
@@ -724,7 +724,7 @@ class WPDKPreferencesView extends WPDKView {
     $form         = new WPDKHTMLTagForm( $input_hidden_nonce->html() . $input_hidden_class->html() . $input_hidden_branch->html() . $layout->html() . $this->buttonsUpdateReset() );
     $form->name   = 'wpdk_preferences_view_form-' . $this->branch_property;
     $form->id     = $form->name;
-    $form->class  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
+    $form->class[]  = 'wpdk-form wpdk-preferences-view-' . $this->branch_property;
     $form->method = 'post';
     $form->action = '';
 

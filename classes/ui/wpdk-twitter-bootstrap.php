@@ -19,40 +19,21 @@
  * @class              WPDKTwitterBootstrap
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-28
- * @version            1.0.1
+ * @date               2013-10-29
+ * @version            1.0.2
  *
  */
 
-class WPDKTwitterBootstrap {
+class WPDKTwitterBootstrap extends WPDKHTMLTag {
 
   /**
-   * The id attribute of main container
+   * Override version
    *
-   * @brief ID
+   * @brief Version
    *
-   * @var strinf $id
+   * @var string $version
    */
-  public $id;
-
-  /**
-   * HTML data attributes list. A key value pair array with key as data attribute name and value as value of data
-   * attribute.
-   *
-   * @brief Data
-   *
-   * @var array $data
-   */
-  public $data;
-
-  /**
-   * Additional classes list
-   *
-   * @brief Classes
-   *
-   * @var array|string $classes
-   */
-  public $classes;
+  public $version = '1.0.2';
 
   /**
    * Create an instance of WPDKTwitterBootstrap class
@@ -65,62 +46,6 @@ class WPDKTwitterBootstrap {
    */
   public function __construct( $id ) {
     $this->id   = $id;
-    $this->data = array();
-  }
-
-  /**
-   * Return the HTML markup for 'data-' attributes list.
-   *
-   * @brief Build data attribute
-   *
-   * @return string
-   */
-  protected function data() {
-    $result = '';
-    $stack  = array();
-    if ( !empty( $this->data ) ) {
-      foreach ( $this->data as $key => $value ) {
-        $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-      }
-      $result = join( ' ', $stack );
-    }
-    return $result;
-  }
-
-  /**
-   * Return the additional classes list
-   *
-   * @brief Classes
-   *
-   * @return string
-   */
-  protected function classes() {
-    $result = '';
-    if ( !empty( $this->classes ) ) {
-      $result = $this->classes;
-      if ( is_array( $this->classes ) ) {
-        $result = join( ' ', $this->classes );
-      }
-    }
-    return $result;
-  }
-
-  /**
-   * Add an attribute data
-   *
-   * @brief Add data
-   */
-  public function addData( $key, $value ) {
-    $this->data[$key] = $value;
-  }
-
-  /**
-   * Display the Twitter boostrap modal
-   *
-   * @brief Display
-   */
-  public function display() {
-    echo $this->html();
   }
 
   /**
@@ -130,7 +55,8 @@ class WPDKTwitterBootstrap {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     die( __METHOD__ . ' must be override in your subclass' );
   }
 
@@ -155,11 +81,21 @@ class WPDKTwitterBootstrap {
  * @class              WPDKTwitterBootstrapModal
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-28
- * @version            0.8.5
+ * @date               2013-10-29
+ * @version            1.0.0
+ * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
  *
  */
 class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.0.0';
 
   /**
    * Title of modal (window)
@@ -278,10 +214,6 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->buttons = array();
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Private methods
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * Return the HTML aria title format
    *
@@ -289,7 +221,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function aria_title() {
+  private function aria_title()
+  {
     return sprintf( '%s-title', $this->id );
   }
 
@@ -300,7 +233,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function dismissButton() {
+  private function dismissButton()
+  {
     $result = '';
     if ( $this->dismissButton || $this->close_button ) {
       $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
@@ -319,7 +253,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
   private function width() {
     $result = '';
     if ( !empty( $this->width ) ) {
-      $result = sprintf( 'width:%spx', $this->width );
+      $result = sprintf( 'width:%spx', rtrim( $this->width, 'px' ) );
     }
     return $result;
   }
@@ -335,7 +269,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
   private function height() {
     $result = '';
     if ( !empty( $this->height ) ) {
-      $result = sprintf( 'style="height:%spx"', $this->height );
+      $result = sprintf( 'style="height:%spx"', rtrim( $this->height, 'px' ) );
     }
     return $result;
   }
@@ -355,7 +289,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
         $class        = isset( $value['class'] ) ? $value['class'] : '';
         $label        = isset( $value['label'] ) ? $value['label'] : '';
         $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-        $buttons .= sprintf( '<button id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $key, $class, $data_dismiss, $label );
+        $buttons .= sprintf( '<button type="button" id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $key, $class, $data_dismiss, $label );
       }
     }
 
@@ -396,21 +330,26 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     $this->data['backdrop'] = $this->backdrop;
 
     ob_start(); ?>
-    <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?><?php echo $this->width() ?>"
-         class="modal <?php echo $this->static ? '' : 'hide fade' ?>" <?php echo $this->data() ?>
+    <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?>"
+         class="wpdk-modal <?php echo $this->static ? '' : 'hide fade' ?>"
+         <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
          tabindex="-1"
          role="dialog"
          aria-labelledby="<?php echo $this->aria_title() ?>"
          aria-hidden="true">
-      <div class="modal-header">
-        <?php echo $this->dismissButton() ?>
-        <h3 id="<?php echo $this->aria_title() ?>"><?php echo $this->title ?></h3>
+      <div style="<?php echo $this->width() ?>" class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <?php echo $this->dismissButton() ?>
+            <h4 class="modal-title" id="<?php echo $this->aria_title() ?>"><?php echo $this->title ?></h4>
+          </div>
+          <div class="modal-body" <?php echo $this->height() ?>>
+            <?php echo $this->content ?>
+          </div>
+          <?php echo $this->buttons() ?>
+        </div>
       </div>
-      <div <?php echo $this->height() ?> class="modal-body">
-        <?php echo $this->content ?>
-      </div>
-      <?php echo $this->buttons() ?>
     </div>
 
     <?php
@@ -424,11 +363,13 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @brief Show
    */
-  public function show() {
+  public function show()
+  {
     ?>
     <script type="text/javascript">
-      jQuery( document ).ready( function () {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'show' );
+      jQuery( document ).ready( function ()
+      {
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'show' );
       } );
     </script>
   <?php
@@ -439,11 +380,13 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @brief Toggle
    */
-  public function toggle() {
+  public function toggle()
+  {
     ?>
     <script type="text/javascript">
-      jQuery( document ).ready( function () {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'toggle' );
+      jQuery( document ).ready( function ()
+      {
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'toggle' );
       } );
     </script>
   <?php
@@ -454,23 +397,33 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @brief Hide
    */
-  public function hide() {
+  public function hide()
+  {
     ?>
     <script type="text/javascript">
-      jQuery( document ).ready( function () {
-        jQuery( '#<?php echo $this->id ?>' ).modal( 'hide' );
+      jQuery( document ).ready( function ()
+      {
+        jQuery( '#<?php echo $this->id ?>' ).wpdkModal( 'hide' );
       } );
     </script>
   <?php
   }
 
-
   /**
-   * @deprecated Sice 1.0.0.b4 - Use addButton() instead
+   * Return the HTML markup for button tag to open this modal dialog
+   *
+   * @brief Return a button for open this dialog
+   *
+   * @param string $label Text button label
+   * @param string $class Optional. Additional class
+   *
+   * @return string
    */
-  public function add_buttons( $id, $label, $dismiss = true, $class = '' ) {
-    _deprecated_function( __METHOD__, '1.0.0.b4', 'addButton()' );
-    $this->addButton( $id, $label, $dismiss, $class );
+  public function buttonOpenModal( $label, $class = '' )
+  {
+    $id     = sprintf( '#%s', $this->id );
+    $result = sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', $class, $id, $label );
+    return $result;
   }
 
   /**
@@ -491,53 +444,38 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     );
   }
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // Deprecated
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * @deprecated Sice 1.0.0.b4 - Use addButton() instead
+   */
+  public function add_buttons( $id, $label, $dismiss = true, $class = '' )
+  {
+    _deprecated_function( __METHOD__, '1.0.0.b4', 'addButton()' );
+    $this->addButton( $id, $label, $dismiss, $class );
+  }
+
 
   /**
    * @deprecated Sice 1.0.0.b4 - Use addData() instead
    */
-  public function add_data( $key, $value ) {
+  public function add_data( $key, $value )
+  {
     _deprecated_function( __METHOD__, '1.0.0.b4', 'addData()' );
     //$this->data[] = array( $key => $value );
     $this->addData( $key, $value );
   }
 
   /**
-   * Add an attribute data
-   *
-   * @brief Add data
-   */
-  public function addData( $key, $value ) {
-    $this->data[$key] = $value;
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Public utility methods
-  // -----------------------------------------------------------------------------------------------------------------
-
-  /**
    * @deprecated Since 1.0.0.b4 - Use buttonOpenModal() instead
    */
-  public function button_open_modal( $label, $class = '' ) {
+  public function button_open_modal( $label, $class = '' )
+  {
     _deprecated_function( __METHOD__, '1.0.0.b4', 'buttonOpenModal()' );
     return $this->buttonOpenModal( $label, $class );
   }
-
-  /**
-   * Return the HTML markup for button tag to open this modal dialog
-   *
-   * @brief Return a button for open this dialog
-   *
-   * @param string $label Text button label
-   * @param string $class Optional. Additional class
-   *
-   * @return string
-   */
-  public function buttonOpenModal( $label, $class = '' ) {
-    $id     = sprintf( '#%s', $this->id );
-    $result = sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', $class, $id, $label );
-    return $result;
-  }
-
 }
 
 
@@ -556,8 +494,10 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
  * @class              WPDKTwitterBootstrapAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-05-27
- * @version            1.5.0
+ * @date               2013-10-29
+ * @version            1.6.0
+ * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
+ *
  */
 class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
 
@@ -567,13 +507,32 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public $dismiss_button;
 
   /**
+   * Add `alert-dismissable` class
+   *
+   * @brief Dismissable
+   * @since 1.3.1
+   *
+   * @var bool $dismissable
+   */
+  public $dismissable = true;
+
+  /**
+   * Title
+   *
+   * @brief Title
+   *
+   * @var string $title
+   */
+  public $title = '';
+
+  /**
    * True to display dismiss [x] button. Default true
    *
    * @brief Dismiss button
    *
    * @var bool $dismissButton
    */
-  public $dismissButton;
+  public $dismissButton = true;
 
   /**
    * HTML content
@@ -582,7 +541,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @var string $content
    */
-  public $content;
+  public $content = '';
 
   /**
    * Use const in WPDKTwitterBootstrapAlertType
@@ -597,6 +556,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    * Set TRUE for alert-block class style
    *
    * @brief Block layout
+   * @deprecated Since WPDK 1.3.1 and Bootstrap 3.0.0
    *
    * @var bool
    */
@@ -609,29 +569,18 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @param string $id      This alert id
    * @param string $content An HTML content for this alert
-   * @param string $type    See WPDKTwitterBootstrapAlertType
+   * @param string $type    Optional. See WPDKTwitterBootstrapAlertType. Default WPDKTwitterBootstrapAlertType::INFORMATION
+   * @param string $title   Optional. Title of alert
    *
    * @return WPDKTwitterBootstrapAlert
    */
-  public function __construct( $id, $content, $type = WPDKTwitterBootstrapAlertType::INFORMATION ) {
+  public function __construct( $id, $content, $type = WPDKTwitterBootstrapAlertType::INFORMATION, $title = '' )
+  {
     parent::__construct( $id );
 
-    $this->content = $content;
-    $this->type    = $type;
-
-    $this->dismissButton = true;
-    $this->block         = false;
-  }
-
-  /**
-   * Return alert-block class style
-   *
-   * @brief Block layout
-   *
-   * @return string
-   */
-  private function alert_block() {
-    return $this->block ? 'alert-block' : '';
+    $this->content             = $content;
+    $this->type                = $type;
+    $this->title               = $title;
   }
 
   /**
@@ -641,7 +590,8 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function dismissButton() {
+  private function dismissButton()
+  {
     $result = '';
     if ( $this->dismissButton ) {
       $result = '<button type="button" class="close" data-dismiss="alert">×</button>';
@@ -656,7 +606,8 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function content() {
+  private function content()
+  {
     if ( '<' !== substr( $this->content, 0, 1 ) ) {
       return sprintf( '<p>%s</p>', $this->content );
     }
@@ -675,11 +626,13 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    * @return string
    *
    */
-  public function html() {
+  public function html()
+  {
     ob_start(); ?>
 
-    <div class="alert <?php echo $this->type ?> <?php echo $this->classes() ?> <?php echo $this->alert_block() ?>">
+    <div class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
       <?php echo $this->dismissButton() ?>
+      <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
       <?php echo $this->content() ?>
     </div>
 
@@ -687,16 +640,6 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     $content = ob_get_contents();
     ob_end_clean();
     return $content;
-  }
-
-  /* @deprecated Use display() or html() instead */
-  function alert( $echo = true ) {
-    if ( $echo ) {
-      $this->display();
-    }
-    else {
-      return $this->html();
-    }
   }
 
   /**
@@ -714,11 +657,41 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
       'id'             => $this->id,
       'alert_type'     => $this->type,
       'dismiss_button' => $this->dismissButton,
-      'block'          => $this->block,
-      'value'          => $this->content
+      'value'          => $this->content,
+      'title'          => $this->title,
     );
     return array( $item );
   }
+
+  // -----------------------------------------------------------------------------------------------------------------
+  // Deprecated
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return alert-block class style
+   *
+   * @brief Block layout
+   *
+   * @return string
+   */
+  private function alert_block()
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.1 and Bootstrap 3.0.0', '' );
+    return $this->block ? 'alert-block' : '';
+  }
+
+  /**
+   * @deprecated Use display() or html() instead
+   */
+  function alert( $echo = true ) {
+    if ( $echo ) {
+      $this->display();
+    }
+    else {
+      return $this->html();
+    }
+  }
+
 }
 
 
@@ -728,13 +701,19 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
  * @class              WPDKTwitterBootstrapAlertType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-28
- * @version            1.0.1
+ * @date               2013-10-29
+ * @version            1.1.0
+ * @note               Updated to Bootstrap v3.0.0
+ *
  */
 class WPDKTwitterBootstrapAlertType {
+  /* @deprecated const since 1.3.1 and Bootstrap v3.0.0 */
   const ALERT       = 'alert-error';
+
   const SUCCESS     = 'alert-success';
   const INFORMATION = 'alert-info';
+  const WARNING     = 'alert-warning';
+  const DANGER      = 'alert-danger';
 }
 
 

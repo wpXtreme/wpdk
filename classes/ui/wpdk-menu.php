@@ -111,7 +111,7 @@ class WPDKMenu {
    * @return WPDKMenu
    */
   public function __construct( $id, $menu_title, $capability = self::DEFAULT_CAPABILITY, $icon = '', $position = null ) {
-    $this->id             = sanitize_key( $id );
+    $this->id             = sanitize_title( $id );
     $this->menuTitle      = $menu_title;
     $this->pageTitle      = $menu_title;
     $this->capability     = $capability;
@@ -400,10 +400,57 @@ class WPDKMenu {
   {
     $key = key( $menus );
     if ( isset( $menus[$key]['subMenus'] ) ) {
+      $index = ( $index < 0 ) ? count( $menus[$key]['subMenus'] ) + 1 : $index;
       $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu_item ), $index );
     }
     else {
       $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu_item ), $index );
+    }
+    return $menus;
+  }
+
+  /**
+   * Recursive version of ::addSubMenuAt()
+   *
+   *     $submenus = array(
+   *       WPDKSubMenuDivider::DIVIDER,
+   *       array(
+   *         'menuTitle'      => __( 'Extensions', WPXTREME_TEXTDOMAIN ),
+   *         'capability'     => self::MENU_CAPABILITY,
+   *         'viewController' => array( $this, 'about' ),
+   *       ),
+   *       array(
+   *         'menuTitle'      => __( 'About', WPXTREME_TEXTDOMAIN ),
+   *         'capability'     => self::MENU_CAPABILITY,
+   *         'viewController' => array( $this, 'about' ),
+   *       )
+   *     );
+   *
+   *     WPDKMenu::addSubMenusAt( $this->menus, $submenus, -1 );
+   *
+   * @brief Brief
+   * @since 1.3.1
+   *
+   * @param array $menus     Array menu used in WPDKMenu::renderByArray() method
+   * @param array $submenus  Array of new menu
+   * @param int   $index     Start position from the first menu item (zero base).
+   *
+   * @return mixed
+   */
+  public static function addSubMenusAt( &$menus, $submenus, $index )
+  {
+    $key = key( $menus );
+    if ( isset( $menus[$key]['subMenus'] ) ) {
+      $pos = ( $index < 0 ) ? count( $menus[$key]['subMenus'] ) + 1 : $index;
+      foreach ( $submenus as $menu ) {
+        $menus[$key]['subMenus'] = WPDKArray::insert( $menus[$key]['subMenus'], array( $menu ), $pos++ );
+      }
+    }
+    else {
+      $pos = ( $index < 0 ) ? count( $menus[$key] ) + 1 : $index;
+      foreach ( $submenus as $menu ) {
+        $menus[$key] = WPDKArray::insert( $menus[$key], array( $menu ), $pos++ );
+      }
     }
     return $menus;
   }
@@ -452,13 +499,24 @@ class WPDKSubMenu {
    * @brief Capability
    */
   const DEFAULT_CAPABILITY = 'read';
-  public $capability;
-  public $hookName;
-  public $id;
-  public $menuTitle;
-  public $pageTitle;
-  public $parent;
-  public $viewController;
+
+  public $capability = self::DEFAULT_CAPABILITY;
+  public $hookName = '';
+  public $id = '';
+  public $menuTitle = '';
+  public $pageTitle = '';
+  public $parent = '';
+  public $viewController = '';
+
+  /**
+   * Query args to add to url page
+   *
+   * @brief Query args
+   * @since 1.3.1
+   *
+   * @var array $query_args
+   */
+  public $query_args = array();
 
   /**
    * Create an instance of WPDKSubMenu class
@@ -479,7 +537,7 @@ class WPDKSubMenu {
     if ( is_object( $parent ) && is_a( $parent, 'WPDKMenu' ) ) {
       $this->parent = $parent->id;
     }
-    $this->id             = sanitize_key( $id );
+    $this->id             = sanitize_title( $id );
     $this->menuTitle      = $menu_title;
     $this->pageTitle      = $menu_title;
     $this->capability     = $capability;
@@ -537,7 +595,11 @@ class WPDKSubMenu {
             $item = new WPDKSubMenuDivider( $parent, $sub_item[WPDKSubMenuDivider::DIVIDER] );
           }
           else {
-            $id   = sprintf( '%s-submenu-%s', sanitize_key( $sub_item['viewController'] ), $index++ );
+            if( is_array( $sub_item['viewController'] ) ) {
+              $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'][1] ), $index++ );
+            } else {
+              $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'] ), $index++ );
+            }
             $item = new WPDKSubMenu( $parent, $id, $sub_item['menuTitle'], $sub_item['viewController'] );
             /* Extra properties */
             foreach ( $sub_item as $property => $svalue ) {
@@ -590,6 +652,16 @@ class WPDKSubMenu {
 
     /* Create the menu item. */
     $this->hookName = add_submenu_page( $this->parent, $this->pageTitle, $menu_title, $this->capability, $this->id, $hook );
+
+    /* Check for query args. */
+    if ( isset( $this->query_args ) && !empty( $this->query_args ) ) {
+      $stack = array();
+      foreach ( $this->query_args as $var => $value ) {
+        $stack[] = sprintf( '$_GET["%s"] = $_REQUEST["%s"] = "%s";', $var, $var, $value );
+      }
+      $func = create_function( '', implode( '', $stack ) );
+      add_action( 'load-' . $this->hookName, $func );
+    }
 
     /* Execute this action when the page displayed ids for this submenu view. */
     if( !empty( $plugin_page ) ) {

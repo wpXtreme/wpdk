@@ -25,8 +25,16 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
-* Improved wpdk_is_user_logged_in shortcode with roles, caps, emails and ids attributes
-
+* Added `_WPDKPost::imageContent()` and `_WPDKPost::imageContentWithID()` to get the first post content image
+* Added `_WPDKPost::imageAttachments()` and `_WPDKPost::imageAttachmentsWithID()` to get attachments post images
+* Several improvements (no conflict) to align to Bootstrap v3.0.0
+* Added several utility static methods in `WPDKHTMLTag`
+* Introducing `WPDKGlyphIcons` ( see assets/fonts/ folder for detail )
+* Added `WPDKMenu::addSubMenusAt()` utility method
+* Added `WPDKHTMLTagImg` class
+* Added `_WPDKPost::metaValue()` and `_WPDKPost::metaValues()` utility methods
+* Improved `wpdk_is_user_logged_in` shortcode with roles, caps, emails and ids attributes
+* Minor stable enhancements
 
 
 ## Version 1.3.0

@@ -42,6 +42,7 @@ class WPDKUIControlType {
   const SELECT_LIST = 'WPDKUIControlSelectList';
   const SUBMIT      = 'WPDKUIControlSubmit';
   const SWIPE       = 'WPDKUIControlSwipe';
+  const SWITCHBOX   = 'WPDKUIControlSwitch';
   const TEXT        = 'WPDKUIControlText';
   const TEXTAREA    = 'WPDKUIControlTextarea';
 }
@@ -71,8 +72,8 @@ class WPDKUIControlType {
  * @class              WPDKUI
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-31
- * @version            0.8.4
+ * @date               2013-10-29
+ * @version            1.0.0
  *
  */
 class WPDKUIControl {
@@ -90,26 +91,26 @@ class WPDKUIControl {
    *
    * @brief Attributes
    *
-   * @var string $attrs
+   * @var array|string $attrs
    */
-  protected $attrs;
+  protected $attrs = array();
 
   /**
-   * A string with CSS classes
+   * A string or an array with CSS classes
    *
    * @brief CSS classes
    *
-   * @var string $class
+   * @var string|array $class
    */
-  protected $class;
+  protected $class = array();
   /**
-   * A string with list of data attributes
+   * A string or an array with list of data attributes
    *
    * @brief Data attributes
    *
-   * @var string $data
+   * @var string|array $data
    */
-  protected $data;
+  protected $data = array();
   /**
    * A sanitize attribute id
    *
@@ -117,7 +118,7 @@ class WPDKUIControl {
    *
    * @var string $id
    */
-  protected $id;
+  protected $id = '';
   /**
    * A key value pairs array with the WPDK ui control description
    *
@@ -125,7 +126,7 @@ class WPDKUIControl {
    *
    * @var array $item
    */
-  protected $item;
+  protected $item = '';
   /**
    * The name attribute
    *
@@ -133,7 +134,7 @@ class WPDKUIControl {
    *
    * @var string $name
    */
-  protected $name;
+  protected $name = '';
   /**
    * A string with inlibe CSS styles
    *
@@ -141,7 +142,7 @@ class WPDKUIControl {
    *
    * @var string $style
    */
-  protected $style;
+  protected $style = '';
   /**
    * Keep an array with input size attribute for specific type
    *
@@ -150,7 +151,7 @@ class WPDKUIControl {
    *
    * @var array $_sizeForType
    */
-  private $_sizeForType;
+  private $_sizeForType = array();
 
   /**
    * Create an instance of WPDKUIControl class
@@ -159,14 +160,15 @@ class WPDKUIControl {
    *
    * @param array $item_control Control array
    */
-  public function __construct( $item_control ) {
+  public function __construct( $item_control )
+  {
     $this->item = $item_control;
 
     /* Sanitize the common array key. */
 
-    $this->attrs = $this->attrs();
-    $this->data  = $this->data();
-    $this->class = $this->classes();
+    $this->attrs = WPDKHTMLTag::sanitizeAttributes( isset( $this->item['attrs'] ) ? $this->item['attrs'] : array() );
+    $this->data  = WPDKHTMLTag::sanitizeData( isset( $this->item['data'] ) ? $this->item['data'] : array() );
+    $this->class = WPDKHTMLTag::sanitizeClasses( isset( $this->item['class'] ) ? $this->item['class'] : array() );
 
     if ( isset( $this->item['id'] ) ) {
       $this->id = sanitize_key( $this->item['id'] );
@@ -228,21 +230,11 @@ class WPDKUIControl {
    *
    * @return string
    */
-  protected function data() {
+  protected function data()
+  {
     $result = '';
-    if ( isset( $this->item['data'] ) ) {
-      if ( is_array( $this->item['data'] ) ) {
-        $stack = array();
-        foreach ( $this->item['data'] as $attr => $value ) {
-          $stack[] = sprintf( 'data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
-        }
-        if ( !empty( $stack ) ) {
-          $result = join( ' ', $stack );
-        }
-      }
-      elseif ( is_string( $this->item['data'] ) ) {
-        $result = $this->item['data'];
-      }
+    if ( isset( $this->item['data'] ) && !empty( $this->item['data'] ) ) {
+      $result = WPDKHTMLTag::dataInline( $this->item['data'] );
     }
     return $result;
   }
@@ -254,21 +246,11 @@ class WPDKUIControl {
    *
    * @return string
    */
-  protected function classes() {
+  protected function classes()
+  {
     $result = '';
-    if ( isset( $this->item['class'] ) ) {
-      if ( is_array( $this->item['class'] ) ) {
-        $stack = array();
-        foreach ( $this->item['class'] as $value ) {
-          $stack[] = $value;
-        }
-        if ( !empty( $stack ) ) {
-          $result = join( ' ', $stack );
-        }
-      }
-      elseif ( is_string( $this->item['class'] ) ) {
-        $result = $this->item['class'];
-      }
+    if ( isset( $this->item['class'] ) && !empty( $this->item['class'] ) ) {
+      $result = WPDKHTMLTag::classInline( $this->item['class'] );
     }
     return $result;
   }
@@ -278,7 +260,8 @@ class WPDKUIControl {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
 
@@ -355,8 +338,10 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = implode( ' ', array( trim( $class ), trim( $this->class ), 'wpdk-form-input' ) );
-    $input->data = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->class        = $this->class;
+    $input->class[]      = trim( $this->class );
+    $input->class[]      = 'wpdk-form-input';
+    $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
     $input->disabled     = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
@@ -380,7 +365,7 @@ class WPDKUIControl {
     /* Add a clear field button only. */
     if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) ) ) {
       $span_clear = new WPDKHTMLTagSpan();
-      $span_clear->class = 'wpdk-form-clear-left';
+      $span_clear->class[] = 'wpdk-form-clear-left';
       $span_clear->display();
     }
 
@@ -413,7 +398,7 @@ class WPDKUIControl {
     }
 
     $before_label = isset( $this->item['beforelabel'] ) ? $this->item['beforelabel'] : '';
-    $after_label  = isset( $this->item['afterlabel'] ) ? $this->item['afterlabel'] : ':';
+    $after_label  = isset( $this->item['afterlabel'] ) ? $this->item['afterlabel'] : '';
 
     /* Special behavior (before) for these controls. */
     switch ( $this->item['type'] ) {
@@ -435,7 +420,8 @@ class WPDKUIControl {
     /* Create the lable. */
     $label      = new WPDKHTMLTagLabel( $before_label . $content . $after_label );
     $label->for = $this->id;
-    $label->class .= ' wpdk-form-label wpdk-tooltip';
+    $label->class[] = 'wpdk-tooltip';
+    $label->class[] = 'wpdk-form-label';
     if ( is_array( $this->item['label'] ) ) {
       $label->data  = isset( $this->item['label']['data'] ) ? $this->item['label']['data'] : '';
       $label->style = isset( $this->item['label']['style'] ) ? $this->item['label']['style'] : '';
@@ -445,7 +431,14 @@ class WPDKUIControl {
     /* Special behavior (after) for these controls. */
     switch ( $this->item['type'] ) {
       case WPDKUIControlType::CHECKBOX:
-        $label->class .= ' wpdk-form-checkbox';
+        $label->class[] = 'wpdk-form-checkbox';
+        break;
+
+      case WPDKUIControlType::SWITCHBOX:
+        if ( !isset( $this->item['label_placement'] ) || 'left' == $this->item['label_placement'] ) {
+          $label->class[] = 'wpdk-form-switch-left';
+        }
+        $label->data = $this->item['data'];
         break;
 
       case WPDKUIControlType::SWIPE:
@@ -456,7 +449,7 @@ class WPDKUIControl {
 
       case WPDKUIControlType::TEXTAREA:
       case WPDKUIControlType::SELECT_LIST:
-        $label->class .= ' wpdk-form-label-top';
+        $label->class[] = 'wpdk-form-label-top';
         break;
     }
 
@@ -553,8 +546,9 @@ class WPDKUIControl {
  *         'alert_type'     => WPDKTwitterBootstrapAlertType::INFORMATION,
  *         'id'             => 'id',
  *         'value'          => 'Alert content',
+ *         'title'          => 'Alert title',
+ *         'class'          => '' | array(),
  *         'dismiss_button' => true,
- *         'block'          => false,
  *         'prepend'        => '',
  *         'append'         => ''
  *     );
@@ -562,8 +556,8 @@ class WPDKUIControl {
  * @class              WPDKUIControlAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-29
+ * @version            0.9.0
  *
  */
 class WPDKUIControlAlert extends WPDKUIControl {
@@ -575,12 +569,13 @@ class WPDKUIControlAlert extends WPDKUIControl {
    */
   public function draw() {
     $value      = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $title      = isset( $this->item['title'] ) ? $this->item['title'] : '';
     $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKTwitterBootstrapAlertType::INFORMATION;
 
-    $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type );
+    $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type, $title );
     $alert->dismissButton = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
-    $alert->block         = isset( $this->item['block'] ) ? $this->item['block'] : false;
-    $alert->classes       = isset( $this->item['classes'] ) ? $this->item['classes'] : '';
+    $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] :
+                            isset( $this->item['class'] ) ? $this->item['class'] : '';
 
     echo $this->contentWithKey( 'prepend' );
 
@@ -710,12 +705,13 @@ class WPDKUIControlCheckbox extends WPDKUIControl {
     /* Create the label. */
     $label = $this->label();
 
-    $input        = new WPDKHTMLTagInput( '', $this->name, $this->id );
-    $input->type  = WPDKHTMLTagInputType::CHECKBOX;
-    $input->class = 'wpdk-form-checkbox ' . $this->class;
-    $input->data  = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
-    $input->title = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    $input          = new WPDKHTMLTagInput( '', $this->name, $this->id );
+    $input->type    = WPDKHTMLTagInputType::CHECKBOX;
+    $input->class   = $this->class;
+    $input->class[] = 'wpdk-form-checkbox';
+    $input->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $input->title   = isset( $this->item['title'] ) ? $this->item['title'] : '';
     $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
     if ( isset( $this->item['checked'] ) ) {
@@ -794,22 +790,24 @@ class WPDKUIControlChoose extends WPDKUIControl {
     $input_hidden->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input_hidden->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
-    $input_button        = new WPDKHTMLTagInput( '', '', 'wpdk-form-choose-button_' . $this->id );
-    $input_button->type  = WPDKHTMLTagInputType::BUTTON;
-    $input_button->class = 'wpdk-form-choose-button';
-    $input_button->value = '...';
+    $input_button          = new WPDKHTMLTagInput( '', '', 'wpdk-form-choose-button_' . $this->id );
+    $input_button->type    = WPDKHTMLTagInputType::BUTTON;
+    $input_button->class[] = 'wpdk-form-choose-button';
+    $input_button->value   = '...';
 
     /* Create the span container. */
-    $span_inner        = new WPDKHTMLTagSpan();
-    $span_inner->title = isset( $this->item['title'] ) ? $this->item['title'] : '';
-    $hide_class        = isset( $this->item['label'] ) ? $this->item['label'] : '';
-    $span_inner->class = 'wpdk-form-choose-label ' . $this->class . ' ' . $hide_class;
+    $span_inner          = new WPDKHTMLTagSpan();
+    $span_inner->title   = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    $hide_class          = isset( $this->item['label'] ) ? $this->item['label'] : '';
+    $span_inner->class   = $this->class;
+    $span_inner->class[] = 'wpdk-form-choose-label';
+    $span_inner->class[] = $hide_class;
 
     $content = $input_hidden->html() . $span_inner->html() . $input_button->html();
 
     /* Create the span container. */
-    $span        = new WPDKHTMLTagSpan( $content );
-    $span->class = 'wpdk-form-choose wpdk-control-choose';
+    $span          = new WPDKHTMLTagSpan( $content );
+    $span->class[] = 'wpdk-form-choose wpdk-control-choose';
 
     $span->display();
 
@@ -1176,7 +1174,8 @@ class WPDKUIControlLabel extends WPDKUIControl {
    *
    * @return WPDKUIControlLabel
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::LABEL;
     parent::__construct( $item );
   }
@@ -1192,10 +1191,11 @@ class WPDKUIControlLabel extends WPDKUIControl {
 
     $value = isset( $this->item['value'] ) ? $this->item['value'] : '';
 
-    $label        = new WPDKHTMLTagLabel( $value, $this->name, $this->id );
-    $label->class = 'wpdk-form-label-inline ' . $this->class;
-    $label->data  = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $label->style = isset( $this->item['style'] ) ? $this->item['style'] : '';
+    $label          = new WPDKHTMLTagLabel( $value, $this->name, $this->id );
+    $label->class   = $this->class;
+    $label->class[] = 'wpdk-form-label-inline';
+    $label->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $label->style   = isset( $this->item['style'] ) ? $this->item['style'] : '';
     $label->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
     $label->display();
@@ -1526,7 +1526,8 @@ class WPDKUIControlSelect extends WPDKUIControl {
     echo is_null( $label ) ? '' : $label->html();
 
     $input           = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
-    $input->class    = 'wpdk-form-select ' . $this->class;
+    $input->class    = $this->class;
+    $input->class[]  = 'wpdk-form-select';
     $input->data     = isset( $this->item['data'] ) ? $this->item['data'] : array();
     $input->style    = isset( $this->item['style'] ) ? $this->item['style'] : null;
     $input->multiple = isset( $this->item['multiple'] ) ? $this->item['multiple'] : null;
@@ -1598,7 +1599,9 @@ class WPDKUIControlSelectList extends WPDKUIControl {
     echo is_null( $label ) ? '' : $label->html();
 
     $input           = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
-    $input->class    = 'wpdk-form-select wpdk-form-select-size ' . $this->class;
+    $input->class    = $this->class;
+    $input->class[]  = 'wpdk-form-select';
+    $input->class[]  = 'wpdk-form-select-size';
     $input->data     = isset( $this->item['data'] ) ? $this->item['data'] : array();
     $input->style    = isset( $this->item['style'] ) ? $this->item['style'] : null;
     $input->multiple = 'multiple';
@@ -1746,10 +1749,10 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
     $status = wpdk_is_bool( $this->item['value'] ) ? 'wpdk-form-swipe-on' : '';
 
-    $swipe        = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
-    $swipe->class = 'wpdk-form-swipe wpdk-tooltip ' . $status;
-    $swipe->id    = $this->id;
-    $swipe->data  = isset( $this->item['data'] ) ? $this->item['data'] : array();
+    $swipe          = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
+    $swipe->class[] = 'wpdk-form-swipe wpdk-tooltip ' . $status;
+    $swipe->id      = $this->id;
+    $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
     if ( isset( $this->item['userdata'] ) ) {
       $swipe->data['userdata'] = esc_attr( $this->item['userdata'] );
     }
@@ -1764,6 +1767,88 @@ class WPDKUIControlSwipe extends WPDKUIControl {
     }
 
     echo $this->contentWithKey( 'append' );
+  }
+}
+
+/**
+ * SwitchBox control.
+ * Experimental for override a standard checkbox
+ *
+ *     $item = array(
+ *         'type'            => WPDKUIControlType::SWITCHBOX,
+ *         'label'           => 'label',
+ *         'label_placement' => 'left|right',
+ *         'id'              => 'id',
+ *         'name'            => 'name',
+ *         'value'           => 'on',
+ *         'checked'         => 'on',
+ *         'attrs'           => '',
+ *         'data'            => '',
+ *         'class'           => '',
+ *         'style'           => '',
+ *         'title'           => 'This title is Twitter Bootstrap Tooltips',
+ *         'prepend'         => '',
+ *         'append'          => '',
+ *     );
+ *
+ * @class              WPDKUIControlSwitch
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-10-28
+ * @version            1.0.0
+ * @since              1.3.1
+ *
+ */
+class WPDKUIControlSwitch extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlSwipe class
+   *
+   * @brief Construct
+   * @since 1.0.0.b3
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlSwipe
+   */
+  public function __construct( $item ) {
+    $item['type'] = WPDKUIControlType::SWITCHBOX;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    echo $this->contentWithKey( 'prepend' );
+
+    $input          = new WPDKHTMLTagInput( '', $this->name, $this->id );
+    $input->type    = WPDKHTMLTagInputType::CHECKBOX;
+    $input->class   = $this->class;
+    $input->class[] = 'wpdk-form-switch';
+    $input->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $input->title   = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+
+    if ( isset( $this->item['checked'] ) ) {
+      if ( $input->value === $this->item['checked'] ) {
+        $input->checked = 'checked';
+      }
+    }
+
+    $input->display();
+
+    /* Create the label. */
+    $label = $this->label();
+    $label->display();
+
+    echo $this->contentWithKey( 'append' );
+
+    echo ' ' . $this->guide();
   }
 }
 
@@ -1898,7 +1983,8 @@ class WPDKUIControlTextarea extends WPDKUIControl {
     $content = isset( $this->item['value'] ) ? $this->item['value'] : '';
 
     $input              = new WPDKHTMLTagTextarea( $content, $this->name, $this->id );
-    $input->class       = $this->class . ' wpdk-form-textarea';
+    $input->class       = $this->class;
+    $input->class[]     = 'wpdk-form-textarea';
     $input->data        = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value       = $content;
     $input->cols        = isset( $this->item['cols'] ) ? $this->item['cols'] : '10';
