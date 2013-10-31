@@ -20,6 +20,21 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.3.1
+### 2013-10-??
+
+#### Enhancements
+
+* Several improvements (no conflict) to align to Bootstrap v3.0.0
+* Added several utility static methods in `WPDKHTMLTag`
+* Introducing `WPDKGlyphIcons` ( see assets/fonts/ folder for detail )
+* Added `WPDKMenu::addSubMenusAt()` utility method
+* Added `WPDKHTMLTagImg` class
+* Added `_WPDKPost::metaValue()` and `_WPDKPost::metaValues()` utility methods
+* Improved `wpdk_is_user_logged_in` shortcode with roles, caps, emails and ids attributes
+* Minor stable enhancements
+
+
 ## Version 1.3.0
 ### 2013-10-05
 

@@ -401,9 +401,11 @@ SQL;
 
   /**
    * Do an update the table via WordPress dbDelta() function. Apply a new SQL file on the exists (or do not exists)
-   * table.
+   * table. Return TRUE on success
    *
    * @brief Update table
+   *
+   * @return bool
    */
   public function update()
   {
@@ -413,13 +415,16 @@ SQL;
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       }
       $content = file_get_contents( $this->sqlFilename );
-      /* @todo Check if content is empty */
-
+      if ( empty( $content ) ) {
+        ob_end_clean();
+        return false;
+      }
       /* @todo Replace sprintf() with str_replace( '%s', $this->tableName ) - because more instances */
       $sql = sprintf( $content, $this->tableName );
       @dbDelta( $sql );
     }
     ob_end_clean();
+    return true;
   }
 
   /**

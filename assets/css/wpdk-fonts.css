@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'wpdk-fonts';
+  src: url('../font/wpdk-fonts.eot?53067846');
+  src: url('../font/wpdk-fonts.eot?53067846#iefix') format('embedded-opentype'),
+       url('../font/wpdk-fonts.woff?53067846') format('woff'),
+       url('../font/wpdk-fonts.ttf?53067846') format('truetype'),
+       url('../font/wpdk-fonts.svg?53067846#wpdk-fonts') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'wpdk-fonts';
+    src: url('../font/wpdk-fonts.svg?53067846#wpdk-fonts') format('svg');
+  }
+}
+*/
+ 
+ [class^="wpdk-icon-"]:before, [class*=" wpdk-icon-"]:before {
+  font-family: "wpdk-fonts";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.wpdk-icon-emo-coffee:before { content: '\e805'; } /* '' */
+.wpdk-icon-updown-circle:before { content: '\e830'; } /* '' */
+.wpdk-icon-spin2:before { content: '\e804'; } /* '' */
+.wpdk-icon-spin3:before { content: '\e803'; } /* '' */
+.wpdk-icon-spin4:before { content: '\e802'; } /* '' */
+.wpdk-icon-spin5:before { content: '\e801'; } /* '' */
+.wpdk-icon-spin6:before { content: '\e800'; } /* '' */
+.wpdk-icon-search:before { content: '\e807'; } /* '' */
+.wpdk-icon-mail:before { content: '\e808'; } /* '' */
+.wpdk-icon-heart:before { content: '\e80b'; } /* '' */
+.wpdk-icon-heart-empty:before { content: '\e80c'; } /* '' */
+.wpdk-icon-star:before { content: '\e809'; } /* '' */
+.wpdk-icon-star-empty:before { content: '\e80a'; } /* '' */
+.wpdk-icon-star-half:before { content: '\e80e'; } /* '' */
+.wpdk-icon-star-half-alt:before { content: '\e80d'; } /* '' */
+.wpdk-icon-ok:before { content: '\e814'; } /* '' */
+.wpdk-icon-ok-circled:before { content: '\e815'; } /* '' */
+.wpdk-icon-cancel-circled2:before { content: '\e81e'; } /* '' */
+.wpdk-icon-plus-squared:before { content: '\e81c'; } /* '' */
+.wpdk-icon-minus-squared:before { content: '\e81d'; } /* '' */
+.wpdk-icon-lock:before { content: '\e810'; } /* '' */
+.wpdk-icon-lock-open:before { content: '\e80f'; } /* '' */
+.wpdk-icon-spin1:before { content: '\e806'; } /* '' */
+.wpdk-icon-pencil:before { content: '\e81b'; } /* '' */
+.wpdk-icon-chat:before { content: '\e813'; } /* '' */
+.wpdk-icon-comment-empty:before { content: '\e812'; } /* '' */
+.wpdk-icon-attention:before { content: '\e816'; } /* '' */
+.wpdk-icon-trash:before { content: '\e81a'; } /* '' */
+.wpdk-icon-down-open:before { content: '\e821'; } /* '' */
+.wpdk-icon-left-open:before { content: '\e817'; } /* '' */
+.wpdk-icon-right-open:before { content: '\e818'; } /* '' */
+.wpdk-icon-up-open:before { content: '\e822'; } /* '' */
+.wpdk-icon-angle-left:before { content: '\e823'; } /* '' */
+.wpdk-icon-angle-right:before { content: '\e824'; } /* '' */
+.wpdk-icon-angle-up:before { content: '\e825'; } /* '' */
+.wpdk-icon-angle-down:before { content: '\e826'; } /* '' */
+.wpdk-icon-down-big:before { content: '\e81f'; } /* '' */
+.wpdk-icon-cw:before { content: '\e827'; } /* '' */
+.wpdk-icon-ccw:before { content: '\e828'; } /* '' */
+.wpdk-icon-arrows-cw:before { content: '\e829'; } /* '' */
+.wpdk-icon-bug:before { content: '\e82b'; } /* '' */
+.wpdk-icon-github:before { content: '\e819'; } /* '' */
+.wpdk-icon-export:before { content: '\e82a'; } /* '' */
+.wpdk-icon-clock-1:before { content: '\e820'; } /* '' */
+.wpdk-icon-lock-open-alt:before { content: '\e811'; } /* '' */

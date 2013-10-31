@@ -50,10 +50,15 @@ class WPDKArray {
    *
    * @note  For key as int see this workround http://stackoverflow.com/a/15413637/205350
    *
+   *     $input = array("red", "green", "blue", "yellow");
+   *     array_splice($input, 2);
+   *     // $input is now array("red", "green")
+   *
    * @return array
    */
   public static function insert( &$arr, $new, $index = 0 )
   {
+    /* Removes everything from offset */
     $arrayEnd   = array_splice( $arr, $index );
     $arrayStart = array_splice( $arr, 0, $index );
     return ( array_merge( $arrayStart, $new, $arrayEnd ) );

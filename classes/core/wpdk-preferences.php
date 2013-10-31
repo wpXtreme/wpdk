@@ -563,27 +563,30 @@ class WPDKPreferencesImportExport {
    */
   public function wpdk_preferences_import_export_feedback()
   {
+    $title = __( 'Warning!', WPDK_TEXTDOMAIN );
+
     switch ( $this->error ) {
+
       /* All ok. */
       case self::ERROR_NONE;
-        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Successfully!', WPDK_TEXTDOMAIN ), __( 'Import complete.', WPDK_TEXTDOMAIN ) );
+        $title = __( 'Successfully!', WPDK_TEXTDOMAIN );
+        $content = __( 'Import complete.', WPDK_TEXTDOMAIN );
         break;
       /* Error while reading upload file. */
       case self::ERROR_READ_FILE:
-        $str = sprintf( '<h3>%s</h3><p>%s %s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Error while read file! Error code:', WPDK_TEXTDOMAIN ), $_FILES['file']['error'] );
+        $content = sprintf( '%s %s', __( 'Error while read file! Error code:', WPDK_TEXTDOMAIN ), $_FILES['file']['error'] );
         break;
       /* Error while uncompress upload file. */
       case self::ERROR_MALFORMED_FILE:
-        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Malformed file.', WPDK_TEXTDOMAIN ) );
+        $content = __( 'Malformed file.', WPDK_TEXTDOMAIN );
         break;
       /* Version export error. */
       case self::ERROR_VERSION:
-        $str = sprintf( '<h3>%s</h3><p>%s</p>', __( 'Warning!', WPDK_TEXTDOMAIN ), __( 'Wrong file version! You are try to import a most recent of export file. Please update your plugin before continue.', WPDK_TEXTDOMAIN ) );
+        $content = __( 'Wrong file version! You are try to import a most recent of export file. Please update your plugin before continue.', WPDK_TEXTDOMAIN );
         break;
     }
 
-    $alert = new WPDKTwitterBootstrapAlert( 'feedback', $str, empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::ALERT );
-    $alert->block = true;
+    $alert = new WPDKTwitterBootstrapAlert( 'feedback', $content, empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::WARNING, $title );
     $alert->display();
   }
 

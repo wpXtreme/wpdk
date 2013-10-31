@@ -53,18 +53,95 @@ class WPDKServiceShortcode extends WPDKShortcode {
   }
 
   /**
-   * Display a content of shortcode only if the user is logged in.
+   * Display a content of shortcode only if the user is logged in. In addition you can set below attributes:
+   *
+   *     roles  - A list of roles string, comma separated. Eg: administrator, subscriber
+   *     caps   - A list of capabilities string, comma separated. Eg. read, level_0
+   *     emails - A list of emails string, comma separated. Eg. a.agima@commodore.com, c.sf@gmail.com
+   *     ids    - A list of user id, comma separated. Eg. 12,13,14
+   *
+   * For instance:
+   *
+   *     [wpdk_is_user_logged_in roles='subscriber']
+   *     [wpdk_is_user_logged_in roles='subscriber' caps="adv_perm, adv_read"]
+   *     [wpdk_is_user_logged_in emails='a.agima@commodore.com' caps="adv_perm, adv_read"]
+   *     [wpdk_is_user_logged_in ids='134']
    *
    * @brief Display a content for user logged in
    *
-   * @param array  $attrs     Attribute into the shortcode
-   * @param string $content   Optional. $content HTML content
+   * @param array  $atts     Attribute into the shortcode
+   * @param string $content  Optional. $content HTML content
    *
    * @return bool|string
    */
-  public function wpdk_is_user_logged_in( $attrs, $content = null )
+  public function wpdk_is_user_logged_in( $atts, $content = null )
   {
     if ( is_user_logged_in() && !is_null( $content ) ) {
+
+      /* Set default attributes. */
+      $defaults = array(
+        'roles'  => '',
+        'caps'   => '',
+        'emails' => '',
+        'ids'    => ''
+      );
+
+      /* Merge with shortcode. */
+      $args = shortcode_atts( $defaults, $atts, 'wpdk_is_user_logged_in' );
+
+      /* Check for role. */
+      if ( !empty( $args['roles'] ) ) {
+        $found = false;
+        $roles = explode( ',', $args['roles'] );
+        $user_id = get_current_user_id();
+        $user    = new WPDKUser( $user_id );
+        foreach ( $roles as $role ) {
+          if ( in_array( $role, $user->roles ) ) {
+            $found = true;
+            break;
+          }
+        }
+        if( false === $found ) {
+          return;
+        }
+      }
+
+      /* Check for caps. */
+      if ( !empty( $args['caps'] ) ) {
+        $found = false;
+        $caps = explode( ',', $args['caps'] );
+        $user_id = get_current_user_id();
+        $user    = new WPDKUser( $user_id );
+        foreach ( $caps as $cap ) {
+          if ( array_key_exists( $cap, $user->allcaps ) ) {
+            $found = true;
+            break;
+          }
+        }
+        if( false === $found ) {
+          return;
+        }
+      }
+
+      /* Check for emails. */
+      if ( !empty( $args['emails'] ) ) {
+        $emails  = explode( ',', $args['emails'] );
+        $user_id = get_current_user_id();
+        $user    = new WPDKUser( $user_id );
+        if ( !in_array( $user->email, $emails ) ) {
+          return;
+        }
+      }
+
+      /* Check for ids. */
+      if ( !empty( $args['ids'] ) ) {
+        $ids     = explode( ',', $args['ids'] );
+        $user_id = get_current_user_id();
+        if ( !in_array( $user_id, $ids ) ) {
+          return;
+        }
+      }
+
       return $content;
     }
   }
@@ -98,8 +175,7 @@ class WPDKServiceShortcode extends WPDKShortcode {
    */
   public function wpdk_gist( $atts, $content = null )
   {
-    return sprintf( '<script src="https://gist.github.com/%s.js%s"></script>', $atts['id'], isset( $atts['file'] ) ?
-        '?file=' . $atts['file'] : '' );
+    return sprintf( '<script src="https://gist.github.com/%s.js%s"></script>', $atts['id'], isset( $atts['file'] ) ? '?file=' . $atts['file'] : '' );
   }
 
   /**
