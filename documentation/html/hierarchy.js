@@ -38,7 +38,8 @@ var hierarchy =
         [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", [
           [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "WPDKWordPressTheme", "classWPDKWordPressTheme.html", null ]
     ] ],
     [ "WPDKPlugin", null, [
       [ "WPDKWordPressPlugin", "classWPDKWordPressPlugin.html", null ]
@@ -54,6 +55,5 @@ var hierarchy =
     [ "WPDKUserMeta", "classWPDKUserMeta.html", null ],
     [ "WPDKUsers", "classWPDKUsers.html", null ],
     [ "WPDKUserStatus", "classWPDKUserStatus.html", null ],
-    [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ],
-    [ "WPDKWordPressTheme", "classWPDKWordPressTheme.html", null ]
+    [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ]
 ];

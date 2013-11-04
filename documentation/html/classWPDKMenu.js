@@ -4,6 +4,7 @@ var classWPDKMenu =
     [ "addDivider", "classWPDKMenu.html#ac8d0fdfd401255b427461f7dee81a11a", null ],
     [ "addSubMenu", "classWPDKMenu.html#a582e3977d65929930826b5f9c35ffaf8", null ],
     [ "addSubMenuAt", "classWPDKMenu.html#a1029c4a578eb45309167a1240eea6a59", null ],
+    [ "addSubMenusAt", "classWPDKMenu.html#a03dff6c363f4d62f0be0ab6403d0f92c", null ],
     [ "hook", "classWPDKMenu.html#ae77459957e3d08765c07f470b9604aa3", null ],
     [ "isPageWithMenu", "classWPDKMenu.html#a13e2067d59670c4e35e5b85e6e36877b", null ],
     [ "menu", "classWPDKMenu.html#a3a2115914dd3e97649dad05a1a13d032", null ],

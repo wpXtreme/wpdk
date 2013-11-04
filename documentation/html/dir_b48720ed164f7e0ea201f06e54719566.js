@@ -13,6 +13,7 @@ var dir_b48720ed164f7e0ea201f06e54719566 =
     [ "wpdk-filesystem.php", "wpdk-filesystem_8php.html", [
       [ "WPDKFilesystem", "classWPDKFilesystem.html", "classWPDKFilesystem" ]
     ] ],
+    [ "wpdk-http.php", "wpdk-http_8php.html", null ],
     [ "wpdk-math.php", "wpdk-math_8php.html", [
       [ "WPDKMath", "classWPDKMath.html", "classWPDKMath" ]
     ] ],
