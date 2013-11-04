@@ -334,6 +334,8 @@ function wpdk_delta_object( $last_version, $old_version )
  */
 function wpdk_get_image_in_post_content( $id_post )
 {
+  _deprecated_function( __FUNCTION__, '1.3.1', '_WPDKPost::imageContent() or _WPDKPost::imageContentWithID()' );
+
   ob_start();
   ob_end_clean();
   $output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', get_post_field( 'post_content', $id_post ), $matches );
@@ -348,6 +350,7 @@ function wpdk_get_image_in_post_content( $id_post )
  * Function to find image using WP available function get_the_post_thumbnail().
  *
  * @brief Get thumbnail image
+ * @deprecated Since 1.3.1 Use _WPDKPost::thumbnail() or _WPDKPost::thumbnailWithID()
  *
  * @param int $id_post ID post
  *
@@ -355,6 +358,7 @@ function wpdk_get_image_in_post_content( $id_post )
  */
 function wpdk_get_image_from_post_thumbnail( $id_post )
 {
+  _deprecated_function( __FUNCTION__, '1.3.1', '_WPDKPost::thumbnail() or _WPDKPost::thumbnailWithID()' );
   if ( function_exists( 'has_post_thumbnail' ) ) {
     if ( has_post_thumbnail( $id_post ) ) {
       $image = wp_get_attachment_image_src( get_post_thumbnail_id( $id_post ), 'full' );
@@ -375,6 +379,7 @@ function wpdk_get_image_from_post_thumbnail( $id_post )
  */
 function wpdk_get_image_from_attachments( $id_post )
 {
+  _deprecated_function( __FUNCTION__, '1.3.1', '_WPDKPost::imageAttachmentsWithID() or _WPDKPost::imageAttachments()' );
   if ( function_exists( 'wp_get_attachment_image' ) ) {
     $children = get_children( array(
                                    'post_parent'    => $id_post,
@@ -664,7 +669,7 @@ function wpdk_is_request( $verb )
 /**
  * Return true if the REQUEST METHOD is GET
  *
- * @brief Check if request id get
+ * @brief Check if request is get
  *
  * @return bool
  */

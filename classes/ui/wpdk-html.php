@@ -15,8 +15,8 @@
  * @class              WPDKHTMLTagName
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-16
+ * @version            0.8.2
  */
 class WPDKHTMLTagName {
 
@@ -25,6 +25,7 @@ class WPDKHTMLTagName {
   const BUTTON   = 'button';
   const FIELDSET = 'fieldset';
   const FORM     = 'form';
+  const IMG      = 'img';
   const INPUT    = 'input';
   const LABEL    = 'label';
   const LEGEND   = 'legend';
@@ -571,8 +572,113 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
   }
 }
 
+
 /**
+ * Wrapper model for tag Img.
+ * Remeber to add this tag in WPDKHTMLTagName
  *
+ * @class              WPDKHTMLTagImg
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @created            2013-10-18
+ * @version            1.0.0
+ * @since              1.3.1
+ *
+ */
+class WPDKHTMLTagImg extends WPDKHTMLTag {
+
+  /* Interface. */
+
+  /**
+   * Specifies an alternate text for an image
+   *
+   * @var string $alt
+   */
+  public $alt;
+
+  /**
+   * Allow images from third-party sites that allow cross-origin access to be used with canvas:
+   * anonymous, use-credentials
+   *
+   * @var string $crossorigin
+   */
+  public $crossorigin;
+
+  /**
+   * Specifies the height of an image
+   *
+   * @var string $height
+   */
+  public $height;
+
+  /**
+   * Specifies an image as a server-side image-map: ismap
+   *
+   * @var string $ismap
+   */
+  public $ismap;
+
+  /**
+   * Specifies the URL of an image
+   *
+   * @var string $src
+   */
+  public $src;
+
+  /**
+   * Specifies an image as a client-side image-map. Values #mapnam
+   *
+   * @var string $usemap
+   */
+  public $usemap;
+
+  /**
+   * Specifies the width of an image
+   *
+   * @var string $width
+   */
+  public $width;
+
+  /**
+   * Create an instance of WPDKHTMLTagImg class
+   *
+   * @brief Construct
+   *
+   * @param string $src    Optional. Specifies the URL of an image
+   * @param string $alt    Optional. Specifies an alternate text for an image
+   * @param string $width  Optional. Specifies the width of an image
+   * @param string $height Optional. Specifies the height of an image
+   *
+   * @return WPDKHTMLTagImg
+   */
+  public function __construct( $src = '', $alt = '', $width = '', $height = '' )
+  {
+    /* Create an WPDKHTMLTag instance. */
+    parent::__construct( WPDKHTMLTagName::IMG );
+
+    $this->src    = $src;
+    $this->alt    = $alt;
+    $this->width  = $width;
+    $this->height = $height;
+
+    /* Setting. */
+    $this->open       = '<img';
+    $this->close      = '/>';
+    $this->attributes = array(
+      'alt',
+      'crossorigin',
+      'height',
+      'ismap',
+      'src',
+      'usemap',
+      'width',
+    );
+  }
+
+}
+
+
+/**
  * Wrapper model for tag INPUT.
  * Remeber to add this tag in WPDKHTMLTagName
  *
@@ -1402,11 +1508,20 @@ class WPDKHTMLTagTextarea extends WPDKHTMLTag {
  * @class              WPDKHTMLTag
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-10-29
+ * @version            1.0.0
  *
  */
-class WPDKHTMLTag {
+class WPDKHTMLTag extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.1.0';
 
   /**
    * Here there are all late binding tag attributes. Image...
@@ -1421,8 +1536,8 @@ class WPDKHTMLTag {
 
   /* Global attributes. */
 
-  public $accesskey;
-  public $class;
+  public $accesskey = '';
+  public $class = array();
   /**
    * HTML inner content of tag.
    *
@@ -1430,9 +1545,10 @@ class WPDKHTMLTag {
    *
    * @var string $content
    */
-  public $content;
+  public $content = '';
   public $contenteditable;
   public $contextmenu;
+
   /**
    * Key value pairs array Attribute data: data-attribute = value
    *
@@ -1440,7 +1556,7 @@ class WPDKHTMLTag {
    *
    * @var array $data
    */
-  public $data;
+  public $data = array();
   public $dir;
   public $draggable;
   public $dropzone;
@@ -1451,6 +1567,7 @@ class WPDKHTMLTag {
   public $spellcheck;
   public $style;
   public $tabindex;
+
   /**
    * The TAG name
    *
@@ -1462,6 +1579,7 @@ class WPDKHTMLTag {
 
   /* Global events */
   public $title;
+
   /**
    * Override. List of tag attributes that can be used on any HTML element.
    *
@@ -1469,7 +1587,8 @@ class WPDKHTMLTag {
    *
    * @var array $attributes
    */
-  protected $attributes;
+  protected $attributes = array();
+
   /**
    * Override. Close format Eg. '</a>' or '/>'
    *
@@ -1478,6 +1597,7 @@ class WPDKHTMLTag {
    * @var string $close
    */
   protected $close;
+
   /**
    * Override. Open format Eg. '<a'
    *
@@ -1486,6 +1606,7 @@ class WPDKHTMLTag {
    * @var string $open
    */
   protected $open;
+
   /**
    * List of global common attributes for all HTML tags
    *
@@ -1507,51 +1628,54 @@ class WPDKHTMLTag {
     /* Store this tag name. */
     $this->tagName = $tag_name;
 
-    /* Init the data attribute array. */
-    $this->data = array();
-
     /* The global attributes below can be used on any HTML element. */
     $this->_globalAttributes = array(
       'accesskey',
       'class',
-      'contenteditable',
-      // HTML 5
-      'contextmenu',
-      // HTML 5
+      'contenteditable', // HTML 5
+      'contextmenu', // HTML 5
       'dir',
-      'draggable',
-      // HTML 5
-      'dropzone',
-      // HTML 5
-      'hidden',
-      // HTML 5
+      'draggable', // HTML 5
+      'dropzone', // HTML 5
+      'hidden', // HTML 5
       'id',
       'lang',
-      'spellcheck',
-      // HTML 5
+      'spellcheck', // HTML 5
       'style',
       'tabindex',
       'title',
-
       'onclick'
     );
   }
 
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Override
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
-   * Add a data attribute
+   * Utility to add a data attribute. You can access directly to `data` array property instead
    *
    * @brief Add data attribute
    *
    * @param string $name  Data attribute name
    * @param string $value Data attribute value
    */
-  public function addData( $name, $value ) {
-    $this->data[$name] = $value;
+  public function addData( $name, $value )
+  {
+    if ( !empty( $name ) ) {
+      $this->data[$name] = $value;
+    }
+  }
+
+  /**
+   * Utility to add a class. You can access directly to `class` array property instead
+   *
+   * @brief Add CSS Class
+   * @since 1.3.1
+   *
+   * @param string $class
+   */
+  public function addClass( $class )
+  {
+    if ( !empty( $class ) ) {
+      $this->class[$class] = $class;
+    }
   }
 
   /**
@@ -1559,13 +1683,10 @@ class WPDKHTMLTag {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Public
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the HTML markup for this tag
@@ -1590,15 +1711,22 @@ class WPDKHTMLTag {
     /* Cycle for global common attributes. */
     foreach ( $this->_globalAttributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        if ( 'class' == $attr ) {
+          $classes = self::classInline( $this->$attr );
+          if( !empty( $classes ) ) {
+            printf( ' class="%s"', $classes );
+          }
+        }
+        else {
+          printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        }
       }
     }
 
     /* Generic data attribute. */
-    if ( is_array( $this->data ) ) {
-      foreach ( $this->data as $attr => $value ) {
-        printf( ' data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
-      }
+    $data = self::dataInline( $this->data );
+    if ( !empty( $data ) ) {
+      printf( ' %s', $data );
     }
 
     /* Content, only for enclousure TAG. */
@@ -1676,6 +1804,212 @@ class WPDKHTMLTag {
       }
     }
   }
+
+  /**
+   * Return key value pairs array unique with css class list. In this way you can unset a secified class.
+   * If the input is a string (space separate strings) will return an array with css classes.
+   *
+   *     $class = 'a b c c';
+   *     echo self::sanitizeClasses( $class );
+   *
+   *     array(
+   *       'a' => 'a',
+   *       'b' => 'b',
+   *       'c' => 'c',
+   *      )
+   *
+   * @brief Sanitize CSS Classes list
+   *
+   * @param string|array $classes Any string or array with classes
+   *
+   * @return array
+   */
+  public static function sanitizeClasses( $classes )
+  {
+    if( empty( $classes) || is_null( $classes ) ) {
+      return array();
+    }
+
+    /* Convert the string classes in array */
+    if ( is_string( $classes ) ) {
+      $classes = explode( ' ', $classes );
+    }
+
+    $classes = array_filter( array_unique( $classes, SORT_STRING ) );
+
+    return array_combine( $classes, $classes );
+  }
+
+  /**
+   * Return a sanitize and inline list of css classes
+   *
+   *     $classes = array(
+   *       'color',
+   *       'modal',
+   *     );
+   *     echo self::classInline( $data, array( 'modal', 'hide' ) );
+   *     // 'color modal hide   *
+   *
+   *     echo self::classInline( $data, 'delta modal' );
+   *     // 'color delta modal'
+   *
+   * @brief Inline CSS class
+   *
+   * @param array|string $classes            List of css classes
+   * @param array|bool   $additional_classes Optional. Additional classes
+   *
+   * @return string
+   */
+  public static function classInline( $classes, $additional_classes = false )
+  {
+    $classes = self::sanitizeClasses( $classes );
+
+    if ( !empty( $additional_classes ) ) {
+      $additional_classes = self::sanitizeClasses( $additional_classes );
+      if ( !empty( $additional_classes ) ) {
+        $classes = array_merge( $classes, $additional_classes );
+      }
+    }
+
+    $keys = array_keys( $classes );
+
+    return join( ' ', $keys );
+  }
+
+  /**
+   * Return a inline data attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
+   *     // 'data-color="red" data-size="12" data-modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $data            Key value pairs array with data attribute list
+   * @param array|bool $additional_data Optional. Additional data
+   *
+   * @return string
+   */
+  public static function dataInline( $data, $additional_data = false )
+  {
+    $data = self::sanitizeData( $data );
+
+    if ( !empty( $additional_data ) ) {
+      $additional_data = self::sanitizeData( $additional_data );
+      $data = array_merge( $data, $additional_data );
+    }
+    $stack = array();
+    foreach ( $data as $key => $value ) {
+      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a inline generic attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
+   *     // 'color="red" size="12" modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $attributes            Key value pairs array with data attribute list
+   * @param array|bool $additional_attributes Optional. Additional data
+   *
+   * @return string
+   */
+  public static function attributeInline( $attributes, $additional_attributes = false )
+  {
+
+    $attributes = self::sanitizeAttributes( $attributes );
+
+    if ( !empty( $additional_attributes ) ) {
+      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
+      $attributes = array_merge( $attributes, $additional_attributes );
+    }
+    $stack = array();
+    foreach ( $attributes as $key => $value ) {
+      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a key value pairs array with generic attribute list
+   *
+   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize attributes
+   *
+   * @param string $attributes Attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeAttributes( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts            = explode( '=', $attribute );
+        $stack[$parts[0]] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      return $attributes;
+    }
+
+    return $stack;
+  }
+
+  /**
+   * Return a key value pairs array with data attribute list
+   *
+   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize data attributes
+   *
+   * @param string $attributes Data attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeData( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts = explode( '=', $attribute );
+        $key   = $parts[0];
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      foreach ( $attributes as $key => $value ) {
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $value, "\"''" );
+      }
+    }
+
+    return $stack;
+  }
+
 }
 
 /// @endcond

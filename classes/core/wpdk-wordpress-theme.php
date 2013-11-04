@@ -13,11 +13,20 @@
  * @class              WPDKWordPressTheme
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-22
- * @version            0.8.4
+ * @date               2013-10-18
+ * @version            0.9.0
  */
 
-class WPDKWordPressTheme {
+class WPDKWordPressTheme extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '0.9.0';
 
   /**
    * Your main plugin instance
@@ -43,16 +52,18 @@ class WPDKWordPressTheme {
     /* Before init */
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
+    /* Core actions */
     add_action( 'wp', array( $this, 'wp' ) );
     add_action( 'wp_head', array( $this, 'wp_head' ) );
     add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
     /* Add classes to body class. */
-    add_filter( 'body_class', array( $this, 'body_class' ) );
+    add_filter( 'body_class', array( $this, '_body_class' ) );
 
+    /* Scripts and styles. */
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-    /* template-loader */
+    /* Template loader */
     add_action( 'template_redirect', array( $this, 'template_redirect' ) );
     add_filter( 'template_include', array( $this, 'template_include' ) );
   }
@@ -70,9 +81,9 @@ class WPDKWordPressTheme {
    *
    * @return array New list class
    */
-  public function body_class( $classes ) {
-
-    /* Se ho un puntatore ad un plugin inserisco il suo slug. */
+  public function _body_class( $classes )
+  {
+    /* Auto insert the plugin slug in body class */
     if ( !is_null( $this->plugin ) ) {
       $classes[] = sprintf( ' %s-body', $this->plugin->slug );
     }
@@ -88,7 +99,8 @@ class WPDKWordPressTheme {
    *
    * @brief WordPress action to setup theme
    */
-  public function after_setup_theme() {
+  public function after_setup_theme()
+  {
     /* To override */
   }
 
@@ -97,7 +109,8 @@ class WPDKWordPressTheme {
    *
    * @brief WordPress action before theme is displayed
    */
-  public function template_redirect() {
+  public function template_redirect()
+  {
     /* To override */
   }
 
@@ -110,7 +123,8 @@ class WPDKWordPressTheme {
    *
    * @return string A new URl template
    */
-  public function template_include( $template ) {
+  public function template_include( $template )
+  {
     /* To override */
     return $template;
   }
@@ -120,7 +134,8 @@ class WPDKWordPressTheme {
    *
    * @brief WordPress action for start
    */
-  public function wp() {
+  public function wp()
+  {
     /* To override */
   }
 
@@ -130,7 +145,8 @@ class WPDKWordPressTheme {
    * @brief WordPress action in head theme
    *
    */
-  public function wp_head() {
+  public function wp_head()
+  {
     /* To override */
   }
 
@@ -140,7 +156,8 @@ class WPDKWordPressTheme {
    * @brief WordPress action for theme footer
    *
    */
-  public function wp_footer() {
+  public function wp_footer()
+  {
     /* To override */
   }
 
@@ -149,7 +166,8 @@ class WPDKWordPressTheme {
    *
    * @brief WordPress action for scripts and styles
    */
-  public function wp_enqueue_scripts() {
+  public function wp_enqueue_scripts()
+  {
     /* To override */
   }
 
@@ -175,11 +193,20 @@ class WPDKWordPressTheme {
  * @class           WPDKTheme
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-03-28
- * @version         1.0.0
+ * @date            2013-10-18
+ * @version         1.0.1
  *
  */
-class WPDKTheme {
+class WPDKTheme extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.0.1';
 
   /**
    * The Theme URL more `assets/`. This property is very useful for read style sheet and Javascript file in the
