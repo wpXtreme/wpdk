@@ -348,9 +348,9 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
             <?php echo $this->content ?>
           </div>
           <?php echo $this->buttons() ?>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.wpdk-modal -->
+        </div>
+      </div>
+    </div>
 
     <?php
     $content = ob_get_contents();

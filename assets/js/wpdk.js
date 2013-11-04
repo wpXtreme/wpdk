@@ -1631,9 +1631,9 @@ var WPDKTwitterBootstrapModal = function ( $id, $title, $content ) {
           $this.content +
          '</div>' +
          buttons() +
-        '</div><!-- /.modal-content -->' +
-       '</div><!-- /.modal-dialog -->' +
-      '</div><!-- /.wpdk-modal -->';
+        '</div>' +
+       '</div>' +
+      '</div>';
   };
 
   /**

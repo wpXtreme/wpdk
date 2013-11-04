@@ -567,6 +567,132 @@ class _WPDKPost {
     }
     return false;
   }
+
+  /**
+   * Return the nth instance of WPDKHTMLTagImg class as attachment image in this post.
+   *
+   *     self::imageFromAttachmentsWithID( 2294, 'thumbnail' )->display();
+   *
+   * @brief Attachment image
+   * @since 1.3.1
+   *
+   * @param string $size    Optional. Size of attachment image
+   * @param int    $index   Optional. Index of image. Default first attach image is returned
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public function imageAttachments( $size = 'full', $index = 1 )
+  {
+    return self::imageAttachmentsWithID( $this->ID, $size, $index );
+  }
+
+  /**
+   * Return the nth instance of WPDKHTMLTagImg class as attachment image in a post.
+   *
+   *     self::imageFromAttachmentsWithID( 2294, 'thumbnail' )->display();
+   *
+   * @brief Attachment image
+   * @since 1.3.1
+   *
+   * @param int    $post_id Post id
+   * @param string $size    Optional. Size of attachment image
+   * @param int    $index   Optional. Index of image. Default first attach image is returned
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public static function imageAttachmentsWithID( $post_id, $size = 'full', $index = 1 )
+  {
+    /* Check for support */
+    if ( function_exists( 'wp_get_attachment_image' ) ) {
+      $args     = array(
+        'post_parent'    => $post_id,
+        'post_type'      => WPDKPostType::ATTACHMENT,
+        'numberposts'    => -1,
+        'post_status'    => WPDKPostStatus::INHERIT,
+        'post_mime_type' => 'image',
+        'order'          => 'ASC',
+        'orderby'        => 'menu_order ASC'
+      );
+      $children = get_children( $args );
+
+      if ( empty( $children ) || !is_array( $children ) ) {
+        return false;
+      }
+
+      /* Get the first */
+      $item = current( $children );
+
+      /* Try to get the $index element */
+      if ( $index > 1 ) {
+        $item = current( array_slice( $children, $index - 1, 1 ) );
+      }
+
+      if ( is_object( $item ) && isset( $item->ID ) ) {
+        $thumbnail_id = $item->ID;
+
+        $image = wp_get_attachment_image_src( $thumbnail_id, $size );
+        $src = $image[0];
+
+        /* Get the attachment alt text. */
+        $alt = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
+
+        /* Get the attachment caption. */
+        $caption = get_post_field( 'post_excerpt', $thumbnail_id );
+
+        $img = new WPDKHTMLTagImg( $src, $alt );
+        if ( !empty( $caption ) ) {
+          $img->addData( 'caption', $caption );
+        }
+        $img->addData( 'thumbnail_id', $thumbnail_id );
+        $img->addData( 'post_id', $post_id );
+        $img->addData( 'size', $size );
+
+        return $img;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Return an instance of WPDKHTMLTagImg class with the first image found in this post content.
+   *
+   * @brief image in post content
+   * @since 1.3.1
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public function imageContent()
+  {
+    return self::imageContentWithID( $this->ID );
+  }
+
+  /**
+   * Return an instance of WPDKHTMLTagImg class with the first image found in the post content.
+   *
+   * @brief image in post content
+   * @since 1.3.1
+   *
+   * @param int $post_id Post ID
+   *
+   * @return bool|WPDKHTMLTagImg
+   */
+  public static function imageContentWithID( $post_id )
+  {
+    /* Search the post's content for the <img /> tag and get its URL. */
+    preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $post_id ), $matches );
+
+    /* If there is a match for the image, return its URL. */
+    if ( isset( $matches ) && is_array( $matches ) && !empty( $matches[1][0] ) ) {
+      $src = $matches[1][0];
+
+      $img = new WPDKHTMLTagImg( $src, '' );
+      $img->addData( 'post_id', $post_id );
+
+      return $img;
+    }
+    return false;
+  }
+
 }
 
 /**
