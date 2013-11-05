@@ -23,6 +23,9 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.3.2
 ### 2013-11-??
 
+#### Enhancements
+* Added filter `wpdk_listtable_viewcontroller_add_new` to remove [Add New] button from header
+
 #### Bugs
 
 * Minor docs fixes
