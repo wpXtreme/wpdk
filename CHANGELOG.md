@@ -128,8 +128,6 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed notice/warning on shortcode `wpdk_gist` when missing attribute `file`
 
 
-
-
 ## Version 1.1.1
 ### 2013-06-18
 
