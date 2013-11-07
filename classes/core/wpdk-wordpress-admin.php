@@ -124,8 +124,10 @@ class WPDKWordPressAdmin {
    * Used for load scrit and styles
    *
    * @brief Admin backend area head
+   *
+   * @param string $hook_suffix Hook suffix
    */
-  public function admin_enqueue_scripts() {
+  public function admin_enqueue_scripts( $hook_suffix ) {
     /* Override */
   }
 
