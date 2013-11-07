@@ -20,6 +20,18 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.3.2
+### 2013-11-07
+
+#### Enhancements
+* Added filter `wpdk_listtable_viewcontroller_add_new` to remove [Add New] button from header
+
+#### Bugs
+
+* Fixed Warning: trim() on /wpdk-ui.php on line 342
+* Minor docs fixes
+
+
 ## Version 1.3.1
 ### 2013-11-04
 
@@ -115,8 +127,6 @@ For more information on SemVer, please visit http://semver.org/.
 #### Bugs
 
 * Fixed notice/warning on shortcode `wpdk_gist` when missing attribute `file`
-
-
 
 
 ## Version 1.1.1

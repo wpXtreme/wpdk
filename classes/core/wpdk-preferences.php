@@ -557,13 +557,12 @@ class WPDKPreferencesImportExport {
    *
    * @brief Feedback
    *
-   * @param string $str Output feedback
-   *
    * @return array
    */
   public function wpdk_preferences_import_export_feedback()
   {
     $title = __( 'Warning!', WPDK_TEXTDOMAIN );
+    $content = '';
 
     switch ( $this->error ) {
 
