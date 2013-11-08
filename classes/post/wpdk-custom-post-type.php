@@ -81,6 +81,9 @@ class WPDKCustomPostType extends WPDKObject {
       /* Feedback */
       add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
 
+      /* Default Enter title */
+      add_filter( 'enter_title_here', array( $this, '_enter_title_here' ) );
+
       /* Hook save post */
       add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 
@@ -130,6 +133,40 @@ class WPDKCustomPostType extends WPDKObject {
   public function post_updated_messages()
   {
     /* You can override this hook method */
+  }
+
+  /**
+   * This filter allow to change the pseudo-placeholder into the text input for title in edit/new post type form.
+   *
+   * @brief The placeholder in text input of post
+   *
+   * @param string $title Default placeholder
+   *
+   * @return string
+   */
+  public function _enter_title_here( $title )
+  {
+    global $post_type;
+
+    if ( $post_type == $this->id ) {
+      $title = $this->shouldEnterTitleHere( $title );
+    }
+    return $title;
+  }
+
+  /**
+   * Override this delegate method to change the pseudo-placeholder into the text input for title in edit/new post type form.
+   *
+   * @brief The placeholder in text input of post
+   *
+   * @param string $title Default placeholder
+   *
+   * @return string
+   */
+  public function shouldEnterTitleHere( $title )
+  {
+    /* You can override this delegate method */
+    return $title;
   }
 
   /**
