@@ -18,14 +18,10 @@ if ( !class_exists( 'WPDK' ) ) {
    * @class              WPDK
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2013-02-28
-   * @version            0.10.4
+   * @date               2013-11-08
+   * @version            0.10.5
    */
   final class WPDK {
-
-    //-------------------------------------------------------------------------------------------
-    // Properties
-    //-------------------------------------------------------------------------------------------
 
     /**
      * The array of loading path related to any WPDK class.
@@ -216,10 +212,6 @@ if ( !class_exists( 'WPDK' ) ) {
       return $transient;
     }
 
-    // -------------------------------------------------------------------------------------------------------------
-    // Defines Constants
-    // -------------------------------------------------------------------------------------------------------------
-
     /**
      * Include external defines
      *
@@ -232,10 +224,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     }
 
-    // -------------------------------------------------------------------------------------------------------------
-    // Includes
-    // -------------------------------------------------------------------------------------------------------------
-
     /**
      * Register all autoload classes and include all framework class files through SPL autoload logic
      *
@@ -246,21 +234,16 @@ if ( !class_exists( 'WPDK' ) ) {
 
       $sPathPrefix = trailingslashit( dirname( __FILE__ ) );
 
-      //------------------------------------------------------------------
-      // Put here files that have to be directly included without autoloading
-      //------------------------------------------------------------------
-
+      /* Put here files that have to be directly included without autoloading */
       require_once( $sPathPrefix . 'classes/core/wpdk-functions.php' );
 
-      //-----------------------------------------
-      // Start autoloading register
-      //-----------------------------------------
+      /* Start autoloading register */
 
       $includes = array(
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // USER INTERFACE
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'               => array(
           'WPDKView',
@@ -348,12 +331,12 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKSubMenu',
           'WPDKSubMenuDivider',
         ),
-        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'                  => 'WPDKListTableViewController',
+        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'      => 'WPDKListTableViewController',
         $sPathPrefix . 'classes/ui/wpdk-pointer.php'                       => 'WPDKPointer',
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // CORE
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(
           'WPDKMail',
@@ -391,9 +374,9 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-ajax.php'                        => 'WPDKAjax',
         $sPathPrefix . 'classes/core/wpdk-object.php'                      => 'WPDKObject',
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // DATABASE
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . './classes/database/wpdk-db.php'                    => array(
           'WPDKDBTableStatus',
@@ -401,9 +384,9 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKDBTableRow'
         ),
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // WordPress & common Helper
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/helper/wpdk-array.php'                     => 'WPDKArray',
         $sPathPrefix . 'classes/helper/wpdk-colors.php'                    => 'WPDKColors',
@@ -413,9 +396,9 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/helper/wpdk-crypt.php'                     => 'WPDKCrypt',
         $sPathPrefix . 'classes/helper/wpdk-filesystem.php'                => 'WPDKFilesystem',
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Post
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/post/wpdk-post.php'                        => array(
           '_WPDKPost',
@@ -428,18 +411,18 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKCustomPostType',
         ),
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Taxonomies and Terms
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/taxonomies/wpdk-terms.php'                 => array(
           'WPDKTerm',
           'WPDKTerms',
         ),
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Users, Roles and Capabilities
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/users/wpdk-user.php'                       => array(
           'WPDKUser',
@@ -449,19 +432,25 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKCapabilities',
         ),
 
-        //$sPathPrefix . 'classes/users/wpdk-user-view.php' => 'WPDKUserView',
+        // -------------------------------------------------------------------------------------------------------------
+        // Users, Roles and Capabilities
+        // -------------------------------------------------------------------------------------------------------------
 
-        //------------------------------------------------------------------
+        $sPathPrefix . 'classes/widget/wpdk-widget.php'                     => array(
+          'WPDKWidget',
+        ),
+
+        // -------------------------------------------------------------------------------------------------------------
         // Services
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'services/wpdk-service-ajax.php'                    => 'WPDKServiceAjax',
         $sPathPrefix . 'services/wpdk-service-shortcode.php'               => 'WPDKServiceShortcode',
 
 
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Deprecated
-        //------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/deprecated/wpdk-settings.php'              => array(
           'WPDKSettings',
@@ -510,10 +499,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     }
 
-    // -------------------------------------------------------------------------------------------------------------
-    // WordPress Hooks
-    // -------------------------------------------------------------------------------------------------------------
-
     /**
      * Load a text domain for WPDK, like a plugin. In this relase WPDK has an own text domain. This feature could
      * miss in future release
@@ -526,7 +511,7 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * WPDK scripts and styles
+     * WPDK scripts and styles. These client file are always loaded.
      *
      * @brief WPDK Scripts and styles
      */
@@ -555,12 +540,8 @@ if ( !class_exists( 'WPDK' ) ) {
       return $classes . ' wpdk-jquery-ui';
     }
 
-    // -------------------------------------------------------------------------------------------------------------
-    // Private
-    // -------------------------------------------------------------------------------------------------------------
-
     /**
-     * Load all backend admin Styles
+     * Load all backend admin Styles. These client file are always loaded.
      *
      * @brief Admin styles
      */
@@ -611,10 +592,6 @@ if ( !class_exists( 'WPDK' ) ) {
       /* Localize wpdk_i18n*/
       wp_localize_script( 'wpdk-script', 'wpdk_i18n', $this->scriptLocalization() );
     }
-
-    // -------------------------------------------------------------------------------------------------------------
-    // Static values
-    // -------------------------------------------------------------------------------------------------------------
 
     /**
      * Return a Key values pairs array to localize Javascript
