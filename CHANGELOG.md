@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.3.3
+### 2013-11-??
+
+#### Enhancements
+
+* Added `WPDKCustomPostType` prototype model class
+
+
 ## Version 1.3.2
 ### 2013-11-07
 
