@@ -424,6 +424,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKPostMeta'
         ),
 
+        $sPathPrefix . 'classes/post/wpdk-custom-post-type.php'            => array(
+          'WPDKCustomPostType',
+        ),
+
         //------------------------------------------------------------------
         // Taxonomies and Terms
         //------------------------------------------------------------------
