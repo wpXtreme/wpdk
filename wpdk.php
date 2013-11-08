@@ -310,6 +310,7 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-html.php'                          => array(
+          'WPDKHTML',
           'WPDKHTMLTagName',
           'WPDKHTMLTagInputType',
           'WPDKHTMLTagA',
