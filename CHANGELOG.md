@@ -25,8 +25,9 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
-* Added `WPDKCustomPostType` prototype model class
+* Added `WPDKHTML` with experimental CSS compress
 * Added `WPDKWidget` prototype model class
+* Added `WPDKCustomPostType` prototype model class
 
 
 ## Version 1.3.2
