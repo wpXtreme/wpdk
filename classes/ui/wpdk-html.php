@@ -10,6 +10,72 @@
  */
 
 /**
+ * Helper class to manage HTML
+ *
+ * @class           WPDKHTML
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-11-08
+ * @version         1.0.0
+ * @since           1.3.3
+ *
+ */
+class WPDKHTML extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.0.0';
+
+  /**
+   * Utility to start buffering
+   *
+   * @brief Start compress buffering
+   */
+  public static function startCompress()
+  {
+    ob_start();
+  }
+
+  /**
+   * Display compressed output
+   *
+   * @brief End compressed
+   */
+  public static function endCSSCompress()
+  {
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    /* Remove comments */
+    $content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
+
+    $replaces = array(
+      "\r"    => '',
+      " :"    => ':',
+      ": "    => ':',
+      "\n"    => '',
+      "\t"    => '',
+      ";}"    => '}',
+      '  '    => '',
+      '    '  => '',
+      '     ' => '',
+    );
+
+    /* Remove tabs, spaces, newlines, etc. */
+    $content = trim( strtr( $content, $replaces ) );
+
+    return $content;
+  }
+
+}
+
+
+/**
  * This class is a list of constant for HTML 4.1 tag supported
  *
  * @class              WPDKHTMLTagName
