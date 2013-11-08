@@ -17,6 +17,7 @@
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date            2013-11-08
  * @version         1.0.0
+ * @since           1.3.3
  *
  */
 class WPDKCustomPostType extends WPDKObject {
@@ -328,6 +329,5 @@ class WPDKCustomPostType extends WPDKObject {
   }
 
 }
-
 
 /// @endcond
