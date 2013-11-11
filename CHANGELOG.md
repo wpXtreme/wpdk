@@ -29,6 +29,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKWidget` prototype model class
 * Added `WPDKCustomPostType` prototype model class
 
+#### Experimental
+
+* Added `WPDKUIControlCheckboxes`
+* Added `WPDKAjaxResponse`
 
 ## Version 1.3.2
 ### 2013-11-07
