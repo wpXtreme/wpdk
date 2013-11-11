@@ -1711,6 +1711,7 @@ button.close
   margin-bottom : 0;
   margin-top    : 0;
   font-size     : 14px;
+  line-height   : 150%;
 }
 
 .wpdk-alert > p + p
