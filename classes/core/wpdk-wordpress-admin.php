@@ -12,11 +12,20 @@
  * @class              WPDKWordPressAdmin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-11-11
+ * @version            0.8.2
  *
  */
-class WPDKWordPressAdmin {
+class WPDKWordPressAdmin extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '0.8.2';
 
   /**
    * List of CSS class to add to body
@@ -45,7 +54,8 @@ class WPDKWordPressAdmin {
    *
    * @return WPDKWordPressAdmin
    */
-  public function __construct( WPDKWordPressPlugin $plugin ) {
+  public function __construct( WPDKWordPressPlugin $plugin )
+  {
     $this->plugin = $plugin;
 
     /* Admin page is loaded */
@@ -91,7 +101,8 @@ class WPDKWordPressAdmin {
    *
    * @return string
    */
-  public function admin_body_class( $classes ) {
+  public function admin_body_class( $classes )
+  {
     if ( !empty( $this->bodyClasses ) ) {
       $stack = array();
       foreach ( $this->bodyClasses as $key => $enabled ) {
@@ -112,22 +123,22 @@ class WPDKWordPressAdmin {
    * You will use this method for create the WordPress admin menu
    *
    * @brief WP Hook when menus are building
-   *
-   * @note To override
-   *
    */
-  public function admin_menu() {
-    /* To override. */
+  public function admin_menu()
+  {
+    /* Override. */
   }
 
   /**
-   * Used for load scrit and styles
+   * Used for load scripts and styles in admin backend area. Use $hook_suffix or view controller didHeadLoad() static
+   * deletagte method to load scripts and style when your view is displayed.
    *
    * @brief Admin backend area head
    *
    * @param string $hook_suffix Hook suffix
    */
-  public function admin_enqueue_scripts( $hook_suffix ) {
+  public function admin_enqueue_scripts( $hook_suffix )
+  {
     /* Override */
   }
 
