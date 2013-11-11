@@ -166,6 +166,12 @@ fieldset.wpdk-form-fieldset
   border-radius         : 4px;
 }
 
+fieldset.wpdk-form-fieldset fieldset.wpdk-form-fieldset
+{
+  margin-left  : 10px;
+  margin-right : 10px;
+}
+
 fieldset.wpdk-form-fieldset legend
 {
   color       : #09d;
@@ -222,6 +228,11 @@ div.wpdk-form-row > label.wpdk-form-label:first-child
   zoom       : 1;
   text-align : right;
   min-width  : 140px;
+}
+
+div.wpdk-form-row .alignright
+{
+  margin-right : 10px;
 }
 
 /* @todo Rename in wpdk-inline */
