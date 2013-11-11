@@ -372,7 +372,10 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
         $sPathPrefix . 'classes/core/wpdk-wordpress-admin.php'             => 'WPDKWordPressAdmin',
         $sPathPrefix . 'classes/core/wpdk-watchdog.php'                    => 'WPDKWatchDog',
-        $sPathPrefix . 'classes/core/wpdk-ajax.php'                        => 'WPDKAjax',
+        $sPathPrefix . 'classes/core/wpdk-ajax.php'                        => array(
+          'WPDKAjax',
+          'WPDKAjaxResponse'
+        ),
         $sPathPrefix . 'classes/core/wpdk-object.php'                      => 'WPDKObject',
 
         // -------------------------------------------------------------------------------------------------------------
