@@ -156,6 +156,9 @@ if ( wpdk_is_ajax() ) {
       header( 'Cache-Control: no-cache, must-revalidate' );
       header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
       header( 'Content-Type: application/json' );
+
+      echo json_encode( $this );
+
       if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
         wp_die();
       }
