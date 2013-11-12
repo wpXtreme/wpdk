@@ -27,10 +27,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added `WPDKHTML` with experimental CSS compress
 * Added `WPDKWidget` prototype model class
-* Added `WPDKCustomPostType` prototype model class
 
 #### Experimental
 
+* Added `WPDKCustomTaxonomy` prototype model class
+* Added `WPDKCustomPostType` prototype model class
 * Added `WPDKUIControlCheckboxes`
 * Added `WPDKAjaxResponse`
 

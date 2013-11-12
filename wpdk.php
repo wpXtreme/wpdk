@@ -424,6 +424,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKTerms',
         ),
 
+        $sPathPrefix . 'classes/taxonomies/wpdk-custom-taxonomy.php'       => array(
+          'WPDKCustomTaxonomy',
+        ),
+
         // -------------------------------------------------------------------------------------------------------------
         // Users, Roles and Capabilities
         // -------------------------------------------------------------------------------------------------------------
