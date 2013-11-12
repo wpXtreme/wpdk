@@ -235,6 +235,11 @@ div.wpdk-form-row .alignright
   margin-right : 10px;
 }
 
+div.wpdk-form-row .alignleft
+{
+  margin-left : 10px;
+}
+
 /* @todo Rename in wpdk-inline */
 
 label.inline
