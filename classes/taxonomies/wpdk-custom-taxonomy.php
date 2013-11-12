@@ -86,6 +86,9 @@ class WPDKCustomTaxonomy extends WPDKObject {
       /* Admin backend head area */
       add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles' ) );
 
+      // do_action('after-' . $taxonomy . '-table', $taxonomy);
+      // do_action($taxonomy . '_pre_add_form', $taxonomy);
+
     }
   }
 }
