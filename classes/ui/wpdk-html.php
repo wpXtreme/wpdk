@@ -72,6 +72,37 @@ class WPDKHTML extends WPDKObject {
     return $content;
   }
 
+  /**
+   * Display compressed output
+   *
+   * @brief    End compressed
+   * @note     The following params are not used yet
+   *
+   * @param bool $comments    Optional. Remove comments: <!-- -->
+   * @param bool $conditional Optional. Removed conditional comments: <!--[! ]-->
+   *
+   * @return string
+   */
+  public static function endHTMLCompress( $comments = false, $conditional = false )
+  {
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    $replaces = array(
+      "\r"    => '',
+      "\n"    => '',
+      "\t"    => '',
+      '  '    => '',
+      '    '  => '',
+      '     ' => '',
+    );
+
+    /* Remove tabs, spaces, newlines, etc. */
+    $content = trim( strtr( $content, $replaces ) );
+
+    return $content;
+  }
+
 }
 
 
