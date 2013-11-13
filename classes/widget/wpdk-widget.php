@@ -17,7 +17,7 @@
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date            2013-11-08
  * @version         1.0.0
- * @since           1.3.3
+ * @since           1.4.0
  *
  */
 class WPDKWidget extends WP_Widget {

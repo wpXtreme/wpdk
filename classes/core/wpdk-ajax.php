@@ -103,7 +103,7 @@ if ( wpdk_is_ajax() ) {
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
    * @date            2013-11-11
    * @version         1.0.0
-   * @since 1.3.3
+   * @since           1.4.0
    *
    */
   class WPDKAjaxResponse {
