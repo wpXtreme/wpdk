@@ -34,7 +34,7 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKCustomTaxonomy` prototype model class
 * Added `WPDKCustomPostType` prototype model class
 * Added `WPDKUIControlCheckboxes`
-* Added `WPDKAjaxResponse`
+* Added `WPDKAjaxResponse` php/javascript
 
 ## Version 1.3.2
 ### 2013-11-07
