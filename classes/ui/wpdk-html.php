@@ -1938,6 +1938,34 @@ class WPDKHTMLTag extends WPDKObject {
   }
 
   /**
+   * Merge one or more class
+   *
+   * @brief Merge
+   * @since 1.4.0
+   *
+   * @param array|string $class  Initial string or array class to merge
+   * @param array|string $class2 Optional.
+   * @param array|string $_      Optional.
+   *
+   * @return array
+   */
+  public static function mergeClasses( $class, $class2 = null, $_ = null )
+  {
+    if ( func_num_args() < 2 ) {
+      return self::sanitizeClasses( $class );
+    }
+
+    for ( $i = 1; $i < func_num_args(); $i++ ) {
+      $arg = func_get_arg( $i );
+      if ( !is_null( $arg ) ) {
+        $s     = self::sanitizeClasses( $arg );
+        $class = array_merge( $class, $s );
+      }
+    }
+    return self::sanitizeClasses( $class );
+  }
+
+  /**
    * Return a sanitize and inline list of css classes
    *
    *     $classes = array(
