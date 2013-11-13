@@ -20,11 +20,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.3.3
+## Version 1.4.0
 ### 2013-11-??
 
 #### Enhancements
 
+* Purge and cleanup old Javascript and CSS
 * Added `WPDKHTML` with experimental CSS compress
 * Added `WPDKWidget` prototype model class
 
