@@ -69,6 +69,18 @@ input[type="checkbox"][readonly]
   background-color : transparent !important;
 }
 
+/* Use by WPDK.reloadDocument() */
+#wpdk-mask
+{
+  position         : absolute;
+  left             : 0;
+  top              : 0;
+  z-index          : 9999;
+  width            : 100%;
+  height           : 100%;
+  background-color : rgba(255, 255, 255, 0.8);
+}
+
 /* =====================================================================================================================
  * TEXT
  * =====================================================================================================================
@@ -107,7 +119,7 @@ input[type="submit"]
  * AJAX PRELOADER
  * =====================================================================================================================
  */
-div.wpxm-loader
+div.wpdk-loader
 {
   display               : none;
   background-image      : url(images/ajax-loader-32x32.gif);

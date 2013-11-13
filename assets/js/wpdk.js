@@ -1367,8 +1367,8 @@ var WPDKPreferences = (function ( $ )
  * @class           WPDK
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-04-03
- * @version         0.9.4
+ * @date            2013-11-13
+ * @version         0.9.5
  *
  */
 var WPDK = (function ( $ ) {
@@ -1381,7 +1381,7 @@ var WPDK = (function ( $ ) {
   /**
    * The WPDK Javascript version
    */
-  $this.version = "0.9.4";
+  $this.version = "0.9.5";
 
   /**
    * Initialize all Javascript hook.
@@ -1411,11 +1411,11 @@ var WPDK = (function ( $ ) {
    */
   $this.loading = function ( status )
   {
-    if ( status ) {
-      $( '<div />' ).addClass( 'wpxm-loader' ).appendTo( 'body' ).fadeIn( 500 );
+    if ( true === status ) {
+      $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
     }
     else {
-      $( 'div.wpxm-loader' ).fadeOut( function () { $( this ).remove() } );
+      $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
     }
   };
 
@@ -1423,37 +1423,16 @@ var WPDK = (function ( $ ) {
    * Reload current document with clear and waiting effects
    *
    * @since 1.0.0.b3
+   *
+   * @param {bool} Optional. FALSE to avoid mask
    */
   $this.reloadDocument = function ()
   {
-    $( '<div id="wpxm-mask" />' ).appendTo( 'body' );
+    if ( 0 == arguments.length ) {
+      $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
+    }
     document.location = document.location.href;
   };
-
-  /**
-   * Send a message to the wpXtreme Server to do a signout from backend admin area.
-   *
-   * @todo Move this method to the wpXtreme Server Javascript
-   *
-   */
-  $( 'input[name=wpxserver_logout]' ).click( function () {
-    $.post( wpdk_i18n.ajaxURL, {
-        action   : 'wpxtreme_action_set_token',
-        token    : '',
-        referrer : document.location.href
-      }, function ( data ) {
-        /* I dati arrivano sempre in jSON, come sempre se message è undefined è tutto ok. */
-        var result = $.parseJSON( data );
-        if ( typeof result.message !== 'undefined' ) {
-          alert( result.message );
-        }
-        else {
-          /* Ricarico la pagina */
-          document.location = result.referrer;
-        }
-      }
-    );
-  } );
 
   /**
    * Call the init when the document is ready
