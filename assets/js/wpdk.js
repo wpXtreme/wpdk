@@ -1300,7 +1300,6 @@ var WPDKDynamicTable = (function ( $ ) {
  * @version         1.0.1
  *s
  */
-
 var WPDKPreferences = (function ( $ )
 {
 
@@ -1359,7 +1358,42 @@ var WPDKPreferences = (function ( $ )
 
 })( jQuery );
 
+/**
+ * Utility to manage the php WPDKAjaxResponse
+ *
+ * @class           WPDKAjaxResponse
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-11-13
+ * @version         1.0.0
+ * @since           1.4.0
+ *
+ * @param {string} response JSON response
+ * @constructor
+ */
+var WPDKAjaxResponse = function( response ) {
+  /**
+   * Resolve conflict
+   *
+   * @type {jQuery}
+   */
+  var $ = window.jQuery;
 
+  this.version = '1.0.0'
+  this.error = '';
+  this.message = '';
+  this.data = '';
+
+  /* Init properties */
+
+  if ( isset( response.error ) && !empty( response.error ) ) {
+    this.error = response.error.replace( /\\n/g, "\n" );
+  }
+
+  if ( isset( response.message ) && !empty( response.message ) ) {
+    this.message = response.message.replace( /\\n/g, "\n" );
+  }
+};
 
 /**
  * This is a little Javascript framework to improve the UI and checking control specially in the form management.
