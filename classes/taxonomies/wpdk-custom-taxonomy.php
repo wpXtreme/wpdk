@@ -91,6 +91,17 @@ class WPDKCustomTaxonomy extends WPDKObject {
 
     }
   }
+
+  /**
+   * Fire when edit view is loaded
+   *
+   * @brief Edit view
+   */
+  public function admin_print_styles()
+  {
+    /* Override */
+  }
+
 }
 
 /// @endcond
