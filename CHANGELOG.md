@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.1
+### 2013-11-??
+
+#### Enhancements
+
+* Improved layout of textarea in user profile
+
+
 ## Version 1.4.0
 ### 2013-11-14
 
