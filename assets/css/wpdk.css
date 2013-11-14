@@ -69,6 +69,18 @@ input[type="checkbox"][readonly]
   background-color : transparent !important;
 }
 
+/* Use by WPDK.reloadDocument() */
+#wpdk-mask
+{
+  position         : absolute;
+  left             : 0;
+  top              : 0;
+  z-index          : 9999;
+  width            : 100%;
+  height           : 100%;
+  background-color : rgba(255, 255, 255, 0.8);
+}
+
 /* =====================================================================================================================
  * TEXT
  * =====================================================================================================================
@@ -107,7 +119,7 @@ input[type="submit"]
  * AJAX PRELOADER
  * =====================================================================================================================
  */
-div.wpxm-loader
+div.wpdk-loader
 {
   display               : none;
   background-image      : url(images/ajax-loader-32x32.gif);
@@ -166,6 +178,12 @@ fieldset.wpdk-form-fieldset
   border-radius         : 4px;
 }
 
+fieldset.wpdk-form-fieldset fieldset.wpdk-form-fieldset
+{
+  margin-left  : 10px;
+  margin-right : 10px;
+}
+
 fieldset.wpdk-form-fieldset legend
 {
   color       : #09d;
@@ -222,6 +240,16 @@ div.wpdk-form-row > label.wpdk-form-label:first-child
   zoom       : 1;
   text-align : right;
   min-width  : 140px;
+}
+
+div.wpdk-form-row .alignright
+{
+  margin-right : 10px;
+}
+
+div.wpdk-form-row .alignleft
+{
+  margin-left : 10px;
 }
 
 /* @todo Rename in wpdk-inline */
@@ -1711,6 +1739,7 @@ button.close
   margin-bottom : 0;
   margin-top    : 0;
   font-size     : 14px;
+  line-height   : 150%;
 }
 
 .wpdk-alert > p + p

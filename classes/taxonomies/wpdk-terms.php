@@ -17,13 +17,13 @@
  *
  * This class introducing a lot of feature for term management.
  *
- *     $term = WPDKterm::term( '%colors' );      // get by name
- *     $term = WPDKterm::term( 'colors-house' ); // get by slug
- *     $term = WPDKterm::term( 116 );            // get by id
+ *     $term = WPDKTerm::term( '%colors' );      // get by name
+ *     $term = WPDKTerm::term( 'colors-house' ); // get by slug
+ *     $term = WPDKTerm::term( 116 );            // get by id
  *
- *     $term = WPDKterm::term( 116, 'custom-tax' );  // get by id witha custom taxonomy
+ *     $term = WPDKTerm::term( 116, 'custom-tax' );  // get by id witha custom taxonomy
  *
- *     $ancestor = WPDKterm::ancestor( $term );  // get the ancestor (top parent)
+ *     $ancestor = WPDKTerm::ancestor( $term );  // get the ancestor (top parent)
  *
  * @class           WPDKTerm
  * @author          =undo= <info@wpxtre.me>
@@ -57,10 +57,15 @@ class WPDKTerm {
    */
   private function __construct( $term )
   {
-    foreach ( $term as $property => $value ) {
-      $this->{$property} = $value;
+    if ( !is_null( $term ) ) {
+      $term_exists = term_exists( $term->name, $term->taxonomy, $term->parent );
+      if ( $term_exists ) {
+        foreach ( $term as $property => $value ) {
+          $this->{$property} = $value;
+        }
+        $this->permalink = get_term_link( $term );
+      }
     }
-    $this->permalink = get_term_link( $term );
   }
 
   /**

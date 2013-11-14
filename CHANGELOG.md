@@ -20,6 +20,36 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.0
+### 2013-11-14
+
+#### Enhancements
+
+* Improved triggerHandler on swipe control. Now the event 'change' can return TRUE or FALSE to avoid the change of state
+* Added in `WPDKHTMLTag` several method to sanitize and manage classes, attribute and data attributes
+* Purge and cleanup old Javascript and CSS
+* Added `WPDKHTML` with experimental CSS compress
+* Added `WPDKWidget` prototype model class
+
+#### Experimental
+
+* Added `WPDKCustomTaxonomy` prototype model class
+* Added `WPDKCustomPostType` prototype model class
+* Added `WPDKUIControlCheckboxes`
+* Added `WPDKAjaxResponse` php/javascript
+
+## Version 1.3.2
+### 2013-11-07
+
+#### Enhancements
+* Added filter `wpdk_listtable_viewcontroller_add_new` to remove [Add New] button from header
+
+#### Bugs
+
+* Fixed Warning: trim() on /wpdk-ui.php on line 342
+* Minor docs fixes
+
+
 ## Version 1.3.1
 ### 2013-11-04
 
@@ -115,8 +145,6 @@ For more information on SemVer, please visit http://semver.org/.
 #### Bugs
 
 * Fixed notice/warning on shortcode `wpdk_gist` when missing attribute `file`
-
-
 
 
 ## Version 1.1.1

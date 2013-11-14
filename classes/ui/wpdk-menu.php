@@ -410,7 +410,7 @@ class WPDKMenu {
   }
 
   /**
-   * Recursive version of ::addSubMenuAt()
+   * Recursive version of self::addSubMenuAt()
    *
    *     $submenus = array(
    *       WPDKSubMenuDivider::DIVIDER,

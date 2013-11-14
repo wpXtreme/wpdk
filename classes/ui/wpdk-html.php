@@ -10,6 +10,103 @@
  */
 
 /**
+ * Helper class to manage HTML
+ *
+ * @class           WPDKHTML
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-11-08
+ * @version         1.0.0
+ * @since           1.4.0
+ *
+ */
+class WPDKHTML extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.0.0';
+
+  /**
+   * Utility to start buffering
+   *
+   * @brief Start compress buffering
+   */
+  public static function startCompress()
+  {
+    ob_start();
+  }
+
+  /**
+   * Display compressed output
+   *
+   * @brief End compressed
+   */
+  public static function endCSSCompress()
+  {
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    /* Remove comments */
+    $content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
+
+    $replaces = array(
+      "\r"    => '',
+      " :"    => ':',
+      ": "    => ':',
+      "\n"    => '',
+      "\t"    => '',
+      ";}"    => '}',
+      '  '    => '',
+      '    '  => '',
+      '     ' => '',
+    );
+
+    /* Remove tabs, spaces, newlines, etc. */
+    $content = trim( strtr( $content, $replaces ) );
+
+    return $content;
+  }
+
+  /**
+   * Display compressed output
+   *
+   * @brief    End compressed
+   * @note     The following params are not used yet
+   *
+   * @param bool $comments    Optional. Remove comments: <!-- -->
+   * @param bool $conditional Optional. Removed conditional comments: <!--[! ]-->
+   *
+   * @return string
+   */
+  public static function endHTMLCompress( $comments = false, $conditional = false )
+  {
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    $replaces = array(
+      "\r"    => '',
+      "\n"    => '',
+      "\t"    => '',
+      '  '    => '',
+      '    '  => '',
+      '     ' => '',
+    );
+
+    /* Remove tabs, spaces, newlines, etc. */
+    $content = trim( strtr( $content, $replaces ) );
+
+    return $content;
+  }
+
+}
+
+
+/**
  * This class is a list of constant for HTML 4.1 tag supported
  *
  * @class              WPDKHTMLTagName
@@ -1838,6 +1935,34 @@ class WPDKHTMLTag extends WPDKObject {
     $classes = array_filter( array_unique( $classes, SORT_STRING ) );
 
     return array_combine( $classes, $classes );
+  }
+
+  /**
+   * Merge one or more class
+   *
+   * @brief Merge
+   * @since 1.4.0
+   *
+   * @param array|string $class  Initial string or array class to merge
+   * @param array|string $class2 Optional.
+   * @param array|string $_      Optional.
+   *
+   * @return array
+   */
+  public static function mergeClasses( $class, $class2 = null, $_ = null )
+  {
+    if ( func_num_args() < 2 ) {
+      return self::sanitizeClasses( $class );
+    }
+
+    for ( $i = 1; $i < func_num_args(); $i++ ) {
+      $arg = func_get_arg( $i );
+      if ( !is_null( $arg ) ) {
+        $s     = self::sanitizeClasses( $arg );
+        $class = array_merge( $class, $s );
+      }
+    }
+    return self::sanitizeClasses( $class );
   }
 
   /**

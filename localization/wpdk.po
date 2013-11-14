@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-10 17:49+0100\n"
-"PO-Revision-Date: 2013-10-10 17:50+0100\n"
+"POT-Creation-Date: 2013-11-14 11:25+0100\n"
+"PO-Revision-Date: 2013-11-14 11:25+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "MIME-Version: 1.0\n"
@@ -16,59 +16,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpdk.php:625
+#: ../wpdk.php:616
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
 msgstr ""
 
-#: ../wpdk.php:627 ../classes/deprecated/WPDKForm.php:182
+#: ../wpdk.php:618 ../classes/deprecated/WPDKForm.php:182
 msgid "Choose Time"
 msgstr ""
 
-#: ../wpdk.php:628 ../classes/deprecated/WPDKForm.php:183
+#: ../wpdk.php:619 ../classes/deprecated/WPDKForm.php:183
 msgid "Time"
 msgstr ""
 
-#: ../wpdk.php:629 ../classes/deprecated/WPDKForm.php:184
+#: ../wpdk.php:620 ../classes/deprecated/WPDKForm.php:184
 msgid "Hour"
 msgstr ""
 
-#: ../wpdk.php:630 ../classes/deprecated/WPDKForm.php:185
+#: ../wpdk.php:621 ../classes/deprecated/WPDKForm.php:185
 msgid "Minute"
 msgstr ""
 
-#: ../wpdk.php:631 ../classes/deprecated/WPDKForm.php:186
+#: ../wpdk.php:622 ../classes/deprecated/WPDKForm.php:186
 msgid "Seconds"
 msgstr ""
 
-#: ../wpdk.php:632 ../classes/deprecated/WPDKForm.php:187
+#: ../wpdk.php:623 ../classes/deprecated/WPDKForm.php:187
 msgid "Now"
 msgstr ""
 
-#: ../wpdk.php:633 ../classes/deprecated/WPDKForm.php:188
+#: ../wpdk.php:624 ../classes/deprecated/WPDKForm.php:188
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr ""
 
-#: ../wpdk.php:634 ../classes/deprecated/WPDKForm.php:189
+#: ../wpdk.php:625 ../classes/deprecated/WPDKForm.php:189
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
 msgstr ""
 
-#: ../wpdk.php:635
+#: ../wpdk.php:626
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr ""
 
-#: ../wpdk.php:636 ../classes/deprecated/WPDKForm.php:190
+#: ../wpdk.php:627 ../classes/deprecated/WPDKForm.php:190
 msgid "Close"
 msgstr ""
 
-#: ../wpdk.php:637 ../classes/deprecated/WPDKForm.php:191
+#: ../wpdk.php:628 ../classes/deprecated/WPDKForm.php:191
 msgid "mm/dd/yy"
 msgstr ""
 
-#: ../wpdk.php:638
+#: ../wpdk.php:629
 msgid "HH:mm"
 msgstr ""
 
@@ -96,29 +96,27 @@ msgstr ""
 msgid "Your preferences values were successfully updated!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:569
-msgid "Successfully!"
-msgstr ""
-
-#: ../classes/core/wpdk-preferences.php:569
-msgid "Import complete."
-msgstr ""
-
-#: ../classes/core/wpdk-preferences.php:573
-#: ../classes/core/wpdk-preferences.php:577
-#: ../classes/core/wpdk-preferences.php:581
+#: ../classes/core/wpdk-preferences.php:564
 msgid "Warning!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:573
+#: ../classes/core/wpdk-preferences.php:571
+msgid "Successfully!"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:572
+msgid "Import complete."
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:576
 msgid "Error while read file! Error code:"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:577
+#: ../classes/core/wpdk-preferences.php:580
 msgid "Malformed file."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:581
+#: ../classes/core/wpdk-preferences.php:584
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
@@ -667,35 +665,35 @@ msgstr ""
 msgid "Thanks, please check your email for retrive username and password"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:499
+#: ../classes/post/wpdk-post.php:732
 msgid "A newly created post, with no content"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:500
+#: ../classes/post/wpdk-post.php:733
 msgid "The post is draft"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:501
+#: ../classes/post/wpdk-post.php:734
 msgid "The post to publish in the future"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:502
+#: ../classes/post/wpdk-post.php:735
 msgid "The post is a revision"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:503
+#: ../classes/post/wpdk-post.php:736
 msgid "The post is pending review"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:504
+#: ../classes/post/wpdk-post.php:737
 msgid "Not visible to users who are not logged in"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:505
+#: ../classes/post/wpdk-post.php:738
 msgid "A published post or page"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:506
+#: ../classes/post/wpdk-post.php:739
 msgid "The post is in trashbin"
 msgstr ""
 
@@ -715,16 +713,16 @@ msgstr ""
 msgid "Delete entire row"
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:401
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:414
 msgid "Add New"
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:419
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:436
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: ../classes/ui/wpdk-listtable-vc.php:424
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:441
 msgid "Please, check again your search parameters."
 msgstr ""
 
@@ -736,52 +734,52 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:388
+#: ../classes/ui/wpdk-ui.php:372
 msgid ""
 "This field is locked for your security. However you can unlock just by click "
 "here."
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:498 ../classes/ui/wpdk-ui.php:501
+#: ../classes/ui/wpdk-ui.php:490 ../classes/ui/wpdk-ui.php:493
 msgid "Guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:504
+#: ../classes/ui/wpdk-ui.php:496
 msgid "Open the guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2104 ../classes/ui/wpdk-view-controller.php:773
+#: ../classes/ui/wpdk-ui.php:2260 ../classes/ui/wpdk-viewcontroller.php:773
 msgid "Reset to default"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2124
+#: ../classes/ui/wpdk-ui.php:2280
 msgid "Submit"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui.php:2167 ../classes/ui/wpdk-view-controller.php:763
+#: ../classes/ui/wpdk-ui.php:2323 ../classes/ui/wpdk-viewcontroller.php:763
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:607
+#: ../classes/ui/wpdk-viewcontroller.php:607
 msgid ""
 "Are you sure to reset All preferences to default value?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:622
+#: ../classes/ui/wpdk-viewcontroller.php:622
 msgid "Import"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:627
+#: ../classes/ui/wpdk-viewcontroller.php:627
 msgid "Export"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:633
+#: ../classes/ui/wpdk-viewcontroller.php:633
 msgid "Reset All"
 msgstr ""
 
-#: ../classes/ui/wpdk-view-controller.php:765
+#: ../classes/ui/wpdk-viewcontroller.php:765
 msgid ""
 "Are you sure to reset this preferences to default values?\n"
 "\n"

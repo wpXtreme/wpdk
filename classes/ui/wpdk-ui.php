@@ -15,8 +15,8 @@
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-29
- * @version            0.8.2
+ * @date               2013-11-11
+ * @version            0.8.3
  *
  */
 class WPDKUIControlType {
@@ -24,6 +24,7 @@ class WPDKUIControlType {
   const ALERT       = 'WPDKUIControlAlert';
   const BUTTON      = 'WPDKUIControlButton';
   const CHECKBOX    = 'WPDKUIControlCheckbox';
+  const CHECKBOXES  = 'WPDKUIControlCheckboxes';
   const CHOOSE      = 'WPDKUIControlChoose';
   const CUSTOM      = 'WPDKUIControlCustom';
   const DATE        = 'WPDKUIControlDate';
@@ -338,9 +339,7 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = $this->class;
-    $input->class[]      = trim( $this->class );
-    $input->class[]      = 'wpdk-form-input';
+    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input' );
     $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
@@ -728,6 +727,77 @@ class WPDKUIControlCheckbox extends WPDKUIControl {
     echo $this->contentWithKey( 'append' );
 
     echo ' ' . $this->guide();
+  }
+
+}
+
+/**
+ * Checkboxes control.
+ *
+ *     $item = array(
+ *         'type'           => WPDKUIControlType::CHECKBOXES,
+ *         'legend'         => 'field set (legend)',
+ *         'beforelabel'    => '',
+ *         'afterlabel'     => ':',
+ *         'list'           => array( [item checkbox without typekey], ... ),
+ *     );
+ *
+ * @class              WPDKUIControlCheckbox
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-11-11
+ * @version            0.1.0
+ *
+ */
+class WPDKUIControlCheckboxes extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlCheckbox class
+   *
+   * @brief Construct
+   * @since 1.0.0.b3
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlCheckbox
+   */
+  public function __construct( $item ) {
+    $item['type'] = WPDKUIControlType::CHECKBOXES;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    echo $this->contentWithKey( 'prepend' );
+
+    if ( isset( $this->item['list'] ) && !empty( $this->item['list'] ) && is_array( $this->item['list'] ) ) {
+      $content = '';
+      foreach ( $this->item['list'] as $checkbox ) {
+        /*
+         * @todo Introducing the indent by checcking $checkbox['list']
+         */
+        $checkbox['type'] = WPDKUIControlType::CHECKBOX;
+        $cb = new WPDKUIControlCheckbox( $checkbox );
+        $content .= $cb->html();
+      }
+
+      if ( isset( $this->item['label'] ) && !empty( $this->item['label'] ) ) {
+        $field_set = new WPDKHTMLTagFieldset( $content, $this->item['label'] );
+        $field_set->display();
+      }
+      else {
+        echo $content;
+      }
+
+      echo $this->contentWithKey( 'append' );
+
+      echo ' ' . $this->guide();
+    }
   }
 
 }
