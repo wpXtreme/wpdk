@@ -97,6 +97,7 @@ class WPDKCustomPostType extends WPDKObject {
       add_action( 'admin_head-post.php', array( $this, '_will_load_post_list_edit' ) );
       add_action( 'admin_head-edit.php', array( $this, '_will_load_post_list_edit' ) );
       add_action( 'admin_head-post-new.php', array( $this, '_will_load_post_new' ) );
+      add_action( 'current_screen', array( $this, '_current_screen' ) );
 
       /* Footer page. */
       add_action( 'admin_footer-post.php', array( $this, 'admin_footer') );
@@ -341,6 +342,20 @@ class WPDKCustomPostType extends WPDKObject {
   public function willLoadAdminPost()
   {
     /* You can override this delegate method */
+  }
+
+  /**
+   * Fire when current screen is set
+   *
+   * @brief Current Screen
+   *
+   * @param WP_Screen $screen
+   */
+  public function _current_screen( $screen )
+  {
+    if ( !empty( $screen->post_type ) && $screen->post_type == $this->id ) {
+      $this->willLoadAdminPost();
+    }
   }
 
 
