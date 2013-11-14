@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Improved triggerHandler on swipe control. Now the event 'change' can return TRUE or FALSE to avoid the change of state
 * Added in `WPDKHTMLTag` several method to sanitize and manage classes, attribute and data attributes
 * Purge and cleanup old Javascript and CSS
 * Added `WPDKHTML` with experimental CSS compress

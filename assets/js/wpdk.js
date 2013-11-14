@@ -532,24 +532,28 @@ jQuery.fn.swipe = function () {
     /* Set. */
     if ( arguments.length > 0 ) {
 
-      var v = arguments[0];
+      var v = arguments[0], result;
 
       /* On. */
       if ( 'on' === v ) {
-        input.val( 'on' );
-        control.triggerHandler( 'change', [ control, 'on' ] );
-        knob.animate( { marginLeft : '23px' }, 100, function () {
+        result = control.triggerHandler( 'change', [ control, 'on' ] );
+        if( false !== result ) {
+          input.val( 'on' );
+          knob.animate( { marginLeft : '23px' }, 100, function () {
           control.addClass( 'wpdk-form-swipe-on' );
         } );
+        }
       }
 
       /* Off. */
       else {
-        input.val( 'off' );
-        control.triggerHandler( 'change', [ control, 'off' ] );
-        knob.animate( { marginLeft : '0' }, 100, function () {
+        result = control.triggerHandler( 'change', [ control, 'off' ] );
+        if( false !== result ) {
+          input.val( 'off' );
+          knob.animate( { marginLeft : '0' }, 100, function () {
           control.removeClass( 'wpdk-form-swipe-on' );
         } );
+        }
       }
     }
 
