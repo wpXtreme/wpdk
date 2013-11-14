@@ -57,7 +57,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classWPDKUsers.html#ad4989a146081639f42ae9e77a895efa3",
-"wpdk-functions_8php.html#ace333f28e37b33007a022348756abec8"
+"wpdk-functions_8php.html#a7a2bbc9bb09636bf59fc55ec59a02824"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -39,6 +39,7 @@ var hierarchy =
           [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", null ]
         ] ]
       ] ],
+      [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ],
       [ "WPDKWordPressTheme", "classWPDKWordPressTheme.html", null ]
     ] ],
     [ "WPDKPlugin", null, [
@@ -54,6 +55,5 @@ var hierarchy =
     [ "WPDKUI", "classWPDKUI.html", null ],
     [ "WPDKUserMeta", "classWPDKUserMeta.html", null ],
     [ "WPDKUsers", "classWPDKUsers.html", null ],
-    [ "WPDKUserStatus", "classWPDKUserStatus.html", null ],
-    [ "WPDKWordPressAdmin", "classWPDKWordPressAdmin.html", null ]
+    [ "WPDKUserStatus", "classWPDKUserStatus.html", null ]
 ];

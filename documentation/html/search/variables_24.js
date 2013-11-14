@@ -64,7 +64,7 @@ var searchData=
   ['_24urlajax',['$urlAjax',['../classWPDKWordPressPlugin.html#a61786d741cf458949d7b0e6b64b79f1a',1,'WPDKWordPressPlugin']]],
   ['_24user_5fid',['$user_id',['../classWPDKPreferences.html#a8be2c4ada8dca8211612263a9c941be6',1,'WPDKPreferences']]],
   ['_24usercapabilities',['$userCapabilities',['../classWPDKCapabilities.html#aa45e547b1dec996df713807d87795e16',1,'WPDKCapabilities']]],
-  ['_24version',['$version',['../classWPDKPreferences.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKPreferences\$version()'],['../classWPDKWordPressTheme.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKWordPressTheme\$version()'],['../classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKView\$version()'],['../classWPDKViewController.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKViewController\$version()']]],
+  ['_24version',['$version',['../classWPDKPreferences.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKPreferences\$version()'],['../classWPDKWordPressAdmin.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKWordPressAdmin\$version()'],['../classWPDKWordPressTheme.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKWordPressTheme\$version()'],['../classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKView\$version()'],['../classWPDKViewController.html#a1b7c1b5313d6b73d29848c3eb464529f',1,'WPDKViewController\$version()']]],
   ['_24view',['$view',['../classWPDKViewController.html#af855333947c3b4fd1458e148c49657ac',1,'WPDKViewController']]],
   ['_24viewcontroller',['$viewController',['../classWPDKSubMenu.html#a5c7613fd6c5958e220aaf2fe60bda8d9',1,'WPDKSubMenu']]],
   ['_24viewhead',['$viewHead',['../classWPDKViewController.html#a14ebd04cead2391b3dd78f541fa49fc7',1,'WPDKViewController']]],
