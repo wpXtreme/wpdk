@@ -1108,6 +1108,8 @@ class WPDKUsers {
           array(
             'type'        => WPDKUIControlType::TEXTAREA,
             'name'        => WPDKUserMeta::STATUS_DESCRIPTION,
+            'rows'        => 3,
+            'cols'        => 40,
             'label'       => __( 'Description', WPDK_TEXTDOMAIN ),
             'placeholder' => __( 'eg: this user is disabled because...', WPDK_TEXTDOMAIN ),
             'value'       => $status_description,
