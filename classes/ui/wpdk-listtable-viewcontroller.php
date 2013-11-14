@@ -370,11 +370,24 @@ class WPDKListTableViewController extends WP_List_Table {
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
       <?php endif; ?>
 
-        <?php if ( isset( $_REQUEST['post_type'] ) ) : ?>
-          <input type="hidden" name="post_type" value="<?php echo $_REQUEST['post_type'] ?>" />
-        <?php endif; ?>
+      <?php if ( isset( $_REQUEST['post_type'] ) ) : ?>
+        <input type="hidden" name="post_type" value="<?php echo $_REQUEST['post_type'] ?>" />
+      <?php endif; ?>
 
-        <?php parent::display() ?>
+      <?php if ( isset( $_REQUEST['orderby'] ) ) : ?>
+        <input type="hidden" name="orderby" value="<?php echo $_REQUEST['orderby'] ?>" />
+      <?php endif; ?>
+
+      <?php if ( isset( $_REQUEST['order'] ) ) : ?>
+        <input type="hidden" name="order" value="<?php echo $_REQUEST['order'] ?>" />
+      <?php endif; ?>
+
+      <?php do_action( 'wpdk_list_table_form', $this ); ?>
+      <?php unset( $_REQUEST['action'] ); ?>
+      <?php $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'action', '_wp_http_referer', '_wp_nonce' ), $_SERVER['REQUEST_URI']); ?>
+
+      <?php parent::display() ?>
+
     </form>
     <?php endif; ?>
     <?php
@@ -464,12 +477,13 @@ class WPDKListTableViewController extends WP_List_Table {
       if ( !empty( $count ) ) {
 
         $current = ( $filter_status == $key ) ? 'class="current"' : '';
-        $href    = add_query_arg( array(
-                                       'status'                 => $key,
-                                       'paged'                  => false,
-                                       'action'                 => false,
-                                       $this->_args['singular'] => false
-                                  ) );
+        $args    = array(
+          'status'                 => $key,
+          'paged'                  => false,
+          'action'                 => false,
+          $this->_args['singular'] => false
+        );
+        $href    = add_query_arg( $args );
 
         $views[$key] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
@@ -715,7 +729,7 @@ class WPDKListTableViewController extends WP_List_Table {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Utility for build a right actions list when the list table is showing trash items.
+   * Utility for build a right actions list when the list table is showing items.
    *
    * @brief      Return the only used action
    *
@@ -734,10 +748,11 @@ class WPDKListTableViewController extends WP_List_Table {
     $actions  = array();
 
     foreach ( $args['actions'] as $key => $label ) {
-      $href          = add_query_arg( array(
-                                           'action' => $key,
-                                           $id      => $id_value
-                                      ) );
+      $args          = array(
+        'action' => $key,
+        $id      => $id_value
+      );
+      $href          = add_query_arg( $args );
       $actions[$key] = sprintf( '<a href="%s">%s</a>', $href, $label );
     }
 

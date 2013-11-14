@@ -20,6 +20,24 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.0
+### 2013-11-14
+
+#### Enhancements
+
+* Improved triggerHandler on swipe control. Now the event 'change' can return TRUE or FALSE to avoid the change of state
+* Added in `WPDKHTMLTag` several method to sanitize and manage classes, attribute and data attributes
+* Purge and cleanup old Javascript and CSS
+* Added `WPDKHTML` with experimental CSS compress
+* Added `WPDKWidget` prototype model class
+
+#### Experimental
+
+* Added `WPDKCustomTaxonomy` prototype model class
+* Added `WPDKCustomPostType` prototype model class
+* Added `WPDKUIControlCheckboxes`
+* Added `WPDKAjaxResponse` php/javascript
+
 ## Version 1.3.2
 ### 2013-11-07
 

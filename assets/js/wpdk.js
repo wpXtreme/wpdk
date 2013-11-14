@@ -532,24 +532,28 @@ jQuery.fn.swipe = function () {
     /* Set. */
     if ( arguments.length > 0 ) {
 
-      var v = arguments[0];
+      var v = arguments[0], result;
 
       /* On. */
       if ( 'on' === v ) {
-        input.val( 'on' );
-        control.triggerHandler( 'change', [ control, 'on' ] );
-        knob.animate( { marginLeft : '23px' }, 100, function () {
+        result = control.triggerHandler( 'change', [ control, 'on' ] );
+        if( false !== result ) {
+          input.val( 'on' );
+          knob.animate( { marginLeft : '23px' }, 100, function () {
           control.addClass( 'wpdk-form-swipe-on' );
         } );
+        }
       }
 
       /* Off. */
       else {
-        input.val( 'off' );
-        control.triggerHandler( 'change', [ control, 'off' ] );
-        knob.animate( { marginLeft : '0' }, 100, function () {
+        result = control.triggerHandler( 'change', [ control, 'off' ] );
+        if( false !== result ) {
+          input.val( 'off' );
+          knob.animate( { marginLeft : '0' }, 100, function () {
           control.removeClass( 'wpdk-form-swipe-on' );
         } );
+        }
       }
     }
 
@@ -1300,7 +1304,6 @@ var WPDKDynamicTable = (function ( $ ) {
  * @version         1.0.1
  *s
  */
-
 var WPDKPreferences = (function ( $ )
 {
 
@@ -1359,7 +1362,42 @@ var WPDKPreferences = (function ( $ )
 
 })( jQuery );
 
+/**
+ * Utility to manage the php WPDKAjaxResponse
+ *
+ * @class           WPDKAjaxResponse
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-11-13
+ * @version         1.0.0
+ * @since           1.4.0
+ *
+ * @param {string} response JSON response
+ * @constructor
+ */
+var WPDKAjaxResponse = function( response ) {
+  /**
+   * Resolve conflict
+   *
+   * @type {jQuery}
+   */
+  var $ = window.jQuery;
 
+  this.version = '1.0.0'
+  this.error = '';
+  this.message = '';
+  this.data = '';
+
+  /* Init properties */
+
+  if ( isset( response.error ) && !empty( response.error ) ) {
+    this.error = response.error.replace( /\\n/g, "\n" );
+  }
+
+  if ( isset( response.message ) && !empty( response.message ) ) {
+    this.message = response.message.replace( /\\n/g, "\n" );
+  }
+};
 
 /**
  * This is a little Javascript framework to improve the UI and checking control specially in the form management.
@@ -1367,8 +1405,8 @@ var WPDKPreferences = (function ( $ )
  * @class           WPDK
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-04-03
- * @version         0.9.4
+ * @date            2013-11-13
+ * @version         0.9.5
  *
  */
 var WPDK = (function ( $ ) {
@@ -1381,7 +1419,7 @@ var WPDK = (function ( $ ) {
   /**
    * The WPDK Javascript version
    */
-  $this.version = "0.9.4";
+  $this.version = "0.9.5";
 
   /**
    * Initialize all Javascript hook.
@@ -1411,11 +1449,11 @@ var WPDK = (function ( $ ) {
    */
   $this.loading = function ( status )
   {
-    if ( status ) {
-      $( '<div />' ).addClass( 'wpxm-loader' ).appendTo( 'body' ).fadeIn( 500 );
+    if ( true === status ) {
+      $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
     }
     else {
-      $( 'div.wpxm-loader' ).fadeOut( function () { $( this ).remove() } );
+      $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
     }
   };
 
@@ -1423,37 +1461,16 @@ var WPDK = (function ( $ ) {
    * Reload current document with clear and waiting effects
    *
    * @since 1.0.0.b3
+   *
+   * @param {bool} Optional. FALSE to avoid mask
    */
   $this.reloadDocument = function ()
   {
-    $( '<div id="wpxm-mask" />' ).appendTo( 'body' );
+    if ( 0 == arguments.length ) {
+      $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
+    }
     document.location = document.location.href;
   };
-
-  /**
-   * Send a message to the wpXtreme Server to do a signout from backend admin area.
-   *
-   * @todo Move this method to the wpXtreme Server Javascript
-   *
-   */
-  $( 'input[name=wpxserver_logout]' ).click( function () {
-    $.post( wpdk_i18n.ajaxURL, {
-        action   : 'wpxtreme_action_set_token',
-        token    : '',
-        referrer : document.location.href
-      }, function ( data ) {
-        /* I dati arrivano sempre in jSON, come sempre se message è undefined è tutto ok. */
-        var result = $.parseJSON( data );
-        if ( typeof result.message !== 'undefined' ) {
-          alert( result.message );
-        }
-        else {
-          /* Ricarico la pagina */
-          document.location = result.referrer;
-        }
-      }
-    );
-  } );
 
   /**
    * Call the init when the document is ready

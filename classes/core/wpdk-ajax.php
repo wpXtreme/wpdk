@@ -93,5 +93,82 @@ if ( wpdk_is_ajax() ) {
     }
 
   } // class WPDKAjax
+
+
+  /**
+   * A WPDK (utility) Ajax Response class model
+   *
+   * @class           WPDKAjaxResponse
+   * @author          =undo= <info@wpxtre.me>
+   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+   * @date            2013-11-11
+   * @version         1.0.0
+   * @since           1.4.0
+   *
+   */
+  class WPDKAjaxResponse {
+
+    /**
+     * User define error code or string
+     *
+     * @brief Error
+     *
+     * @var string $error
+     */
+    public $error = '';
+
+    /**
+     * Usually an alert message feedback
+     *
+     * @brief Message
+     *
+     * @var string $message
+     */
+    public $message = '';
+
+    /**
+     * Any data
+     *
+     * @brief Data
+     *
+     * @var string $data
+     */
+    public $data = '';
+
+    /**
+     * Create an instance of WPDKAjaxResponse class
+     *
+     * @brief Construct
+     *
+     * @return WPDKAjaxResponse
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Send a jSON response
+     *
+     * @brief jSON
+     */
+    public function json()
+    {
+      header( 'Cache-Control: no-cache, must-revalidate' );
+      header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
+      header( 'Content-Type: application/json' );
+
+      echo json_encode( $this );
+
+      if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+        wp_die();
+      }
+      else {
+        die();
+      }
+    }
+
+  }
+
+
 }
 /// @endcond
