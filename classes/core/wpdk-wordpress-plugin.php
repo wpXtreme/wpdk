@@ -754,8 +754,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
  * @class              WPDKPlugin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.9.0
+ * @date               2013-11-15
+ * @version            1.0.0
  *
  */
 
@@ -768,7 +768,7 @@ class WPDKPlugin {
    *
    * @var bool $active
    */
-  public $active;
+  public $active = false;
   /**
    * The Author get from `get_plugin_data()`, 'Author' parameter
    *
@@ -776,7 +776,7 @@ class WPDKPlugin {
    *
    * @var string $author
    */
-  public $author;
+  public $author = '';
   /**
    * The Author name from `get_plugin_data()`, 'AuthorName' parameter
    *
@@ -784,7 +784,7 @@ class WPDKPlugin {
    *
    * @var string $authorName
    */
-  public $authorName;
+  public $authorName = '';
   /**
    * The Author URI from `get_plugin_data()`, 'AuthorURI' parameter
    *
@@ -792,7 +792,7 @@ class WPDKPlugin {
    *
    * @var string $authorURI
    */
-  public $authorURI;
+  public $authorURI = '';
   /**
    * Long description of plugin
    *
@@ -800,7 +800,7 @@ class WPDKPlugin {
    *
    * @var string $description
    */
-  public $description;
+  public $description = '';
   /**
    * Usually __FILE__
    *
@@ -810,7 +810,7 @@ class WPDKPlugin {
    *
    * @since 1.0.0.b4
    */
-  public $file;
+  public $file = '';
   /**
    * The standard WPDK 64x64 icon path
    *
@@ -818,7 +818,7 @@ class WPDKPlugin {
    *
    * @var string $icon
    */
-  public $icon;
+  public $icon = '';
   /**
    * This is the ID of plugin. This property is 'folder/main file.php'
    *
@@ -826,7 +826,7 @@ class WPDKPlugin {
    *
    * @var string $id
    */
-  public $id;
+  public $id = '';
   /**
    * Name of plugin
    *
@@ -834,7 +834,7 @@ class WPDKPlugin {
    *
    * @var string $name
    */
-  public $name;
+  public $name = '';
   /**
    * The Network activation get from `get_plugin_data()`, 'Network' parameter
    *
@@ -842,7 +842,7 @@ class WPDKPlugin {
    *
    * @var string $network
    */
-  public $network;
+  public $network = '';
   /**
    * Address of plugin repository
    *
@@ -850,7 +850,7 @@ class WPDKPlugin {
    *
    * @var string $pluginURI
    */
-  public $pluginURI;
+  public $pluginURI = '';
   /**
    * The plugin text domain get from `get_plugin_data()`, 'Text Domain' parameter
    *
@@ -858,7 +858,7 @@ class WPDKPlugin {
    *
    * @var string $textDomain
    */
-  public $textDomain;
+  public $textDomain = '';
   /**
    * The complete Text domain Plugin url get from `get_plugin_data()`, 'Domain Path' parameter
    *
@@ -866,7 +866,7 @@ class WPDKPlugin {
    *
    * @var string $textDomainPath
    */
-  public $textDomainPath;
+  public $textDomainPath = '';
   /**
    * The plugin title. This is the same as name
    *
@@ -874,7 +874,7 @@ class WPDKPlugin {
    *
    * @var string $title
    */
-  public $title;
+  public $title = '';
   /**
    * Plugin version
    *
@@ -882,7 +882,7 @@ class WPDKPlugin {
    *
    * @var string $version
    */
-  public $version;
+  public $version = '';
 
   /**
    * Create an instance of WPDKPlugin class
@@ -892,8 +892,6 @@ class WPDKPlugin {
    * @return WPDKPlugin
    */
   public function __construct( $file = null ) {
-
-    $this->_init();
 
     $this->file = $file;
 
@@ -923,29 +921,6 @@ class WPDKPlugin {
     }
   }
 
-  /**
-   * Initialize the properties to default values
-   *
-   * @brief Init the properties
-   */
-  private function _init() {
-    $this->active         = false;
-    $this->author         = '';
-    $this->authorName     = '';
-    $this->authorURI      = '';
-    $this->description    = '';
-    $this->icon           = '';
-    $this->id             = '';
-    $this->name           = '';
-    $this->network        = '';
-    $this->pluginURI      = '';
-    $this->textDomain     = '';
-    $this->textDomainPath = '';
-    $this->title          = '';
-    $this->version        = '';
-    $this->file           = '';
-  }
-
   /* @todo Active plugin */
   public function active() {}
 
@@ -966,13 +941,16 @@ class WPDKPlugin {
    * headers to the top.
    *
    * @since 1.0.0.b4
+   * @deprecated since 1.1.4 - Use get_file_data()
    *
    * @param array $aWPXHeaders List of metadata to get, in the format `array( 'Header Name' ==> '', ... )`
    *
    * @return array|boolean The array with all metadata got from main file of plugin, or FALSE in case of an error.
    *
    */
-  public function readMetadata( $aWPXHeaders ) {
+  public function readMetadata( $aWPXHeaders )
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.1.4', 'get_file_data()' );
 
     // Check input param
     if( empty( $aWPXHeaders )) {
