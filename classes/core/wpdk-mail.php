@@ -12,7 +12,7 @@
  * @version         1.0.0
  *
  */
-class WPDKMail extends _WPDKPost {
+class WPDKMail extends WPDKPost {
 
   /**
    * Create an instance of WPDKMail class

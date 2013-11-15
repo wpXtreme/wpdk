@@ -26,6 +26,13 @@ For more information on SemVer, please visit http://semver.org/.
 #### Enhancements
 
 * Improved layout of textarea in user profile
+* Minor performance improvements
+* Minor bugs fixes
+
+#### Under the hood
+
+* Removed old and deprecated `WPDKPost`
+* Renamed new `_WPDKPost` in `WPDKPost`
 
 
 ## Version 1.4.0
