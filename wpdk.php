@@ -92,9 +92,6 @@ if ( !class_exists( 'WPDK' ) ) {
       /* Add some special WPDK class to body */
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-      /* Avoid duplicate name in WordPress repository. */
-      // add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'pre_set_site_transient_update_plugins' ) );
-
       /* Callback hook */
       do_action( 'WPDK' );
     }
@@ -168,50 +165,6 @@ if ( !class_exists( 'WPDK' ) ) {
       }
     }
 
-
-    /**
-     * This filter is used to avoid duplicate name occurences in WordPress repository.
-     *
-     * @brief      Fetch pre update plugins
-     * @deprecated since 1.0.5
-     *
-     * @param array $transient
-     *
-     * @return mixed
-     */
-    public function pre_set_site_transient_update_plugins( $transient )
-    {
-      _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.0.5', '' );
-      return $transient;
-
-      /* Only backend administration */
-      if ( !is_admin() ) {
-        return $transient;
-      }
-
-      /* Check if the transient contains the 'checked' information If no, just return its value without hacking it */
-      if ( empty( $transient->checked ) ) {
-        return $transient;
-      }
-
-      if ( isset( $transient->response ) ) {
-        $plugins = get_plugins();
-        foreach ( $transient->response as $key => $value ) {
-          if ( isset( $plugins[$key] ) ) {
-            /* Is it a my plugin. */
-            if ( 'https://wpxtre.me' == $plugins[$key]['PluginURI'] ) {
-              /* Have my package? */
-              if ( false === strpos( $transient->response[$key]->package, '/wpxtre.me' ) ) {
-                unset( $transient->response[$key] );
-              }
-            }
-          }
-        }
-      }
-
-      return $transient;
-    }
-
     /**
      * Include external defines
      *
@@ -221,7 +174,6 @@ if ( !class_exists( 'WPDK' ) ) {
     {
       /* define WPDK constants. */
       require_once( trailingslashit( dirname( __FILE__ ) ) . 'defines.php' );
-
     }
 
     /**
@@ -460,11 +412,6 @@ if ( !class_exists( 'WPDK' ) ) {
         // Deprecated
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/deprecated/wpdk-settings.php'              => array(
-          'WPDKSettings',
-          'WPDKSettingsView'
-        ),
-
         $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'              => array(
           'WPDKDBTable',
           '_WPDKDBTable',
@@ -475,28 +422,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKConfigBranch',
           'WPDKConfiguration',
           'WPDKConfigurationView',
-        ),
-
-        $sPathPrefix . 'classes/deprecated/WPDKCRUD.php'                   => 'WPDKCRUD',
-        $sPathPrefix . 'classes/deprecated/WPDKForm.php'                   => 'WPDKForm',
-        $sPathPrefix . 'classes/deprecated/wpdk-about-view-controller.php' => 'WPDKAboutViewController',
-        $sPathPrefix . 'classes/deprecated/wpdk-post-helper.php'           => 'WPDKPost',
-        $sPathPrefix . 'classes/deprecated/wpdk-tableview.php'             => 'WPDKTableView',
-        $sPathPrefix . 'classes/deprecated/wpdk-config-view.php'           => 'WPDKConfigView',
-        $sPathPrefix . 'classes/deprecated/wpdk-option.php'                => 'WPDKOption',
-
-        $sPathPrefix . 'classes/deprecated/wpdk-update.php'                => array(
-          'WPDKUpdate',
-          'WPDKPluginUpgrader',
-          'WPDKPluginUpgraderSkin'
-        ),
-
-        $sPathPrefix . 'classes/deprecated/wpdk-api.php'                   => array(
-          'WPDKAPI',
-          'WPDKAPIResponse',
-          'WPDKAPIMethod',
-          'WPDKAPIErrorCode',
-          'WPDKAPIResource'
         ),
 
         /* Extra libs */
@@ -587,12 +512,9 @@ if ( !class_exists( 'WPDK' ) ) {
       );
 
       // Own
-      wp_enqueue_script( 'wpdk-jquery-ui-timepicker',
-        WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-      wp_enqueue_script( 'wpdk-jquery-validation',
-        WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
-      wp_enqueue_script( 'wpdk-jquery-validation-additional-method',
-        WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
+      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
+      wp_enqueue_script( 'wpdk-jquery-validation', WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
+      wp_enqueue_script( 'wpdk-jquery-validation-additional-method', WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
 
       /* Main wpdk. */
       wp_enqueue_script( 'wpdk-script', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );

@@ -1,5 +1,4 @@
 <?php
-/// @cond private
 
 if ( wpdk_is_ajax() ) {
 
@@ -14,8 +13,8 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2013-10-31
-   * @version            1.0.2
+   * @date               2013-11-15
+   * @version            1.0.3
    * @since              0.7.5
    *
    */
@@ -32,11 +31,11 @@ if ( wpdk_is_ajax() ) {
     public $version = '1.0.2';
 
     /**
-     * Create an instance of WPXCleanFixAjax class
+     * Create an instance of WPDKAjax class
      *
      * @brief Construct
      *
-     * @return WPXCleanFixAjax
+     * @return WPDKAjax
      */
     public function __construct()
     {
@@ -101,12 +100,21 @@ if ( wpdk_is_ajax() ) {
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-11
-   * @version         1.0.0
+   * @date            2013-11-15
+   * @version         1.0.1
    * @since           1.4.0
    *
    */
-  class WPDKAjaxResponse {
+  class WPDKAjaxResponse extends WPDKObject {
+
+    /**
+     * Override version
+     *
+     * @brief Version
+     *
+     * @var string $version
+     */
+    public $version = '1.0.1';
 
     /**
      * User define error code or string
@@ -171,4 +179,3 @@ if ( wpdk_is_ajax() ) {
 
 
 }
-/// @endcond
