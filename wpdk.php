@@ -412,11 +412,6 @@ if ( !class_exists( 'WPDK' ) ) {
         // Deprecated
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/deprecated/wpdk-settings.php'              => array(
-          'WPDKSettings',
-          'WPDKSettingsView'
-        ),
-
         $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'              => array(
           'WPDKDBTable',
           '_WPDKDBTable',
@@ -427,27 +422,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKConfigBranch',
           'WPDKConfiguration',
           'WPDKConfigurationView',
-        ),
-
-        $sPathPrefix . 'classes/deprecated/WPDKCRUD.php'                   => 'WPDKCRUD',
-        $sPathPrefix . 'classes/deprecated/WPDKForm.php'                   => 'WPDKForm',
-        $sPathPrefix . 'classes/deprecated/wpdk-about-view-controller.php' => 'WPDKAboutViewController',
-        $sPathPrefix . 'classes/deprecated/wpdk-tableview.php'             => 'WPDKTableView',
-        $sPathPrefix . 'classes/deprecated/wpdk-config-view.php'           => 'WPDKConfigView',
-        $sPathPrefix . 'classes/deprecated/wpdk-option.php'                => 'WPDKOption',
-
-        $sPathPrefix . 'classes/deprecated/wpdk-update.php'                => array(
-          'WPDKUpdate',
-          'WPDKPluginUpgrader',
-          'WPDKPluginUpgraderSkin'
-        ),
-
-        $sPathPrefix . 'classes/deprecated/wpdk-api.php'                   => array(
-          'WPDKAPI',
-          'WPDKAPIResponse',
-          'WPDKAPIMethod',
-          'WPDKAPIErrorCode',
-          'WPDKAPIResource'
         ),
 
         /* Extra libs */
