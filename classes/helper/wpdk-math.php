@@ -5,11 +5,11 @@
  * @class              WPDKMath
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-08-13
- * @version            1.0.1
+ * @date               2013-11-18
+ * @version            1.0.2
  */
 
-class WPDKMath {
+class WPDKMath extends WPDKObject {
 
   /**
    * Infinity const for set a value as never ending
@@ -17,6 +17,15 @@ class WPDKMath {
    * @brief Infinity constant
    */
   const INFINITY = 'infinity';
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public static $version = '1.0.2';
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-14 11:25+0100\n"
-"PO-Revision-Date: 2013-11-14 11:25+0100\n"
+"POT-Creation-Date: 2013-11-15 13:11+0100\n"
+"PO-Revision-Date: 2013-11-15 13:11+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpdk.php:616
+#: ../wpdk.php:538
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -25,35 +25,35 @@ msgstr ""
 "Devi confermare prima di sbloccare questo campo.\n"
 "Vuoi bloccare questo campo?"
 
-#: ../wpdk.php:618 ../classes/deprecated/WPDKForm.php:182
+#: ../wpdk.php:540
 msgid "Choose Time"
 msgstr "Scegli un orario"
 
-#: ../wpdk.php:619 ../classes/deprecated/WPDKForm.php:183
+#: ../wpdk.php:541
 msgid "Time"
 msgstr "Orario"
 
-#: ../wpdk.php:620 ../classes/deprecated/WPDKForm.php:184
+#: ../wpdk.php:542
 msgid "Hour"
 msgstr "Ora"
 
-#: ../wpdk.php:621 ../classes/deprecated/WPDKForm.php:185
+#: ../wpdk.php:543
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../wpdk.php:622 ../classes/deprecated/WPDKForm.php:186
+#: ../wpdk.php:544
 msgid "Seconds"
 msgstr "Secondi"
 
-#: ../wpdk.php:623 ../classes/deprecated/WPDKForm.php:187
+#: ../wpdk.php:545
 msgid "Now"
 msgstr "Adesso"
 
-#: ../wpdk.php:624 ../classes/deprecated/WPDKForm.php:188
+#: ../wpdk.php:546
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Do,Lu,Ma,Me,Gi,Ve,Sa"
 
-#: ../wpdk.php:625 ../classes/deprecated/WPDKForm.php:189
+#: ../wpdk.php:547
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -61,19 +61,19 @@ msgstr ""
 "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,"
 "Novembre,Dicembre"
 
-#: ../wpdk.php:626
+#: ../wpdk.php:548
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic"
 
-#: ../wpdk.php:627 ../classes/deprecated/WPDKForm.php:190
+#: ../wpdk.php:549
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../wpdk.php:628 ../classes/deprecated/WPDKForm.php:191
+#: ../wpdk.php:550
 msgid "mm/dd/yy"
 msgstr "dd/mm/yy"
 
-#: ../wpdk.php:629
+#: ../wpdk.php:551
 msgid "HH:mm"
 msgstr ""
 
@@ -151,36 +151,14 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: ../classes/deprecated/wpdk-config-view.php:184
-#: ../classes/deprecated/wpdk-configuration.php:687
-msgid "No Reset to default settings implement yet!"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-config-view.php:199
-#: ../classes/deprecated/wpdk-settings.php:283
-#, php-format
-msgid ""
-"The <strong>%s</strong> settings were restored to defaults values "
-"successfully!"
-msgstr ""
-"Le impostazioni <strong>%s</strong> sono state ripristinate con successo!"
-
-#: ../classes/deprecated/wpdk-config-view.php:212
-#: ../classes/deprecated/wpdk-settings.php:301
-#, php-format
-msgid "The <strong>%s</strong> settings values were updated successfully!"
-msgstr ""
-"Le impostazioni <strong>%s</strong> sono state aggiornate con successo!"
-
-#: ../classes/deprecated/wpdk-config-view.php:218
-#: ../classes/deprecated/wpdk-settings.php:295
-msgid "No settings update!"
-msgstr ""
-
 #: ../classes/deprecated/wpdk-configuration.php:672
 #, php-format
 msgid ""
 "<strong>%s</strong> settings were successfully restored to defaults values!"
+msgstr ""
+
+#: ../classes/deprecated/wpdk-configuration.php:687
+msgid "No Reset to default settings implement yet!"
 msgstr ""
 
 #: ../classes/deprecated/wpdk-configuration.php:744
@@ -306,405 +284,35 @@ msgstr ""
 msgid "Role name can contain only letters, digits, _ and - chars."
 msgstr ""
 
-#: ../classes/deprecated/wpdk-settings.php:222
-msgid "Please, write an introduction"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-tableview.php:113
-msgid "More"
-msgstr "Più"
-
-#: ../classes/deprecated/wpdk-update.php:230
-msgid "You have to login in order to download this update."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:241
-msgid "Update from WPX Store"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:241
-msgid "Remember that you can do this update from WPX Store too."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:327
-msgid "<i class=\"wpdk-icon-warning\"></i>The plugin is at the latest version."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:328
-msgid "<i class=\"wpdk-icon-warning\"></i>Update package not available."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:329
-msgid ""
-"<i class=\"wpdk-icon-success\"></i>Downloading update from WPX Store&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:330
-#: ../classes/deprecated/wpdk-update.php:370
-msgid "<i class=\"wpdk-icon-success\"></i>Installing the latest version&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:331
-msgid "<i class=\"wpdk-icon-success\"></i>Unpacking the update&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:332
-msgid "<i class=\"wpdk-icon-success\"></i>Deactivating the plugin&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:333
-msgid ""
-"<i class=\"wpdk-icon-success\"></i>Removing the old version of the wpx "
-"plugin&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:334
-msgid "<i class=\"wpdk-icon-warning\"></i>Could not remove the old wpx plugin."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:335
-msgid "<i class=\"wpdk-icon-warning\"></i>wpx Plugin update failed."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:336
-msgid "<i class=\"wpdk-icon-success\"></i>wpx Plugin updated successfully."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:345
-msgid "<i class=\"wpdk-icon-warning\"></i>Install package not available."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:346
-msgid "<i class=\"wpdk-icon-success\"></i>Downloading install package&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:347
-msgid "<i class=\"wpdk-icon-success\"></i>Unpacking the package&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:348
-msgid "<i class=\"wpdk-icon-success\"></i>Installing the wpx plugin&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:349
-msgid "<i class=\"wpdk-icon-warning\"></i>wpx Plugin install failed."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:350
-msgid "<i class=\"wpdk-icon-success\"></i>wpx Plugin installed successfully."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:360
-msgid "<i class=\"wpdk-icon-warning\"></i>Invalid Data provided."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:361
-msgid "<i class=\"wpdk-icon-warning\"></i>Could not access filesystem."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:362
-msgid "<i class=\"wpdk-icon-warning\"></i>Filesystem error."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:363
-msgid ""
-"<i class=\"wpdk-icon-warning\"></i>Unable to locate WordPress Root directory."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:364
-msgid ""
-"<i class=\"wpdk-icon-warning\"></i>Unable to locate WordPress Content "
-"directory (wp-content)."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:365
-msgid ""
-"<i class=\"wpdk-icon-warning\"></i>Unable to locate WordPress Plugin "
-"directory."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:366
-msgid ""
-"<i class=\"wpdk-icon-warning\"></i>Unable to locate WordPress Theme "
-"directory."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:368
-#, php-format
-msgid "<i class=\"wpdk-icon-warning\"></i>Unable to locate needed folder (%s)."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:369
-msgid "<i class=\"wpdk-icon-warning\"></i>Download failed."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:371
-msgid "<i class=\"wpdk-icon-warning\"></i>Destination folder already exists."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:372
-msgid "<i class=\"wpdk-icon-warning\"></i>Could not create directory."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:373
-msgid "<i class=\"wpdk-icon-warning\"></i>The package could not be installed."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:374
-msgid "<i class=\"wpdk-icon-success\"></i>Enabling Maintenance mode&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:375
-msgid "<i class=\"wpdk-icon-success\"></i>Disabling Maintenance mode&#8230;"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:495
-msgid "Back to WPX store"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:496
-msgid "Back to WPX Store"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:504
-#: ../classes/deprecated/wpdk-update.php:515
-msgid "Activate this plugin"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:505
-msgid "Activate Plugin &amp; Run Importer"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:516
-msgid "Activate Plugin"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:523
-msgid "Activate this plugin for all sites in this network"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-update.php:524
-msgid "Network Activate"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:184
-msgid ""
-"<strong>Warning!</strong> Wrong username or password. Please check careful "
-"your data or Reset your Password if you do not remember it!"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:281
-msgid "Login not allowed because this user is disabled."
-msgstr "Il login non è permesso perché l'utente è disabilitato."
-
-#: ../classes/deprecated/wpdk-user-helper.php:285
-msgid "Login not allowed because this user is locked."
-msgstr "Il login non è permesso perché l'utente è bloccato."
-
-#: ../classes/deprecated/wpdk-user-helper.php:474
-msgid "Last login"
-msgstr "Ultimo login"
-
-#: ../classes/deprecated/wpdk-user-helper.php:475
-#: ../classes/users/wpdk-user.php:1089
-msgid "Last logout"
-msgstr "Ultimo logout"
-
-#: ../classes/deprecated/wpdk-user-helper.php:476
-msgid "# Login"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:477
-msgid "# Wrong"
-msgstr "# Errori"
-
-#: ../classes/deprecated/wpdk-user-helper.php:478
-msgid "Enabled"
-msgstr "Abilitato"
-
-#: ../classes/deprecated/wpdk-user-helper.php:498
-msgid "m/d/Y H:i:s"
-msgstr "d/m/Y H:i:s"
-
-#: ../classes/deprecated/wpdk-user-helper.php:545
-msgid "Extra fields"
-msgstr "Campi aggiuntivi"
-
-#: ../classes/deprecated/wpdk-user-helper.php:546
-msgid "See WPX Enhancer Users to manage this extra fields"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1199
-msgid "m/d/Y"
-msgstr "d/m/Y"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1227
-msgid "Wrong user parameter"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1363
-msgid "Waiting for enabling"
-msgstr "In attesa di abilitazione"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1377
-msgid "Access data"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1389
-#: ../classes/deprecated/wpdk-user-helper.php:1509
-#: ../classes/deprecated/wpdk-user-helper.php:1601
-#: ../classes/deprecated/wpdk-user-helper.php:1749
-msgid "Email"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1396
-#: ../classes/deprecated/wpdk-user-helper.php:1610
-msgid "Password"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1405
-msgid "Remember"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1440
-msgid "Login"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1455
-msgid "Signup"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1495
-msgid "Forgot Password?"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1503
-msgid ""
-"Forgot your Password?! No worry, enter your email address into username "
-"field here on the left then you receive a mail with a new temporary password"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1515
-msgid "Recovry Password"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1556
-msgid "Your profile"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1573
-#, php-format
-msgid ""
-"<strong>%s</strong> active from <strong>%s</strong><br/>Last login <strong>"
-"%s</strong>, last logout <strong>%s</strong>"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1573
-#: ../classes/users/wpdk-user.php:1055 ../classes/users/wpdk-user.php:1071
-#: ../classes/users/wpdk-user.php:1090
-msgid "m/d/Y H:i"
-msgstr "d/m/Y H:i"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1581
-#: ../classes/deprecated/wpdk-user-helper.php:1731
-msgid "First name"
-msgstr "Nome"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1590
-#: ../classes/deprecated/wpdk-user-helper.php:1739
-msgid "Last name"
-msgstr "Cognome"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1612
-msgid "Leave blank to unchange your password"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1618
-msgid "Repeat Password"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1708
-msgid ""
-"This email address will be used for sending an email to you. You have to "
-"confirm url address in the email."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1713
-msgid "This email address will be the your username for login."
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1717
-msgid "Account information"
-msgstr "Informazioni account"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1725
-msgid "Fill out all <strong>required</strong> fields"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1732
-#: ../classes/deprecated/wpdk-user-helper.php:1740
-msgid "<strong>(required)</strong>"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1750
-msgid ""
-"<strong>(required)</strong> to this address will be send an email confirm"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1780
-msgid "Register"
-msgstr ""
-
-#: ../classes/deprecated/wpdk-user-helper.php:1812
-msgid "Warning! Your email is not valid."
-msgstr "Attenzione! Indirizzo email non valido."
-
-#: ../classes/deprecated/wpdk-user-helper.php:1821
-#, php-format
-msgid "Error: %s"
-msgstr "Errore: %s"
-
-#: ../classes/deprecated/wpdk-user-helper.php:1830
-msgid "Thanks, please check your email to confirm registration."
-msgstr ""
-"Grazie, controlla la tua casella di posta elettronica per confermare la "
-"registrazione."
-
-#: ../classes/deprecated/wpdk-user-helper.php:1882
-msgid "Thanks, please check your email for retrive username and password"
-msgstr ""
-"Grazie, controlla la tua casella di posta elettronica per username e "
-"password."
-
-#: ../classes/post/wpdk-post.php:732
+#: ../classes/post/wpdk-post.php:731
 msgid "A newly created post, with no content"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:733
+#: ../classes/post/wpdk-post.php:732
 msgid "The post is draft"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:734
+#: ../classes/post/wpdk-post.php:733
 msgid "The post to publish in the future"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:735
+#: ../classes/post/wpdk-post.php:734
 msgid "The post is a revision"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:736
+#: ../classes/post/wpdk-post.php:735
 msgid "The post is pending review"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:737
+#: ../classes/post/wpdk-post.php:736
 msgid "Not visible to users who are not logged in"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:738
+#: ../classes/post/wpdk-post.php:737
 msgid "A published post or page"
 msgstr ""
 
-#: ../classes/post/wpdk-post.php:739
+#: ../classes/post/wpdk-post.php:738
 msgid "The post is in trashbin"
 msgstr ""
 
@@ -819,6 +427,11 @@ msgstr ""
 msgid "Last success login"
 msgstr ""
 
+#: ../classes/users/wpdk-user.php:1055 ../classes/users/wpdk-user.php:1071
+#: ../classes/users/wpdk-user.php:1090
+msgid "m/d/Y H:i"
+msgstr "d/m/Y H:i"
+
 #: ../classes/users/wpdk-user.php:1061
 msgid "# success login"
 msgstr ""
@@ -835,263 +448,332 @@ msgstr ""
 msgid "Logout information"
 msgstr ""
 
+#: ../classes/users/wpdk-user.php:1089
+msgid "Last logout"
+msgstr "Ultimo logout"
+
 #: ../classes/users/wpdk-user.php:1096 ../classes/users/wpdk-user.php:1101
 msgid "Status"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1111
+#: ../classes/users/wpdk-user.php:1113
 msgid "Description"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1112
+#: ../classes/users/wpdk-user.php:1114
 msgid "eg: this user is disabled because..."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1151
+#: ../classes/users/wpdk-user.php:1153
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
 "additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1820
+#: ../classes/users/wpdk-user.php:1822
 msgid "Somebody who has access to all the administration features"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1821
+#: ../classes/users/wpdk-user.php:1823
 msgid ""
 "Somebody who can publish and manage posts and pages as well as manage other "
 "users posts, etc."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1822
+#: ../classes/users/wpdk-user.php:1824
 msgid "Somebody who can publish and manage their own posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1823
+#: ../classes/users/wpdk-user.php:1825
 msgid "Somebody who can write and manage their posts but not publish them"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:1824
+#: ../classes/users/wpdk-user.php:1826
 msgid "Somebody who can only manage their profile"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2060
+#: ../classes/users/wpdk-user.php:2062
 msgid "Allows access to Administration Panel options: Plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2061
+#: ../classes/users/wpdk-user.php:2063
 msgid "add_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2062
+#: ../classes/users/wpdk-user.php:2064
 msgid "create_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2063
+#: ../classes/users/wpdk-user.php:2065
 msgid "delete_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2064
+#: ../classes/users/wpdk-user.php:2066
 msgid "delete_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2065
+#: ../classes/users/wpdk-user.php:2067
 msgid "delete_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2066
+#: ../classes/users/wpdk-user.php:2068
 msgid "delete_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2067
+#: ../classes/users/wpdk-user.php:2069
 msgid "delete_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2068
+#: ../classes/users/wpdk-user.php:2070
 msgid "delete_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2069
+#: ../classes/users/wpdk-user.php:2071
 msgid "delete_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2070
+#: ../classes/users/wpdk-user.php:2072
 msgid "delete_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2071
+#: ../classes/users/wpdk-user.php:2073
 msgid "delete_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2072
+#: ../classes/users/wpdk-user.php:2074
 msgid "delete_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2073
+#: ../classes/users/wpdk-user.php:2075
 msgid "edit_dashboard"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2074
+#: ../classes/users/wpdk-user.php:2076
 msgid "No longer used."
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2075
+#: ../classes/users/wpdk-user.php:2077
 msgid "edit_others_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2076
+#: ../classes/users/wpdk-user.php:2078
 msgid "edit_others_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2077
+#: ../classes/users/wpdk-user.php:2079
 msgid "edit_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2078
+#: ../classes/users/wpdk-user.php:2080
 msgid "edit_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2079
+#: ../classes/users/wpdk-user.php:2081
 msgid "edit_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2080
+#: ../classes/users/wpdk-user.php:2082
 msgid "edit_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2081
+#: ../classes/users/wpdk-user.php:2083
 msgid "edit_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2082
+#: ../classes/users/wpdk-user.php:2084
 msgid "edit_published_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2083
+#: ../classes/users/wpdk-user.php:2085
 msgid "edit_published_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2084
+#: ../classes/users/wpdk-user.php:2086
 msgid ""
 "Allows access to Administration Panel options: Appearance > Widgets, "
 "Appearance > Menus, Appearance > Theme Options if they are supported by the "
 "current theme, Appearance > Background, Appearance > Header "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2085
+#: ../classes/users/wpdk-user.php:2087
 msgid "edit_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2086
+#: ../classes/users/wpdk-user.php:2088
 msgid "Allows access to Administration Panel options: Users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2087
+#: ../classes/users/wpdk-user.php:2089
 msgid "import"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2088
+#: ../classes/users/wpdk-user.php:2090
 msgid "Allows access to Administration Panel options: Plugins > Add New "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2089
+#: ../classes/users/wpdk-user.php:2091
 msgid ""
 "Allows access to Administration Panel options: Appearance > Add New Themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2090
+#: ../classes/users/wpdk-user.php:2092
 msgid "list_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2091
+#: ../classes/users/wpdk-user.php:2093
 msgid ""
 "Allows access to Administration Panel options: Posts > Categories, Links > "
 "Categories"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2092
+#: ../classes/users/wpdk-user.php:2094
 msgid "Allows access to Administration Panel options: Links Links > Add New"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2093
+#: ../classes/users/wpdk-user.php:2095
 msgid ""
 "Allows access to Administration Panel options: Settings > General, Settings "
 "> Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, "
 "Settings > Miscellaneous"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2094
+#: ../classes/users/wpdk-user.php:2096
 msgid ""
 "Allows users to moderate comments from the Comments SubPanel (although a "
 "user needs the edit_posts Capability in order to access this)"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2095
+#: ../classes/users/wpdk-user.php:2097
 msgid "promote_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2096
+#: ../classes/users/wpdk-user.php:2098
 msgid "publish_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2097
+#: ../classes/users/wpdk-user.php:2099
 msgid ""
 "See and use the \"publish\" button when editing their post (otherwise they "
 "can only save drafts). Can use XML-RPC to publish (otherwise they get a "
 "\"Sorry, you can not post on this weblog or category.\")"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2098
+#: ../classes/users/wpdk-user.php:2100
 msgid ""
 "Allows access to Administration Panel options: Dashboard, Users > Your "
 "Profile. Used nowhere in the core code except the menu.php"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2099
+#: ../classes/users/wpdk-user.php:2101
 msgid "read_private_pages"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2100
+#: ../classes/users/wpdk-user.php:2102
 msgid "read_private_posts"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2101
+#: ../classes/users/wpdk-user.php:2103
 msgid "remove_users"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2102
+#: ../classes/users/wpdk-user.php:2104
 msgid ""
 "Allows access to Administration Panel options: Appearance, Appearance > "
 "Themes "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2103
+#: ../classes/users/wpdk-user.php:2105
 msgid ""
 "Allows user to post HTML markup or even JavaScript code in pages, posts, and "
 "comments. Note: Enabling this option for untrusted users may result in their "
 "posting malicious or poorly formatted code. "
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2104
+#: ../classes/users/wpdk-user.php:2106
 msgid "unfiltered_upload"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2105
+#: ../classes/users/wpdk-user.php:2107
 msgid "update_core"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2106
+#: ../classes/users/wpdk-user.php:2108
 msgid "update_plugins"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2107
+#: ../classes/users/wpdk-user.php:2109
 msgid "update_themes"
 msgstr ""
 
-#: ../classes/users/wpdk-user.php:2108
+#: ../classes/users/wpdk-user.php:2110
 msgid "Allows access to Administration Panel options: Media, Media > Add New "
 msgstr ""
+
+#~ msgid ""
+#~ "The <strong>%s</strong> settings were restored to defaults values "
+#~ "successfully!"
+#~ msgstr ""
+#~ "Le impostazioni <strong>%s</strong> sono state ripristinate con successo!"
+
+#~ msgid "The <strong>%s</strong> settings values were updated successfully!"
+#~ msgstr ""
+#~ "Le impostazioni <strong>%s</strong> sono state aggiornate con successo!"
+
+#~ msgid "More"
+#~ msgstr "Più"
+
+#~ msgid "Login not allowed because this user is disabled."
+#~ msgstr "Il login non è permesso perché l'utente è disabilitato."
+
+#~ msgid "Login not allowed because this user is locked."
+#~ msgstr "Il login non è permesso perché l'utente è bloccato."
+
+#~ msgid "Last login"
+#~ msgstr "Ultimo login"
+
+#~ msgid "# Wrong"
+#~ msgstr "# Errori"
+
+#~ msgid "Enabled"
+#~ msgstr "Abilitato"
+
+#~ msgid "m/d/Y H:i:s"
+#~ msgstr "d/m/Y H:i:s"
+
+#~ msgid "Extra fields"
+#~ msgstr "Campi aggiuntivi"
+
+#~ msgid "m/d/Y"
+#~ msgstr "d/m/Y"
+
+#~ msgid "Waiting for enabling"
+#~ msgstr "In attesa di abilitazione"
+
+#~ msgid "First name"
+#~ msgstr "Nome"
+
+#~ msgid "Last name"
+#~ msgstr "Cognome"
+
+#~ msgid "Account information"
+#~ msgstr "Informazioni account"
+
+#~ msgid "Warning! Your email is not valid."
+#~ msgstr "Attenzione! Indirizzo email non valido."
+
+#~ msgid "Error: %s"
+#~ msgstr "Errore: %s"
+
+#~ msgid "Thanks, please check your email to confirm registration."
+#~ msgstr ""
+#~ "Grazie, controlla la tua casella di posta elettronica per confermare la "
+#~ "registrazione."
+
+#~ msgid "Thanks, please check your email for retrive username and password"
+#~ msgstr ""
+#~ "Grazie, controlla la tua casella di posta elettronica per username e "
+#~ "password."
 
 #~ msgid "No error detected"
 #~ msgstr "Nessun errore rilevato"

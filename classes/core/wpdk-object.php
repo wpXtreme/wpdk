@@ -1,19 +1,8 @@
 <?php
-/// @cond private
-
-/*
- * [DRAFT]
- *
- * THE FOLLOWING CODE IS A DRAFT. FEEL FREE TO USE IT TO MAKE SOME EXPERIMENTS, BUT DO NOT USE IT IN ANY CASE IN
- * PRODUCTION ENVIRONMENT. ALL CLASSES AND RELATIVE METHODS BELOW CAN CHNAGE IN THE FUTURE RELEASES.
- *
- */
-
 /**
  * ## Overview
  *
- * This abstract class - when inerith - add a more efficent management of properties. Thanks to `__get()` and `__set()`
- * magic method you can set a public property and use `get` and `set` prefix to set itself, like Objective-C.
+ * This abstract class - when inerith - add a more efficent management of properties.
  * WPDKObject is the root class of most WPDK class hierarchies. Through WPDKObject, objects inherit a basic interface to
  * the runtime system and the ability to behave as WPDK objects.
  *
@@ -204,5 +193,3 @@ class WPDKObject {
     echo $content;
   }
 }
-
-/// @endcond
