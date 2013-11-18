@@ -40,7 +40,7 @@ var NAVTREE =
       [ "Data Fields", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", null, [
@@ -56,8 +56,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classWPDKUsers.html#ad4989a146081639f42ae9e77a895efa3",
-"wpdk-functions_8php.html#a7a2bbc9bb09636bf59fc55ec59a02824"
+"classWPDKHTMLTagInput.html#a97f11bcac75c4c882c0d85b5c9bde408",
+"classWPDKPost.html#ae17ef68f86ae10438f4e0eb7595c2df0",
+"classWPDKUIControl.html#a020110ce3df34bdff247ee2f23715645",
+"classWPDKWordPressPlugin.html#a5de1be6af8b82904217293caddc9d549",
+"wpdk-terms_8php_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

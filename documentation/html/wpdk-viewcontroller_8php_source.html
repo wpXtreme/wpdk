@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('wpdk-viewcontroller_8php_source.html',
 </div><!--header-->
 <div class="contents">
 <a href="wpdk-viewcontroller_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="classWPDKView.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKView.html">WPDKView</a> <span class="keyword">extends</span> WPDKObject {</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="classWPDKView.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKView.html">WPDKView</a> <span class="keyword">extends</span> <a class="code" href="classWPDKObject.html">WPDKObject</a> {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f">   72</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.0.1&#39;</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
@@ -240,7 +240,7 @@ $(document).ready(function(){initNavTree('wpdk-viewcontroller_8php_source.html',
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  }</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
-<div class="line"><a name="l00339"></a><span class="lineno"><a class="code" href="classWPDKViewController.html">  339</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKViewController.html">WPDKViewController</a> <span class="keyword">extends</span> WPDKObject {</div>
+<div class="line"><a name="l00339"></a><span class="lineno"><a class="code" href="classWPDKViewController.html">  339</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKViewController.html">WPDKViewController</a> <span class="keyword">extends</span> <a class="code" href="classWPDKObject.html">WPDKObject</a> {</div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;</div>
 <div class="line"><a name="l00348"></a><span class="lineno"><a class="code" href="classWPDKViewController.html#a1b7c1b5313d6b73d29848c3eb464529f">  348</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKViewController.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;0.9.0&#39;</span>;</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;</div>
@@ -421,20 +421,20 @@ $(document).ready(function(){initNavTree('wpdk-viewcontroller_8php_source.html',
 <div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;  {</div>
 <div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;    <span class="comment">/* Create a nonce key. */</span></div>
 <div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;    $nonce                     = md5( $this-&gt;<span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;    $input_hidden_nonce        = <span class="keyword">new</span> WPDKHTMLTagInput( <span class="stringliteral">&#39;&#39;</span>, $nonce, $nonce );</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;    $input_hidden_nonce-&gt;type  = WPDKHTMLTagInputType::HIDDEN;</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;    $input_hidden_nonce        = <span class="keyword">new</span> <a class="code" href="classWPDKHTMLTagInput.html">WPDKHTMLTagInput</a>( <span class="stringliteral">&#39;&#39;</span>, $nonce, $nonce );</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;    $input_hidden_nonce-&gt;type  = <a class="code" href="classWPDKHTMLTagInputType.html#acc1b06baa1fdef1e41ba494f83adbf75">WPDKHTMLTagInputType::HIDDEN</a>;</div>
 <div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;    $input_hidden_nonce-&gt;value = wp_create_nonce( $this-&gt;<span class="keywordtype">id</span> );</div>
 <div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    $input_hidden_class        = <span class="keyword">new</span> WPDKHTMLTagInput( <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&#39;wpdk_preferences_class&#39;</span> );</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;    $input_hidden_class-&gt;type  = WPDKHTMLTagInputType::HIDDEN;</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    $input_hidden_class        = <span class="keyword">new</span> <a class="code" href="classWPDKHTMLTagInput.html">WPDKHTMLTagInput</a>( <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&#39;wpdk_preferences_class&#39;</span> );</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;    $input_hidden_class-&gt;type  = <a class="code" href="classWPDKHTMLTagInputType.html#acc1b06baa1fdef1e41ba494f83adbf75">WPDKHTMLTagInputType::HIDDEN</a>;</div>
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;    $input_hidden_class-&gt;value = get_class( $this-&gt;preferences );</div>
 <div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;    $input_hidden_branch        = <span class="keyword">new</span> WPDKHTMLTagInput( <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&#39;wpdk_preferences_branch&#39;</span> );</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    $input_hidden_branch-&gt;type  = WPDKHTMLTagInputType::HIDDEN;</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;    $input_hidden_branch        = <span class="keyword">new</span> <a class="code" href="classWPDKHTMLTagInput.html">WPDKHTMLTagInput</a>( <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&#39;wpdk_preferences_branch&#39;</span> );</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    $input_hidden_branch-&gt;type  = <a class="code" href="classWPDKHTMLTagInputType.html#acc1b06baa1fdef1e41ba494f83adbf75">WPDKHTMLTagInputType::HIDDEN</a>;</div>
 <div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;    $input_hidden_branch-&gt;value = $this-&gt;branch_property;</div>
 <div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    $layout       = <span class="keyword">new</span> WPDKUIControlsLayout( $this-&gt;<a class="code" href="classWPDKPreferencesView.html#ab2837cfbeae2d3ca00d1443af39d842f" title="Fields.">fields</a>( $this-&gt;branch ) );</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    $form         = <span class="keyword">new</span> WPDKHTMLTagForm( $input_hidden_nonce-&gt;html() . $input_hidden_class-&gt;html() . $input_hidden_branch-&gt;html() . $layout-&gt;html() . $this-&gt;<a class="code" href="classWPDKPreferencesView.html#a2abe551e8b0abe93664bcda9ba2705ca" title="Buttons Reset and Update.">buttonsUpdateReset</a>() );</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    $layout       = <span class="keyword">new</span> <a class="code" href="classWPDKUIControlsLayout.html">WPDKUIControlsLayout</a>( $this-&gt;<a class="code" href="classWPDKPreferencesView.html#ab2837cfbeae2d3ca00d1443af39d842f" title="Fields.">fields</a>( $this-&gt;branch ) );</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    $form         = <span class="keyword">new</span> <a class="code" href="classWPDKHTMLTagForm.html">WPDKHTMLTagForm</a>( $input_hidden_nonce-&gt;html() . $input_hidden_class-&gt;html() . $input_hidden_branch-&gt;html() . $layout-&gt;html() . $this-&gt;<a class="code" href="classWPDKPreferencesView.html#a2abe551e8b0abe93664bcda9ba2705ca" title="Buttons Reset and Update.">buttonsUpdateReset</a>() );</div>
 <div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;    $form-&gt;name   = <span class="stringliteral">&#39;wpdk_preferences_view_form-&#39;</span> . $this-&gt;branch_property;</div>
 <div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    $form-&gt;id     = $form-&gt;name;</div>
 <div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;    $form-&gt;class[]  = <span class="stringliteral">&#39;wpdk-form wpdk-preferences-view-&#39;</span> . $this-&gt;branch_property;</div>

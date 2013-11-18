@@ -2,7 +2,9 @@ var searchData=
 [
   ['widgets',['widgets',['../classWPDKWordPressPlugin.html#a0617a6c6ccf765e6f2effb33968de93b',1,'WPDKWordPressPlugin']]],
   ['widgets_5finit',['widgets_init',['../classWPDKWordPressPlugin.html#a7267980b175ddae08c2cb3dd545e9fae',1,'WPDKWordPressPlugin']]],
-  ['willload',['willLoad',['../classWPDKViewController.html#a91e6c8d9df570bd8688e13fc74a68afb',1,'WPDKViewController']]],
+  ['willload',['willLoad',['../classWPDKListTableViewController.html#a91e6c8d9df570bd8688e13fc74a68afb',1,'WPDKListTableViewController\willLoad()'],['../classWPDKViewController.html#a91e6c8d9df570bd8688e13fc74a68afb',1,'WPDKViewController\willLoad()']]],
+  ['willwidgetsadminpage',['willWidgetsAdminPage',['../classWPDKWidget.html#a406222c23ace126743eb46e672ad457e',1,'WPDKWidget']]],
+  ['willwidgetsheadadminpage',['willWidgetsHeadAdminPage',['../classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373',1,'WPDKWidget']]],
   ['wordpressroles',['wordPressRoles',['../classWPDKRoles.html#ae8ff80e4c616754ca01737bba4d7fa80',1,'WPDKRoles']]],
   ['wp',['wp',['../classWPDKWordPressTheme.html#af54e38240bf9f9a15fb05961f17f4ffb',1,'WPDKWordPressTheme']]],
   ['wp_5fauthenticate_5fuser',['wp_authenticate_user',['../classWPDKUsers.html#adca9137e6578e9238f74318e339f8f7d',1,'WPDKUsers']]],
@@ -25,6 +27,7 @@ var searchData=
   ['wpdk_5fget_5fimage_5fin_5fpost_5fcontent',['wpdk_get_image_in_post_content',['../wpdk-functions_8php.html#a65d77d117f46d4fa967e18e321eb0e36',1,'wpdk-functions.php']]],
   ['wpdk_5fget_5fimage_5fsize',['wpdk_get_image_size',['../wpdk-functions_8php.html#ace333f28e37b33007a022348756abec8',1,'wpdk-functions.php']]],
   ['wpdk_5fget_5fuser_5ftransient',['wpdk_get_user_transient',['../wpdk-functions_8php.html#a17b4f713e72eee3dd86e66fbbb0ac1ea',1,'wpdk-functions.php']]],
+  ['wpdk_5fheader_5fview_5ftitle_5fdid_5fappear',['wpdk_header_view_title_did_appear',['../classWPDKListTableViewController.html#a63e0009dd4f75d60ed87dcc657c905a4',1,'WPDKListTableViewController']]],
   ['wpdk_5fis_5fajax',['wpdk_is_ajax',['../wpdk-functions_8php.html#a921ca30ca3d31713381b97a438c6d7bb',1,'wpdk-functions.php']]],
   ['wpdk_5fis_5fbool',['wpdk_is_bool',['../wpdk-functions_8php.html#a0eca78847d36d104448098ccea653501',1,'wpdk-functions.php']]],
   ['wpdk_5fis_5fchild',['wpdk_is_child',['../wpdk-functions_8php.html#a4d9abc6388e01d0f1d791408eddf9975',1,'wpdk-functions.php']]],

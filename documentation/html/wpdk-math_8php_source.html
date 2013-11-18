@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -110,26 +110,28 @@ $(document).ready(function(){initNavTree('wpdk-math_8php_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="wpdk-math_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="code" href="classWPDKMath.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMath.html">WPDKMath</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="code" href="classWPDKMath.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMath.html">WPDKMath</a> <span class="keyword">extends</span> <a class="code" href="classWPDKObject.html">WPDKObject</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a5e67db9d8c9833385944d679eb3c334e">   19</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMath.html#a5e67db9d8c9833385944d679eb3c334e" title="Infinity constant.">INFINITY</a> = <span class="stringliteral">&#39;infinity&#39;</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="code" href="classWPDKMath.html#ae587715aa35dba635ee6a4b43ca23c54">   33</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#ae587715aa35dba635ee6a4b43ca23c54" title="Do a modules.">rModulus</a>( $a, $n )</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> ( $a - ( $n * round( $a / $n ) ) );</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a8897f487d1ae7237e11aa949d5c03e96">   45</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#a8897f487d1ae7237e11aa949d5c03e96">isPercentage</a>( $value )</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> ( substr( trim( $value ), -1, 1 ) == <span class="charliteral">&#39;%&#39;</span> );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a97aec9732bfee4f8f8e365b856089388">   61</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#a97aec9732bfee4f8f8e365b856089388" title="Infinity.">isInfinity</a>( $value )</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> ( is_infinite( floatval( $value ) ) || ( is_string( $value ) &amp;&amp; $value == self::INFINITY ) );</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a1b7c1b5313d6b73d29848c3eb464529f">   28</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <a class="code" href="classWPDKMath.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.0.2&#39;</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="classWPDKMath.html#ae587715aa35dba635ee6a4b43ca23c54">   42</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#ae587715aa35dba635ee6a4b43ca23c54" title="Do a modules.">rModulus</a>( $a, $n )</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> ( $a - ( $n * round( $a / $n ) ) );</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a8897f487d1ae7237e11aa949d5c03e96">   54</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#a8897f487d1ae7237e11aa949d5c03e96">isPercentage</a>( $value )</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> ( substr( trim( $value ), -1, 1 ) == <span class="charliteral">&#39;%&#39;</span> );</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="code" href="classWPDKMath.html#a97aec9732bfee4f8f8e365b856089388">   70</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMath.html#a97aec9732bfee4f8f8e365b856089388" title="Infinity.">isInfinity</a>( $value )</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> ( is_infinite( floatval( $value ) ) || ( is_string( $value ) &amp;&amp; $value == self::INFINITY ) );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

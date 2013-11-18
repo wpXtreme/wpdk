@@ -1,8 +1,11 @@
 var searchData=
 [
   ['randomalphanumber',['randomAlphaNumber',['../classWPDKCrypt.html#a3c950a856aed1a7590a54f86c3733abb',1,'WPDKCrypt']]],
+  ['readmetadata',['readMetadata',['../classWPDKPlugin.html#a567fd7b927d73fa82a9e231bfc4f48b5',1,'WPDKPlugin']]],
   ['recursivescan',['recursiveScan',['../classWPDKFilesystem.html#a4e57fe02cd53583ac4add92d91a2ba82',1,'WPDKFilesystem']]],
+  ['redirect',['redirect',['../classWPDKListTableViewController.html#aadcf85c7b70a9b228b9f66c691f33d56',1,'WPDKListTableViewController']]],
   ['registerautoloadclass',['registerAutoloadClass',['../classWPDKWordPressPlugin.html#a2ed1791e7b36d8c772f31ab5fd03582d',1,'WPDKWordPressPlugin']]],
+  ['registershortcodes',['registerShortcodes',['../classWPDKShortcode.html#a872ed4aff1322e5636d4cecd8af3975d',1,'WPDKShortcode']]],
   ['reloadtextdomain',['reloadTextDomain',['../classWPDKWordPressPlugin.html#a3a81101ba40cef9764e7241471403ed2',1,'WPDKWordPressPlugin']]],
   ['remove_5frole',['remove_role',['../classWPDKRoles.html#a745f57822e2f081543f548c59654e837',1,'WPDKRoles']]],
   ['removecronjob',['removeCronJob',['../classWPDKWordPressPlugin.html#a35e777c90e06622cbfd176ac966bff51',1,'WPDKWordPressPlugin']]],

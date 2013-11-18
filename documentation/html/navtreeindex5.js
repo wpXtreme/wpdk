@@ -1,0 +1,22 @@
+var NAVTREEINDEX5 =
+{
+"wpdk-terms_8php_source.html":[9,0,0,4,1],
+"wpdk-twitter-bootstrap_8php.html":[9,0,0,5,8],
+"wpdk-twitter-bootstrap_8php_source.html":[9,0,0,5,8],
+"wpdk-ui_8php.html":[9,0,0,5,9],
+"wpdk-ui_8php_source.html":[9,0,0,5,9],
+"wpdk-user_8php.html":[9,0,0,6,0],
+"wpdk-user_8php_source.html":[9,0,0,6,0],
+"wpdk-viewcontroller_8php.html":[9,0,0,5,10],
+"wpdk-viewcontroller_8php_source.html":[9,0,0,5,10],
+"wpdk-watchdog_8php.html":[9,0,0,0,7],
+"wpdk-watchdog_8php_source.html":[9,0,0,0,7],
+"wpdk-widget_8php.html":[9,0,0,7,0],
+"wpdk-widget_8php_source.html":[9,0,0,7,0],
+"wpdk-wordpress-admin_8php.html":[9,0,0,0,8],
+"wpdk-wordpress-admin_8php_source.html":[9,0,0,0,8],
+"wpdk-wordpress-plugin_8php.html":[9,0,0,0,9],
+"wpdk-wordpress-plugin_8php_source.html":[9,0,0,0,9],
+"wpdk-wordpress-theme_8php.html":[9,0,0,0,10],
+"wpdk-wordpress-theme_8php_source.html":[9,0,0,0,10]
+};

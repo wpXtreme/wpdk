@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -135,9 +135,30 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a9dc95a6dd59c075f09e81c35a4bb877c"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUI.html#a9dc95a6dd59c075f09e81c35a4bb877c">inputNonce</a> ($id)</td></tr>
 <tr class="memdesc:a9dc95a6dd59c075f09e81c35a4bb877c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input nonce.  <a href="#a9dc95a6dd59c075f09e81c35a4bb877c">More...</a><br/></td></tr>
 <tr class="separator:a9dc95a6dd59c075f09e81c35a4bb877c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e3430d466a0f5ed8dbe28758c03f21f"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKUI.html#a8e3430d466a0f5ed8dbe28758c03f21f">labelTruncate</a> ($value, $size= 'small')</td></tr>
+<tr class="memdesc:a8e3430d466a0f5ed8dbe28758c03f21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enhancer string truncate.  <a href="#a8e3430d466a0f5ed8dbe28758c03f21f">More...</a><br/></td></tr>
+<tr class="separator:a8e3430d466a0f5ed8dbe28758c03f21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>UI Helper for general purpose</p>
+<div class="textblock"><p>This class describe a WPDK UI Control. A WPDK UI Control is as a set of simple HTML tag. For example a WPDK UI Control of type input is compose by: </p>
+<pre class="fragment">[control label][control input][extra]
+</pre><p>In detail a WPDK ui control has the follow structure: </p>
+<pre class="fragment">[before]
+  [before_label]
+    [label control]
+  [after_label]
+    [prepend]
+     [main control][extra]
+  [append]
+[after]
+</pre><p>However every control class has its drawing method to manage different output.</p>
+<h2>Overview</h2>
+<p>This class allow to make simple display button and common UI.</p>
+<dl class="section author"><dt>Author</dt><dd>=undo= <a href="#" onclick="location.href='mai'+'lto:'+'inf'+'o@'+'wpx'+'tr'+'e.m'+'e'; return false;">info@<span style="display: none;">.nosp@m.</span>wpxt<span style="display: none;">.nosp@m.</span>re.me</a> </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved. </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2013-10-29 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0.0</dd></dl>
+<p>UI Helper for general purpose</p>
 <h2>Overview</h2>
 <p>This class allow to make simple display button and common UI.</p>
 <dl class="section author"><dt>Author</dt><dd>=undo= <a href="#" onclick="location.href='mai'+'lto:'+'inf'+'o@'+'wpx'+'tr'+'e.m'+'e'; return false;">info@<span style="display: none;">.nosp@m.</span>wpxt<span style="display: none;">.nosp@m.</span>re.me</a> </dd></dl>
@@ -145,7 +166,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-11-28 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.8.1 </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02247">2247</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02235">2235</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="af1bb17e1bff94c8fc947b9235d0e8b26"></a>
 <div class="memitem">
@@ -204,7 +225,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02398">2398</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02386">2386</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -251,9 +272,9 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000017">Deprecated:</a></b></dt><dd>Since 1.0.0.b3 use <a class="el" href="classWPDKUI.html#af1bb17e1bff94c8fc947b9235d0e8b26" title="Badge.">badge()</a> instead </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000034">Deprecated:</a></b></dt><dd>Since 1.0.0.b3 use <a class="el" href="classWPDKUI.html#af1bb17e1bff94c8fc947b9235d0e8b26" title="Badge.">badge()</a> instead </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02381">2381</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02369">2369</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -305,7 +326,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string HTML input type submit </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02309">2309</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02297">2297</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -333,7 +354,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Button Update and Reset. </p>
 <p>Return the HTML markup for standard [Update] and [Reset to default] button </p>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02258">2258</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02246">2246</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -370,7 +391,55 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02462">2462</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02450">2450</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e3430d466a0f5ed8dbe28758c03f21f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static labelTruncate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$size</em> = <code>'small'</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enhancer string truncate. </p>
+<p>Return a new truncate well string. The result string is wrap into a special HTML markup.</p>
+<dl class="section note"><dt>Note</dt><dd>Prototype</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$value</td><td>String to truncate </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$size</td><td>Number of character</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02470">2470</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -406,7 +475,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02276">2276</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02264">2264</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>
@@ -463,10 +532,10 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000018">Deprecated:</a></b></dt><dd>Use <a class="el" href="classWPDKView.html">WPDKView</a> and <a class="el" href="classWPDKViewController.html">WPDKViewController</a></dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000035">Deprecated:</a></b></dt><dd>Use <a class="el" href="classWPDKView.html">WPDKView</a> and <a class="el" href="classWPDKViewController.html">WPDKViewController</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02435">2435</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-ui_8php_source.html#l02423">2423</a> of file <a class="el" href="wpdk-ui_8php_source.html">wpdk-ui.php</a>.</p>
 
 </div>
 </div>

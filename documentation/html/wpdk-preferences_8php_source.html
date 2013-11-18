@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -192,14 +192,14 @@ $(document).ready(function(){initNavTree('wpdk-preferences_8php_source.html','')
 <div class="line"><a name="l00234"></a><span class="lineno"><a class="code" href="classWPDKPreferences.html#a9ba2047c47f3e78404184e7eb713e4bd">  234</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKPreferences.html#a9ba2047c47f3e78404184e7eb713e4bd" title="Feedback.">wpdk_preferences_feedback_reset</a>()</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  {</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    $message = __( <span class="stringliteral">&#39;Your preferences were successfully restored to defaults values!&#39;</span>, WPDK_TEXTDOMAIN );</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    $alert   = <span class="keyword">new</span> WPDKTwitterBootstrapAlert( <span class="stringliteral">&#39;info&#39;</span>, $message, WPDKTwitterBootstrapAlertType::INFORMATION );</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    $alert   = <span class="keyword">new</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html">WPDKTwitterBootstrapAlert</a>( <span class="stringliteral">&#39;info&#39;</span>, $message, <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">WPDKTwitterBootstrapAlertType::INFORMATION</a> );</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    $alert-&gt;display();</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  }</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
 <div class="line"><a name="l00246"></a><span class="lineno"><a class="code" href="classWPDKPreferences.html#aabc44bffb5b1ca0c54f641d65e2f462d">  246</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKPreferences.html#aabc44bffb5b1ca0c54f641d65e2f462d" title="Feedback.">wpdk_preferences_feedback_update</a>()</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  {</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    $message = __( <span class="stringliteral">&#39;Your preferences values were successfully updated!&#39;</span>, WPDK_TEXTDOMAIN );</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    $alert   = <span class="keyword">new</span> WPDKTwitterBootstrapAlert( <span class="stringliteral">&#39;info&#39;</span>, $message, WPDKTwitterBootstrapAlertType::SUCCESS );</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    $alert   = <span class="keyword">new</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html">WPDKTwitterBootstrapAlert</a>( <span class="stringliteral">&#39;info&#39;</span>, $message, <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">WPDKTwitterBootstrapAlertType::SUCCESS</a> );</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    $alert-&gt;display();</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  }</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;</div>
@@ -234,7 +234,7 @@ $(document).ready(function(){initNavTree('wpdk-preferences_8php_source.html','')
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      }</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;      <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="comment">/* Do delta. */</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        $delta = WPDKObject::delta( $instance, $store_version );</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        $delta = <a class="code" href="classWPDKObject.html#a141c2020985576c2a4613baa40d968b4" title="Object delta compare for combine.">WPDKObject::delta</a>( $instance, $store_version );</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        $delta-&gt;update();</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      }</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
@@ -405,7 +405,7 @@ $(document).ready(function(){initNavTree('wpdk-preferences_8php_source.html','')
 <div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    }</div>
 <div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    $alert = <span class="keyword">new</span> WPDKTwitterBootstrapAlert( <span class="stringliteral">&#39;feedback&#39;</span>, $content, empty( $this-&gt;error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::WARNING, $title );</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    $alert = <span class="keyword">new</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html">WPDKTwitterBootstrapAlert</a>( <span class="stringliteral">&#39;feedback&#39;</span>, $content, empty( $this-&gt;error ) ? <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">WPDKTwitterBootstrapAlertType::SUCCESS</a> : <a class="code" href="classWPDKTwitterBootstrapAlertType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">WPDKTwitterBootstrapAlertType::WARNING</a>, $title );</div>
 <div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    $alert-&gt;display();</div>
 <div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;  }</div>
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;</div>

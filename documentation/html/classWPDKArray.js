@@ -11,5 +11,6 @@ var classWPDKArray =
     [ "objectToArray", "classWPDKArray.html#af6a0304133f3cf578a4349a9ccde4dab", null ],
     [ "prepend", "classWPDKArray.html#a128effb7f1359ce25f6ea42d69b5f59e", null ],
     [ "stripKeys", "classWPDKArray.html#a5637e5e662ffff47c3acd74a5b6482c4", null ],
-    [ "wrapArray", "classWPDKArray.html#a575051fb2418abddb6d6eb4fe566dc49", null ]
+    [ "wrapArray", "classWPDKArray.html#a575051fb2418abddb6d6eb4fe566dc49", null ],
+    [ "$version", "classWPDKArray.html#a1b7c1b5313d6b73d29848c3eb464529f", null ]
 ];

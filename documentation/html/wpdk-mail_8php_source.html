@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -110,10 +110,10 @@ $(document).ready(function(){initNavTree('wpdk-mail_8php_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="wpdk-mail_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="code" href="classWPDKMail.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMail.html">WPDKMail</a> <span class="keyword">extends</span> _WPDKPost {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="code" href="classWPDKMail.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMail.html">WPDKMail</a> <span class="keyword">extends</span> <a class="code" href="classWPDKPost.html">WPDKPost</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="code" href="classWPDKMail.html#a3125ba20328080d02de06b256789fbae">   28</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKMail.html#a3125ba20328080d02de06b256789fbae" title="Construct.">__construct</a>( $mail = null, $post_type = <span class="stringliteral">&#39;page&#39;</span> ) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    parent::__construct( $mail, $post_type );</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="code" href="classWPDKMail.html#a3125ba20328080d02de06b256789fbae">   28</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKMail.html#a3125ba20328080d02de06b256789fbae" title="Construct.">__construct</a>( $mail = null, <a class="code" href="classWPDKPost.html#aa0d6538c911397214b6f7e3e5baba7b2" title="Type.">$post_type</a> = <span class="stringliteral">&#39;page&#39;</span> ) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    parent::__construct( $mail, <a class="code" href="classWPDKPost.html#aa0d6538c911397214b6f7e3e5baba7b2" title="Type.">$post_type</a> );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  }</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
@@ -150,7 +150,7 @@ $(document).ready(function(){initNavTree('wpdk-mail_8php_source.html','');});
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//$body = apply_filters( &#39;the_content&#39;, $post-&gt;post_content );</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    $body = $this-&gt;post_content;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    $body = <a class="code" href="classWPDKPost.html#a99231b06cea2a7d1a9b1b35fd64f5e7d" title="Content.">$this-&gt;post_content</a>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    $body = $this-&gt;replacePlaceholder( $body, $user, $placeholders );</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> wp_mail( $to, $subject, $body, $headers );</div>

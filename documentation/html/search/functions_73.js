@@ -1,14 +1,24 @@
 var searchData=
 [
+  ['sanitizeattributes',['sanitizeAttributes',['../classWPDKHTMLTag.html#af787ee19e4ccc424fa913790a49e9c3c',1,'WPDKHTMLTag']]],
+  ['sanitizeclasses',['sanitizeClasses',['../classWPDKHTMLTag.html#adb783be4790a0026c1208e6ed4ff6909',1,'WPDKHTMLTag']]],
+  ['sanitizecode',['sanitizeCode',['../classWPDKResult.html#a93f87623335f3622d02dada5627536ca',1,'WPDKResult']]],
+  ['sanitizedata',['sanitizeData',['../classWPDKHTMLTag.html#a1355312ff0b42b66821adf049377f7a7',1,'WPDKHTMLTag']]],
   ['selectcapabilitieswithrole',['selectCapabilitiesWithRole',['../classWPDKRoles.html#a0b9f6130e7ad806f7e1b13709eb7c8d8',1,'WPDKRoles']]],
+  ['selected',['selected',['../classWPDKHTMLTagSelect.html#ad8827a42e44650f2e96e3fe0f62de9c4',1,'WPDKHTMLTagSelect']]],
   ['send',['send',['../classWPDKMail.html#a7005edf8bbf2f2c7ad5208e08a42336f',1,'WPDKMail']]],
+  ['setpropertiesbyarray',['setPropertiesByArray',['../classWPDKHTMLTag.html#a4da9e75d4fdd113aa3b2afa5af2df9e1',1,'WPDKHTMLTag']]],
   ['settransient',['setTransient',['../classWPDKUser.html#af500f62f19a5cfa023400bd686cd2ba2',1,'WPDKUser']]],
   ['settransientwithuser',['setTransientWithUser',['../classWPDKUser.html#a1f9250968e9cde18c6fe49d7054e0909',1,'WPDKUser']]],
+  ['shortcodes',['shortcodes',['../classWPDKShortcode.html#a0747c90a991686d6bb5c855ed1988216',1,'WPDKShortcode']]],
+  ['show',['show',['../classWPDKTwitterBootstrapModal.html#a2b8e3779f5bd8c38f70307574859bd36',1,'WPDKTwitterBootstrapModal']]],
   ['show_5fuser_5fprofile',['show_user_profile',['../classWPDKUsers.html#a65e5491ee1f091ca06b0a1265703ecec',1,'WPDKUsers']]],
   ['sidebar',['sidebar',['../classWPDKScreenHelp.html#a55ce159f4d70f76b0e8491ca6081c6db',1,'WPDKScreenHelp']]],
   ['signin',['signIn',['../classWPDKUsers.html#a28f49ae615768975c4f7c332f0c146f5',1,'WPDKUsers']]],
   ['signout',['signout',['../classWPDKUsers.html#a575bfc99b6a8e2f1f52d90c42a716d7c',1,'WPDKUsers']]],
-  ['statuses',['statuses',['../classWPDKUserStatus.html#a43c388d886c72260c10539e52bc8ab59',1,'WPDKUserStatus']]],
+  ['startcompress',['startCompress',['../classWPDKHTML.html#a7d4ae10b767d3f34d56b81b2837cfd18',1,'WPDKHTML']]],
+  ['statuses',['statuses',['../classWPDKPostStatus.html#a43c388d886c72260c10539e52bc8ab59',1,'WPDKPostStatus\statuses()'],['../classWPDKListTableViewController.html#aa7b2246edafc9bf9ddd8f2f580dac771',1,'WPDKListTableViewController\statuses()'],['../classWPDKUserStatus.html#a43c388d886c72260c10539e52bc8ab59',1,'WPDKUserStatus\statuses()']]],
   ['stripkeys',['stripKeys',['../classWPDKArray.html#a5637e5e662ffff47c3acd74a5b6482c4',1,'WPDKArray']]],
+  ['stripsecondsfromtime',['stripSecondsFromTime',['../classWPDKDateTime.html#a88319d15f284459c574d76542e963eef',1,'WPDKDateTime']]],
   ['submit',['submit',['../classWPDKUI.html#a71a9399e528623547bd9c1f2f7f1dfa6',1,'WPDKUI']]]
 ];
