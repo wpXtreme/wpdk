@@ -1810,7 +1810,8 @@ class WPDKUIControlSwipe extends WPDKUIControl {
     $status = wpdk_is_bool( $this->item['value'] ) ? 'wpdk-form-swipe-on' : '';
 
     $swipe          = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
-    $swipe->class[] = 'wpdk-form-swipe wpdk-tooltip ' . $status;
+    $class          = isset( $this->item['class'] ) ?  $this->item['class'] : '';
+    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe wpdk-tooltip ' . $status );
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
     if ( isset( $this->item['userdata'] ) ) {

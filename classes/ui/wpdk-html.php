@@ -82,9 +82,9 @@ class WPDKHTML extends WPDKObject {
       "\r"    => '',
       "\n"    => '',
       "\t"    => '',
-      '  '    => '',
-      '    '  => '',
-      '     ' => '',
+      '  '    => ' ',
+      '    '  => ' ',
+      '     ' => ' ',
     );
 
     /* Remove tabs, spaces, newlines, etc. */
@@ -1941,8 +1941,10 @@ class WPDKHTMLTag extends WPDKObject {
    */
   public static function mergeClasses( $class, $class2 = null, $_ = null )
   {
+    $class = self::sanitizeClasses( $class );
+
     if ( func_num_args() < 2 ) {
-      return self::sanitizeClasses( $class );
+      return $class;
     }
 
     for ( $i = 1; $i < func_num_args(); $i++ ) {
