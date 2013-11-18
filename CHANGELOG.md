@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.4.2
 ### 2013-11-??
 
+#### Enhancements
+
+* Added `wpdk_watchdog_log` action filter
+
 #### Bugs
 
 * Fixed potential fatal error on removed `_WPDKPost` class
