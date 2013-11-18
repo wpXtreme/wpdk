@@ -20,6 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.2
+### 2013-11-??
+
+#### Bugs
+
+* Fixed potential fatal error on removed `_WPDKPost` class
+* Several fixes for docs
+
+
 ## Version 1.4.1
 ### 2013-11-18
 
