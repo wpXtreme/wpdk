@@ -1,14 +1,4 @@
 <?php
-/// @cond private
-
-/*
- * [DRAFT]
- *
- * THE FOLLOWING CODE IS A DRAFT. FEEL FREE TO USE IT TO MAKE SOME EXPERIMENTS, BUT DO NOT USE IT IN ANY CASE IN
- * PRODUCTION ENVIRONMENT. ALL CLASSES AND RELATIVE METHODS BELOW CAN CHNAGE IN THE FUTURE RELEASES.
- *
- */
-
 /**
  * This class has the list of the constrols allowed
  *
@@ -2228,9 +2218,6 @@ class WPDKUIControlsLayout {
 
 }
 
-
-/// @endcond
-
 /**
  * UI Helper for general purpose
  *
@@ -2467,21 +2454,6 @@ HTML;
     return $input_hidden_nonce->html();
   }
 
-
-  /// @cond private
-
-  /*
-   * [DRAFT]
-   *
-   * THE FOLLOWING CODE IS A DRAFT. FEEL FREE TO USE IT TO MAKE SOME EXPERIMENTS, BUT DO NOT USE IT IN ANY CASE IN
-   * PRODUCTION ENVIRONMENT. ALL CLASSES AND RELATIVE METHODS BELOW CAN CHNAGE IN THE FUTURE RELEASES.
-   *
-   */
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Prototype
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * Return a new truncate well string. The result string is wrap into a special HTML markup.
    *
@@ -2652,7 +2624,4 @@ HTML;
       return $html;
     }
   }
-
-  /// @endcond
-
 }

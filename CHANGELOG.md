@@ -20,6 +20,23 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.1
+### 2013-11-18
+
+#### Enhancements
+
+* Improved layout of textarea in user profile
+* Minor performance improvements
+* Minor bugs fixes
+
+#### Under the hood
+
+* Removed old and deprecated `WPDKPost`
+* Renamed new `_WPDKPost` in `WPDKPost`
+* Removed unused and deprecated files
+* Removed undocument docs
+
+
 ## Version 1.4.0
 ### 2013-11-14
 

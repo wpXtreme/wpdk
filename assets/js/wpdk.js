@@ -631,6 +631,7 @@ var WPDKControls = (function ( $ ) {
    * Init the guide engine to open a modal twitter window with an iframe to developer center
    *
    * @since 1.0.0.b4
+   * @todo This engine will be move into wpXtreme
    *
    * @private
    */

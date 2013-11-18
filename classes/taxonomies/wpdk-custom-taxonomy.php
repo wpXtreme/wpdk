@@ -86,6 +86,9 @@ class WPDKCustomTaxonomy extends WPDKObject {
       /* Admin backend head area */
       add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles' ) );
 
+      /* Current screen */
+      add_action( 'current_screen', array( $this, '_current_screen' ) );
+
       // do_action('after-' . $taxonomy . '-table', $taxonomy);
       // do_action($taxonomy . '_pre_add_form', $taxonomy);
 
@@ -100,6 +103,20 @@ class WPDKCustomTaxonomy extends WPDKObject {
   public function admin_print_styles()
   {
     /* Override */
+  }
+
+  /**
+   * Fire when current screen is set
+   *
+   * @brief Current Screen
+   *
+   * @param WP_Screen $screen
+   */
+  public function _current_screen( $screen )
+  {
+    if ( !empty( $screen->taxonomy ) && $screen->taxonomy == $this->id ) {
+      $this->admin_print_styles();
+    }
   }
 
 }
