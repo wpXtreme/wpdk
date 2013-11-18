@@ -161,7 +161,7 @@ class WPDKTerms {
    *
    * @brief
    *
-   * @var string
+   * @var string $cache_domain
    */
   public $cache_domain;
   /**
@@ -333,7 +333,7 @@ class WPDKTerms {
    *
    * @brief Texnonomy ID
    *
-   * @var array|string
+   * @var array|string $_taxonomy
    */
   private $_taxonomy;
 

@@ -168,13 +168,13 @@ class WPDKObject {
   }
 
   /**
-   * Useful static method to dump any variable with a <pre> HTML tag wrap
+   * Useful static method to dump any variable with a `<pre>` HTML tag wrap
    *
    * @brief Dump a variable
    * @since 1.3.0
    *
-   * @param mixed $var SOme variable
-   *
+   * @param mixed $var     Some variable
+   * @param bool  $monitor Optional. If true a old style monitor layout is displayed
    */
   public static function dump( $var, $monitor = false )
   {

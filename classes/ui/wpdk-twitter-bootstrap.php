@@ -538,7 +538,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    *
    * @brief Alert type
    *
-   * @var string
+   * @var string $type
    */
   public $type;
 
@@ -548,7 +548,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    * @brief Block layout
    * @deprecated Since WPDK 1.3.1 and Bootstrap 3.0.0
    *
-   * @var bool
+   * @var bool $block
    */
   public $block;
 
@@ -772,7 +772,7 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
    *
    * @brief Label
    *
-   * @var string $lable
+   * @var string $label
    */
   public $label;
 

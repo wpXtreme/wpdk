@@ -992,7 +992,7 @@ class WPDKPlugins {
    *
    * @brief All plugins list
    *
-   * @var array $_plugins
+   * @var array $plugins
    */
   public $plugins;
   /**
@@ -1000,7 +1000,7 @@ class WPDKPlugins {
    *
    * @brief wpXtreme Plugins list
    *
-   * @var array $_wpxPlugins
+   * @var array $wpxPlugins
    */
   public $wpxPlugins;
   /**

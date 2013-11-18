@@ -499,8 +499,7 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Processing data to view
    *
-   * @return boolean
-   *
+   * @return bool
    */
   public function prepare_items()
   {
@@ -704,8 +703,6 @@ class WPDKListTableViewController extends WP_List_Table {
    * list view.
    *
    * @brief Process the bulk actions and standard actions
-   *
-   * @sa    prepare_items() for detail
    *
    * @return bool TRUE to stop display the list view, FALSE to display the list.
    */
