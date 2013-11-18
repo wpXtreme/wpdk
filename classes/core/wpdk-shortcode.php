@@ -1,6 +1,4 @@
 <?php
-/// @cond private
-
 /**
  * Shortcode class for extends a shortcode parent class.
  * You will use this class to extends a your own shortcode class.
@@ -12,8 +10,8 @@
  * @class              WPDKShortcode
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-08-27
- * @version            1.0.0
+ * @date               2013-11-18
+ * @version            1.0.1
  * @since              0.9.0
  *
  */
@@ -61,5 +59,3 @@ class WPDKShortcode {
   }
 
 } // class WPDKShortcode
-
-/// @endcond
