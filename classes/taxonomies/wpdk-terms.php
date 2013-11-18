@@ -1,15 +1,4 @@
 <?php
-/// @cond private
-
-/*
- * [DRAFT]
- *
- * THE FOLLOWING CODE IS A DRAFT. FEEL FREE TO USE IT TO MAKE SOME EXPERIMENTS, BUT DO NOT USE IT IN ANY CASE IN
- * PRODUCTION ENVIRONMENT. ALL CLASSES AND RELATIVE METHODS BELOW CAN CHNAGE IN THE FUTURE RELEASES.
- *
- */
-
-
 /**
  * A replacement experimental of standrd WordPress term object.
  *
@@ -454,5 +443,3 @@ class WPDKTerms {
 
   }
 }
-
-/// @endcond

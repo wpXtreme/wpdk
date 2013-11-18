@@ -5,11 +5,20 @@
  * @class              WPDKFilesystem
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-04-02
- * @version            1.1.0
+ * @date               2013-11-18
+ * @version            1.1.1
  */
 
-class WPDKFilesystem {
+class WPDKFilesystem extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $version
+   */
+  public $version = '1.1.1';
 
   /**
    * Return the file size well formatted.
@@ -21,7 +30,8 @@ class WPDKFilesystem {
    *
    * @return string|bool Size (B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB) or boolean
    */
-  public static function fileSize( $filename, $precision = 2 ) {
+  public static function fileSize( $filename, $precision = 2 )
+  {
     static $units = array(
       'Bytes',
       'KB',
@@ -63,7 +73,8 @@ class WPDKFilesystem {
    *
    * @return array
    */
-  public static function recursiveScan( $path, $match = '' ) {
+  public static function recursiveScan( $path, $match = '' )
+  {
 
     /**
      * Return an array with all matched files from root folder.
@@ -123,7 +134,8 @@ class WPDKFilesystem {
    *
    * @return string
    */
-  public static function ext( $file ) {
+  public static function ext( $file )
+  {
     return end( explode( '.', strtolower( basename( $file ) ) ) );
   }
 

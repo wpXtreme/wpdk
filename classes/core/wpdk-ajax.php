@@ -18,17 +18,7 @@ if ( wpdk_is_ajax() ) {
    * @since              0.7.5
    *
    */
-  class WPDKAjax extends WPDKObject {
-
-    /**
-     * Override version
-     *
-     * @brief Version
-     *
-     * @var string $version
-     */
-
-    public $version = '1.0.2';
+  class WPDKAjax {
 
     /**
      * Create an instance of WPDKAjax class

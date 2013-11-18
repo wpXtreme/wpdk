@@ -351,6 +351,10 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php'               => 'WPDKScreenHelp',
         $sPathPrefix . 'classes/helper/wpdk-crypt.php'                     => 'WPDKCrypt',
         $sPathPrefix . 'classes/helper/wpdk-filesystem.php'                => 'WPDKFilesystem',
+        $sPathPrefix . 'classes/helper/wpdk-http.php'                      => array(
+          'WPDKHTTPRequest',
+          'WPDKHTTPVerbs'
+        ),
 
         // -------------------------------------------------------------------------------------------------------------
         // Post
