@@ -3,7 +3,7 @@
  * Useful class to manage mail as post
  *
  * ## Overview
- * Extends _WPDKPost with useful method and property to mail
+ * Extends WPDKPost with useful method and property to mail
  *
  * @class           WPDKMail
  * @author          =undo= <info@wpxtre.me>

@@ -60,16 +60,16 @@ class WPDKFilesystem extends WPDKObject {
   /**
    * Return an array with all matched files from root folder. This method release the follow filters:
    *
-   * * wpdk_rglob_find_dir( true, $file ) - when find a dir
-   * * wpdk_rglob_find_file( true, $file ) - when find a a file
-   * * wpdk_rglob_matched( $regexp_result, $file, $match ) - after preg_match() done
+   *     wpdk_rglob_find_dir( true, $file ) - when find a dir
+   *     wpdk_rglob_find_file( true, $file ) - when find a a file
+   *     wpdk_rglob_matched( $regexp_result, $file, $match ) - after preg_match() done
    *
    * @brief get all matched files
    * @since 1.0.0.b4
    *
    * @param string $path    Folder root
    * @param string $match   Optional. Regex to apply on file name. For example use '/^.*\.(php)$/i' to get only php file.
-   *                        Defaul is empty
+   *                        Default is empty
    *
    * @return array
    */
@@ -84,7 +84,7 @@ class WPDKFilesystem extends WPDKObject {
      *
      * @param string $path    Folder root
      * @param string $match   Optional. Regex to apply on file name. For example use '/^.*\.(php)$/i' to get only php file
-     * @param array  $result  Optional. Result array. Empty form first call
+     * @param array  &$result  Optional. Result array. Empty form first call
      *
      * @return array
      */

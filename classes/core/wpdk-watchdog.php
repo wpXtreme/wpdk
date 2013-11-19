@@ -179,6 +179,9 @@ class WPDKWatchDog {
         $txt = $content;
       }
 
+      /* @since 1.4.3 */
+      do_action( 'wpdk_watchdog_log', $content );
+
       $date   = sprintf( '[%s]', date( 'Y-m-d H:i:s' ) );
       $sepa   = substr( $this->separator, 0, ( strlen( $this->separator ) - strlen( $date ) - 1 ) );
       $output = sprintf( "%s (%s) %s\n%s\n\n", $date, $title, $sepa, $txt );
