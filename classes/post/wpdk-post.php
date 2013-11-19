@@ -14,14 +14,13 @@
  *
  * ### Create a virtual post
  *
- * @class              _WPDKPost
+ * @class              WPDKPost
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2013-11-15
  * @version            1.0.1
  *
  */
-
 class WPDKPost extends WPDKObject {
 
   const COLUMN_COMMENT_COUNT         = 'comment_count';
@@ -529,7 +528,8 @@ class WPDKPost extends WPDKObject {
    * @brief Get thumbnail image
    * @since 1.3.1
    *
-   * @param string $size Optional. Default 'full'
+   * @param int    $post_id Post id
+   * @param string $size    Optional. Default 'full'
    *
    * @return bool|WPDKHTMLTagImg
    */
@@ -742,6 +742,11 @@ class WPDKPostStatus {
   }
 }
 
+/// @cond private
+/* Backward copatibility */
+class _WPDKPost extends WPDKPost {}
+/// @endcond
+
 /**
  * WordPress standard Post Type at 3.4 release
  *
@@ -804,9 +809,9 @@ class WPDKPosts {
 class WPDKPostMeta {
 
   /**
-   * Pointer to _WPDKPost object
+   * Pointer to WPDKPost object
    *
-   * @brief An instance of _WPDKPost class
+   * @brief An instance of WPDKPost class
    *
    * @var WPDKPost $_post
    */

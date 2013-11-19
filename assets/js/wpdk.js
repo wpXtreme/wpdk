@@ -1369,14 +1369,15 @@ var WPDKPreferences = (function ( $ )
  * @class           WPDKAjaxResponse
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-11-13
- * @version         1.0.0
+ * @date            2013-11-19
+ * @version         1.0.1
  * @since           1.4.0
  *
  * @param {string} response JSON response
  * @constructor
  */
-var WPDKAjaxResponse = function( response ) {
+var WPDKAjaxResponse = function ( response )
+{
   /**
    * Resolve conflict
    *
@@ -1384,7 +1385,7 @@ var WPDKAjaxResponse = function( response ) {
    */
   var $ = window.jQuery;
 
-  this.version = '1.0.0'
+  this.version = '1.0.1'
   this.error = '';
   this.message = '';
   this.data = '';
@@ -1397,6 +1398,10 @@ var WPDKAjaxResponse = function( response ) {
 
   if ( isset( response.message ) && !empty( response.message ) ) {
     this.message = response.message.replace( /\\n/g, "\n" );
+  }
+
+  if ( isset( response.data ) && !empty( response.data ) ) {
+    this.data = response.data.replace( /\\n/g, "\n" );
   }
 };
 

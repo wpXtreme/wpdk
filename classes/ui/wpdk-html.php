@@ -328,7 +328,9 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    */
   public $autofocus;
   /**
-   * @var string Set to 'disabled'. Specifies that a button should be disabled.
+   * Set to 'disabled'. Specifies that a button should be disabled.
+   *
+   * @var string $disabled
    */
   public $disabled;
   /**
@@ -481,7 +483,7 @@ class WPDKHTMLTagFieldset extends WPDKHTMLTag {
    *
    * @brief Legend
    *
-   * @var WPDKHTMLTagLegend
+   * @var WPDKHTMLTagLegend $legend
    */
   public $legend;
   /**
@@ -667,7 +669,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
  * @class              WPDKHTMLTagImg
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @created            2013-10-18
+ * @date               2013-10-18
  * @version            1.0.0
  * @since              1.3.1
  *
@@ -1359,8 +1361,6 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @param string|array $haystack Single value or array
    * @param mixed        $current  (true) The other value to compare if not just true
-   *
-   * @example
    *
    *     <select name="test">
    *       <option <?php echo WPDKHTMLTagSelect::selected( 'value', $value ) ?>>Value</option>
