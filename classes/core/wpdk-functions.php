@@ -110,7 +110,7 @@ function wpdk_is_child( $parent = '' )
 {
   global $post;
 
-  $parent_obj   = get_page( $post->post_parent, ARRAY_A );
+  $parent_obj   = get_post( $post->post_parent, ARRAY_A );
   $parent       = (string)$parent;
   $parent_array = (array)$parent;
 
