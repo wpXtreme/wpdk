@@ -121,16 +121,39 @@ class WPDKMenu {
   }
 
   /**
+   * Return a sanitize view controller for a callable
+   *
+   * @brief Sanitize
+   *
+   * @param string|array $view_controller Callable
+   *
+   * @return string
+   */
+  public static function sanitizeViewController( $view_controller )
+  {
+    if ( is_string( $view_controller ) ) {
+      $result = $view_controller;
+    }
+    elseif ( is_array( $view_controller ) ) {
+      $result = get_class( $view_controller[0] ) . '-' . $view_controller[1];
+    }
+    return $result;
+  }
+
+  /**
    * Return the WPDK menu info by name of view controller of submenu item
    *
    * @param string $view_controller The view controller class name
    *
    * @return array
    */
-  public static function menu( $view_controller ) {
+  public static function menu( $view_controller )
+  {
+    $global_key = self::sanitizeViewController( $view_controller );
+
     if ( isset( $GLOBALS[self::GLOBAL_MENU] ) ) {
-      if ( !empty( $view_controller ) && !empty( $GLOBALS[self::GLOBAL_MENU][$view_controller] ) ) {
-        return $GLOBALS[self::GLOBAL_MENU][$view_controller];
+      if ( !empty( $global_key ) && !empty( $GLOBALS[self::GLOBAL_MENU][$global_key] ) ) {
+        return $GLOBALS[self::GLOBAL_MENU][$global_key];
       }
     }
     else {
@@ -628,26 +651,16 @@ class WPDKSubMenu {
     global $plugin_page;
 
     $hook       = '';
-    $global_key = '';
+    $global_key = WPDKMenu::sanitizeViewController( $this->viewController );
 
     if ( !empty( $this->viewController ) ) {
       if ( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
         /* @todo Think $vc = %s::init() - in this way we can use the singleton in the head hook below */
         $hook = create_function( '', sprintf( '$view_controller = new %s; $view_controller->display();', $this->viewController ) );
-
-        /* Use the name of view controller as key */
-        $global_key = $this->viewController;
       }
       // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
       elseif ( is_callable( $this->viewController ) ) {
         $hook = $this->viewController;
-
-        if ( is_string( $this->viewController ) ) {
-          $global_key = sanitize_title( $this->viewController );
-        }
-        elseif ( is_array( $this->viewController ) ) {
-          $global_key = sanitize_title( implode( '-', $this->viewController ) );
-        }
       }
     }
 
