@@ -627,25 +627,38 @@ class WPDKSubMenu {
 
     global $plugin_page;
 
-    $hook = '';
+    $hook       = '';
+    $global_key = '';
 
     if ( !empty( $this->viewController ) ) {
-      if( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
+      if ( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
         /* @todo Think $vc = %s::init() - in this way we can use the singleton in the head hook below */
         $hook = create_function( '', sprintf( '$view_controller = new %s; $view_controller->display();', $this->viewController ) );
 
-        /* Create a global list of my own menu. */
-        $GLOBALS[ WPDKMenu::GLOBAL_MENU ][$this->viewController] = array(
-          'parent'     => $this->parent,
-          'page'       => $this->id,
-          'hook'       => '',
-          'menu_title' => ''
-        );
+        /* Use the name of view controller as key */
+        $global_key = $this->viewController;
       }
       // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
-      elseif( is_callable( $this->viewController ) ) {
+      elseif ( is_callable( $this->viewController ) ) {
         $hook = $this->viewController;
+
+        if ( is_string( $this->viewController ) ) {
+          $global_key = sanitize_title( $this->viewController );
+        }
+        elseif ( is_array( $this->viewController ) ) {
+          $global_key = sanitize_title( implode( '-', $this->viewController ) );
+        }
       }
+    }
+
+    if( !empty( $global_key ) ) {
+      /* Create a global list of my own menu. */
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key ] = array(
+        'parent'     => $this->parent,
+        'page'       => $this->id,
+        'hook'       => '',
+        'menu_title' => ''
+      );
     }
 
     /* Apply filter for change the title. */
@@ -672,15 +685,16 @@ class WPDKSubMenu {
     }
 
     if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
-
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$this->viewController]['hook']       = $this->hookName;
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$this->viewController]['menu_title'] = $menu_title;
-
       $will_load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
       add_action( 'load-' . $this->hookName, $will_load );
 
       $head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
       add_action( 'admin_head-' . $this->hookName, $head );
+    }
+
+    if ( !empty( $global_key ) ) {
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['hook']       = $this->hookName;
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['menu_title'] = $menu_title;
     }
   }
 
