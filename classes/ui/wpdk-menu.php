@@ -631,6 +631,7 @@ class WPDKSubMenu {
 
     if ( !empty( $this->viewController ) ) {
       if( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
+        /* @todo Think $vc = %s::init() - in this way we can use the singleton in the head hook below */
         $hook = create_function( '', sprintf( '$view_controller = new %s; $view_controller->display();', $this->viewController ) );
 
         /* Create a global list of my own menu. */
