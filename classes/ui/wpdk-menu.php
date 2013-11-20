@@ -143,7 +143,7 @@ class WPDKMenu {
   /**
    * Return the WPDK menu info by name of view controller of submenu item
    *
-   * @param string $view_controller The view controller class name
+   * @param string|array $view_controller Any callable or view controller class name
    *
    * @return array
    */
