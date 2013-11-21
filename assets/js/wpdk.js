@@ -791,11 +791,11 @@ jQuery( function ( $ )
     {
       return this.each( function ()
       {
-        var $this = $( this );
-        var data = $this.data( 'wpdk.modal' );
-        var options = $.extend( {}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option );
+        var $t = $( this );
+        var data = $t.data( 'wpdk.modal' );
+        var options = $.extend( {}, Modal.DEFAULTS, $t.data(), typeof option == 'object' && option );
 
-        if ( !data ) $this.data( 'wpdk.modal', (data = new Modal( this, options )) );
+        if ( !data ) $t.data( 'wpdk.modal', (data = new Modal( this, options )) );
         if ( typeof option == 'string' ) data[option]( _relatedTarget );
         else if ( options.show ) data.show( _relatedTarget )
       } )
@@ -819,10 +819,10 @@ jQuery( function ( $ )
 
     $( document ).on( 'click.wpdk.modal.data-api', '[data-toggle="modal"]', function ( e )
     {
-      var $this = $( this );
-      var href = $this.attr( 'href' );
-      var $target = $( $this.attr( 'data-target' ) || (href && href.replace( /.*(?=#[^\s]+$)/, '' )) ); //strip for ie7
-      var option = $target.data( 'modal' ) ? 'toggle' : $.extend( { remote : !/#/.test( href ) && href }, $target.data(), $this.data() );
+      var $t = $( this );
+      var href = $t.attr( 'href' );
+      var $target = $( $t.attr( 'data-target' ) || (href && href.replace( /.*(?=#[^\s]+$)/, '' )) ); //strip for ie7
+      var option = $target.data( 'modal' ) ? 'toggle' : $.extend( { remote : !/#/.test( href ) && href }, $target.data(), $t.data() );
 
       e.preventDefault();
 
@@ -830,7 +830,7 @@ jQuery( function ( $ )
         .modal( option, this )
         .one( 'hide', function ()
         {
-          $this.is( ':visible' ) && $this.focus()
+          $t.is( ':visible' ) && $t.focus()
         } )
     } );
 
@@ -1231,11 +1231,11 @@ jQuery( function ( $ )
     {
       return this.each( function ()
       {
-        var $this = $( this );
-        var data = $this.data( 'bs.wpdkTooltip' );
+        var $t = $( this );
+        var data = $t.data( 'bs.wpdkTooltip' );
         var options = typeof option == 'object' && option;
 
-        if ( !data ) $this.data( 'bs.wpdkTooltip', (data = new Tooltip( this, options )) );
+        if ( !data ) $t.data( 'bs.wpdkTooltip', (data = new Tooltip( this, options )) );
         if ( typeof option == 'string' ) data[option]()
       } )
     };
@@ -1336,11 +1336,11 @@ jQuery( function ( $ )
     {
       return this.each( function ()
       {
-        var $this = $( this );
-        var data = $this.data( 'bs.wpdkButton' );
+        var $t = $( this );
+        var data = $t.data( 'bs.wpdkButton' );
         var options = typeof option == 'object' && option;
 
-        if ( !data ) $this.data( 'bs.wpdkButton', (data = new Button( this, options )) );
+        if ( !data ) $t.data( 'bs.wpdkButton', (data = new Button( this, options )) );
 
         if ( option == 'toggle' ) data.toggle();
         else if ( option ) data.setState( option )
@@ -1407,11 +1407,11 @@ jQuery( function ( $ )
 
     Alert.prototype.close = function ( e )
     {
-      var $this = $( this );
-      var selector = $this.attr( 'data-target' );
+      var $t = $( this );
+      var selector = $t.attr( 'data-target' );
 
       if ( !selector ) {
-        selector = $this.attr( 'href' );
+        selector = $t.attr( 'href' );
         selector = selector && selector.replace( /.*(?=#[^\s]*$)/, '' ); // strip for ie7
       }
 
@@ -1420,7 +1420,7 @@ jQuery( function ( $ )
       if ( e ) e.preventDefault();
 
       if ( !$parent.length ) {
-        $parent = $this.hasClass( 'alert' ) ? $this : $this.parent()
+        $parent = $t.hasClass( 'alert' ) ? $t : $t.parent()
       }
 
       $parent.trigger( e = $.Event( 'close.wpdk.alert' ) );
@@ -1451,11 +1451,11 @@ jQuery( function ( $ )
     {
       return this.each( function ()
       {
-        var $this = $( this );
-        var data = $this.data( 'wpdk.alert' );
+        var $t = $( this );
+        var data = $t.data( 'wpdk.alert' );
 
-        if ( !data ) $this.data( 'wpdk.alert', (data = new Alert( this )) );
-        if ( typeof option == 'string' ) data[option].call( $this )
+        if ( !data ) $t.data( 'wpdk.alert', (data = new Alert( this )) );
+        if ( typeof option == 'string' ) data[option].call( $t )
       } )
     };
 
@@ -1637,19 +1637,19 @@ jQuery( function ( $ )
       /**
        * Empty object
        */
-      var $this = {};
+      var $t = {};
 
       /**
        * Version
        *
        * @type {string}
        */
-      $this.version = "1.0.0";
+      $t.version = "1.0.0";
 
       /**
        * Init
        */
-      $this.init = function ()
+      $t.init = function ()
       {
         _initClearInput();
         _initSwipeControl();
@@ -1658,7 +1658,7 @@ jQuery( function ( $ )
         _initBehavior();
         _initGuide();
 
-        return $this;
+        return $t;
       };
 
       /**
@@ -1670,7 +1670,7 @@ jQuery( function ( $ )
        * @param {string} id Configuration view ID
        * @return {*|jQuery|HTMLElement}
        */
-      $this.configurationForm = function ( id )
+      $t.configurationForm = function ( id )
       {
         return $( 'form#wpdk_configuration_view_form-' + id );
       };
@@ -1684,7 +1684,7 @@ jQuery( function ( $ )
        *
        * @return {*|jQuery|HTMLElement}
        */
-      $this.preferencesForm = function ( id )
+      $t.preferencesForm = function ( id )
       {
         return $( 'form#wpdk_preferences_view_form-' + id );
       };
@@ -1832,7 +1832,7 @@ jQuery( function ( $ )
         } );
       }
 
-      return $this;
+      return $t;
 
     })();
   }
@@ -1853,19 +1853,19 @@ jQuery( function ( $ )
     /**
      * @type {WPDKTwitterBootstrap}
      */
-    var $this = {};
+    var $t = {};
 
     /**
      * Version
      *
      * @type {string}
      */
-    $this.version = "1.0.0";
+    $t.version = "1.0.0";
 
     /**
      * Init this class
      */
-    $this.init = function ()
+    $t.init = function ()
     {
       /* Init tooltip. */
       $( '.wpdk-tooltip' ).wpdkTooltip();
@@ -1873,10 +1873,10 @@ jQuery( function ( $ )
       /* Init alert. */
       $().wpdkAlert();
 
-      return $this;
+      return $t;
     };
 
-    return $this;
+    return $t;
 
   })();
   }
@@ -1897,21 +1897,21 @@ jQuery( function ( $ )
      *
      * @type {{}}
      */
-    var $this = {};
+    var $t = {};
 
     /**
      * Version
      *
      * @type {string}
      */
-    $this.version = "1.1.0";
+    $t.version = "1.1.0";
 
     /**
      * Return the jQury version.
      *
      * @return {string}
      */
-    $this.jQueryVersion = function ()
+    $t.jQueryVersion = function ()
     {
       return $().jquery;
     };
@@ -1921,7 +1921,7 @@ jQuery( function ( $ )
      *
      * @returns {string|boolean}
      */
-    $this.jQueryUIVersion = function ()
+    $t.jQueryUIVersion = function ()
     {
       if ( $.ui && $.ui.version ) {
         return $.ui.version;
@@ -1932,7 +1932,7 @@ jQuery( function ( $ )
     /**
      * Init this class
      */
-    $this.init = function ()
+    $t.init = function ()
     {
       _initDatePicker();
       _initTabs();
@@ -1943,7 +1943,7 @@ jQuery( function ( $ )
       /* Wrap the date picker with my pwn class. */
       $( '#ui-datepicker-div' ).wrap( '<div class="wpdk-jquery-ui"/>' );
 
-      return $this;
+      return $t;
     };
 
     /**
@@ -2263,7 +2263,7 @@ jQuery( function ( $ )
       } );
     }
 
-    return $this;
+    return $t;
 
   })();
   }
@@ -2284,21 +2284,21 @@ jQuery( function ( $ )
       /**
        * @type {WPDKDynamicTable}
        */
-      var $this = {};
+      var $t = {};
 
       /**
        * Version
        *
        * @type {string}
        */
-      $this.version = "1.0.1";
+      $t.version = "1.0.1";
 
       /**
        * Return a singleton instance of WPDKDynamicTable class
        *
        * @returns {WPDKDynamicTable}
        */
-      $this.init = function ()
+      $t.init = function ()
       {
         var table = $( 'table.wpdk-dynamic-table' );
         if ( table.length ) {
@@ -2314,7 +2314,7 @@ jQuery( function ( $ )
           } );
         }
 
-        return $this;
+        return $t;
       };
 
       /**
@@ -2344,7 +2344,7 @@ jQuery( function ( $ )
         $( this ).parents( 'tr' ).fadeOut( 300, function () { $( this ).remove(); } );
       }
 
-      return $this;
+      return $t;
 
     })();
   }
@@ -2365,23 +2365,23 @@ jQuery( function ( $ )
     /**
      * Internal class pointer
      *
-     * @var {WPDKPreferences} $this
+     * @var {WPDKPreferences} $t
      */
-    var $this = {};
+    var $t = {};
 
     /**
      * Version
      *
      * @type {string}
      */
-    $this.version = "1.0.1";
+    $t.version = "1.0.1";
 
     /**
      * Return an instance of WPDKPreferences class
      *
      * @return {WPDKPreferences}
      */
-    $this.init = function ()
+    $t.init = function ()
     {
       /* Display a confirm dialog box before reset a specified branch to default values. */
       $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
@@ -2395,15 +2395,15 @@ jQuery( function ( $ )
         return confirm( $( this ).data( 'confirm' ) );
       } );
 
-      return $this;
+      return $t;
     };
 
     /**
      * This method is used to update the event when the DOM is changed
      */
-    $this.update = function () {};
+    $t.update = function () {};
 
-    return $this.init();
+    return $t.init();
 
   })();
   }
@@ -2468,18 +2468,18 @@ jQuery( function ( $ )
       /**
        * Internal class pointer
        */
-      var $this = {};
+      var $t = {};
 
       /**
        * The WPDK Javascript version
        */
-      $this.version = "0.9.6";
+      $t.version = "0.9.6";
 
       /**
        * Initialize all Javascript hook.
        * If you modify the DOM you can call this method to refresh hooks.
        */
-      $this.init = function ()
+      $t.init = function ()
       {
         _hackMenu();
         WPDKjQuery.init();
@@ -2487,7 +2487,7 @@ jQuery( function ( $ )
         WPDKDynamicTable.init();
         WPDKTwitterBootstrap.init();
 
-        return $this;
+        return $t;
       };
 
       /**
@@ -2495,9 +2495,9 @@ jQuery( function ( $ )
        *
        * @deprecated Use WPDK.init() instead
        */
-      $this.refresh = function ()
+      $t.refresh = function ()
       {
-        $this.init();
+        $t.init();
       };
 
       /**
@@ -2506,7 +2506,7 @@ jQuery( function ( $ )
        * @param status True to display loading on top most, False to remove
        *
        */
-      $this.loading = function ( status )
+      $t.loading = function ( status )
       {
         if ( true === status ) {
           $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
@@ -2523,7 +2523,7 @@ jQuery( function ( $ )
        *
        * @param {bool} Optional. FALSE to avoid mask
        */
-      $this.reloadDocument = function ()
+      $t.reloadDocument = function ()
       {
         if ( 0 == arguments.length ) {
           $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
@@ -2545,7 +2545,7 @@ jQuery( function ( $ )
         } );
       }
 
-      return $this.init();
+      return $t.init();
 
     })();
   }
@@ -2583,7 +2583,7 @@ jQuery( function ( $ )
     /**
      * @type {WPDKTwitterBootstrapModal}
      */
-    var $this = this;
+    var $t = this;
 
     /**
      * Return the HTML aria title format
@@ -2591,7 +2591,7 @@ jQuery( function ( $ )
      * @return string
      */
     function aria_title() {
-      return $this.id + '-title';
+      return $t.id + '-title';
     }
 
     /**
@@ -2601,7 +2601,7 @@ jQuery( function ( $ )
      */
     function close_button() {
       var $result = '';
-      if ( $this.close_button ) {
+      if ( $t.close_button ) {
         $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
       }
       return $result;
@@ -2615,12 +2615,12 @@ jQuery( function ( $ )
     function size() {
       var result = '', styles = {}, style, stack = [];
 
-      if ( !empty( $this.width ) ) {
-        styles.width = $this.width + 'px';
+      if ( !empty( $t.width ) ) {
+        styles.width = $t.width + 'px';
       }
 
-      if ( !empty( $this.height ) ) {
-        styles.height = $this.height + 'px';
+      if ( !empty( $t.height ) ) {
+        styles.height = $t.height + 'px';
       }
 
       for ( style in styles ) {
@@ -2642,9 +2642,9 @@ jQuery( function ( $ )
     function buttons()
     {
       var result = '', key, buttons = '';
-      if ( !empty( $this.buttons ) ) {
-        for ( key in $this.buttons ) {
-          var $value = $this.buttons[key];
+      if ( !empty( $t.buttons ) ) {
+        for ( key in $t.buttons ) {
+          var $value = $t.buttons[key];
           var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
           var $label = isset( $value['label'] ) ? $value['label'] : '';
           var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
@@ -2667,9 +2667,9 @@ jQuery( function ( $ )
     function data()
     {
       var result = '', stack = [], key, value;
-      if ( !empty( $this.data ) ) {
-        for ( key in $this.data ) {
-          value = $this.data[key];
+      if ( !empty( $t.data ) ) {
+        for ( key in $t.data ) {
+          value = $t.data[key];
           stack.push( sprintf( 'data-%s="%s"', key, value ) );
         }
         result = join( ' ', stack );
@@ -2686,7 +2686,7 @@ jQuery( function ( $ )
 
       return '<div class="wpdk-modal hide fade" ' +
         data() +
-        'id="' + $this.id + '"' +
+        'id="' + $t.id + '"' +
         'tabindex="-1"' +
         'role="dialog"' +
         'aria-labelledby="' + aria_title() + '"' +
@@ -2695,10 +2695,10 @@ jQuery( function ( $ )
           '<div class="modal-content">' +
            '<div class="modal-header">' +
             close_button() +
-            '<h4 class="modal-title" id="' + aria_title() + '">' + $this.title + '</h4>' +
+            '<h4 class="modal-title" id="' + aria_title() + '">' + $t.title + '</h4>' +
            '</div>' +
            '<div class="modal-body">' +
-            $this.content +
+            $t.content +
            '</div>' +
            buttons() +
           '</div>' +
@@ -2711,8 +2711,8 @@ jQuery( function ( $ )
      */
     this.display = function ()
     {
-      $( 'body' ).append( $this.html() );
-      var modal = $( '#' + $this.id );
+      $( 'body' ).append( $t.html() );
+      var modal = $( '#' + $t.id );
       modal.wpdkModal( 'show' );
       modal.on( 'hidden', function ()
       {
@@ -2736,7 +2736,7 @@ jQuery( function ( $ )
      */
     this.add_buttons = function ( id, label, dismiss, classes )
     {
-      $this.buttons[id] = {
+      $t.buttons[id] = {
         label   : label,
         classes : classes || '',
         dismiss : dismiss || true
@@ -2747,7 +2747,7 @@ jQuery( function ( $ )
      * Add an attribute data
      */
     this.add_data = function ( $key, $value ) {
-      $this.data.push(
+      $t.data.push(
         {
           key   : key,
           value : $value
@@ -2764,7 +2764,7 @@ jQuery( function ( $ )
      */
     this.button_open_modal = function ( label, classes )
     {
-      var id = '#' + $this.id;
+      var id = '#' + $t.id;
       return sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', ( classes || '' ), id, label );
     }
 
@@ -2784,17 +2784,17 @@ jQuery( function ( $ )
   if ( typeof( window.GuruMeditation ) === 'undefined' ) {
     window.GuruMeditation = (function () {
 
-      var $this = {}, div, timer;
+      var $t = {}, div, timer;
 
       /**
        * Version
        *
        * @type {string}
        */
-      $this.version = '1.0.1';
+      $t.version = '1.0.1';
 
       // Display
-      $this.display = function ( $error )
+      $t.display = function ( $error )
       {
         _init( $error );
 
@@ -2806,13 +2806,13 @@ jQuery( function ( $ )
           }, 1000 );
           $( '#guru-meditation' ).on( 'click', function ( event )
           {
-            $this.hide();
+            $t.hide();
           } );
         }
       };
 
       // Hide
-      $this.hide = function ()
+      $t.hide = function ()
       {
         if ( $( 'body > #guru-meditation' ).length ) {
           clearInterval( timer );
@@ -2855,7 +2855,7 @@ jQuery( function ( $ )
           '</div>';
       }
 
-      return $this;
+      return $t;
 
     })();
   }
