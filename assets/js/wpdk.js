@@ -1597,6 +1597,7 @@ jQuery( function ( $ )
               {
                 control.addClass( 'wpdk-form-swipe-on' );
               } );
+              control.triggerHandler( 'changed', [ control, 'on'] );
             }
           }
 
@@ -1609,6 +1610,7 @@ jQuery( function ( $ )
               {
                 control.removeClass( 'wpdk-form-swipe-on' );
               } );
+              control.triggerHandler( 'changed', [ control, 'on'] );
             }
           }
         }
