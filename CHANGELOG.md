@@ -20,6 +20,19 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.3
+### 2013-11-21
+
+#### Improvements
+
+* Improved `WPDKMenu::menu()` with support of any callable function or view controller class name
+* Improved WPDK Javascript
+
+#### Bugs
+
+* Fixed potential unload sequence in Javascript
+
+
 ## Version 1.4.2
 ### 2013-11-19
 

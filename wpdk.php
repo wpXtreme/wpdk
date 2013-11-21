@@ -84,7 +84,7 @@ if ( !class_exists( 'WPDK' ) ) {
       }
 
       /* Loading Script & style for backend */
-      add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ) );
+      add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ), 1 );
 
       /* Loading script & style for frontend */
       add_action( 'wp_head', array( $this, 'enqueue_scripts_styles' ) );
