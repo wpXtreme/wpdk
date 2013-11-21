@@ -6,7 +6,7 @@
  * @date               2013-11-21
  */
 
-+function ( $ )
+jQuery( function ( $ )
 {
   "use strict";
 
@@ -1655,6 +1655,8 @@
         _initAccordion();
         _initBehavior();
         _initGuide();
+
+        return $this;
       };
 
       /**
@@ -1868,6 +1870,8 @@
 
       /* Init alert. */
       $().wpdkAlert();
+
+      return $this;
     };
 
     return $this;
@@ -1936,6 +1940,8 @@
 
       /* Wrap the date picker with my pwn class. */
       $( '#ui-datepicker-div' ).wrap( '<div class="wpdk-jquery-ui"/>' );
+
+      return $this;
     };
 
     /**
@@ -2269,70 +2275,76 @@
    * @date            2013-10-30
    * @version         1.0.1
    */
-  if( typeof( window.WPDKDynamicTable ) === 'undefined' ) {
-    window.WPDKDynamicTable = (function () {
-
-    /**
-     * @type {WPDKDynamicTable}
-     */
-    var $this = {};
-
-    /**
-     * Version
-     *
-     * @type {string}
-     */
-    $this.version = "1.0.1";
-
-    /**
-     * Return a singleton instance of WPDKDynamicTable class
-     *
-     * @returns {WPDKDynamicTable}
-     */
-    $this.init = function ()
+  if ( typeof( window.WPDKDynamicTable ) === 'undefined' ) {
+    window.WPDKDynamicTable = (function ()
     {
-      var table = $( 'table.wpdk-dynamic-table' );
-      if ( table.length ) {
-        table.on( 'click', 'input.wpdk-dt-add-row', false, _addRow );
-        table.on( 'click', 'input.wpdk-dt-delete-row', false, _deleteRow );
 
-        /* Sortable. */
-        $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
-          axis   : "y",
-          cursor : "n-resize",
-          start  : function ( e, ui ) {},
-          stop   : function () {}
+      /**
+       * @type {WPDKDynamicTable}
+       */
+      var $this = {};
+
+      /**
+       * Version
+       *
+       * @type {string}
+       */
+      $this.version = "1.0.1";
+
+      /**
+       * Return a singleton instance of WPDKDynamicTable class
+       *
+       * @returns {WPDKDynamicTable}
+       */
+      $this.init = function ()
+      {
+        var table = $( 'table.wpdk-dynamic-table' );
+        if ( table.length ) {
+          table.on( 'click', 'input.wpdk-dt-add-row', false, _addRow );
+          table.on( 'click', 'input.wpdk-dt-delete-row', false, _deleteRow );
+
+          /* Sortable. */
+          $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
+            axis   : "y",
+            cursor : "n-resize",
+            start  : function ( e, ui ) {},
+            stop   : function () {}
+          } );
+        }
+
+        return $this;
+      };
+
+      /**
+       * Add a row to the dynamic table
+       *
+       * @private
+       */
+      function _addRow()
+      {
+        var table = $( this ).parents( 'table.wpdk-dynamic-table' );
+        var clone = $( this ).parents( 'tr' ).prevAll( '.wpdk-dt-clone' ).clone();
+        clone.removeClass( 'wpdk-dt-clone' ).appendTo( table );
+        $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function ()
+        {
+          WPDK.init();
         } );
       }
-    };
 
-    /**
-     * Add a row to the dynamic table
-     *
-     * @private
-     */
-    function _addRow() {
-      var table = $( this ).parents( 'table.wpdk-dynamic-table' );
-      var clone = $( this ).parents( 'tr' ).prevAll( '.wpdk-dt-clone' ).clone();
-      clone.removeClass( 'wpdk-dt-clone' ).appendTo( table );
-      $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function () {
-        WPDK.init();
-      } );
-    }
+      /**
+       * Delete a row from dynamic table
+       *
+       * @private
+       */
+      function _deleteRow()
+      {
+        $( this ).wpdkTooltip( 'hide' );
+        $( this ).parents( 'tr' ).fadeOut( 300, function () { $( this ).remove(); } );
+      }
 
-    /**
-     * Delete a row from dynamic table
-     *
-     * @private
-     */
-    function _deleteRow() {
-      $( this ).wpdkTooltip( 'hide' );
-      $( this ).parents( 'tr' ).fadeOut( 300, function () { $( this ).remove(); } );
-    }
+      return $this;
 
-    return $this;
-
-  })();
+    })();
   }
 
   /**
@@ -2369,18 +2381,6 @@
      */
     $this.init = function ()
     {
-      $( document ).ready( _init );
-
-      return $this;
-    };
-
-    /**
-     * Init when the document is ready
-     *
-     * @private
-     */
-    function _init()
-    {
       /* Display a confirm dialog box before reset a specified branch to default values. */
       $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
       {
@@ -2392,7 +2392,9 @@
       {
         return confirm( $( this ).data( 'confirm' ) );
       } );
-    }
+
+      return $this;
+    };
 
     /**
      * This method is used to update the event when the DOM is changed
@@ -2453,99 +2455,97 @@
    * @class           WPDK
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-13
-   * @version         0.9.5
+   * @date            2013-11-21
+   * @version         0.9.6
    *
    */
-  if( typeof( window.WPDK ) === 'undefined' ) {
-    window.WPDK = (function () {
-
-    /**
-     * Internal class pointer
-     */
-    var $this = {};
-
-    /**
-     * The WPDK Javascript version
-     */
-    $this.version = "0.9.5";
-
-    /**
-     * Initialize all Javascript hook.
-     * If you modify the DOM you can call this method to refresh hooks.
-     */
-    $this.init = function () {
-      _hackMenu();
-      WPDKjQuery.init();
-      WPDKControls.init();
-      WPDKDynamicTable.init();
-      WPDKTwitterBootstrap.init();
-    };
-
-    /**
-     * See WPDK.init();
-     *
-     * @deprecated Use WPDK.init() instead
-     */
-    $this.refresh = function () {
-      $this.init();
-    };
-
-    /**
-     * Enabled/Disabled loading on the screen top most
-     *
-     * @param status True to display loading on top most, False to remove
-     *
-     */
-    $this.loading = function ( status )
+  if ( typeof( window.WPDK ) === 'undefined' ) {
+    window.WPDK = (function ()
     {
-      if ( true === status ) {
-        $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
-      }
-      else {
-        $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
-      }
-    };
 
-    /**
-     * Reload current document with clear and waiting effects
-     *
-     * @since 1.0.0.b3
-     *
-     * @param {bool} Optional. FALSE to avoid mask
-     */
-    $this.reloadDocument = function ()
-    {
-      if ( 0 == arguments.length ) {
-        $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
-      }
-      document.location = document.location.href;
-    };
+      /**
+       * Internal class pointer
+       */
+      var $this = {};
 
-    /**
-     * Call the init when the document is ready
-     */
-    $( document ).ready( function () {
-      $this.init();
-    } );
+      /**
+       * The WPDK Javascript version
+       */
+      $this.version = "0.9.6";
 
-    /**
-     * Remove the A tag to create a separator item for wpXtreme menu.
-     *
-     * @private
-     */
-    function _hackMenu()
-    {
-      $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
+      /**
+       * Initialize all Javascript hook.
+       * If you modify the DOM you can call this method to refresh hooks.
+       */
+      $this.init = function ()
       {
-        var content = $( this ).html();
-        $( this ).parent().replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
-      } );
-    }
+        _hackMenu();
+        WPDKjQuery.init();
+        WPDKControls.init();
+        WPDKDynamicTable.init();
+        WPDKTwitterBootstrap.init();
 
-    return $this;
+        return $this;
+      };
 
-  })();
+      /**
+       * See WPDK.init();
+       *
+       * @deprecated Use WPDK.init() instead
+       */
+      $this.refresh = function ()
+      {
+        $this.init();
+      };
+
+      /**
+       * Enabled/Disabled loading on the screen top most
+       *
+       * @param status True to display loading on top most, False to remove
+       *
+       */
+      $this.loading = function ( status )
+      {
+        if ( true === status ) {
+          $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
+        }
+        else {
+          $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
+        }
+      };
+
+      /**
+       * Reload current document with clear and waiting effects
+       *
+       * @since 1.0.0.b3
+       *
+       * @param {bool} Optional. FALSE to avoid mask
+       */
+      $this.reloadDocument = function ()
+      {
+        if ( 0 == arguments.length ) {
+          $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
+        }
+        document.location = document.location.href;
+      };
+
+      /**
+       * Remove the A tag to create a separator item for wpXtreme menu.
+       *
+       * @private
+       */
+      function _hackMenu()
+      {
+        $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
+        {
+          var content = $( this ).html();
+          $( this ).parent().replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
+        } );
+      }
+
+      return $this.init();
+
+    })();
   }
 
   /**
@@ -2890,4 +2890,4 @@
   /* Fire when WPDK is loaded */
   $( document ).triggerHandler( 'WPDK' );
 
-}( jQuery );
+}( jQuery ) );
