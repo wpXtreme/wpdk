@@ -6,111 +6,10 @@
  * @date               2013-11-21
  */
 
-jQuery( function ( $ )
+
++function ()
 {
   "use strict";
-
-  /**
-   * jQuery Cookie Plugin v1.3.1
-   * https://github.com/carhartl/jquery-cookie
-   *
-   * Copyright 2013 Klaus Hartl
-   * Released under the MIT license
-   */
-  (function ( factory ) { if ( typeof define === 'function' && define.amd ) {
-      // AMD. Register as anonymous module.
-      define( ['jquery'], factory );
-    }
-    else {
-      // Browser globals.
-      factory( jQuery );
-    }
-  }( function ( $ ) {
-
-    var pluses = /\+/g;
-
-    function raw( s )
-    {
-      return s;
-    }
-
-    function decoded( s )
-    {
-      return decodeURIComponent( s.replace( pluses, ' ' ) );
-    }
-
-    function converted( s )
-    {
-      if ( s.indexOf( '"' ) === 0 ) {
-        // This is a quoted cookie as according to RFC2068, unescape
-        s = s.slice( 1, -1 ).replace( /\\"/g, '"' ).replace( /\\\\/g, '\\' );
-      }
-      try {
-        return config.json ? JSON.parse( s ) : s;
-      } catch (er) {
-      }
-    }
-
-    var config = $.cookie = function ( key, value, options )
-    {
-
-      // write
-      if ( value !== undefined ) {
-        options = $.extend( {}, config.defaults, options );
-
-        if ( typeof options.expires === 'number' ) {
-          var days = options.expires, t = options.expires = new Date();
-          t.setDate( t.getDate() + days );
-        }
-
-        value = config.json ? JSON.stringify( value ) : String( value );
-
-        return (document.cookie = [
-          config.raw ? key : encodeURIComponent( key ),
-          '=',
-          config.raw ? value : encodeURIComponent( value ),
-          options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-          options.path ? '; path=' + options.path : '',
-          options.domain ? '; domain=' + options.domain : '',
-          options.secure ? '; secure' : ''
-        ].join( '' ));
-      }
-
-      // read
-      var decode = config.raw ? raw : decoded;
-      var cookies = document.cookie.split( '; ' );
-      var result = key ? undefined : {};
-      for ( var i = 0, l = cookies.length; i < l; i++ ) {
-        var parts = cookies[i].split( '=' );
-        var name = decode( parts.shift() );
-        var cookie = decode( parts.join( '=' ) );
-
-        if ( key && key === name ) {
-          result = converted( cookie );
-          break;
-        }
-
-        if ( !key ) {
-          result[name] = converted( cookie );
-        }
-      }
-
-      return result;
-    };
-
-    config.defaults = {};
-
-    $.removeCookie = function ( key, options )
-    {
-      if ( $.cookie( key ) !== undefined ) {
-        // Must not alter options, thus extending a fresh object...
-        $.cookie( key, '', $.extend( {}, options, { expires : -1 } ) );
-        return true;
-      }
-      return false;
-    };
-
-  } ));
 
   /**
    * Like PHP empty()
@@ -122,7 +21,8 @@ jQuery( function ( $ )
    * @return {Boolean}
    */
   if ( typeof( window.empty ) === 'undefined' ) {
-    window.empty = function ( mixed_var ) {
+    window.empty = function ( mixed_var )
+    {
       // Checks if the argument variable is empty
       // undefined, null, false, number 0, empty string,
       // string "0", objects without properties and empty arrays
@@ -157,7 +57,11 @@ jQuery( function ( $ )
         }
       }
 
-      if ( typeof mixed_var === "object" ) {
+      if( $.isArray( mixed_var ) ) {
+        return ( mixed_var.length > 0 );
+      }
+
+      if ( typeof( mixed_var ) === "object" ) {
         for ( key in mixed_var ) {
           // TODO: should we check for own properties only?
           //if (mixed_var.hasOwnProperty(key)) {
@@ -179,7 +83,8 @@ jQuery( function ( $ )
    * @return {Boolean}
    */
   if ( typeof( window.isset ) === 'undefined' ) {
-    window.isset = function() {
+    window.isset = function ()
+    {
       // http://kevin.vanzonneveld.net
       // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
       // +   improved by: FremyCompany
@@ -215,7 +120,8 @@ jQuery( function ( $ )
    * @return {*|void}
    */
   if ( typeof( window.sprintf ) === 'undefined' ) {
-    window.sprintf = function() {
+    window.sprintf = function ()
+    {
       // http://kevin.vanzonneveld.net
       // +   original by: Ash Searle (http://hexmen.com/blog/)
       // + namespaced by: Michael White (http://getsprink.com)
@@ -423,22 +329,15 @@ jQuery( function ( $ )
    * @return {*}
    */
   if ( typeof( window.join ) === 'undefined' ) {
-    window.join = function( glue, pieces ) {
+    window.join = function ( glue, pieces )
+    {
       // http://kevin.vanzonneveld.net
       // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
       // -    depends on: implode
       // *     example 1: join(' ', ['Kevin', 'van', 'Zonneveld']);
       // *     returns 1: 'Kevin van Zonneveld'
-      return this.implode( glue, pieces );
+      return implode( glue, pieces );
     };
-
-    /* Extends Array type too */
-    if ( typeof( Array.prototype.join ) === 'undefined' ) {
-      Array.prototype.join = function ( glue )
-      {
-        return window.implode( glue, this );
-      };
-    }
   }
 
   /**
@@ -449,7 +348,8 @@ jQuery( function ( $ )
    * @return {*}
    */
   if ( typeof( window.implode ) === 'undefined' ) {
-    window.implode = function ( glue, pieces ) {
+    window.implode = function ( glue, pieces )
+    {
       // http://kevin.vanzonneveld.net
       // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
       // +   improved by: Waldo Malqui Silva
@@ -478,14 +378,6 @@ jQuery( function ( $ )
       }
       return pieces;
     };
-
-    /* Extends Array type too */
-    if ( typeof( Array.prototype.implode ) === 'undefined' ) {
-      Array.prototype.implode = function ( glue )
-      {
-        return window.implode( glue, this );
-      };
-    }
   }
 
   /**
@@ -500,7 +392,8 @@ jQuery( function ( $ )
    * @return {Boolean}
    */
   if ( typeof( window.wpdk_is_bool ) === 'undefined' ) {
-    window.wpdk_is_bool = function ( mixed ) {
+    window.wpdk_is_bool = function ( mixed )
+    {
       var undef, i, len;
       var emptyValues = [undef, null, false, 0, "", "0", 'n', 'no', 'off', 'false'];
       for ( i = 0, len = emptyValues.length; i < len; i++ ) {
@@ -511,7 +404,113 @@ jQuery( function ( $ )
       return true;
     };
   }
+}();
 
+jQuery( function ( $ )
+{
+  "use strict";
+
+  /**
+   * jQuery Cookie Plugin v1.3.1
+   * https://github.com/carhartl/jquery-cookie
+   *
+   * Copyright 2013 Klaus Hartl
+   * Released under the MIT license
+   */
+  (function ( factory ) { if ( typeof define === 'function' && define.amd ) {
+      // AMD. Register as anonymous module.
+      define( ['jquery'], factory );
+    }
+    else {
+      // Browser globals.
+      factory( jQuery );
+    }
+  }( function ( $ ) {
+
+    var pluses = /\+/g;
+
+    function raw( s )
+    {
+      return s;
+    }
+
+    function decoded( s )
+    {
+      return decodeURIComponent( s.replace( pluses, ' ' ) );
+    }
+
+    function converted( s )
+    {
+      if ( s.indexOf( '"' ) === 0 ) {
+        // This is a quoted cookie as according to RFC2068, unescape
+        s = s.slice( 1, -1 ).replace( /\\"/g, '"' ).replace( /\\\\/g, '\\' );
+      }
+      try {
+        return config.json ? JSON.parse( s ) : s;
+      } catch (er) {
+      }
+    }
+
+    var config = $.cookie = function ( key, value, options )
+    {
+
+      // write
+      if ( value !== undefined ) {
+        options = $.extend( {}, config.defaults, options );
+
+        if ( typeof options.expires === 'number' ) {
+          var days = options.expires, t = options.expires = new Date();
+          t.setDate( t.getDate() + days );
+        }
+
+        value = config.json ? JSON.stringify( value ) : String( value );
+
+        return (document.cookie = [
+          config.raw ? key : encodeURIComponent( key ),
+          '=',
+          config.raw ? value : encodeURIComponent( value ),
+          options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+          options.path ? '; path=' + options.path : '',
+          options.domain ? '; domain=' + options.domain : '',
+          options.secure ? '; secure' : ''
+        ].join( '' ));
+      }
+
+      // read
+      var decode = config.raw ? raw : decoded;
+      var cookies = document.cookie.split( '; ' );
+      var result = key ? undefined : {};
+      for ( var i = 0, l = cookies.length; i < l; i++ ) {
+        var parts = cookies[i].split( '=' );
+        var name = decode( parts.shift() );
+        var cookie = decode( parts.join( '=' ) );
+
+        if ( key && key === name ) {
+          result = converted( cookie );
+          break;
+        }
+
+        if ( !key ) {
+          result[name] = converted( cookie );
+        }
+      }
+
+      return result;
+    };
+
+    config.defaults = {};
+
+    $.removeCookie = function ( key, options )
+    {
+      if ( $.cookie( key ) !== undefined ) {
+        // Must not alter options, thus extending a fresh object...
+        $.cookie( key, '', $.extend( {}, options, { expires : -1 } ) );
+        return true;
+      }
+      return false;
+    };
+
+  } ));
 
   if( typeof( jQuery.fn.transition ) === 'undefined' ) {
   /* ========================================================================

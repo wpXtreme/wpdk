@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.4
+### 2013-11-??
+
+#### Bugs
+
+* Fixed potential conflict in Javascript
+
+
 ## Version 1.4.3
 ### 2013-11-21
 
