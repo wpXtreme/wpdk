@@ -6,8 +6,8 @@
  * @date               2013-11-21
  */
 
-
-+function ()
+/* Extends */
++function ( $ )
 {
   "use strict";
 
@@ -58,7 +58,7 @@
       }
 
       if( $.isArray( mixed_var ) ) {
-        return ( mixed_var.length > 0 );
+        return !( mixed_var.length > 0 );
       }
 
       if ( typeof( mixed_var ) === "object" ) {
@@ -404,11 +404,6 @@
       return true;
     };
   }
-}();
-
-jQuery( function ( $ )
-{
-  "use strict";
 
   /**
    * jQuery Cookie Plugin v1.3.1
@@ -1620,6 +1615,14 @@ jQuery( function ( $ )
     };
   }
 
+}( jQuery );
+
+
+/* On document ready */
+jQuery( function ( $ )
+{
+  "use strict";
+
   /**
    * This class manage all forms controles and fields, attach new event and perform special actions.
    *
@@ -2451,105 +2454,6 @@ jQuery( function ( $ )
   }
 
   /**
-   * This is a little Javascript framework to improve the UI and checking control specially in the form management.
-   *
-   * @class           WPDK
-   * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-21
-   * @version         0.9.6
-   *
-   */
-  if ( typeof( window.WPDK ) === 'undefined' ) {
-    window.WPDK = (function ()
-    {
-
-      /**
-       * Internal class pointer
-       */
-      var $t = {};
-
-      /**
-       * The WPDK Javascript version
-       */
-      $t.version = "0.9.6";
-
-      /**
-       * Initialize all Javascript hook.
-       * If you modify the DOM you can call this method to refresh hooks.
-       */
-      $t.init = function ()
-      {
-        _hackMenu();
-        WPDKjQuery.init();
-        WPDKControls.init();
-        WPDKDynamicTable.init();
-        WPDKTwitterBootstrap.init();
-
-        return $t;
-      };
-
-      /**
-       * See WPDK.init();
-       *
-       * @deprecated Use WPDK.init() instead
-       */
-      $t.refresh = function ()
-      {
-        $t.init();
-      };
-
-      /**
-       * Enabled/Disabled loading on the screen top most
-       *
-       * @param status True to display loading on top most, False to remove
-       *
-       */
-      $t.loading = function ( status )
-      {
-        if ( true === status ) {
-          $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
-        }
-        else {
-          $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
-        }
-      };
-
-      /**
-       * Reload current document with clear and waiting effects
-       *
-       * @since 1.0.0.b3
-       *
-       * @param {bool} Optional. FALSE to avoid mask
-       */
-      $t.reloadDocument = function ()
-      {
-        if ( 0 == arguments.length ) {
-          $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
-        }
-        document.location = document.location.href;
-      };
-
-      /**
-       * Remove the A tag to create a separator item for wpXtreme menu.
-       *
-       * @private
-       */
-      function _hackMenu()
-      {
-        $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
-        {
-          var content = $( this ).html();
-          $( this ).parent().replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
-        } );
-      }
-
-      return $t.init();
-
-    })();
-  }
-
-  /**
    * Utility for Twitter Bootstrap Modal dialog.
    *
    * @class           WPDKTwitterBootstrapModal
@@ -2859,6 +2763,104 @@ jQuery( function ( $ )
     })();
   }
 
+  /**
+   * This is a little Javascript framework to improve the UI and checking control specially in the form management.
+   *
+   * @class           WPDK
+   * @author          =undo= <info@wpxtre.me>
+   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+   * @date            2013-11-21
+   * @version         0.9.6
+   *
+   */
+  if ( typeof( window.WPDK ) === 'undefined' ) {
+    window.WPDK = (function ()
+    {
+
+      /**
+       * Internal class pointer
+       */
+      var $t = {};
+
+      /**
+       * The WPDK Javascript version
+       */
+      $t.version = "0.9.6";
+
+      /**
+       * Initialize all Javascript hook.
+       * If you modify the DOM you can call this method to refresh hooks.
+       */
+      $t.init = function ()
+      {
+        _hackMenu();
+        WPDKjQuery.init();
+        WPDKControls.init();
+        WPDKDynamicTable.init();
+        WPDKTwitterBootstrap.init();
+
+        return $t;
+      };
+
+      /**
+       * See WPDK.init();
+       *
+       * @deprecated Use WPDK.init() instead
+       */
+      $t.refresh = function ()
+      {
+        $t.init();
+      };
+
+      /**
+       * Enabled/Disabled loading on the screen top most
+       *
+       * @param status True to display loading on top most, False to remove
+       *
+       */
+      $t.loading = function ( status )
+      {
+        if ( true === status ) {
+          $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
+        }
+        else {
+          $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
+        }
+      };
+
+      /**
+       * Reload current document with clear and waiting effects
+       *
+       * @since 1.0.0.b3
+       *
+       * @param {bool} Optional. FALSE to avoid mask
+       */
+      $t.reloadDocument = function ()
+      {
+        if ( 0 == arguments.length ) {
+          $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
+        }
+        document.location = document.location.href;
+      };
+
+      /**
+       * Remove the A tag to create a separator item for wpXtreme menu.
+       *
+       * @private
+       */
+      function _hackMenu()
+      {
+        $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
+        {
+          var content = $( this ).html();
+          $( this ).parent().replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
+        } );
+      }
+
+      return $t.init();
+
+    })();
+  }
 
   /**
    * Write a cookie to debug the javascript library versions
