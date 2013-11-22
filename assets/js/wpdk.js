@@ -2892,4 +2892,4 @@ jQuery( function ( $ )
   /* Fire when WPDK is loaded */
   $( document ).triggerHandler( 'WPDK' );
 
-}( jQuery ) );
+});
