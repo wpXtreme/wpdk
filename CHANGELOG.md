@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.5
+### 2013-11-??
+
+#### Improvements
+
+* Improved `wpdk_enqueue_script_page_template()` function
+
 ## Version 1.4.4
 ### 2013-11-22
 
