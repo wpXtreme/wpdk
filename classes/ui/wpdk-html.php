@@ -65,6 +65,34 @@ class WPDKHTML extends WPDKObject {
   /**
    * Display compressed output
    *
+   * @brief End compressed
+   * @since 1.4.5
+   */
+  public static function endJavascriptCompress()
+  {
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    /* Remove comments */
+    //$content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
+
+    $replaces = array(
+      " ="    => '=',
+      "= "    => '=',
+      '  '    => '',
+      '    '  => '',
+      '     ' => '',
+    );
+
+    /* Remove tabs, spaces, newlines, etc. */
+    $content = trim( strtr( $content, $replaces ) );
+
+    return $content;
+  }
+
+  /**
+   * Display compressed output
+   *
    * @brief    End compressed
    * @note     The following params are not used yet
    *
