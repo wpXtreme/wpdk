@@ -679,7 +679,8 @@ class WPDKUsers {
 
     /* Do a several action/filter to monitoring user action. */
 
-    $this->logout();
+    //$this->logout();
+    add_action( 'init', array( $this, 'logout' ) );
 
     /* Main hook for common check in front end. */
     //add_action( 'wp_head', array( $this, 'wp_head_signin' ) );
@@ -724,7 +725,9 @@ class WPDKUsers {
    *
    * @brief Logout an user
    */
-  private function logout() {
+  public function logout() {
+
+    WPXtreme::log( 'logout' );
 
     /* If a user is logged in. */
     if ( is_user_logged_in() ) {

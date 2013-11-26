@@ -73,7 +73,7 @@ if ( !class_exists( 'WPDK' ) ) {
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
       /* Users enhancer. */
-      add_action( 'init', array( 'WPDKUsers', 'init' ) );
+      add_action( 'set_current_user', array( 'WPDKUsers', 'init' ) );
 
       /* Shortcode. */
       add_action( 'wp_loaded', array( 'WPDKServiceShortcode', 'init' ) );
