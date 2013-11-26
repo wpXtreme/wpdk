@@ -27,6 +27,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Improved `wpdk_enqueue_script_page_template()` function
 
+#### Experimental
+
+* Added `WPDKHTML::endJavascriptCompress()`
+
+
 ## Version 1.4.4
 ### 2013-11-22
 
