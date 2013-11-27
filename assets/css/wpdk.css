@@ -1953,17 +1953,6 @@ fieldset.wpdk-form-fieldset .alert
   margin : 0 2px;
 }
 
-.alert-arrow-top:before
-{
-  content             : "";
-  border              : 16px solid transparent;
-  border-bottom-color : #f2dede;
-  display             : block;
-  margin              : -40px 0 0 32px;
-  position            : absolute;
-  z-index             : 9999;
-}
-
 /* =====================================================================================================================
  * START TWITTER BOOTSTRAP BUTTON
  * =====================================================================================================================
