@@ -54,9 +54,9 @@ class WPDKMail extends WPDKPost {
       $from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
-    /* $from è nel formato 'NOME <email>', ad esempio: 'wpXtreme <info@wpxtre.me>' */
+    /* $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>' */
     if ( empty( $from ) ) {
-      /* Get the defaul WordPress email. */
+      /* Get the default WordPress email. */
       $from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
 
@@ -65,11 +65,17 @@ class WPDKMail extends WPDKPost {
       'Content-Type: text/html' . "\r\n"
     );
 
-    /* Se $to è un numero corriponde ad un id_user */
+    /* User id for $to? */
     $user = false;
     if ( is_numeric( $to ) ) {
-      $user = new WP_User( $to );
-      $to   = sprintf( '  %s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
+      $user  = new WP_User( $to );
+      $email = sanitize_email( $user->get( 'user_email' ) );
+
+      /* If user has not email exit */
+      if ( empty( $email ) ) {
+        return;
+      }
+      $to = sprintf( '  %s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
     if ( $subject === false ) {

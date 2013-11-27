@@ -2447,9 +2447,6 @@ jQuery( function ( $ )
       this.message = response.message.replace( /\\n/g, "\n" );
     }
 
-    if ( isset( response.data ) && !empty( response.data ) ) {
-      this.data = response.data.replace( /\\n/g, "\n" );
-    }
   };
   }
 

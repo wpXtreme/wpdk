@@ -679,7 +679,8 @@ class WPDKUsers {
 
     /* Do a several action/filter to monitoring user action. */
 
-    $this->logout();
+    //$this->logout();
+    add_action( 'init', array( $this, 'logout' ) );
 
     /* Main hook for common check in front end. */
     //add_action( 'wp_head', array( $this, 'wp_head_signin' ) );
@@ -715,17 +716,13 @@ class WPDKUsers {
     add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
-  // Check if a user is disabled
-  // -----------------------------------------------------------------------------------------------------------------
-
   /**
    * Force an user logout when disabled or if in GET you pass wpdk_logout
    *
    * @brief Logout an user
    */
-  private function logout() {
-
+  public function logout()
+  {
     /* If a user is logged in. */
     if ( is_user_logged_in() ) {
       $user_id = get_current_user_id();
@@ -738,7 +735,7 @@ class WPDKUsers {
       }
 
       /* Manual logout. */
-      if( isset( $_REQUEST['wpdk_logout'] ) ) {
+      if ( isset( $_REQUEST['wpdk_logout'] ) ) {
         $logout = true;
       }
 

@@ -38,19 +38,81 @@ class WPDKHTML extends WPDKObject {
    */
   public static function endCSSCompress()
   {
+    $str = ob_get_contents();
+    ob_end_clean();
+
+    $re1 = <<<'EOS'
+(?sx)
+  # quotes
+  (
+    "(?:[^"\\]++|\\.)*+"
+  | '(?:[^'\\]++|\\.)*+'
+  )
+|
+  # comments
+  /\* (?> .*? \*/ )
+EOS;
+
+    $re2 = <<<'EOS'
+(?six)
+  # quotes
+  (
+    "(?:[^"\\]++|\\.)*+"
+  | '(?:[^'\\]++|\\.)*+'
+  )
+|
+  # ; before } (and the spaces after it while we're here)
+  \s*+ ; \s*+ ( } ) \s*+
+|
+  # all spaces around meta chars/operators
+  \s*+ ( [*$~^|]?+= | [{};,>~+-] | !important\b ) \s*+
+|
+  # spaces right of ( [ :
+  ( [[(:] ) \s++
+|
+  # spaces left of ) ]
+  \s++ ( [])] )
+|
+  # spaces left (and right) of :
+  \s++ ( : ) \s*+
+  # but not in selectors: not followed by a {
+  (?!
+    (?>
+      [^{}"']++
+    | "(?:[^"\\]++|\\.)*+"
+    | '(?:[^'\\]++|\\.)*+'
+    )*+
+    {
+  )
+|
+  # spaces at beginning/end of string
+  ^ \s++ | \s++ \z
+|
+  # double spaces to single
+  (\s)\s+
+EOS;
+
+    $str = preg_replace( "%$re1%", '$1', $str );
+    return preg_replace( "%$re2%", '$1$2$3$4$5$6$7', $str );
+  }
+
+  /**
+   * Display compressed output
+   *
+   * @brief End compressed
+   * @since 1.4.5
+   */
+  public static function endJavascriptCompress()
+  {
     $content = ob_get_contents();
     ob_end_clean();
 
     /* Remove comments */
-    $content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
+    //$content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
 
     $replaces = array(
-      "\r"    => '',
-      " :"    => ':',
-      ": "    => ':',
-      "\n"    => '',
-      "\t"    => '',
-      ";}"    => '}',
+      " ="    => '=',
+      "= "    => '=',
       '  '    => '',
       '    '  => '',
       '     ' => '',
