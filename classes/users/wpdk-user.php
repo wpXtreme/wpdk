@@ -847,32 +847,47 @@ class WPDKUsers {
 
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Signin utility
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Do a WordPress Sign in and call filters and action
    *
    * @brief Signin
    *
-   * @param string $email    A valid email address
-   * @param string $password Password
-   * @param bool   $remember Optional. TRUE for set a cookie for next login
+   * @param string|int $user     Any user id, user email or user login
+   * @param string     $password Password
+   * @param bool       $remember Optional. TRUE for set a cookie for next login
    *
    * @return bool TRUE if success, FALSE for access denied
    */
-  public function signIn( $email, $password, $remember = false ) {
+  public function signIn( $user, $password, $remember = false ) {
 
-    /* Sanitize email */
-    $email = sanitize_email( $email );
+    $user_id = false;
 
-    /* User exists with email */
-    $id_user = email_exists( $email );
+    /* Check user id */
+    if ( is_numeric( $user ) ) {
+      $user_id = $user;
+    }
+    /* Check for email */
+    elseif ( is_email( $user ) ) {
+      /* Sanitize email */
+      $email = sanitize_email( $user );
+      /* User exists with email */
+      $user_id = email_exists( $email );
+    }
+    /* Check for user login */
+    else {
+      $user = get_user_by( 'login', $user );
+      if( $user ) {
+        $user_id = $user->ID;
+      }
+    }
 
-    if ( false !== $id_user ) {
-      $user = new WP_User( $id_user );
-      if ( $user ) {
+    if ( false !== $user_id ) {
+      $user = new WPDKUser( $user_id );
+      if ( $user->exists() && WPDKUserStatus::DISABLED !== $user->status ) {
         $result = wp_authenticate( $user->user_login, $password );
         if ( !is_wp_error( $result ) ) {
           /* Set remember cookie */
@@ -890,6 +905,7 @@ class WPDKUsers {
     }
 
     do_action( 'wpdk_singin_wrong', $email, $password );
+
     return false;
   }
 
