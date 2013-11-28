@@ -20,6 +20,23 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.5
+### 2013-11-28
+
+#### Enhancements
+
+* Added 16 new Glyphs Icons
+
+#### Improvements
+
+* Improved `wpdk_enqueue_script_page_template()` function
+* Minor stable fixes
+
+#### Experimental
+
+* Added `WPDKHTML::endJavascriptCompress()`
+
+
 ## Version 1.4.4
 ### 2013-11-22
 

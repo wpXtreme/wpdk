@@ -174,9 +174,9 @@ class WPDKMenu {
     $info = self::menu( $view_controller );
 
     $url = '';
-    if ( !empty( $info ) ) {
+    if ( !empty( $info ) && isset( $info['parent'] ) ) {
 
-      if ( false === strpos( '.php', $info['parent'] ) ) {
+      if ( false === strpos( $info['parent'], '.php' ) ) {
         $url = add_query_arg( array( 'page' => $info['page'] ), admin_url( 'admin.php' ) );
       }
       else {

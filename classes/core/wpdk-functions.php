@@ -532,7 +532,7 @@ function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(
 }
 
 /**
- * Enqueue script for list of page template
+ * Enqueue script for list of page template. Return FALSE if $page_templates is empty
  *
  * @brief Enqueue script
  *
@@ -542,16 +542,24 @@ function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(
  * @param array  $deps           Optional. Array of other handle
  * @param bool   $ver            Optional. Version to avoid cache
  * @param bool   $in_footer      Optional. Load in footer
+ *
+ * @return bool
  */
-function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = false, $deps = array(), $ver = false,
-                                           $in_footer = false )
+function wpdk_enqueue_script_page_template( $page_templates, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false )
 {
+  if ( empty( $page_templates ) ) {
+    return false;
+  }
+  if ( is_string( $page_templates ) ) {
+    $page_templates = array( $page_templates );
+  }
   foreach ( $page_templates as $slug ) {
     if ( is_page_template( $slug ) ) {
       wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
       break;
     }
   }
+  return true;
 }
 
 /**
