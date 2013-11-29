@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.6
+### 2013-11-??
+
+#### Bugs
+
+* Fixed WPDKAjaxResponse data init
+
+
 ## Version 1.4.5
 ### 2013-11-28
 
