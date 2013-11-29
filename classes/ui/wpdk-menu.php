@@ -358,7 +358,7 @@ class WPDKMenu {
     while ( $sub_menu = current( $this->subMenus ) ) {
       $next = next( $this->subMenus );
       if ( is_a( $sub_menu, 'WPDKSubMenuDivider' ) ) {
-        if ( isset( $next ) ) {
+        if ( isset( $next ) && isset( $next->capability ) ) {
           $sub_menu->capability = $next->capability;
         }
       }
