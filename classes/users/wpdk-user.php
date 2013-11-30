@@ -61,6 +61,14 @@ class WPDKUserMeta {
   const LAST_TIME_LOGOUT = '_wpdk_user_last_time_logout';
 
   /**
+   * Remote Address when an user when created
+   *
+   * @brief Remote Address
+   * @since 1.4.6
+   */
+  const REMOTE_ADDR = '_wpdk_user_remote_address';
+
+  /**
    * Update the wpdk extra user meta information. This method was written for the user profile.
    * Updates:
    *     LAST_TIME_SUCCESS_LOGIN
@@ -1012,18 +1020,27 @@ class WPDKUsers {
       'role'          => $role
     );
 
-    $id_user = wp_insert_user( $user_data );
+    $user_id = wp_insert_user( $user_data );
 
-    /* Se l'utente è stato inserito lo disabilito come da parametro. */
-    if ( !is_wp_error( $id_user ) && false === $enabled ) {
-      $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $id_user );
-      update_user_meta( $id_user, WPDKUserMeta::STATUS, $status );
-
-      $status_description = apply_filters( 'wpdk_users_status_description', '', $id_user );
-      update_user_meta( $id_user, WPDKUserMeta::STATUS_DESCRIPTION, $status_description );
+    if( is_wp_error( $user_id ) ) {
+      return $user_id;
     }
 
-    return $id_user;
+    /* Store IP Address */
+    if ( isset( $_SERVER['REMOTE_ADDR'] ) && !empty( $_SERVER['REMOTE_ADDR'] ) ) {
+      update_user_meta( $user_id, WPDKUserMeta::REMOTE_ADDR, $_SERVER['REMOTE_ADDR'] );
+    }
+
+    /* Disable user if required */
+    if ( false === $enabled ) {
+      $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
+      update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
+
+      $status_description = apply_filters( 'wpdk_users_status_description', '', $user_id );
+      update_user_meta( $user_id, WPDKUserMeta::STATUS_DESCRIPTION, $status_description );
+    }
+
+    return $user_id;
   }
 
 
