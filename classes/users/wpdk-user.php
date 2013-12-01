@@ -259,7 +259,7 @@ class WPDKUser extends WP_User {
    * @param int|object|array|string $user      Optional. User's ID, WP_User object, WPDKUser object, array. If 0 (zero)
    *                                           the current user is get
    * @param string                  $name      Optional. User's username
-   * @param int                     $blog_id   Optional. Blog ID, defaults to current blog.
+   * @param int|string              $blog_id   Optional. Blog ID, defaults to current blog.
    *
    * @return WPDKUser
    */
@@ -584,6 +584,7 @@ class WPDKUser extends WP_User {
     else {
       return in_array( $all_caps, $caps );
     }
+    return false;
   }
 
   /**
@@ -827,11 +828,13 @@ class WPDKUsers {
    * @brief WP Login failed hook
    *
    * @param string $user_login User login
+   *
+   * @return bool
    */
   public function wp_login_failed( $user_login ) {
 
     if ( empty( $user_login ) ) {
-      return;
+      return false;
     }
 
     $user = get_user_by( 'login', $user_login );
@@ -853,6 +856,8 @@ class WPDKUsers {
     /* Notified the wrong user login count. */
     do_action( 'wpdk_user_wrong_login_count', $user->ID, $count );
 
+    return true;
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -873,6 +878,7 @@ class WPDKUsers {
   public function signIn( $user, $password, $remember = false ) {
 
     $user_id = false;
+    $email   = '';
 
     /* Check user id */
     if ( is_numeric( $user ) ) {
@@ -912,7 +918,7 @@ class WPDKUsers {
       }
     }
 
-    do_action( 'wpdk_singin_wrong', $email, $password );
+    do_action( 'wpdk_singin_wrong', empty( $email ) ? $user_id : $email, $password );
 
     return false;
   }
@@ -1063,7 +1069,6 @@ class WPDKUsers {
     $message = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, have a look below for additional information.', WPDK_TEXTDOMAIN );
     $alert = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
     $alert->dismissButton = false;
-    $alert->block = true;
     $alert->display();
 
     /* Only the administrator can edit this extra information */
@@ -1179,9 +1184,10 @@ class WPDKUsers {
    *
    * @param WP_User $user WordPress user object
    */
-  public function personal_options( $user ) {
+  public function personal_options( $user )
+  {
     $message = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
-    $alert = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
     $alert->display();
   }
 
@@ -1225,6 +1231,8 @@ class WPDKUsers {
    * @brief WP Edit user profile update hook
    *
    * @param int $id_user User ID
+   *
+   * @return bool
    */
   public function edit_user_profile_update( $id_user ) {
     if ( !current_user_can( 'edit_user' ) ) {
@@ -1235,6 +1243,7 @@ class WPDKUsers {
     if ( current_user_can( 'manage_options' ) ) {
       WPDKUserMeta::update( $id_user, $_POST );
     }
+    return true;
   }
 
 
@@ -1879,25 +1888,38 @@ class WPDKRoles extends WP_Roles {
    * @param string $display_name Role display name.
    * @param array  $capabilities Optional. List of role capabilities in the above format.
    * @param string $description  Optional. An extend description for this role.
-   * @param string $owner    Optional. Owner of this role
+   * @param string $owner        Optional. Owner of this role
    *
-   * @note This method override the WP_Roles method to extend
+   * @note  This method override the WP_Roles method to extend
    *
    * @return null|WP_Role WP_Role object if role is added, null if already exists.
    */
-  public function add_role( $role, $display_name, $capabilities = array(), $description = '', $owner = '' ) {
+  public function add_role( $role, $display_name, $capabilities = array(), $description = '', $owner = '' )
+  {
     $role_object = parent::add_role( $role, $display_name, $capabilities );
     if ( !is_null( $role_object ) ) {
       if ( !isset( $this->_extendedData[$role] ) ) {
         $wpdk_role                  = new WPDKRole( $role, $display_name, $description, $capabilities, $owner );
-        $this->_extendedData[$role] = array( $display_name, $description, $owner );
+        $this->_extendedData[$role] = array(
+          $display_name,
+          $description,
+          $owner
+        );
       }
       update_option( self::OPTION_KEY, $this->_extendedData );
     }
     return $role_object;
   }
 
-  public function remove_role( $role ) {
+  /**
+   * Remove a role
+   *
+   * @brief Role
+   *
+   * @param string $role
+   */
+  public function remove_role( $role )
+  {
     parent::remove_role( $role );
     unset( $this->_extendedData[$role] );
     update_option( self::OPTION_KEY, $this->_extendedData );
@@ -2230,8 +2252,8 @@ class WPDKCapabilities {
   public function userCapabilities() {
     global $wpdb;
 
-    $capabilities = get_transient( '_wpdk_users_caps' );
-    $capabilities = false; // cache off for debug
+    //$capabilities = get_transient( '_wpdk_users_caps' );
+    $capabilities = ''; // cache off for debug
     if ( empty( $capabilities ) ) {
       $sql    = "SELECT user_id, meta_value FROM `{$wpdb->usermeta}` WHERE meta_key = 'wp_capabilities'";
       $result = $wpdb->get_results( $sql, ARRAY_A );

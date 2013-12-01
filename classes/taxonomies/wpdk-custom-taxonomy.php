@@ -54,9 +54,9 @@ class WPDKCustomTaxonomy extends WPDKObject {
    *
    * @brief Construct
    *
-   * @param string       $id          taxonomy ID
-   * @param array|string $object_type Name of the object type for the taxonomy object.
-   * @apar  array|string $args See optional args in `register_taxonomy()` function.
+   * @param string        $id          taxonomy ID
+   * @param array|string  $object_type Name of the object type for the taxonomy object.
+   * @param  array|string $args        See optional args in `register_taxonomy()` function.
    *
    * @return WPDKCustomTaxonomy
    */

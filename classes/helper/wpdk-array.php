@@ -108,11 +108,11 @@ class WPDKArray extends WPDKObject {
    * Warp each element of an array with an array
    *
    * @brief Warp each element of an array with an array
+   * @note  Prototype
    *
-   * @param $array An array
+   * @param array $array An array
    *
    * @return array
-   * @note  Prototype
    */
   public static function wrapArray( $array )
   {

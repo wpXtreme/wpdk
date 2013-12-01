@@ -1301,6 +1301,7 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
   public $multiple;
   public $name;
   public $size;
+  public $value;
   private $_options;
 
   /**
