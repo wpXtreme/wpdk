@@ -26,6 +26,7 @@ For more information on SemVer, please visit http://semver.org/.
 #### Bugs
 
 * Fixed WPDKAjaxResponse data init
+* Bugfix release
 
 #### Improvements
 
