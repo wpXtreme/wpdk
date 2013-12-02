@@ -94,16 +94,17 @@ class WPDKHTML extends WPDKObject {
 
     /* Replace with none */
     $none = array(
+      "\t",
       '  ',
       '   ',
       '    ',
     );
-    $js  = str_replace( $none, '', $js );
+    $js   = str_replace( $none, '', $js );
 
     /* Optimized */
     $optimized = array(
-      ' ='    => '=',
-      '= '    => '=',
+      ' =' => '=',
+      '= ' => '=',
     );
 
     /* Remove tabs, spaces, newlines, etc. */
