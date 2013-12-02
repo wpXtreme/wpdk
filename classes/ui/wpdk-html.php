@@ -102,7 +102,6 @@ class WPDKHTML extends WPDKObject {
 
     /* Optimized */
     $optimized = array(
-      ';;' => ';',
       ' ='    => '=',
       '= '    => '=',
     );
