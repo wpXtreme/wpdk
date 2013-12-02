@@ -122,15 +122,12 @@ class WPDKHTML extends WPDKObject {
       "\r\n",
       "\n",
       "\r",
-      "\t",
-      '  ',
-      '   ',
-      '    ',
+      "\t"
     );
     $html   = str_replace( $none, '', $html );
 
     /* Optimized */
-    //$html = str_replace( array( '= ', ' =' ) , '=', $html );
+    $html = str_replace( array( '  ', '   ', '    ' ) , ' ', $html );
 
     /* Remove tabs, spaces, newlines, etc. */
     $content = trim( $html );
