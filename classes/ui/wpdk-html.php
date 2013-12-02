@@ -114,20 +114,26 @@ class WPDKHTML extends WPDKObject {
    */
   public static function endHTMLCompress( $comments = false, $conditional = false )
   {
-    $content = ob_get_contents();
+    $html = ob_get_contents();
     ob_end_clean();
 
-    $replaces = array(
-      "\r"    => '',
-      "\n"    => '',
-      "\t"    => '',
-      '  '    => ' ',
-      '    '  => ' ',
-      '     ' => ' ',
+    /* Replace with none */
+    $none = array(
+      "\r\n",
+      "\n",
+      "\r",
+      "\t",
+      '  ',
+      '   ',
+      '    ',
     );
+    $html   = str_replace( $none, '', $html );
+
+    /* Optimized */
+    //$html = str_replace( array( '= ', ' =' ) , '=', $html );
 
     /* Remove tabs, spaces, newlines, etc. */
-    $content = trim( strtr( $content, $replaces ) );
+    $content = trim( $html );
 
     return $content;
   }
