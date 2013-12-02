@@ -886,6 +886,9 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
   }
 }
 
-// TODO
+/**
+ * @class WPDKTwitterBoostrapPopover
+ * @note Not implement yet
+ */
 class WPDKTwitterBoostrapPopover {
 }

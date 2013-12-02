@@ -20,6 +20,19 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.6
+### 2013-12-02
+
+#### Bugs
+
+* Fixed WPDKAjaxResponse data init
+* Bugfix release
+
+#### Improvements
+
+* Added remote address ip in user information
+
+
 ## Version 1.4.5
 ### 2013-11-28
 

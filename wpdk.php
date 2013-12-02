@@ -217,7 +217,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKjQueryTab',
           'WPDKjQueryTabsView',
           'WPDKjQueryTabsViewController',
-          'WPDKjQueryTabs'
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                            => array(

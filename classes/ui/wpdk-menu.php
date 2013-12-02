@@ -131,6 +131,8 @@ class WPDKMenu {
    */
   public static function sanitizeViewController( $view_controller )
   {
+    $result = '';
+
     if ( is_string( $view_controller ) ) {
       $result = $view_controller;
     }
@@ -315,12 +317,14 @@ class WPDKMenu {
    *
    * @return WPDKSubMenu
    */
-  public function addDivider( $title = '' ) {
+  public function addDivider( $title = '' )
+  {
     if ( count( $this->subMenus ) > 0 ) {
       $divider                      = new WPDKSubMenuDivider( $this->id, $title );
       $this->subMenus[$divider->id] = $divider;
       return $divider;
     }
+    return false;
   }
 
   /**
@@ -355,10 +359,10 @@ class WPDKMenu {
   public function render() {
     $this->hookName = add_menu_page( $this->pageTitle, $this->menuTitle, $this->capability, $this->id, '', $this->icon, $this->position );
 
-    while ( $sub_menu = current( $this->subMenus ) ) {
+    while ( ( $sub_menu = current( $this->subMenus ) ) ) {
       $next = next( $this->subMenus );
       if ( is_a( $sub_menu, 'WPDKSubMenuDivider' ) ) {
-        if ( isset( $next ) ) {
+        if ( isset( $next ) && isset( $next->capability ) ) {
           $sub_menu->capability = $next->capability;
         }
       }

@@ -2417,37 +2417,42 @@ jQuery( function ( $ )
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
    * @date            2013-11-19
-   * @version         1.0.1
+   * @version         1.0.2
    * @since           1.4.0
    *
    * @param {string} response JSON response
    * @constructor
    */
-  if( typeof( window.WPDKAjaxResponse ) === 'undefined' ) {
-    window.WPDKAjaxResponse = function ( response ) {
-    /**
-     * Resolve conflict
-     *
-     * @type {jQuery}
-     */
-    var $ = window.jQuery;
+  if ( typeof( window.WPDKAjaxResponse ) === 'undefined' ) {
+    window.WPDKAjaxResponse = function ( response )
+    {
+      /**
+       * Resolve conflict
+       *
+       * @type {jQuery}
+       */
+      var $ = window.jQuery;
 
-    this.version = '1.0.1'
-    this.error = '';
-    this.message = '';
-    this.data = '';
+      this.version = '1.0.1';
+      this.error = '';
+      this.message = '';
+      this.data = '';
 
-    /* Init properties */
+      /* Init properties */
 
-    if ( isset( response.error ) && !empty( response.error ) ) {
-      this.error = response.error.replace( /\\n/g, "\n" );
-    }
+      if ( isset( response.error ) && !empty( response.error ) ) {
+        this.error = response.error.replace( /\\n/g, "\n" );
+      }
 
-    if ( isset( response.message ) && !empty( response.message ) ) {
-      this.message = response.message.replace( /\\n/g, "\n" );
-    }
+      if ( isset( response.message ) && !empty( response.message ) ) {
+        this.message = response.message.replace( /\\n/g, "\n" );
+      }
 
-  };
+      if ( isset( response.data ) && !empty( response.data ) ) {
+        this.data = response.data;
+      }
+
+    };
   }
 
   /**

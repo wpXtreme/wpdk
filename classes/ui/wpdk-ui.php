@@ -257,6 +257,16 @@ class WPDKUIControl {
   }
 
   /**
+   * Drawing
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  /**
    * Return the HTML markup for control
    *
    * @brief Get HTML
@@ -290,6 +300,11 @@ class WPDKUIControl {
    */
   protected function contentWithKey( $key ) {
     $result = '';
+
+    /**
+     * @var WPDKUIControl|string|callable $content
+     */
+    $content = '';
     if ( isset( $this->item[$key] ) ) {
       $content = $this->item[$key];
       if ( is_object( $content ) && is_a( $content, 'WPDKUIControl' ) ) {
@@ -315,8 +330,8 @@ class WPDKUIControl {
    *
    * @brief Common input control
    *
-   * @param WPDKHTMLTagInputType $type  Optional. Type of input
-   * @param string               $class Optional. CSS additional class
+   * @param string|\WPDKHTMLTagInputType $type  Optional. Type of input
+   * @param string                       $class Optional. CSS additional class
    */
   protected function inputType( $type = WPDKHTMLTagInputType::TEXT, $class = '' ) {
     echo $this->contentWithKey( 'prepend' );
@@ -375,9 +390,12 @@ class WPDKUIControl {
    * @return null|WPDKHTMLTagLabel
    */
   protected function label() {
+
     if ( !isset( $this->item['label'] ) || empty( $this->item['label'] ) ) {
       return null;
     }
+
+    $content = '';
 
     if ( is_string( $this->item['label'] ) ) {
       $content = trim( $this->item['label'] );
@@ -749,9 +767,10 @@ class WPDKUIControlCheckboxes extends WPDKUIControl {
    *
    * @param array $item Key value pairs with control info
    *
-   * @return WPDKUIControlCheckbox
+   * @return \WPDKUIControlCheckboxes
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::CHECKBOXES;
     parent::__construct( $item );
   }
@@ -1870,9 +1889,10 @@ class WPDKUIControlSwitch extends WPDKUIControl {
    *
    * @param array $item Key value pairs with control info
    *
-   * @return WPDKUIControlSwipe
+   * @return \WPDKUIControlSwitch
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::SWITCHBOX;
     parent::__construct( $item );
   }
@@ -2047,7 +2067,7 @@ class WPDKUIControlTextarea extends WPDKUIControl {
     $input->class       = $this->class;
     $input->class[]     = 'wpdk-form-textarea';
     $input->data        = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value       = $content;
+    $input->content     = $content;
     $input->cols        = isset( $this->item['cols'] ) ? $this->item['cols'] : '10';
     $input->rows        = isset( $this->item['rows'] ) ? $this->item['rows'] : '4';
     $input->disabled    = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
@@ -2199,11 +2219,6 @@ class WPDKUIControlsLayout {
         $this->_processRows( $item['container'] );
         echo apply_filters( 'wpdk_form_html_group_after', '</div>', $item );
       }
-      elseif ( isset( $item['group_inner'] ) ) {
-        echo apply_filters( 'wpdk_form_html_group_before', self::wrapInner( $item ), $item );
-        $this->_processRows( $item['group_inner'] );
-        echo apply_filters( 'wpdk_form_html_group_after', '</span>', $item );
-      }
       elseif ( !empty( $item ) ) {
         echo apply_filters( 'wpdk_form_html_row_before', '<div class="wpdk-form-row">', $item );
         $this->_processRows( $item );
@@ -2212,7 +2227,17 @@ class WPDKUIControlsLayout {
     }
   }
 
-  private function container( $item ) {
+  /**
+   * Return a container
+   *
+   * @brief Container
+   *
+   * @param array $item Control item
+   *
+   * @return string
+   */
+  private function container( $item )
+  {
     $class = isset( $item['class'] ) ? $item['class'] : '';
     return sprintf( '<div class="%s">', $class );
   }
@@ -2284,7 +2309,7 @@ class WPDKUI {
    * @brief Simple button
    *
    * @param string $label Optional. Button label. If empty default is 'Update'
-   * @param string $args  Optional. A keys value array for additional settings
+   * @param array  $args  Optional. A keys value array for additional settings
    *
    *     'type'                  => 'submit',
    *     'name'                  => 'button-update',

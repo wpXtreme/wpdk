@@ -81,6 +81,15 @@ class WPDKListTableViewController extends WP_List_Table {
   public $model;
 
   /**
+   * Column header
+   *
+   * @brief Column headers
+   *
+   * @var array
+   */
+  public $column_headers = array();
+
+  /**
    * The child class should call this constructor from it's own constructor.
    * Create an instance of WPDKListTableViewController class
    *
@@ -525,7 +534,7 @@ class WPDKListTableViewController extends WP_List_Table {
     }
 
     /* Columns Header */
-    $this->_column_headers = $this->get_column_info();
+    $this->column_headers = $this->get_column_info();
 
     /**
      * Optional. You can handle your bulk actions however you see fit. In this
