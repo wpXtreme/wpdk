@@ -38,62 +38,44 @@ class WPDKHTML extends WPDKObject {
    */
   public static function endCSSCompress()
   {
-    $str = ob_get_contents();
+    $css = ob_get_contents();
     ob_end_clean();
 
-    $re1 = <<<EOS
-(?sx)
-  # quotes
-  (
-    "(?:[^"\\]++|\\.)*+"
-  | '(?:[^'\\]++|\\.)*+'
-  )
-|
-  # comments
-  /\* (?> .*? \*/ )
-EOS;
+    /* Remove comments */
+    $css = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
 
-    $re2 = <<<EOS
-(?six)
-  # quotes
-  (
-    "(?:[^"\\]++|\\.)*+"
-  | '(?:[^'\\]++|\\.)*+'
-  )
-|
-  # ; before } (and the spaces after it while we're here)
-  \s*+ ; \s*+ ( } ) \s*+
-|
-  # all spaces around meta chars/operators
-  \s*+ ( [*$~^|]?+= | [{};,>~+-] | !important\b ) \s*+
-|
-  # spaces right of ( [ :
-  ( [[(:] ) \s++
-|
-  # spaces left of ) ]
-  \s++ ( [])] )
-|
-  # spaces left (and right) of :
-  \s++ ( : ) \s*+
-  # but not in selectors: not followed by a {
-  (?!
-    (?>
-      [^{}"']++
-    | "(?:[^"\\]++|\\.)*+"
-    | '(?:[^'\\]++|\\.)*+'
-    )*+
-    {
-  )
-|
-  # spaces at beginning/end of string
-  ^ \s++ | \s++ \z
-|
-  # double spaces to single
-  (\s)\s+
-EOS;
+    /* Replace with none */
+    $none = array(
+      "\r\n",
+      "\n",
+      "\r",
+      "\t",
+      '  ',
+      '   ',
+      '    ',
+    );
+    $css  = str_replace( $none, '', $css );
 
-    $str = preg_replace( "%$re1%", '$1', $str );
-    return preg_replace( "%$re2%", '$1$2$3$4$5$6$7', $str );
+    /* Optimized */
+    $optimized = array(
+      "; "      => ';',
+      ";;"      => ';',
+      " ;"      => ';',
+      ": "      => ':',
+      " :"      => ':',
+      " {"      => '{',
+      "{ "      => '{',
+      "} "      => '}',
+      " }"      => '}',
+      ";}"      => '}',
+      ",  "     => ',',
+      "0px"     => '0',
+      "#000000" => '#000',
+      "#ffffff" => '#fff',
+      "#FFFFFF" => '#fff',
+    );
+
+    return trim( strtr( $css, $optimized ) );
   }
 
   /**
@@ -104,22 +86,29 @@ EOS;
    */
   public static function endJavascriptCompress()
   {
-    $content = ob_get_contents();
+    $js = ob_get_contents();
     ob_end_clean();
 
     /* Remove comments */
     //$content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
 
-    $replaces = array(
-      " ="    => '=',
-      "= "    => '=',
-      '  '    => '',
-      '    '  => '',
-      '     ' => '',
+    /* Replace with none */
+    $none = array(
+      '  ',
+      '   ',
+      '    ',
+    );
+    $js  = str_replace( $none, '', $js );
+
+    /* Optimized */
+    $optimized = array(
+      ';;' => ';',
+      ' ='    => '=',
+      '= '    => '=',
     );
 
     /* Remove tabs, spaces, newlines, etc. */
-    $content = trim( strtr( $content, $replaces ) );
+    $content = trim( strtr( $js, $optimized ) );
 
     return $content;
   }
