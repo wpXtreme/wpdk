@@ -57,25 +57,16 @@ class WPDKHTML extends WPDKObject {
     $css  = str_replace( $none, '', $css );
 
     /* Optimized */
-    $optimized = array(
-      "; "      => ';',
-      ";;"      => ';',
-      " ;"      => ';',
-      ": "      => ':',
-      " :"      => ':',
-      " {"      => '{',
-      "{ "      => '{',
-      "} "      => '}',
-      " }"      => '}',
-      ";}"      => '}',
-      ",  "     => ',',
-      "0px"     => '0',
-      "#000000" => '#000',
-      "#ffffff" => '#fff',
-      "#FFFFFF" => '#fff',
-    );
+    $css = str_replace( array( '; ', ' ;', ';;' ) , ';', $css );
+    $css = str_replace( array( ': ', ' :' ), ':', $css );
+    $css = str_replace( array( '{ ', ' {' ), '{', $css );
+    $css = str_replace( array( '} ', ' }', ';}' ) , '}', $css );
+    $css = str_replace( array( ', ', ' ,  ' ) , ',', $css );
+    $css = str_replace( '0px', '0', $css );
+    $css = str_replace( '#000000', '#000', $css );
+    $css = str_replace( array( '#ffffff', '#FFFFFF' ) , '#fff', $css );
 
-    return trim( strtr( $css, $optimized ) );
+    return trim( $css );
   }
 
   /**
@@ -102,13 +93,10 @@ class WPDKHTML extends WPDKObject {
     $js   = str_replace( $none, '', $js );
 
     /* Optimized */
-    $optimized = array(
-      ' =' => '=',
-      '= ' => '=',
-    );
+    $js = str_replace( array( '= ', ' =' ) , '=', $js );
 
     /* Remove tabs, spaces, newlines, etc. */
-    $content = trim( strtr( $js, $optimized ) );
+    $content = trim( $js );
 
     return $content;
   }
