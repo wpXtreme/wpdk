@@ -237,9 +237,9 @@ class WPDKDateTime extends WPDKObject {
    * @author     =stid= <s.furiosi@wpxtre.me>
    *
    * @param string $date
-   * @param string $first_day
+   * @param string $first_day Optional. Start from `monday`
    *
-   * @return     $date
+   * @return     int
    */
   public static function beginningOfWeek( $date, $first_day = 'monday' )
   {

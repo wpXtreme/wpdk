@@ -41,7 +41,7 @@ class WPDKHTML extends WPDKObject {
     $str = ob_get_contents();
     ob_end_clean();
 
-    $re1 = <<<'EOS'
+    $re1 = <<<EOS
 (?sx)
   # quotes
   (
@@ -53,7 +53,7 @@ class WPDKHTML extends WPDKObject {
   /\* (?> .*? \*/ )
 EOS;
 
-    $re2 = <<<'EOS'
+    $re2 = <<<EOS
 (?six)
   # quotes
   (
@@ -1301,6 +1301,7 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
   public $multiple;
   public $name;
   public $size;
+  public $value;
   private $_options;
 
   /**

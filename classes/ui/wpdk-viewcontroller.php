@@ -219,7 +219,11 @@ class WPDKView extends WPDKObject {
     <?php do_action( 'wpdk_view_' . $this->id . '_after_draw', $this ) ?>
 
     <?php if ( is_array( $this->subviews ) ) : ?>
-      <?php foreach ( $this->subviews as $view ) : ?>
+      <?php
+      /**
+       * @var WPDKView $view
+       */
+      foreach ( $this->subviews as $view ) : ?>
         <?php $view->display() ?>
       <?php endforeach ?>
     <?php endif ?>
