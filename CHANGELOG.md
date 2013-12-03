@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.7
+### 2013-12-??
+
+#### Bugs
+
+* Fixed potential wrong replacement on css compressor
+
+
 ## Version 1.4.6
 ### 2013-12-02
 
