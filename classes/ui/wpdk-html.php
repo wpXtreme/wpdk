@@ -62,7 +62,7 @@ class WPDKHTML extends WPDKObject {
     $css = str_replace( array( '{ ', ' {' ), '{', $css );
     $css = str_replace( array( '} ', ' }', ';}' ) , '}', $css );
     $css = str_replace( array( ', ', ' ,  ' ) , ',', $css );
-    $css = str_replace( '0px', '0', $css );
+    $css = str_replace( array(' 0px', ':0px' ), '0', $css );
     $css = str_replace( '#000000', '#000', $css );
     $css = str_replace( array( '#ffffff', '#FFFFFF' ) , '#fff', $css );
 
