@@ -1630,7 +1630,7 @@ jQuery( function ( $ )
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
    * @date            2013-12-04
-   * @version         1.0.2
+   * @version         1.0.3
    *
    */
   if ( typeof( window.WPDKControls ) === 'undefined' ) {
@@ -1640,16 +1640,19 @@ jQuery( function ( $ )
        * Empty object
        */
       var $t = {
-        version           : '1.0.2',
-        init              : null,
-        configurationForm : null,
-        preferencesForm   : null
+        version           : '1.0.3',
+        init              : _init,
+        configurationForm : _configurationForm,
+        preferencesForm   : _preferencesForm
       };
 
       /**
        * Init
+       *
+       * @returns {{version: string, init: _init, configurationForm: null, preferencesForm: null}}
+       * @private
        */
-      $t.init = function ()
+      function _init ()
       {
         _initClearInput();
         _initSwipeControl();
@@ -1660,7 +1663,7 @@ jQuery( function ( $ )
         _initGuide();
 
         return $t;
-      };
+      }
 
       /**
        * Return the standard form for a configuration view. See wpdk-ui.php for more detail.
@@ -1671,10 +1674,10 @@ jQuery( function ( $ )
        * @param {string} id Configuration view ID
        * @return {*|jQuery|HTMLElement}
        */
-      $t.configurationForm = function ( id )
+      function _configurationForm ( id )
       {
         return $( 'form#wpdk_configuration_view_form-' + id );
-      };
+      }
 
       /**
        * Return the standard form for a preferences view. See wpdk-ui.php for more detail.
@@ -1685,7 +1688,7 @@ jQuery( function ( $ )
        *
        * @return {*|jQuery|HTMLElement}
        */
-      $t.preferencesForm = function ( id )
+      function _preferencesForm( id )
       {
         return $( 'form#wpdk_preferences_view_form-' + id );
       };
@@ -1772,7 +1775,7 @@ jQuery( function ( $ )
         if ( scrollable.length ) {
           scrollable.on( 'click', 'img', false, function ()
           {
-            $( this ).toggleClass( 'selected' );
+            $( this ).toggleClass( 'wpdk-selected' );
           } );
         }
       }

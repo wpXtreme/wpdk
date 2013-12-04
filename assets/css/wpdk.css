@@ -768,16 +768,20 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 
 .wpdk-form-scrollable
 {
-  border                : 1px solid #ccc;
+  margin                : 0 10px;
+  border                : 1px solid #dfdfdf;
+  background-color      : #fff;
   padding               : 8px;
   -moz-border-radius    : 4px;
   -webkit-border-radius : 4px;
   border-radius         : 4px;
+  -moz-box-shadow       : 0 2px 3px #eee inset, 0 1px 0 #fff;
+  -webkit-box-shadow    : 0 2px 3px #eee inset, 0 1px 0 #fff;
+  box-shadow            : 0 2px 3px #eee inset, 0 1px 0 #fff;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal
 {
-  width      : 300px;
   overflow-x : scroll;
 }
 
@@ -786,14 +790,11 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
 {
-  float        : left;
-  margin-right : 32px;
+  float : left;
 }
 
-.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
 {
-  width                 : 64px;
-  height                : 64px;
   padding               : 8px;
   -moz-border-radius    : 4px;
   -webkit-border-radius : 4px;
@@ -802,7 +803,12 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
   border                : 2px solid transparent;
 }
 
-.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.selected
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable:hover
+{
+  border : 2px solid #7d8daa;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selected
 {
   border             : 2px solid #ccc;
   -moz-box-shadow    : inset 0 0 16px #ccc;
