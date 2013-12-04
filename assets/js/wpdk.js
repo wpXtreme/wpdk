@@ -1629,8 +1629,8 @@ jQuery( function ( $ )
    * @class           WPDKControls
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-06-18
-   * @version         1.0.0
+   * @date            2013-12-04
+   * @version         1.0.2
    *
    */
   if ( typeof( window.WPDKControls ) === 'undefined' ) {
@@ -1639,14 +1639,12 @@ jQuery( function ( $ )
       /**
        * Empty object
        */
-      var $t = {};
-
-      /**
-       * Version
-       *
-       * @type {string}
-       */
-      $t.version = "1.0.0";
+      var $t = {
+        version           : '1.0.2',
+        init              : null,
+        configurationForm : null,
+        preferencesForm   : null
+      };
 
       /**
        * Init
@@ -1655,6 +1653,7 @@ jQuery( function ( $ )
       {
         _initClearInput();
         _initSwipeControl();
+        _initScrollableControl();
         _initLockedControl();
         _initAccordion();
         _initBehavior();
@@ -1759,6 +1758,23 @@ jQuery( function ( $ )
             control.swipe( enabled );
           }
         } );
+      }
+
+      /**
+       * Initialize the scrollale control
+       *
+       * @since 1.4.7
+       * @private
+       */
+      function _initScrollableControl()
+      {
+        var scrollable = $( '.wpdk-form-scrollable' );
+        if ( scrollable.length ) {
+          scrollable.on( 'click', 'img', false, function ()
+          {
+            $( this ).toggleClass( 'selected' );
+          } );
+        }
       }
 
       /**
