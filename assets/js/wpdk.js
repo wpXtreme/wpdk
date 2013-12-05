@@ -1907,7 +1907,7 @@ jQuery( function ( $ )
       {
         var scrollable = $( '.wpdk-form-scrollable' );
         if ( scrollable.length ) {
-          scrollable.on( 'click', 'img', false, function ()
+          $( document ).on( 'click', '.wpdk-form-scrollable img', false, function ()
           {
             $( this ).toggleClass( 'wpdk-selected' );
           } );
