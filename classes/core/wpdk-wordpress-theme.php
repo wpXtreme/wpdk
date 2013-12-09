@@ -44,7 +44,7 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @param WPDKWordPressPlugin $plugin Optional. Your main plugin instance
    *
-   * @return WPDKWordPressPlugin
+   * @return \WPDKWordPressTheme
    */
   public function __construct( WPDKWordPressPlugin $plugin = null ) {
     $this->plugin = $plugin;
@@ -485,8 +485,9 @@ class WPDKTheme extends WPDKObject {
     $this->theme = new WP_Theme( $theme_key, $theme_root );
 
     /* Loading constants defnies */
-    if ( file_exists( self::DEFINES ) ) {
-      require_once( self::DEFINES );
+    $defines = trailingslashit( dirname( $file ) ) . self::DEFINES;
+    if ( file_exists( $defines ) ) {
+      require_once( $defines );
     }
 
     /* Register autoload classes */
@@ -569,11 +570,9 @@ class WPDKTheme extends WPDKObject {
 
     /* Theme support */
     if ( !empty( $this->setup_theme_support ) ) {
-      if ( !is_array( $this->setup_theme_support ) ) {
-        $theme_supports = array( $this->setup_theme_support );
-      }
+      $theme_supports = (array)$this->setup_theme_support;
       foreach ( $theme_supports as $args => $theme_support ) {
-        if ( !is_number( $args ) && is_array( $theme_support ) ) {
+        if ( !is_numeric( $args ) && is_array( $theme_support ) ) {
           add_theme_support( $args, $theme_support );
         }
         else {
