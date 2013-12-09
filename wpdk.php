@@ -319,7 +319,8 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-shortcode.php'                   => 'WPDKShortcode',
         $sPathPrefix . 'classes/core/wpdk-wordpress-theme.php'             => array(
           'WPDKWordPressTheme',
-          'WPDKTheme'
+          'WPDKTheme',
+          'WPDKThemeSetup',
         ),
         $sPathPrefix . 'classes/core/wpdk-wordpress-admin.php'             => 'WPDKWordPressAdmin',
         $sPathPrefix . 'classes/core/wpdk-watchdog.php'                    => 'WPDKWatchDog',
