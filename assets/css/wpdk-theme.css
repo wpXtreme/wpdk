@@ -1,0 +1,948 @@
+/**
+ * WPDK Theme (reset)
+ * You can override this style in your styles.css file
+ *
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-12-09
+ */
+
+/* =====================================================================================================================
+ * HTML5 (normalize.css v1.1.2 | MIT License | git.io/normalize)
+ * =====================================================================================================================
+ */
+
+/**
+ * Correct `block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary
+{
+  display : block;
+}
+
+/**
+ * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+
+audio,
+canvas,
+video
+{
+  display  : inline-block;
+  *display : inline;
+  *zoom    : 1;
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+audio:not([controls])
+{
+  display : none;
+  height  : 0;
+}
+
+/**
+ * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
+ * Known issue: no IE 6 support.
+ */
+
+[hidden]
+{
+  display : none;
+}
+
+/* =====================================================================================================================
+ * RESET (Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html)
+ * =====================================================================================================================
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td
+{
+  border         : 0;
+  font-family    : inherit;
+  font-size      : 100%;
+  font-style     : inherit;
+  font-weight    : inherit;
+  margin         : 0;
+  outline        : 0;
+  padding        : 0;
+  vertical-align : baseline;
+}
+
+html
+{
+  font-size                : 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+  overflow-y               : scroll; /* Keeps page centred in all browsers regardless of content height */
+  -webkit-text-size-adjust : 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
+  -ms-text-size-adjust     : 100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+}
+
+body
+{
+  background : #fff;
+}
+
+ol, ul
+{
+  list-style : none;
+}
+
+table
+{ /* tables still need 'cellspacing="0"' in the markup */
+  border-collapse : separate;
+  border-spacing  : 0;
+}
+
+caption, th, td
+{
+  font-weight : normal;
+  text-align  : left;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after
+{
+  content : "";
+}
+
+blockquote, q
+{
+  quotes : "" "";
+}
+
+/* =====================================================================================================================
+ * LINK
+ * =====================================================================================================================
+ */
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+a:focus
+{
+  outline : thin dotted;
+}
+
+/**
+ * Improves readability when focused and also mouse hovered in all browsers people.opera.com/patrickl/experiments/keyboard/test
+ */
+a:hover,
+a:active
+{
+  outline : 0;
+}
+
+a img
+{
+  border : 0;
+}
+
+/* =====================================================================================================================
+ * CROSS BROWSING
+ * =====================================================================================================================
+ */
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection
+{
+  background  : #b3d4fc;
+  text-shadow : none;
+}
+
+::selection
+{
+  background  : #b3d4fc;
+  text-shadow : none;
+}
+
+/* =====================================================================================================================
+ * TYPOGRAPHY
+ * =====================================================================================================================
+ */
+
+/**
+ * Address font sizes and margins set differently in IE 6/7.
+ * Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
+ * and Chrome.
+ */
+
+h1
+{
+  font-size : 2em;
+  margin    : 0.67em 0;
+}
+
+h2
+{
+  font-size : 1.5em;
+  margin    : 0.83em 0;
+}
+
+h3
+{
+  font-size : 1.17em;
+  margin    : 1em 0;
+}
+
+h4
+{
+  font-size : 1em;
+  margin    : 1.33em 0;
+}
+
+h5
+{
+  font-size : 0.83em;
+  margin    : 1.67em 0;
+}
+
+h6
+{
+  font-size : 0.67em;
+  margin    : 2.33em 0;
+}
+
+/* =====================================================================================================================
+ * GLOBAL
+ * =====================================================================================================================
+ */
+
+body,
+button,
+input,
+select,
+textarea
+{
+  color       : #404040;
+  font-family : sans-serif;
+  font-size   : 16px;
+  font-size   : 1.6rem;
+  line-height : 1.5;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6
+{
+  clear : both;
+}
+
+hr
+{
+  background-color : #ccc;
+  border           : 0;
+  height           : 1px;
+  margin-bottom    : 1.5em;
+}
+
+/* Text elements */
+p
+{
+  margin-bottom : 1.5em;
+}
+
+ul, ol
+{
+  margin : 0 0 1.5em 3em;
+}
+
+ul
+{
+  list-style : disc;
+}
+
+ol
+{
+  list-style : decimal;
+}
+
+li > ul,
+li > ol
+{
+  margin-bottom : 0;
+  margin-left   : 1.5em;
+}
+
+dt
+{
+  font-weight : bold;
+}
+
+dd
+{
+  margin : 0 1.5em 1.5em;
+}
+
+b, strong
+{
+  font-weight : bold;
+}
+
+dfn, cite, em, i
+{
+  font-style : italic;
+}
+
+blockquote
+{
+  margin : 0 1.5em;
+}
+
+address
+{
+  margin : 0 0 1.5em;
+}
+
+pre
+{
+  background    : #eee;
+  font-family   : "Courier 10 Pitch", Courier, monospace;
+  font-size     : 15px;
+  font-size     : 1.5rem;
+  line-height   : 1.6;
+  margin-bottom : 1.6em;
+  padding       : 1.6em;
+  overflow      : auto;
+  max-width     : 100%;
+}
+
+code, kbd, tt, var
+{
+  font : 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+abbr, acronym
+{
+  border-bottom : 1px dotted #666;
+  cursor        : help;
+}
+
+/**
+ * Address styling not present in IE 7/8/9, Safari 5, and Chrome.
+ */
+
+abbr[title]
+{
+  border-bottom : 1px dotted;
+}
+
+mark, ins
+{
+  background      : #fff9c0;
+  text-decoration : none;
+}
+
+sup,
+sub
+{
+  font-size      : 75%;
+  height         : 0;
+  line-height    : 0;
+  position       : relative;
+  vertical-align : baseline;
+}
+
+sup
+{
+  bottom : 1ex;
+}
+
+sub
+{
+  top : .5ex;
+}
+
+small
+{
+  font-size : 75%;
+}
+
+big
+{
+  font-size : 125%;
+}
+
+figure
+{
+  margin : 0;
+}
+
+table
+{
+  margin : 0 0 1.5em;
+  width  : 100%;
+}
+
+th
+{
+  font-weight : bold;
+}
+
+img
+{
+  height    : auto; /* Make sure images are scaled correctly. */
+  max-width : 100%; /* Adhere to container width. */
+}
+
+button,
+input,
+select,
+textarea
+{
+  font-size       : 100%; /* Corrects font size not being inherited in all browsers */
+  margin          : 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+  vertical-align  : baseline; /* Improves appearance and consistency in all browsers */
+  *vertical-align : middle; /* Improves appearance and consistency in all browsers */
+}
+
+button,
+input
+{
+  line-height : normal; /* Addresses FF3/4 setting line-height using !important in the UA stylesheet */
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+ *    Known issue: inner spacing remains in IE 6.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"]
+{
+  -webkit-appearance : button; /* 2 */
+  cursor             : pointer; /* 3 */
+  *overflow          : visible; /* 4 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled]
+{
+  cursor : default;
+}
+
+/**
+ * 1. Address box sizing set to content-box in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ * 3. Remove excess padding in IE 7.
+ *    Known issue: excess padding remains in IE 6.
+ */
+
+input[type="checkbox"],
+input[type="radio"]
+{
+  box-sizing : border-box; /* 1 */
+  padding    : 0; /* 2 */
+  *height    : 13px; /* 3 */
+  *width     : 13px; /* 3 */
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"]
+{
+  -webkit-appearance : textfield; /* 1 */
+  -moz-box-sizing    : content-box;
+  -webkit-box-sizing : content-box; /* 2 */
+  box-sizing         : content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration
+{
+  -webkit-appearance : none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 3+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner
+{
+  border  : 0;
+  padding : 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea
+{
+  color         : #666;
+  border        : 1px solid #ccc;
+  border-radius : 3px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus
+{
+  color : #111;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"]
+{
+  padding : 3px;
+}
+
+/**
+ * 1. Removes default vertical scrollbar in IE6/7/8/9
+ * 2. Improves readability and alignment in all browsers
+ */
+textarea
+{
+  overflow       : auto;
+  padding-left   : 3px;
+  vertical-align : top;
+  width          : 98%;
+}
+
+/* Alignment */
+.alignleft
+{
+  display      : inline;
+  float        : left;
+  margin-right : 1.5em;
+}
+
+.alignright
+{
+  display     : inline;
+  float       : right;
+  margin-left : 1.5em;
+}
+
+.aligncenter
+{
+  clear   : both;
+  display : block;
+  margin  : 0 auto;
+}
+
+/* Text meant only for screen readers */
+.screen-reader-text
+{
+  clip     : rect(1px, 1px, 1px, 1px);
+  position : absolute !important;
+}
+
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus
+{
+  background-color : #f1f1f1;
+  border-radius    : 3px;
+  box-shadow       : 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  clip             : auto !important;
+  color            : #21759b;
+  display          : block;
+  font-size        : 14px;
+  font-weight      : bold;
+  height           : auto;
+  left             : 5px;
+  line-height      : normal;
+  padding          : 15px 23px 14px;
+  text-decoration  : none;
+  top              : 5px;
+  width            : auto;
+  z-index          : 100000; /* Above WP toolbar */
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after,
+[class*="content"]:before,
+[class*="content"]:after,
+[class*="site"]:before,
+[class*="site"]:after
+{
+  content : " "; /* 1 */
+  display : table; /* 2 */
+}
+
+.clearfix:after,
+[class*="content"]:after,
+[class*="site"]:after
+{
+  clear : both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix
+{
+  *zoom : 1;
+}
+
+
+/* =====================================================================================================================
+ * MENU
+ * =====================================================================================================================
+ */
+
+.main-navigation
+{
+  clear   : both;
+  display : block;
+  float   : left;
+  width   : 100%;
+}
+
+.main-navigation ul
+{
+  list-style   : none;
+  margin       : 0;
+  padding-left : 0;
+}
+
+.main-navigation li
+{
+  float    : left;
+  position : relative;
+}
+
+.main-navigation a
+{
+  display         : block;
+  text-decoration : none;
+}
+
+.main-navigation ul ul
+{
+  box-shadow : 0 3px 3px rgba(0, 0, 0, 0.2);
+  display    : none;
+  float      : left;
+  position   : absolute;
+  top        : 1.5em;
+  left       : 0;
+  z-index    : 99999;
+}
+
+.main-navigation ul ul ul
+{
+  left : 100%;
+  top  : 0;
+}
+
+.main-navigation ul ul a
+{
+  width : 200px;
+}
+
+.main-navigation ul ul li
+{
+}
+
+.main-navigation li:hover > a
+{
+}
+
+.main-navigation ul ul :hover > a
+{
+}
+
+.main-navigation ul ul a:hover
+{
+}
+
+.main-navigation ul li:hover > ul
+{
+  display : block;
+}
+
+.main-navigation li.current_page_item a,
+.main-navigation li.current-menu-item a
+{
+}
+
+/* Small menu */
+.menu-toggle
+{
+  display : none;
+  cursor  : pointer;
+}
+
+@media screen and (max-width : 600px)
+{
+  .menu-toggle,
+  .main-navigation.toggled .nav-menu
+  {
+    display : block;
+  }
+
+  .main-navigation ul
+  {
+    display : none;
+  }
+}
+
+/* =====================================================================================================================
+ * CONTENT
+ * =====================================================================================================================
+ */
+
+.sticky
+{
+}
+
+.hentry
+{
+  margin : 0 0 1.5em;
+}
+
+.byline,
+.updated
+{
+  display : none;
+}
+
+.single .byline,
+.group-blog .byline
+{
+  display : inline;
+}
+
+.page-content,
+.entry-content,
+.entry-summary
+{
+  margin : 1.5em 0 0;
+}
+
+.page-links
+{
+  clear  : both;
+  margin : 0 0 1.5em;
+}
+
+/* =====================================================================================================================
+ * ASIDES
+ * =====================================================================================================================
+ */
+
+.blog .format-aside .entry-title,
+.archive .format-aside .entry-title
+{
+  display : none;
+}
+
+/* =====================================================================================================================
+ * MEDIA
+ * =====================================================================================================================
+ */
+
+.page-content img.wp-smiley,
+.entry-content img.wp-smiley,
+.comment-content img.wp-smiley
+{
+  border        : none;
+  margin-bottom : 0;
+  margin-top    : 0;
+  padding       : 0;
+}
+
+.wp-caption
+{
+  border        : 1px solid #ccc;
+  margin-bottom : 1.5em;
+  max-width     : 100%;
+}
+
+.wp-caption img[class*="wp-image-"]
+{
+  display   : block;
+  margin    : 1.2% auto 0;
+  max-width : 98%;
+}
+
+.wp-caption-text
+{
+  text-align : center;
+}
+
+.wp-caption .wp-caption-text
+{
+  margin : 0.8075em 0;
+}
+
+.site-main .gallery
+{
+  margin-bottom : 1.5em;
+}
+
+.gallery-caption
+{
+}
+
+.site-main .gallery a img
+{
+  border    : none;
+  height    : auto;
+  max-width : 90%;
+}
+
+.site-main .gallery dd
+{
+  margin : 0;
+}
+
+.site-main .gallery-columns-4 .gallery-item
+{
+}
+
+.site-main .gallery-columns-4 .gallery-item img
+{
+}
+
+/* Make sure embeds and iframes fit their containers */
+embed,
+iframe,
+object
+{
+  max-width : 100%;
+}
+
+/* =====================================================================================================================
+ * NAVIGATION
+ * =====================================================================================================================
+ */
+
+.site-main [class*="navigation"]
+{
+  margin   : 0 0 1.5em;
+  overflow : hidden;
+}
+
+[class*="navigation"] .nav-previous
+{
+  float : left;
+  width : 50%;
+}
+
+[class*="navigation"] .nav-next
+{
+  float      : right;
+  text-align : right;
+  width      : 50%;
+}
+
+/* =====================================================================================================================
+ * COMMENTS
+ * =====================================================================================================================
+ */
+
+.comment-content a
+{
+  word-wrap : break-word;
+}
+
+.bypostauthor
+{
+}
+
+/* =====================================================================================================================
+ * WIDGETS
+ * =====================================================================================================================
+ */
+
+.widget
+{
+  margin : 0 0 1.5em;
+}
+
+/* Make sure select elements fit in widgets */
+.widget select
+{
+  max-width : 100%;
+}
+
+/* Search widget */
+.widget_search .search-submit
+{
+  display : none;
+}
+
+/* =====================================================================================================================
+ * INFINITY SCROLL
+ * =====================================================================================================================
+ */
+
+/* Globally hidden elements when Infinite Scroll is supported and in use. */
+.infinite-scroll .paging-navigation, /* Older / Newer Posts Navigation (always hidden) */
+.infinite-scroll.neverending .site-footer
+{ /* Theme Footer (when set to scrolling) */
+  display : none;
+}
+
+/* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */
+.infinity-end.neverending .site-footer
+{
+  display : block;
+}

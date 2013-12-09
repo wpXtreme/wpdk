@@ -435,6 +435,24 @@ class WPDKTheme extends WPDKObject {
    */
   public $setup_editor_styles = array();
 
+  /**
+   * Include standard WPDK Theme Javascript
+   *
+   * @brief Theme Javascript
+   *
+   * @var bool $setup_theme_js
+   */
+  public $setup_theme_js = true;
+
+  /**
+   * Include standard WPDK Theme (reset) styles
+   *
+   * @brief Theme CSS
+   *
+   * @var bool $setup_theme_css
+   */
+  public $setup_theme_css = true;
+
 
   /**
    * The array of loading path related to any WPX theme class. This array is related to the specific WPX theme
@@ -520,6 +538,7 @@ class WPDKTheme extends WPDKObject {
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
     /* Head. */
+    add_action( 'wp_head', array( $this, '_wp_head' ) );
     add_action( 'wp_head', array( $this, 'wp_head' ) );
 
     /* Footer. */
@@ -690,6 +709,22 @@ class WPDKTheme extends WPDKObject {
    */
   public function wp_enqueue_scripts() {
     /* You can override in your subclass */
+  }
+
+  /**
+   * Include standard WPDK Theme styles and script
+   *
+   * @brief WPDK Theme
+   */
+  public function _wp_head()
+  {
+    if ( !empty( $this->setup_theme_css ) ) {
+      wp_enqueue_style( 'wpdk-theme', WPDK_URI_CSS . 'wpdk-theme.css', array(), WPDK_VERSION );
+    }
+
+    if ( !empty( $this->setup_theme_js ) ) {
+      wp_enqueue_script( 'wpdk-theme', WPDK_URI_JAVASCRIPT . 'wpdk-theme.js', array(), WPDK_VERSION );
+    }
   }
 
   /**
