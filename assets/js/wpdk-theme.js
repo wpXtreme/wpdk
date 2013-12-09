@@ -225,11 +225,11 @@ jQuery( function ( $ )
     function _init()
     {
       /* Your init here. */
-      _customizer();
+      //_customizer();
       _imageNavigation();
       _navigation();
       _skipLinkFocus();
-      _modernizrSVG();
+      //_modernizrSVG();
       _initConsole();
 
       return $t;

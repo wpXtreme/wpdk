@@ -538,7 +538,7 @@ class WPDKTheme extends WPDKObject {
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
     /* Head. */
-    add_action( 'wp_head', array( $this, '_wp_head' ) );
+    add_action( 'wp_head', array( $this, '_wp_head' ), 0 );
     add_action( 'wp_head', array( $this, 'wp_head' ) );
 
     /* Footer. */

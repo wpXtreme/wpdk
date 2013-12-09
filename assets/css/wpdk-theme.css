@@ -98,11 +98,6 @@ html
   -ms-text-size-adjust     : 100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 }
 
-body
-{
-  background : #fff;
-}
-
 ol, ul
 {
   list-style : none;
@@ -231,19 +226,6 @@ h6
  * GLOBAL
  * =====================================================================================================================
  */
-
-body,
-button,
-input,
-select,
-textarea
-{
-  color       : #404040;
-  font-family : sans-serif;
-  font-size   : 16px;
-  font-size   : 1.6rem;
-  line-height : 1.5;
-}
 
 /* Headings */
 h1, h2, h3, h4, h5, h6
