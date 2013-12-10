@@ -307,9 +307,9 @@ class WPDKTheme extends WPDKObject {
   public function __construct( $file, $setup = false ) {
 
     if ( false == $setup ) {
-      $this->setup = new WPDKThemeSetup();
+      $this->setup = $setup = new WPDKThemeSetup();
     }
-    $this->setup = apply_filters( 'wpdk_theme_setup-' . $file, $this->setup );
+    $this->setup = apply_filters( 'wpdk_theme_setup-' . $file, $setup );
 
     /* Autoload. */
     $this->_wpxThemeClassLoadingPath = array();
@@ -365,7 +365,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     /* After setup. */
-    add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ), 0 );
+    add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ) );
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
     /* Add script and styles. */
