@@ -76,7 +76,7 @@ class WPDKView extends WPDKObject {
    *
    * @brief Class
    *
-   * @var string|array $class
+   * @var array $class
    */
   public $class;
 
@@ -146,7 +146,7 @@ class WPDKView extends WPDKObject {
   public function __construct( $id, $class = '' )
   {
     $this->id        = sanitize_title( $id );
-    $this->class     = $class;
+    $this->class     = WPDKHtmlTag::sanitizeClasses( $class );
     $this->content   = '';
     $this->superview = null;
     $this->subviews  = array();
@@ -205,10 +205,12 @@ class WPDKView extends WPDKObject {
    */
   public function display()
   {
+    $classes = WPDKHTMLTag::classInline( $this->class );
+    $data    = WPDKHTMLTag::dataInline( $this->data );
     ?>
     <div data-type="wpdk-view"
          id="<?php echo $this->id ?>"
-         class="<?php echo $this->classes() ?>" <?php echo $this->data() ?> >
+         class="<?php echo $classes ?>" <?php echo $data ?> >
 
     <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
 
@@ -233,45 +235,6 @@ class WPDKView extends WPDKObject {
   </div>
 
   <?php
-  }
-
-  /**
-   * Return the computed CSS class or classes space separated
-   *
-   * @brief Return the computed CSS class
-   *
-   * @return string
-   */
-  private function classes()
-  {
-    if ( !empty( $this->class ) ) {
-      if ( is_string( $this->class ) ) {
-        $this->class = explode( ' ', $this->class );
-      }
-      $this->class[] = 'wpdk-view';
-      $this->class[] = 'clearfix';
-      $this->class   = array_unique( $this->class );
-      return join( ' ', $this->class );
-    }
-    return '';
-  }
-
-  /**
-   * Return the computed data attribute
-   *
-   * @brief Return the computed data attribute
-   *
-   * @return string
-   */
-  private function data()
-  {
-    $result = '';
-    if ( !empty( $this->data ) ) {
-      foreach ( $this->data as $attr => $value ) {
-        $result .= sprintf( ' data-%s="%s"', $attr, htmlspecialchars( stripslashes( $value ) ) );
-      }
-    }
-    return $result;
   }
 
   /**
