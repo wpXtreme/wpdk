@@ -545,7 +545,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     /* After setup. */
-    add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ) );
+    add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ), 0 );
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
     /* Add script and styles. */
