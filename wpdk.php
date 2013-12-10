@@ -259,8 +259,8 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKTwitterBoostrapPopover'
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-html.php'                          => array(
-          'WPDKHTML',
+        $sPathPrefix . 'classes/ui/wpdk-html.php'       => 'WPDKHTML',
+        $sPathPrefix . 'classes/ui/wpdk-html-tag.php'   => array(
           'WPDKHTMLTagName',
           'WPDKHTMLTagInputType',
           'WPDKHTMLTagA',
