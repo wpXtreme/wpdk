@@ -197,14 +197,13 @@ if ( !class_exists( 'WPDK' ) ) {
         // USER INTERFACE
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'               => array(
-          'WPDKView',
+        $sPathPrefix . 'classes/ui/wpdk-view.php'               => 'WPDKView',
+        $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'     => array(
           'WPDKViewController',
           'WPDKHeaderView',
-
-          'WPDKPreferencesViewController',
-          'WPDKPreferencesView',
         ),
+        $sPathPrefix . 'classes/ui/wpdk-preferences-viewcontroller.php' =>'WPDKPreferencesViewController',
+        $sPathPrefix . 'classes/ui/wpdk-preferences-view.php' =>'WPDKPreferencesView',
 
         $sPathPrefix . 'classes/ui/wpdk-metabox.php'                       => array(
           'WPDKMetaBoxView',

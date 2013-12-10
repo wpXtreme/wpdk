@@ -27,6 +27,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential wrong replacement on css compressor
 
+#### Improvements
+
+* Start minor fixes and adjustment for WordPress 3.8
+* Improved WPDKHTML classes
+* Extends WPDKTheme with new WPDKThemeSetup
+* Minor filesystem optimizations
 
 ## Version 1.4.6
 ### 2013-12-02
