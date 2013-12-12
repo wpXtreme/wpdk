@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'wpdk-fonts';
-  src: url('../font/wpdk-fonts.eot?91921672');
-  src: url('../font/wpdk-fonts.eot?91921672#iefix') format('embedded-opentype'),
-       url('../font/wpdk-fonts.woff?91921672') format('woff'),
-       url('../font/wpdk-fonts.ttf?91921672') format('truetype'),
-       url('../font/wpdk-fonts.svg?91921672#wpdk-fonts') format('svg');
+  src: url('../font/wpdk-fonts.eot?48025933');
+  src: url('../font/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'),
+       url('../font/wpdk-fonts.woff?48025933') format('woff'),
+       url('../font/wpdk-fonts.ttf?48025933') format('truetype'),
+       url('../font/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'wpdk-fonts';
-    src: url('../font/wpdk-fonts.svg?91921672#wpdk-fonts') format('svg');
+    src: url('../font/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   }
 }
 */
@@ -106,6 +106,7 @@
 .wpdk-icon-apple:before { content: '\e83a'; } /* '' */
 .wpdk-icon-facebook:before { content: '\e839'; } /* '' */
 .wpdk-icon-github:before { content: '\e819'; } /* '' */
+.wpdk-icon-gplus:before { content: '\e83c'; } /* '' */
 .wpdk-icon-twitter:before { content: '\e83b'; } /* '' */
 .wpdk-icon-export:before { content: '\e82a'; } /* '' */
 .wpdk-icon-clock-1:before { content: '\e820'; } /* '' */

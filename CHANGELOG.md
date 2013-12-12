@@ -27,6 +27,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added `WPDKHTMLTag::styleInline()`
 * Added `WPDKHTMLTag::sanitizeStyles()`
+* Added `WPDKGlyphIcons::GOOGLE_PLUS` icon
 
 #### Bugs
 

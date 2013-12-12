@@ -1622,7 +1622,7 @@
     window.WPDKGlyphIcons = (function ()
     {
       var $t = {
-        version         : '1.0.1',
+        version         : '1.0.2',
         display         : _display,
         html            : _html,
 
@@ -1688,7 +1688,10 @@
         OFF             : 'wpdk-icon-off',
         FACEBOOK        : 'wpdk-icon-facebook',
         APPLE           : 'wpdk-icon-apple',
-        TWITTER         : 'wpdk-icon-twitter'
+        TWITTER         : 'wpdk-icon-twitter',
+
+        /* since 1.4.7 */
+        GOOGLE_PLUS     : 'wpdk-icon-gplus'
 
       };
 

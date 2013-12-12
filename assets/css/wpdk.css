@@ -559,7 +559,7 @@ option.wpdk-form-option[selected]
 
 .wpdk-form-clear-left i:hover
 {
-  color     : #d1593e;
+  color : #d1593e;
 }
 
 input.wpdk-form-has-button-clear-left
@@ -2601,35 +2601,27 @@ ul#adminmenu .wp-submenu li.current a
 .wpdk-icon-emo-happy:before
 { content : '\e82c'; }
 
-/* '' */
 .wpdk-icon-updown-circle:before
 { content : '\e830'; }
 
-/* '' */
 .wpdk-icon-emo-coffee:before
 { content : '\e805'; }
 
-/* '' */
 .wpdk-icon-spin1:before
 { content : '\e806'; }
 
-/* '' */
 .wpdk-icon-spin2:before
 { content : '\e804'; }
 
-/* '' */
 .wpdk-icon-spin3:before
 { content : '\e803'; }
 
-/* '' */
 .wpdk-icon-spin4:before
 { content : '\e802'; }
 
-/* '' */
 .wpdk-icon-spin5:before
 { content : '\e801'; }
 
-/* '' */
 .wpdk-icon-spin6:before
 { content : '\e800'; }
 
@@ -2765,79 +2757,63 @@ ul#adminmenu .wp-submenu li.current a
 .wpdk-icon-angle-right:before
 { content : '\e824'; }
 
-/* '' */
 .wpdk-icon-angle-up:before
 { content : '\e825'; }
 
-/* '' */
 .wpdk-icon-angle-down:before
 { content : '\e826'; }
 
-/* '' */
 .wpdk-icon-down-big:before
 { content : '\e81f'; }
 
-/* '' */
 .wpdk-icon-left-big:before
 { content : '\e837'; }
 
-/* '' */
 .wpdk-icon-right-big:before
 { content : '\e836'; }
 
-/* '' */
 .wpdk-icon-up-big:before
 { content : '\e835'; }
 
-/* '' */
 .wpdk-icon-cw:before
 { content : '\e827'; }
 
-/* '' */
 .wpdk-icon-ccw:before
 { content : '\e828'; }
 
-/* '' */
 .wpdk-icon-arrows-cw:before
 { content : '\e829'; }
 
-/* '' */
 .wpdk-icon-off:before
 { content : '\e838'; }
 
-/* '' */
 .wpdk-icon-bug:before
 { content : '\e82b'; }
 
-/* '' */
 .wpdk-icon-apple:before
 { content : '\e83a'; }
 
-/* '' */
 .wpdk-icon-facebook:before
 { content : '\e839'; }
 
-/* '' */
 .wpdk-icon-github:before
 { content : '\e819'; }
 
-/* '' */
+.wpdk-icon-gplus:before
+{ content : '\e83c'; }
+
 .wpdk-icon-twitter:before
 { content : '\e83b'; }
 
-/* '' */
 .wpdk-icon-export:before
 { content : '\e82a'; }
 
-/* '' */
 .wpdk-icon-clock-1:before
 { content : '\e820'; }
 
-/* '' */
 .wpdk-icon-pencil:before
 { content : '\e81b'; }
 
-/* '' */
 
 /*
    Animation example, for spinners
