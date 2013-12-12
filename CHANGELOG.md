@@ -23,6 +23,11 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.4.7
 ### 2013-12-??
 
+#### Enhancements
+
+* Added `WPDKHTMLTag::styleInline()`
+* Added `WPDKHTMLTag::sanitizeStyles()`
+
 #### Bugs
 
 * Fixed potential wrong replacement on css compressor

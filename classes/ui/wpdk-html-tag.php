@@ -1755,7 +1755,8 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @brief Before content
    */
-  protected function beforeContent() {
+  protected function beforeContent()
+  {
     /* to override if needed */
   }
 
@@ -1766,7 +1767,8 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     echo $this->content;
   }
 
@@ -1775,7 +1777,8 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @brief After content
    */
-  protected function afterContent() {
+  protected function afterContent()
+  {
     /* to override if needed */
   }
 
@@ -1832,6 +1835,44 @@ class WPDKHTMLTag extends WPDKObject {
   }
 
   /**
+   * Return key value pairs array unique with css styke list. In this way you can unset a secified class.
+   * If the input is a string (space separate strings) will return an array with css classes.
+   *
+   *     $style = 'display:block;position:absolute';
+   *     echo self::sanitizeStyles( $style );
+   *
+   *     array(
+   *       'display'  => 'block',
+   *       'position' => 'absolute',
+   *      )
+   *
+   * @brief Sanitize CSS Classes list
+   * @since 1.4.7
+   *
+   * @param string|array $styles Any string or array with styles
+   *
+   * @return array
+   */
+  public static function sanitizeStyles( $styles )
+  {
+    if ( empty( $styles ) || is_null( $styles ) ) {
+      return array();
+    }
+
+    /* Convert the string styles in array */
+    if ( is_string( $styles ) ) {
+      $entries = explode( ';', $styles );
+      $styles  = array();
+      foreach ( $entries as $entry ) {
+        list( $key, $value ) = explode( ':', $entry );
+        $styles[$key] = trim( $value );
+      }
+    }
+
+    return array_unique( $styles, SORT_STRING );
+  }
+
+  /**
    * Merge one or more class
    *
    * @brief Merge
@@ -1868,10 +1909,10 @@ class WPDKHTMLTag extends WPDKObject {
    *       'color',
    *       'modal',
    *     );
-   *     echo self::classInline( $data, array( 'modal', 'hide' ) );
-   *     // 'color modal hide   *
+   *     echo self::classInline( $classes, array( 'modal', 'hide' ) );
+   *     // 'color modal hide'
    *
-   *     echo self::classInline( $data, 'delta modal' );
+   *     echo self::classInline( $classes, 'delta modal' );
    *     // 'color delta modal'
    *
    * @brief Inline CSS class
@@ -1895,6 +1936,47 @@ class WPDKHTMLTag extends WPDKObject {
     $keys = array_keys( $classes );
 
     return join( ' ', $keys );
+  }
+
+  /**
+   * Return a sanitize and inline list of css styles
+   *
+   *     $styles = array(
+   *       'position' => 'absolute',
+   *       'top' => 0,
+   *     );
+   *     echo self::styleInline( $styles, array( 'left' => 0, 'display' => 'block' ) );
+   *     // 'position:absolute;top:0;left:0;display:block'
+   *
+   *     echo self::styleInline( $styles, 'display:block' );
+   *     // 'position:absolute;top:0;display:block'
+   *
+   * @brief Inline CSS class
+   * @since 1.4.7
+   *
+   * @param array|string $styles            List of css styles
+   * @param array|bool   $additional_styles Optional. Additional styles
+   *
+   * @return string
+   */
+  public static function styleInline( $styles, $additional_styles = false )
+  {
+    $styles = self::sanitizeStyles( $styles );
+
+    if ( !empty( $additional_styles ) ) {
+      $additional_styles = self::sanitizeStyles( $additional_styles );
+      if ( !empty( $additional_styles ) ) {
+        $styles = array_merge( $styles, $additional_styles );
+      }
+    }
+
+    $result = array();
+    foreach ( $styles as $key => $value ) {
+      $result[] = $key . ':' . $value;
+    }
+
+    return rtrim( implode( ';', $result ), ';' );
+
   }
 
   /**
