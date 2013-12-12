@@ -1864,7 +1864,7 @@ class WPDKHTMLTag extends WPDKObject {
       $entries = explode( ';', $styles );
       $styles  = array();
       foreach ( $entries as $entry ) {
-        list( $key, $value ) = explode( ':', $entry );
+        list( $key, $value ) = explode( ':', $entry, 2 );
         $styles[$key] = trim( $value );
       }
     }
