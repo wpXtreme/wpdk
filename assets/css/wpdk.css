@@ -2552,8 +2552,11 @@ ul#adminmenu .wp-submenu li.current a
 @font-face
 {
   font-family : 'wpdk-fonts';
-  src         : url('../fonts/wpdk-fonts.eot?40916628');
-  src         : url('../fonts/wpdk-fonts.eot?40916628#iefix') format('embedded-opentype'), url('../fonts/wpdk-fonts.woff?40916628') format('woff'), url('../fonts/wpdk-fonts.ttf?40916628') format('truetype'), url('../fonts/wpdk-fonts.svg?40916628#wpdk-fonts') format('svg');
+  src         : url('../fonts/wpdk-fonts.eot?48025933');
+  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'),
+                url('../fonts/wpdk-fonts.woff?48025933') format('woff'),
+                url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'),
+                url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   font-weight : normal;
   font-style  : normal;
 }
