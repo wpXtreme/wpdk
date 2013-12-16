@@ -2348,8 +2348,8 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 
 ul#adminmenu .wp-submenu li.wpdk_menu_divider
 {
-  border-top  : 1px dashed #aaa;
-  color       : #888;
+  border-top  : 1px dashed;
+  color       : inherit;
   cursor      : auto;
   font-weight : bold;
   margin      : 8px 0 0;
