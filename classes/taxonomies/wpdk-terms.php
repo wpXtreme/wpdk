@@ -391,8 +391,40 @@ class WPDKTerms {
 
     /* Remove private. */
     unset( $args['WPDKTerms_taxonomy'] );
-
     $terms = get_terms( $this->_taxonomy, $args );
+
+    return $terms;
+  }
+
+  /**
+   * Return a tree list of terms. Used to build an indent list of children
+   *
+   * @brief Tree
+   *
+   * @param bool $child_of Optional. Default false
+   *
+   * @return array|WP_Error
+   */
+  public function tree( $child_of = false )
+  {
+    if ( empty( $child_of ) ) {
+      $args           = (array)$this;
+      $args['parent'] = 0;
+      unset( $args['WPDKTerms_taxonomy'] );
+      $terms = get_terms( $this->_taxonomy, $args );
+      foreach ( $terms as $term ) {
+        $term->children = $this->tree( $term );
+      }
+    }
+    else {
+      $args             = (array)$this;
+      $args['parent']   = $child_of->term_id;
+      unset( $args['WPDKTerms_taxonomy'] );
+      $terms = get_terms( $this->_taxonomy, $args );
+      foreach ( $terms as $term ) {
+        $term->children = $this->tree( $term );
+      }
+    }
 
     return $terms;
   }
