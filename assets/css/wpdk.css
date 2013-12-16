@@ -146,13 +146,13 @@ div.wpdk-border-container
 {
   margin                : 0;
   padding               : 12px;
-  background            : rgb(250, 250, 250);
-  border-color          : rgb(230, 230, 230);
+  background-color      : #fafafa;
+  border-color          : #E5E5E5;
   border-width          : 1px;
   border-style          : solid;
-  -moz-border-radius    : 6px;
-  -webkit-border-radius : 6px;
-  border-radius         : 6px;
+  -moz-border-radius    : 1px;
+  -webkit-border-radius : 1px;
+  border-radius         : 1px;
 }
 
 div.meta-box-sortables div.wpdk-border-container
@@ -1208,10 +1208,10 @@ form#wpdk-preferences
 }
 
 form#wpdk-preferences input[name=wpdk_preferences_export]
-{ margin : 4px }
+{ margin : 0 0 0 16px }
 
 form#wpdk-preferences input[name=wpdk_preferences_reset_all]
-{ margin : 4px }
+{  }
 
 /* =====================================================================================================================
  * CREDITS / INFORMATION
@@ -2349,7 +2349,7 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 ul#adminmenu .wp-submenu li.wpdk_menu_divider
 {
   border-top  : 1px dashed #aaa;
-  color       : #222;
+  color       : #888;
   cursor      : auto;
   font-weight : bold;
   margin      : 8px 0 0;
@@ -2358,7 +2358,7 @@ ul#adminmenu .wp-submenu li.wpdk_menu_divider
 
 ul#adminmenu .wp-submenu li.current a
 {
-  color            : #666;
+  color            : inherit;
   background-color : #eee;
 }
 

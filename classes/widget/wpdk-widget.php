@@ -66,10 +66,11 @@ class WPDKWidget extends WP_Widget {
       <?php if( !empty( $logo ) ) : ?>
   div[id*=<?php echo $this->id_base ?>] .widget-title h4
   {
-    padding-left      : 22px;
-    line-height       : 150%;
-    background-image  : url(<?php echo $logo ?>) !important;
-    background-repeat : no-repeat;
+    padding-left        : 28px;
+    line-height         : 150%;
+    background-image    : url(<?php echo $logo ?>) !important;
+    background-repeat   : no-repeat;
+    background-position : 6px center;
   }
     <?php endif ?>
 
