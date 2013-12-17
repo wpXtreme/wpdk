@@ -146,13 +146,13 @@ div.wpdk-border-container
 {
   margin                : 0;
   padding               : 12px;
-  background            : rgb(250, 250, 250);
-  border-color          : rgb(230, 230, 230);
+  background-color      : #fafafa;
+  border-color          : #E5E5E5;
   border-width          : 1px;
   border-style          : solid;
-  -moz-border-radius    : 6px;
-  -webkit-border-radius : 6px;
-  border-radius         : 6px;
+  -moz-border-radius    : 1px;
+  -webkit-border-radius : 1px;
+  border-radius         : 1px;
 }
 
 div.meta-box-sortables div.wpdk-border-container
@@ -543,19 +543,28 @@ option.wpdk-form-option[selected]
 
 .wpdk-form-clear-left
 {
-  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAP9JREFUeNpiZEADvr7+CUAqHogd0KQOAPHCzZs3LkAWZETSqACk1gOxAQN+cAGIA4EGPYAbANV8HogFGIgDH4DYEGQIE1RgPQmaGaBqQXoYmKF+zkAzvRNLGDRCvccB5Uuoq2s8ZIIGGDKYCHRaA5BORBJLhIpNRFMbzwh0wX8sTgRpWAB1HQMSez66QhYcfpwP1MAAizJcmkGAiYFCgMsF2LzAgM0VTNAUhhLaaH4GeScB6p1G9NTJDIwKUGIKQBI0AIpxAul+JLEAqLp8pGgEWwZLieeJSMIYSRroKkNYIAZCExADCUk5EB4L0IxhCM0oDERkJkOUzERJdgYIMADRhV+mXJ7YiAAAAABJRU5ErkJggg==);
-  /*    background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADtSURBVHjajFC7DkFREJy9iXg0t+EHRKJDJSqRuIVaJT7AF+jR+xuNRiJyS8WlRaHWeOU+kBy7eyKhs8lkJrOzZ3OWzMAD15gxYhB+yzAm0ndez+eYMYLngdkIf2vpSYbCfsNkOx07n8kgWa1UpptNII5VR/M56Nyt6Qq33bbhQsHy6aR0WSyEyEmiCG6vR2ffB65X4HCwYC2e9CTjJGGok4/7Hcjl+ImLBWv1uCRDu3peV5eGQ2C5/P1zq4X9dGpXP+LYhmYz4HbDMQgUosWTnmQoKKf0htVKBZvtFsx6S9bm48ktaV3EXwd/CzAAVjt+gHT5me0AAAAASUVORK5CYII=); */
-  background-repeat   : no-repeat;
-  background-position : 0 center;
-  cursor              : pointer;
-  line-height         : 0;
-  margin              : 0 8px 0 -27px;
-  padding             : 0 12px 3px;
+  cursor   : pointer;
+  display  : inline-block;
+  position : absolute;
+}
+
+.wpdk-form-clear-left i
+{
+  color     : #ff664b;
+  font-size : 16px;
+  position  : relative;
+  right     : 26px;
+  top       : 5px;
+}
+
+.wpdk-form-clear-left i:hover
+{
+  color : #d1593e;
 }
 
 input.wpdk-form-has-button-clear-left
 {
-  padding-right : 26px !important;
+  padding-right : 22px !important;
 }
 
 /* =====================================================================================================================
@@ -752,6 +761,62 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 }
 
 /* =====================================================================================================================
+ * SCROLLABLE CONTROL
+ * @since 1.4.7
+ * =====================================================================================================================
+ */
+
+.wpdk-form-scrollable
+{
+  margin                : 0 10px;
+  border                : 1px solid #dfdfdf;
+  background-color      : #fff;
+  padding               : 8px;
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+  -moz-box-shadow       : 0 2px 3px #eee inset, 0 1px 0 #fff;
+  -webkit-box-shadow    : 0 2px 3px #eee inset, 0 1px 0 #fff;
+  box-shadow            : 0 2px 3px #eee inset, 0 1px 0 #fff;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal
+{
+  overflow-x : scroll;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal div
+{ }
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
+{
+  float : left;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
+{
+  padding               : 8px;
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+  cursor                : pointer;
+  border                : 2px solid transparent;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable:hover
+{
+  border : 2px solid #7d8daa;
+}
+
+.wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selected
+{
+  border             : 2px solid #ccc;
+  -moz-box-shadow    : inset 0 0 16px #ccc;
+  -webkit-box-shadow : inset 0 0 16px #ccc;
+  box-shadow         : inset 0 0 16px #ccc;
+}
+
+/* =====================================================================================================================
  * CHOOSE CONTROL
  * =====================================================================================================================
  */
@@ -820,7 +885,6 @@ div.wpdk-tableview table.wpdk-tableview-table tbody tr:hover
 
 textarea#_wpdk_user_status_description
 {
-
 }
 
 /* =====================================================================================================================
@@ -1144,10 +1208,10 @@ form#wpdk-preferences
 }
 
 form#wpdk-preferences input[name=wpdk_preferences_export]
-{ margin : 4px }
+{ margin : 0 0 0 16px }
 
 form#wpdk-preferences input[name=wpdk_preferences_reset_all]
-{ margin : 4px }
+{  }
 
 /* =====================================================================================================================
  * CREDITS / INFORMATION
@@ -1399,7 +1463,7 @@ div.wpdk-credits ul li a
 
 body.wpdk-modal-open
 {
-  overflow: hidden;
+  overflow : hidden;
 }
 
 .wpdk-modal
@@ -1856,7 +1920,6 @@ fieldset.wpdk-form-fieldset .wpdk-alert
   top                 : -32px;
 }
 
-
 /* ---- START BACKWARD COMPATIBILITY - to remove asap --- */
 
 .alert
@@ -2285,8 +2348,8 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 
 ul#adminmenu .wp-submenu li.wpdk_menu_divider
 {
-  border-top  : 1px dashed #aaa;
-  color       : #222;
+  border-top  : 1px dashed;
+  color       : inherit;
   cursor      : auto;
   font-weight : bold;
   margin      : 8px 0 0;
@@ -2295,7 +2358,7 @@ ul#adminmenu .wp-submenu li.wpdk_menu_divider
 
 ul#adminmenu .wp-submenu li.current a
 {
-  color            : #666;
+  color            : inherit;
   background-color : #eee;
 }
 
@@ -2489,8 +2552,11 @@ ul#adminmenu .wp-submenu li.current a
 @font-face
 {
   font-family : 'wpdk-fonts';
-  src         : url('../fonts/wpdk-fonts.eot?40916628');
-  src         : url('../fonts/wpdk-fonts.eot?40916628#iefix') format('embedded-opentype'), url('../fonts/wpdk-fonts.woff?40916628') format('woff'), url('../fonts/wpdk-fonts.ttf?40916628') format('truetype'), url('../fonts/wpdk-fonts.svg?40916628#wpdk-fonts') format('svg');
+  src         : url('../fonts/wpdk-fonts.eot?48025933');
+  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'),
+                url('../fonts/wpdk-fonts.woff?48025933') format('woff'),
+                url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'),
+                url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   font-weight : normal;
   font-style  : normal;
 }
@@ -2535,66 +2601,222 @@ ul#adminmenu .wp-submenu li.current a
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.wpdk-icon-emo-happy:before { content: '\e82c'; } /* '' */
-.wpdk-icon-updown-circle:before { content: '\e830'; } /* '' */
-.wpdk-icon-emo-coffee:before { content: '\e805'; } /* '' */
-.wpdk-icon-spin1:before { content: '\e806'; } /* '' */
-.wpdk-icon-spin2:before { content: '\e804'; } /* '' */
-.wpdk-icon-spin3:before { content: '\e803'; } /* '' */
-.wpdk-icon-spin4:before { content: '\e802'; } /* '' */
-.wpdk-icon-spin5:before { content: '\e801'; } /* '' */
-.wpdk-icon-spin6:before { content: '\e800'; } /* '' */
-.wpdk-icon-search:before { content: '\e807'; } /* '' */
-.wpdk-icon-mail:before { content: '\e808'; } /* '' */
-.wpdk-icon-heart:before { content: '\e80b'; } /* '' */
-.wpdk-icon-heart-empty:before { content: '\e80c'; } /* '' */
-.wpdk-icon-star:before { content: '\e809'; } /* '' */
-.wpdk-icon-star-empty:before { content: '\e80a'; } /* '' */
-.wpdk-icon-star-half:before { content: '\e80e'; } /* '' */
-.wpdk-icon-star-half-alt:before { content: '\e80d'; } /* '' */
-.wpdk-icon-ok:before { content: '\e814'; } /* '' */
-.wpdk-icon-ok-circled:before { content: '\e815'; } /* '' */
-.wpdk-icon-cancel-circled:before { content: '\e82e'; } /* '' */
-.wpdk-icon-cancel-circled2:before { content: '\e81e'; } /* '' */
-.wpdk-icon-plus-squared:before { content: '\e81c'; } /* '' */
-.wpdk-icon-minus-squared:before { content: '\e81d'; } /* '' */
-.wpdk-icon-lock:before { content: '\e810'; } /* '' */
-.wpdk-icon-lock-open:before { content: '\e80f'; } /* '' */
-.wpdk-icon-lock-open-alt:before { content: '\e811'; } /* '' */
-.wpdk-icon-thumbs-up:before { content: '\e82f'; } /* '' */
-.wpdk-icon-thumbs-down:before { content: '\e831'; } /* '' */
-.wpdk-icon-thumbs-up-alt:before { content: '\e832'; } /* '' */
-.wpdk-icon-thumbs-down-alt:before { content: '\e833'; } /* '' */
-.wpdk-icon-emo-unhappy:before { content: '\e82d'; } /* '' */
-.wpdk-icon-chat:before { content: '\e813'; } /* '' */
-.wpdk-icon-comment-empty:before { content: '\e812'; } /* '' */
-.wpdk-icon-attention:before { content: '\e816'; } /* '' */
-.wpdk-icon-trash:before { content: '\e81a'; } /* '' */
-.wpdk-icon-cog:before { content: '\e834'; } /* '' */
-.wpdk-icon-down-open:before { content: '\e821'; } /* '' */
-.wpdk-icon-left-open:before { content: '\e817'; } /* '' */
-.wpdk-icon-right-open:before { content: '\e818'; } /* '' */
-.wpdk-icon-up-open:before { content: '\e822'; } /* '' */
-.wpdk-icon-angle-left:before { content: '\e823'; } /* '' */
-.wpdk-icon-angle-right:before { content: '\e824'; } /* '' */
-.wpdk-icon-angle-up:before { content: '\e825'; } /* '' */
-.wpdk-icon-angle-down:before { content: '\e826'; } /* '' */
-.wpdk-icon-down-big:before { content: '\e81f'; } /* '' */
-.wpdk-icon-left-big:before { content: '\e837'; } /* '' */
-.wpdk-icon-right-big:before { content: '\e836'; } /* '' */
-.wpdk-icon-up-big:before { content: '\e835'; } /* '' */
-.wpdk-icon-cw:before { content: '\e827'; } /* '' */
-.wpdk-icon-ccw:before { content: '\e828'; } /* '' */
-.wpdk-icon-arrows-cw:before { content: '\e829'; } /* '' */
-.wpdk-icon-off:before { content: '\e838'; } /* '' */
-.wpdk-icon-bug:before { content: '\e82b'; } /* '' */
-.wpdk-icon-apple:before { content: '\e83a'; } /* '' */
-.wpdk-icon-facebook:before { content: '\e839'; } /* '' */
-.wpdk-icon-github:before { content: '\e819'; } /* '' */
-.wpdk-icon-twitter:before { content: '\e83b'; } /* '' */
-.wpdk-icon-export:before { content: '\e82a'; } /* '' */
-.wpdk-icon-clock-1:before { content: '\e820'; } /* '' */
-.wpdk-icon-pencil:before { content: '\e81b'; } /* '' */
+.wpdk-icon-emo-happy:before
+{ content : '\e82c'; }
+
+.wpdk-icon-updown-circle:before
+{ content : '\e830'; }
+
+.wpdk-icon-emo-coffee:before
+{ content : '\e805'; }
+
+.wpdk-icon-spin1:before
+{ content : '\e806'; }
+
+.wpdk-icon-spin2:before
+{ content : '\e804'; }
+
+.wpdk-icon-spin3:before
+{ content : '\e803'; }
+
+.wpdk-icon-spin4:before
+{ content : '\e802'; }
+
+.wpdk-icon-spin5:before
+{ content : '\e801'; }
+
+.wpdk-icon-spin6:before
+{ content : '\e800'; }
+
+/* '' */
+.wpdk-icon-search:before
+{ content : '\e807'; }
+
+/* '' */
+.wpdk-icon-mail:before
+{ content : '\e808'; }
+
+/* '' */
+.wpdk-icon-heart:before
+{ content : '\e80b'; }
+
+/* '' */
+.wpdk-icon-heart-empty:before
+{ content : '\e80c'; }
+
+/* '' */
+.wpdk-icon-star:before
+{ content : '\e809'; }
+
+/* '' */
+.wpdk-icon-star-empty:before
+{ content : '\e80a'; }
+
+/* '' */
+.wpdk-icon-star-half:before
+{ content : '\e80e'; }
+
+/* '' */
+.wpdk-icon-star-half-alt:before
+{ content : '\e80d'; }
+
+/* '' */
+.wpdk-icon-ok:before
+{ content : '\e814'; }
+
+/* '' */
+.wpdk-icon-ok-circled:before
+{ content : '\e815'; }
+
+/* '' */
+.wpdk-icon-cancel-circled:before
+{ content : '\e82e'; }
+
+/* '' */
+.wpdk-icon-cancel-circled2:before
+{ content : '\e81e'; }
+
+/* '' */
+.wpdk-icon-plus-squared:before
+{ content : '\e81c'; }
+
+/* '' */
+.wpdk-icon-minus-squared:before
+{ content : '\e81d'; }
+
+/* '' */
+.wpdk-icon-lock:before
+{ content : '\e810'; }
+
+/* '' */
+.wpdk-icon-lock-open:before
+{ content : '\e80f'; }
+
+/* '' */
+.wpdk-icon-lock-open-alt:before
+{ content : '\e811'; }
+
+/* '' */
+.wpdk-icon-thumbs-up:before
+{ content : '\e82f'; }
+
+/* '' */
+.wpdk-icon-thumbs-down:before
+{ content : '\e831'; }
+
+/* '' */
+.wpdk-icon-thumbs-up-alt:before
+{ content : '\e832'; }
+
+/* '' */
+.wpdk-icon-thumbs-down-alt:before
+{ content : '\e833'; }
+
+/* '' */
+.wpdk-icon-emo-unhappy:before
+{ content : '\e82d'; }
+
+/* '' */
+.wpdk-icon-chat:before
+{ content : '\e813'; }
+
+/* '' */
+.wpdk-icon-comment-empty:before
+{ content : '\e812'; }
+
+/* '' */
+.wpdk-icon-attention:before
+{ content : '\e816'; }
+
+/* '' */
+.wpdk-icon-trash:before
+{ content : '\e81a'; }
+
+/* '' */
+.wpdk-icon-cog:before
+{ content : '\e834'; }
+
+/* '' */
+.wpdk-icon-down-open:before
+{ content : '\e821'; }
+
+/* '' */
+.wpdk-icon-left-open:before
+{ content : '\e817'; }
+
+/* '' */
+.wpdk-icon-right-open:before
+{ content : '\e818'; }
+
+/* '' */
+.wpdk-icon-up-open:before
+{ content : '\e822'; }
+
+/* '' */
+.wpdk-icon-angle-left:before
+{ content : '\e823'; }
+
+/* '' */
+.wpdk-icon-angle-right:before
+{ content : '\e824'; }
+
+.wpdk-icon-angle-up:before
+{ content : '\e825'; }
+
+.wpdk-icon-angle-down:before
+{ content : '\e826'; }
+
+.wpdk-icon-down-big:before
+{ content : '\e81f'; }
+
+.wpdk-icon-left-big:before
+{ content : '\e837'; }
+
+.wpdk-icon-right-big:before
+{ content : '\e836'; }
+
+.wpdk-icon-up-big:before
+{ content : '\e835'; }
+
+.wpdk-icon-cw:before
+{ content : '\e827'; }
+
+.wpdk-icon-ccw:before
+{ content : '\e828'; }
+
+.wpdk-icon-arrows-cw:before
+{ content : '\e829'; }
+
+.wpdk-icon-off:before
+{ content : '\e838'; }
+
+.wpdk-icon-bug:before
+{ content : '\e82b'; }
+
+.wpdk-icon-apple:before
+{ content : '\e83a'; }
+
+.wpdk-icon-facebook:before
+{ content : '\e839'; }
+
+.wpdk-icon-github:before
+{ content : '\e819'; }
+
+.wpdk-icon-gplus:before
+{ content : '\e83c'; }
+
+.wpdk-icon-twitter:before
+{ content : '\e83b'; }
+
+.wpdk-icon-export:before
+{ content : '\e82a'; }
+
+.wpdk-icon-clock-1:before
+{ content : '\e820'; }
+
+.wpdk-icon-pencil:before
+{ content : '\e81b'; }
+
 
 /*
    Animation example, for spinners

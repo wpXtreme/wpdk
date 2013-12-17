@@ -440,14 +440,14 @@ class WPDKPost extends WPDKObject {
   /**
    * Update this post on database. Also this method check if you are in admin backend area for this custom post.
    * In this case the post update if turn off and save the post meta only.
+   * Return value 0 or WP_Error on failure. The post ID on success.
    *
    * @brief Update
    *
    * @since 0.9
    * @uses  wp_update_post()
-   * @uses  self::updatePostMeta()
    *
-   * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
+   * @return int|WP_Error
    */
   public function update()
   {

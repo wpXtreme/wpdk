@@ -74,6 +74,9 @@ final class WPDKGlyphIcons extends WPDKObject {
   const APPLE           = 'wpdk-icon-apple';
   const TWITTER         = 'wpdk-icon-twitter';
 
+  /* since 1.4.7 */
+  const GOOGLE_PLUS     = 'wpdk-icon-gplus';
+
   /**
    * Override version
    *
