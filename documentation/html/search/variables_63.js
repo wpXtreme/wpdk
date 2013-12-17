@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cancel_5fcircled',['CANCEL_CIRCLED',['../classWPDKGlyphIcons.html#a39c9d9c5de19ada1b029b79bde064034',1,'WPDKGlyphIcons']]],
   ['cancel_5fcircled2',['CANCEL_CIRCLED2',['../classWPDKGlyphIcons.html#a53bd30aea498fc1f9b8517d7645b9e44',1,'WPDKGlyphIcons']]],
   ['ccw',['CCW',['../classWPDKGlyphIcons.html#a3a57c157023a05114a83fcb86463a5e8',1,'WPDKGlyphIcons']]],
   ['chat',['CHAT',['../classWPDKGlyphIcons.html#ad33b5de4938f5ce4b1fd205a2541341e',1,'WPDKGlyphIcons']]],
@@ -7,6 +8,7 @@ var searchData=
   ['checkboxes',['CHECKBOXES',['../classWPDKUIControlType.html#a4a65fabf33cb5f75226648e71ebc8063',1,'WPDKUIControlType']]],
   ['choose',['CHOOSE',['../classWPDKUIControlType.html#a2389c309866d75844a579fb686a7cdf2',1,'WPDKUIControlType']]],
   ['clock',['CLOCK',['../classWPDKGlyphIcons.html#a8f89ca02e7a88ae53a3c0db17ecf97dc',1,'WPDKGlyphIcons']]],
+  ['cog',['COG',['../classWPDKGlyphIcons.html#af446cb1666a673ae6fd2a374eb7a36b9',1,'WPDKGlyphIcons']]],
   ['color',['COLOR',['../classWPDKHTMLTagInputType.html#ae54cf2804038e04210c465ed7e65812d',1,'WPDKHTMLTagInputType']]],
   ['column_5fcomment_5fcount',['COLUMN_COMMENT_COUNT',['../classWPDKPost.html#a82aec19a630db03f231fb457b7055bd3',1,'WPDKPost']]],
   ['column_5fcomment_5fstatus',['COLUMN_COMMENT_STATUS',['../classWPDKPost.html#a91aa4fcdac961755d3ac3a0d1452b980',1,'WPDKPost']]],

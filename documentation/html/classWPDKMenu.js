@@ -11,6 +11,7 @@ var classWPDKMenu =
     [ "page", "classWPDKMenu.html#a6de3a601ef4a410538628da7fbf9375c", null ],
     [ "render", "classWPDKMenu.html#afde88292c44dc59faf017738dae6dffb", null ],
     [ "renderByArray", "classWPDKMenu.html#a47efba9d1e4441c79e5b97d66f5caf2c", null ],
+    [ "sanitizeViewController", "classWPDKMenu.html#a96797bf132437c4a7fa09fa49fc0f710", null ],
     [ "url", "classWPDKMenu.html#a2902882c67d0ff05f1756f455513e975", null ],
     [ "$capability", "classWPDKMenu.html#aedfca3224946be11d79e7c3aa4178658", null ],
     [ "$hookName", "classWPDKMenu.html#aea63c2ead484f541380a4be3a3de7da2", null ],

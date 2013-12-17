@@ -4,6 +4,7 @@ var classWPDKTerms =
     [ "breadCrumbs", "classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d", null ],
     [ "term", "classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a", null ],
     [ "terms", "classWPDKTerms.html#a9ca846ab8ce493c853ca0d5993016f09", null ],
+    [ "tree", "classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63", null ],
     [ "$cache_domain", "classWPDKTerms.html#ac3173bd97507f78b1b142c281b90f21d", null ],
     [ "$child_of", "classWPDKTerms.html#a56943aebbb0924cb7fe3a67921c8cf09", null ],
     [ "$exclude", "classWPDKTerms.html#a02440ee8708ce55f28cabf9e340ae510", null ],

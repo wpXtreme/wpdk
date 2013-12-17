@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.4.7</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -170,9 +170,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af24411a547b3f7811199b96c9609b2fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc">wpdk_enqueue_script_page</a> ($pages, $handle, $src=false, $deps=array(), $ver=false, $in_footer=false)</td></tr>
 <tr class="memdesc:af24411a547b3f7811199b96c9609b2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue script.  <a href="#af24411a547b3f7811199b96c9609b2fc">More...</a><br/></td></tr>
 <tr class="separator:af24411a547b3f7811199b96c9609b2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a507b63c0d6880d883125ad0ba2c10ecf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wpdk-functions_8php.html#a507b63c0d6880d883125ad0ba2c10ecf">wpdk_enqueue_script_page_teplate</a> ($page_templates, $handle, $src=false, $deps=array(), $ver=false, $in_footer=false)</td></tr>
-<tr class="memdesc:a507b63c0d6880d883125ad0ba2c10ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue script.  <a href="#a507b63c0d6880d883125ad0ba2c10ecf">More...</a><br/></td></tr>
-<tr class="separator:a507b63c0d6880d883125ad0ba2c10ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39fac63f8d9364e0e47be3fe12ebd226"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wpdk-functions_8php.html#a39fac63f8d9364e0e47be3fe12ebd226">wpdk_enqueue_script_page_template</a> ($page_templates, $handle, $src=false, $deps=array(), $ver=false, $in_footer=false)</td></tr>
+<tr class="memdesc:a39fac63f8d9364e0e47be3fe12ebd226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue script.  <a href="#a39fac63f8d9364e0e47be3fe12ebd226">More...</a><br/></td></tr>
+<tr class="separator:a39fac63f8d9364e0e47be3fe12ebd226"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a0557a80e4051cbc9e4786d4bff9c41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wpdk-functions_8php.html#a4a0557a80e4051cbc9e4786d4bff9c41">wpdk_set_user_transient</a> ($transient, $value, $expiration=0, $user_id=null)</td></tr>
 <tr class="memdesc:a4a0557a80e4051cbc9e4786d4bff9c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set.  <a href="#a4a0557a80e4051cbc9e4786d4bff9c41">More...</a><br/></td></tr>
 <tr class="separator:a4a0557a80e4051cbc9e4786d4bff9c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -514,7 +514,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool true if successful, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00635">635</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00643">643</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -624,12 +624,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a507b63c0d6880d883125ad0ba2c10ecf"></a>
+<a class="anchor" id="a39fac63f8d9364e0e47be3fe12ebd226"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">wpdk_enqueue_script_page_teplate </td>
+          <td class="memname">wpdk_enqueue_script_page_template </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$page_templates</em>, </td>
@@ -673,7 +673,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enqueue script. </p>
-<p>Enqueue script for list of page template</p>
+<p>Enqueue script for list of page template. Return FALSE if $page_templates is empty</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$page_templates</td><td>Array of page slug template </td></tr>
@@ -681,12 +681,13 @@ Functions</h2></td></tr>
     <tr><td class="paramtype">bool</td><td class="paramname">$src</td><td>Optional. Source URI </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$deps</td><td>Optional. Array of other handle </td></tr>
     <tr><td class="paramtype">bool</td><td class="paramname">$ver</td><td>Optional. Version to avoid cache </td></tr>
-    <tr><td class="paramtype">bool</td><td class="paramname">$in_footer</td><td>Optional. Load in footer </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$in_footer</td><td>Optional. Load in footer</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00546">546</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00548">548</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -838,7 +839,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed Value of transient </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00599">599</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00607">607</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -950,7 +951,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00663">663</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00671">671</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -971,7 +972,7 @@ Functions</h2></td></tr>
 <p>Return true if the REQUEST METHOD is GET</p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00676">676</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00684">684</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -992,7 +993,7 @@ Functions</h2></td></tr>
 <p>Return true if the REQUEST METHOD is POST</p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00688">688</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00696">696</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -1180,7 +1181,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool False if value was not set and true if value was set. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00577">577</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00585">585</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>

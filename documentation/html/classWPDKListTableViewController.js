@@ -25,6 +25,7 @@ var classWPDKListTableViewController =
     [ "urlRemveAction", "classWPDKListTableViewController.html#a67660b1300260d67c6a2a828e92fef56", null ],
     [ "willLoad", "classWPDKListTableViewController.html#a91e6c8d9df570bd8688e13fc74a68afb", null ],
     [ "wpdk_header_view_title_did_appear", "classWPDKListTableViewController.html#a63e0009dd4f75d60ed87dcc657c905a4", null ],
+    [ "$column_headers", "classWPDKListTableViewController.html#add367aae755dbbcce0ddf0fa4a5f025a", null ],
     [ "$getStatusID", "classWPDKListTableViewController.html#a9721a7e639fcd3a491bd5eef6776de57", null ],
     [ "$id", "classWPDKListTableViewController.html#a426cfb78b707e9d9541e9c8ea5a6af57", null ],
     [ "$model", "classWPDKListTableViewController.html#a4fdc27bd73f861c1202a56632aadb94d", null ],

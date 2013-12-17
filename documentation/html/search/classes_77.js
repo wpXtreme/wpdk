@@ -29,7 +29,6 @@ var searchData=
   ['wpdkhtmltagtextarea',['WPDKHTMLTagTextarea',['../classWPDKHTMLTagTextarea.html',1,'']]],
   ['wpdkjquery',['WPDKjQuery',['../classWPDKjQuery.html',1,'']]],
   ['wpdkjquerytab',['WPDKjQueryTab',['../classWPDKjQueryTab.html',1,'']]],
-  ['wpdkjquerytabs',['WPDKjQueryTabs',['../classWPDKjQueryTabs.html',1,'']]],
   ['wpdkjquerytabsview',['WPDKjQueryTabsView',['../classWPDKjQueryTabsView.html',1,'']]],
   ['wpdkjquerytabsviewcontroller',['WPDKjQueryTabsViewController',['../classWPDKjQueryTabsViewController.html',1,'']]],
   ['wpdklisttableviewcontroller',['WPDKListTableViewController',['../classWPDKListTableViewController.html',1,'']]],

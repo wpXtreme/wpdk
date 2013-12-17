@@ -9,7 +9,7 @@ var wpdk_functions_8php =
     [ "wpdk_delete_user_transient", "wpdk-functions_8php.html#a5c1a6f2d700670af495ce0838bf2d0fb", null ],
     [ "wpdk_delta_object", "wpdk-functions_8php.html#a3d64bdb37f3e1f724906f050149a8556", null ],
     [ "wpdk_enqueue_script_page", "wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc", null ],
-    [ "wpdk_enqueue_script_page_teplate", "wpdk-functions_8php.html#a507b63c0d6880d883125ad0ba2c10ecf", null ],
+    [ "wpdk_enqueue_script_page_template", "wpdk-functions_8php.html#a39fac63f8d9364e0e47be3fe12ebd226", null ],
     [ "wpdk_get_image_from_attachments", "wpdk-functions_8php.html#a459c4460eae8e7ddeb4cf9bdf6d14bba", null ],
     [ "wpdk_get_image_from_post_thumbnail", "wpdk-functions_8php.html#a40d420e0e01855b6f0634a2f335c5395", null ],
     [ "wpdk_get_image_in_post_content", "wpdk-functions_8php.html#a65d77d117f46d4fa967e18e321eb0e36", null ],

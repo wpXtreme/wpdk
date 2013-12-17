@@ -6,8 +6,7 @@ var dir_8315e34a19e74be451e8523970b07219 =
     [ "wpdk-glyphicons.php", "wpdk-glyphicons_8php.html", [
       [ "WPDKGlyphIcons", "classWPDKGlyphIcons.html", "classWPDKGlyphIcons" ]
     ] ],
-    [ "wpdk-html.php", "wpdk-html_8php.html", [
-      [ "WPDKHTML", "classWPDKHTML.html", "classWPDKHTML" ],
+    [ "wpdk-html-tag.php", "wpdk-html-tag_8php.html", [
       [ "WPDKHTMLTagName", "classWPDKHTMLTagName.html", "classWPDKHTMLTagName" ],
       [ "WPDKHTMLTagInputType", "classWPDKHTMLTagInputType.html", "classWPDKHTMLTagInputType" ],
       [ "WPDKHTMLTagA", "classWPDKHTMLTagA.html", "classWPDKHTMLTagA" ],
@@ -23,12 +22,14 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKHTMLTagTextarea", "classWPDKHTMLTagTextarea.html", "classWPDKHTMLTagTextarea" ],
       [ "WPDKHTMLTag", "classWPDKHTMLTag.html", "classWPDKHTMLTag" ]
     ] ],
+    [ "wpdk-html.php", "wpdk-html_8php.html", [
+      [ "WPDKHTML", "classWPDKHTML.html", "classWPDKHTML" ]
+    ] ],
     [ "wpdk-jquery.php", "wpdk-jquery_8php.html", [
       [ "WPDKjQuery", "classWPDKjQuery.html", null ],
       [ "WPDKjQueryTab", "classWPDKjQueryTab.html", "classWPDKjQueryTab" ],
       [ "WPDKjQueryTabsView", "classWPDKjQueryTabsView.html", "classWPDKjQueryTabsView" ],
-      [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", "classWPDKjQueryTabsViewController" ],
-      [ "WPDKjQueryTabs", "classWPDKjQueryTabs.html", "classWPDKjQueryTabs" ]
+      [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", "classWPDKjQueryTabsViewController" ]
     ] ],
     [ "wpdk-listtable-viewcontroller.php", "wpdk-listtable-viewcontroller_8php.html", [
       [ "WPDKListTableViewController", "classWPDKListTableViewController.html", "classWPDKListTableViewController" ]
@@ -44,6 +45,12 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKMetaBoxPriority", "classWPDKMetaBoxPriority.html", "classWPDKMetaBoxPriority" ]
     ] ],
     [ "wpdk-pointer.php", "wpdk-pointer_8php.html", null ],
+    [ "wpdk-preferences-view.php", "wpdk-preferences-view_8php.html", [
+      [ "WPDKPreferencesView", "classWPDKPreferencesView.html", "classWPDKPreferencesView" ]
+    ] ],
+    [ "wpdk-preferences-viewcontroller.php", "wpdk-preferences-viewcontroller_8php.html", [
+      [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", "classWPDKPreferencesViewController" ]
+    ] ],
     [ "wpdk-twitter-bootstrap.php", "wpdk-twitter-bootstrap_8php.html", [
       [ "WPDKTwitterBootstrap", "classWPDKTwitterBootstrap.html", "classWPDKTwitterBootstrap" ],
       [ "WPDKTwitterBootstrapModal", "classWPDKTwitterBootstrapModal.html", "classWPDKTwitterBootstrapModal" ],
@@ -84,11 +91,11 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKUIControlsLayout", "classWPDKUIControlsLayout.html", "classWPDKUIControlsLayout" ],
       [ "WPDKUI", "classWPDKUI.html", "classWPDKUI" ]
     ] ],
+    [ "wpdk-view.php", "wpdk-view_8php.html", [
+      [ "WPDKView", "classWPDKView.html", "classWPDKView" ]
+    ] ],
     [ "wpdk-viewcontroller.php", "wpdk-viewcontroller_8php.html", [
-      [ "WPDKView", "classWPDKView.html", "classWPDKView" ],
       [ "WPDKViewController", "classWPDKViewController.html", "classWPDKViewController" ],
-      [ "WPDKHeaderView", "classWPDKHeaderView.html", "classWPDKHeaderView" ],
-      [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", "classWPDKPreferencesViewController" ],
-      [ "WPDKPreferencesView", "classWPDKPreferencesView.html", "classWPDKPreferencesView" ]
+      [ "WPDKHeaderView", "classWPDKHeaderView.html", "classWPDKHeaderView" ]
     ] ]
 ];

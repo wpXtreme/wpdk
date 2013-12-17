@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.4.7</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -243,34 +243,57 @@ $(document).ready(function(){initNavTree('wpdk-terms_8php_source.html','');});
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;</div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="comment">/* Remove private. */</span></div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    unset( $args[<span class="stringliteral">&#39;WPDKTerms_taxonomy&#39;</span>] );</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    $terms = get_terms( $this-&gt;_taxonomy, $args );</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keywordflow">return</span> $terms;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  }</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="code" href="classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d">  412</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d" title="Bread Crumbs.">breadCrumbs</a>( $term )</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  {</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    $from      = $this-&gt;<a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $term );</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    $stack     = array( $from );</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    $id_parent = $from-&gt;parent;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keywordflow">while</span> ( !empty( $id_parent ) ) {</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;      $stack[]   = $term = $this-&gt;<a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $id_parent );</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;      $id_parent = $term-&gt;parent;</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">return</span> array_reverse( $stack );</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;  }</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;</div>
-<div class="line"><a name="l00438"></a><span class="lineno"><a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a">  438</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $term )</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  {</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    $term = <a class="code" href="classWPDKTerm.html#a9ce5702d9f8f6aae990edf50f526ae27" title="Get term.">WPDKTerm::term</a>( $term, $this-&gt;_taxonomy );</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="keywordflow">return</span> $term;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;  }</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;}</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    $terms = get_terms( $this-&gt;_taxonomy, $args );</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keywordflow">return</span> $terms;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
+<div class="line"><a name="l00408"></a><span class="lineno"><a class="code" href="classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63">  408</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63" title="Tree.">tree</a>( <a class="code" href="classWPDKTerms.html#a56943aebbb0924cb7fe3a67921c8cf09" title="Child of.">$child_of</a> = <span class="keyword">false</span> )</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  {</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordflow">if</span> ( empty( <a class="code" href="classWPDKTerms.html#a56943aebbb0924cb7fe3a67921c8cf09" title="Child of.">$child_of</a> ) ) {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;      $args           = (array)$this;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;      $args[<span class="stringliteral">&#39;parent&#39;</span>] = 0;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;      unset( $args[<span class="stringliteral">&#39;WPDKTerms_taxonomy&#39;</span>] );</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;      $terms = get_terms( $this-&gt;_taxonomy, $args );</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;      <span class="keywordflow">foreach</span> ( $terms as $term ) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        $term-&gt;children = $this-&gt;<a class="code" href="classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63" title="Tree.">tree</a>( $term );</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;      }</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;      $args             = (array)$this;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;      $args[<span class="stringliteral">&#39;parent&#39;</span>]   = <a class="code" href="classWPDKTerms.html#a56943aebbb0924cb7fe3a67921c8cf09" title="Child of.">$child_of</a>-&gt;term_id;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;      unset( $args[<span class="stringliteral">&#39;WPDKTerms_taxonomy&#39;</span>] );</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;      $terms = get_terms( $this-&gt;_taxonomy, $args );</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;      <span class="keywordflow">foreach</span> ( $terms as $term ) {</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        $term-&gt;children = $this-&gt;<a class="code" href="classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63" title="Tree.">tree</a>( $term );</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;      }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    }</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keywordflow">return</span> $terms;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;</div>
+<div class="line"><a name="l00444"></a><span class="lineno"><a class="code" href="classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d">  444</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d" title="Bread Crumbs.">breadCrumbs</a>( $term )</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  {</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    $from      = $this-&gt;<a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $term );</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    $stack     = array( $from );</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    $id_parent = $from-&gt;parent;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keywordflow">while</span> ( !empty( $id_parent ) ) {</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;      $stack[]   = $term = $this-&gt;<a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $id_parent );</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;      $id_parent = $term-&gt;parent;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    }</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordflow">return</span> array_reverse( $stack );</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  }</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;</div>
+<div class="line"><a name="l00470"></a><span class="lineno"><a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a">  470</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTerms.html#a0300ffd4d5cd918c87af5173d255231a" title="Get single term.">term</a>( $term )</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  {</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    $term = <a class="code" href="classWPDKTerm.html#a9ce5702d9f8f6aae990edf50f526ae27" title="Get term.">WPDKTerm::term</a>( $term, $this-&gt;_taxonomy );</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keywordflow">return</span> $term;</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;  }</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

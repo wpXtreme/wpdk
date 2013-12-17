@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.4.7</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -127,9 +127,9 @@ $(document).ready(function(){initNavTree('wpdk-mail_8php_source.html','');});
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      $from = sprintf( <span class="stringliteral">&#39;%s &lt;%s&gt;&#39;</span>, $user-&gt;data-&gt;display_name, $user-&gt;get( <span class="stringliteral">&#39;user_email&#39;</span> ) );</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">/* $from è nel formato &#39;NOME &lt;email&gt;&#39;, ad esempio: &#39;wpXtreme &lt;info@wpxtre.me&gt;&#39; */</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">/* $from is as &#39;NOME &lt;email&gt;&#39;, eg: &#39;wpXtreme &lt;info@wpxtre.me&gt;&#39; */</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> ( empty( $from ) ) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="comment">/* Get the defaul WordPress email. */</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="comment">/* Get the default WordPress email. */</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      $from = sprintf( <span class="stringliteral">&#39;%s &lt;%s&gt;&#39;</span>, get_option( <span class="stringliteral">&#39;blogname&#39;</span> ), get_option( <span class="stringliteral">&#39;admin_email&#39;</span> ) );</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
@@ -138,91 +138,97 @@ $(document).ready(function(){initNavTree('wpdk-mail_8php_source.html','');});
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="stringliteral">&#39;Content-Type: text/html&#39;</span> . <span class="stringliteral">&quot;\r\n&quot;</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    );</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/* Se $to è un numero corriponde ad un id_user */</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/* User id for $to? */</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    $user = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> ( is_numeric( $to ) ) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      $user = <span class="keyword">new</span> WP_User( $to );</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      $to   = sprintf( <span class="stringliteral">&#39;  %s &lt;%s&gt;&#39;</span>, $user-&gt;data-&gt;display_name, $user-&gt;get( <span class="stringliteral">&#39;user_email&#39;</span> ) );</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> ( $subject === <span class="keyword">false</span> ) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      $subject = apply_filters( <span class="stringliteral">&#39;the_title&#39;</span>, $this-&gt;post_title );</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//$body = apply_filters( &#39;the_content&#39;, $post-&gt;post_content );</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    $body = <a class="code" href="classWPDKPost.html#a99231b06cea2a7d1a9b1b35fd64f5e7d" title="Content.">$this-&gt;post_content</a>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    $body = $this-&gt;replacePlaceholder( $body, $user, $placeholders );</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> wp_mail( $to, $subject, $body, $headers );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> replacePlaceholder( $content, $id_user = <span class="keyword">false</span>, $extra = array() ) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">false</span> === $id_user ) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      $id_user = get_current_user_id();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      $user    = <span class="keyword">new</span> WP_User( $id_user );</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    elseif ( is_object( $id_user ) &amp;&amp; is_a( $id_user, <span class="stringliteral">&#39;WP_User&#39;</span> ) ) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      $user = $id_user;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    elseif ( is_numeric( $id_user ) ) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      $user = <span class="keyword">new</span> WP_User( $id_user );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      $user  = <span class="keyword">new</span> WP_User( $to );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      $email = sanitize_email( $user-&gt;get( <span class="stringliteral">&#39;user_email&#39;</span> ) );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="comment">/* If user has not email exit */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">if</span> ( empty( $email ) ) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      $to = sprintf( <span class="stringliteral">&#39;  %s &lt;%s&gt;&#39;</span>, $user-&gt;data-&gt;display_name, $user-&gt;get( <span class="stringliteral">&#39;user_email&#39;</span> ) );</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> ( $subject === <span class="keyword">false</span> ) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      $subject = apply_filters( <span class="stringliteral">&#39;the_title&#39;</span>, $this-&gt;post_title );</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">//$body = apply_filters( &#39;the_content&#39;, $post-&gt;post_content );</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    $body = <a class="code" href="classWPDKPost.html#a99231b06cea2a7d1a9b1b35fd64f5e7d" title="Content.">$this-&gt;post_content</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    $body = $this-&gt;replacePlaceholder( $body, $user, $placeholders );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> wp_mail( $to, $subject, $body, $headers );</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> replacePlaceholder( $content, $id_user = <span class="keyword">false</span>, $extra = array() ) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">false</span> === $id_user ) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      $id_user = get_current_user_id();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      $user    = <span class="keyword">new</span> WP_User( $id_user );</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <span class="keywordflow">return</span> $content;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    elseif ( is_object( $id_user ) &amp;&amp; is_a( $id_user, <span class="stringliteral">&#39;WP_User&#39;</span> ) ) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      $user = $id_user;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    $str_replaces = array(</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">WPDKMailPlaceholder::USER_FIRST_NAME</a>   =&gt; $user-&gt;get( <span class="stringliteral">&#39;first_name&#39;</span> ),</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">WPDKMailPlaceholder::USER_LAST_NAME</a>    =&gt; $user-&gt;get( <span class="stringliteral">&#39;last_name&#39;</span> ),</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">WPDKMailPlaceholder::USER_DISPLAY_NAME</a> =&gt; $user-&gt;data-&gt;display_name,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">WPDKMailPlaceholder::USER_EMAIL</a>        =&gt; $user-&gt;data-&gt;user_email,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    );</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> ( !empty( $extra ) ) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      $str_replaces = array_merge( $str_replaces, $extra );</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    $str_replaces = apply_filters( <span class="stringliteral">&#39;wpdk_mail_replace_placeholders&#39;</span>, $str_replaces, $id_user );</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    elseif ( is_numeric( $id_user ) ) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      $user = <span class="keyword">new</span> WP_User( $id_user );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">return</span> $content;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    $str_replaces = array(</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">WPDKMailPlaceholder::USER_FIRST_NAME</a>   =&gt; $user-&gt;get( <span class="stringliteral">&#39;first_name&#39;</span> ),</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">WPDKMailPlaceholder::USER_LAST_NAME</a>    =&gt; $user-&gt;get( <span class="stringliteral">&#39;last_name&#39;</span> ),</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">WPDKMailPlaceholder::USER_DISPLAY_NAME</a> =&gt; $user-&gt;data-&gt;display_name,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">WPDKMailPlaceholder::USER_EMAIL</a>        =&gt; $user-&gt;data-&gt;user_email,</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    );</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    $content = strtr( $content, $str_replaces );</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> $content;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html">  143</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMailPlaceholder.html">WPDKMailPlaceholder</a> {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">  145</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">USER_DISPLAY_NAME</a> = <span class="stringliteral">&#39;${USER_DISPLAY_NAME}&#39;</span>;</div>
-<div class="line"><a name="l00146"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">  146</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">USER_EMAIL</a>        = <span class="stringliteral">&#39;${USER_EMAIL}&#39;</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">  147</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">USER_FIRST_NAME</a>   = <span class="stringliteral">&#39;${USER_FIRST_NAME}&#39;</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">  148</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">USER_LAST_NAME</a>    = <span class="stringliteral">&#39;${USER_LAST_NAME}&#39;</span>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a707276a619159d1011cb6aeb48f94255">  158</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMailPlaceholder.html#a707276a619159d1011cb6aeb48f94255" title="Placeholders list.">placeholders</a>() {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    $placeholders = array(</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      self::USER_FIRST_NAME   =&gt; array(</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        __( <span class="stringliteral">&#39;User First name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      ),</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      self::USER_LAST_NAME    =&gt; array(</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        __( <span class="stringliteral">&#39;User Last name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      ),</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      self::USER_DISPLAY_NAME =&gt; array(</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        __( <span class="stringliteral">&#39;User Display name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      ),</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      self::USER_EMAIL        =&gt; array(</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        __( <span class="stringliteral">&#39;User email&#39;</span>, WPDK_TEXTDOMAIN ),</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      ),</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    );</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> apply_filters( <span class="stringliteral">&#39;wpdk_mail_placeholders&#39;</span>, $placeholders );</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> ( !empty( $extra ) ) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;      $str_replaces = array_merge( $str_replaces, $extra );</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    $str_replaces = apply_filters( <span class="stringliteral">&#39;wpdk_mail_replace_placeholders&#39;</span>, $str_replaces, $id_user );</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    $content = strtr( $content, $str_replaces );</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> $content;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html">  149</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKMailPlaceholder.html">WPDKMailPlaceholder</a> {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">  151</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#a3a46eb3f8b75cfb7c7d977e1551d1441">USER_DISPLAY_NAME</a> = <span class="stringliteral">&#39;${USER_DISPLAY_NAME}&#39;</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">  152</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#af107dfbffb76a812f64c85ad7ad90fad">USER_EMAIL</a>        = <span class="stringliteral">&#39;${USER_EMAIL}&#39;</span>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">  153</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#aeb0f812868596a1cca2391b7a33cd956">USER_FIRST_NAME</a>   = <span class="stringliteral">&#39;${USER_FIRST_NAME}&#39;</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">  154</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKMailPlaceholder.html#a3e66d1a3086496f2b8b293cbc133aa3f">USER_LAST_NAME</a>    = <span class="stringliteral">&#39;${USER_LAST_NAME}&#39;</span>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="code" href="classWPDKMailPlaceholder.html#a707276a619159d1011cb6aeb48f94255">  164</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code" href="classWPDKMailPlaceholder.html#a707276a619159d1011cb6aeb48f94255" title="Placeholders list.">placeholders</a>() {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    $placeholders = array(</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      self::USER_FIRST_NAME   =&gt; array(</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        __( <span class="stringliteral">&#39;User First name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      ),</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      self::USER_LAST_NAME    =&gt; array(</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        __( <span class="stringliteral">&#39;User Last name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      ),</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      self::USER_DISPLAY_NAME =&gt; array(</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        __( <span class="stringliteral">&#39;User Display name&#39;</span>, WPDK_TEXTDOMAIN ),</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;      ),</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;      self::USER_EMAIL        =&gt; array(</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        __( <span class="stringliteral">&#39;User email&#39;</span>, WPDK_TEXTDOMAIN ),</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="stringliteral">&#39;Core&#39;</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      ),</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    );</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">return</span> apply_filters( <span class="stringliteral">&#39;wpdk_mail_placeholders&#39;</span>, $placeholders );</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

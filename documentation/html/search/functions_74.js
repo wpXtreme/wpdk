@@ -10,5 +10,6 @@ var searchData=
   ['timenewline',['timeNewLine',['../classWPDKDateTime.html#a90808e52aab9dc739e1bb9d68e3b1b10',1,'WPDKDateTime']]],
   ['tocontrol',['toControl',['../classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630',1,'WPDKTwitterBootstrapAlert']]],
   ['toggle',['toggle',['../classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108',1,'WPDKTwitterBootstrapModal']]],
-  ['trash',['trash',['../classWPDKPost.html#a96ff4f7571f93c9ee3f04d755752ac49',1,'WPDKPost']]]
+  ['trash',['trash',['../classWPDKPost.html#a96ff4f7571f93c9ee3f04d755752ac49',1,'WPDKPost']]],
+  ['tree',['tree',['../classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63',1,'WPDKTerms']]]
 ];

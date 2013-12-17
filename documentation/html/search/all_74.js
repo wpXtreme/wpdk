@@ -10,9 +10,15 @@ var searchData=
   ['theme',['theme',['../classWPDKWordPressPlugin.html#a0512a0a56fd1e056cb48bcb694fa8b12',1,'WPDKWordPressPlugin']]],
   ['thumbnail',['thumbnail',['../classWPDKPost.html#ac49f1ecdd7f9bb5a3f9f1abed9d05bc4',1,'WPDKPost']]],
   ['thumbnailwithid',['thumbnailWithID',['../classWPDKPost.html#ac817e4748d34ce33c4fe051e3d2fadbc',1,'WPDKPost']]],
+  ['thumbs_5fdown',['THUMBS_DOWN',['../classWPDKGlyphIcons.html#a7ac9027f14097c05fe970671fb77bc2e',1,'WPDKGlyphIcons']]],
+  ['thumbs_5fdown_5falt',['THUMBS_DOWN_ALT',['../classWPDKGlyphIcons.html#aaf09e7d95730c0f6823498e32775dd20',1,'WPDKGlyphIcons']]],
+  ['thumbs_5fup',['THUMBS_UP',['../classWPDKGlyphIcons.html#a9400158ff8ee892e211bc36d942e2c74',1,'WPDKGlyphIcons']]],
+  ['thumbs_5fup_5falt',['THUMBS_UP_ALT',['../classWPDKGlyphIcons.html#acbe999287d84c5b4c6f3affb4f393014',1,'WPDKGlyphIcons']]],
   ['time',['TIME',['../classWPDKHTMLTagInputType.html#a51eb6cfbceb348ac5f40f954bb47b5a5',1,'WPDKHTMLTagInputType']]],
   ['timenewline',['timeNewLine',['../classWPDKDateTime.html#a90808e52aab9dc739e1bb9d68e3b1b10',1,'WPDKDateTime']]],
   ['tocontrol',['toControl',['../classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630',1,'WPDKTwitterBootstrapAlert']]],
   ['toggle',['toggle',['../classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108',1,'WPDKTwitterBootstrapModal']]],
-  ['trash',['trash',['../classWPDKPost.html#a96ff4f7571f93c9ee3f04d755752ac49',1,'WPDKPost\trash()'],['../classWPDKPostStatus.html#a81b34261794e78bf130d6ccc6142e893',1,'WPDKPostStatus\TRASH()'],['../classWPDKGlyphIcons.html#a81b34261794e78bf130d6ccc6142e893',1,'WPDKGlyphIcons\TRASH()']]]
+  ['trash',['trash',['../classWPDKPost.html#a96ff4f7571f93c9ee3f04d755752ac49',1,'WPDKPost\trash()'],['../classWPDKPostStatus.html#a81b34261794e78bf130d6ccc6142e893',1,'WPDKPostStatus\TRASH()'],['../classWPDKGlyphIcons.html#a81b34261794e78bf130d6ccc6142e893',1,'WPDKGlyphIcons\TRASH()']]],
+  ['tree',['tree',['../classWPDKTerms.html#a490a264bcf72b7e84bd26fed465f2a63',1,'WPDKTerms']]],
+  ['twitter',['TWITTER',['../classWPDKGlyphIcons.html#a726e848bbea566ff9a9646394b15349d',1,'WPDKGlyphIcons']]]
 ];

@@ -29,7 +29,6 @@ var annotated =
     [ "WPDKHTMLTagTextarea", "classWPDKHTMLTagTextarea.html", "classWPDKHTMLTagTextarea" ],
     [ "WPDKjQuery", "classWPDKjQuery.html", null ],
     [ "WPDKjQueryTab", "classWPDKjQueryTab.html", "classWPDKjQueryTab" ],
-    [ "WPDKjQueryTabs", "classWPDKjQueryTabs.html", "classWPDKjQueryTabs" ],
     [ "WPDKjQueryTabsView", "classWPDKjQueryTabsView.html", "classWPDKjQueryTabsView" ],
     [ "WPDKjQueryTabsViewController", "classWPDKjQueryTabsViewController.html", "classWPDKjQueryTabsViewController" ],
     [ "WPDKListTableViewController", "classWPDKListTableViewController.html", "classWPDKListTableViewController" ],

@@ -30,7 +30,6 @@ var hierarchy =
     [ "WPDKHTMLTagName", "classWPDKHTMLTagName.html", null ],
     [ "WPDKjQuery", "classWPDKjQuery.html", null ],
     [ "WPDKjQueryTab", "classWPDKjQueryTab.html", null ],
-    [ "WPDKjQueryTabs", "classWPDKjQueryTabs.html", null ],
     [ "WPDKMailPlaceholder", "classWPDKMailPlaceholder.html", null ],
     [ "WPDKMenu", "classWPDKMenu.html", null ],
     [ "WPDKMetaBoxContext", "classWPDKMetaBoxContext.html", null ],

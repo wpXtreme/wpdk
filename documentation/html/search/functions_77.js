@@ -21,7 +21,7 @@ var searchData=
   ['wpdk_5fdelete_5fuser_5ftransient',['wpdk_delete_user_transient',['../wpdk-functions_8php.html#a5c1a6f2d700670af495ce0838bf2d0fb',1,'wpdk-functions.php']]],
   ['wpdk_5fdelta_5fobject',['wpdk_delta_object',['../wpdk-functions_8php.html#a3d64bdb37f3e1f724906f050149a8556',1,'wpdk-functions.php']]],
   ['wpdk_5fenqueue_5fscript_5fpage',['wpdk_enqueue_script_page',['../wpdk-functions_8php.html#af24411a547b3f7811199b96c9609b2fc',1,'wpdk-functions.php']]],
-  ['wpdk_5fenqueue_5fscript_5fpage_5fteplate',['wpdk_enqueue_script_page_teplate',['../wpdk-functions_8php.html#a507b63c0d6880d883125ad0ba2c10ecf',1,'wpdk-functions.php']]],
+  ['wpdk_5fenqueue_5fscript_5fpage_5ftemplate',['wpdk_enqueue_script_page_template',['../wpdk-functions_8php.html#a39fac63f8d9364e0e47be3fe12ebd226',1,'wpdk-functions.php']]],
   ['wpdk_5fget_5fimage_5ffrom_5fattachments',['wpdk_get_image_from_attachments',['../wpdk-functions_8php.html#a459c4460eae8e7ddeb4cf9bdf6d14bba',1,'wpdk-functions.php']]],
   ['wpdk_5fget_5fimage_5ffrom_5fpost_5fthumbnail',['wpdk_get_image_from_post_thumbnail',['../wpdk-functions_8php.html#a40d420e0e01855b6f0634a2f335c5395',1,'wpdk-functions.php']]],
   ['wpdk_5fget_5fimage_5fin_5fpost_5fcontent',['wpdk_get_image_in_post_content',['../wpdk-functions_8php.html#a65d77d117f46d4fa967e18e321eb0e36',1,'wpdk-functions.php']]],

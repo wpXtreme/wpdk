@@ -8,5 +8,5 @@ var searchData=
   ['button',['button',['../classWPDKUI.html#ab0fcb390ce7631de00f49e47b1195788',1,'WPDKUI']]],
   ['button_5fopen_5fmodal',['button_open_modal',['../classWPDKTwitterBootstrapModal.html#a7f8b9c5b32ee6d2b49e044aea8fdc092',1,'WPDKTwitterBootstrapModal']]],
   ['buttonopenmodal',['buttonOpenModal',['../classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf',1,'WPDKTwitterBootstrapModal']]],
-  ['buttonsupdatereset',['buttonsUpdateReset',['../classWPDKUI.html#a7144f764e31ab56e2dbed30e03a52662',1,'WPDKUI\buttonsUpdateReset()'],['../classWPDKPreferencesView.html#a2abe551e8b0abe93664bcda9ba2705ca',1,'WPDKPreferencesView\buttonsUpdateReset()']]]
+  ['buttonsupdatereset',['buttonsUpdateReset',['../classWPDKPreferencesView.html#a2abe551e8b0abe93664bcda9ba2705ca',1,'WPDKPreferencesView\buttonsUpdateReset()'],['../classWPDKUI.html#a7144f764e31ab56e2dbed30e03a52662',1,'WPDKUI\buttonsUpdateReset()']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cancel_5fcircled',['CANCEL_CIRCLED',['../classWPDKGlyphIcons.html#a39c9d9c5de19ada1b029b79bde064034',1,'WPDKGlyphIcons']]],
   ['cancel_5fcircled2',['CANCEL_CIRCLED2',['../classWPDKGlyphIcons.html#a53bd30aea498fc1f9b8517d7645b9e44',1,'WPDKGlyphIcons']]],
   ['ccw',['CCW',['../classWPDKGlyphIcons.html#a3a57c157023a05114a83fcb86463a5e8',1,'WPDKGlyphIcons']]],
   ['chat',['CHAT',['../classWPDKGlyphIcons.html#ad33b5de4938f5ce4b1fd205a2541341e',1,'WPDKGlyphIcons']]],
@@ -11,6 +12,7 @@ var searchData=
   ['classname',['className',['../classWPDKObject.html#a1f6ae6ba5dc5d4bad83cf483fd5aa9d2',1,'WPDKObject']]],
   ['clearcronjobs',['clearCronJobs',['../classWPDKWordPressPlugin.html#aefa499664f42854ae9d8b792a9a67919',1,'WPDKWordPressPlugin']]],
   ['clock',['CLOCK',['../classWPDKGlyphIcons.html#a8f89ca02e7a88ae53a3c0db17ecf97dc',1,'WPDKGlyphIcons']]],
+  ['cog',['COG',['../classWPDKGlyphIcons.html#af446cb1666a673ae6fd2a374eb7a36b9',1,'WPDKGlyphIcons']]],
   ['color',['COLOR',['../classWPDKHTMLTagInputType.html#ae54cf2804038e04210c465ed7e65812d',1,'WPDKHTMLTagInputType']]],
   ['column_5fcb',['column_cb',['../classWPDKListTableViewController.html#a0ed451742aed2cf532afc57ac6fc3e5e',1,'WPDKListTableViewController']]],
   ['column_5fcomment_5fcount',['COLUMN_COMMENT_COUNT',['../classWPDKPost.html#a82aec19a630db03f231fb457b7055bd3',1,'WPDKPost']]],
@@ -42,7 +44,6 @@ var searchData=
   ['comparedate',['compareDate',['../classWPDKDateTime.html#aa6ad63747a989e637d0d51e97b735c10',1,'WPDKDateTime']]],
   ['comparedatetime',['compareDatetime',['../classWPDKDateTime.html#a9c5fd75a4d3fac1cbcd8ee3dbec78367',1,'WPDKDateTime']]],
   ['configuration',['configuration',['../classWPDKWordPressPlugin.html#a3533b46173e5420e2ebf1986ac72ded5',1,'WPDKWordPressPlugin']]],
-  ['contentwithkey',['contentWithKey',['../classWPDKUIControl.html#a9fec4d0240cbe1054ac46b22df709211',1,'WPDKUIControl']]],
   ['core',['CORE',['../classWPDKMetaBoxPriority.html#a4429a3e2ec69c9658206ce44960b673c',1,'WPDKMetaBoxPriority']]],
   ['count_5fsuccess_5flogin',['COUNT_SUCCESS_LOGIN',['../classWPDKUserMeta.html#a955c710cd34ffc88322d65de3df354cc',1,'WPDKUserMeta']]],
   ['count_5fwrong_5flogin',['COUNT_WRONG_LOGIN',['../classWPDKUserMeta.html#a8ccae342f7f75793847a9d7abaf434f2',1,'WPDKUserMeta']]],

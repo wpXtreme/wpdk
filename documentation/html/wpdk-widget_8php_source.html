@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.4.7</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -142,36 +142,37 @@ $(document).ready(function(){initNavTree('wpdk-widget_8php_source.html','');});
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      &lt;?php <span class="keywordflow">if</span>( !empty( $logo ) ) : ?&gt;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  div[<span class="keywordtype">id</span>*=&lt;?php echo $this-&gt;id_base ?&gt;] .widget-title h4</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    padding-left      : 22px;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    line-height       : 150%;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    background-image  : url(&lt;?php echo $logo ?&gt;) !important;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    background-repeat : no-repeat;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    &lt;?php endif ?&gt;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    &lt;?php <span class="keywordflow">if</span>( !empty( $logo ) ) : ?&gt;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  div[<span class="keywordtype">id</span>*=&lt;?php echo $this-&gt;id_base ?&gt;] .widget-title h4 span.in-widget-title:before</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    content : <span class="stringliteral">&#39; &lt;?php echo $version ?&gt;&#39;</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      &lt;?php endif ?&gt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  &lt;/style&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    &lt;?php</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    echo <a class="code" href="classWPDKHTML.html#a8ead2821bce2517d9e0c1f6b6ca9eeec" title="End compressed.">WPDKHTML::endCSSCompress</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    $this-&gt;<a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373" title="Widgets head admin page.">willWidgetsHeadAdminPage</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373">   93</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373" title="Widgets head admin page.">willWidgetsHeadAdminPage</a>()</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">/* You can override this delegate method */</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="code" href="classWPDKWidget.html#a406222c23ace126743eb46e672ad457e">  103</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKWidget.html#a406222c23ace126743eb46e672ad457e" title="Widgets admin page.">willWidgetsAdminPage</a>()</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">/* You can override this delegate method */</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    padding-left        : 28px;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    line-height         : 150%;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    background-image    : url(&lt;?php echo $logo ?&gt;) !important;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    background-repeat   : no-repeat;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    background-position : 6px center;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    &lt;?php endif ?&gt;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    &lt;?php <span class="keywordflow">if</span>( !empty( $logo ) ) : ?&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  div[<span class="keywordtype">id</span>*=&lt;?php echo $this-&gt;id_base ?&gt;] .widget-title h4 span.in-widget-title:before</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    content : <span class="stringliteral">&#39; &lt;?php echo $version ?&gt;&#39;</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      &lt;?php endif ?&gt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  &lt;/style&gt;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    &lt;?php</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    echo <a class="code" href="classWPDKHTML.html#a8ead2821bce2517d9e0c1f6b6ca9eeec" title="End compressed.">WPDKHTML::endCSSCompress</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    $this-&gt;<a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373" title="Widgets head admin page.">willWidgetsHeadAdminPage</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373">   94</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKWidget.html#a6947d03fc828ef2a58851e26a928b373" title="Widgets head admin page.">willWidgetsHeadAdminPage</a>()</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">/* You can override this delegate method */</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="code" href="classWPDKWidget.html#a406222c23ace126743eb46e672ad457e">  104</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKWidget.html#a406222c23ace126743eb46e672ad457e" title="Widgets admin page.">willWidgetsAdminPage</a>()</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">/* You can override this delegate method */</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

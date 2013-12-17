@@ -9,5 +9,6 @@ var classWPDKHTMLTagSelect =
     [ "$form", "classWPDKHTMLTagSelect.html#a1a4fda4c28a9ee5f91102c023b9501f4", null ],
     [ "$multiple", "classWPDKHTMLTagSelect.html#a17e227bf0681e8fe65c2604112b28da6", null ],
     [ "$name", "classWPDKHTMLTagSelect.html#ab2fc40d43824ea3e1ce5d86dee0d763b", null ],
-    [ "$size", "classWPDKHTMLTagSelect.html#af594986e4618a8d6a5d7566617f583c6", null ]
+    [ "$size", "classWPDKHTMLTagSelect.html#af594986e4618a8d6a5d7566617f583c6", null ],
+    [ "$value", "classWPDKHTMLTagSelect.html#a0f298096f322952a72a50f98a74c7b60", null ]
 ];

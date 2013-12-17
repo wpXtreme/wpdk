@@ -5,7 +5,6 @@ var searchData=
   ['activation',['activation',['../classWPDKWordPressPlugin.html#a82be1884cad5341f9cf437a4d5ef788c',1,'WPDKWordPressPlugin']]],
   ['active',['active',['../classWPDKPlugin.html#a321820072e1a9250bd34a5a5ffe63ca6',1,'WPDKPlugin']]],
   ['activeroles',['activeRoles',['../classWPDKRoles.html#a916a203a441d5af90d9e9de752337cbd',1,'WPDKRoles']]],
-  ['add',['add',['../classWPDKjQueryTabs.html#a32df7e9887c12b016e91e70cd42250f4',1,'WPDKjQueryTabs']]],
   ['add_5fbuttons',['add_buttons',['../classWPDKTwitterBootstrapModal.html#aaa392ac04804abd33fc8ca2cec39fcbc',1,'WPDKTwitterBootstrapModal']]],
   ['add_5fdata',['add_data',['../classWPDKTwitterBootstrapModal.html#aa57afbb2d0fa699f7a8975a5129e78c0',1,'WPDKTwitterBootstrapModal']]],
   ['add_5frole',['add_role',['../classWPDKRoles.html#abc11adb734ec2e96dbb10c523546aee0',1,'WPDKRoles']]],
