@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.8
+### 2013-12-??
+
+#### Enhancements
+
+* Improved menu divider color for WordPress 3.8 admin themes scheme
+
 ## Version 1.4.7
 ### 2013-12-17
 

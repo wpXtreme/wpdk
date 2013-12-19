@@ -147,7 +147,7 @@ div.wpdk-border-container
   margin                : 0;
   padding               : 12px;
   background-color      : #fafafa;
-  border-color          : #E5E5E5;
+  border-color          : #e5e5e5;
   border-width          : 1px;
   border-style          : solid;
   -moz-border-radius    : 1px;
@@ -1211,7 +1211,7 @@ form#wpdk-preferences input[name=wpdk_preferences_export]
 { margin : 0 0 0 16px }
 
 form#wpdk-preferences input[name=wpdk_preferences_reset_all]
-{  }
+{ }
 
 /* =====================================================================================================================
  * CREDITS / INFORMATION
@@ -2346,20 +2346,15 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
  * =====================================================================================================================
  */
 
-ul#adminmenu .wp-submenu li.wpdk_menu_divider
+#adminmenu li.menu-top li.wpdk_menu_divider,
+#adminmenu li.menu-top:hover li.wpdk_menu_divider
 {
-  border-top  : 1px dashed;
-  color       : inherit;
-  cursor      : auto;
-  font-weight : bold;
-  margin      : 8px 0 0;
-  padding     : 8px 0 0 8px;
-}
-
-ul#adminmenu .wp-submenu li.current a
-{
-  color            : inherit;
-  background-color : #eee;
+  border-top-width : 1px;
+  border-top-style : dashed;
+  cursor           : auto;
+  font-weight      : bold;
+  margin           : 8px 0 0;
+  padding          : 8px 0 0 8px;
 }
 
 /* =====================================================================================================================
@@ -2553,10 +2548,7 @@ ul#adminmenu .wp-submenu li.current a
 {
   font-family : 'wpdk-fonts';
   src         : url('../fonts/wpdk-fonts.eot?48025933');
-  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'),
-                url('../fonts/wpdk-fonts.woff?48025933') format('woff'),
-                url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'),
-                url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
+  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'), url('../fonts/wpdk-fonts.woff?48025933') format('woff'), url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'), url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   font-weight : normal;
   font-style  : normal;
 }
@@ -2816,7 +2808,6 @@ ul#adminmenu .wp-submenu li.current a
 
 .wpdk-icon-pencil:before
 { content : '\e81b'; }
-
 
 /*
    Animation example, for spinners

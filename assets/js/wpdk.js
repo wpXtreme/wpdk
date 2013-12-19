@@ -2927,8 +2927,8 @@ jQuery( function ( $ )
    * @class           WPDK
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-21
-   * @version         0.9.6
+   * @date            2013-12-19
+   * @version         0.9.7
    *
    */
   if ( typeof( window.WPDK ) === 'undefined' ) {
@@ -2938,18 +2938,19 @@ jQuery( function ( $ )
       /**
        * Internal class pointer
        */
-      var $t = {};
-
-      /**
-       * The WPDK Javascript version
-       */
-      $t.version = "0.9.6";
+      var $t = {
+        version        : '0.9.7',
+        init           : _init,
+        refresh        : _refresh,
+        loading        : _loading,
+        reloadDocument : _reloadDocument
+      };
 
       /**
        * Initialize all Javascript hook.
        * If you modify the DOM you can call this method to refresh hooks.
        */
-      $t.init = function ()
+      function _init ()
       {
         _hackMenu();
         WPDKjQuery.init();
@@ -2965,7 +2966,7 @@ jQuery( function ( $ )
        *
        * @deprecated Use WPDK.init() instead
        */
-      $t.refresh = function ()
+      function _refresh ()
       {
         $t.init();
       };
@@ -2976,7 +2977,7 @@ jQuery( function ( $ )
        * @param status True to display loading on top most, False to remove
        *
        */
-      $t.loading = function ( status )
+      function _loading( status )
       {
         if ( true === status ) {
           $( '<div />' ).addClass( 'wpdk-loader' ).appendTo( 'body' ).fadeIn( 500 );
@@ -2993,7 +2994,7 @@ jQuery( function ( $ )
        *
        * @param {bool} Optional. FALSE to avoid mask
        */
-      $t.reloadDocument = function ()
+      function _reloadDocument ()
       {
         if ( 0 == arguments.length ) {
           $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
@@ -3011,8 +3012,54 @@ jQuery( function ( $ )
         $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
         {
           var content = $( this ).html();
-          $( this ).parent().replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
+          $( this )
+            .parent()
+            .replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
+
+          $( '#colors-css' ).load( _hackColorMenu );
+
         } );
+      }
+
+      /**
+       * Invert color menu in accordion with color.css
+       *
+       * @since 1.4.8
+       *
+       * @private
+       */
+      function _hackColorMenu()
+      {
+        var background_color = $( '#adminmenu' ).css( 'background-color' );
+        var invert_color = _invertColor( background_color );
+        $( '.wpdk_menu_divider' ).css( { 'border-color' : invert_color, 'color' : invert_color } );
+      }
+
+      /**
+       * Invert a rgb color
+       *
+       * @since 1.4.8
+       *
+       * @param rgbString
+       * @returns {string}
+       * @private
+       */
+      function _invertColor( rgbString )
+      {
+        var parts = rgbString.match( /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/ );
+
+        parts.splice( 0, 1 );
+        for ( var i = 1; i < 3; ++i ) {
+          parts[i] = parseInt( parts[i], 10 );
+        }
+        var rgb = 'rgb(';
+        $.each( parts, function ( idx, item )
+        {
+          rgb += (255 - item) + ',';
+        } );
+        rgb = rgb.slice( 0, -1 );
+        rgb += ')';
+        return rgb;
       }
 
       return $t.init();
