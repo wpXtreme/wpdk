@@ -3018,6 +3018,8 @@ jQuery( function ( $ )
 
           $( '#colors-css' ).load( _hackColorMenu );
 
+          _hackColorMenu();
+
         } );
       }
 
