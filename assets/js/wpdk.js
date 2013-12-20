@@ -3053,6 +3053,10 @@ jQuery( function ( $ )
       {
         var parts = rgbString.match( /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/ );
 
+        if ( !parts || null === parts ) {
+          return 'rgb(0,0,0)';
+        }
+
         parts.splice( 0, 1 );
         for ( var i = 1; i < 3; ++i ) {
           parts[i] = parseInt( parts[i], 10 );
