@@ -3033,6 +3033,9 @@ jQuery( function ( $ )
       function _hackColorMenu()
       {
         var background_color = $( '#adminmenu' ).css( 'background-color' );
+        if ( 'transparent' == background_color ) {
+          return;
+        }
         var invert_color = _invertColor( background_color );
         $( '.wpdk_menu_divider' ).css( { 'border-color' : invert_color, 'color' : invert_color } );
       }
