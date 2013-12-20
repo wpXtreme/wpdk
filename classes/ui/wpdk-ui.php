@@ -370,6 +370,7 @@ class WPDKUIControl {
     if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) ) ) {
       $span_clear = new WPDKHTMLTagSpan();
       $span_clear->class[] = 'wpdk-form-clear-left';
+      $span_clear->content = WPDKGlyphIcons::html( WPDKGlyphIcons::CANCEL_CIRCLED );
       $span_clear->display();
     }
 

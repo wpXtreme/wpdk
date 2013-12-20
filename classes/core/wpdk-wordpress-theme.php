@@ -44,7 +44,7 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @param WPDKWordPressPlugin $plugin Optional. Your main plugin instance
    *
-   * @return WPDKWordPressPlugin
+   * @return \WPDKWordPressTheme
    */
   public function __construct( WPDKWordPressPlugin $plugin = null ) {
     $this->plugin = $plugin;
@@ -184,20 +184,21 @@ class WPDKWordPressTheme extends WPDKObject {
  */
 
 /**
- * Experimental
- *
- * ## Overview
- *
  * Base class for front end theme. This class is used to develop a theme.
  *
  * @class           WPDKTheme
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-10-18
- * @version         1.0.1
+ * @date            2013-12-07
+ * @version         1.1.0
  *
  */
 class WPDKTheme extends WPDKObject {
+
+  /**
+   * Standard defines constants file
+   */
+  const DEFINES = 'wpx-defines.php';
 
   /**
    * Override version
@@ -206,7 +207,7 @@ class WPDKTheme extends WPDKObject {
    *
    * @var string $version
    */
-  public $version = '1.0.1';
+  public $version = '1.1.0';
 
   /**
    * The Theme URL more `assets/`. This property is very useful for read style sheet and Javascript file in the
@@ -285,15 +286,30 @@ class WPDKTheme extends WPDKObject {
   private $_wpxThemeClassLoadingPath;
 
   /**
+   * Theme Setup class model
+   *
+   * @brief WPDKThemeSetup
+   *
+   * @var WPDKThemeSetup $setup
+   */
+  public $setup;
+
+  /**
    * Create an instance of WPDKTheme class
    *
    * @brief Construct
    *
-   * @param string $file
+   * @param string              $file
+   * @param bool|WPDKThemeSetup $setup Optional. A your custom theme setup class model
    *
    * @return WPDKTheme
    */
-  public function __construct( $file ) {
+  public function __construct( $file, $setup = false ) {
+
+    if ( false == $setup ) {
+      $this->setup = $setup = new WPDKThemeSetup();
+    }
+    $this->setup = apply_filters( 'wpdk_theme_setup-' . $file, $setup );
 
     /* Autoload. */
     $this->_wpxThemeClassLoadingPath = array();
@@ -320,14 +336,28 @@ class WPDKTheme extends WPDKObject {
     /* WP_Theme is a final class, so I must create a part object. */
     $this->theme = new WP_Theme( $theme_key, $theme_root );
 
+    /* Loading constants defnies */
+    $defines = trailingslashit( dirname( $file ) ) . self::DEFINES;
+    if ( file_exists( $defines ) ) {
+      require_once( $defines );
+    }
+
+    /* Register autoload classes */
+    if ( method_exists( $this, 'registerClasses' ) ) {
+      $this->registerClasses();
+    }
+
+    /* Avoid access to admin */
+    add_action( 'set_current_user', array( $this, 'set_current_user' ) );
+
+    /* Cleanup */
+    add_action( 'init', array( $this, '_init' ) );
+
     /* Setup. */
     add_action( 'init', array( $this, 'init_theme' ) );
 
     /* Shortcodes. */
     add_action( 'init', array( $this, 'init_shortcode' ) );
-
-    /* Client setup. */
-    add_action( 'init', array( $this, 'setup' ) );
 
     /* Ajax setup. */
     if ( wpdk_is_ajax() ) {
@@ -335,15 +365,141 @@ class WPDKTheme extends WPDKObject {
     }
 
     /* After setup. */
+    add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ) );
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
     /* Add script and styles. */
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
+    /* Head. */
+    add_action( 'wp_head', array( $this, '_wp_head' ), 0 );
+    add_action( 'wp_head', array( $this, 'wp_head' ) );
+
+    /* Footer. */
+    add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+
+    /* Add classes to body class. */
+    add_filter( 'body_class', array( $this, '_body_classes' ) );
+
   }
 
   /**
-   * Description
+   * Do a several Clean Up
+   *
+   * @brief Clean Up
+   */
+  public function _init()
+  {
+    /* Text Domain */
+    if( $this->setup->autoload_text_domain ) {
+      load_theme_textdomain( $this->theme->get( 'TextDomain' ), trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
+    }
+
+    /* Clean up wp_head */
+    if ( $this->setup->cleanup_wp_head ) {
+      remove_action( 'wp_head', 'feed_links_extra', 3 ); // Category Feeds
+      remove_action( 'wp_head', 'feed_links', 2 ); // Post and Comment Feeds
+      remove_action( 'wp_head', 'rsd_link' ); // EditURI link
+      remove_action( 'wp_head', 'wlwmanifest_link' ); // Windows Live Writer
+      remove_action( 'wp_head', 'index_rel_link' ); // index link
+      remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // previous link
+      remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // start link
+      remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 ); // Links for Adjacent Posts
+      remove_action( 'wp_head', 'wp_generator' ); // WP vers
+    }
+  }
+
+  /**
+   * Internal use
+   *
+   * @brief Setup theme
+   */
+  public function _after_setup_theme()
+  {
+    /* Admin bar */
+    if ( !is_admin() && $this->setup->hide_admin_bar ) {
+      show_admin_bar( false );
+    }
+
+    /* Theme support */
+    if ( !empty( $this->setup->theme_support ) ) {
+      $theme_supports = (array)$this->setup->theme_support;
+      foreach ( $theme_supports as $args => $theme_support ) {
+        if ( !is_numeric( $args ) && is_array( $theme_support ) ) {
+          add_theme_support( $args, $theme_support );
+        }
+        else {
+          add_theme_support( $theme_support );
+        }
+      }
+    }
+
+    /* Images size */
+    if ( !empty( $this->setup->image_sizes ) ) {
+      foreach ( $this->setup->image_sizes as $key => $size ) {
+        list( $w, $h, $crop ) = $size;
+        add_image_size( $key, $w, $h, is_null( $crop ) ? false : $crop );
+      }
+    }
+
+    /* Set post thumbnail size */
+    if ( !empty( $this->setup->post_thumbnail_size ) ) {
+      list( $w, $h, $crop ) = $this->setup->post_thumbnail_size;
+      set_post_thumbnail_size( $w, $h, is_null( $crop ) ? false : $crop );
+    }
+
+    /* Navigation menus */
+    if ( !empty( $this->setup->nav_menus ) ) {
+      register_nav_menus( $this->setup->nav_menus );
+    }
+
+    /* Sidebars */
+    if ( !empty( $this->setup->sidebars ) ) {
+      foreach ( $this->setup->sidebars as $sidebar ) {
+        if ( is_array( $sidebar ) ) {
+          register_sidebar( $sidebar );
+        }
+      }
+    }
+
+    /* Editor style */
+    if ( !empty( $this->setup->editor_styles ) ) {
+      add_editor_style( $this->setup->editor_styles );
+    }
+  }
+
+  /**
+   * This action is used to avoid display the admin backend area to subscriber user
+   *
+   * @brief Avoid admin
+   */
+  public function set_current_user()
+  {
+    if ( !is_user_logged_in() ) {
+      return;
+    }
+
+    if ( !empty( $this->setup->disable_admin_for_roles ) ) {
+      $pass = false;
+      $roles = $this->setup->disable_admin_for_roles;
+      if ( !empty( $roles ) && is_array( $roles ) ) {
+        foreach ( $roles as $role ) {
+          if ( ( $pass = current_user_can( $role ) ) ) {
+            break;
+          }
+        }
+      }
+      elseif ( !empty( $roles ) && is_string( $roles ) ) {
+        $pass = current_user_can( $roles );
+      }
+      if ( !$pass ) {
+        die();
+      }
+    }
+  }
+
+  /**
+   * Init the theme
    *
    * @brief Set Up
    */
@@ -352,7 +508,7 @@ class WPDKTheme extends WPDKObject {
   }
 
   /**
-   * Description
+   * Subclass for inti your shortcode.
    *
    * @brief Init shortcodes
    */
@@ -361,16 +517,7 @@ class WPDKTheme extends WPDKObject {
   }
 
   /**
-   * Description
-   *
-   * @brief Your main init
-   */
-  public function setup() {
-    /* You can override in your subclass. */
-  }
-
-  /**
-   * Description
+   * Subclass for init Ajax gateway
    *
    * @brief Your main init
    */
@@ -396,6 +543,60 @@ class WPDKTheme extends WPDKObject {
    */
   public function wp_enqueue_scripts() {
     /* You can override in your subclass */
+  }
+
+  /**
+   * Include standard WPDK Theme styles and script
+   *
+   * @brief WPDK Theme
+   */
+  public function _wp_head()
+  {
+    if ( !empty( $this->setup->theme_css ) ) {
+      wp_enqueue_style( 'wpdk-theme', WPDK_URI_CSS . 'wpdk-theme.css', array(), WPDK_VERSION );
+    }
+
+    if ( !empty( $this->setup->theme_js ) ) {
+      wp_enqueue_script( 'wpdk-theme', WPDK_URI_JAVASCRIPT . 'wpdk-theme.js', array(), WPDK_VERSION );
+    }
+  }
+
+  /**
+   * Subclass to insert output in head
+   *
+   * @brief wp_head
+   */
+  public function wp_head()
+  {
+    /* You can override in your subclass. */
+  }
+
+  /**
+   * Subclass to insert output in the fotter
+   *
+   * @brief wp_footer
+   */
+  public function wp_footer()
+  {
+    /* You can override in your subclass. */
+  }
+
+  /**
+   * Add a your custom class in body tag class attribute and make the array (classes attribute) unique.
+   *
+   * @brief BODY class
+   */
+  public function _body_classes( $classes )
+  {
+    if ( !empty( $this->setup->body_classes ) ) {
+      if ( is_string( $this->setup->body_classes ) ) {
+        $classes[] = $this->setup->body_classes;
+      }
+      elseif ( is_array( $this->setup->body_classes ) ) {
+        $classes = array_merge( $classes, $this->setup->body_classes );
+      }
+    }
+    return array_unique( $classes );
   }
 
   /**
@@ -462,6 +663,215 @@ class WPDKTheme extends WPDKObject {
       require_once( $this->_wpxThemeClassLoadingPath[$sClassNameLowerCased] );
     }
 
+  }
+
+}
+
+/**
+ * Description
+ *
+ * ## Overview
+ *
+ * Description
+ *
+ * @class           WPDKThemeSetup
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date            2013-12-09
+ * @version         1.0.0
+ *
+ */
+class WPDKThemeSetup {
+  
+/**
+   * Disable the access to admin if a user logged in has not these roles
+   *
+   *     // OFF
+   *     $this->disable_admin_for_roles = false;
+   *     $this->disable_admin_for_roles = array();
+   *
+   *     // Enable admin backend for admin only
+   *     $this->disable_admin_for_roles = 'manage_options';
+   *     $this->disable_admin_for_roles = array( 'manage_options' );
+   *
+   *     // Enable admin backend for admin and editor only
+   *     $this->disable_admin_for_roles = array( 'manage_options', 'editor' );
+   *
+   * @var bool $disable_admin_for_roles
+   *
+   */
+  public $disable_admin_for_roles = array();
+
+  /**
+   * Remove standard filter to wp_head hook
+   *
+   *     remove_action( 'wp_head', 'feed_links_extra', 3 ); // Category Feeds
+   *     remove_action( 'wp_head', 'feed_links', 2 ); // Post and Comment Feeds
+   *     remove_action( 'wp_head', 'rsd_link' ); // EditURI link
+   *     remove_action( 'wp_head', 'wlwmanifest_link' ); // Windows Live Writer
+   *     remove_action( 'wp_head', 'index_rel_link' ); // index link
+   *     remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // previous link
+   *     remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // start link
+   *     remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 ); // Links for Adjacent Posts
+   *     remove_action( 'wp_head', 'wp_generator' ); // WP vers
+   *
+   * @brief Clean UP
+   *
+   * @var bool $cleanup_wp_head
+   */
+  public $cleanup_wp_head = true;
+
+  /**
+   * Autoload the localization if supported.
+   * Create a 'localization' folder in you root theme
+   */
+  public $autoload_text_domain = true;
+
+  /**
+   * Hide the admin bar in front-end
+   *
+   * @brief Hide admin bar
+   *
+   * @var bool $hide_admin_bar
+   */
+  public $hide_admin_bar = true;
+
+  /**
+   * Setup theme support.
+   *
+   *     $this->theme_support = 'post-thumbnails';
+   *     $this->theme_support = array( 'post-thumbnails', 'menus' );
+   *     $this->theme_support = array( 'post-thumbnails' => array( 'aside', 'gallery', ... ), 'menus' );
+   *
+   * @brief Add theme support
+   *
+   * @var array|string $theme_support
+   */
+  public $theme_support = array();
+
+  /**
+   * Setup your custom image size
+   *
+   *     $this->image_sizes = array(
+   *        'your_custom_size' => array( 100, 100, true ),
+   *        'your_custom_size' => array( 100, 100 ),
+   *     );
+   *
+   * @brief Image Size
+   *
+   * @var array $image_sizes
+   */
+  public $image_sizes = array();
+
+  /**
+   * Setup default post thumbnail size
+   *
+   *     $this->post_thumbnail_size = array( 256, 256 );
+   *     $this->post_thumbnail_size = array( 256, 256, true );
+   *
+   * @brief Thumbnail size
+   *
+   * @var array $post_thumbnail_size
+   */
+  public $post_thumbnail_size = array();
+
+  /**
+   * Setup a navigation menus list
+   *
+   *     $this->nav_menus = array(
+   *         'xtreme_main_menu'   =>  'Main Menu',
+   *         'xtreme_footer_menu' => 'Footer Menu wpXtreme'
+   *     );
+   *
+   * @brief Nav Menu
+   *
+   * @var array $nav_menus
+   */
+  public $nav_menus = array();
+
+  /**
+   * Setup the side bars
+   *
+   *     $this->sidebars = array(
+   *        array(
+   *          'id'            => 'sidebar_single_post',
+   *          'name'          => 'Single Post',
+   *          'description'   => 'Sidebar for post blog',
+   *          'class'         => '',
+   *          'before_widget' => '<li id="%1$s" class="widget %2$s">',
+   *          'after_widget'  => '</li>',
+   *          'before_title'  => '<h2 class="widgettitle">',
+   *          'after_title'   => '</h2>'
+   *         ), ...
+   *     );
+   *
+   *     // All array key/values are optionals, you cau use also
+   *
+   *     $this->sidebars = array(
+   *        array(
+   *          'name' => 'Single Post',
+   *         ),
+   *        array(
+   *          'name'          => 'Single Page',
+   *          'description'   => 'Sidebar for page',
+   *         ),
+   *        array(
+   *          'name' => 'Another sidebar',
+   *          'id'   => 'with_id',
+   *         ), ...
+   *      );
+   *
+   * @brief Sidebar
+   *
+   * @var array $sidebars
+   */
+  public $sidebars = array();
+
+  /**
+   * Setup the body classes
+   *
+   * @brief BODY classes
+   *
+   * @var array|string $body_classes
+   */
+  public $body_classes = array();
+
+  /**
+   * Setup the style for the editor
+   *
+   * @brief Style for editor
+   *
+   * @var array|string $editor_styles
+   */
+  public $editor_styles = array();
+
+  /**
+   * Include standard WPDK Theme Javascript
+   *
+   * @brief Theme Javascript
+   *
+   * @var bool $theme_js
+   */
+  public $theme_js = true;
+
+  /**
+   * Include standard WPDK Theme (reset) styles
+   *
+   * @brief Theme CSS
+   *
+   * @var bool $theme_css
+   */
+  public $theme_css = true;  
+
+  /**
+   * Create an instance of WPDKThemeSetup class
+   *
+   * @brief Construct
+   *
+   * @return WPDKThemeSetup
+   */
+  public function __construct()
+  {
   }
 
 }

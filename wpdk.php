@@ -157,7 +157,6 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function autoloadWPDKEnvironment( $sClassName )
     {
-
       // For backward compatibility and for better matching
       $sClassNameLowerCased = strtolower( $sClassName );
       if ( isset( $this->_wpdkClassLoadingPath[$sClassNameLowerCased] ) ) {
@@ -197,29 +196,28 @@ if ( !class_exists( 'WPDK' ) ) {
         // USER INTERFACE
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'               => array(
-          'WPDKView',
+        $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
+        $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'             => array(
           'WPDKViewController',
           'WPDKHeaderView',
-
-          'WPDKPreferencesViewController',
-          'WPDKPreferencesView',
         ),
+        $sPathPrefix . 'classes/ui/wpdk-preferences-viewcontroller.php' => 'WPDKPreferencesViewController',
+        $sPathPrefix . 'classes/ui/wpdk-preferences-view.php'           => 'WPDKPreferencesView',
 
-        $sPathPrefix . 'classes/ui/wpdk-metabox.php'                       => array(
+        $sPathPrefix . 'classes/ui/wpdk-metabox.php'                    => array(
           'WPDKMetaBoxView',
           'WPDKMetaBoxContext',
           'WPDKMetaBoxPriority',
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-jquery.php'                        => array(
+        $sPathPrefix . 'classes/ui/wpdk-jquery.php'                     => array(
           'WPDKjQuery',
           'WPDKjQueryTab',
           'WPDKjQueryTabsView',
           'WPDKjQueryTabsViewController',
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-ui.php'                            => array(
+        $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => array(
           'WPDKUIControlType',
           'WPDKUIControlAlert',
           'WPDKUIControlButton',
@@ -247,9 +245,9 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUI'
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-glyphicons.php'                    => 'WPDKGlyphIcons',
+        $sPathPrefix . 'classes/ui/wpdk-glyphicons.php'                 => 'WPDKGlyphIcons',
 
-        $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'             => array(
+        $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'          => array(
           'WPDKTwitterBootstrap',
           'WPDKTwitterBootstrapModal',
           'WPDKTwitterBootstrapAlert',
@@ -260,8 +258,8 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKTwitterBoostrapPopover'
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-html.php'                          => array(
-          'WPDKHTML',
+        $sPathPrefix . 'classes/ui/wpdk-html.php'                     => 'WPDKHTML',
+        $sPathPrefix . 'classes/ui/wpdk-html-tag.php'                 => array(
           'WPDKHTMLTagName',
           'WPDKHTMLTagInputType',
           'WPDKHTMLTagA',
@@ -277,14 +275,14 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKHTMLTag'
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-dynamic-table.php'                 => 'WPDKDynamicTable',
-        $sPathPrefix . 'classes/ui/wpdk-menu.php'                          => array(
+        $sPathPrefix . 'classes/ui/wpdk-dynamic-table.php'            => 'WPDKDynamicTable',
+        $sPathPrefix . 'classes/ui/wpdk-menu.php'                     => array(
           'WPDKMenu',
           'WPDKSubMenu',
           'WPDKSubMenuDivider',
         ),
-        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'      => 'WPDKListTableViewController',
-        $sPathPrefix . 'classes/ui/wpdk-pointer.php'                       => 'WPDKPointer',
+        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php' => 'WPDKListTableViewController',
+        $sPathPrefix . 'classes/ui/wpdk-pointer.php'                  => 'WPDKPointer',
 
         // -------------------------------------------------------------------------------------------------------------
         // CORE
@@ -319,7 +317,8 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-shortcode.php'                   => 'WPDKShortcode',
         $sPathPrefix . 'classes/core/wpdk-wordpress-theme.php'             => array(
           'WPDKWordPressTheme',
-          'WPDKTheme'
+          'WPDKTheme',
+          'WPDKThemeSetup',
         ),
         $sPathPrefix . 'classes/core/wpdk-wordpress-admin.php'             => 'WPDKWordPressAdmin',
         $sPathPrefix . 'classes/core/wpdk-watchdog.php'                    => 'WPDKWatchDog',

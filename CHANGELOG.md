@@ -20,6 +20,33 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.8
+### 2013-12-??
+
+#### Enhancements
+
+* Improved menu divider color for WordPress 3.8 admin themes scheme
+
+## Version 1.4.7
+### 2013-12-17
+
+#### Enhancements
+
+* Added `WPDKHTMLTag::styleInline()`
+* Added `WPDKHTMLTag::sanitizeStyles()`
+* Added `WPDKGlyphIcons::GOOGLE_PLUS` icon
+
+#### Bugs
+
+* Fixed potential wrong replacement on css compressor
+
+#### Improvements
+
+* Start minor fixes and adjustment for WordPress 3.8
+* Improved WPDKHTML classes
+* Extends WPDKTheme with new WPDKThemeSetup
+* Minor filesystem optimizations
+
 ## Version 1.4.6
 ### 2013-12-02
 
