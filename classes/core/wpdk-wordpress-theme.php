@@ -348,7 +348,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     /* Avoid access to admin */
-    add_action( 'set_current_user', array( $this, 'set_current_user' ) );
+    add_action( 'admin_init', array( $this, 'admin_init' ) );
 
     /* Cleanup */
     add_action( 'init', array( $this, '_init' ) );
@@ -473,9 +473,9 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Avoid admin
    */
-  public function set_current_user()
+  public function admin_init()
   {
-    if ( !is_user_logged_in() ) {
+    if ( ! is_user_logged_in() ) {
       return;
     }
 
