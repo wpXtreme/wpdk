@@ -786,11 +786,17 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal div
-{ }
+{
+  white-space: nowrap;
+}
+
+.wpdk-form-scrollable-container {
+  width: 1px;
+}
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
 {
-  float : left;
+  display: inline;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
