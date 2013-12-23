@@ -1145,6 +1145,11 @@ table.wpdk-dynamic-table-sortable tbody tr:hover td
  * =====================================================================================================================
  */
 
+.wpdk-add-new
+{
+  margin : 8px 0 0 0 !important;
+}
+
 div.wpdk-ui-truncate
 {
 }

@@ -410,7 +410,7 @@ class WPDKListTableViewController extends WP_List_Table {
   public function wpdk_header_view_title_did_appear( $view )
   {
     if ( 'new' != $this->current_action() ) {
-      $add_new = sprintf( '<a class="add-new-h2 button-primary" href="%s">%s</a>', $this->urlAddNew(), __( 'Add New', WPDK_TEXTDOMAIN ) );
+      $add_new = sprintf( '<a class="wpdk-add-new button button-primary" href="%s">%s</a>', $this->urlAddNew(), __( 'Add New', WPDK_TEXTDOMAIN ) );
       $add_new = apply_filters( 'wpdk_listtable_viewcontroller_add_new', $add_new, $this );
       if ( !empty( $add_new ) ) {
         echo $add_new;
