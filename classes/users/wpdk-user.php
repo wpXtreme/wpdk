@@ -2362,7 +2362,8 @@ class WPDKCapability {
    *
    * @return WPDKCapability
    */
-  public function __construct( $id, $description = '', $owner = '' ) {
+  public function __construct( $id, $description = '', $owner = '' )
+  {
     $this->id          = $id;
     $this->description = $description;
     $this->owner       = $owner;
@@ -2373,7 +2374,8 @@ class WPDKCapability {
    *
    * @brief Update
    */
-  public function update() {
+  public function update()
+  {
     $extra = get_option( WPDKCapabilities::OPTION_KEY );
     if ( !empty( $extra ) ) {
       $extra[$this->id] = array(
