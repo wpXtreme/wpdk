@@ -1503,11 +1503,11 @@ class WPDKRole extends WP_Role {
   public function __construct( $role, $display_name = '', $capabilities = array(), $description = '', $owner = '' ) {
 
     /* Sanitize the role name. */
-    $role = sanitize_key( strtolower( $role ) );
+    $role_id = sanitize_title( strtolower( $role ) );
 
     /* Get Roles */
     $wpdk_roles  = WPDKRoles::getInstance();
-    $role_object = $wpdk_roles->get_role( $role );
+    $role_object = $wpdk_roles->get_role( $role_id );
 
     /* If role not exists then create it. */
     if ( is_null( $role_object ) ) {
@@ -1515,10 +1515,10 @@ class WPDKRole extends WP_Role {
       if ( empty( $display_name ) ) {
         $display_name = ucfirst( $role );
       }
-      $role_object        = $wpdk_roles->add_role( $role, $display_name, $capabilities );
+      $role_object        = $wpdk_roles->add_role( $role_id, $display_name, $capabilities, $description, $owner );
       $this->displayName  = $display_name;
       $this->capabilities = $role_object->capabilities;
-      $this->name         = $role;
+      $this->name         = $role_id;
 
       /* Extends */
       $this->description = $description;
@@ -1526,13 +1526,13 @@ class WPDKRole extends WP_Role {
     }
     else {
       $this->name         = $role;
-      $this->displayName  = $wpdk_roles->role_names[$role];
+      $this->displayName  = $wpdk_roles->role_names[$role_id];
       $this->capabilities = $role_object->capabilities;
 
       /* Extends */
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
-      if ( !empty( $extra ) && isset( $extra[$role] ) ) {
+      if ( !empty( $extra ) && isset( $extra[$role_id] ) ) {
         $this->description = $extra[$role][1];
         $this->owner       = $extra[$role][2];
       }
@@ -1546,10 +1546,15 @@ class WPDKRole extends WP_Role {
    *
    * @return bool
    */
-  public function update() {
+  public function update()
+  {
     $extra = get_option( WPDKRoles::OPTION_KEY );
     if ( !empty( $extra ) ) {
-      $extra[$this->name] = array( $this->name, $this->description, $this->owner );
+      $extra[$this->name] = array(
+        $this->displayName,
+        $this->description,
+        $this->owner
+      );
     }
     else {
       $extra = WPDKRoles::init()->activeRoles;
@@ -1774,7 +1779,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( empty( $count ) ) {
-          $this->inactiveRoles[$role] = isset( $this->wordPressRoles[$role] ) ? $this->wordPressRoles[$role] : array( $name, '', '' );
+          $this->inactiveRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
         }
       }
     }
@@ -1915,14 +1920,19 @@ class WPDKRoles extends WP_Roles {
    *
    * @note  This method override the WP_Roles method to extend
    *
-   * @return null|WP_Role WP_Role object if role is added, null if already exists.
+   * @return null|WP_Role
    */
   public function add_role( $role, $display_name, $capabilities = array(), $description = '', $owner = '' )
   {
-    $role_object = parent::add_role( $role, $display_name, $capabilities );
+    /* Normalize caps */
+    $caps = array();
+    foreach ( $capabilities as $cap ) {
+      $caps[$cap] = true;
+    }
+
+    $role_object = parent::add_role( $role, $display_name, $caps );
     if ( !is_null( $role_object ) ) {
       if ( !isset( $this->_extendedData[$role] ) ) {
-        $wpdk_role                  = new WPDKRole( $role, $display_name, $description, $capabilities, $owner );
         $this->_extendedData[$role] = array(
           $display_name,
           $description,
@@ -1930,7 +1940,6 @@ class WPDKRoles extends WP_Roles {
         );
       }
       update_option( self::OPTION_KEY, $this->_extendedData );
-      self::invalidate();
     }
     return $role_object;
   }
@@ -1947,8 +1956,6 @@ class WPDKRoles extends WP_Roles {
     parent::remove_role( $role );
     unset( $this->_extendedData[$role] );
     update_option( self::OPTION_KEY, $this->_extendedData );
-
-    self::invalidate();
   }
 
 

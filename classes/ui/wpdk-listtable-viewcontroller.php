@@ -76,7 +76,7 @@ class WPDKListTableViewController extends WP_List_Table {
    * @brief Model
    * @since 1.3.0
    *
-   * @var __WPDKDBTable $model
+   * @var mixed $model
    */
   public $model;
 
