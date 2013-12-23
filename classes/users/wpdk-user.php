@@ -1644,14 +1644,24 @@ class WPDKRoles extends WP_Roles {
   private $_extendedData;
 
   /**
+   * Singleton instance
+   *
+   * @brief Instance
+   *
+   * @var WPDKRoles $instance
+   */
+  private static $instance = null;
+
+  /**
    * Create a singleton instance of WPDKRoles class
    *
    * @brief Get singleton instance
-   * @note This is an alias of getInstance() static method
+   * @note  This is an alias of getInstance() static method
    *
    * @return WPDKRoles
    */
-  public static function init() {
+  public static function init()
+  {
     return self::getInstance();
   }
 
@@ -1662,12 +1672,25 @@ class WPDKRoles extends WP_Roles {
    *
    * @return WPDKRoles
    */
-  public static function getInstance() {
-    static $instance = null;
-    if ( is_null( $instance ) ) {
-      $instance = new WPDKRoles();
+  public static function getInstance()
+  {
+    if ( is_null( self::$instance ) ) {
+      self::$instance = new WPDKRoles();
     }
-    return $instance;
+    return self::$instance;
+  }
+
+  /**
+   * Used to invalidate static (internal singleton) and refresh all roles list
+   *
+   * @brief Invalidate
+   *
+   * @return WPDKRoles
+   */
+  public static function invalidate()
+  {
+    self::$instance = null;
+    return self::getInstance();
   }
 
 
@@ -1907,6 +1930,7 @@ class WPDKRoles extends WP_Roles {
         );
       }
       update_option( self::OPTION_KEY, $this->_extendedData );
+      self::invalidate();
     }
     return $role_object;
   }
@@ -1923,6 +1947,8 @@ class WPDKRoles extends WP_Roles {
     parent::remove_role( $role );
     unset( $this->_extendedData[$role] );
     update_option( self::OPTION_KEY, $this->_extendedData );
+
+    self::invalidate();
   }
 
 
