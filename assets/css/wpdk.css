@@ -155,6 +155,19 @@ div.wpdk-border-container
   border-radius         : 1px;
 }
 
+div.wpdk-border-container:before,
+div.wpdk-border-container:after
+{
+  display     : table;
+  line-height : 0;
+  content     : "";
+}
+
+div.wpdk-border-container:after
+{
+  clear : both;
+}
+
 div.meta-box-sortables div.wpdk-border-container
 {
   border     : none;
@@ -787,16 +800,17 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal div
 {
-  white-space: nowrap;
+  white-space : nowrap;
 }
 
-.wpdk-form-scrollable-container {
-  width: 1px;
+.wpdk-form-scrollable-container
+{
+  width : 1px;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
 {
-  display: inline;
+  display : inline;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
