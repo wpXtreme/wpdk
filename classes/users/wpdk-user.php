@@ -2198,7 +2198,7 @@ class WPDKCapabilities {
    * Gets an array of capabilities according to each user role. Each role will return its caps, which are then
    * added to the overall $capabilities array.
    *
-   * Note that if no role has the capability, it technically no longer exists.  Since this could be a problem with
+   * Note that if no role has the capability, it technically no longer exists. Since this could be a problem with
    * folks accidentally deleting the default WordPress capabilities, the members_default_capabilities() will
    * return all the defaults.
    *
