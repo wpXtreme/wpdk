@@ -26,6 +26,12 @@ For more information on SemVer, please visit http://semver.org/.
 #### Enhancements
 
 * Improved menu divider color for WordPress 3.8 admin themes scheme
+* Added Dutch localization by Frans Pronk beheer@ifra.nl
+
+#### Bugs
+
+* Fixed set current user hooks
+* Fixed WordPress 3.8 menu
 
 ## Version 1.4.7
 ### 2013-12-17

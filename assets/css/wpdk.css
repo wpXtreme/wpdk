@@ -155,6 +155,19 @@ div.wpdk-border-container
   border-radius         : 1px;
 }
 
+div.wpdk-border-container:before,
+div.wpdk-border-container:after
+{
+  display     : table;
+  line-height : 0;
+  content     : "";
+}
+
+div.wpdk-border-container:after
+{
+  clear : both;
+}
+
 div.meta-box-sortables div.wpdk-border-container
 {
   border     : none;
@@ -544,17 +557,22 @@ option.wpdk-form-option[selected]
 .wpdk-form-clear-left
 {
   cursor   : pointer;
-  display  : inline-block;
-  position : absolute;
+  display  : inline;
+  position : relative;
+}
+
+.wpdk-form-clear-left:after
+{
+  clear : both;
 }
 
 .wpdk-form-clear-left i
 {
   color     : #ff664b;
   font-size : 16px;
-  position  : relative;
-  right     : 26px;
-  top       : 5px;
+  position  : absolute;
+  right     : 8px;
+  top       : 4px;
 }
 
 .wpdk-form-clear-left i:hover
@@ -634,6 +652,7 @@ span.wpdk-form-swipe
 {
   display               : inline-block;
   *display              : inline;
+  position              : relative;
   zoom                  : 1;
   width                 : 40px;
   height                : 18px;
@@ -786,11 +805,18 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal div
-{ }
+{
+  white-space : nowrap;
+}
+
+.wpdk-form-scrollable-container
+{
+  width : 1px;
+}
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
 {
-  float : left;
+  display : inline;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
@@ -1124,6 +1150,11 @@ table.wpdk-dynamic-table-sortable tbody tr:hover td
  * UI
  * =====================================================================================================================
  */
+
+.wpdk-add-new
+{
+  margin : 8px 0 0 0 !important;
+}
 
 div.wpdk-ui-truncate
 {

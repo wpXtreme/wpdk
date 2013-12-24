@@ -479,9 +479,15 @@ class WPDKTheme extends WPDKObject {
       return;
     }
 
+    /* Check for roles */
     if ( !empty( $this->setup->disable_admin_for_roles ) ) {
+      // Not implement
+    }
+
+    /* Check for capabilies */
+    if ( !empty( $this->setup->disable_admin_if_user_has_not_caps ) ) {
       $pass = false;
-      $roles = $this->setup->disable_admin_for_roles;
+      $roles = $this->setup->disable_admin_if_user_has_not_caps;
       if ( !empty( $roles ) && is_array( $roles ) ) {
         foreach ( $roles as $role ) {
           if ( ( $pass = current_user_can( $role ) ) ) {
@@ -682,25 +688,39 @@ class WPDKTheme extends WPDKObject {
  *
  */
 class WPDKThemeSetup {
-  
-/**
+
+  /**
    * Disable the access to admin if a user logged in has not these roles
    *
    *     // OFF
    *     $this->disable_admin_for_roles = false;
    *     $this->disable_admin_for_roles = array();
    *
-   *     // Enable admin backend for admin only
-   *     $this->disable_admin_for_roles = 'manage_options';
-   *     $this->disable_admin_for_roles = array( 'manage_options' );
-   *
-   *     // Enable admin backend for admin and editor only
-   *     $this->disable_admin_for_roles = array( 'manage_options', 'editor' );
+   *     // Enable admin backend for editor only
+   *     $this->disable_admin_for_roles = 'editor';
+   *     $this->disable_admin_for_roles = array( 'administrator', 'editor' );
    *
    * @var bool $disable_admin_for_roles
-   *
    */
   public $disable_admin_for_roles = array();
+
+  /**
+   * Disable the admin access if a user logged in has not these caps
+   *
+   *     // OFF
+   *     $this->disable_admin_if_user_has_not_caps = false;
+   *     $this->disable_admin_if_user_has_not_caps = array();
+   *
+   *     // Enable admin backend for admin only
+   *     $this->disable_admin_if_user_has_not_caps = 'manage_options';
+   *     $this->disable_admin_if_user_has_not_caps = array( 'manage_options' );
+   *
+   *     // Enable admin backend for admin and editor only
+   *     $this->disable_admin_if_user_has_not_caps = array( 'manage_options', 'editor' );
+   *
+   * @var bool $disable_admin_if_user_has_not_caps
+   */
+  public $disable_admin_if_user_has_not_caps = array();
 
   /**
    * Remove standard filter to wp_head hook

@@ -1503,11 +1503,11 @@ class WPDKRole extends WP_Role {
   public function __construct( $role, $display_name = '', $capabilities = array(), $description = '', $owner = '' ) {
 
     /* Sanitize the role name. */
-    $role = sanitize_key( strtolower( $role ) );
+    $role_id = sanitize_title( strtolower( $role ) );
 
     /* Get Roles */
     $wpdk_roles  = WPDKRoles::getInstance();
-    $role_object = $wpdk_roles->get_role( $role );
+    $role_object = $wpdk_roles->get_role( $role_id );
 
     /* If role not exists then create it. */
     if ( is_null( $role_object ) ) {
@@ -1515,10 +1515,10 @@ class WPDKRole extends WP_Role {
       if ( empty( $display_name ) ) {
         $display_name = ucfirst( $role );
       }
-      $role_object        = $wpdk_roles->add_role( $role, $display_name, $capabilities );
+      $role_object        = $wpdk_roles->add_role( $role_id, $display_name, $capabilities, $description, $owner );
       $this->displayName  = $display_name;
       $this->capabilities = $role_object->capabilities;
-      $this->name         = $role;
+      $this->name         = $role_id;
 
       /* Extends */
       $this->description = $description;
@@ -1526,13 +1526,13 @@ class WPDKRole extends WP_Role {
     }
     else {
       $this->name         = $role;
-      $this->displayName  = $wpdk_roles->role_names[$role];
+      $this->displayName  = $wpdk_roles->role_names[$role_id];
       $this->capabilities = $role_object->capabilities;
 
       /* Extends */
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
-      if ( !empty( $extra ) && isset( $extra[$role] ) ) {
+      if ( !empty( $extra ) && isset( $extra[$role_id] ) ) {
         $this->description = $extra[$role][1];
         $this->owner       = $extra[$role][2];
       }
@@ -1546,10 +1546,15 @@ class WPDKRole extends WP_Role {
    *
    * @return bool
    */
-  public function update() {
+  public function update()
+  {
     $extra = get_option( WPDKRoles::OPTION_KEY );
     if ( !empty( $extra ) ) {
-      $extra[$this->name] = array( $this->name, $this->description, $this->owner );
+      $extra[$this->name] = array(
+        $this->displayName,
+        $this->description,
+        $this->owner
+      );
     }
     else {
       $extra = WPDKRoles::init()->activeRoles;
@@ -1644,14 +1649,24 @@ class WPDKRoles extends WP_Roles {
   private $_extendedData;
 
   /**
+   * Singleton instance
+   *
+   * @brief Instance
+   *
+   * @var WPDKRoles $instance
+   */
+  private static $instance = null;
+
+  /**
    * Create a singleton instance of WPDKRoles class
    *
    * @brief Get singleton instance
-   * @note This is an alias of getInstance() static method
+   * @note  This is an alias of getInstance() static method
    *
    * @return WPDKRoles
    */
-  public static function init() {
+  public static function init()
+  {
     return self::getInstance();
   }
 
@@ -1662,12 +1677,25 @@ class WPDKRoles extends WP_Roles {
    *
    * @return WPDKRoles
    */
-  public static function getInstance() {
-    static $instance = null;
-    if ( is_null( $instance ) ) {
-      $instance = new WPDKRoles();
+  public static function getInstance()
+  {
+    if ( is_null( self::$instance ) ) {
+      self::$instance = new WPDKRoles();
     }
-    return $instance;
+    return self::$instance;
+  }
+
+  /**
+   * Used to invalidate static (internal singleton) and refresh all roles list
+   *
+   * @brief Invalidate
+   *
+   * @return WPDKRoles
+   */
+  public static function invalidate()
+  {
+    self::$instance = null;
+    return self::getInstance();
   }
 
 
@@ -1751,7 +1779,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( empty( $count ) ) {
-          $this->inactiveRoles[$role] = isset( $this->wordPressRoles[$role] ) ? $this->wordPressRoles[$role] : array( $name, '', '' );
+          $this->inactiveRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
         }
       }
     }
@@ -1892,14 +1920,19 @@ class WPDKRoles extends WP_Roles {
    *
    * @note  This method override the WP_Roles method to extend
    *
-   * @return null|WP_Role WP_Role object if role is added, null if already exists.
+   * @return null|WP_Role
    */
   public function add_role( $role, $display_name, $capabilities = array(), $description = '', $owner = '' )
   {
-    $role_object = parent::add_role( $role, $display_name, $capabilities );
+    /* Normalize caps */
+    $caps = array();
+    foreach ( $capabilities as $cap ) {
+      $caps[$cap] = true;
+    }
+
+    $role_object = parent::add_role( $role, $display_name, $caps );
     if ( !is_null( $role_object ) ) {
       if ( !isset( $this->_extendedData[$role] ) ) {
-        $wpdk_role                  = new WPDKRole( $role, $display_name, $description, $capabilities, $owner );
         $this->_extendedData[$role] = array(
           $display_name,
           $description,
@@ -2087,6 +2120,29 @@ class WPDKCapabilities {
     sort( $this->allCapabilities );
   }
 
+  /**
+   * Return an instance of WPDKCapability class or false if not exists
+   *
+   * @brief Get a capability
+   *
+   * @param string $cap_id Capability id
+   *
+   * @return WPDKCapability
+   */
+  public function get_cap( $cap_id )
+  {
+    $cap = false;
+    if ( isset( $this->allCapabilities[$cap_id] ) ) {
+      $description = '';
+      $owner       = '';
+      if ( isset( $this->_extendedData[$cap_id] ) ) {
+        list( $cap_id, $description, $owner ) = $this->_extendedData[$cap_id];
+      }
+      $cap = new WPDKCapability( $cap_id, $description, $owner );
+    }
+    return $cap;
+  }
+
   // -----------------------------------------------------------------------------------------------------------------
   // Capabilities list
   // -----------------------------------------------------------------------------------------------------------------
@@ -2198,7 +2254,7 @@ class WPDKCapabilities {
    * Gets an array of capabilities according to each user role. Each role will return its caps, which are then
    * added to the overall $capabilities array.
    *
-   * Note that if no role has the capability, it technically no longer exists.  Since this could be a problem with
+   * Note that if no role has the capability, it technically no longer exists. Since this could be a problem with
    * folks accidentally deleting the default WordPress capabilities, the members_default_capabilities() will
    * return all the defaults.
    *
@@ -2265,7 +2321,7 @@ class WPDKCapabilities {
           $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array( $key, '', '' );
         }
       }
-     set_transient( '_wpdk_users_caps', $capabilities, 120 );
+     //set_transient( '_wpdk_users_caps', $capabilities, 120 );
     }
 
     /* Sort the capabilities by name so they're easier to read when shown on the screen. */
@@ -2314,7 +2370,7 @@ class WPDKCapabilities {
   public function usersCapability() {
     global $wpdb;
 
-    $user_caps = get_transient( '_wpdk_users_caps' );
+    //$user_caps = get_transient( '_wpdk_users_caps' );
     $user_caps = false; // cache off for debug
     if ( empty( $user_caps ) ) {
       $sql    = "SELECT user_id, meta_value FROM `{$wpdb->usermeta}` WHERE meta_key = 'wp_capabilities'";
@@ -2324,7 +2380,7 @@ class WPDKCapabilities {
         $user_caps[$user_cap['user_id']] = get_userdata( $user_cap['user_id'] )->allcaps;
       }
 
-      set_transient( '_wpdk_users_caps', $user_caps, 120 );
+      //set_transient( '_wpdk_users_caps', $user_caps, 120 );
     }
     return $user_caps;
 
@@ -2345,10 +2401,31 @@ class WPDKCapabilities {
  */
 class WPDKCapability {
 
+  /**
+   * Capability ID
+   *
+   * @brief Capability ID
+   *
+   * @var string $id
+   */
   public $id;
 
+  /**
+   * Extend description
+   *
+   * @brief Description
+   *
+   * @var string $description
+   */
   public $description;
 
+  /**
+   * Capability owner
+   *
+   * @brief Owner
+   *
+   * @var string $owner
+   */
   public $owner;
 
   /**
@@ -2362,10 +2439,12 @@ class WPDKCapability {
    *
    * @return WPDKCapability
    */
-  public function __construct( $id, $description = '', $owner = '' ) {
+  public function __construct( $id, $description = '', $owner = '' )
+  {
     $this->id          = $id;
     $this->description = $description;
     $this->owner       = $owner;
+
   }
 
   /**
@@ -2373,7 +2452,8 @@ class WPDKCapability {
    *
    * @brief Update
    */
-  public function update() {
+  public function update()
+  {
     $extra = get_option( WPDKCapabilities::OPTION_KEY );
     if ( !empty( $extra ) ) {
       $extra[$this->id] = array(
