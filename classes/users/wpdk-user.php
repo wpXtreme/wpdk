@@ -2120,6 +2120,29 @@ class WPDKCapabilities {
     sort( $this->allCapabilities );
   }
 
+  /**
+   * Return an instance of WPDKCapability class or false if not exists
+   *
+   * @brief Get a capability
+   *
+   * @param string $cap_id Capability id
+   *
+   * @return WPDKCapability
+   */
+  public function get_cap( $cap_id )
+  {
+    $cap = false;
+    if ( isset( $this->allCapabilities[$cap_id] ) ) {
+      $description = '';
+      $owner       = '';
+      if ( isset( $this->_extendedData[$cap_id] ) ) {
+        list( $cap_id, $description, $owner ) = $this->_extendedData[$cap_id];
+      }
+      $cap = new WPDKCapability( $cap_id, $description, $owner );
+    }
+    return $cap;
+  }
+
   // -----------------------------------------------------------------------------------------------------------------
   // Capabilities list
   // -----------------------------------------------------------------------------------------------------------------
@@ -2298,7 +2321,7 @@ class WPDKCapabilities {
           $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array( $key, '', '' );
         }
       }
-     set_transient( '_wpdk_users_caps', $capabilities, 120 );
+     //set_transient( '_wpdk_users_caps', $capabilities, 120 );
     }
 
     /* Sort the capabilities by name so they're easier to read when shown on the screen. */
@@ -2347,7 +2370,7 @@ class WPDKCapabilities {
   public function usersCapability() {
     global $wpdb;
 
-    $user_caps = get_transient( '_wpdk_users_caps' );
+    //$user_caps = get_transient( '_wpdk_users_caps' );
     $user_caps = false; // cache off for debug
     if ( empty( $user_caps ) ) {
       $sql    = "SELECT user_id, meta_value FROM `{$wpdb->usermeta}` WHERE meta_key = 'wp_capabilities'";
@@ -2357,7 +2380,7 @@ class WPDKCapabilities {
         $user_caps[$user_cap['user_id']] = get_userdata( $user_cap['user_id'] )->allcaps;
       }
 
-      set_transient( '_wpdk_users_caps', $user_caps, 120 );
+      //set_transient( '_wpdk_users_caps', $user_caps, 120 );
     }
     return $user_caps;
 
@@ -2378,10 +2401,31 @@ class WPDKCapabilities {
  */
 class WPDKCapability {
 
+  /**
+   * Capability ID
+   *
+   * @brief Capability ID
+   *
+   * @var string $id
+   */
   public $id;
 
+  /**
+   * Extend description
+   *
+   * @brief Description
+   *
+   * @var string $description
+   */
   public $description;
 
+  /**
+   * Capability owner
+   *
+   * @brief Owner
+   *
+   * @var string $owner
+   */
   public $owner;
 
   /**
@@ -2400,6 +2444,7 @@ class WPDKCapability {
     $this->id          = $id;
     $this->description = $description;
     $this->owner       = $owner;
+
   }
 
   /**
