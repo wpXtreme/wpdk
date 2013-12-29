@@ -2105,8 +2105,8 @@ class WPDKUIControlTextarea extends WPDKUIControl {
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-12-29
+ * @version            0.9.0
  *
  */
 class WPDKUIControlsLayout {
@@ -2125,8 +2125,22 @@ class WPDKUIControlsLayout {
    *
    * @param array $cla Controls Layout array
    */
-  public function __construct( $cla ) {
+  public function __construct( $cla )
+  {
     $this->_cla = $cla;
+  }
+
+  /**
+   * Return an instance of WPDKUIControlsLayout class
+   *
+   * @brief Init instance
+   * @since 1.4.8
+   *
+   * @param array $cla Controls Layout array
+   */
+  public static function init( $cla )
+  {
+    return new self( $cla );
   }
 
   /**
@@ -2139,7 +2153,8 @@ class WPDKUIControlsLayout {
    *
    * @return string
    */
-  public static function item( $item ) {
+  public static function item( $item )
+  {
     ob_start();
     self::_processItem( $item );
     $content = ob_get_contents();
@@ -2154,7 +2169,8 @@ class WPDKUIControlsLayout {
    *
    * @param array $item Control description in CLA format
    */
-  private function _processItem( $item ) {
+  private function _processItem( $item )
+  {
     $class_name = isset( $item['type'] ) ? $item['type'] : '';
     if ( !empty( $class_name ) ) {
       $control = new $class_name( $item );
@@ -2167,7 +2183,8 @@ class WPDKUIControlsLayout {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
 
@@ -2178,13 +2195,14 @@ class WPDKUIControlsLayout {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     /* Buffering... */
     ob_start();
 
     foreach ( $this->_cla as $key => $value ) : ?>
 
-    <fieldset class="wpdk-form-fieldset">
+      <fieldset class="wpdk-form-fieldset">
       <legend><?php echo $key ?></legend>
       <div class="wpdk-fieldset-container">
         <?php $this->_processRows( $value ) ?>
@@ -2206,11 +2224,12 @@ class WPDKUIControlsLayout {
    *
    * @param array $rows
    */
-  private function _processRows( $rows ) {
-
+  private function _processRows( $rows )
+  {
     foreach ( $rows as $item ) {
-      if ( is_string( $item ) && !empty( $item ) ) { ?>
-      <div class="wpdk-form-description"><?php echo $item ?></div><?php
+      if ( is_string( $item ) && !empty( $item ) ) {
+        ?>
+        <div class="wpdk-form-description"><?php echo $item ?></div><?php
       }
       elseif ( isset( $item['type'] ) ) {
         $this->_processItem( $item );
