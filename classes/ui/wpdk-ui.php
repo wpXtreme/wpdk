@@ -1605,15 +1605,16 @@ class WPDKUIControlSelect extends WPDKUIControl {
     /* Display right label. */
     echo is_null( $label ) ? '' : $label->html();
 
-    $input           = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
-    $input->class    = $this->class;
-    $input->class[]  = 'wpdk-form-select';
-    $input->data     = isset( $this->item['data'] ) ? $this->item['data'] : array();
-    $input->style    = isset( $this->item['style'] ) ? $this->item['style'] : null;
-    $input->multiple = isset( $this->item['multiple'] ) ? $this->item['multiple'] : null;
-    $input->size     = isset( $this->item['size'] ) ? $this->item['size'] : null;
-    $input->disabled = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
-    $input->value    = isset( $this->item['value'] ) ? $this->item['value'] : array();
+    $input              = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
+    $input->class       = $this->class;
+    $input->class[]     = 'wpdk-form-select';
+    $input->_first_item = isset( $this->item['first_item'] ) ? $this->item['first_item'] : '';
+    $input->data        = isset( $this->item['data'] ) ? $this->item['data'] : array();
+    $input->style       = isset( $this->item['style'] ) ? $this->item['style'] : null;
+    $input->multiple    = isset( $this->item['multiple'] ) ? $this->item['multiple'] : null;
+    $input->size        = isset( $this->item['size'] ) ? $this->item['size'] : null;
+    $input->disabled    = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
+    $input->value       = isset( $this->item['value'] ) ? $this->item['value'] : array();
     $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
     $input->display();
