@@ -78,6 +78,20 @@ class WPDKUIControl {
   const DEFAULT_SIZE_ATTRIBUTE = 30;
 
   /**
+   * Useful constant to append a [Remove] button on select list control
+   *
+   * @since 1.4.8
+   */
+  const APPEND_SELECT_LIST_REMOVE = 'append_select_list_remove';
+
+  /**
+   * Useful constant to append a [Add] button on select list control
+   *
+   * @since 1.4.8
+   */
+  const APPEND_SELECT_LIST_ADD = 'append_select_list_add';
+
+  /**
    * A string with list of attributes
    *
    * @brief Attributes
@@ -300,6 +314,43 @@ class WPDKUIControl {
    */
   protected function contentWithKey( $key ) {
     $result = '';
+
+    /*
+     * Append predefined content
+     *
+     *     'append'  => WPDKUIControl::APPEND_SELECT_LIST_REMOVE
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_REMOVE, 'Remove' )
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_ADD, 'destination_select' )
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_ADD, 'destination_select', 'Add' )
+     *
+     */
+    if ( 'append' == $key && !empty( $this->item['append'] ) ) {
+      $append = array_merge( (array)$this->item['append'], array(0,0,0) );
+
+      list( $code, $destination_select, $label ) = $append;
+
+      switch ( $code ) {
+
+        case WPDKUIControl::APPEND_SELECT_LIST_REMOVE:
+          $label                = empty( $destination_select ) ? __( 'Remove', WPDK_TEXTDOMAIN ) : $destination_select;
+          $this->item['append'] = '<input data-remove_from="' . $this->item['id'] .
+            '" class="wpdk-form-button wpdk-form-button-remove button-secondary" style="vertical-align:top" type="button" value="' .
+            $label . '" />';
+          break;
+
+        case WPDKUIControl::APPEND_SELECT_LIST_ADD:
+          if ( !empty( $destination_select ) ) {
+            $label                = empty( $label ) ? __( 'Add', WPDK_TEXTDOMAIN ) : $label;
+            $this->item['append'] =
+              '<input type="button" data-copy="' . $this->item['name'] . '" data-paste="' . $destination_select .
+              '" class="wpdk-form-button wpdk-form-button-copy-paste button-secondary" value="' . $label . '" />';
+          }
+          break;
+      }
+    }
 
     /**
      * @var WPDKUIControl|string|callable $content
