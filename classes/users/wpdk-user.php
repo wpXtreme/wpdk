@@ -370,6 +370,67 @@ class WPDKUser extends WP_User {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
+   * Get the value of a user transient.
+   * If the transient does not exist or does not have a value, then the return value will be false.
+   *
+   * @brief Get
+   * @since 1.4.8
+   *
+   * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
+   *        false will "short-circuit" the retrieval of the transient and return the returned value.
+   * @uses  apply_filters() Calls 'user_transient_$transient' hook, after checking the transient, with the transient value.
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped
+   * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+   *
+   * @return mixed Value of transient
+   */
+  public static function getTransientWithUser( $transient, $user_id = null )
+  {
+    $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+    $pre = apply_filters( 'pre_user_transient_' . $transient, false, $user_id );
+    if ( false !== $pre ) {
+      return $pre;
+    }
+
+    $transient_timeout = '_transient_timeout_' . $transient;
+    $transient         = '_transient_' . $transient;
+    if ( get_user_meta( $user_id, $transient_timeout, true ) < time() ) {
+      delete_user_meta( $user_id, $transient );
+      delete_user_meta( $user_id, $transient_timeout );
+      return false;
+    }
+
+    $value = get_user_meta( $user_id, $transient, true );
+
+    return apply_filters( 'user_transient_' . $transient, $value, $user_id );
+  }
+
+  /**
+   * Get the value of transient for this WPDKUser object instance.
+   * If the transient does not exist or does not have a value, then the return value will be false.
+   *
+   * @brief Get
+   * @since 1.4.8
+   *
+   * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
+   *        false will "short-circuit" the retrieval of the transient and return the returned value.
+   * @uses  apply_filters() Calls 'user_transient_$transient' hook, after checking the transient, with the transient value.
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped
+   *
+   * @return mixed Value of transient
+   */
+  public function getTransient( $transient )
+  {
+    if( !empty( $this->ID ) ) {
+      return self::getTransientWithUser( $transient, $this->ID );
+    }
+  }
+
+
+  /**
    * Set/update the value of a user transient.
    *
    * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
@@ -417,7 +478,7 @@ class WPDKUser extends WP_User {
   }
 
   /**
-   * Set/update the value of this WPDKUser transient.
+   * Set/update the value of transient for this WPDKUser object instance.
    *
    * You do not need to serialize values. If the value needs to be serialized, then it will be serialized before it is set.
    *
