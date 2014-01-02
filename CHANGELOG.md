@@ -25,8 +25,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKUser::getTransientTimeWithUser()`
 * Added `WPDKUser::getTransientWithUser()`
 * Added `WPDKUser::getTransient()`
+* Added `WPDKUser::getTransientTime()`
 * Improved menu divider color for WordPress 3.8 admin themes scheme
 * Added Dutch localization by Frans Pronk beheer@ifra.nl
 

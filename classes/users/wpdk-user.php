@@ -429,6 +429,41 @@ class WPDKUser extends WP_User {
     }
   }
 
+  /**
+   * Return the transient user time
+   *
+   * @brief Transient time
+   * @since 1.4.8
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped
+   * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+   *
+   * @return int
+   */
+  public static function getTransientTimeWithUser( $transient, $user_id = null )
+  {
+    $user_id           = is_null( $user_id ) ? get_current_user_id() : $user_id;
+    $transient_timeout = '_transient_timeout_' . $transient;
+    return get_user_meta( $user_id, $transient_timeout, true );
+  }
+
+  /**
+   * Return the transient user time
+   *
+   * @brief Transient time
+   * @since 1.4.8
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped
+   *
+   * @return int
+   */
+  public function getTransientTime( $transient )
+  {
+    if ( !empty( $this->ID ) ) {
+      return self::getTransientTimeWithUser( $transient, $this->ID );
+    }
+  }
+
 
   /**
    * Set/update the value of a user transient.
