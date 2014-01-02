@@ -1128,8 +1128,8 @@ class WPDKHTMLTagLegend extends WPDKHTMLTag {
  * @class              WPDKHTMLTagSelect
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-12-29
+ * @version            0.9.0
  *
  */
 class WPDKHTMLTagSelect extends WPDKHTMLTag {
@@ -1143,6 +1143,17 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
   public $name;
   public $size;
   public $value;
+
+  /**
+   * Used to display a special first item (disable and display none and non selectable) to use instead label
+   *
+   * @brief First item disabled
+   * @since 1.4.8
+   *
+   * @var string $_first_item
+   */
+  public $_first_item = '';
+
   private $_options;
 
   /**
@@ -1150,14 +1161,15 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Construct
    *
-   * @param array|callback $options  A key value pairs array with value/text or a callback function
-   * @param string         $name     Attribute name
-   * @param string         $id       Attribute id
+   * @param array|callback $options A key value pairs array with value/text or a callback function
+   * @param string         $name    Attribute name
+   * @param string         $id      Attribute id
    *
-   * @todo The internal method _options doesn't check for associative array
+   * @todo  The internal method _options doesn't check for associative array
    *
    */
-  public function __construct( $options = array(), $name = '', $id = '' ) {
+  public function __construct( $options = array(), $name = '', $id = '' )
+  {
 
     /* Create an WPDKHTMLTag instance. */
     parent::__construct( WPDKHTMLTagName::SELECT );
@@ -1205,7 +1217,8 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $options = array();
     if ( is_callable( $this->_options ) ) {
       $options = call_user_func( $this->_options, $this );
@@ -1222,11 +1235,12 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Build the options
    *
-   * @param array $options  A key value pairs array. If the value is an array then an optio group is created.
+   * @param array $options A key value pairs array. If the value is an array then an optio group is created.
    *
    * @return string
    */
-  public function options( $options ) {
+  public function options( $options )
+  {
     ob_start();
     $this->_options( $options );
     $content = ob_get_contents();
@@ -1244,6 +1258,13 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    */
   private function _options( $options )
   {
+    if ( !empty( $this->_first_item ) ) : ?>
+      <option value=""
+              disabled="disabled"
+              selected="selected"
+              style="display:none"><?php echo $this->_first_item ?></option>
+    <?php endif;
+
     foreach ( $options as $key => $option ) : ?>
       <?php if ( is_array( $option ) ) : ?>
         <optgroup class="wpdk-form-optiongroup" label="<?php echo $key ?>">

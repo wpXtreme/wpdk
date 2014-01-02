@@ -78,6 +78,20 @@ class WPDKUIControl {
   const DEFAULT_SIZE_ATTRIBUTE = 30;
 
   /**
+   * Useful constant to append a [Remove] button on select list control
+   *
+   * @since 1.4.8
+   */
+  const APPEND_SELECT_LIST_REMOVE = 'append_select_list_remove';
+
+  /**
+   * Useful constant to append a [Add] button on select list control
+   *
+   * @since 1.4.8
+   */
+  const APPEND_SELECT_LIST_ADD = 'append_select_list_add';
+
+  /**
    * A string with list of attributes
    *
    * @brief Attributes
@@ -300,6 +314,43 @@ class WPDKUIControl {
    */
   protected function contentWithKey( $key ) {
     $result = '';
+
+    /*
+     * Append predefined content
+     *
+     *     'append'  => WPDKUIControl::APPEND_SELECT_LIST_REMOVE
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_REMOVE, 'Remove' )
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_ADD, 'destination_select' )
+     * OR
+     *     'append'  => array( WPDKUIControl::APPEND_SELECT_LIST_ADD, 'destination_select', 'Add' )
+     *
+     */
+    if ( 'append' == $key && !empty( $this->item['append'] ) ) {
+      $append = array_merge( (array)$this->item['append'], array(0,0,0) );
+
+      list( $code, $destination_select, $label ) = $append;
+
+      switch ( $code ) {
+
+        case WPDKUIControl::APPEND_SELECT_LIST_REMOVE:
+          $label                = empty( $destination_select ) ? __( 'Remove', WPDK_TEXTDOMAIN ) : $destination_select;
+          $this->item['append'] = '<input data-remove_from="' . $this->item['id'] .
+            '" class="wpdk-form-button wpdk-form-button-remove button-secondary" style="vertical-align:top" type="button" value="' .
+            $label . '" />';
+          break;
+
+        case WPDKUIControl::APPEND_SELECT_LIST_ADD:
+          if ( !empty( $destination_select ) ) {
+            $label                = empty( $label ) ? __( 'Add', WPDK_TEXTDOMAIN ) : $label;
+            $this->item['append'] =
+              '<input type="button" data-copy="' . $this->item['name'] . '" data-paste="' . $destination_select .
+              '" class="wpdk-form-button wpdk-form-button-copy-paste button-secondary" value="' . $label . '" />';
+          }
+          break;
+      }
+    }
 
     /**
      * @var WPDKUIControl|string|callable $content
@@ -1605,15 +1656,16 @@ class WPDKUIControlSelect extends WPDKUIControl {
     /* Display right label. */
     echo is_null( $label ) ? '' : $label->html();
 
-    $input           = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
-    $input->class    = $this->class;
-    $input->class[]  = 'wpdk-form-select';
-    $input->data     = isset( $this->item['data'] ) ? $this->item['data'] : array();
-    $input->style    = isset( $this->item['style'] ) ? $this->item['style'] : null;
-    $input->multiple = isset( $this->item['multiple'] ) ? $this->item['multiple'] : null;
-    $input->size     = isset( $this->item['size'] ) ? $this->item['size'] : null;
-    $input->disabled = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
-    $input->value    = isset( $this->item['value'] ) ? $this->item['value'] : array();
+    $input              = new WPDKHTMLTagSelect( $this->item['options'], $this->name, $this->id );
+    $input->class       = $this->class;
+    $input->class[]     = 'wpdk-form-select';
+    $input->_first_item = isset( $this->item['first_item'] ) ? $this->item['first_item'] : '';
+    $input->data        = isset( $this->item['data'] ) ? $this->item['data'] : array();
+    $input->style       = isset( $this->item['style'] ) ? $this->item['style'] : null;
+    $input->multiple    = isset( $this->item['multiple'] ) ? $this->item['multiple'] : null;
+    $input->size        = isset( $this->item['size'] ) ? $this->item['size'] : null;
+    $input->disabled    = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
+    $input->value       = isset( $this->item['value'] ) ? $this->item['value'] : array();
     $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
     $input->display();
@@ -2105,8 +2157,8 @@ class WPDKUIControlTextarea extends WPDKUIControl {
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-12-29
+ * @version            0.9.0
  *
  */
 class WPDKUIControlsLayout {
@@ -2125,8 +2177,22 @@ class WPDKUIControlsLayout {
    *
    * @param array $cla Controls Layout array
    */
-  public function __construct( $cla ) {
+  public function __construct( $cla )
+  {
     $this->_cla = $cla;
+  }
+
+  /**
+   * Return an instance of WPDKUIControlsLayout class
+   *
+   * @brief Init instance
+   * @since 1.4.8
+   *
+   * @param array $cla Controls Layout array
+   */
+  public static function init( $cla )
+  {
+    return new self( $cla );
   }
 
   /**
@@ -2139,7 +2205,8 @@ class WPDKUIControlsLayout {
    *
    * @return string
    */
-  public static function item( $item ) {
+  public static function item( $item )
+  {
     ob_start();
     self::_processItem( $item );
     $content = ob_get_contents();
@@ -2154,7 +2221,8 @@ class WPDKUIControlsLayout {
    *
    * @param array $item Control description in CLA format
    */
-  private function _processItem( $item ) {
+  private function _processItem( $item )
+  {
     $class_name = isset( $item['type'] ) ? $item['type'] : '';
     if ( !empty( $class_name ) ) {
       $control = new $class_name( $item );
@@ -2167,7 +2235,8 @@ class WPDKUIControlsLayout {
    *
    * @brief Display
    */
-  public function display() {
+  public function display()
+  {
     echo $this->html();
   }
 
@@ -2178,13 +2247,14 @@ class WPDKUIControlsLayout {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
     /* Buffering... */
     ob_start();
 
     foreach ( $this->_cla as $key => $value ) : ?>
 
-    <fieldset class="wpdk-form-fieldset">
+      <fieldset class="wpdk-form-fieldset">
       <legend><?php echo $key ?></legend>
       <div class="wpdk-fieldset-container">
         <?php $this->_processRows( $value ) ?>
@@ -2206,11 +2276,12 @@ class WPDKUIControlsLayout {
    *
    * @param array $rows
    */
-  private function _processRows( $rows ) {
-
+  private function _processRows( $rows )
+  {
     foreach ( $rows as $item ) {
-      if ( is_string( $item ) && !empty( $item ) ) { ?>
-      <div class="wpdk-form-description"><?php echo $item ?></div><?php
+      if ( is_string( $item ) && !empty( $item ) ) {
+        ?>
+        <div class="wpdk-form-description"><?php echo $item ?></div><?php
       }
       elseif ( isset( $item['type'] ) ) {
         $this->_processItem( $item );

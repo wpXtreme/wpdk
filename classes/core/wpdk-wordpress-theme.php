@@ -381,6 +381,9 @@ class WPDKTheme extends WPDKObject {
     /* Add classes to body class. */
     add_filter( 'body_class', array( $this, '_body_classes' ) );
 
+    /* Custom size */
+    add_filter( 'image_size_names_choose', array( $this, 'image_size_names_choose' ) );
+
   }
 
   /**
@@ -437,6 +440,7 @@ class WPDKTheme extends WPDKObject {
     /* Images size */
     if ( !empty( $this->setup->image_sizes ) ) {
       foreach ( $this->setup->image_sizes as $key => $size ) {
+        $size = array_merge( $size, array( 0, 0, false ) );
         list( $w, $h, $crop ) = $size;
         add_image_size( $key, $w, $h, is_null( $crop ) ? false : $crop );
       }
@@ -603,6 +607,27 @@ class WPDKTheme extends WPDKObject {
       }
     }
     return array_unique( $classes );
+  }
+
+  /**
+   * Allows modification of the list of image sizes that are available to administrators in the WordPress Media Library.
+   *
+   * @brief Brief
+   *
+   * @param array $sizes Sizes list
+   *
+   * @return array
+   */
+  public function image_size_names_choose( $sizes )
+  {
+    if ( !empty( $this->setup->image_sizes ) ) {
+      foreach ( $this->setup->image_sizes as $key => $size ) {
+        $size = array_merge( $size, array( 0, 0, 0, 0 ) );
+        list( $w, $h, $crop, $label ) = $size;
+        $sizes[$key] = empty( $label ) ? $key : $label;
+      }
+    }
+    return $sizes;
   }
 
   /**
@@ -773,8 +798,9 @@ class WPDKThemeSetup {
    * Setup your custom image size
    *
    *     $this->image_sizes = array(
-   *        'your_custom_size' => array( 100, 100, true ),
-   *        'your_custom_size' => array( 100, 100 ),
+   *        'your_custom_size_id' => array( 100, 100, true ),
+   *        'your_custom_size_id' => array( 100, 100 ),
+   *        'your_custom_size_id' => array( 100, 100, false, 'Your Description' ),
    *     );
    *
    * @brief Image Size
