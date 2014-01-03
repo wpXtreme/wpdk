@@ -127,7 +127,7 @@ class WPDKHTML extends WPDKObject {
     $html = str_replace( $none, '', $html );
 
     /* Optimized */
-    $html = str_replace( array( '  ', '   ', '    ' ) , ' ', $html );
+    $html = str_replace( array( '  ', '   ', '    ', '     ' ) , ' ', $html );
 
     return trim( $html );
   }
