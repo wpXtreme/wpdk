@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKArray::arrayMatchWithValue()`
 * Added `WPDKUser::getTransientTimeWithUser()`
 * Added `WPDKUser::getTransientWithUser()`
 * Added `WPDKUser::getTransient()`

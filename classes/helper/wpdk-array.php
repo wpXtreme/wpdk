@@ -152,6 +152,32 @@ class WPDKArray extends WPDKObject {
    * Return a new key value pairs array with element that match with key of the second array. In other words, if the
    * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
    *
+   * @brief Match two array by values
+   * @since 1.4.8
+   *
+   * @param array $array_values An array where the values are used as key for match
+   * @param array $array_match  A source key value pairs array that have to match with a specific key
+   *
+   * @note  Well done name and synopsis in arrayExtractByKey()
+   *
+   * @return array
+   */
+  public static function arrayMatchWithValue( $array_values, $array_match )
+  {
+    $keys   = array_values( $array_values );
+    $result = array();
+    foreach ( $array_match as $key => $value ) {
+      if ( in_array( $key, $keys ) ) {
+        $result[$key] = $value;
+      }
+    }
+    return $result;
+  }
+
+  /**
+   * Return a new key value pairs array with element that match with key of the second array. In other words, if the
+   * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
+   *
    * @brief Return an array for key
    *
    * @param array $sourceArray   A source key value pairs array that have to match with a specific key
