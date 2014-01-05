@@ -508,6 +508,16 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public $dismissable = true;
 
   /**
+   * Tooltip on dismiss button
+   *
+   * @brief Tooltip
+   * @since 1.4.8
+   *
+   * @var string $dismissToolTip
+   */
+  public $dismissToolTip = '';
+
+  /**
    * Title
    *
    * @brief Title
@@ -585,7 +595,14 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   {
     $result = '';
     if ( $this->dismissButton ) {
-      $result = '<button type="button" class="close" data-dismiss="alert">×</button>';
+      WPDKHTML::startCompress(); ?>
+      <button
+        type="button"
+        class="close <?php echo empty( $this->dismissToolTip ) ? '' : 'wpdk-tooltip' ?>"
+        <?php echo empty( $this->dismissToolTip ) ? '' : 'title="' . $this->dismissToolTip . '"' ?>
+        data-dismiss="alert">×</button>
+      <?php
+      $result = WPDKHTML::endHTMLCompress();
     }
     return $result;
   }
@@ -620,7 +637,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
 
     <div
       <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
-      class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
+      class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in', 'clearfix' ) )  ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
       <?php echo $this->content() ?>
