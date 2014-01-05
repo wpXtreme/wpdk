@@ -34,8 +34,9 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
    *
    * @return WPDKTwitterBootstrap
    */
-  public function __construct( $id ) {
-    $this->id   = $id;
+  public function __construct( $id )
+  {
+    $this->id = $id;
   }
 
   /**
@@ -615,18 +616,18 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   public function html()
   {
-    ob_start(); ?>
+    WPDKHTML::startCompress() ?>
 
-    <div class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
+    <div
+      <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
+      class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
       <?php echo $this->content() ?>
     </div>
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+    return WPDKHTML::endHTMLCompress();
   }
 
   /**
