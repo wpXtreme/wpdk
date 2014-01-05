@@ -598,10 +598,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   private function content()
   {
-    if ( '<' !== substr( $this->content, 0, 1 ) ) {
-      return sprintf( '<p>%s</p>', $this->content );
-    }
-    return $this->content;
+    return wpautop( $this->content );
   }
 
   // -----------------------------------------------------------------------------------------------------------------
