@@ -2589,7 +2589,7 @@ jQuery( function ( $ )
        */
       var $ = window.jQuery;
 
-      this.version = '1.0.1';
+      this.version = '1.0.2';
       this.error = '';
       this.message = '';
       this.data = '';
