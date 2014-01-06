@@ -637,6 +637,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
 
     <div
       <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
+      <?php echo empty( $this->data ) ? '' : self::dataInline( $this->data )  ?>
       class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in', 'clearfix' ) )  ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
