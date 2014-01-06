@@ -104,7 +104,7 @@ if ( wpdk_is_ajax() ) {
      *
      * @var string $version
      */
-    public $version = '1.0.1';
+    public $version = '1.0.2';
 
     /**
      * User define error code or string
