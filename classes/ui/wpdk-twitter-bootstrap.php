@@ -706,9 +706,9 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
  *
  * @class              WPDKTwitterBootstrapAlertType
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            1.1.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-01-07
+ * @version            1.1.1
  * @note               Updated to Bootstrap v3.0.0
  *
  */
@@ -720,6 +720,9 @@ class WPDKTwitterBootstrapAlertType {
   const INFORMATION = 'alert-info';
   const WARNING     = 'alert-warning';
   const DANGER      = 'alert-danger';
+
+  /* Since 1.4.8 */
+  const WHITE       = 'alert-white';
 }
 
 
