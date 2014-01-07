@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKTwitterBootstrapAlertType::WHITE` for WordPress 3.8 style
 * Added `dismissToolTip` property in Twitter Alert
 * Added `WPDKArray::arrayMatch()`
 * Added `WPDKArray::arrayMatchWithKeys()`

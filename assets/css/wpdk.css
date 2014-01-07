@@ -1933,6 +1933,23 @@ button.close
   color : #953b39;
 }
 
+.wpdk-alert.alert-white
+{
+  color            : #666;
+  background-color : #fff;
+  border-color     : #e5e5e5;
+}
+
+.wpdk-alert.alert-white hr
+{
+  border-top-color : #444;
+}
+
+.wpdk-alert.alert-white .alert-link
+{
+  color : #444;
+}
+
 /* Adjustment for inner form */
 fieldset.wpdk-form-fieldset .wpdk-alert
 {
