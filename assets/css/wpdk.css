@@ -556,9 +556,10 @@ option.wpdk-form-option[selected]
 
 .wpdk-form-clear-left
 {
-  cursor   : pointer;
-  display  : inline;
-  position : relative;
+  cursor      : pointer;
+  display     : inline;
+  position    : relative;
+  line-height : 100%;
 }
 
 .wpdk-form-clear-left:after
@@ -571,8 +572,8 @@ option.wpdk-form-option[selected]
   color     : #ff664b;
   font-size : 16px;
   position  : absolute;
-  right     : 8px;
-  top       : 4px;
+  right     : 5px;
+  top       : 3px;
 }
 
 .wpdk-form-clear-left i:hover
