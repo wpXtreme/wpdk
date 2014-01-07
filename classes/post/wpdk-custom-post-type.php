@@ -41,6 +41,16 @@ class WPDKCustomPostType extends WPDKObject {
   public $version = '1.0.0';
 
   /**
+   * Path images
+   *
+   * @brief URL images
+   * @since 1.4.8
+   *
+   * @var string $url_images
+   */
+  public $url_images = '';
+
+  /**
    * Create an instance of WPDKCustomPostType class
    *
    * @brief Construct
@@ -57,6 +67,11 @@ class WPDKCustomPostType extends WPDKObject {
     /* Register MetaBox */
     if ( !isset( $args['register_meta_box_cb'] ) ) {
       $args['register_meta_box_cb'] = array( $this, 'register_meta_box' );
+    }
+
+    /* Get icons path */
+    if ( isset( $args['menu_icon'] ) ) {
+      $this->url_images = trailingslashit( dirname( $args['menu_icon'] ) );
     }
 
     /* Register custom post type. */
@@ -101,7 +116,41 @@ class WPDKCustomPostType extends WPDKObject {
 
       /* Footer page. */
       add_action( 'admin_footer-post.php', array( $this, 'admin_footer') );
+
+      /* Display right icon on the title */
+      if( !empty( $this->url_images ) ) {
+        add_action( 'admin_head', array( $this, 'admin_head' ) );
+      }
     }
+  }
+
+  /**
+   * Description
+   *
+   * @brief Brief
+   */
+  public function admin_head()
+  {
+    global $post_type;
+
+    if ( $post_type != $this->id ) {
+      return;
+    }
+
+    WPDKHTML::startCompress();
+    ?>
+    <style type="text/css">
+      body.post-type-<?php echo $this->id ?> .wrap > h2
+      {
+        background-image  : url(<?php echo $this->url_images ?>logo-64x64.png);
+        background-repeat : no-repeat;
+        height            : 64px;
+        line-height       : 64px;
+        padding           : 0 0 0 80px;
+      }
+    </style>
+    <?php
+    echo WPDKHTML::endCSSCompress();
   }
 
   /**

@@ -479,7 +479,12 @@ class WPDKTheme extends WPDKObject {
    */
   public function admin_init()
   {
-    if ( ! is_user_logged_in() ) {
+
+    if ( wpdk_is_ajax() ) {
+      return;
+    }
+
+    if ( !is_user_logged_in() ) {
       return;
     }
 

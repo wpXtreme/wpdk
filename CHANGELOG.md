@@ -25,6 +25,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `dismissToolTip` property in Twitter Alert
+* Added `WPDKArray::arrayMatch()`
+* Added `WPDKArray::arrayMatchWithKeys()`
+* Added `WPDKArray::arrayMatchWithValues()`
 * Added `WPDKUser::getTransientTimeWithUser()`
 * Added `WPDKUser::getTransientWithUser()`
 * Added `WPDKUser::getTransient()`

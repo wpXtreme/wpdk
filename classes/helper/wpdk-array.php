@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Array Helper
  *
@@ -8,11 +9,10 @@
  * @class              WPDKArray
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            1.0.1
+ * @date               2014-01-06
+ * @version            1.0.2
  *
  */
-
 class WPDKArray extends WPDKObject {
 
   /**
@@ -22,7 +22,7 @@ class WPDKArray extends WPDKObject {
    *
    * @var string $version
    */
-  public $version = '1.0.1';
+  public $version = '1.0.2';
 
   /**
    * Insert a key => value into a second array to a specify index
@@ -125,23 +125,21 @@ class WPDKArray extends WPDKObject {
 
   /**
    * Return a new key value pairs array with element that match with key of the second array. In other words, if the
-   * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
+   * key of $array_match is found in $array_keys, then that element is catch, else is ignored.
    *
-   * @brief Return an array for key
+   * @brief Match two array by values
+   * @since 1.4.8
    *
-   * @param array $array_key     A key value pairs array with the keys to match
-   * @param array $array_extract A source key value pairs array that have to match with a specific key
-   *
-   * @note  Well done name and synopsis in arrayExtractByKey()
+   * @param array $array_keys  An array with the keys for match
+   * @param array $array_match A source key value pairs array that have to match with a specific key
    *
    * @return array
    */
-  public static function arrayWithKey( $array_key, $array_extract )
+  public static function arrayMatch( $array_keys, $array_match )
   {
-    $keys   = array_keys( $array_key );
     $result = array();
-    foreach ( $array_extract as $key => $value ) {
-      if ( in_array( $key, $keys ) ) {
+    foreach ( $array_match as $key => $value ) {
+      if ( in_array( $key, $array_keys ) ) {
         $result[$key] = $value;
       }
     }
@@ -149,38 +147,47 @@ class WPDKArray extends WPDKObject {
   }
 
   /**
-   * Return a new key value pairs array with element that match with key of the second array. In other words, if the
-   * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
+   * This is an alias of WPDKArray::arrayMatch() for key value pairs array
    *
-   * @brief Return an array for key
+   * @brief Match two array by values
+   * @since 1.4.8
    *
-   * @param array $sourceArray   A source key value pairs array that have to match with a specific key
-   * @param array $arrayKeys     A key value pairs array with the keys to match
+   * @param array $array       A key vaues pairs array where the values are used as key for match
+   * @param array $array_match A source key value pairs array that have to match with a specific key
    *
    * @return array
    */
-  public static function arrayExtractByKey( $sourceArray, $arrayKeys )
+  public static function arrayMatchWithValues( $array, $array_match )
   {
-    $keys   = array_keys( $arrayKeys );
-    $result = array();
-    foreach ( $sourceArray as $key => $value ) {
-      if ( in_array( $key, $keys ) ) {
-        $result[$key] = $value;
-      }
-    }
-    return $result;
+    return self::arrayMatch( array_values( $array ), $array_match );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  /**
+   * This is an alias of WPDKArray::arrayMatch() for key value pairs array
+   *
+   * @brief Match two array by values
+   * @since 1.4.8
+   *
+   * @param array $array       A key vaues pairs array where the values are used as key for match
+   * @param array $array_match A source key value pairs array that have to match with a specific key
+   *
+   * @return array
+   */
+  public static function arrayMatchWithKeys( $array, $array_match )
+  {
+    return self::arrayMatch( array_keys( $array ), $array_match );
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
   // Conversions
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Convert an array into a stdClass()
    *
    * @brief Array to object
    *
-   * @param   array $array  The array we want to convert
+   * @param   array $array The array we want to convert
    *
    * @return  object
    */
@@ -256,9 +263,9 @@ class WPDKArray extends WPDKObject {
     return array_merge( $defaults, $source );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Miscellanea
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Simulates the behavior of http_build_query() in the previous versions of php 5
@@ -293,6 +300,63 @@ class WPDKArray extends WPDKObject {
       $amp = $arg_separator;
     }
 
+    return $result;
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Deprecated
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return a new key value pairs array with element that match with key of the second array. In other words, if the
+   * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
+   *
+   * @brief Return an array for key
+   * @deprecated since 1.4.8
+   *
+   * @param array $array_key     A key value pairs array with the keys to match
+   * @param array $array_extract A source key value pairs array that have to match with a specific key
+   *
+   * @note  Well done name and synopsis in arrayExtractByKey()
+   *
+   * @return array
+   */
+  public static function arrayWithKey( $array_key, $array_extract )
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', 'arrayMatch()' );
+
+    $keys   = array_keys( $array_key );
+    $result = array();
+    foreach ( $array_extract as $key => $value ) {
+      if ( in_array( $key, $keys ) ) {
+        $result[$key] = $value;
+      }
+    }
+    return $result;
+  }
+  /**
+   * Return a new key value pairs array with element that match with key of the second array. In other words, if the
+   * key of $array_extract is found in keys of $array_key, then that element is catch, else is ignored.
+   *
+   * @brief Return an array for key
+   * @deprecated since 1.4.8
+   *
+   * @param array $sourceArray A source key value pairs array that have to match with a specific key
+   * @param array $arrayKeys   A key value pairs array with the keys to match
+   *
+   * @return array
+   */
+  public static function arrayExtractByKey( $sourceArray, $arrayKeys )
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', 'arrayMatch()' );
+
+    $keys   = array_keys( $arrayKeys );
+    $result = array();
+    foreach ( $sourceArray as $key => $value ) {
+      if ( in_array( $key, $keys ) ) {
+        $result[$key] = $value;
+      }
+    }
     return $result;
   }
 
