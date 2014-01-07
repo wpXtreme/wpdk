@@ -131,6 +131,12 @@ class WPDKCustomPostType extends WPDKObject {
    */
   public function admin_head()
   {
+    global $post_type;
+
+    if ( $post_type != $this->id ) {
+      return;
+    }
+
     WPDKHTML::startCompress();
     ?>
     <style type="text/css">
