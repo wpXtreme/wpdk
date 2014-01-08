@@ -6,8 +6,8 @@
  * @class              WPDKHTMLTag
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            1.0.0
+ * @date               2014-01-08
+ * @version            1.1.1
  *
  */
 class WPDKHTMLTag extends WPDKObject {
@@ -17,9 +17,9 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.1.0';
+  public $__version = '1.1.1';
 
   /**
    * Here there are all late binding tag attributes. Image...

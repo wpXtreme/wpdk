@@ -300,7 +300,7 @@ class WPDKPreferences {
       }
       else {
         /* Do delta. */
-        $delta = WPDKObject::delta( $instance, $store_version );
+        $delta = WPDKObject::__delta( $instance, $store_version );
         $delta->update();
       }
     }

@@ -19,8 +19,8 @@
  * @class              __WPDKDBTable
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-09-30
- * @version            1.0.0
+ * @date               2014-01-08
+ * @version            1.0.1
  *
  */
 class WPDKDBTableStatus extends WPDKObject {
@@ -34,9 +34,9 @@ class WPDKDBTableStatus extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string
+   * @var string $__version
    */
-  public $version = '1.0.0';
+  public $__version = '1.0.1';
 
   /**
    * Return a key pairs array with the list of statuses

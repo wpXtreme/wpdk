@@ -5,8 +5,8 @@
  * @class           WPDKGlyphIcons
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-11-28
- * @version         1.0.1
+ * @date            2014-01-08
+ * @version         1.0.2
  *
  */
 final class WPDKGlyphIcons extends WPDKObject {
@@ -82,9 +82,9 @@ final class WPDKGlyphIcons extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.0.1';
+  public $__version = '1.0.2';
     
   /**
    * Create an instance of WPDKGlyphIcons class
