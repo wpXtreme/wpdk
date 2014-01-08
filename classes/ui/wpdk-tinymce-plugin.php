@@ -69,7 +69,6 @@ class WPDKEditorButton {
     ?>
     ed.addButton( '<?php echo $this->id ?>', {
     title : '<?php echo $this->title ?>',
-    cmd : 'dropcap',
     <?php echo $this->image() ?>
     });
     <?php
@@ -226,9 +225,21 @@ class WPDKTinyMCEPlugin {
     if ( empty( $this->buttons ) ) {
       return $buttons;
     }
+
+    /**
+     * @var WPDKEditorButton $button
+     */
+    foreach ( $this->buttons as $button ) {
+      array_push( $buttons, $button );
+    }
+
+    return $buttons;
   }
 
-  public function mce_external_plugins() {}
+  public function mce_external_plugins( $plugin_array )
+  {
+    $plugin_array[$this->id] = '';
+  }
 
   /**
    * Return the HTML (script) markup
