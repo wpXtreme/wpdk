@@ -100,3 +100,32 @@ class WPDKEditorButtons {
   public function mce_external_plugins() {}
 
 }
+
+/**
+ * Description
+ *
+ * ## Overview
+ *
+ * Description
+ *
+ * @class           WPDKTinyMCEPlugin
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-01-08
+ * @version         1.0.0
+ *
+ */
+class WPDKTinyMCEPlugin {
+
+  /**
+   * Create an instance of WPDKTinyMCEPlugin class
+   *
+   * @brief Construct
+   *
+   * @return WPDKTinyMCEPlugin
+   */
+  public function __construct()
+  {
+  }
+
+}
