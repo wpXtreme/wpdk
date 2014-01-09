@@ -2546,6 +2546,7 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 
 .btn-group > .btn
 {
+  color                 : #fff !important;
   position              : relative;
   -webkit-border-radius : 0;
   -moz-border-radius    : 0;
