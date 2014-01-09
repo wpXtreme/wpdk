@@ -9,8 +9,8 @@
  * @class              WPDKArray
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-06
- * @version            1.0.2
+ * @date               2014-01-08
+ * @version            1.0.3
  *
  */
 class WPDKArray extends WPDKObject {
@@ -20,9 +20,9 @@ class WPDKArray extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.0.2';
+  public $__version = '1.0.3';
 
   /**
    * Insert a key => value into a second array to a specify index

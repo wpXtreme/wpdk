@@ -19,8 +19,8 @@
  * @class              WPDKServiceShortcode
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-06-04
- * @version            1.0.0
+ * @date               2014-01-09
+ * @version            1.0.1
  */
 class WPDKServiceShortcode extends WPDKShortcode {
 
@@ -33,6 +33,10 @@ class WPDKServiceShortcode extends WPDKShortcode {
    */
   public static function init()
   {
+
+    $button = new WPDKEditorButton( 'wpdk-shortcode', 'WPDK Shortcodes', '_WPDKShortcodes.open_dialog()', WPDK_URI_CSS . 'images/wpdk-shortcodes.png' );
+    $mce_plugin = new WPDKTinyMCEPlugin( 'WPDKShortcodes', 'WPDK Shortcodes', WPDK_URI_JAVASCRIPT . 'wpdk-shortcode.js', array( $button ), '1.0.0' );
+
     return self::getInstance();
   }
 

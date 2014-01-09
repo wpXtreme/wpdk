@@ -283,6 +283,10 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
         $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php' => 'WPDKListTableViewController',
         $sPathPrefix . 'classes/ui/wpdk-pointer.php'                  => 'WPDKPointer',
+        $sPathPrefix . 'classes/ui/wpdk-tinymce-plugin.php'           => array(
+          'WPDKEditorButton',
+          'WPDKTinyMCEPlugin'
+        ),
 
         // -------------------------------------------------------------------------------------------------------------
         // CORE

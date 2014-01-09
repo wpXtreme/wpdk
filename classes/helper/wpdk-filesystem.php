@@ -5,8 +5,8 @@
  * @class              WPDKFilesystem
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            1.1.1
+ * @date               2014-01-08
+ * @version            1.1.2
  */
 
 class WPDKFilesystem extends WPDKObject {
@@ -16,9 +16,9 @@ class WPDKFilesystem extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.1.1';
+  public $__version = '1.1.2';
 
   /**
    * Return the file size well formatted.

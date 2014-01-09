@@ -14,8 +14,8 @@
  * @class              WPDKViewController
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-10
- * @version            0.9.0
+ * @date               2014-01-08
+ * @version            0.9.1
  *
  */
 
@@ -26,9 +26,9 @@ class WPDKViewController extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '0.9.0';
+  public $__version = '0.9.1';
 
   /**
    * The unique id for this view controller

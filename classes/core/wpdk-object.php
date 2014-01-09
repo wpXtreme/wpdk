@@ -9,24 +9,24 @@
  * @class              WPDKObject
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-09-17
- * @version            0.4.0
+ * @date               2014-01.08
+ * @version            0.5.0
  *
  */
 class WPDKObject {
 
   /**
    * Returns the version number assigned to the class.
-   * If no version has been set, the default is 0.
+   * If no version has been set, the default is '1.0.0'.
    * Version numbers are needed for decoding or unarchiving, so older versions of an object can be detected and decoded
    * correctly.
    *
    * @brief The version number assigned to the class.
    * @since 1.2.0
    *
-   * @var string $version
+   * @var string $__version
    */
-   public $version = '1.0.0';
+   public $__version = '1.0.0';
 
   /**
    * Returns the class name. Returns FALSE if called from outside a class.
@@ -36,7 +36,7 @@ class WPDKObject {
    *
    * @return string
    */
-  public function className()
+  public function __className()
   {
     return get_called_class();
   }
@@ -49,7 +49,7 @@ class WPDKObject {
    *
    * @return string
    */
-  public function parentClass()
+  public function __parentClass()
   {
     return get_parent_class( $this );
   }
@@ -64,7 +64,7 @@ class WPDKObject {
    *     $b = new b();
    *
    *     echo is_a( $b, 'a' );     // TRUE
-   *     echo $b->isClass( 'a' );  // FALSE
+   *     echo $b->__isClass( 'a' );  // FALSE
    *
    * @brief Brief
    * @since 1.2.0
@@ -73,7 +73,8 @@ class WPDKObject {
    *
    * @return bool
    */
-  public function isClass( $class ) {
+  public function __isClass( $class )
+  {
     return (  $class == get_class( $this ) );
   }
 
@@ -85,8 +86,8 @@ class WPDKObject {
    *
    *     $b = new b();
    *
-   *     echo $b->isSubclassOfClass( 'a' );           // TRUE
-   *     echo $b->isSubclassOfClass( 'WPDKObject' );  // TRUE
+   *     echo $b->__isSubclassOfClass( 'a' );           // TRUE
+   *     echo $b->__isSubclassOfClass( 'WPDKObject' );  // TRUE
    *
    * @brief Return TRUE if the receiving class is a subclass of —or identical to— $class, otherwise FALSE.
    * @since 1.2.0
@@ -95,10 +96,11 @@ class WPDKObject {
    *
    * @return bool
    */
-  public function isSubclassOfClass( $class )
+  public function __isSubclassOfClass( $class )
   {
     return is_subclass_of( $this, $class );
   }
+
 
   /**
    * Do a merge/combine between two object tree.
@@ -113,7 +115,7 @@ class WPDKObject {
    *
    * @return Object the delta Object tree
    */
-  public static function delta( $last_version, $old_version )
+  public static function __delta( $last_version, $old_version )
   {
     $last_version_stack = array();
     $old_version_stack  = array();
@@ -142,7 +144,7 @@ class WPDKObject {
          questo.
         */
         if ( is_object( $value ) ) {
-          self::delta( $value, $old_version->$key );
+          self::__delta( $value, $old_version->$key );
         }
       }
     }
@@ -167,6 +169,12 @@ class WPDKObject {
     return $old_version;
   }
 
+  public static function delta( $last_version, $old_version )
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', '__delta()' );
+    return self::__delta( $last_version, $old_version );
+  }
+
   /**
    * Useful static method to dump any variable with a `<pre>` HTML tag wrap
    *
@@ -176,7 +184,7 @@ class WPDKObject {
    * @param mixed $var     Some variable
    * @param bool  $monitor Optional. If true a old style monitor layout is displayed
    */
-  public static function dump( $var, $monitor = false )
+  public static function __dump( $var, $monitor = false )
   {
     ob_start(); ?>
     <pre <?php if( $monitor ) : ?> style="height:100px;overflow-y:scroll;background-color:#222;color:#ffa841" <?php endif; ?>><?php var_dump( $var ) ?></pre><?php

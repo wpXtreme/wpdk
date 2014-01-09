@@ -85,7 +85,7 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Column headers
    *
-   * @var array
+   * @var array $column_headers
    */
   public $column_headers = array();
 

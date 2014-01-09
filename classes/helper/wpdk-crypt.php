@@ -5,8 +5,8 @@
  * @class              WPDKCrypt
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            0.9.0
+ * @date               2014-01-08
+ * @version            0.9.1
  *
  */
 
@@ -17,9 +17,9 @@ class WPDKCrypt extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '0.9.0';
+  public $__version = '0.9.1';
 
   /**
    * Return a $max_length char unique code (in hexdecimal) with optional prefix and postfix, keep the length at $max_length.

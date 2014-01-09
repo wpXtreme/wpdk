@@ -315,12 +315,12 @@ SQL;
  *
  * @return Object the delta Object tree
  *
- * @deprecated Since 1.2.0 Use WPDKObject::delta() instead
+ * @deprecated Since 1.2.0 Use WPDKObject::__delta() instead
  */
 function wpdk_delta_object( $last_version, $old_version )
 {
-  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::delta()' );
-  return WPDKObject::delta( $last_version, $old_version );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::__delta()' );
+  return WPDKObject::__delta( $last_version, $old_version );
 }
 
 /**

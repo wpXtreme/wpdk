@@ -13,8 +13,8 @@
  * @class              WPDKWordPressTheme
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-18
- * @version            0.9.0
+ * @date               2014-01-08
+ * @version            0.9.1
  */
 
 class WPDKWordPressTheme extends WPDKObject {
@@ -24,9 +24,9 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '0.9.0';
+  public $__version = '0.9.1';
 
   /**
    * Your main plugin instance
@@ -44,7 +44,7 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @param WPDKWordPressPlugin $plugin Optional. Your main plugin instance
    *
-   * @return \WPDKWordPressTheme
+   * @return WPDKWordPressTheme
    */
   public function __construct( WPDKWordPressPlugin $plugin = null ) {
     $this->plugin = $plugin;
@@ -189,8 +189,8 @@ class WPDKWordPressTheme extends WPDKObject {
  * @class           WPDKTheme
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-12-07
- * @version         1.1.0
+ * @date            2014-01-08
+ * @version         1.1.1
  *
  */
 class WPDKTheme extends WPDKObject {
@@ -205,9 +205,9 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.1.0';
+  public $__version = '1.1.1';
 
   /**
    * The Theme URL more `assets/`. This property is very useful for read style sheet and Javascript file in the
