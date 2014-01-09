@@ -15,12 +15,21 @@
  * @class           WPDKCustomTaxonomy
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-11-08
- * @version         1.0.0
+ * @date            2014-01-08
+ * @version         1.0.1
  * @since           1.4.0
  *
  */
 class WPDKCustomTaxonomy extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $__version
+   */
+  public $__version = '1.0.1';
 
   /**
    * Custom Taxonomy ID
@@ -39,15 +48,6 @@ class WPDKCustomTaxonomy extends WPDKObject {
    * @var array|string $object_type
    */
   public $object_type;
-
-  /**
-   * Override version
-   *
-   * @brief Version
-   *
-   * @var string $version
-   */
-  public $version = '1.0.0';
 
   /**
    * Create an instance of WPDKCustomTaxonomy class

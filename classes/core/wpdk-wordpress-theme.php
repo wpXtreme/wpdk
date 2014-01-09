@@ -13,8 +13,8 @@
  * @class              WPDKWordPressTheme
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-18
- * @version            0.9.0
+ * @date               2014-01-08
+ * @version            0.9.1
  */
 
 class WPDKWordPressTheme extends WPDKObject {
@@ -24,9 +24,9 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '0.9.0';
+  public $__version = '0.9.1';
 
   /**
    * Your main plugin instance
@@ -189,8 +189,8 @@ class WPDKWordPressTheme extends WPDKObject {
  * @class           WPDKTheme
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-12-07
- * @version         1.1.0
+ * @date            2014-01-08
+ * @version         1.1.1
  *
  */
 class WPDKTheme extends WPDKObject {
@@ -205,9 +205,9 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.1.0';
+  public $__version = '1.1.1';
 
   /**
    * The Theme URL more `assets/`. This property is very useful for read style sheet and Javascript file in the
@@ -348,7 +348,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     /* Avoid access to admin */
-    add_action( 'set_current_user', array( $this, 'set_current_user' ) );
+    add_action( 'admin_init', array( $this, 'admin_init' ) );
 
     /* Cleanup */
     add_action( 'init', array( $this, '_init' ) );
@@ -380,6 +380,9 @@ class WPDKTheme extends WPDKObject {
 
     /* Add classes to body class. */
     add_filter( 'body_class', array( $this, '_body_classes' ) );
+
+    /* Custom size */
+    add_filter( 'image_size_names_choose', array( $this, 'image_size_names_choose' ) );
 
   }
 
@@ -437,6 +440,7 @@ class WPDKTheme extends WPDKObject {
     /* Images size */
     if ( !empty( $this->setup->image_sizes ) ) {
       foreach ( $this->setup->image_sizes as $key => $size ) {
+        $size = array_merge( $size, array( 0, 0, false ) );
         list( $w, $h, $crop ) = $size;
         add_image_size( $key, $w, $h, is_null( $crop ) ? false : $crop );
       }
@@ -473,15 +477,26 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Avoid admin
    */
-  public function set_current_user()
+  public function admin_init()
   {
+
+    if ( wpdk_is_ajax() ) {
+      return;
+    }
+
     if ( !is_user_logged_in() ) {
       return;
     }
 
+    /* Check for roles */
     if ( !empty( $this->setup->disable_admin_for_roles ) ) {
+      // Not implement
+    }
+
+    /* Check for capabilies */
+    if ( !empty( $this->setup->disable_admin_if_user_has_not_caps ) ) {
       $pass = false;
-      $roles = $this->setup->disable_admin_for_roles;
+      $roles = $this->setup->disable_admin_if_user_has_not_caps;
       if ( !empty( $roles ) && is_array( $roles ) ) {
         foreach ( $roles as $role ) {
           if ( ( $pass = current_user_can( $role ) ) ) {
@@ -600,6 +615,27 @@ class WPDKTheme extends WPDKObject {
   }
 
   /**
+   * Allows modification of the list of image sizes that are available to administrators in the WordPress Media Library.
+   *
+   * @brief Brief
+   *
+   * @param array $sizes Sizes list
+   *
+   * @return array
+   */
+  public function image_size_names_choose( $sizes )
+  {
+    if ( !empty( $this->setup->image_sizes ) ) {
+      foreach ( $this->setup->image_sizes as $key => $size ) {
+        $size = array_merge( $size, array( 0, 0, 0, 0 ) );
+        list( $w, $h, $crop, $label ) = $size;
+        $sizes[$key] = empty( $label ) ? $key : $label;
+      }
+    }
+    return $sizes;
+  }
+
+  /**
    * This function records a WPX theme class into autoloading register, joined with its loading path.
    * The function has some facility in its first param, in order to allow both string and array loading of class
    * names ( useful in case of a group of classes that are defined in a single file ).
@@ -682,25 +718,39 @@ class WPDKTheme extends WPDKObject {
  *
  */
 class WPDKThemeSetup {
-  
-/**
+
+  /**
    * Disable the access to admin if a user logged in has not these roles
    *
    *     // OFF
    *     $this->disable_admin_for_roles = false;
    *     $this->disable_admin_for_roles = array();
    *
-   *     // Enable admin backend for admin only
-   *     $this->disable_admin_for_roles = 'manage_options';
-   *     $this->disable_admin_for_roles = array( 'manage_options' );
-   *
-   *     // Enable admin backend for admin and editor only
-   *     $this->disable_admin_for_roles = array( 'manage_options', 'editor' );
+   *     // Enable admin backend for editor only
+   *     $this->disable_admin_for_roles = 'editor';
+   *     $this->disable_admin_for_roles = array( 'administrator', 'editor' );
    *
    * @var bool $disable_admin_for_roles
-   *
    */
   public $disable_admin_for_roles = array();
+
+  /**
+   * Disable the admin access if a user logged in has not these caps
+   *
+   *     // OFF
+   *     $this->disable_admin_if_user_has_not_caps = false;
+   *     $this->disable_admin_if_user_has_not_caps = array();
+   *
+   *     // Enable admin backend for admin only
+   *     $this->disable_admin_if_user_has_not_caps = 'manage_options';
+   *     $this->disable_admin_if_user_has_not_caps = array( 'manage_options' );
+   *
+   *     // Enable admin backend for admin and editor only
+   *     $this->disable_admin_if_user_has_not_caps = array( 'manage_options', 'editor' );
+   *
+   * @var bool $disable_admin_if_user_has_not_caps
+   */
+  public $disable_admin_if_user_has_not_caps = array();
 
   /**
    * Remove standard filter to wp_head hook
@@ -753,8 +803,9 @@ class WPDKThemeSetup {
    * Setup your custom image size
    *
    *     $this->image_sizes = array(
-   *        'your_custom_size' => array( 100, 100, true ),
-   *        'your_custom_size' => array( 100, 100 ),
+   *        'your_custom_size_id' => array( 100, 100, true ),
+   *        'your_custom_size_id' => array( 100, 100 ),
+   *        'your_custom_size_id' => array( 100, 100, false, 'Your Description' ),
    *     );
    *
    * @brief Image Size

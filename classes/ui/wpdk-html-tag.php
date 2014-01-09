@@ -1,5 +1,628 @@
 <?php
 /**
+ * Generic HTML model. This class is sub class from above class.
+ * Thanks to http://www.w3schools.com/tags/default.asp for definitions
+ *
+ * @class              WPDKHTMLTag
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-01-08
+ * @version            1.1.1
+ *
+ */
+class WPDKHTMLTag extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $__version
+   */
+  public $__version = '1.1.1';
+
+  /**
+   * Here there are all late binding tag attributes. Image...
+   *
+   * charset
+   * coords
+   * href
+   * classs
+   * ...
+   *
+   */
+
+  /* Global attributes. */
+
+  public $accesskey = '';
+  public $class = array();
+  /**
+   * HTML inner content of tag.
+   *
+   * @brief Content
+   *
+   * @var string $content
+   */
+  public $content = '';
+  public $contenteditable;
+  public $contextmenu;
+
+  /**
+   * Key value pairs array Attribute data: data-attribute = value
+   *
+   * @brief Data attribute
+   *
+   * @var array $data
+   */
+  public $data = array();
+  public $dir;
+  public $draggable;
+  public $dropzone;
+  public $hidden;
+  public $id;
+  public $lang;
+  public $onclick;
+  public $spellcheck;
+  public $style;
+  public $tabindex;
+
+  /**
+   * The TAG name
+   *
+   * @brief Tag name
+   *
+   * @var WPDKHTMLTagName $tagName
+   */
+  public $tagName;
+
+  /* Global events */
+  public $title;
+
+  /**
+   * Override. List of tag attributes that can be used on any HTML element.
+   *
+   * @brief Attributes list
+   *
+   * @var array $attributes
+   */
+  protected $attributes = array();
+
+  /**
+   * Override. Close format Eg. '</a>' or '/>'
+   *
+   * @brief Close tag
+   *
+   * @var string $close
+   */
+  protected $close;
+
+  /**
+   * Override. Open format Eg. '<a'
+   *
+   * @brief Open tag
+   *
+   * @var string $open
+   */
+  protected $open;
+
+  /**
+   * List of global common attributes for all HTML tags
+   *
+   * @brif Global attributes
+   *
+   * @var array $_globalAttributes
+   */
+  private $_globalAttributes;
+
+  /**
+   * Create an instance of WPDKHTMLTag class
+   *
+   * @param string $tag_name
+   *
+   * @return WPDKHTMLTag
+   */
+  public function __construct( $tag_name ) {
+
+    /* Store this tag name. */
+    $this->tagName = $tag_name;
+
+    /* The global attributes below can be used on any HTML element. */
+    $this->_globalAttributes = array(
+      'accesskey',
+      'class',
+      'contenteditable', // HTML 5
+      'contextmenu', // HTML 5
+      'dir',
+      'draggable', // HTML 5
+      'dropzone', // HTML 5
+      'hidden', // HTML 5
+      'id',
+      'lang',
+      'spellcheck', // HTML 5
+      'style',
+      'tabindex',
+      'title',
+      'onclick'
+    );
+  }
+
+  /**
+   * Utility to add a data attribute. You can access directly to `data` array property instead
+   *
+   * @brief Add data attribute
+   *
+   * @param string $name  Data attribute name
+   * @param string $value Data attribute value
+   */
+  public function addData( $name, $value )
+  {
+    if ( !empty( $name ) ) {
+      $this->data[$name] = $value;
+    }
+  }
+
+  /**
+   * Utility to add a class. You can access directly to `class` array property instead
+   *
+   * @brief Add CSS Class
+   * @since 1.3.1
+   *
+   * @param string $class
+   */
+  public function addClass( $class )
+  {
+    if ( !empty( $class ) ) {
+      $this->class[$class] = $class;
+    }
+  }
+
+  /**
+   * Display HTML markup for this tag
+   *
+   * @brief Display
+   */
+  public function display()
+  {
+    echo $this->html();
+  }
+
+  /**
+   * Return the HTML markup for this tag
+   *
+   * @brief Return the HTML markup for this tag
+   *
+   * @return string
+   */
+  public function html() {
+    ob_start();
+
+    /* Open. */
+    echo $this->open;
+
+    /* Cycle for tag specify attributes. */
+    foreach ( $this->attributes as $attr ) {
+      if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
+        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+      }
+    }
+
+    /* Cycle for global common attributes. */
+    foreach ( $this->_globalAttributes as $attr ) {
+      if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
+        if ( 'class' == $attr ) {
+          $classes = self::classInline( $this->$attr );
+          if( !empty( $classes ) ) {
+            printf( ' class="%s"', $classes );
+          }
+        }
+        else {
+          printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        }
+      }
+    }
+
+    /* Generic data attribute. */
+    $data = self::dataInline( $this->data );
+    if ( !empty( $data ) ) {
+      printf( ' %s', $data );
+    }
+
+    /* Content, only for enclousure TAG. */
+    if ( '/>' !== $this->close ) {
+
+      /* Close the first part tag. */
+      echo '>';
+
+      /* Before content. */
+      $this->beforeContent();
+
+      /* Content. */
+      $this->draw();
+
+      /* After content. */
+      $this->afterContent();
+
+      /* Close. */
+      echo $this->close;
+    }
+    else {
+      /* Close. */
+      echo $this->close;
+      echo $this->content;
+    }
+
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
+  }
+
+  /**
+   * Override this method to display anything before the content output
+   *
+   * @brief Before content
+   */
+  protected function beforeContent()
+  {
+    /* to override if needed */
+  }
+
+  /**
+   * Draw the content of tag
+   *
+   * @note You can override this method in order to customize it
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    echo $this->content;
+  }
+
+  /**
+   * Override this method to display anything after the content output
+   *
+   * @brief After content
+   */
+  protected function afterContent()
+  {
+    /* to override if needed */
+  }
+
+  /**
+   * Set one or more WPDKHTMLTag properties by an array.
+   *
+   * @brief Set properties by array
+   *
+   * @param array $properties A key value pairs array with the property (key) and its value
+   */
+  public function setPropertiesByArray( $properties = array() ) {
+    if ( !empty( $properties ) ) {
+      foreach ( $properties as $key => $value ) {
+        if ( in_array( $key, $this->attributes ) || in_array( $key, $this->_globalAttributes ) ) {
+          $this->$key = $value;
+        }
+      }
+    }
+  }
+
+  /**
+   * Return key value pairs array unique with css class list. In this way you can unset a secified class.
+   * If the input is a string (space separate strings) will return an array with css classes.
+   *
+   *     $class = 'a b c c';
+   *     echo self::sanitizeClasses( $class );
+   *
+   *     array(
+   *       'a' => 'a',
+   *       'b' => 'b',
+   *       'c' => 'c',
+   *      )
+   *
+   * @brief Sanitize CSS Classes list
+   *
+   * @param string|array $classes Any string or array with classes
+   *
+   * @return array
+   */
+  public static function sanitizeClasses( $classes )
+  {
+    if( empty( $classes) || is_null( $classes ) ) {
+      return array();
+    }
+
+    /* Convert the string classes in array */
+    if ( is_string( $classes ) ) {
+      $classes = explode( ' ', $classes );
+    }
+
+    $classes = array_filter( array_unique( $classes, SORT_STRING ) );
+
+    return array_combine( $classes, $classes );
+  }
+
+  /**
+   * Return key value pairs array unique with css styke list. In this way you can unset a secified class.
+   * If the input is a string (space separate strings) will return an array with css classes.
+   *
+   *     $style = 'display:block;position:absolute';
+   *     echo self::sanitizeStyles( $style );
+   *
+   *     array(
+   *       'display'  => 'block',
+   *       'position' => 'absolute',
+   *      )
+   *
+   * @brief Sanitize CSS Classes list
+   * @since 1.4.7
+   *
+   * @param string|array $styles Any string or array with styles
+   *
+   * @return array
+   */
+  public static function sanitizeStyles( $styles )
+  {
+    if ( empty( $styles ) || is_null( $styles ) ) {
+      return array();
+    }
+
+    /* Convert the string styles in array */
+    if ( is_string( $styles ) ) {
+      $entries = explode( ';', $styles );
+      $styles  = array();
+      foreach ( $entries as $entry ) {
+        list( $key, $value ) = explode( ':', $entry, 2 );
+        $styles[$key] = trim( $value );
+      }
+    }
+
+    return array_unique( $styles, SORT_STRING );
+  }
+
+  /**
+   * Merge one or more class
+   *
+   * @brief Merge
+   * @since 1.4.0
+   *
+   * @param array|string $class  Initial string or array class to merge
+   * @param array|string $class2 Optional.
+   * @param array|string $_      Optional.
+   *
+   * @return array
+   */
+  public static function mergeClasses( $class, $class2 = null, $_ = null )
+  {
+    $class = self::sanitizeClasses( $class );
+
+    if ( func_num_args() < 2 ) {
+      return $class;
+    }
+
+    for ( $i = 1; $i < func_num_args(); $i++ ) {
+      $arg = func_get_arg( $i );
+      if ( !is_null( $arg ) ) {
+        $s     = self::sanitizeClasses( $arg );
+        $class = array_merge( $class, $s );
+      }
+    }
+    return self::sanitizeClasses( $class );
+  }
+
+  /**
+   * Return a sanitize and inline list of css classes
+   *
+   *     $classes = array(
+   *       'color',
+   *       'modal',
+   *     );
+   *     echo self::classInline( $classes, array( 'modal', 'hide' ) );
+   *     // 'color modal hide'
+   *
+   *     echo self::classInline( $classes, 'delta modal' );
+   *     // 'color delta modal'
+   *
+   * @brief Inline CSS class
+   *
+   * @param array|string $classes            List of css classes
+   * @param array|bool   $additional_classes Optional. Additional classes
+   *
+   * @return string
+   */
+  public static function classInline( $classes, $additional_classes = false )
+  {
+    $classes = self::sanitizeClasses( $classes );
+
+    if ( !empty( $additional_classes ) ) {
+      $additional_classes = self::sanitizeClasses( $additional_classes );
+      if ( !empty( $additional_classes ) ) {
+        $classes = array_merge( $classes, $additional_classes );
+      }
+    }
+
+    $keys = array_keys( $classes );
+
+    return join( ' ', $keys );
+  }
+
+  /**
+   * Return a sanitize and inline list of css styles
+   *
+   *     $styles = array(
+   *       'position' => 'absolute',
+   *       'top' => 0,
+   *     );
+   *     echo self::styleInline( $styles, array( 'left' => 0, 'display' => 'block' ) );
+   *     // 'position:absolute;top:0;left:0;display:block'
+   *
+   *     echo self::styleInline( $styles, 'display:block' );
+   *     // 'position:absolute;top:0;display:block'
+   *
+   * @brief Inline CSS class
+   * @since 1.4.7
+   *
+   * @param array|string $styles            List of css styles
+   * @param array|bool   $additional_styles Optional. Additional styles
+   *
+   * @return string
+   */
+  public static function styleInline( $styles, $additional_styles = false )
+  {
+    $styles = self::sanitizeStyles( $styles );
+
+    if ( !empty( $additional_styles ) ) {
+      $additional_styles = self::sanitizeStyles( $additional_styles );
+      if ( !empty( $additional_styles ) ) {
+        $styles = array_merge( $styles, $additional_styles );
+      }
+    }
+
+    $result = array();
+    foreach ( $styles as $key => $value ) {
+      $result[] = $key . ':' . $value;
+    }
+
+    return rtrim( implode( ';', $result ), ';' );
+
+  }
+
+  /**
+   * Return a inline data attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
+   *     // 'data-color="red" data-size="12" data-modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $data            Key value pairs array with data attribute list
+   * @param array|bool $additional_data Optional. Additional data
+   *
+   * @return string
+   */
+  public static function dataInline( $data, $additional_data = false )
+  {
+    $data = self::sanitizeData( $data );
+
+    if ( !empty( $additional_data ) ) {
+      $additional_data = self::sanitizeData( $additional_data );
+      $data = array_merge( $data, $additional_data );
+    }
+    $stack = array();
+    foreach ( $data as $key => $value ) {
+      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a inline generic attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
+   *     // 'color="red" size="12" modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $attributes            Key value pairs array with data attribute list
+   * @param array|bool $additional_attributes Optional. Additional data
+   *
+   * @return string
+   */
+  public static function attributeInline( $attributes, $additional_attributes = false )
+  {
+
+    $attributes = self::sanitizeAttributes( $attributes );
+
+    if ( !empty( $additional_attributes ) ) {
+      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
+      $attributes = array_merge( $attributes, $additional_attributes );
+    }
+    $stack = array();
+    foreach ( $attributes as $key => $value ) {
+      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a key value pairs array with generic attribute list
+   *
+   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize attributes
+   *
+   * @param string $attributes Attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeAttributes( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts            = explode( '=', $attribute );
+        $stack[$parts[0]] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      return $attributes;
+    }
+
+    return $stack;
+  }
+
+  /**
+   * Return a key value pairs array with data attribute list
+   *
+   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize data attributes
+   *
+   * @param string $attributes Data attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeData( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts = explode( '=', $attribute );
+        $key   = $parts[0];
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      foreach ( $attributes as $key => $value ) {
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $value, "\"''" );
+      }
+    }
+
+    return $stack;
+  }
+
+}
+
+/**
  * This class is a list of constant for HTML 4.1 tag supported
  *
  * @class              WPDKHTMLTagName
@@ -1128,8 +1751,8 @@ class WPDKHTMLTagLegend extends WPDKHTMLTag {
  * @class              WPDKHTMLTagSelect
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @date               2013-12-29
+ * @version            0.9.0
  *
  */
 class WPDKHTMLTagSelect extends WPDKHTMLTag {
@@ -1143,6 +1766,17 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
   public $name;
   public $size;
   public $value;
+
+  /**
+   * Used to display a special first item (disable and display none and non selectable) to use instead label
+   *
+   * @brief First item disabled
+   * @since 1.4.8
+   *
+   * @var string $_first_item
+   */
+  public $_first_item = '';
+
   private $_options;
 
   /**
@@ -1150,14 +1784,15 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Construct
    *
-   * @param array|callback $options  A key value pairs array with value/text or a callback function
-   * @param string         $name     Attribute name
-   * @param string         $id       Attribute id
+   * @param array|callback $options A key value pairs array with value/text or a callback function
+   * @param string         $name    Attribute name
+   * @param string         $id      Attribute id
    *
-   * @todo The internal method _options doesn't check for associative array
+   * @todo  The internal method _options doesn't check for associative array
    *
    */
-  public function __construct( $options = array(), $name = '', $id = '' ) {
+  public function __construct( $options = array(), $name = '', $id = '' )
+  {
 
     /* Create an WPDKHTMLTag instance. */
     parent::__construct( WPDKHTMLTagName::SELECT );
@@ -1205,7 +1840,8 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $options = array();
     if ( is_callable( $this->_options ) ) {
       $options = call_user_func( $this->_options, $this );
@@ -1222,11 +1858,12 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    *
    * @brief Build the options
    *
-   * @param array $options  A key value pairs array. If the value is an array then an optio group is created.
+   * @param array $options A key value pairs array. If the value is an array then an optio group is created.
    *
    * @return string
    */
-  public function options( $options ) {
+  public function options( $options )
+  {
     ob_start();
     $this->_options( $options );
     $content = ob_get_contents();
@@ -1244,6 +1881,13 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    */
   private function _options( $options )
   {
+    if ( !empty( $this->_first_item ) ) : ?>
+      <option value=""
+              disabled="disabled"
+              selected="selected"
+              style="display:none"><?php echo $this->_first_item ?></option>
+    <?php endif;
+
     foreach ( $options as $key => $option ) : ?>
       <?php if ( is_array( $option ) ) : ?>
         <optgroup class="wpdk-form-optiongroup" label="<?php echo $key ?>">
@@ -1488,629 +2132,6 @@ class WPDKHTMLTagTextarea extends WPDKHTMLTag {
       'rows',
       'wrap'
     );
-  }
-
-}
-
-/**
- * Generic HTML model. This class is sub class from above class.
- * Thanks to http://www.w3schools.com/tags/default.asp for definitions
- *
- * @class              WPDKHTMLTag
- * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            1.0.0
- *
- */
-class WPDKHTMLTag extends WPDKObject {
-
-  /**
-   * Override version
-   *
-   * @brief Version
-   *
-   * @var string $version
-   */
-  public $version = '1.1.0';
-
-  /**
-   * Here there are all late binding tag attributes. Image...
-   *
-   * charset
-   * coords
-   * href
-   * classs
-   * ...
-   *
-   */
-
-  /* Global attributes. */
-
-  public $accesskey = '';
-  public $class = array();
-  /**
-   * HTML inner content of tag.
-   *
-   * @brief Content
-   *
-   * @var string $content
-   */
-  public $content = '';
-  public $contenteditable;
-  public $contextmenu;
-
-  /**
-   * Key value pairs array Attribute data: data-attribute = value
-   *
-   * @brief Data attribute
-   *
-   * @var array $data
-   */
-  public $data = array();
-  public $dir;
-  public $draggable;
-  public $dropzone;
-  public $hidden;
-  public $id;
-  public $lang;
-  public $onclick;
-  public $spellcheck;
-  public $style;
-  public $tabindex;
-
-  /**
-   * The TAG name
-   *
-   * @brief Tag name
-   *
-   * @var WPDKHTMLTagName $tagName
-   */
-  public $tagName;
-
-  /* Global events */
-  public $title;
-
-  /**
-   * Override. List of tag attributes that can be used on any HTML element.
-   *
-   * @brief Attributes list
-   *
-   * @var array $attributes
-   */
-  protected $attributes = array();
-
-  /**
-   * Override. Close format Eg. '</a>' or '/>'
-   *
-   * @brief Close tag
-   *
-   * @var string $close
-   */
-  protected $close;
-
-  /**
-   * Override. Open format Eg. '<a'
-   *
-   * @brief Open tag
-   *
-   * @var string $open
-   */
-  protected $open;
-
-  /**
-   * List of global common attributes for all HTML tags
-   *
-   * @brif Global attributes
-   *
-   * @var array $_globalAttributes
-   */
-  private $_globalAttributes;
-
-  /**
-   * Create an instance of WPDKHTMLTag class
-   *
-   * @param string $tag_name
-   *
-   * @return WPDKHTMLTag
-   */
-  public function __construct( $tag_name ) {
-
-    /* Store this tag name. */
-    $this->tagName = $tag_name;
-
-    /* The global attributes below can be used on any HTML element. */
-    $this->_globalAttributes = array(
-      'accesskey',
-      'class',
-      'contenteditable', // HTML 5
-      'contextmenu', // HTML 5
-      'dir',
-      'draggable', // HTML 5
-      'dropzone', // HTML 5
-      'hidden', // HTML 5
-      'id',
-      'lang',
-      'spellcheck', // HTML 5
-      'style',
-      'tabindex',
-      'title',
-      'onclick'
-    );
-  }
-
-  /**
-   * Utility to add a data attribute. You can access directly to `data` array property instead
-   *
-   * @brief Add data attribute
-   *
-   * @param string $name  Data attribute name
-   * @param string $value Data attribute value
-   */
-  public function addData( $name, $value )
-  {
-    if ( !empty( $name ) ) {
-      $this->data[$name] = $value;
-    }
-  }
-
-  /**
-   * Utility to add a class. You can access directly to `class` array property instead
-   *
-   * @brief Add CSS Class
-   * @since 1.3.1
-   *
-   * @param string $class
-   */
-  public function addClass( $class )
-  {
-    if ( !empty( $class ) ) {
-      $this->class[$class] = $class;
-    }
-  }
-
-  /**
-   * Display HTML markup for this tag
-   *
-   * @brief Display
-   */
-  public function display()
-  {
-    echo $this->html();
-  }
-
-  /**
-   * Return the HTML markup for this tag
-   *
-   * @brief Return the HTML markup for this tag
-   *
-   * @return string
-   */
-  public function html() {
-    ob_start();
-
-    /* Open. */
-    echo $this->open;
-
-    /* Cycle for tag specify attributes. */
-    foreach ( $this->attributes as $attr ) {
-      if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
-      }
-    }
-
-    /* Cycle for global common attributes. */
-    foreach ( $this->_globalAttributes as $attr ) {
-      if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        if ( 'class' == $attr ) {
-          $classes = self::classInline( $this->$attr );
-          if( !empty( $classes ) ) {
-            printf( ' class="%s"', $classes );
-          }
-        }
-        else {
-          printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
-        }
-      }
-    }
-
-    /* Generic data attribute. */
-    $data = self::dataInline( $this->data );
-    if ( !empty( $data ) ) {
-      printf( ' %s', $data );
-    }
-
-    /* Content, only for enclousure TAG. */
-    if ( '/>' !== $this->close ) {
-
-      /* Close the first part tag. */
-      echo '>';
-
-      /* Before content. */
-      $this->beforeContent();
-
-      /* Content. */
-      $this->draw();
-
-      /* After content. */
-      $this->afterContent();
-
-      /* Close. */
-      echo $this->close;
-    }
-    else {
-      /* Close. */
-      echo $this->close;
-      echo $this->content;
-    }
-
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    return $content;
-  }
-
-  /**
-   * Override this method to display anything before the content output
-   *
-   * @brief Before content
-   */
-  protected function beforeContent()
-  {
-    /* to override if needed */
-  }
-
-  /**
-   * Draw the content of tag
-   *
-   * @note You can override this method in order to customize it
-   *
-   * @brief Draw
-   */
-  public function draw()
-  {
-    echo $this->content;
-  }
-
-  /**
-   * Override this method to display anything after the content output
-   *
-   * @brief After content
-   */
-  protected function afterContent()
-  {
-    /* to override if needed */
-  }
-
-  /**
-   * Set one or more WPDKHTMLTag properties by an array.
-   *
-   * @brief Set properties by array
-   *
-   * @param array $properties A key value pairs array with the property (key) and its value
-   */
-  public function setPropertiesByArray( $properties = array() ) {
-    if ( !empty( $properties ) ) {
-      foreach ( $properties as $key => $value ) {
-        if ( in_array( $key, $this->attributes ) || in_array( $key, $this->_globalAttributes ) ) {
-          $this->$key = $value;
-        }
-      }
-    }
-  }
-
-  /**
-   * Return key value pairs array unique with css class list. In this way you can unset a secified class.
-   * If the input is a string (space separate strings) will return an array with css classes.
-   *
-   *     $class = 'a b c c';
-   *     echo self::sanitizeClasses( $class );
-   *
-   *     array(
-   *       'a' => 'a',
-   *       'b' => 'b',
-   *       'c' => 'c',
-   *      )
-   *
-   * @brief Sanitize CSS Classes list
-   *
-   * @param string|array $classes Any string or array with classes
-   *
-   * @return array
-   */
-  public static function sanitizeClasses( $classes )
-  {
-    if( empty( $classes) || is_null( $classes ) ) {
-      return array();
-    }
-
-    /* Convert the string classes in array */
-    if ( is_string( $classes ) ) {
-      $classes = explode( ' ', $classes );
-    }
-
-    $classes = array_filter( array_unique( $classes, SORT_STRING ) );
-
-    return array_combine( $classes, $classes );
-  }
-
-  /**
-   * Return key value pairs array unique with css styke list. In this way you can unset a secified class.
-   * If the input is a string (space separate strings) will return an array with css classes.
-   *
-   *     $style = 'display:block;position:absolute';
-   *     echo self::sanitizeStyles( $style );
-   *
-   *     array(
-   *       'display'  => 'block',
-   *       'position' => 'absolute',
-   *      )
-   *
-   * @brief Sanitize CSS Classes list
-   * @since 1.4.7
-   *
-   * @param string|array $styles Any string or array with styles
-   *
-   * @return array
-   */
-  public static function sanitizeStyles( $styles )
-  {
-    if ( empty( $styles ) || is_null( $styles ) ) {
-      return array();
-    }
-
-    /* Convert the string styles in array */
-    if ( is_string( $styles ) ) {
-      $entries = explode( ';', $styles );
-      $styles  = array();
-      foreach ( $entries as $entry ) {
-        list( $key, $value ) = explode( ':', $entry, 2 );
-        $styles[$key] = trim( $value );
-      }
-    }
-
-    return array_unique( $styles, SORT_STRING );
-  }
-
-  /**
-   * Merge one or more class
-   *
-   * @brief Merge
-   * @since 1.4.0
-   *
-   * @param array|string $class  Initial string or array class to merge
-   * @param array|string $class2 Optional.
-   * @param array|string $_      Optional.
-   *
-   * @return array
-   */
-  public static function mergeClasses( $class, $class2 = null, $_ = null )
-  {
-    $class = self::sanitizeClasses( $class );
-
-    if ( func_num_args() < 2 ) {
-      return $class;
-    }
-
-    for ( $i = 1; $i < func_num_args(); $i++ ) {
-      $arg = func_get_arg( $i );
-      if ( !is_null( $arg ) ) {
-        $s     = self::sanitizeClasses( $arg );
-        $class = array_merge( $class, $s );
-      }
-    }
-    return self::sanitizeClasses( $class );
-  }
-
-  /**
-   * Return a sanitize and inline list of css classes
-   *
-   *     $classes = array(
-   *       'color',
-   *       'modal',
-   *     );
-   *     echo self::classInline( $classes, array( 'modal', 'hide' ) );
-   *     // 'color modal hide'
-   *
-   *     echo self::classInline( $classes, 'delta modal' );
-   *     // 'color delta modal'
-   *
-   * @brief Inline CSS class
-   *
-   * @param array|string $classes            List of css classes
-   * @param array|bool   $additional_classes Optional. Additional classes
-   *
-   * @return string
-   */
-  public static function classInline( $classes, $additional_classes = false )
-  {
-    $classes = self::sanitizeClasses( $classes );
-
-    if ( !empty( $additional_classes ) ) {
-      $additional_classes = self::sanitizeClasses( $additional_classes );
-      if ( !empty( $additional_classes ) ) {
-        $classes = array_merge( $classes, $additional_classes );
-      }
-    }
-
-    $keys = array_keys( $classes );
-
-    return join( ' ', $keys );
-  }
-
-  /**
-   * Return a sanitize and inline list of css styles
-   *
-   *     $styles = array(
-   *       'position' => 'absolute',
-   *       'top' => 0,
-   *     );
-   *     echo self::styleInline( $styles, array( 'left' => 0, 'display' => 'block' ) );
-   *     // 'position:absolute;top:0;left:0;display:block'
-   *
-   *     echo self::styleInline( $styles, 'display:block' );
-   *     // 'position:absolute;top:0;display:block'
-   *
-   * @brief Inline CSS class
-   * @since 1.4.7
-   *
-   * @param array|string $styles            List of css styles
-   * @param array|bool   $additional_styles Optional. Additional styles
-   *
-   * @return string
-   */
-  public static function styleInline( $styles, $additional_styles = false )
-  {
-    $styles = self::sanitizeStyles( $styles );
-
-    if ( !empty( $additional_styles ) ) {
-      $additional_styles = self::sanitizeStyles( $additional_styles );
-      if ( !empty( $additional_styles ) ) {
-        $styles = array_merge( $styles, $additional_styles );
-      }
-    }
-
-    $result = array();
-    foreach ( $styles as $key => $value ) {
-      $result[] = $key . ':' . $value;
-    }
-
-    return rtrim( implode( ';', $result ), ';' );
-
-  }
-
-  /**
-   * Return a inline data attribute
-   *
-   *     $data = array(
-   *       'color' => 'red',
-   *       'size'  => 12
-   *     );
-   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
-   *     // 'data-color="red" data-size="12" data-modal="true"'
-   *
-   * @brief Inline Data attribute
-   *
-   * @param array      $data            Key value pairs array with data attribute list
-   * @param array|bool $additional_data Optional. Additional data
-   *
-   * @return string
-   */
-  public static function dataInline( $data, $additional_data = false )
-  {
-    $data = self::sanitizeData( $data );
-
-    if ( !empty( $additional_data ) ) {
-      $additional_data = self::sanitizeData( $additional_data );
-      $data = array_merge( $data, $additional_data );
-    }
-    $stack = array();
-    foreach ( $data as $key => $value ) {
-      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-    }
-    return join( ' ', $stack );
-  }
-
-  /**
-   * Return a inline generic attribute
-   *
-   *     $data = array(
-   *       'color' => 'red',
-   *       'size'  => 12
-   *     );
-   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
-   *     // 'color="red" size="12" modal="true"'
-   *
-   * @brief Inline Data attribute
-   *
-   * @param array      $attributes            Key value pairs array with data attribute list
-   * @param array|bool $additional_attributes Optional. Additional data
-   *
-   * @return string
-   */
-  public static function attributeInline( $attributes, $additional_attributes = false )
-  {
-
-    $attributes = self::sanitizeAttributes( $attributes );
-
-    if ( !empty( $additional_attributes ) ) {
-      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
-      $attributes = array_merge( $attributes, $additional_attributes );
-    }
-    $stack = array();
-    foreach ( $attributes as $key => $value ) {
-      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-    }
-    return join( ' ', $stack );
-  }
-
-  /**
-   * Return a key value pairs array with generic attribute list
-   *
-   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
-   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
-   *
-   * @brief Sanitize attributes
-   *
-   * @param string $attributes Attribute inline
-   *
-   * @return array
-   */
-  public static function sanitizeAttributes( $attributes )
-  {
-    $stack = array();
-    if ( is_string( $attributes ) && !empty( $attributes ) ) {
-      $single_attrobutes = explode( ' ', $attributes );
-      foreach ( $single_attrobutes as $attribute ) {
-        $parts            = explode( '=', $attribute );
-        $stack[$parts[0]] = trim( $parts[1], "\"''" );
-      }
-    }
-
-    if ( is_array( $attributes ) ) {
-      return $attributes;
-    }
-
-    return $stack;
-  }
-
-  /**
-   * Return a key value pairs array with data attribute list
-   *
-   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
-   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
-   *
-   * @brief Sanitize data attributes
-   *
-   * @param string $attributes Data attribute inline
-   *
-   * @return array
-   */
-  public static function sanitizeData( $attributes )
-  {
-    $stack = array();
-    if ( is_string( $attributes ) && !empty( $attributes ) ) {
-      $single_attrobutes = explode( ' ', $attributes );
-      foreach ( $single_attrobutes as $attribute ) {
-        $parts = explode( '=', $attribute );
-        $key   = $parts[0];
-        if ( 'data-' == substr( $key, 0, 5 ) ) {
-          $key = substr( $key, 5 );
-        }
-        $stack[$key] = trim( $parts[1], "\"''" );
-      }
-    }
-
-    if ( is_array( $attributes ) ) {
-      foreach ( $attributes as $key => $value ) {
-        if ( 'data-' == substr( $key, 0, 5 ) ) {
-          $key = substr( $key, 5 );
-        }
-        $stack[$key] = trim( $value, "\"''" );
-      }
-    }
-
-    return $stack;
   }
 
 }

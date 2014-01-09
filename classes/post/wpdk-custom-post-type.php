@@ -15,12 +15,21 @@
  * @class           WPDKCustomPostType
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-11-08
- * @version         1.0.0
+ * @date            2014-01-08
+ * @version         1.0.1
  * @since           1.4.0
  *
  */
 class WPDKCustomPostType extends WPDKObject {
+
+  /**
+   * Override version
+   *
+   * @brief Version
+   *
+   * @var string $__version
+   */
+  public $__version = '1.0.1';
 
   /**
    * Custom Post type ID
@@ -32,13 +41,14 @@ class WPDKCustomPostType extends WPDKObject {
   public $id = '';
 
   /**
-   * Override version
+   * Path images
    *
-   * @brief Version
+   * @brief URL images
+   * @since 1.4.8
    *
-   * @var string $version
+   * @var string $url_images
    */
-  public $version = '1.0.0';
+  public $url_images = '';
 
   /**
    * Create an instance of WPDKCustomPostType class
@@ -57,6 +67,11 @@ class WPDKCustomPostType extends WPDKObject {
     /* Register MetaBox */
     if ( !isset( $args['register_meta_box_cb'] ) ) {
       $args['register_meta_box_cb'] = array( $this, 'register_meta_box' );
+    }
+
+    /* Get icons path */
+    if ( isset( $args['menu_icon'] ) ) {
+      $this->url_images = trailingslashit( dirname( $args['menu_icon'] ) );
     }
 
     /* Register custom post type. */
@@ -101,7 +116,41 @@ class WPDKCustomPostType extends WPDKObject {
 
       /* Footer page. */
       add_action( 'admin_footer-post.php', array( $this, 'admin_footer') );
+
+      /* Display right icon on the title */
+      if( !empty( $this->url_images ) ) {
+        add_action( 'admin_head', array( $this, 'admin_head' ) );
+      }
     }
+  }
+
+  /**
+   * Description
+   *
+   * @brief Brief
+   */
+  public function admin_head()
+  {
+    global $post_type;
+
+    if ( $post_type != $this->id ) {
+      return;
+    }
+
+    WPDKHTML::startCompress();
+    ?>
+    <style type="text/css">
+      body.post-type-<?php echo $this->id ?> .wrap > h2
+      {
+        background-image  : url(<?php echo $this->url_images ?>logo-64x64.png);
+        background-repeat : no-repeat;
+        height            : 64px;
+        line-height       : 64px;
+        padding           : 0 0 0 80px;
+      }
+    </style>
+    <?php
+    echo WPDKHTML::endCSSCompress();
   }
 
   /**

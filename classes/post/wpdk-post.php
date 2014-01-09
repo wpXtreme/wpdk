@@ -17,8 +17,8 @@
  * @class              WPDKPost
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-15
- * @version            1.0.1
+ * @date               2014-01-08
+ * @version            1.0.2
  *
  */
 class WPDKPost extends WPDKObject {
@@ -52,9 +52,9 @@ class WPDKPost extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * The post ID

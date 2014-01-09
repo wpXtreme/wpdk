@@ -20,6 +20,33 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.8
+### 2014-01-09
+
+#### Enhancements
+
+* Added `WPDKTwitterBootstrapAlertType::WHITE` for WordPress 3.8 style
+* Added `dismissToolTip` property in Twitter Alert
+* Added `WPDKArray::arrayMatch()`
+* Added `WPDKArray::arrayMatchWithKeys()`
+* Added `WPDKArray::arrayMatchWithValues()`
+* Added `WPDKUser::getTransientTimeWithUser()`
+* Added `WPDKUser::getTransientWithUser()`
+* Added `WPDKUser::getTransient()`
+* Added `WPDKUser::getTransientTime()`
+* Improved menu divider color for WordPress 3.8 admin themes scheme
+* Added Dutch localization by Frans Pronk beheer@ifra.nl
+
+#### Bugs
+
+* Fixed set current user hooks
+* Fixed WordPress 3.8 menu
+
+#### Deprecated
+
+* `wpdk_get_user_transient()` use WPDKUser::getTransientWithUser()` instead
+
+
 ## Version 1.4.7
 ### 2013-12-17
 

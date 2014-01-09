@@ -34,8 +34,9 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
    *
    * @return WPDKTwitterBootstrap
    */
-  public function __construct( $id ) {
-    $this->id   = $id;
+  public function __construct( $id )
+  {
+    $this->id = $id;
   }
 
   /**
@@ -507,6 +508,16 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public $dismissable = true;
 
   /**
+   * Tooltip on dismiss button
+   *
+   * @brief Tooltip
+   * @since 1.4.8
+   *
+   * @var string $dismissToolTip
+   */
+  public $dismissToolTip = '';
+
+  /**
    * Title
    *
    * @brief Title
@@ -584,7 +595,14 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   {
     $result = '';
     if ( $this->dismissButton ) {
-      $result = '<button type="button" class="close" data-dismiss="alert">×</button>';
+      WPDKHTML::startCompress(); ?>
+      <button
+        type="button"
+        class="close <?php echo empty( $this->dismissToolTip ) ? '' : 'wpdk-tooltip' ?>"
+        <?php echo empty( $this->dismissToolTip ) ? '' : 'title="' . $this->dismissToolTip . '"' ?>
+        data-dismiss="alert">×</button>
+      <?php
+      $result = WPDKHTML::endHTMLCompress();
     }
     return $result;
   }
@@ -598,10 +616,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   private function content()
   {
-    if ( '<' !== substr( $this->content, 0, 1 ) ) {
-      return sprintf( '<p>%s</p>', $this->content );
-    }
-    return $this->content;
+    return wpautop( $this->content );
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -618,18 +633,19 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   public function html()
   {
-    ob_start(); ?>
+    WPDKHTML::startCompress() ?>
 
-    <div class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in' ) )  ?>">
+    <div
+      <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
+      <?php echo empty( $this->data ) ? '' : self::dataInline( $this->data )  ?>
+      class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in', 'clearfix' ) )  ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
       <?php echo $this->content() ?>
     </div>
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+    return WPDKHTML::endHTMLCompress();
   }
 
   /**
@@ -690,9 +706,9 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
  *
  * @class              WPDKTwitterBootstrapAlertType
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            1.1.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-01-07
+ * @version            1.1.1
  * @note               Updated to Bootstrap v3.0.0
  *
  */
@@ -704,6 +720,9 @@ class WPDKTwitterBootstrapAlertType {
   const INFORMATION = 'alert-info';
   const WARNING     = 'alert-warning';
   const DANGER      = 'alert-danger';
+
+  /* Since 1.4.8 */
+  const WHITE       = 'alert-white';
 }
 
 

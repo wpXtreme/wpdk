@@ -12,8 +12,8 @@
  * @class              WPDKWordPressAdmin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-11
- * @version            0.8.2
+ * @date               2014-01-08
+ * @version            0.9.0
  *
  */
 class WPDKWordPressAdmin extends WPDKObject {
@@ -23,9 +23,9 @@ class WPDKWordPressAdmin extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '0.8.2';
+  public $__version = '0.9.0';
 
   /**
    * List of CSS class to add to body

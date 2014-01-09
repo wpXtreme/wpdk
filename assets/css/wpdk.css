@@ -147,12 +147,25 @@ div.wpdk-border-container
   margin                : 0;
   padding               : 12px;
   background-color      : #fafafa;
-  border-color          : #E5E5E5;
+  border-color          : #e5e5e5;
   border-width          : 1px;
   border-style          : solid;
   -moz-border-radius    : 1px;
   -webkit-border-radius : 1px;
   border-radius         : 1px;
+}
+
+div.wpdk-border-container:before,
+div.wpdk-border-container:after
+{
+  display     : table;
+  line-height : 0;
+  content     : "";
+}
+
+div.wpdk-border-container:after
+{
+  clear : both;
 }
 
 div.meta-box-sortables div.wpdk-border-container
@@ -543,18 +556,24 @@ option.wpdk-form-option[selected]
 
 .wpdk-form-clear-left
 {
-  cursor   : pointer;
-  display  : inline-block;
-  position : absolute;
+  cursor      : pointer;
+  display     : inline;
+  position    : relative;
+  line-height : 100%;
+}
+
+.wpdk-form-clear-left:after
+{
+  clear : both;
 }
 
 .wpdk-form-clear-left i
 {
   color     : #ff664b;
   font-size : 16px;
-  position  : relative;
-  right     : 26px;
-  top       : 5px;
+  position  : absolute;
+  right     : 5px;
+  top       : 3px;
 }
 
 .wpdk-form-clear-left i:hover
@@ -634,6 +653,7 @@ span.wpdk-form-swipe
 {
   display               : inline-block;
   *display              : inline;
+  position              : relative;
   zoom                  : 1;
   width                 : 40px;
   height                : 18px;
@@ -786,11 +806,18 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal div
-{ }
+{
+  white-space : nowrap;
+}
+
+.wpdk-form-scrollable-container
+{
+  width : 1px;
+}
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item
 {
-  float : left;
+  display : inline;
 }
 
 .wpdk-form-scrollable.wpdk-form-scrollable-horizontal .wpdk-form-scrollable-item img.wpdk-selectable
@@ -1125,6 +1152,11 @@ table.wpdk-dynamic-table-sortable tbody tr:hover td
  * =====================================================================================================================
  */
 
+.wpdk-add-new
+{
+  margin : 8px 0 0 0 !important;
+}
+
 div.wpdk-ui-truncate
 {
 }
@@ -1211,7 +1243,7 @@ form#wpdk-preferences input[name=wpdk_preferences_export]
 { margin : 0 0 0 16px }
 
 form#wpdk-preferences input[name=wpdk_preferences_reset_all]
-{  }
+{ }
 
 /* =====================================================================================================================
  * CREDITS / INFORMATION
@@ -1902,6 +1934,23 @@ button.close
   color : #953b39;
 }
 
+.wpdk-alert.alert-white
+{
+  color            : #666;
+  background-color : #fff;
+  border-color     : #e5e5e5;
+}
+
+.wpdk-alert.alert-white hr
+{
+  border-top-color : #444;
+}
+
+.wpdk-alert.alert-white .alert-link
+{
+  color : #444;
+}
+
 /* Adjustment for inner form */
 fieldset.wpdk-form-fieldset .wpdk-alert
 {
@@ -2346,20 +2395,15 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
  * =====================================================================================================================
  */
 
-ul#adminmenu .wp-submenu li.wpdk_menu_divider
+#adminmenu li.menu-top li.wpdk_menu_divider,
+#adminmenu li.menu-top:hover li.wpdk_menu_divider
 {
-  border-top  : 1px dashed;
-  color       : inherit;
-  cursor      : auto;
-  font-weight : bold;
-  margin      : 8px 0 0;
-  padding     : 8px 0 0 8px;
-}
-
-ul#adminmenu .wp-submenu li.current a
-{
-  color            : inherit;
-  background-color : #eee;
+  border-top-width : 1px;
+  border-top-style : dashed;
+  cursor           : auto;
+  font-weight      : bold;
+  margin           : 8px 0 0;
+  padding          : 8px 0 0 8px;
 }
 
 /* =====================================================================================================================
@@ -2553,10 +2597,7 @@ ul#adminmenu .wp-submenu li.current a
 {
   font-family : 'wpdk-fonts';
   src         : url('../fonts/wpdk-fonts.eot?48025933');
-  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'),
-                url('../fonts/wpdk-fonts.woff?48025933') format('woff'),
-                url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'),
-                url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
+  src         : url('../fonts/wpdk-fonts.eot?48025933#iefix') format('embedded-opentype'), url('../fonts/wpdk-fonts.woff?48025933') format('woff'), url('../fonts/wpdk-fonts.ttf?48025933') format('truetype'), url('../fonts/wpdk-fonts.svg?48025933#wpdk-fonts') format('svg');
   font-weight : normal;
   font-style  : normal;
 }
@@ -2816,7 +2857,6 @@ ul#adminmenu .wp-submenu li.current a
 
 .wpdk-icon-pencil:before
 { content : '\e81b'; }
-
 
 /*
    Animation example, for spinners

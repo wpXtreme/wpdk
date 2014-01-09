@@ -315,12 +315,12 @@ SQL;
  *
  * @return Object the delta Object tree
  *
- * @deprecated Since 1.2.0 Use WPDKObject::delta() instead
+ * @deprecated Since 1.2.0 Use WPDKObject::__delta() instead
  */
 function wpdk_delta_object( $last_version, $old_version )
 {
-  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::delta()' );
-  return WPDKObject::delta( $last_version, $old_version );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::__delta()' );
+  return WPDKObject::__delta( $last_version, $old_version );
 }
 
 /**
@@ -594,6 +594,7 @@ function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id 
  *
  * @brief Get
  * @since 1.0.0
+ * @deprecated since 1.4.8 - Use WPDKUser::getTransientWithUser()
  *
  * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
  *        false will "short-circuit" the retrieval of the transient and return the returned value.
@@ -606,24 +607,8 @@ function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id 
  */
 function wpdk_get_user_transient( $transient, $user_id = null )
 {
-  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
-
-  $pre = apply_filters( 'pre_user_transient_' . $transient, false, $user_id );
-  if ( false !== $pre ) {
-    return $pre;
-  }
-
-  $transient_timeout = '_transient_timeout_' . $transient;
-  $transient         = '_transient_' . $transient;
-  if ( get_user_meta( $user_id, $transient_timeout, true ) < time() ) {
-    delete_user_meta( $user_id, $transient );
-    delete_user_meta( $user_id, $transient_timeout );
-    return false;
-  }
-
-  $value = get_user_meta( $user_id, $transient, true );
-
-  return apply_filters( 'user_transient_' . $transient, $value, $user_id );
+  _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', 'WPDKUser::getTransientWithUser()' );
+  return WPDKUser::getTransientWithUser( $transient, $user_id );
 }
 
 /**
