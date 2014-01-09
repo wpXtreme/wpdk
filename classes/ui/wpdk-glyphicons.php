@@ -2,6 +2,8 @@
 /**
  * Manage the glyph icons
  *
+ * @image html glyphs-icons.png "Available Glyph icons"
+ *
  * @class           WPDKGlyphIcons
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.

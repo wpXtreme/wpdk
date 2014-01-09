@@ -352,10 +352,6 @@ class WPDKUIControl {
       }
     }
 
-    /**
-     * @var WPDKUIControl|string|callable $content
-     */
-    $content = '';
     if ( isset( $this->item[$key] ) ) {
       $content = $this->item[$key];
       if ( is_object( $content ) && is_a( $content, 'WPDKUIControl' ) ) {
@@ -381,7 +377,7 @@ class WPDKUIControl {
    *
    * @brief Common input control
    *
-   * @param string|\WPDKHTMLTagInputType $type  Optional. Type of input
+   * @param string|WPDKHTMLTagInputType $type  Optional. Type of input
    * @param string                       $class Optional. CSS additional class
    */
   protected function inputType( $type = WPDKHTMLTagInputType::TEXT, $class = '' ) {
@@ -819,7 +815,7 @@ class WPDKUIControlCheckboxes extends WPDKUIControl {
    *
    * @param array $item Key value pairs with control info
    *
-   * @return \WPDKUIControlCheckboxes
+   * @return WPDKUIControlCheckboxes
    */
   public function __construct( $item )
   {
@@ -1942,7 +1938,7 @@ class WPDKUIControlSwitch extends WPDKUIControl {
    *
    * @param array $item Key value pairs with control info
    *
-   * @return \WPDKUIControlSwitch
+   * @return WPDKUIControlSwitch
    */
   public function __construct( $item )
   {

@@ -44,7 +44,7 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @param WPDKWordPressPlugin $plugin Optional. Your main plugin instance
    *
-   * @return \WPDKWordPressTheme
+   * @return WPDKWordPressTheme
    */
   public function __construct( WPDKWordPressPlugin $plugin = null ) {
     $this->plugin = $plugin;
