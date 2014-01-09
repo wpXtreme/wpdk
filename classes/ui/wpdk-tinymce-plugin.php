@@ -1,10 +1,16 @@
 <?php
+/// @cond private
+
+/*
+ * [DRAFT]
+ *
+ * THE FOLLOWING CODE IS A DRAFT. FEEL FREE TO USE IT TO MAKE SOME EXPERIMENTS, BUT DO NOT USE IT IN ANY CASE IN
+ * PRODUCTION ENVIRONMENT. ALL CLASSES AND RELATIVE METHODS BELOW CAN CHNAGE IN THE FUTURE RELEASES.
+ *
+ */
+
 /**
- * Description
- *
- * ## Overview
- *
- * Description
+ * TinyMCE Button model
  *
  * @class           WPDKEditorButton
  * @author          =undo= <info@wpxtre.me>
@@ -34,6 +40,15 @@ class WPDKEditorButton {
   public $title = '';
 
   /**
+   * Javascript function or method class, for instance: 'MyClass.method' or 'my_function'
+   *
+   * @brief Javascript function
+   *
+   * @var string $javascript
+   */
+  public $javascript = '';
+
+  /**
    * Any image URL, WPDKHTMLTagImg or WPDKGlyphIcon constant
    *
    * @brief Image
@@ -47,30 +62,56 @@ class WPDKEditorButton {
    *
    * @brief Construct
    *
+   * @param string $id A valid id. This propertis wil be sanitizie, eg: 'my-button-id'
+   * @param string $title Title
+   * @param string $javascript A Javascript function/method
+   * @param string $image Optional. Complete image path
+   *
    * @return WPDKEditorButton
    */
-  public function __construct( $id, $title, $image = '' )
+  public function __construct( $id, $title, $javascript, $image = '' )
   {
-    // @todo sanitize
-    $this->id    = $id;
-    $this->title = $title;
-    $this->image = $image;
+    $this->id         = sanitize_title( $id );
+    $this->title      = $title;
+    $this->javascript = $javascript;
+    $this->image      = $image;
   }
 
   /**
    * Return the part of script for button
    *
-   * @brief Brief
+   * @brief Add button
+   *
    * @return string
    */
   public function html()
   {
     WPDKHTML::startCompress();
     ?>
-    ed.addButton( '<?php echo $this->id ?>', {
-    title : '<?php echo $this->title ?>',
-    <?php echo $this->image() ?>
-    });
+    ed.addButton( '<?php echo $this->id ?>',
+    <?php echo $this->toObject() ?>
+    );
+    <?php
+    return WPDKHTML::endJavascriptCompress();
+  }
+
+  /**
+   * Return the Javascript markup for object
+   *
+   * @brief Object
+   *
+   * @return string
+   */
+  public function toObject()
+  {
+    WPDKHTML::startCompress();
+    ?>
+    {
+     id      : "<?php echo $this->id ?>",
+     title   : "<?php echo $this->title ?>",
+     <?php echo $this->image() ?>
+     onclick : function(){ <?php echo $this->javascript ?> }
+    }
     <?php
     return WPDKHTML::endJavascriptCompress();
   }
@@ -95,7 +136,7 @@ class WPDKEditorButton {
       $url = $this->image->src;
     }
 
-    return sprintf( 'image : "%s"', $url );
+    return sprintf( 'image : "%s",', $url );
   }
   
 }
@@ -189,26 +230,94 @@ class WPDKTinyMCEPlugin {
   public $buttons = array();
 
   /**
+   * Javascript plugin
+   *
+   * @brief Javascript
+   *
+   * @var string $javascript
+   */
+  public $javascript = '';
+
+  /**
    * Create an instance of WPDKTinyMCEPlugin class
    *
    * @brief Construct
    *
+   * @param string $name            Name of Plugin. This is the same in Javascript
+   * @param string $description     Short description
+   * @param string $javascript      Javascript path
+   * @param array  $buttons         List of WPDKEditorButton instance
+   * @param string $version         Optional. Version
+   *
    * @return WPDKTinyMCEPlugin
    */
-  public function __construct( $name, $description, $buttons, $version = '1.0.0' )
+  public function __construct( $name, $description, $javascript, $buttons, $version = '1.0.0' )
   {
-    // @todo sanitize
-    $this->id   = $name;
+    // If $name is 'WPDK Shortcode' $id = 'wpdk-shortcode'
+    $this->id = sanitize_title( $name );
+
+    // Name must be without spaces, '-' or underscore and capitalized
     $this->name = $name;
 
     $this->description = $description;
     $this->version     = $version;
+    $this->buttons     = $buttons;
+    $this->javascript  = $javascript;
 
     if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
       add_filter( 'mce_buttons', array( $this, 'mce_buttons' ) );
       add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+
+      /* Passing PHP params to script */
+      add_action( 'admin_head-post.php', array( $this, 'admin_head' ) );
+      add_action( 'admin_head-post-new.php', array( $this, 'admin_head' ) );
     }
 
+  }
+
+  /**
+   * Put on head system information
+   *
+   * @brief Head
+   */
+  public function admin_head()
+  {
+    WPDKHTML::startCompress(); ?>
+    <script type='text/javascript'>
+      var _WPDKShortcodes = {
+        wpdk_uri_css        : '<?php echo WPDK_URI_CSS ?>',
+        wpdk_uri_javascript : '<?php echo WPDK_URI_JAVASCRIPT ?>',
+        open_dialog         : function() { var dialog = new WPDKTwitterBootstrapModal( 'wpdk-shortcodes-dialog', '<?php _e( 'Information', WPDK_TEXTDOMAIN ) ?>', '<?php _e( 'This feature coming soon!', WPDK_TEXTDOMAIN ) ?>' ); dialog.display(); },
+        buttons             : [
+        <?php
+          $s = array();
+         /**
+          * @var WPDKEditorButton $button
+          */
+          foreach( $this->buttons as $button ) {
+            $s[] = $button->toObject();
+          }
+          echo implode( ',', $s );
+         ?>
+        ]
+      };
+    </script>
+    <?php
+    echo WPDKHTML::endJavascriptCompress();
+  }
+
+  /**
+   * Add a WPDKEditorButton button
+   *
+   * @brief Add button editor
+   *
+   * @param WPDKEditorButton $button A instance of WPDKEditorButton class
+   */
+  public function addButton( $button )
+  {
+    if ( is_a( $button, 'WPDKEditorButton' ) ) {
+      $this->buttons[] = $button;
+    }
   }
 
   /**
@@ -230,15 +339,27 @@ class WPDKTinyMCEPlugin {
      * @var WPDKEditorButton $button
      */
     foreach ( $this->buttons as $button ) {
-      array_push( $buttons, $button );
+      array_push( $buttons, $button->id );
     }
 
     return $buttons;
   }
 
+  /**
+   * Register the TinyMCE Plugin
+   *
+   * @brief Register TinyMCE Plugin
+   *
+   * @param array $plugin_array List of TinyMCE plugins
+   *
+   * @return array
+   */
   public function mce_external_plugins( $plugin_array )
   {
-    $plugin_array[$this->id] = '';
+    if( !empty( $this->javascript ) ) {
+      $plugin_array[$this->name] = $this->javascript;
+    }
+    return $plugin_array;
   }
 
   /**
@@ -319,3 +440,5 @@ class WPDKTinyMCEPlugin {
   }
 
 }
+
+/// @endcond

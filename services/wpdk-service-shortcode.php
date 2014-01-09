@@ -33,6 +33,10 @@ class WPDKServiceShortcode extends WPDKShortcode {
    */
   public static function init()
   {
+
+    $button = new WPDKEditorButton( 'wpdk-shortcode', 'WPDK Shortcodes', '_WPDKShortcodes.open_dialog()', WPDK_URI_CSS . 'images/wpdk-shortcodes.png' );
+    $mce_plugin = new WPDKTinyMCEPlugin( 'WPDKShortcodes', 'WPDK Shortcodes', WPDK_URI_JAVASCRIPT . 'wpdk-shortcode.js', array( $button ), '1.0.0' );
+
     return self::getInstance();
   }
 
