@@ -5,6 +5,7 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-01-08
  * @version         1.0.0
+ * @since           1.4.8
  *
  */
 (function ()
@@ -31,6 +32,26 @@
           ed.addButton( id, _WPDKShortcodes.buttons[i] );
         }
       }
+
+      ed.addButton( 'example', {
+        text    : 'My button',
+        icon    : false,
+        onclick : function ()
+        {
+          // Open window
+          ed.windowManager.open( {
+            title    : 'Example plugin',
+            body     : [
+              {type : 'textbox', name : 'title', label : 'Title'}
+            ],
+            onsubmit : function ( e )
+            {
+              // Insert content when the window form is submitted
+              ed.insertContent( 'Title: ' + e.data.title );
+            }
+          } );
+        }
+      });
     },
 
     /**

@@ -17,6 +17,7 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-01-08
  * @version         1.0.0
+ * @since           1.4.8
  *
  */
 class WPDKEditorButton {
@@ -142,17 +143,14 @@ class WPDKEditorButton {
 }
 
 /**
- * Description
- *
- * ## Overview
- *
- * Description
+ * TinyMCE Plugin model
  *
  * @class           WPDKTinyMCEPlugin
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-01-08
  * @version         1.0.0
+ * @since           1.4.8
  *
  */
 class WPDKTinyMCEPlugin {
@@ -271,8 +269,31 @@ class WPDKTinyMCEPlugin {
       /* Passing PHP params to script */
       add_action( 'admin_head-post.php', array( $this, 'admin_head' ) );
       add_action( 'admin_head-post-new.php', array( $this, 'admin_head' ) );
+
+      /* Add bbutton in HTML view */
+      add_action( 'admin_footer-post.php', array( $this, 'admin_footer' ) );
+      add_action( 'admin_footer-post-new.php', array( $this, 'admin_footer' ) );
     }
 
+  }
+
+  /**
+   * Right way to add a editor button in HTML view
+   *
+   * @brief Brief
+   */
+  public function admin_footer()
+  {
+    WPDKHTML::startCompress(); ?>
+  <script type="text/javascript">
+    (function ( $ )
+    {
+      "use strict";
+      QTags.addButton( 'wpdk', 'WPDK', _WPDKShortcodes.open_dialog );
+    }( window.jQuery ));
+  </script>
+  <?php
+    echo WPDKHTML::endJavascriptCompress();
   }
 
   /**
@@ -287,7 +308,7 @@ class WPDKTinyMCEPlugin {
       var _WPDKShortcodes = {
         wpdk_uri_css        : '<?php echo WPDK_URI_CSS ?>',
         wpdk_uri_javascript : '<?php echo WPDK_URI_JAVASCRIPT ?>',
-        open_dialog         : function() { var dialog = new WPDKTwitterBootstrapModal( 'wpdk-shortcodes-dialog', '<?php _e( 'Information', WPDK_TEXTDOMAIN ) ?>', '<?php _e( 'This feature coming soon!', WPDK_TEXTDOMAIN ) ?>' ); dialog.display(); },
+        open_dialog         : function() { var dialog = new WPDKTwitterBootstrapModal( 'wpdk-shortcodes-dialog', '<?php _e( 'WPDK Editor Manager', WPDK_TEXTDOMAIN ) ?>', '<?php _e( '<h4>Information</h4><p>This feature coming in next soon release!</p>', WPDK_TEXTDOMAIN ) ?>' ); dialog.display(); },
         buttons             : [
         <?php
           $s = array();
