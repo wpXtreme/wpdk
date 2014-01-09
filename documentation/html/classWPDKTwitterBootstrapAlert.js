@@ -9,6 +9,7 @@ var classWPDKTwitterBootstrapAlert =
     [ "$dismiss_button", "classWPDKTwitterBootstrapAlert.html#a4c2cd4c6f4279c9a9e0afb8c86f003f3", null ],
     [ "$dismissable", "classWPDKTwitterBootstrapAlert.html#a4e655fe1350bb958cf7920524590d297", null ],
     [ "$dismissButton", "classWPDKTwitterBootstrapAlert.html#a535d28b93b5d67619465b2321d80c975", null ],
+    [ "$dismissToolTip", "classWPDKTwitterBootstrapAlert.html#af0a31b1879aca3367081aa56bc0627ef", null ],
     [ "$title", "classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e", null ],
     [ "$type", "classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8", null ]
 ];

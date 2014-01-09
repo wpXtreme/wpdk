@@ -5,6 +5,7 @@ var classWPDKPreferences =
     [ "delete", "classWPDKPreferences.html#a13bdffdd926f26b825ea57066334ff01", null ],
     [ "delta", "classWPDKPreferences.html#ac63686fdb9da56ca51e01aa786934b07", null ],
     [ "get", "classWPDKPreferences.html#ac33ee765f5ad9f134540bac393721cfe", null ],
+    [ "init", "classWPDKPreferences.html#a75e49d8d2ba6685a5e4debfd58360398", null ],
     [ "update", "classWPDKPreferences.html#a842e4774e3b3601a005b995c02f7e883", null ],
     [ "wpdk_preferences_feedback_reset", "classWPDKPreferences.html#a9ba2047c47f3e78404184e7eb713e4bd", null ],
     [ "wpdk_preferences_feedback_update", "classWPDKPreferences.html#aabc44bffb5b1ca0c54f641d65e2f462d", null ],

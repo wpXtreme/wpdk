@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -114,414 +114,425 @@ $(document).ready(function(){initNavTree('wpdk-twitter-bootstrap_8php_source.htm
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrap.html#a1b7c1b5313d6b73d29848c3eb464529f">   26</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrap.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.0.2&#39;</span>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrap.html#a1340871f436b81e1f225567b6cce4e79">   37</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrap.html#a1340871f436b81e1f225567b6cce4e79" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> ) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    $this-&gt;<span class="keywordtype">id</span>   = <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrap.html#a8b267aa0adca2018097f6f6f4c804d46">   48</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrap.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>()</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    die( __METHOD__ . <span class="stringliteral">&#39; must be override in your subclass&#39;</span> );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrap.html#a1340871f436b81e1f225567b6cce4e79">   37</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrap.html#a1340871f436b81e1f225567b6cce4e79" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> )</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    $this-&gt;<span class="keywordtype">id</span> = <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrap.html#a8b267aa0adca2018097f6f6f4c804d46">   49</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrap.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>()</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    die( __METHOD__ . <span class="stringliteral">&#39; must be override in your subclass&#39;</span> );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html">   79</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapModal.html">WPDKTwitterBootstrapModal</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a1b7c1b5313d6b73d29848c3eb464529f">   88</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.0.0&#39;</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e">   97</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0">  106</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a3cedfd70ada3b14d18b3876536b8f3c7">  115</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a3cedfd70ada3b14d18b3876536b8f3c7" title="Width.">$width</a>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9471af2f36fdbd3d1c9207f083e9a2d8">  124</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9471af2f36fdbd3d1c9207f083e9a2d8" title="Height.">$height</a>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aae4672128a6be2a7590126f48eeb39c2">  134</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aae4672128a6be2a7590126f48eeb39c2" title="Dismiss button.">$close_button</a>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a535d28b93b5d67619465b2321d80c975">  143</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a535d28b93b5d67619465b2321d80c975" title="Dismiss button.">$dismissButton</a>;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73">  152</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a>;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0">  161</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0" title="Keyboard.">$keyboard</a>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db">  171</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db" title="Backdrop.">$backdrop</a>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#adf0ed780396926d383f5dd9611cf90ca">  178</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#adf0ed780396926d383f5dd9611cf90ca">$static</a>;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9a95039f49f33b4b6d5c56d6b4165249">  191</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9a95039f49f33b4b6d5c56d6b4165249" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = <span class="stringliteral">&#39;&#39;</span> ) {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    $this-&gt;title         = <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    $this-&gt;content       = <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    $this-&gt;width         = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    $this-&gt;height        = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    $this-&gt;<span class="keyword">static</span>        = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    $this-&gt;keyboard      = <span class="stringliteral">&#39;true&#39;</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    $this-&gt;backdrop      = <span class="stringliteral">&#39;true&#39;</span>;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    $this-&gt;close_button  = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    $this-&gt;dismissButton = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    $this-&gt;buttons = array();</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  }</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> aria_title()</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">return</span> sprintf( <span class="stringliteral">&#39;%s-title&#39;</span>, $this-&gt;<span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  }</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> dismissButton()</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  {</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">if</span> ( $this-&gt;dismissButton || $this-&gt;close_button ) {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      $result = <span class="stringliteral">&#39;&lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot;&gt;×&lt;/button&gt;&#39;</span>;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    }</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> width() {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;width ) ) {</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;width:%spx&#39;</span>, rtrim( $this-&gt;width, <span class="stringliteral">&#39;px&#39;</span> ) );</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    }</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> height() {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;height ) ) {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;style=&quot;height:%spx&quot;&#39;</span>, rtrim( $this-&gt;height, <span class="stringliteral">&#39;px&#39;</span> ) );</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    }</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  }</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> buttons() {</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;buttons ) ) {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      <span class="keywordflow">foreach</span> ( $this-&gt;buttons as $key =&gt; $value ) {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>        = isset( $value[<span class="stringliteral">&#39;class&#39;</span>] ) ? $value[<span class="stringliteral">&#39;class&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        $label        = isset( $value[<span class="stringliteral">&#39;label&#39;</span>] ) ? $value[<span class="stringliteral">&#39;label&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        $data_dismiss = ( isset( $value[<span class="stringliteral">&#39;dismiss&#39;</span>] ) &amp;&amp; <span class="keyword">true</span> == $value[<span class="stringliteral">&#39;dismiss&#39;</span>] ) ? <span class="stringliteral">&#39;data-dismiss=&quot;modal&quot;&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> .= sprintf( <span class="stringliteral">&#39;&lt;button type=&quot;button&quot; id=&quot;%s&quot; class=&quot;btn button %s&quot; %s aria-hidden=&quot;true&quot;&gt;%s&lt;/button&gt;&#39;</span>, $key, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $data_dismiss, $label );</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;      }</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">if</span> ( !empty( <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> ) ) {</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;&lt;div class=&quot;modal-footer&quot;&gt;%s&lt;/div&gt;&#39;</span>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> );</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  }</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="comment">// Public methods</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
-<div class="line"><a name="l00300"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a74a8124c68db857141e59cbd45d19d72">  300</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a74a8124c68db857141e59cbd45d19d72">modal</a>( $echo = <span class="keyword">true</span> ) {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">if</span> ( $echo ) {</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      $this-&gt;<a class="code" href="classWPDKHTMLTag.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="Display.">display</a>();</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    }</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>();</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  }</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;</div>
-<div class="line"><a name="l00316"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46">  316</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>() {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="comment">/* Get default data as properties. */</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    $this-&gt;data[<span class="stringliteral">&#39;keyboard&#39;</span>] = <a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0" title="Keyboard.">$this-&gt;keyboard</a>;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    $this-&gt;data[<span class="stringliteral">&#39;backdrop&#39;</span>] = <a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db" title="Backdrop.">$this-&gt;backdrop</a>;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    ob_start(); ?&gt;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    &lt;div style=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;static ? &#39;position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%&#39; : &#39;display:none;&#39; ?&gt;&quot;</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;         <span class="keyword">class</span>=<span class="stringliteral">&quot;wpdk-modal &lt;?php echo $this-&gt;static ? &#39;&#39; : &#39;hide fade&#39; ?&gt;&quot;</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;         &lt;?php echo self::dataInline( $this-&gt;data ) ?&gt;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;         <span class="keywordtype">id</span>=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;id ?&gt;&quot;</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;         tabindex=<span class="stringliteral">&quot;-1&quot;</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;         role=<span class="stringliteral">&quot;dialog&quot;</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;         aria-labelledby=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;aria_title() ?&gt;&quot;</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;         aria-hidden=<span class="stringliteral">&quot;true&quot;</span>&gt;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      &lt;div style=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;width() ?&gt;&quot;</span> <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-dialog&quot;</span>&gt;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-content&quot;</span>&gt;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;          &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-header&quot;</span>&gt;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            &lt;?php echo $this-&gt;dismissButton() ?&gt;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            &lt;h4 <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-title&quot;</span> <span class="keywordtype">id</span>=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;aria_title() ?&gt;&quot;</span>&gt;&lt;?php echo $this-&gt;title ?&gt;&lt;/h4&gt;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;          &lt;/div&gt;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-body&quot;</span> &lt;?php echo $this-&gt;height() ?&gt;&gt;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            &lt;?php echo $this-&gt;content ?&gt;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;          &lt;/div&gt;</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;          &lt;?php echo $this-&gt;buttons() ?&gt;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        &lt;/div&gt;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;      &lt;/div&gt;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    &lt;/div&gt;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    &lt;?php</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = ob_get_contents();</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    ob_end_clean();</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  }</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
-<div class="line"><a name="l00356"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a2b8e3779f5bd8c38f70307574859bd36">  356</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a2b8e3779f5bd8c38f70307574859bd36" title="Show.">show</a>()</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  {</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    ?&gt;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      {</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;show&#39;</span> );</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;      } );</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    &lt;/script&gt;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  &lt;?php</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;</div>
-<div class="line"><a name="l00373"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108">  373</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108" title="Toggle.">toggle</a>()</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  {</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    ?&gt;</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;      {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;toggle&#39;</span> );</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;      } );</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    &lt;/script&gt;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  &lt;?php</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  }</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;</div>
-<div class="line"><a name="l00390"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#ade10ea36a28e70b016c2ce1797d7d8b5">  390</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#ade10ea36a28e70b016c2ce1797d7d8b5" title="Hide.">hide</a>()</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  {</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    ?&gt;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;hide&#39;</span> );</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      } );</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    &lt;/script&gt;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  &lt;?php</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  }</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;</div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf">  412</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf" title="Return a button for open this dialog.">buttonOpenModal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  {</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>     = sprintf( <span class="stringliteral">&#39;#%s&#39;</span>, $this-&gt;<span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    $result = sprintf( <span class="stringliteral">&#39;&lt;button class=&quot;button %s&quot; type=&quot;button&quot; data-toggle=&quot;modal&quot; data-target=&quot;%s&quot;&gt;%s&lt;/button&gt;&#39;</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label );</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  }</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;</div>
-<div class="line"><a name="l00429"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b">  429</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b" title="Add button.">addButton</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss = <span class="keyword">true</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> ) {</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    $this-&gt;buttons[<a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>] = array(</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;      <span class="stringliteral">&#39;label&#39;</span>   =&gt; $label,</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;      <span class="stringliteral">&#39;class&#39;</span>   =&gt; <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>,</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;      <span class="stringliteral">&#39;dismiss&#39;</span> =&gt; $dismiss</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    );</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  }</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  <span class="comment">// Deprecated</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;</div>
-<div class="line"><a name="l00444"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aaa392ac04804abd33fc8ca2cec39fcbc">  444</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aaa392ac04804abd33fc8ca2cec39fcbc">add_buttons</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss = <span class="keyword">true</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  {</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;addButton()&#39;</span> );</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b" title="Add button.">addButton</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> );</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  }</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html">   80</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapModal.html">WPDKTwitterBootstrapModal</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a1b7c1b5313d6b73d29848c3eb464529f">   89</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.0.0&#39;</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e">   98</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0">  107</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a3cedfd70ada3b14d18b3876536b8f3c7">  116</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a3cedfd70ada3b14d18b3876536b8f3c7" title="Width.">$width</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9471af2f36fdbd3d1c9207f083e9a2d8">  125</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9471af2f36fdbd3d1c9207f083e9a2d8" title="Height.">$height</a>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aae4672128a6be2a7590126f48eeb39c2">  135</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aae4672128a6be2a7590126f48eeb39c2" title="Dismiss button.">$close_button</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a535d28b93b5d67619465b2321d80c975">  144</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a535d28b93b5d67619465b2321d80c975" title="Dismiss button.">$dismissButton</a>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73">  153</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0">  162</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0" title="Keyboard.">$keyboard</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db">  172</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db" title="Backdrop.">$backdrop</a>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#adf0ed780396926d383f5dd9611cf90ca">  179</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#adf0ed780396926d383f5dd9611cf90ca">$static</a>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a9a95039f49f33b4b6d5c56d6b4165249">  192</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a9a95039f49f33b4b6d5c56d6b4165249" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = <span class="stringliteral">&#39;&#39;</span> ) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    $this-&gt;title         = <a class="code" href="classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    $this-&gt;content       = <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    $this-&gt;width         = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    $this-&gt;height        = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    $this-&gt;<span class="keyword">static</span>        = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    $this-&gt;keyboard      = <span class="stringliteral">&#39;true&#39;</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    $this-&gt;backdrop      = <span class="stringliteral">&#39;true&#39;</span>;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    $this-&gt;close_button  = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    $this-&gt;dismissButton = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    $this-&gt;buttons = array();</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> aria_title()</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">return</span> sprintf( <span class="stringliteral">&#39;%s-title&#39;</span>, $this-&gt;<span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> dismissButton()</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">if</span> ( $this-&gt;dismissButton || $this-&gt;close_button ) {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;      $result = <span class="stringliteral">&#39;&lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot;&gt;×&lt;/button&gt;&#39;</span>;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  }</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> width() {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;width ) ) {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;width:%spx&#39;</span>, rtrim( $this-&gt;width, <span class="stringliteral">&#39;px&#39;</span> ) );</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  }</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> height() {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;height ) ) {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;style=&quot;height:%spx&quot;&#39;</span>, rtrim( $this-&gt;height, <span class="stringliteral">&#39;px&#39;</span> ) );</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  }</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> buttons() {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;buttons ) ) {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      <span class="keywordflow">foreach</span> ( $this-&gt;buttons as $key =&gt; $value ) {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>        = isset( $value[<span class="stringliteral">&#39;class&#39;</span>] ) ? $value[<span class="stringliteral">&#39;class&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        $label        = isset( $value[<span class="stringliteral">&#39;label&#39;</span>] ) ? $value[<span class="stringliteral">&#39;label&#39;</span>] : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        $data_dismiss = ( isset( $value[<span class="stringliteral">&#39;dismiss&#39;</span>] ) &amp;&amp; <span class="keyword">true</span> == $value[<span class="stringliteral">&#39;dismiss&#39;</span>] ) ? <span class="stringliteral">&#39;data-dismiss=&quot;modal&quot;&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> .= sprintf( <span class="stringliteral">&#39;&lt;button type=&quot;button&quot; id=&quot;%s&quot; class=&quot;btn button %s&quot; %s aria-hidden=&quot;true&quot;&gt;%s&lt;/button&gt;&#39;</span>, $key, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $data_dismiss, $label );</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      }</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">if</span> ( !empty( <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> ) ) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;      $result = sprintf( <span class="stringliteral">&#39;&lt;div class=&quot;modal-footer&quot;&gt;%s&lt;/div&gt;&#39;</span>, <a class="code" href="classWPDKTwitterBootstrapModal.html#a9ef1943c89f73f197db492a78d1d2f73" title="Footer buttons list.">$buttons</a> );</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    }</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  }</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="comment">// Public methods</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
+<div class="line"><a name="l00301"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a74a8124c68db857141e59cbd45d19d72">  301</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a74a8124c68db857141e59cbd45d19d72">modal</a>( $echo = <span class="keyword">true</span> ) {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> ( $echo ) {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      $this-&gt;<a class="code" href="classWPDKHTMLTag.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="Display.">display</a>();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;      <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>();</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    }</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46">  317</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>() {</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="comment">/* Get default data as properties. */</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    $this-&gt;data[<span class="stringliteral">&#39;keyboard&#39;</span>] = <a class="code" href="classWPDKTwitterBootstrapModal.html#a120d1f056bc0a4a383db61fe428386b0" title="Keyboard.">$this-&gt;keyboard</a>;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    $this-&gt;data[<span class="stringliteral">&#39;backdrop&#39;</span>] = <a class="code" href="classWPDKTwitterBootstrapModal.html#a824346fee352d44273d401c9603c17db" title="Backdrop.">$this-&gt;backdrop</a>;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    ob_start(); ?&gt;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    &lt;div style=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;static ? &#39;position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%&#39; : &#39;display:none;&#39; ?&gt;&quot;</span></div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;         <span class="keyword">class</span>=<span class="stringliteral">&quot;wpdk-modal &lt;?php echo $this-&gt;static ? &#39;&#39; : &#39;hide fade&#39; ?&gt;&quot;</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;         &lt;?php echo self::dataInline( $this-&gt;data ) ?&gt;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;         <span class="keywordtype">id</span>=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;id ?&gt;&quot;</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;         tabindex=<span class="stringliteral">&quot;-1&quot;</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;         role=<span class="stringliteral">&quot;dialog&quot;</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;         aria-labelledby=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;aria_title() ?&gt;&quot;</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;         aria-hidden=<span class="stringliteral">&quot;true&quot;</span>&gt;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      &lt;div style=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;width() ?&gt;&quot;</span> <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-dialog&quot;</span>&gt;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-content&quot;</span>&gt;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;          &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-header&quot;</span>&gt;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            &lt;?php echo $this-&gt;dismissButton() ?&gt;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            &lt;h4 <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-title&quot;</span> <span class="keywordtype">id</span>=<span class="stringliteral">&quot;&lt;?php echo $this-&gt;aria_title() ?&gt;&quot;</span>&gt;&lt;?php echo $this-&gt;title ?&gt;&lt;/h4&gt;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          &lt;/div&gt;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;          &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;modal-body&quot;</span> &lt;?php echo $this-&gt;height() ?&gt;&gt;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            &lt;?php echo $this-&gt;content ?&gt;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;          &lt;/div&gt;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;          &lt;?php echo $this-&gt;buttons() ?&gt;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        &lt;/div&gt;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;      &lt;/div&gt;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    &lt;/div&gt;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    &lt;?php</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = ob_get_contents();</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    ob_end_clean();</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  }</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a2b8e3779f5bd8c38f70307574859bd36">  357</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a2b8e3779f5bd8c38f70307574859bd36" title="Show.">show</a>()</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  {</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    ?&gt;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;      {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;show&#39;</span> );</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;      } );</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    &lt;/script&gt;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  &lt;?php</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  }</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;</div>
+<div class="line"><a name="l00374"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108">  374</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a09b3d50907f071311ad6088502e43108" title="Toggle.">toggle</a>()</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    ?&gt;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;      {</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;toggle&#39;</span> );</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;      } );</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    &lt;/script&gt;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  &lt;?php</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;  }</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#ade10ea36a28e70b016c2ce1797d7d8b5">  391</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#ade10ea36a28e70b016c2ce1797d7d8b5" title="Hide.">hide</a>()</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  {</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    ?&gt;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    &lt;script type=<span class="stringliteral">&quot;text/javascript&quot;</span>&gt;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      jQuery( document ).ready( <span class="keyword">function</span> ()</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;      {</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        jQuery( <span class="stringliteral">&#39;#&lt;?php echo $this-&gt;id ?&gt;&#39;</span> ).wpdkModal( <span class="stringliteral">&#39;hide&#39;</span> );</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      } );</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    &lt;/script&gt;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  &lt;?php</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf">  413</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf" title="Return a button for open this dialog.">buttonOpenModal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>     = sprintf( <span class="stringliteral">&#39;#%s&#39;</span>, $this-&gt;<span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    $result = sprintf( <span class="stringliteral">&#39;&lt;button class=&quot;button %s&quot; type=&quot;button&quot; data-toggle=&quot;modal&quot; data-target=&quot;%s&quot;&gt;%s&lt;/button&gt;&#39;</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label );</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;</div>
+<div class="line"><a name="l00430"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b">  430</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b" title="Add button.">addButton</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss = <span class="keyword">true</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> ) {</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    $this-&gt;buttons[<a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>] = array(</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;      <span class="stringliteral">&#39;label&#39;</span>   =&gt; $label,</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;      <span class="stringliteral">&#39;class&#39;</span>   =&gt; <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>,</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;      <span class="stringliteral">&#39;dismiss&#39;</span> =&gt; $dismiss</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    );</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="comment">// Deprecated</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;</div>
+<div class="line"><a name="l00445"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aaa392ac04804abd33fc8ca2cec39fcbc">  445</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aaa392ac04804abd33fc8ca2cec39fcbc">add_buttons</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss = <span class="keyword">true</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  {</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;addButton()&#39;</span> );</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a0de08b9d012fc5843c50d6adf5c4620b" title="Add button.">addButton</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, $label, $dismiss, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> );</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  }</div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
-<div class="line"><a name="l00454"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aa57afbb2d0fa699f7a8975a5129e78c0">  454</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aa57afbb2d0fa699f7a8975a5129e78c0">add_data</a>( $key, $value )</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  {</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;addData()&#39;</span> );</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <span class="comment">//$this-&gt;data[] = array( $key =&gt; $value );</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    $this-&gt;<a class="code" href="classWPDKHTMLTag.html#abd68f48a2829d1fd11a75f2521b43c2e" title="Add data attribute.">addData</a>( $key, $value );</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;  }</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;</div>
-<div class="line"><a name="l00464"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a7f8b9c5b32ee6d2b49e044aea8fdc092">  464</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a7f8b9c5b32ee6d2b49e044aea8fdc092">button_open_modal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  {</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;buttonOpenModal()&#39;</span> );</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf" title="Return a button for open this dialog.">buttonOpenModal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> );</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  }</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;}</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;</div>
+<div class="line"><a name="l00455"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#aa57afbb2d0fa699f7a8975a5129e78c0">  455</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#aa57afbb2d0fa699f7a8975a5129e78c0">add_data</a>( $key, $value )</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  {</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;addData()&#39;</span> );</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    <span class="comment">//$this-&gt;data[] = array( $key =&gt; $value );</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    $this-&gt;<a class="code" href="classWPDKHTMLTag.html#abd68f48a2829d1fd11a75f2521b43c2e" title="Add data attribute.">addData</a>( $key, $value );</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;  }</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;</div>
+<div class="line"><a name="l00465"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapModal.html#a7f8b9c5b32ee6d2b49e044aea8fdc092">  465</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapModal.html#a7f8b9c5b32ee6d2b49e044aea8fdc092">button_open_modal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  {</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    _deprecated_function( __METHOD__, <span class="stringliteral">&#39;1.0.0.b4&#39;</span>, <span class="stringliteral">&#39;buttonOpenModal()&#39;</span> );</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapModal.html#a2ecb431245f98a438373895550428fcf" title="Return a button for open this dialog.">buttonOpenModal</a>( $label, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a> );</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  }</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;}</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;</div>
-<div class="line"><a name="l00492"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html">  492</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapAlert.html">WPDKTwitterBootstrapAlert</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;</div>
-<div class="line"><a name="l00497"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a4c2cd4c6f4279c9a9e0afb8c86f003f3">  497</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a4c2cd4c6f4279c9a9e0afb8c86f003f3">$dismiss_button</a>;</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;</div>
-<div class="line"><a name="l00507"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a4e655fe1350bb958cf7920524590d297">  507</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a4e655fe1350bb958cf7920524590d297" title="Dismissable.">$dismissable</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;</div>
-<div class="line"><a name="l00516"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e">  516</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;</div>
-<div class="line"><a name="l00525"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a535d28b93b5d67619465b2321d80c975">  525</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a535d28b93b5d67619465b2321d80c975" title="Dismiss button.">$dismissButton</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;</div>
-<div class="line"><a name="l00534"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0">  534</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;</div>
-<div class="line"><a name="l00543"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8">  543</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a>;</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;</div>
-<div class="line"><a name="l00553"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22">  553</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block layout.">$block</a>;</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;</div>
-<div class="line"><a name="l00567"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#ae44c750aa4e9d1869c2d64399955fb25">  567</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#ae44c750aa4e9d1869c2d64399955fb25" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a> = <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">WPDKTwitterBootstrapAlertType::INFORMATION</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;  {</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    $this-&gt;content             = <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    $this-&gt;type                = <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a>;</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;    $this-&gt;title               = <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;  }</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> dismissButton()</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;  {</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    <span class="keywordflow">if</span> ( $this-&gt;dismissButton ) {</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;      $result = <span class="stringliteral">&#39;&lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot;&gt;×&lt;/button&gt;&#39;</span>;</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    }</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    <span class="keywordflow">return</span> $result;</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;  }</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> content()</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;  {</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    <span class="keywordflow">if</span> ( <span class="charliteral">&#39;&lt;&#39;</span> !== substr( $this-&gt;content, 0, 1 ) ) {</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;      <span class="keywordflow">return</span> sprintf( <span class="stringliteral">&#39;&lt;p&gt;%s&lt;/p&gt;&#39;</span>, $this-&gt;content );</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    }</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$this-&gt;content</a>;</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;  }</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;  <span class="comment">// Public methods</span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;</div>
-<div class="line"><a name="l00619"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46">  619</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>()</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;  {</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    ob_start(); ?&gt;</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;&lt;?php echo self::classInline( $this-&gt;class, array( $this-&gt;type, &#39;wpdk-alert&#39;, &#39;fade&#39;, &#39;in&#39; ) )  ?&gt;&quot;</span>&gt;</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;      &lt;?php echo $this-&gt;dismissButton() ?&gt;</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;      &lt;?php echo empty( $this-&gt;title ) ? <span class="stringliteral">&#39;&#39;</span> : sprintf( <span class="stringliteral">&#39;&lt;h4&gt;%s&lt;/h4&gt;&#39;</span>, $this-&gt;title ) ?&gt;</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;      &lt;?php echo $this-&gt;content() ?&gt;</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    &lt;/div&gt;</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    &lt;?php</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = ob_get_contents();</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    ob_end_clean();</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;  }</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;</div>
-<div class="line"><a name="l00643"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630">  643</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630" title="Brief.">toControl</a>()</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;  {</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    $item = array(</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;      <span class="stringliteral">&#39;type&#39;</span>           =&gt; <a class="code" href="classWPDKUIControlType.html#a037a7f6e892e6adb07c2aa099fbaf69d">WPDKUIControlType::ALERT</a>,</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;      <span class="stringliteral">&#39;id&#39;</span>             =&gt; $this-&gt;<span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;      <span class="stringliteral">&#39;alert_type&#39;</span>     =&gt; $this-&gt;type,</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;      <span class="stringliteral">&#39;dismiss_button&#39;</span> =&gt; $this-&gt;dismissButton,</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;      <span class="stringliteral">&#39;value&#39;</span>          =&gt; $this-&gt;content,</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;      <span class="stringliteral">&#39;title&#39;</span>          =&gt; $this-&gt;title,</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    );</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;    <span class="keywordflow">return</span> array( $item );</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;  }</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;  <span class="comment">// Deprecated</span></div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> alert_block()</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;  {</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    _deprecated_function( __CLASS__ . <span class="stringliteral">&#39;::&#39;</span> . __FUNCTION__, <span class="stringliteral">&#39;1.3.1 and Bootstrap 3.0.0&#39;</span>, <span class="stringliteral">&#39;&#39;</span> );</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    <span class="keywordflow">return</span> $this-&gt;block ? <span class="stringliteral">&#39;alert-block&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;  }</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;</div>
-<div class="line"><a name="l00676"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a702f01501d39c26335e17b19ddd0cfae">  676</a></span>&#160;  <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a702f01501d39c26335e17b19ddd0cfae">alert</a>( $echo = <span class="keyword">true</span> ) {</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;    <span class="keywordflow">if</span> ( $echo ) {</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;      $this-&gt;<a class="code" href="classWPDKHTMLTag.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="Display.">display</a>();</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    }</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;      <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>();</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    }</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;  }</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;}</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;</div>
-<div class="line"><a name="l00699"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html">  699</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapAlertType.html">WPDKTwitterBootstrapAlertType</a> {</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;  <span class="comment">/* @deprecated const since 1.3.1 and Bootstrap v3.0.0 */</span></div>
-<div class="line"><a name="l00701"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a037a7f6e892e6adb07c2aa099fbaf69d">  701</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a037a7f6e892e6adb07c2aa099fbaf69d">ALERT</a>       = <span class="stringliteral">&#39;alert-error&#39;</span>;</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;</div>
+<div class="line"><a name="l00493"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html">  493</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapAlert.html">WPDKTwitterBootstrapAlert</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;</div>
+<div class="line"><a name="l00498"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a4c2cd4c6f4279c9a9e0afb8c86f003f3">  498</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a4c2cd4c6f4279c9a9e0afb8c86f003f3">$dismiss_button</a>;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;</div>
+<div class="line"><a name="l00508"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a4e655fe1350bb958cf7920524590d297">  508</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a4e655fe1350bb958cf7920524590d297" title="Dismissable.">$dismissable</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;</div>
+<div class="line"><a name="l00518"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#af0a31b1879aca3367081aa56bc0627ef">  518</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#af0a31b1879aca3367081aa56bc0627ef" title="Tooltip.">$dismissToolTip</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;</div>
+<div class="line"><a name="l00527"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e">  527</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;</div>
+<div class="line"><a name="l00536"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a535d28b93b5d67619465b2321d80c975">  536</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a535d28b93b5d67619465b2321d80c975" title="Dismiss button.">$dismissButton</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;</div>
+<div class="line"><a name="l00545"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0">  545</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;</div>
+<div class="line"><a name="l00554"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8">  554</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a>;</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;</div>
+<div class="line"><a name="l00564"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22">  564</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block layout.">$block</a>;</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;</div>
+<div class="line"><a name="l00578"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#ae44c750aa4e9d1869c2d64399955fb25">  578</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#ae44c750aa4e9d1869c2d64399955fb25" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a> = <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">WPDKTwitterBootstrapAlertType::INFORMATION</a>, <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a> = <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;  {</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    $this-&gt;content             = <a class="code" href="classWPDKTwitterBootstrapAlert.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="Content.">$content</a>;</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    $this-&gt;type                = <a class="code" href="classWPDKTwitterBootstrapAlert.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Alert type.">$type</a>;</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    $this-&gt;title               = <a class="code" href="classWPDKTwitterBootstrapAlert.html#a5ef02115477cfad473df2455da5a908e" title="Title.">$title</a>;</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;  }</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> dismissButton()</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;  {</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    <span class="keywordflow">if</span> ( $this-&gt;dismissButton ) {</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;      <a class="code" href="classWPDKHTML.html#a7d4ae10b767d3f34d56b81b2837cfd18" title="Start compress buffering.">WPDKHTML::startCompress</a>(); ?&gt;</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;      &lt;button</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;        type=<span class="stringliteral">&quot;button&quot;</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        <span class="keyword">class</span>=<span class="stringliteral">&quot;close &lt;?php echo empty( $this-&gt;dismissToolTip ) ? &#39;&#39; : &#39;wpdk-tooltip&#39; ?&gt;&quot;</span></div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        &lt;?php echo empty( $this-&gt;dismissToolTip ) ? <span class="stringliteral">&#39;&#39;</span> : <span class="stringliteral">&#39;title=&quot;&#39;</span> . $this-&gt;dismissToolTip . <span class="charliteral">&#39;&quot;&#39;</span> ?&gt;</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        data-dismiss=<span class="stringliteral">&quot;alert&quot;</span>&gt;×&lt;/button&gt;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      &lt;?php</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      $result = <a class="code" href="classWPDKHTML.html#a01ee561baf95d970378072065efe86c5" title="End compressed.">WPDKHTML::endHTMLCompress</a>();</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    }</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <span class="keywordflow">return</span> $result;</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;  }</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> content()</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;  {</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <span class="keywordflow">return</span> wpautop( $this-&gt;content );</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;  }</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;  <span class="comment">// Public methods</span></div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;</div>
+<div class="line"><a name="l00634"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46">  634</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>()</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;  {</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    <a class="code" href="classWPDKHTML.html#a7d4ae10b767d3f34d56b81b2837cfd18" title="Start compress buffering.">WPDKHTML::startCompress</a>() ?&gt;</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    &lt;div</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;      &lt;?php echo empty( $this-&gt;<span class="keywordtype">id</span> ) ? <span class="stringliteral">&#39;&#39;</span> : <span class="stringliteral">&#39;id=&quot;&#39;</span> . $this-&gt;<span class="keywordtype">id</span> . <span class="charliteral">&#39;&quot;&#39;</span> ?&gt;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;      &lt;?php echo empty( $this-&gt;data ) ? <span class="stringliteral">&#39;&#39;</span> : self::dataInline( $this-&gt;data )  ?&gt;</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;      <span class="keyword">class</span>=<span class="stringliteral">&quot;&lt;?php echo self::classInline( $this-&gt;class, array( $this-&gt;type, &#39;wpdk-alert&#39;, &#39;fade&#39;, &#39;in&#39;, &#39;clearfix&#39; ) )  ?&gt;&quot;</span>&gt;</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;      &lt;?php echo $this-&gt;dismissButton() ?&gt;</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;      &lt;?php echo empty( $this-&gt;title ) ? <span class="stringliteral">&#39;&#39;</span> : sprintf( <span class="stringliteral">&#39;&lt;h4&gt;%s&lt;/h4&gt;&#39;</span>, $this-&gt;title ) ?&gt;</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;      &lt;?php echo $this-&gt;content() ?&gt;</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    &lt;/div&gt;</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;    &lt;?php</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKHTML.html#a01ee561baf95d970378072065efe86c5" title="End compressed.">WPDKHTML::endHTMLCompress</a>();</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;  }</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;</div>
+<div class="line"><a name="l00659"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630">  659</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a09fa7ab6d3acfe2c83ad17a82a1a1630" title="Brief.">toControl</a>()</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;  {</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    $item = array(</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;      <span class="stringliteral">&#39;type&#39;</span>           =&gt; <a class="code" href="classWPDKUIControlType.html#a037a7f6e892e6adb07c2aa099fbaf69d">WPDKUIControlType::ALERT</a>,</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;      <span class="stringliteral">&#39;id&#39;</span>             =&gt; $this-&gt;<span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;      <span class="stringliteral">&#39;alert_type&#39;</span>     =&gt; $this-&gt;type,</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;      <span class="stringliteral">&#39;dismiss_button&#39;</span> =&gt; $this-&gt;dismissButton,</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;      <span class="stringliteral">&#39;value&#39;</span>          =&gt; $this-&gt;content,</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;      <span class="stringliteral">&#39;title&#39;</span>          =&gt; $this-&gt;title,</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    );</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    <span class="keywordflow">return</span> array( $item );</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;  }</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;  <span class="comment">// -----------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;  <span class="comment">// Deprecated</span></div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;  <span class="comment">// -------------------------------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;  <span class="keyword">private</span> <span class="keyword">function</span> alert_block()</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;  {</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    _deprecated_function( __CLASS__ . <span class="stringliteral">&#39;::&#39;</span> . __FUNCTION__, <span class="stringliteral">&#39;1.3.1 and Bootstrap 3.0.0&#39;</span>, <span class="stringliteral">&#39;&#39;</span> );</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    <span class="keywordflow">return</span> $this-&gt;block ? <span class="stringliteral">&#39;alert-block&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;  }</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;</div>
+<div class="line"><a name="l00692"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlert.html#a702f01501d39c26335e17b19ddd0cfae">  692</a></span>&#160;  <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapAlert.html#a702f01501d39c26335e17b19ddd0cfae">alert</a>( $echo = <span class="keyword">true</span> ) {</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;    <span class="keywordflow">if</span> ( $echo ) {</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;      $this-&gt;<a class="code" href="classWPDKHTMLTag.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="Display.">display</a>();</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;    }</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;      <span class="keywordflow">return</span> $this-&gt;<a class="code" href="classWPDKTwitterBootstrapAlert.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML.">html</a>();</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    }</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;  }</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;}</div>
 <div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;</div>
-<div class="line"><a name="l00703"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">  703</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">SUCCESS</a>     = <span class="stringliteral">&#39;alert-success&#39;</span>;</div>
-<div class="line"><a name="l00704"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">  704</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">INFORMATION</a> = <span class="stringliteral">&#39;alert-info&#39;</span>;</div>
-<div class="line"><a name="l00705"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">  705</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">WARNING</a>     = <span class="stringliteral">&#39;alert-warning&#39;</span>;</div>
-<div class="line"><a name="l00706"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a572e90c594c13b97a82689b34fa167ae">  706</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a572e90c594c13b97a82689b34fa167ae">DANGER</a>      = <span class="stringliteral">&#39;alert-danger&#39;</span>;</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;}</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;</div>
-<div class="line"><a name="l00723"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html">  723</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButtonType.html">WPDKTwitterBootstrapButtonType</a> {</div>
-<div class="line"><a name="l00724"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ac62f1cfad2f7d0988d46057bf55d1e80">  724</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ac62f1cfad2f7d0988d46057bf55d1e80">NONE</a>    = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00725"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">  725</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">PRIMARY</a> = <span class="stringliteral">&#39;btn-primary&#39;</span>;</div>
-<div class="line"><a name="l00726"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#af2d1bd27ecbe33ecaadb558404e9c669">  726</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#af2d1bd27ecbe33ecaadb558404e9c669">INFO</a>    = <span class="stringliteral">&#39;btn-info&#39;</span>;</div>
-<div class="line"><a name="l00727"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">  727</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">SUCCESS</a> = <span class="stringliteral">&#39;btn-success&#39;</span>;</div>
-<div class="line"><a name="l00728"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">  728</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">WARNING</a> = <span class="stringliteral">&#39;btn-warning&#39;</span>;</div>
-<div class="line"><a name="l00729"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#a572e90c594c13b97a82689b34fa167ae">  729</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#a572e90c594c13b97a82689b34fa167ae">DANGER</a>  = <span class="stringliteral">&#39;btn-danger&#39;</span>;</div>
-<div class="line"><a name="l00730"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ab673fdbe24e7590850fc734cb2e03db2">  730</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ab673fdbe24e7590850fc734cb2e03db2">LINK</a>    = <span class="stringliteral">&#39;btn-link&#39;</span>;</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;}</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;</div>
-<div class="line"><a name="l00747"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html">  747</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButtonSize.html">WPDKTwitterBootstrapButtonSize</a> {</div>
-<div class="line"><a name="l00748"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#ac62f1cfad2f7d0988d46057bf55d1e80">  748</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#ac62f1cfad2f7d0988d46057bf55d1e80">NONE</a>  = <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00749"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#aa0d2495dd615e299ad22d5d648d98f36">  749</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#aa0d2495dd615e299ad22d5d648d98f36">MINI</a>  = <span class="stringliteral">&#39;btn-mini&#39;</span>;</div>
-<div class="line"><a name="l00750"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a948f7e23283c05b69e2cfb92a4f4c09a">  750</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a948f7e23283c05b69e2cfb92a4f4c09a">SMALL</a> = <span class="stringliteral">&#39;btn-small&#39;</span>;</div>
-<div class="line"><a name="l00751"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a002a9c8499aa25c88e8418d0d99bfc4b">  751</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a002a9c8499aa25c88e8418d0d99bfc4b">LARGE</a> = <span class="stringliteral">&#39;btn-large&#39;</span>;</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;}</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;</div>
-<div class="line"><a name="l00768"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html">  768</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButton.html">WPDKTwitterBootstrapButton</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;</div>
-<div class="line"><a name="l00777"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9">  777</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>;</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;</div>
-<div class="line"><a name="l00786"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8">  786</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a>;</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;</div>
-<div class="line"><a name="l00795"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aeab6e3a6d89f75acdfc6c94554deb246">  795</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aeab6e3a6d89f75acdfc6c94554deb246" title="Size.">$size</a>;</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;</div>
-<div class="line"><a name="l00804"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22">  804</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>;</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;</div>
-<div class="line"><a name="l00813"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4">  813</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a>;</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;</div>
-<div class="line"><a name="l00822"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe">  822</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a>;</div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;</div>
-<div class="line"><a name="l00831"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa">  831</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a>;</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;</div>
-<div class="line"><a name="l00845"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a16e04d1a68d18876fb9494be02a86952">  845</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a16e04d1a68d18876fb9494be02a86952" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a> = <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">WPDKTwitterBootstrapButtonType::PRIMARY</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a> = <a class="code" href="classWPDKHTMLTagName.html#a5ec448edc74963821c3632c8e47c9d3a">WPDKHTMLTagName::BUTTON</a> ) {</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;    $this-&gt;label = <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>;</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;    $this-&gt;type  = <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a>;</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;    $this-&gt;tag   = <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a>;</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;  }</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;</div>
-<div class="line"><a name="l00861"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a8b267aa0adca2018097f6f6f4c804d46">  861</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a8b267aa0adca2018097f6f6f4c804d46" title="HTML markup.">html</a>() {</div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>    = $this-&gt;block ? <span class="stringliteral">&#39;btn-block&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a> = $this-&gt;disabled ? <span class="stringliteral">&#39;disabled&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>    = trim( join( <span class="charliteral">&#39; &#39;</span>, array( <span class="stringliteral">&#39;btn&#39;</span>, $this-&gt;type, $this-&gt;size, <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a> ) ) );</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;</div>
+<div class="line"><a name="l00715"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html">  715</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapAlertType.html">WPDKTwitterBootstrapAlertType</a> {</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;  <span class="comment">/* @deprecated const since 1.3.1 and Bootstrap v3.0.0 */</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a037a7f6e892e6adb07c2aa099fbaf69d">  717</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a037a7f6e892e6adb07c2aa099fbaf69d">ALERT</a>       = <span class="stringliteral">&#39;alert-error&#39;</span>;</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;</div>
+<div class="line"><a name="l00719"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">  719</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">SUCCESS</a>     = <span class="stringliteral">&#39;alert-success&#39;</span>;</div>
+<div class="line"><a name="l00720"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">  720</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a04fbe82ad6c6be3a2fcd8c3366d1adae">INFORMATION</a> = <span class="stringliteral">&#39;alert-info&#39;</span>;</div>
+<div class="line"><a name="l00721"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">  721</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">WARNING</a>     = <span class="stringliteral">&#39;alert-warning&#39;</span>;</div>
+<div class="line"><a name="l00722"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#a572e90c594c13b97a82689b34fa167ae">  722</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#a572e90c594c13b97a82689b34fa167ae">DANGER</a>      = <span class="stringliteral">&#39;alert-danger&#39;</span>;</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;  <span class="comment">/* Since 1.4.8 */</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapAlertType.html#aaa8cefff8a3133ca2aee0310bb0c64fa">  725</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapAlertType.html#aaa8cefff8a3133ca2aee0310bb0c64fa">WHITE</a>       = <span class="stringliteral">&#39;alert-white&#39;</span>;</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;}</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;</div>
+<div class="line"><a name="l00742"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html">  742</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButtonType.html">WPDKTwitterBootstrapButtonType</a> {</div>
+<div class="line"><a name="l00743"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ac62f1cfad2f7d0988d46057bf55d1e80">  743</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ac62f1cfad2f7d0988d46057bf55d1e80">NONE</a>    = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00744"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">  744</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">PRIMARY</a> = <span class="stringliteral">&#39;btn-primary&#39;</span>;</div>
+<div class="line"><a name="l00745"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#af2d1bd27ecbe33ecaadb558404e9c669">  745</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#af2d1bd27ecbe33ecaadb558404e9c669">INFO</a>    = <span class="stringliteral">&#39;btn-info&#39;</span>;</div>
+<div class="line"><a name="l00746"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">  746</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#a2bc61f90ca5d5a1f79769d1d9e38842b">SUCCESS</a> = <span class="stringliteral">&#39;btn-success&#39;</span>;</div>
+<div class="line"><a name="l00747"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">  747</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ad0c7ccd2f8b92a760391d21d0ec7b339">WARNING</a> = <span class="stringliteral">&#39;btn-warning&#39;</span>;</div>
+<div class="line"><a name="l00748"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#a572e90c594c13b97a82689b34fa167ae">  748</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#a572e90c594c13b97a82689b34fa167ae">DANGER</a>  = <span class="stringliteral">&#39;btn-danger&#39;</span>;</div>
+<div class="line"><a name="l00749"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonType.html#ab673fdbe24e7590850fc734cb2e03db2">  749</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ab673fdbe24e7590850fc734cb2e03db2">LINK</a>    = <span class="stringliteral">&#39;btn-link&#39;</span>;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;}</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;</div>
+<div class="line"><a name="l00766"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html">  766</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButtonSize.html">WPDKTwitterBootstrapButtonSize</a> {</div>
+<div class="line"><a name="l00767"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#ac62f1cfad2f7d0988d46057bf55d1e80">  767</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#ac62f1cfad2f7d0988d46057bf55d1e80">NONE</a>  = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00768"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#aa0d2495dd615e299ad22d5d648d98f36">  768</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#aa0d2495dd615e299ad22d5d648d98f36">MINI</a>  = <span class="stringliteral">&#39;btn-mini&#39;</span>;</div>
+<div class="line"><a name="l00769"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a948f7e23283c05b69e2cfb92a4f4c09a">  769</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a948f7e23283c05b69e2cfb92a4f4c09a">SMALL</a> = <span class="stringliteral">&#39;btn-small&#39;</span>;</div>
+<div class="line"><a name="l00770"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a002a9c8499aa25c88e8418d0d99bfc4b">  770</a></span>&#160;  <span class="keyword">const</span> <a class="code" href="classWPDKTwitterBootstrapButtonSize.html#a002a9c8499aa25c88e8418d0d99bfc4b">LARGE</a> = <span class="stringliteral">&#39;btn-large&#39;</span>;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;}</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;</div>
+<div class="line"><a name="l00787"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html">  787</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBootstrapButton.html">WPDKTwitterBootstrapButton</a> <span class="keyword">extends</span> <a class="code" href="classWPDKTwitterBootstrap.html">WPDKTwitterBootstrap</a> {</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;</div>
+<div class="line"><a name="l00796"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9">  796</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>;</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;</div>
+<div class="line"><a name="l00805"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8">  805</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a>;</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;</div>
+<div class="line"><a name="l00814"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aeab6e3a6d89f75acdfc6c94554deb246">  814</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aeab6e3a6d89f75acdfc6c94554deb246" title="Size.">$size</a>;</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;</div>
+<div class="line"><a name="l00823"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22">  823</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>;</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;</div>
+<div class="line"><a name="l00832"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4">  832</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a>;</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;</div>
+<div class="line"><a name="l00841"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe">  841</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a>;</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;</div>
+<div class="line"><a name="l00850"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa">  850</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a>;</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;</div>
+<div class="line"><a name="l00864"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a16e04d1a68d18876fb9494be02a86952">  864</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a16e04d1a68d18876fb9494be02a86952" title="Construct.">__construct</a>( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a> = <a class="code" href="classWPDKTwitterBootstrapButtonType.html#ae7615c7d665a5c56faaaf99c14846d84">WPDKTwitterBootstrapButtonType::PRIMARY</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a> = <a class="code" href="classWPDKHTMLTagName.html#a5ec448edc74963821c3632c8e47c9d3a">WPDKHTMLTagName::BUTTON</a> ) {</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    parent::__construct( <a class="code" href="classWPDKHTMLTag.html#ae97941710d863131c700f069b109991e">$id</a> );</div>
 <div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    ob_start();</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;    <span class="keywordflow">switch</span> ( $this-&gt;tag ) {</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#ac0930c85d3cd46411f30919f411a8f0b">WPDKHTMLTagName::A</a>:</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;        <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a> = empty( $this-&gt;href ) ? <span class="charliteral">&#39;#&#39;</span> : <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$this-&gt;href</a>;</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;        printf( <span class="stringliteral">&#39;&lt;a id=&quot;%s&quot; name=&quot;%s&quot; href=&quot;%s&quot; class=&quot;%s&quot;&gt;%s&lt;/a&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#a5ec448edc74963821c3632c8e47c9d3a">WPDKHTMLTagName::BUTTON</a>:</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        printf( <span class="stringliteral">&#39;&lt;input id=&quot;%s&quot; name=&quot;%s&quot; type=&quot;button&quot; class=&quot;%s&quot; value=&quot;%s&quot; /&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#a5ebf6bb6bdb8b9702d8be3edd67238c7">WPDKHTMLTagName::INPUT</a>:</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;        printf( <span class="stringliteral">&#39;&lt;input id=&quot;%s&quot; name=&quot;%s&quot; type=&quot;submit&quot; class=&quot;%s&quot; value=&quot;%s&quot; /&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;    }</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    $this-&gt;label = <a class="code" href="classWPDKTwitterBootstrapButton.html#ab5d38e2fd1a2b43d149079693770e7c9" title="Label.">$label</a>;</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;    $this-&gt;type  = <a class="code" href="classWPDKTwitterBootstrapButton.html#aa40cc7876dc0b694eda3c898140a0ac8" title="Type.">$type</a>;</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;    $this-&gt;tag   = <a class="code" href="classWPDKTwitterBootstrapButton.html#a2e0407cd1f5680087e8bd0cc36d76dfa" title="Tag type.">$tag</a>;</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;  }</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;</div>
+<div class="line"><a name="l00880"></a><span class="lineno"><a class="code" href="classWPDKTwitterBootstrapButton.html#a8b267aa0adca2018097f6f6f4c804d46">  880</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKTwitterBootstrapButton.html#a8b267aa0adca2018097f6f6f4c804d46" title="HTML markup.">html</a>() {</div>
 <div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;    $html = ob_get_contents();</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    ob_end_clean();</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;    <span class="keywordflow">return</span> $html;</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;  }</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;}</div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;</div>
-<div class="line"><a name="l00893"></a><span class="lineno"><a class="code" href="classWPDKTwitterBoostrapPopover.html">  893</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBoostrapPopover.html">WPDKTwitterBoostrapPopover</a> {</div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;}</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>    = $this-&gt;block ? <span class="stringliteral">&#39;btn-block&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a> = $this-&gt;disabled ? <span class="stringliteral">&#39;disabled&#39;</span> : <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;    <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>    = trim( join( <span class="charliteral">&#39; &#39;</span>, array( <span class="stringliteral">&#39;btn&#39;</span>, $this-&gt;type, $this-&gt;size, <a class="code" href="classWPDKTwitterBootstrapButton.html#a48ac6cb8ebde7dcfcbbb8d0748ec3c22" title="Block mode.">$block</a>, <a class="code" href="classWPDKTwitterBootstrapButton.html#a2595d398b3eacc539ff63d403af97dd4" title="Disabled.">$disabled</a> ) ) );</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;    ob_start();</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;    <span class="keywordflow">switch</span> ( $this-&gt;tag ) {</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#ac0930c85d3cd46411f30919f411a8f0b">WPDKHTMLTagName::A</a>:</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a> = empty( $this-&gt;href ) ? <span class="charliteral">&#39;#&#39;</span> : <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$this-&gt;href</a>;</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        printf( <span class="stringliteral">&#39;&lt;a id=&quot;%s&quot; name=&quot;%s&quot; href=&quot;%s&quot; class=&quot;%s&quot;&gt;%s&lt;/a&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKTwitterBootstrapButton.html#aba55fe03537919c9793a90e1011265fe" title="HREF.">$href</a>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#a5ec448edc74963821c3632c8e47c9d3a">WPDKHTMLTagName::BUTTON</a>:</div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;        printf( <span class="stringliteral">&#39;&lt;input id=&quot;%s&quot; name=&quot;%s&quot; type=&quot;button&quot; class=&quot;%s&quot; value=&quot;%s&quot; /&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="classWPDKHTMLTagName.html#a5ebf6bb6bdb8b9702d8be3edd67238c7">WPDKHTMLTagName::INPUT</a>:</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;        printf( <span class="stringliteral">&#39;&lt;input id=&quot;%s&quot; name=&quot;%s&quot; type=&quot;submit&quot; class=&quot;%s&quot; value=&quot;%s&quot; /&gt;&#39;</span>, $this-&gt;<span class="keywordtype">id</span>, $this-&gt;<span class="keywordtype">id</span>, <a class="code" href="classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657">$class</a>, $this-&gt;label );</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;    }</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    $html = ob_get_contents();</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;    ob_end_clean();</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    <span class="keywordflow">return</span> $html;</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;  }</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;}</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;</div>
+<div class="line"><a name="l00912"></a><span class="lineno"><a class="code" href="classWPDKTwitterBoostrapPopover.html">  912</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKTwitterBoostrapPopover.html">WPDKTwitterBoostrapPopover</a> {</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

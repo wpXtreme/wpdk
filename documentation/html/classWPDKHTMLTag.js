@@ -18,6 +18,7 @@ var classWPDKHTMLTag =
     [ "sanitizeStyles", "classWPDKHTMLTag.html#ab4dd65659584b2f2d1260142d3f28e60", null ],
     [ "setPropertiesByArray", "classWPDKHTMLTag.html#a4da9e75d4fdd113aa3b2afa5af2df9e1", null ],
     [ "styleInline", "classWPDKHTMLTag.html#ab63657e39c838598f70eeaea3c1f583e", null ],
+    [ "$__version", "classWPDKHTMLTag.html#a252526e2ca387a3170d07a744fee6712", null ],
     [ "$accesskey", "classWPDKHTMLTag.html#aa7250befa8b64f6608c5976d92c2fb4e", null ],
     [ "$attributes", "classWPDKHTMLTag.html#ac89f2733f3f084f1e693e13afbb67739", null ],
     [ "$class", "classWPDKHTMLTag.html#a252ba022809910ea710a068fc1bab657", null ],
@@ -38,6 +39,5 @@ var classWPDKHTMLTag =
     [ "$style", "classWPDKHTMLTag.html#a4b16ebd3ba5d6cd79dd64e240aec4a58", null ],
     [ "$tabindex", "classWPDKHTMLTag.html#adcac1cf10234ff67bd13190a0f188dda", null ],
     [ "$tagName", "classWPDKHTMLTag.html#a22e137a0ea3f9e67820b56c3d82caae9", null ],
-    [ "$title", "classWPDKHTMLTag.html#ada57e7bb7c152edad18fe2f166188691", null ],
-    [ "$version", "classWPDKHTMLTag.html#a1b7c1b5313d6b73d29848c3eb464529f", null ]
+    [ "$title", "classWPDKHTMLTag.html#ada57e7bb7c152edad18fe2f166188691", null ]
 ];

@@ -17,7 +17,7 @@ var classWPDKDateTime =
     [ "mySQLDateTime", "classWPDKDateTime.html#ac050f4e9547ebd273605e82ad81eb4cb", null ],
     [ "stripSecondsFromTime", "classWPDKDateTime.html#a88319d15f284459c574d76542e963eef", null ],
     [ "timeNewLine", "classWPDKDateTime.html#a90808e52aab9dc739e1bb9d68e3b1b10", null ],
-    [ "$version", "classWPDKDateTime.html#a1b7c1b5313d6b73d29848c3eb464529f", null ],
+    [ "$__version", "classWPDKDateTime.html#a252526e2ca387a3170d07a744fee6712", null ],
     [ "MYSQL_DATE", "classWPDKDateTime.html#a13736cf0795cd9d291456bd8f82fe11b", null ],
     [ "MYSQL_DATE_TIME", "classWPDKDateTime.html#ad3fe1f1c02ca6a59e44e5cc7c9ae7450", null ]
 ];

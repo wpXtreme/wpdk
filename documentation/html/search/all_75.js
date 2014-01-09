@@ -9,7 +9,7 @@ var searchData=
   ['updatepostmetawithdeleteifnotset',['updatePostMetaWithDeleteIfNotSet',['../classWPDKPostMeta.html#abc2fcf1a4e3816c3ad6678657635eea6',1,'WPDKPostMeta']]],
   ['updateusercapabilities',['updateUserCapabilities',['../classWPDKUser.html#a7dfe8cc455d3360d08d15d80936ed335',1,'WPDKUser']]],
   ['updown_5fcircle',['UPDOWN_CIRCLE',['../classWPDKGlyphIcons.html#a488f4c416fcc01b8bac5bd4be08d18c2',1,'WPDKGlyphIcons']]],
-  ['url',['url',['../classWPDKMenu.html#a2902882c67d0ff05f1756f455513e975',1,'WPDKMenu\url()'],['../classWPDKHTMLTagInputType.html#a2a5fb34fada8ceb9b494ec16878c09dc',1,'WPDKHTMLTagInputType\URL()']]],
+  ['url',['URL',['../classWPDKHTMLTagInputType.html#a2a5fb34fada8ceb9b494ec16878c09dc',1,'WPDKHTMLTagInputType\URL()'],['../classWPDKMenu.html#a2902882c67d0ff05f1756f455513e975',1,'WPDKMenu\url()']]],
   ['urladdnew',['urlAddNew',['../classWPDKListTableViewController.html#a7f4a230c11fb59e64f66f48090ba34d7',1,'WPDKListTableViewController']]],
   ['urlajax',['urlAjax',['../classWPDKWordPressPlugin.html#ad03435981c862c1d5ecd10ee652d49f9',1,'WPDKWordPressPlugin']]],
   ['urlremovenonce',['urlRemoveNonce',['../classWPDKListTableViewController.html#a0e3cdf4f154802b72d88b48731a4ffe9',1,'WPDKListTableViewController']]],

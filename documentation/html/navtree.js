@@ -56,11 +56,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classWPDKHTMLTagInput.html#a3bd412bf006d8c4e4586a830a158d58b",
-"classWPDKPost.html#a8746ded99375e99395d7b56c7999c824",
-"classWPDKTwitterBootstrapModal.html#a5ef02115477cfad473df2455da5a908e",
-"classWPDKWordPressPaths.html#a59eef0714992d84b7b5e7ae7cf4517bb",
-"wpdk-math_8php_source.html"
+"classWPDKHTMLTagInput.html#a264006899d2e9d2c475ce7e7283b3256",
+"classWPDKPost.html#a60067f2d3b52b9ffe0729d1e9b967521",
+"classWPDKTwitterBootstrapButtonType.html#af2d1bd27ecbe33ecaadb558404e9c669",
+"classWPDKViewController.html#a8f89b1a28e11ba12220b125031c0f384",
+"wpdk-functions_8php.html#a99721aa6ed18f1b7294ccd54006fe231"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

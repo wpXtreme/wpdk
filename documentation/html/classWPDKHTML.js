@@ -4,5 +4,5 @@ var classWPDKHTML =
     [ "endHTMLCompress", "classWPDKHTML.html#a01ee561baf95d970378072065efe86c5", null ],
     [ "endJavascriptCompress", "classWPDKHTML.html#a5fc9374be2b02a7d73f5352b9d40fa72", null ],
     [ "startCompress", "classWPDKHTML.html#a7d4ae10b767d3f34d56b81b2837cfd18", null ],
-    [ "$version", "classWPDKHTML.html#a1b7c1b5313d6b73d29848c3eb464529f", null ]
+    [ "$__version", "classWPDKHTML.html#a252526e2ca387a3170d07a744fee6712", null ]
 ];

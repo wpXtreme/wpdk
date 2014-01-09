@@ -3,7 +3,7 @@ var classWPDKGlyphIcons =
     [ "display", "classWPDKGlyphIcons.html#a44eb6082fa5b223535f404fcadf6d94e", null ],
     [ "html", "classWPDKGlyphIcons.html#a89586f0c96723235fe64e9c38da06890", null ],
     [ "init", "classWPDKGlyphIcons.html#a9f0be6ae273d3669e11c29910a0be338", null ],
-    [ "$version", "classWPDKGlyphIcons.html#a1b7c1b5313d6b73d29848c3eb464529f", null ],
+    [ "$__version", "classWPDKGlyphIcons.html#a252526e2ca387a3170d07a744fee6712", null ],
     [ "ANGLE_DOWN", "classWPDKGlyphIcons.html#a98a6b1886dc6537417aab31cb93e91cc", null ],
     [ "ANGLE_LEFT", "classWPDKGlyphIcons.html#afc7cece154098f2277b1f561bd13348d", null ],
     [ "ANGLE_RIGHT", "classWPDKGlyphIcons.html#a9106015ca638c70968aec4cf88b0cd02", null ],

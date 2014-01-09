@@ -2,6 +2,7 @@ var classWPDKCapabilities =
 [
     [ "allCapabilities", "classWPDKCapabilities.html#acd2cb776f811678d55a09c6927633a60", null ],
     [ "defaultCapabilities", "classWPDKCapabilities.html#a911c976bedfbca70531c4d36591eedd8", null ],
+    [ "get_cap", "classWPDKCapabilities.html#a3cb238690ae50ba9d6d14f7e69227240", null ],
     [ "getInstance", "classWPDKCapabilities.html#ac93fbec81f07e5d15f80db907e63dc10", null ],
     [ "roleCapabilities", "classWPDKCapabilities.html#abd1073b0cc0da7dbef689b6103520e58", null ],
     [ "userCapabilities", "classWPDKCapabilities.html#adf64056aaa5db6ec378122b70fab4993", null ],

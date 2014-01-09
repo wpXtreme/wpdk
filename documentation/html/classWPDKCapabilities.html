@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -118,6 +118,9 @@ $(document).ready(function(){initNavTree('classWPDKCapabilities.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3cb238690ae50ba9d6d14f7e69227240"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKCapabilities.html#a3cb238690ae50ba9d6d14f7e69227240">get_cap</a> ($cap_id)</td></tr>
+<tr class="memdesc:a3cb238690ae50ba9d6d14f7e69227240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a capability.  <a href="#a3cb238690ae50ba9d6d14f7e69227240">More...</a><br/></td></tr>
+<tr class="separator:a3cb238690ae50ba9d6d14f7e69227240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1073b0cc0da7dbef689b6103520e58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWPDKCapabilities.html#abd1073b0cc0da7dbef689b6103520e58">roleCapabilities</a> ()</td></tr>
 <tr class="memdesc:abd1073b0cc0da7dbef689b6103520e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all role capabilities.  <a href="#abd1073b0cc0da7dbef689b6103520e58">More...</a><br/></td></tr>
 <tr class="separator:abd1073b0cc0da7dbef689b6103520e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,7 +173,7 @@ Data Fields</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-11-28 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.8.1 </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l01975">1975</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02200">2200</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="acd2cb776f811678d55a09c6927633a60"></a>
 <div class="memitem">
@@ -190,7 +193,7 @@ Data Fields</h2></td></tr>
 <pre class="fragment">[cap] = [cap, desc, owner]
 </pre><dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02282">2282</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02544">2544</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -221,7 +224,35 @@ Data Fields</h2></td></tr>
 <p>The Codex has a list of all the defaults: <a href="http://codex.wordpress.org/Roles_and_Capabilities#Capabilities">http://codex.wordpress.org/Roles_and_Capabilities#Capabilities</a></p>
 <dl class="section return"><dt>Returns</dt><dd>array $defaults All the default WordPress capabilities. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02105">2105</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02355">2355</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3cb238690ae50ba9d6d14f7e69227240"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_cap </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cap_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a capability. </p>
+<p>Return an instance of <a class="el" href="classWPDKCapability.html">WPDKCapability</a> class or false if not exists</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$cap_id</td><td>Capability id</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classWPDKCapability.html">WPDKCapability</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02321">2321</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -250,7 +281,7 @@ Data Fields</h2></td></tr>
 <p>Return a singleton instance of <a class="el" href="classWPDKCapabilities.html">WPDKCapabilities</a> class</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classWPDKCapabilities.html">WPDKCapabilities</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02047">2047</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02272">2272</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -273,7 +304,7 @@ Data Fields</h2></td></tr>
 <pre class="fragment">[cap] = [cap, desc, owner]
 </pre><dl class="section return"><dt>Returns</dt><dd>array $capabilities All the capabilities of all the user roles. </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02206">2206</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02458">2458</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -296,7 +327,7 @@ Data Fields</h2></td></tr>
 </pre><dl class="section note"><dt>Note</dt><dd>This method is very different by <a class="el" href="classWPDKCapabilities.html#ab666ba721a275902abfa28c2a54ce91e" title="User caps.">usersCapability()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02247">2247</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02504">2504</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -319,7 +350,7 @@ Data Fields</h2></td></tr>
 </pre><dl class="section note"><dt>Note</dt><dd>This method is very different by <a class="el" href="classWPDKCapabilities.html#adf64056aaa5db6ec378122b70fab4993" title="Capability users.">userCapabilities()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02309">2309</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02572">2572</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -337,7 +368,7 @@ Data Fields</h2></td></tr>
 <p>All capabilities. </p>
 <p>The list of all capabilities </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02028">2028</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02253">2253</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -354,7 +385,7 @@ Data Fields</h2></td></tr>
 <p>Only non-wordpress capabilities. </p>
 <p>This is the capabilities list without WordPress capabilties </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02010">2010</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02235">2235</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -371,7 +402,7 @@ Data Fields</h2></td></tr>
 <p>Only WordPress capabilities. </p>
 <p>The standard WordPress capabilities list </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02001">2001</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02226">2226</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -388,7 +419,7 @@ Data Fields</h2></td></tr>
 <p>All capabilities. </p>
 <p>All capabilities in all roles </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l01992">1992</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02217">2217</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -405,7 +436,7 @@ Data Fields</h2></td></tr>
 <p>User capabiltity. </p>
 <p>The list of capabilities added to users </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02019">2019</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02244">2244</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>
@@ -422,7 +453,7 @@ Data Fields</h2></td></tr>
 <p>The option key prefix. </p>
 <p>The extra data are save in option table with this prefix </p>
 
-<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l01983">1983</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-user_8php_source.html#l02208">2208</a> of file <a class="el" href="wpdk-user_8php_source.html">wpdk-user.php</a>.</p>
 
 </div>
 </div>

@@ -7,6 +7,7 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKGlyphIcons", "classWPDKGlyphIcons.html", "classWPDKGlyphIcons" ]
     ] ],
     [ "wpdk-html-tag.php", "wpdk-html-tag_8php.html", [
+      [ "WPDKHTMLTag", "classWPDKHTMLTag.html", "classWPDKHTMLTag" ],
       [ "WPDKHTMLTagName", "classWPDKHTMLTagName.html", "classWPDKHTMLTagName" ],
       [ "WPDKHTMLTagInputType", "classWPDKHTMLTagInputType.html", "classWPDKHTMLTagInputType" ],
       [ "WPDKHTMLTagA", "classWPDKHTMLTagA.html", "classWPDKHTMLTagA" ],
@@ -19,8 +20,7 @@ var dir_8315e34a19e74be451e8523970b07219 =
       [ "WPDKHTMLTagLegend", "classWPDKHTMLTagLegend.html", "classWPDKHTMLTagLegend" ],
       [ "WPDKHTMLTagSelect", "classWPDKHTMLTagSelect.html", "classWPDKHTMLTagSelect" ],
       [ "WPDKHTMLTagSpan", "classWPDKHTMLTagSpan.html", "classWPDKHTMLTagSpan" ],
-      [ "WPDKHTMLTagTextarea", "classWPDKHTMLTagTextarea.html", "classWPDKHTMLTagTextarea" ],
-      [ "WPDKHTMLTag", "classWPDKHTMLTag.html", "classWPDKHTMLTag" ]
+      [ "WPDKHTMLTagTextarea", "classWPDKHTMLTagTextarea.html", "classWPDKHTMLTagTextarea" ]
     ] ],
     [ "wpdk-html.php", "wpdk-html_8php.html", [
       [ "WPDKHTML", "classWPDKHTML.html", "classWPDKHTML" ]
@@ -51,6 +51,7 @@ var dir_8315e34a19e74be451e8523970b07219 =
     [ "wpdk-preferences-viewcontroller.php", "wpdk-preferences-viewcontroller_8php.html", [
       [ "WPDKPreferencesViewController", "classWPDKPreferencesViewController.html", "classWPDKPreferencesViewController" ]
     ] ],
+    [ "wpdk-tinymce-plugin.php", "wpdk-tinymce-plugin_8php.html", null ],
     [ "wpdk-twitter-bootstrap.php", "wpdk-twitter-bootstrap_8php.html", [
       [ "WPDKTwitterBootstrap", "classWPDKTwitterBootstrap.html", "classWPDKTwitterBootstrap" ],
       [ "WPDKTwitterBootstrapModal", "classWPDKTwitterBootstrapModal.html", "classWPDKTwitterBootstrapModal" ],

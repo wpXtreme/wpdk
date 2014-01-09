@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -514,7 +514,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool true if successful, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00643">643</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00628">628</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -552,7 +552,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Object the delta Object tree</dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Since 1.2.0 Use <a class="el" href="classWPDKObject.html#a141c2020985576c2a4613baa40d968b4" title="Object delta compare for combine.">WPDKObject::delta()</a> instead </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Since 1.2.0 Use <a class="el" href="classWPDKObject.html#aa852088be73c16879be453b5a807f0b5" title="Object delta compare for combine.">WPDKObject::__delta()</a> instead </dd></dl>
 
 <p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00320">320</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
@@ -828,7 +828,8 @@ Functions</h2></td></tr>
 
 <p>Get. </p>
 <p>Get the value of a user transient. If the transient does not exist or does not have a value, then the return value will be false.</p>
-<dl class="section since"><dt>Since</dt><dd>1.0.0</dd></dl>
+<dl class="section since"><dt>Since</dt><dd>1.0.0 </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000009">Deprecated:</a></b></dt><dd>since 1.4.8 - Use <a class="el" href="classWPDKUser.html#a22a5f2e33335775aca7628462ff60e40" title="Get.">WPDKUser::getTransientWithUser()</a></dd></dl>
 <p>apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than false will "short-circuit" the retrieval of the transient and return the returned value.  apply_filters() Calls 'user_transient_$transient' hook, after checking the transient, with the transient value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -839,7 +840,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed Value of transient </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00607">607</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00608">608</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -951,7 +952,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00671">671</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00656">656</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -972,7 +973,7 @@ Functions</h2></td></tr>
 <p>Return true if the REQUEST METHOD is GET</p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00684">684</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00669">669</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>
@@ -993,7 +994,7 @@ Functions</h2></td></tr>
 <p>Return true if the REQUEST METHOD is POST</p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00696">696</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
+<p>Definition at line <a class="el" href="wpdk-functions_8php_source.html#l00681">681</a> of file <a class="el" href="wpdk-functions_8php_source.html">wpdk-functions.php</a>.</p>
 
 </div>
 </div>

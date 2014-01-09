@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('wpdk-view_8php_source.html','');});
 <a href="wpdk-view_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
 <div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="classWPDKView.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWPDKView.html">WPDKView</a> <span class="keyword">extends</span> <a class="code" href="classWPDKObject.html">WPDKObject</a> {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f">   72</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKView.html#a1b7c1b5313d6b73d29848c3eb464529f" title="Version.">$version</a> = <span class="stringliteral">&#39;1.1.1&#39;</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="classWPDKView.html#a252526e2ca387a3170d07a744fee6712">   72</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKView.html#a252526e2ca387a3170d07a744fee6712" title="Version.">$__version</a> = <span class="stringliteral">&#39;1.1.2&#39;</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="code" href="classWPDKView.html#a4e856c910c4b065f7f631a50346b6038">   81</a></span>&#160;  <span class="keyword">public</span> <a class="code" href="classWPDKView.html#a4e856c910c4b065f7f631a50346b6038" title="Class.">$class</a>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
@@ -157,13 +157,13 @@ $(document).ready(function(){initNavTree('wpdk-view_8php_source.html','');});
 <div class="line"><a name="l00197"></a><span class="lineno"><a class="code" href="classWPDKView.html#a8b267aa0adca2018097f6f6f4c804d46">  197</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a8b267aa0adca2018097f6f6f4c804d46" title="Get HTML markup content.">html</a>()</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  {</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    ob_start();</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    $this-&gt;display();</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    $this-&gt;<a class="code" href="classWPDKView.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="The view content.">display</a>();</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <a class="code" href="classWPDKView.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="The content.">$content</a> = ob_get_contents();</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    ob_end_clean();</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classWPDKView.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="The content.">$content</a>;</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  }</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> display()</div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="code" href="classWPDKView.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8">  215</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8" title="The view content.">display</a>()</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  {</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    $classes = <a class="code" href="classWPDKHTMLTag.html#aa8c4973013a0dabe45b33676ab590cf1" title="Inline CSS class.">WPDKHTMLTag::classInline</a>( $this-&gt;<span class="keyword">class</span> );</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <a class="code" href="classWPDKView.html#a296f4e640775877ab43d12fdb28b7979" title="Inline style.">$style</a>   = <a class="code" href="classWPDKHTMLTag.html#ab63657e39c838598f70eeaea3c1f583e" title="Inline CSS class.">WPDKHTMLTag::styleInline</a>( $this-&gt;style );</div>
@@ -184,43 +184,43 @@ $(document).ready(function(){initNavTree('wpdk-view_8php_source.html','');});
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    &lt;?php <span class="keywordflow">if</span> ( is_array( $this-&gt;subviews ) ) : ?&gt;</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      &lt;?php</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;      <span class="keywordflow">foreach</span> ( $this-&gt;subviews as $view ) : ?&gt;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        &lt;?php $view-&gt;display() ?&gt;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      &lt;?php endforeach ?&gt;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    &lt;?php endif ?&gt;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    &lt;?php do_action( <span class="stringliteral">&#39;wpdk_view_&#39;</span> . $this-&gt;<span class="keywordtype">id</span> . <span class="stringliteral">&#39;_before_close&#39;</span>, $this ) ?&gt;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  &lt;/div&gt;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;      <span class="keywordflow">foreach</span> ( $this-&gt;subviews as $view ) : ?&gt;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        &lt;?php $view-&gt;display() ?&gt;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;      &lt;?php endforeach ?&gt;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    &lt;?php endif ?&gt;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    &lt;?php do_action( <span class="stringliteral">&#39;wpdk_view_&#39;</span> . $this-&gt;<span class="keywordtype">id</span> . <span class="stringliteral">&#39;_before_close&#39;</span>, $this ) ?&gt;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  &lt;/div&gt;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  &lt;?php</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  }</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  &lt;?php</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno"><a class="code" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6">  257</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6" title="Draw.">draw</a>()</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="comment">/* This method can be over-ridden in a sub-class. */</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    echo <a class="code" href="classWPDKView.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="The content.">$this-&gt;content</a>;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  }</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="code" href="classWPDKView.html#a951afa7efc6afd3c538a839092153522">  273</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a951afa7efc6afd3c538a839092153522" title="Add a subview.">addSubview</a>( $view )</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  {</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    $continue = apply_filters( <span class="stringliteral">&#39;wpdk_view_should_add_subview&#39;</span>, <span class="keyword">true</span>, $view );</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">if</span> ( $continue ) {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      $view-&gt;superview           = $this;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      $this-&gt;subviews[$view-&gt;id] = $view;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      do_action( <span class="stringliteral">&#39;wpdk_view_did_add_subview&#39;</span>, $view );</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    }</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">return</span> $view;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
-<div class="line"><a name="l00289"></a><span class="lineno"><a class="code" href="classWPDKView.html#aae2dda528d7d42a63addbba4f172c305">  289</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#aae2dda528d7d42a63addbba4f172c305" title="Remove this view.">removeFromSuperview</a>()</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  {</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;superview ) ) {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;      unset( $this-&gt;superview-&gt;subviews[$this-&gt;id] );</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    }</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  }</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
+<div class="line"><a name="l00254"></a><span class="lineno"><a class="code" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6">  254</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a2ce3916818386ecdb4f253828a19bbf6" title="Draw.">draw</a>()</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="comment">/* This method can be over-ridden in a sub-class. */</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    echo <a class="code" href="classWPDKView.html#a43be552f5d6b48b6335bf0b4b5ef37c0" title="The content.">$this-&gt;content</a>;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  }</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="code" href="classWPDKView.html#a951afa7efc6afd3c538a839092153522">  270</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#a951afa7efc6afd3c538a839092153522" title="Add a subview.">addSubview</a>( $view )</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    $continue = apply_filters( <span class="stringliteral">&#39;wpdk_view_should_add_subview&#39;</span>, <span class="keyword">true</span>, $view );</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">if</span> ( $continue ) {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;      $view-&gt;superview           = $this;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;      $this-&gt;subviews[$view-&gt;id] = $view;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;      do_action( <span class="stringliteral">&#39;wpdk_view_did_add_subview&#39;</span>, $view );</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keywordflow">return</span> $view;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="code" href="classWPDKView.html#aae2dda528d7d42a63addbba4f172c305">  286</a></span>&#160;  <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classWPDKView.html#aae2dda528d7d42a63addbba4f172c305" title="Remove this view.">removeFromSuperview</a>()</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">if</span> ( !empty( $this-&gt;superview ) ) {</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;      unset( $this-&gt;superview-&gt;subviews[$this-&gt;id] );</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="wpdk-footer"></div>

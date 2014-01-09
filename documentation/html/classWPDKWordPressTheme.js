@@ -9,6 +9,6 @@ var classWPDKWordPressTheme =
     [ "wp_enqueue_scripts", "classWPDKWordPressTheme.html#af1a941b2e336c04f5695bdcafc87e0d9", null ],
     [ "wp_footer", "classWPDKWordPressTheme.html#a56b06344e2e44e35792fd8038d79b995", null ],
     [ "wp_head", "classWPDKWordPressTheme.html#a4cac4a33ac2f204838a1e2ca6989a506", null ],
-    [ "$plugin", "classWPDKWordPressTheme.html#aa90fb5410c7d57e217344d5e1a8ea6fc", null ],
-    [ "$version", "classWPDKWordPressTheme.html#a1b7c1b5313d6b73d29848c3eb464529f", null ]
+    [ "$__version", "classWPDKWordPressTheme.html#a252526e2ca387a3170d07a744fee6712", null ],
+    [ "$plugin", "classWPDKWordPressTheme.html#aa90fb5410c7d57e217344d5e1a8ea6fc", null ]
 ];

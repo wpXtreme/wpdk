@@ -43,7 +43,7 @@ var searchData=
   ['stripkeys',['stripKeys',['../classWPDKArray.html#a5637e5e662ffff47c3acd74a5b6482c4',1,'WPDKArray']]],
   ['stripsecondsfromtime',['stripSecondsFromTime',['../classWPDKDateTime.html#a88319d15f284459c574d76542e963eef',1,'WPDKDateTime']]],
   ['styleinline',['styleInline',['../classWPDKHTMLTag.html#ab63657e39c838598f70eeaea3c1f583e',1,'WPDKHTMLTag']]],
-  ['submit',['submit',['../classWPDKUI.html#a71a9399e528623547bd9c1f2f7f1dfa6',1,'WPDKUI\submit()'],['../classWPDKHTMLTagInputType.html#ae0b4dedd130aeeef7c6f782a84df24c1',1,'WPDKHTMLTagInputType\SUBMIT()'],['../classWPDKUIControlType.html#ae0b4dedd130aeeef7c6f782a84df24c1',1,'WPDKUIControlType\SUBMIT()']]],
+  ['submit',['SUBMIT',['../classWPDKHTMLTagInputType.html#ae0b4dedd130aeeef7c6f782a84df24c1',1,'WPDKHTMLTagInputType\SUBMIT()'],['../classWPDKUIControlType.html#ae0b4dedd130aeeef7c6f782a84df24c1',1,'WPDKUIControlType\SUBMIT()'],['../classWPDKUI.html#a71a9399e528623547bd9c1f2f7f1dfa6',1,'WPDKUI\submit()']]],
   ['success',['SUCCESS',['../classWPDKTwitterBootstrapAlertType.html#a2bc61f90ca5d5a1f79769d1d9e38842b',1,'WPDKTwitterBootstrapAlertType\SUCCESS()'],['../classWPDKTwitterBootstrapButtonType.html#a2bc61f90ca5d5a1f79769d1d9e38842b',1,'WPDKTwitterBootstrapButtonType\SUCCESS()']]],
   ['swipe',['SWIPE',['../classWPDKUIControlType.html#a6b7336cddf4c546284b73c234103763a',1,'WPDKUIControlType']]],
   ['switchbox',['SWITCHBOX',['../classWPDKUIControlType.html#a19546ea962813d2aaf34f40d6f2e0006',1,'WPDKUIControlType']]]

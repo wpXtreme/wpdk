@@ -4,6 +4,7 @@ var classWPDKHTMLTagSelect =
     [ "draw", "classWPDKHTMLTagSelect.html#a2ce3916818386ecdb4f253828a19bbf6", null ],
     [ "options", "classWPDKHTMLTagSelect.html#ad7c899c0195efc821d5cc5317843d885", null ],
     [ "selected", "classWPDKHTMLTagSelect.html#ad8827a42e44650f2e96e3fe0f62de9c4", null ],
+    [ "$_first_item", "classWPDKHTMLTagSelect.html#a840494301ac5bdfc4ed709cd3e957ded", null ],
     [ "$autofocus", "classWPDKHTMLTagSelect.html#a1f7d94fdbdde79722943e438c76f6e90", null ],
     [ "$disabled", "classWPDKHTMLTagSelect.html#a6c108f5b26242d862f6e51869fbfd271", null ],
     [ "$form", "classWPDKHTMLTagSelect.html#a1a4fda4c28a9ee5f91102c023b9501f4", null ],

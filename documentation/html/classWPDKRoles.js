@@ -8,6 +8,7 @@ var classWPDKRoles =
     [ "getInstance", "classWPDKRoles.html#ac93fbec81f07e5d15f80db907e63dc10", null ],
     [ "inactiveRoles", "classWPDKRoles.html#aa8727cfea6fe4bd6b23cd2f9c232561d", null ],
     [ "init", "classWPDKRoles.html#a9f0be6ae273d3669e11c29910a0be338", null ],
+    [ "invalidate", "classWPDKRoles.html#a589a74f7f0fd17d38833db8b3a4e9f0d", null ],
     [ "remove_role", "classWPDKRoles.html#a745f57822e2f081543f548c59654e837", null ],
     [ "roleExists", "classWPDKRoles.html#ae8b69d03bfd4cc6303b04933d3fce7e7", null ],
     [ "selectCapabilitiesWithRole", "classWPDKRoles.html#a0b9f6130e7ad806f7e1b13709eb7c8d8", null ],

@@ -32,7 +32,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-160x160.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">WPDK
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
    <div id="projectbrief">WordPress Development Kit</div>
   </td>
@@ -173,16 +173,16 @@ $(document).ready(function(){initNavTree('wpdk-watchdog_8php_source.html','');})
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">if</span> ( $this-&gt;enabled &amp;&amp; $this-&gt;available ) {</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="comment">/* If not a pre-formatted string, grab the var dump object, array or mixed for output */</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      <span class="keywordflow">if</span> ( !is_string( $txt ) || !is_numeric( $txt ) ) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      <span class="keywordflow">if</span> ( !is_string( $txt ) &amp;&amp; !is_numeric( $txt ) ) {</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        ob_start();</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        var_dump( $txt );</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        $content = ob_get_contents();</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        ob_end_clean();</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        $txt = $content;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      }</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;      <span class="comment">/* @since 1.4.3 */</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      do_action( <span class="stringliteral">&#39;wpdk_watchdog_log&#39;</span>, $content );</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="comment">/* @since 1.4.3 */</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        do_action( <span class="stringliteral">&#39;wpdk_watchdog_log&#39;</span>, $content );</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      }</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      $date   = sprintf( <span class="stringliteral">&#39;[%s]&#39;</span>, date( <span class="stringliteral">&#39;Y-m-d H:i:s&#39;</span> ) );</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      $sepa   = substr( $this-&gt;separator, 0, ( strlen( $this-&gt;separator ) - strlen( $date ) - 1 ) );</div>

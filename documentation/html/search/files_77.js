@@ -31,6 +31,7 @@ var searchData=
   ['wpdk_2dscreen_2dhelp_2ephp',['wpdk-screen-help.php',['../wpdk-screen-help_8php.html',1,'']]],
   ['wpdk_2dshortcode_2ephp',['wpdk-shortcode.php',['../wpdk-shortcode_8php.html',1,'']]],
   ['wpdk_2dterms_2ephp',['wpdk-terms.php',['../wpdk-terms_8php.html',1,'']]],
+  ['wpdk_2dtinymce_2dplugin_2ephp',['wpdk-tinymce-plugin.php',['../wpdk-tinymce-plugin_8php.html',1,'']]],
   ['wpdk_2dtwitter_2dbootstrap_2ephp',['wpdk-twitter-bootstrap.php',['../wpdk-twitter-bootstrap_8php.html',1,'']]],
   ['wpdk_2dui_2ephp',['wpdk-ui.php',['../wpdk-ui_8php.html',1,'']]],
   ['wpdk_2duser_2ephp',['wpdk-user.php',['../wpdk-user_8php.html',1,'']]],

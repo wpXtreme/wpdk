@@ -3,6 +3,7 @@ var classWPDKUIControl =
     [ "__construct", "classWPDKUIControl.html#a3063c775c1d669d9829cbc2e7d99e8c8", null ],
     [ "attrs", "classWPDKUIControl.html#a3291c744ca281004a0ccb2cccd227607", null ],
     [ "classes", "classWPDKUIControl.html#a0d4621fbde6e250d9475bb858b877c5e", null ],
+    [ "contentWithKey", "classWPDKUIControl.html#a9fec4d0240cbe1054ac46b22df709211", null ],
     [ "data", "classWPDKUIControl.html#a742e8fae78fd74219638525de1271605", null ],
     [ "display", "classWPDKUIControl.html#a0b9b6e6acd4a839fc7c2f26f96b5cfa8", null ],
     [ "draw", "classWPDKUIControl.html#a2ce3916818386ecdb4f253828a19bbf6", null ],
@@ -17,5 +18,7 @@ var classWPDKUIControl =
     [ "$item", "classWPDKUIControl.html#a40624a1864f2b6e32e6bb258d9982e89", null ],
     [ "$name", "classWPDKUIControl.html#a58551b63ba97fb35b928f11f36b1fac6", null ],
     [ "$style", "classWPDKUIControl.html#a71b89cfe0a2860ebfa535e8d839291a5", null ],
+    [ "APPEND_SELECT_LIST_ADD", "classWPDKUIControl.html#a4a3388441525486dec7174795c63bf57", null ],
+    [ "APPEND_SELECT_LIST_REMOVE", "classWPDKUIControl.html#a5bc7dc56719a90f6a1bc31ad390ff687", null ],
     [ "DEFAULT_SIZE_ATTRIBUTE", "classWPDKUIControl.html#a8920e6626686ef39d2bff5367e1a58ed", null ]
 ];

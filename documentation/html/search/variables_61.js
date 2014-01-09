@@ -7,6 +7,8 @@ var searchData=
   ['angle_5fleft',['ANGLE_LEFT',['../classWPDKGlyphIcons.html#afc7cece154098f2277b1f561bd13348d',1,'WPDKGlyphIcons']]],
   ['angle_5fright',['ANGLE_RIGHT',['../classWPDKGlyphIcons.html#a9106015ca638c70968aec4cf88b0cd02',1,'WPDKGlyphIcons']]],
   ['angle_5fup',['ANGLE_UP',['../classWPDKGlyphIcons.html#a8d1cede4acc2f0079eac177a09961f3f',1,'WPDKGlyphIcons']]],
+  ['append_5fselect_5flist_5fadd',['APPEND_SELECT_LIST_ADD',['../classWPDKUIControl.html#a4a3388441525486dec7174795c63bf57',1,'WPDKUIControl']]],
+  ['append_5fselect_5flist_5fremove',['APPEND_SELECT_LIST_REMOVE',['../classWPDKUIControl.html#a5bc7dc56719a90f6a1bc31ad390ff687',1,'WPDKUIControl']]],
   ['apple',['APPLE',['../classWPDKGlyphIcons.html#a2a8319889a7999134490f9860288e43d',1,'WPDKGlyphIcons']]],
   ['arrows_5fcw',['ARROWS_CW',['../classWPDKGlyphIcons.html#a22f298e19898291589977d2beef65c83',1,'WPDKGlyphIcons']]],
   ['attachment',['ATTACHMENT',['../classWPDKPostType.html#add46d04dfe4c58e441f88cb70a17237f',1,'WPDKPostType']]],

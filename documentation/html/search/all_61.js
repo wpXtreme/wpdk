@@ -40,9 +40,14 @@ var searchData=
   ['angle_5fright',['ANGLE_RIGHT',['../classWPDKGlyphIcons.html#a9106015ca638c70968aec4cf88b0cd02',1,'WPDKGlyphIcons']]],
   ['angle_5fup',['ANGLE_UP',['../classWPDKGlyphIcons.html#a8d1cede4acc2f0079eac177a09961f3f',1,'WPDKGlyphIcons']]],
   ['append',['append',['../classWPDKArray.html#aad9ff4977249163043be886ede52e9ad',1,'WPDKArray']]],
+  ['append_5fselect_5flist_5fadd',['APPEND_SELECT_LIST_ADD',['../classWPDKUIControl.html#a4a3388441525486dec7174795c63bf57',1,'WPDKUIControl']]],
+  ['append_5fselect_5flist_5fremove',['APPEND_SELECT_LIST_REMOVE',['../classWPDKUIControl.html#a5bc7dc56719a90f6a1bc31ad390ff687',1,'WPDKUIControl']]],
   ['apple',['APPLE',['../classWPDKGlyphIcons.html#a2a8319889a7999134490f9860288e43d',1,'WPDKGlyphIcons']]],
   ['arraycapabilitiesbyrole',['arrayCapabilitiesByRole',['../classWPDKRoles.html#ab4db1e3012d044b093cbfea48e92e65d',1,'WPDKRoles']]],
   ['arrayextractbykey',['arrayExtractByKey',['../classWPDKArray.html#a06c5828eedc619bcc7d33b61665bd246',1,'WPDKArray']]],
+  ['arraymatch',['arrayMatch',['../classWPDKArray.html#a2c94f2d9ec8620836605284400943298',1,'WPDKArray']]],
+  ['arraymatchwithkeys',['arrayMatchWithKeys',['../classWPDKArray.html#ac0626c497537f0710306388e5d63ed79',1,'WPDKArray']]],
+  ['arraymatchwithvalues',['arrayMatchWithValues',['../classWPDKArray.html#ae4b8458efdb4fc28d8cc887f5fc3e887',1,'WPDKArray']]],
   ['arrayroles',['arrayRoles',['../classWPDKUsers.html#a0c57ca9a823aa664867f985f1eb28b3e',1,'WPDKUsers']]],
   ['arraytoobject',['arrayToObject',['../classWPDKArray.html#a7a974739484e790f47d81f150ded04ad',1,'WPDKArray']]],
   ['arrayuserforsdf',['arrayUserForSDF',['../classWPDKUsers.html#ab525bfbb85461986538a2ee65eac24f6',1,'WPDKUsers']]],
@@ -55,5 +60,6 @@ var searchData=
   ['authenticate',['authenticate',['../classWPDKUsers.html#a4b8790ad74d11cbaa80533d117f11084',1,'WPDKUsers']]],
   ['auto_5fdraft',['AUTO_DRAFT',['../classWPDKPostStatus.html#ae17eede64d8ed97c211e5c3489ad5493',1,'WPDKPostStatus']]],
   ['autoloadenvironment',['autoloadEnvironment',['../classWPDKWordPressPlugin.html#a9101252a66d394c171e8ff38f95ab51b',1,'WPDKWordPressPlugin']]],
+  ['avatar',['avatar',['../classWPDKUser.html#a384552d7c510328bdd4f578969cd783f',1,'WPDKUser\avatar()'],['../classWPDKUsers.html#a0606231f74162be36efdea58585ee30a',1,'WPDKUsers\avatar()']]],
   ['a_20little_20in_2ddepth_20analysis_20of_20view_20and_20view_20controller_20sub_2dpattern',['A little in-depth analysis of View and View Controller sub-pattern',['../page_view_controller.html',1,'']]]
 ];

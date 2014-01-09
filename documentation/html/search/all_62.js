@@ -2,7 +2,7 @@ var searchData=
 [
   ['badge',['badge',['../classWPDKUI.html#af1bb17e1bff94c8fc947b9235d0e8b26',1,'WPDKUI']]],
   ['badged',['badged',['../classWPDKUI.html#acdec0bad439eddf363c4ba4e39c77aba',1,'WPDKUI']]],
-  ['beforecontent',['beforeContent',['../classWPDKHTMLTagFieldset.html#a5d5c55fd77ee9cef87ad6ad1c5b0feb2',1,'WPDKHTMLTagFieldset\beforeContent()'],['../classWPDKHTMLTag.html#a5d5c55fd77ee9cef87ad6ad1c5b0feb2',1,'WPDKHTMLTag\beforeContent()']]],
+  ['beforecontent',['beforeContent',['../classWPDKHTMLTag.html#a5d5c55fd77ee9cef87ad6ad1c5b0feb2',1,'WPDKHTMLTag\beforeContent()'],['../classWPDKHTMLTagFieldset.html#a5d5c55fd77ee9cef87ad6ad1c5b0feb2',1,'WPDKHTMLTagFieldset\beforeContent()']]],
   ['beginningofweek',['beginningOfWeek',['../classWPDKDateTime.html#aaa1aae1d84192981c310a510794c4740',1,'WPDKDateTime']]],
   ['breadcrumbs',['breadCrumbs',['../classWPDKTerms.html#ab55c38477b2c5f21e950d112e8f1a69d',1,'WPDKTerms']]],
   ['bug',['BUG',['../classWPDKGlyphIcons.html#a54f24cd80d3c2ec93fd3389c16601560',1,'WPDKGlyphIcons']]],
