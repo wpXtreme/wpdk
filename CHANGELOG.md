@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.9
+### 2014-01-??
+
+#### Bugs
+
+* Fixed wrong get page name in autocomplete
+
 ## Version 1.4.8
 ### 2014-01-09
 

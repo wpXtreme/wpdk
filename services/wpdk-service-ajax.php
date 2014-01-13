@@ -9,8 +9,8 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKServiceAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2012-11-28
-   * @version            0.8.1
+   * @date               2013-01-13
+   * @version            0.8.2
    *
    */
   class WPDKServiceAjax extends WPDKAjax {
@@ -143,20 +143,29 @@ if ( wpdk_is_ajax() ) {
       }
 
       $sql    = <<< SQL
-SELECT post_name, post_title
+SELECT
+ ID,
+ post_name,
+ post_title
+
 FROM {$table_posts}
+
 WHERE 1
+
 {$where_post_name}
+
 AND post_type = '{$post_type}'
 AND post_status = '{$post_status}'
+
 ORDER BY {$orderby} {$order}
+
 {$limit}
 SQL;
       $result = $wpdb->get_results( $sql );
       if ( !is_wp_error( $result ) ) {
         foreach ( $result as $post ) {
           $response[] = array(
-            'value' => $post->post_name,
+            'value' => get_page_uri( $post->ID ),
             'label' => apply_filters( 'the_title', $post->post_title ),
           );
         }
