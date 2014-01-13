@@ -79,13 +79,16 @@ class WPDKMail extends WPDKPost {
    */
   public function send( $to, $subject = false, $from = '', $placeholders = array() ) {
 
-    if ( is_numeric( $from ) ) {
+    /* Use shared private property */
+    $this->from = $from;
+
+    if ( is_numeric( $this->from ) ) {
       $user = new WP_User( $from );
       $this->from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
     /* $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>' */
-    if ( empty( $from ) ) {
+    if ( empty( $this->from ) ) {
       /* Get the default WordPress email. */
       $this->from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
@@ -111,6 +114,8 @@ class WPDKMail extends WPDKPost {
     $body = $this->post_content;
     $body = $this->replacePlaceholder( $body, $user, $placeholders );
 
+    WPXtreme::log( $this->headers() );
+
     return wp_mail( $to, $subject, $body, $this->headers() );
   }
 
@@ -125,8 +130,8 @@ class WPDKMail extends WPDKPost {
   {
     /* Build the header */
     $headers = array(
-      'From: ' . $this->from . "\r\n",
-      'Content-Type: text/html' . "\r\n"
+      'From: ' . $this->from,
+      'Content-Type: text/html'
     );
 
     /* Added cc and bcc */
@@ -144,7 +149,7 @@ class WPDKMail extends WPDKPost {
       }
     }
 
-    $headers = apply_filter( 'wpxmm_headers', $headers );
+    $headers = apply_filters( 'wpdk_mail_headers', $headers );
 
     return implode( "\r\n", $headers );
   }
