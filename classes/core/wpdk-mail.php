@@ -15,6 +15,35 @@
 class WPDKMail extends WPDKPost {
 
   /**
+   * Header for carbon copy
+   *
+   * @brief Carbon copy
+   * @since 1.4.9
+   *
+   * @var string $cc
+   */
+  public $cc = '';
+
+  /**
+   * Header for carbon copy
+   *
+   * @brief Carbon copy
+   * @since 1.4.9
+   *
+   * @var string $bcc
+   */
+  public $bcc = '';
+
+  /**
+   * From for header
+   *
+   * @brief From
+   *
+   * @var string $from
+   */
+  private $from = '';
+
+  /**
    * Create an instance of WPDKMail class
    *
    * @brief Construct
@@ -25,7 +54,8 @@ class WPDKMail extends WPDKPost {
    *
    * @return WPDKMail
    */
-  public function __construct( $mail = null, $post_type = 'page' ) {
+  public function __construct( $mail = null, $post_type = 'page' )
+  {
     parent::__construct( $mail, $post_type );
   }
 
@@ -51,19 +81,14 @@ class WPDKMail extends WPDKPost {
 
     if ( is_numeric( $from ) ) {
       $user = new WP_User( $from );
-      $from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
+      $this->from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
     /* $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>' */
     if ( empty( $from ) ) {
       /* Get the default WordPress email. */
-      $from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
+      $this->from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
-
-    $headers = array(
-      'From: ' . $from . "\r\n",
-      'Content-Type: text/html' . "\r\n"
-    );
 
     /* User id for $to? */
     $user = false;
@@ -86,7 +111,42 @@ class WPDKMail extends WPDKPost {
     $body = $this->post_content;
     $body = $this->replacePlaceholder( $body, $user, $placeholders );
 
-    return wp_mail( $to, $subject, $body, $headers );
+    return wp_mail( $to, $subject, $body, $this->headers() );
+  }
+
+  /**
+   * Return the computated header for mail
+   *
+   * @brief Headers
+   *
+   * @return string
+   */
+  private function headers()
+  {
+    /* Build the header */
+    $headers = array(
+      'From: ' . $this->from . "\r\n",
+      'Content-Type: text/html' . "\r\n"
+    );
+
+    /* Added cc and bcc */
+    if ( !empty( $this->cc ) ) {
+      $this->cc = explode( ',', $this->cc );
+      foreach ( $this->cc as $email ) {
+        $headers[] = sprintf( 'Cc: %s', $email );
+      }
+    }
+
+    if ( !empty( $this->bcc ) ) {
+      $this->bcc = explode( ',', $this->bcc );
+      foreach ( $this->bcc as $email ) {
+        $headers[] = sprintf( 'Bcc: %s', $email );
+      }
+    }
+
+    $headers = apply_filter( 'wpxmm_headers', $headers );
+
+    return implode( "\r\n", $headers );
   }
 
   /**
