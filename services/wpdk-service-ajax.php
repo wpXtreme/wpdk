@@ -145,7 +145,6 @@ if ( wpdk_is_ajax() ) {
       $sql    = <<< SQL
 SELECT
  ID,
- post_name,
  post_title
 
 FROM {$table_posts}
