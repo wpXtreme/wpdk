@@ -114,8 +114,6 @@ class WPDKMail extends WPDKPost {
     $body = $this->post_content;
     $body = $this->replacePlaceholder( $body, $user, $placeholders );
 
-    WPXtreme::log( $this->headers() );
-
     return wp_mail( $to, $subject, $body, $this->headers() );
   }
 
