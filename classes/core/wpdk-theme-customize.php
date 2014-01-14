@@ -97,18 +97,6 @@ class WPDKThemeCustomize {
   }
 
   /**
-   * Helper static method to create an instance of this class
-   *
-   * @brief Init
-   *
-   * @return WPDKThemeCustomize
-   */
-  public static function init()
-  {
-    return new self;
-  }
-
-  /**
    * This outputs the javascript needed to automate the live settings preview.
    * Also keep in mind that this function isn't necessary unless your settings are using 'transport'=>'postMessage'
    * instead of the default 'transport' => 'refresh'
@@ -148,33 +136,33 @@ class WPDKThemeCustomize {
 
       $wp_customize->add_section( $section_id, $section_args );
 
-      if ( isset( $section_args['_settings'] ) ) {
+      if ( isset( $section_args['_setting'] ) ) {
 
         /* Settings */
-        foreach ( $section_args['_settings'] as $setting_id => $setting_args ) {
+        foreach ( $section_args['_setting'] as $setting_id => $setting_args ) {
           $wp_customize->add_setting( $setting_id, $setting_args );
 
-          if ( isset( $setting_args['_controls'] ) ) {
+          if ( isset( $setting_args['_control'] ) ) {
 
             /* Controls */
-            foreach ( $setting_args['_controls'] as $control_id => $control_args ) {
-              $control_args['section'] = $section_id;
+            $control_args            = $setting_args['_control'];
+            $control_args['section'] = $section_id;
 
-              if ( in_array( $control_args['type'], $instanceable ) ) {
-                // Get instanceable class name
-                $class_name = $control_args['type'];
-                // Unset unused
-                unset( $control_args['type'] );
-                // Set a new arg
-                $control_args['settings'] = $setting_id;
-                // Create the control
-                $control = new $class_name( $wp_customize, $setting_id, $control_args );
-                $wp_customize->add_control( $control, $control_args );
-              }
-              else {
-                $wp_customize->add_control( $setting_id, $control_args );
-              }
+            if ( in_array( $control_args['type'], $instanceable ) ) {
+              // Get instanceable class name
+              $class_name = $control_args['type'];
+              // Unset unused
+              unset( $control_args['type'] );
+              // Set a new arg
+              $control_args['settings'] = $setting_id;
+              // Create the control
+              $control = new $class_name( $wp_customize, $setting_id, $control_args );
+              $wp_customize->add_control( $control, $control_args );
             }
+            else {
+              $wp_customize->add_control( $setting_id, $control_args );
+            }
+
           }
         }
       }
