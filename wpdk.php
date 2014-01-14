@@ -260,6 +260,7 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-html.php'                     => 'WPDKHTML',
         $sPathPrefix . 'classes/ui/wpdk-html-tag.php'                 => array(
+          'WPDKHTMLTag',
           'WPDKHTMLTagName',
           'WPDKHTMLTagInputType',
           'WPDKHTMLTagA',
@@ -272,7 +273,6 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKHTMLTagSelect',
           'WPDKHTMLTagSpan',
           'WPDKHTMLTagTextarea',
-          'WPDKHTMLTag'
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-dynamic-table.php'            => 'WPDKDynamicTable',
@@ -323,6 +323,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKWordPressTheme',
           'WPDKTheme',
           'WPDKThemeSetup',
+        ),
+        $sPathPrefix . 'classes/core/wpdk-theme-customize.php'             => array(
+          'WPDKThemeCustomizeControlType',
+          'WPDKThemeCustomize',
         ),
         $sPathPrefix . 'classes/core/wpdk-wordpress-admin.php'             => 'WPDKWordPressAdmin',
         $sPathPrefix . 'classes/core/wpdk-watchdog.php'                    => 'WPDKWatchDog',
