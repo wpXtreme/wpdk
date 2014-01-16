@@ -704,17 +704,13 @@ class WPDKTheme extends WPDKObject {
 }
 
 /**
- * Description
- *
- * ## Overview
- *
- * Description
+ * A model to setup your theme
  *
  * @class           WPDKThemeSetup
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-12-09
- * @version         1.0.0
+ * @date            2014-01-14
+ * @version         1.0.1
  *
  */
 class WPDKThemeSetup {

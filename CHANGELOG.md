@@ -27,6 +27,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed wrong get page name in autocomplete
 
+#### Improvements
+
+* Introducing a new behaviour in `WPDKTwitterBootstrapModal` for subclassing
+* Introducing a new behaviour in `WPDKTwitterBootstrapAlert` for subclassing
+* Revision some filesystem file
+
+
 ## Version 1.4.8
 ### 2014-01-09
 
