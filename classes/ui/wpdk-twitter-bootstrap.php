@@ -301,8 +301,12 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
       foreach ( $buttons as $key => $value ) {
         $class        = isset( $value['class'] ) ? $value['class'] : '';
         $label        = isset( $value['label'] ) ? $value['label'] : '';
+        $title        = isset( $value['title'] ) ? 'title="' . $value['title'] .'"' : '';
+        if( !empty( $title ) ) {
+          $class .= ' wpdk-tooltip';
+        }
         $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-        $stack .= sprintf( '<button type="button" id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $key, $class, $data_dismiss, $label );
+        $stack .= sprintf( '<button type="button" %s id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
       }
     }
 
