@@ -250,12 +250,15 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'          => array(
           'WPDKTwitterBootstrap',
           'WPDKTwitterBootstrapModal',
-          'WPDKTwitterBootstrapAlert',
-          'WPDKTwitterBootstrapAlertType',
           'WPDKTwitterBootstrapButtonType',
           'WPDKTwitterBootstrapButtonSize',
           'WPDKTwitterBootstrapButton',
           'WPDKTwitterBoostrapPopover'
+        ),
+
+        $sPathPrefix . 'classes/ui/wpdk-tbs-alert.php'                => array(
+          'WPDKTwitterBootstrapAlert',
+          'WPDKTwitterBootstrapAlertType',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-html.php'                     => 'WPDKHTML',
