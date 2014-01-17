@@ -1941,7 +1941,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( !empty( $count ) ) {
-          $this->activeRoles[$role] = isset( $this->wordPressRoles[$role] ) ? $this->wordPressRoles[$role] : array( $name, '', '' );
+          $this->activeRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
         }
       }
     }
