@@ -20,6 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+
+## Version 1.4.10
+### 2014-01-??
+
+#### Improvements
+
+* Improved `WPDKTerm::term()`
+
+
 ## Version 1.4.9
 ### 2014-01-17
 

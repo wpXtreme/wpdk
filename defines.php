@@ -10,7 +10,7 @@
  */
 
 /* WPDK version. */
-define( 'WPDK_VERSION', '1.4.9' );
+define( 'WPDK_VERSION', '1.4.10' );
 
 /*
  * Path unix: /var/
