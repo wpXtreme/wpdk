@@ -66,7 +66,7 @@ class WPDKTerm {
    *                                    If object will apply filters and return $term.
    *                                    If string started with `%` will get by `get_term_by( 'name' )`
    *                                    Else if string will get by `get_term_by( 'slug' )`
-   * @param string            $taxonomy Taxonomy name that $term is part of.
+   * @param string            $taxonomy Optipnal. Taxonomy name that $term is part of. If FASLE retrive the term info
    * @param string            $output   Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
    * @param string            $filter   Optional. Default is raw or no WordPress defined filter will applied.
    * @param bool              $parent   Optional. If TRUE an object WPDKTerm is create in parent_term property
@@ -74,8 +74,36 @@ class WPDKTerm {
    * @return WPDKTerm|WP_Error Term Row from database. Will return null if $term is empty. If taxonomy does not
    *        exist then WP_Error will be returned.
    */
-  public static function term( $term, $taxonomy, $output = OBJECT, $filter = 'raw', $parent = false )
+  public static function term( $term, $taxonomy = false, $output = OBJECT, $filter = 'raw', $parent = false )
   {
+    global $wpdb;
+
+    if ( empty( $taxonomy ) ) {
+      $sql = sprintf( 'SELECT t.*, tt.description, tt.taxonomy FROM %s AS t LEFT JOIN %s AS tt ON ( tt.term_id = t.term_id )', $wpdb->terms, $wpdb->term_taxonomy );
+      if ( is_numeric( $term ) ) {
+        $sql .= sprintf( ' WHERE t.term_id = %s', $term );
+      }
+      elseif ( is_string( $term ) ) {
+        $sql .= sprintf( ' WHERE t.slug = "%s"', $term );
+      }
+      else {
+        return false;
+      }
+
+      $row = $wpdb->get_row( $sql );
+      if ( !is_null( $row ) ) {
+        $instance              = new stdClass();
+        $instance->term_id     = $row->term_id;
+        $instance->name        = $row->name;
+        $instance->description = $row->description;
+        $instance->taxonomy    = $row->taxonomy;
+
+        return $instance;
+      }
+      return false;
+    }
+
+
     if ( is_object( $term ) || is_numeric( $term ) ) {
       $term = get_term( $term, $taxonomy, $output, $filter );
     }
