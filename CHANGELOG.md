@@ -28,6 +28,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Improved `WPDKTerm::term()`
 
+#### Experimental
+
+* Added column styles
+
 
 ## Version 1.4.9
 ### 2014-01-17
