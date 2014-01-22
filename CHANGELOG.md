@@ -30,6 +30,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Experimental
 
+* Added `WPDKDynamicTableView` class
 * Added column styles
 
 
