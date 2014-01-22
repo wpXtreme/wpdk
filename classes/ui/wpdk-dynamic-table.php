@@ -427,7 +427,7 @@ class WPDKDynamicTableView extends WPDKView {
    *
    *     $columns = array(
    *       'type'        => array(
-   *         'table_title' => __( 'Type', WPXUSERSMANAGER_TEXTDOMAIN ),
+   *         '_label'      => __( 'Type', WPXUSERSMANAGER_TEXTDOMAIN ), // Head label
    *         'label'       => __( 'Type', WPXUSERSMANAGER_TEXTDOMAIN ),
    *         'type'        => WPDKUIControlType::SELECT,
    *         'name'        => 'type[]',
@@ -503,7 +503,7 @@ class WPDKDynamicTableView extends WPDKView {
           <?php foreach( $this->_columns() as $column_key => $column ) : ?>
             <?php if( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
               <th class="wpdk-dynamic-table-column-<?php echo $column_key ?>">
-                <?php echo $column['label'] ?>
+                <?php echo $column['_label'] ?>
               </th>
             <?php endif; ?>
           <?php endforeach; ?>
