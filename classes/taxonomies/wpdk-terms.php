@@ -86,21 +86,19 @@ class WPDKTerm {
       elseif ( is_string( $term ) ) {
         $sql .= sprintf( ' WHERE t.slug = "%s"', $term );
       }
+      elseif ( is_object( $term ) ) {
+        $sql .= sprintf( ' WHERE t.term_id = "%s"', $term->term_id );
+      }
       else {
         return false;
       }
 
       $row = $wpdb->get_row( $sql );
-      if ( !is_null( $row ) ) {
-        $instance              = new stdClass();
-        $instance->term_id     = $row->term_id;
-        $instance->name        = $row->name;
-        $instance->description = $row->description;
-        $instance->taxonomy    = $row->taxonomy;
-
-        return $instance;
+      if ( is_null( $row ) ) {
+        return false;
       }
-      return false;
+      $term     = $row->term_id;
+      $taxonomy = $row->taxonomy;
     }
 
 
