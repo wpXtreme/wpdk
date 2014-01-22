@@ -392,16 +392,6 @@ class WPDKDynamicTableView extends WPDKView {
   private $columns;
 
   /**
-   * This is the items list for preload the dynamic table view
-   *
-   * @brief Items
-   *
-   * @var array $items
-   */
-  private $items;
-
-
-  /**
    * Create an instance of WPDKDynamicTableView class
    *
    * @brief Construct
@@ -414,8 +404,12 @@ class WPDKDynamicTableView extends WPDKView {
 
     parent::__construct( $id );
 
-    /* Added dynamic + */
+    // Added dynamic
     $this->columns[self::COLUMN_ROW_MANAGE] = '';
+
+    wp_enqueue_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION );
+    wp_enqueue_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
