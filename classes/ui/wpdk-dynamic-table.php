@@ -94,6 +94,12 @@ class WPDKDynamicTable {
 
     /* Added dynamic + */
     $this->_columns[self::COLUMN_ROW_MANAGE] = '';
+
+    // Backward compatibility
+    wp_enqueue_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION );
+    wp_enqueue_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
+
+
   }
 
   // -----------------------------------------------------------------------------------------------------------------
