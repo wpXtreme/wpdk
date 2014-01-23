@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class make easy plugin options management. In WPDK the plugin options are called **preferences**. We likes use
  * preferences term more that options. So is made the WPDKPreferences class.
@@ -172,21 +173,29 @@ class WPDKPreferences {
 
     /* Check for post data. */
     if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
-      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) && $_POST['wpdk_preferences_class'] == get_class( $preferences ) ) {
+      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) &&
+        $_POST['wpdk_preferences_class'] == get_class( $preferences )
+      ) {
         $busy = true;
         if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
           $branch = $_POST['wpdk_preferences_branch'];
 
           /* Reset to default a specified branch. */
           if ( isset( $_POST['reset-to-default-preferences'] ) ) {
-            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array(
+              $preferences,
+              'wpdk_preferences_feedback_reset'
+            ) );
             $preferences->$branch->defaults();
             $preferences->update();
           }
 
           /* Update a specified branch. */
           elseif ( isset( $_POST['update-preferences'] ) ) {
-            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array(
+              $preferences,
+              'wpdk_preferences_feedback_update'
+            ) );
             $preferences->$branch->update();
             $preferences->update();
           }
@@ -257,7 +266,8 @@ class WPDKPreferences {
    *
    * @return WPDKPreferences
    */
-  public function get() {
+  public function get()
+  {
     return empty( $this->user_id ) ? get_option( $this->name ) : get_user_meta( $this->user_id, $this->name, true );
   }
 
@@ -376,7 +386,7 @@ class WPDKPreferencesBranch {
   /**
    * Update preferences branch
    *
-   * @note You can to override this method in order to updated your branch preferences
+   * @note  You can to override this method in order to updated your branch preferences
    *
    *     public function update()
    *     {
@@ -477,7 +487,10 @@ class WPDKPreferencesImportExport {
     /* Import. */
     elseif ( isset( $_POST['wpdk_preferences_import'] ) ) {
       //add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
-      add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
+      add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array(
+        $this,
+        'wpdk_preferences_import_export_feedback'
+      ), 99 );
 
       if ( $_FILES['file']['error'] > 0 ) {
         $this->error = self::ERROR_READ_FILE;
@@ -506,20 +519,20 @@ class WPDKPreferencesImportExport {
     }
 
     /* Check for wrong version. */
-    if( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
+    if ( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
       $this->error = self::ERROR_VERSION;
       return;
     }
 
     /* @todo Check for import preferences from other users
-    if ( !empty( $this->import->user_id ) ) {
-      $user_id = get_current_user_id();
-      if ( $user_id !== $this->import->user_id ) {
-        $this->error = self::ERROR_USER_ID;
-        return;
-      }
-    }
-    */
+     * if ( !empty( $this->import->user_id ) ) {
+     * $user_id = get_current_user_id();
+     * if ( $user_id !== $this->import->user_id ) {
+     * $this->error = self::ERROR_USER_ID;
+     * return;
+     * }
+     * }
+     */
 
     $this->preferences = $this->import;
 
@@ -561,14 +574,14 @@ class WPDKPreferencesImportExport {
    */
   public function wpdk_preferences_import_export_feedback()
   {
-    $title = __( 'Warning!', WPDK_TEXTDOMAIN );
+    $title   = __( 'Warning!', WPDK_TEXTDOMAIN );
     $content = '';
 
     switch ( $this->error ) {
 
       /* All ok. */
       case self::ERROR_NONE;
-        $title = __( 'Successfully!', WPDK_TEXTDOMAIN );
+        $title   = __( 'Successfully!', WPDK_TEXTDOMAIN );
         $content = __( 'Import complete.', WPDK_TEXTDOMAIN );
         break;
       /* Error while reading upload file. */

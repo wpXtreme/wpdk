@@ -2427,87 +2427,6 @@ jQuery( function ( $ )
   }
 
   /**
-   * This class manage a WPDKDynamicTable
-   *
-   * @class           WPDKDynamicTable
-   * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-10-30
-   * @version         1.0.1
-   */
-  if ( typeof( window.WPDKDynamicTable ) === 'undefined' ) {
-    window.WPDKDynamicTable = (function ()
-    {
-
-      /**
-       * @type {WPDKDynamicTable}
-       */
-      var $t = {};
-
-      /**
-       * Version
-       *
-       * @type {string}
-       */
-      $t.version = "1.0.1";
-
-      /**
-       * Return a singleton instance of WPDKDynamicTable class
-       *
-       * @returns {WPDKDynamicTable}
-       */
-      $t.init = function ()
-      {
-        var table = $( 'table.wpdk-dynamic-table' );
-        if ( table.length ) {
-          table.on( 'click', 'input.wpdk-dt-add-row', false, _addRow );
-          table.on( 'click', 'input.wpdk-dt-delete-row', false, _deleteRow );
-
-          /* Sortable. */
-          $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
-            axis   : "y",
-            cursor : "n-resize",
-            start  : function ( e, ui ) {},
-            stop   : function () {}
-          } );
-        }
-
-        return $t;
-      };
-
-      /**
-       * Add a row to the dynamic table
-       *
-       * @private
-       */
-      function _addRow()
-      {
-        var table = $( this ).parents( 'table.wpdk-dynamic-table' );
-        var clone = $( this ).parents( 'tr' ).prevAll( '.wpdk-dt-clone' ).clone();
-        clone.removeClass( 'wpdk-dt-clone' ).appendTo( table );
-        $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function ()
-        {
-          WPDK.init();
-        } );
-      }
-
-      /**
-       * Delete a row from dynamic table
-       *
-       * @private
-       */
-      function _deleteRow()
-      {
-        $( this ).wpdkTooltip( 'hide' );
-        $( this ).parents( 'tr' ).fadeOut( 300, function () { $( this ).remove(); } );
-      }
-
-      return $t;
-
-    })();
-  }
-
-  /**
    * This class manage the Preferences view
    *
    * @class           WPDKPreferences
@@ -2955,7 +2874,6 @@ jQuery( function ( $ )
         _hackMenu();
         WPDKjQuery.init();
         WPDKControls.init();
-        WPDKDynamicTable.init();
         WPDKTwitterBootstrap.init();
 
         return $t;
@@ -3088,10 +3006,6 @@ jQuery( function ( $ )
       'jQuery'                    : WPDKjQuery.jQueryVersion(),
       'jQuery UI'                 : WPDKjQuery.jQueryUIVersion(),
       'WPDK'                      : WPDK.version,
-      'WPDKControls'              : WPDKControls.version,
-      'WPDKTwitterBootstrap'      : WPDKTwitterBootstrap.version,
-      'WPDKjQuery'                : WPDKjQuery.version,
-      'WPDKDynamicTable'          : WPDKDynamicTable.version,
       'GuruMeditation'            : GuruMeditation.version
     };
 
