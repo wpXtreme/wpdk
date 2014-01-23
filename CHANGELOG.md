@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.11
+### 2014-01-23
+
+#### Bugs
+
+* Fixed wrong include `WPDKHTMLTagImg`
+* Fixed `WPDKDynamicTableView` output
+
 
 ## Version 1.4.10
 ### 2014-01-23
