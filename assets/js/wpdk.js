@@ -3006,9 +3006,6 @@ jQuery( function ( $ )
       'jQuery'                    : WPDKjQuery.jQueryVersion(),
       'jQuery UI'                 : WPDKjQuery.jQueryUIVersion(),
       'WPDK'                      : WPDK.version,
-      'WPDKControls'              : WPDKControls.version,
-      'WPDKTwitterBootstrap'      : WPDKTwitterBootstrap.version,
-      'WPDKjQuery'                : WPDKjQuery.version,
       'GuruMeditation'            : GuruMeditation.version
     };
 
