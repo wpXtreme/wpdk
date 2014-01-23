@@ -270,6 +270,7 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKHTMLTagButton',
           'WPDKHTMLTagFieldset',
           'WPDKHTMLTagForm',
+          'WPDKHTMLTagImg',
           'WPDKHTMLTagInput',
           'WPDKHTMLTagLabel',
           'WPDKHTMLTagLegend',
