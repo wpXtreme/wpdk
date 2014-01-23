@@ -278,7 +278,11 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKHTMLTagTextarea',
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-dynamic-table.php'            => 'WPDKDynamicTable',
+        $sPathPrefix . 'classes/ui/wpdk-dynamic-table.php'            => array(
+          'WPDKDynamicTable',
+          'WPDKDynamicTableView',
+        ),
+
         $sPathPrefix . 'classes/ui/wpdk-menu.php'                     => array(
           'WPDKMenu',
           'WPDKSubMenu',

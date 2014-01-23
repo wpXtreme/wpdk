@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wpXtreme v1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-08 12:52+0100\n"
-"PO-Revision-Date: 2014-01-08 12:52+0100\n"
+"POT-Creation-Date: 2014-01-21 15:34+0100\n"
+"PO-Revision-Date: 2014-01-21 15:34+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: FRANS PRONK <beheer@ifra.nl>\n"
 "Language: nl_NL\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 # @ wpdk
-#: ../wpdk.php:540
+#: ../wpdk.php:551
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -29,42 +29,42 @@ msgstr ""
 " Wilt u dit veld op het formulier ontgrendelen?"
 
 # @ wpdk
-#: ../wpdk.php:542
+#: ../wpdk.php:553
 msgid "Choose Time"
 msgstr "Kies tijd"
 
 # @ wpdk
-#: ../wpdk.php:543
+#: ../wpdk.php:554
 msgid "Time"
 msgstr "Tijd"
 
 # @ wpdk
-#: ../wpdk.php:544
+#: ../wpdk.php:555
 msgid "Hour"
 msgstr "Uur"
 
 # @ wpdk
-#: ../wpdk.php:545
+#: ../wpdk.php:556
 msgid "Minute"
 msgstr "Minuut"
 
 # @ wpdk
-#: ../wpdk.php:546
+#: ../wpdk.php:557
 msgid "Seconds"
 msgstr "Seconden"
 
 # @ wpdk
-#: ../wpdk.php:547
+#: ../wpdk.php:558
 msgid "Now"
 msgstr "Nu"
 
 # @ wpdk
-#: ../wpdk.php:548
+#: ../wpdk.php:559
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Zo,Ma,Di,Wo,Do,Vr,Za"
 
 # @ wpdk
-#: ../wpdk.php:549
+#: ../wpdk.php:560
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -73,82 +73,82 @@ msgstr ""
 "oktober, November, December"
 
 # @ wpdk
-#: ../wpdk.php:550
+#: ../wpdk.php:561
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Jan, Feb, mrt, Apr, mei, Jun, Jul, Aug, Sep, okt, Nov, Dec"
 
 # @ wpdk
-#: ../wpdk.php:551
+#: ../wpdk.php:562
 msgid "Close"
 msgstr "Sluiten"
 
 # @ wpdk
-#: ../wpdk.php:552
+#: ../wpdk.php:563
 msgid "mm/dd/yy"
 msgstr "mm/dd/yy"
 
 # @ wpdk
-#: ../wpdk.php:553
+#: ../wpdk.php:564
 msgid "HH:mm"
 msgstr "HH:mm"
 
 # @ wpdk
-#: ../classes/core/wpdk-mail.php:167
+#: ../classes/core/wpdk-mail.php:230
 msgid "User First name"
 msgstr "Voornaam gebruiker"
 
 # @ wpdk
-#: ../classes/core/wpdk-mail.php:171
+#: ../classes/core/wpdk-mail.php:234
 msgid "User Last name"
 msgstr "Achternaam gebruiker"
 
 # @ wpdk
-#: ../classes/core/wpdk-mail.php:175
+#: ../classes/core/wpdk-mail.php:238
 msgid "User Display name"
 msgstr "Gebruikersnaam"
 
 # @ wpdk
-#: ../classes/core/wpdk-mail.php:179
+#: ../classes/core/wpdk-mail.php:242
 msgid "User email"
 msgstr "Email gebruiker"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:236
+#: ../classes/core/wpdk-preferences.php:245
 msgid "Your preferences were successfully restored to defaults values!"
 msgstr "Uw voorkeuren zijn naar standaardwaarden hersteld!"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:248
+#: ../classes/core/wpdk-preferences.php:257
 msgid "Your preferences values were successfully updated!"
 msgstr "Uw voorkeuren zijn bijgewerkt!"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:564
+#: ../classes/core/wpdk-preferences.php:577
 msgid "Warning!"
 msgstr "Waarschuwing!"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:571
+#: ../classes/core/wpdk-preferences.php:584
 msgid "Successfully!"
 msgstr "Gelukt!"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:572
+#: ../classes/core/wpdk-preferences.php:585
 msgid "Import complete."
 msgstr "Importeren voltooid."
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:576
+#: ../classes/core/wpdk-preferences.php:589
 msgid "Error while read file! Error code:"
 msgstr "Fout bij lezen bestand! Foutcode:"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:580
+#: ../classes/core/wpdk-preferences.php:593
 msgid "Malformed file."
 msgstr "Ongeldig bestand."
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:584
+#: ../classes/core/wpdk-preferences.php:597
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
@@ -434,7 +434,7 @@ msgid "Next"
 msgstr "Volgende"
 
 # @ wpdk
-#: ../classes/ui/wpdk-preferences-view.php:122 ../classes/ui/wpdk-ui.php:2408
+#: ../classes/ui/wpdk-preferences-view.php:122 ../classes/ui/wpdk-ui.php:2404
 msgid "Update"
 msgstr "Update"
 
@@ -450,7 +450,7 @@ msgstr ""
 " Deze handeling is niet omkeerbaar!"
 
 # @ wpdk
-#: ../classes/ui/wpdk-preferences-view.php:132 ../classes/ui/wpdk-ui.php:2345
+#: ../classes/ui/wpdk-preferences-view.php:132 ../classes/ui/wpdk-ui.php:2341
 msgid "Reset to default"
 msgstr "Standaardinstellingen herstellen"
 
@@ -481,12 +481,20 @@ msgstr "Exporteren"
 msgid "Reset All"
 msgstr "Alles resetten"
 
+#: ../classes/ui/wpdk-tinymce-plugin.php:311
+msgid "WPDK Editor Manager"
+msgstr ""
+
+#: ../classes/ui/wpdk-tinymce-plugin.php:311
+msgid "<h4>Information</h4><p>This feature coming in next soon release!</p>"
+msgstr ""
+
 #: ../classes/ui/wpdk-ui.php:338
 msgid "Remove"
 msgstr ""
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui.php:429
+#: ../classes/ui/wpdk-ui.php:425
 msgid ""
 "This field is locked for your security. However you can unlock just by click "
 "here."
@@ -495,17 +503,17 @@ msgstr ""
 "hier te klikken."
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui.php:550 ../classes/ui/wpdk-ui.php:553
+#: ../classes/ui/wpdk-ui.php:546 ../classes/ui/wpdk-ui.php:549
 msgid "Guide"
 msgstr "Gids"
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui.php:556
+#: ../classes/ui/wpdk-ui.php:552
 msgid "Open the guide"
 msgstr "Open de gids"
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui.php:2365
+#: ../classes/ui/wpdk-ui.php:2361
 msgid "Submit"
 msgstr "Opslaan"
 

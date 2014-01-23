@@ -20,6 +20,21 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+
+## Version 1.4.10
+### 2014-01-23
+
+#### Improvements
+
+* Improved Javascript
+* Improved `WPDKTerm::term()`
+
+#### Experimental
+
+* Added `WPDKDynamicTableView` class
+* Added column styles
+
+
 ## Version 1.4.9
 ### 2014-01-17
 
