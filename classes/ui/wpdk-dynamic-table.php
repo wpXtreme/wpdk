@@ -488,20 +488,21 @@ class WPDKDynamicTableView extends WPDKView {
    *
    * @return string
    */
-  public function html() {
-
-    WPDKHTML::startCompress(); ?>
-      <table id="<?php printf( 'wpdk-dynamic-table-%s', $this->id ) ?>"
-             class="wpdk-dynamic-table <?php echo $this->sortable ? 'wpdk-dynamic-table-sortable' : '' ?>"
-             <?php echo $this->sortable ? 'data-sortable="true"' : '' ?>
-             cellspacing="0"
-             cellpadding="0"
-             border="0">
+  public function draw()
+  {
+    WPDKHTML::startCompress();
+    ?>
+    <table id="<?php printf( 'wpdk-dynamic-table-%s', $this->id ) ?>"
+           class="wpdk-dynamic-table <?php echo $this->sortable ? 'wpdk-dynamic-table-sortable' : '' ?>"
+      <?php echo $this->sortable ? 'data-sortable="true"' : '' ?>
+           cellspacing="0"
+           cellpadding="0"
+           border="0">
 
         <!-- Columns -->
         <thead>
-          <?php foreach( $this->_columns() as $column_key => $column ) : ?>
-            <?php if( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
+          <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
+            <?php if ( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
               <th class="wpdk-dynamic-table-column-<?php echo $column_key ?>">
                 <?php echo $column['_label'] ?>
               </th>
@@ -513,9 +514,9 @@ class WPDKDynamicTableView extends WPDKView {
 
           <!-- This row is used for clone -->
           <tr class="wpdk-dt-clone">
-            <?php foreach( $this->_columns() as $column_key => $column ) : ?>
+            <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
 
-              <?php if( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+              <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                 <td class="<?php echo $column_key ?>">
                   <?php echo $this->buttonAdd() ?>
                   <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
@@ -526,15 +527,15 @@ class WPDKDynamicTableView extends WPDKView {
                 </td>
               <?php endif; ?>
 
-           <?php endforeach; ?>
+            <?php endforeach; ?>
           </tr>
 
           <!-- Main Body -->
-          <?php foreach( $this->items() as $item ) : ?>
+          <?php foreach ( $this->items() as $item ) : ?>
             <tr>
-              <?php foreach( $this->_columns() as $column_key => $column ) : $column['value'] = isset( $item[$column_key] ) ? $item[$column_key] : '' ?>
+              <?php foreach ( $this->_columns() as $column_key => $column ) : $column['value'] = isset( $item[$column_key] ) ? $item[$column_key] : '' ?>
 
-                <?php if( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+                <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                   <td class="<?php echo $column_key ?>">
                     <?php echo $this->buttonDelete() ?>
                   </td>
@@ -544,15 +545,15 @@ class WPDKDynamicTableView extends WPDKView {
                   </td>
                 <?php endif; ?>
 
-             <?php endforeach; ?>
+              <?php endforeach; ?>
             </tr>
           <?php endforeach; ?>
 
           <!-- Extra last child row -->
           <tr>
-            <?php foreach( $this->_columns() as $column_key => $column ) : ?>
+            <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
 
-              <?php if( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+              <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                 <td class="<?php echo $column_key ?>">
                   <?php echo $this->buttonAdd() ?>
                   <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
@@ -563,7 +564,7 @@ class WPDKDynamicTableView extends WPDKView {
                 </td>
               <?php endif; ?>
 
-           <?php endforeach; ?>
+            <?php endforeach; ?>
           </tr>
 
         </tbody>
@@ -583,8 +584,8 @@ class WPDKDynamicTableView extends WPDKView {
         </tfoot>
 
       </table>
-    <?php
-    return WPDKHTML::endHTMLCompress();
+  <?php
+    echo WPDKHTML::endHTMLCompress();
   }
 
   // -------------------------------------------------------------------------------------------------------------------
