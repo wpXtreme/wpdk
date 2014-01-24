@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The WPDKPost class is a WordPress Post as object.
  *

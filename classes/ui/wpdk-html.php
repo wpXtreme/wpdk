@@ -39,6 +39,9 @@ class WPDKHTML extends WPDKObject {
   public static function endCSSCompress()
   {
     $css = ob_get_contents();
+    if( false === $css ) {
+      return;
+    }
     ob_end_clean();
 
     /* Remove comments */
@@ -78,6 +81,9 @@ class WPDKHTML extends WPDKObject {
   public static function endJavascriptCompress()
   {
     $js = ob_get_contents();
+    if( false === $js ) {
+      return;
+    }
     ob_end_clean();
 
     /* Remove comments */
@@ -115,6 +121,9 @@ class WPDKHTML extends WPDKObject {
   public static function endHTMLCompress( $comments = false, $conditional = false )
   {
     $html = ob_get_contents();
+    if( false === $html ) {
+      return;
+    }
     ob_end_clean();
 
     /* Replace with none */

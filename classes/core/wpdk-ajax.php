@@ -6,7 +6,12 @@ if ( wpdk_is_ajax() ) {
    * Ajax class for extends an Ajax parent class.
    * You will use this class to extends a your own Ajax gateway class.
    *
-   *     class YourClass extends WPDKAjax {}
+   *     class YourClass extends WPDKAjax {
+   *       public function actions()
+   *       {
+   *         return array();
+   *       }
+   *     }
    *
    * In this way you can access to `registerActions` method
    *
