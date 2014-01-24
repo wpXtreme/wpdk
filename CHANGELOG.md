@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.12
+### 2014-01-??
+
+#### Bugs
+
+* Minor stable improvements on WordPress dbDelta() procedure
+
+
 ## Version 1.4.11
 ### 2014-01-23
 
