@@ -21,10 +21,11 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.4.12
-### 2014-01-??
+### 2014-01-24
 
 #### Bugs
 
+* Fixed potential missing autoload classes
 * Minor stable improvements on WordPress dbDelta() procedure
 
 
