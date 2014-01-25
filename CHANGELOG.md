@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.13
+### 2014-01-??
+
+#### Bugs
+
+* Fixed missing style attribute in input type tag and control
+* Minor stability fixes in css
+
 ## Version 1.4.12
 ### 2014-01-24
 
