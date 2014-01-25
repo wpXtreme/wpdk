@@ -392,6 +392,7 @@ class WPDKUIControl {
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
     $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input' );
+    $input->style        = WPDKHTMLTag::styleInline( isset( $this->item['style'] ) ? $this->item['style'] : '' );
     $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
