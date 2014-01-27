@@ -68,7 +68,7 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @var array $args
    */
-  private $args;
+  protected  $args;
 
   /**
    * An instance of WPDKListTableModel class
