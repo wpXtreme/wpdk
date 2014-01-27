@@ -336,7 +336,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKjQueryTabsViewController',
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'   => 'WPDKListTableViewController',
+        $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'   => array(
+          'WPDKListTableViewController',
+          'WPDKListTableModel',
+        ),
 
         $sPathPrefix . 'classes/ui/wpdk-menu.php'                       => array(
           'WPDKMenu',
