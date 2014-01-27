@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.4.13
 ### 2014-01-??
 
+#### Enhancements
+
+* Introducing `WPDKListTableModel` class
+
 #### Bugs
 
 * Fixed missing style attribute in input type tag and control
