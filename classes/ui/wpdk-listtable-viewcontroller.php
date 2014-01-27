@@ -854,7 +854,7 @@ class WPDKListTableModel {
   }
 
   /**
-   * Return the items array
+   * Return the items array. This is an array of key value pairs array
    *
    * @brief Items
    */
