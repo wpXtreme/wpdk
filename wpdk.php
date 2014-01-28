@@ -69,8 +69,11 @@ if ( !class_exists( 'WPDK' ) ) {
       $this->defines();
       $this->registerClasses();
 
-      /* Load the translation of WPDK */
+      // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+
+      // @todo Register scripts and styles
+      //add_action( 'init', array( $this, 'register_scripts_and_styles' ) );
 
       /* Users enhancer. */
       add_action( 'set_current_user', array( 'WPDKUsers', 'init' ) );
@@ -92,8 +95,29 @@ if ( !class_exists( 'WPDK' ) ) {
       /* Add some special WPDK class to body */
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-      /* Callback hook */
+      // Callback hook
       do_action( 'WPDK' );
+    }
+
+    /**
+     * Register all backend and frontend styles for next enqueue
+     *
+     *     DYNAMIC TABLE
+     *        wpdk-dynamic-table (js/css)
+     *
+     *     THEME
+     *        wpdk-theme (js/css)
+     *
+     * @brief Register scripts and styles
+     * @since 1.4.13
+     */
+    public function register_scripts_and_styles()
+    {
+      // Javascript
+      wp_register_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION, true );
+
+      // Style
+      wp_register_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
     }
 
     /**
