@@ -1604,7 +1604,7 @@
               {
                 control.removeClass( 'wpdk-form-swipe-on' );
               } );
-              control.triggerHandler( 'changed', [ control, 'on'] );
+              control.triggerHandler( 'changed', [ control, 'off'] );
             }
           }
         }
