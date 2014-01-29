@@ -1874,7 +1874,7 @@ jQuery( function ( $ )
       {
         $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
         {
-          $( this ).prev().val( '' ).trigger( 'change' ).trigger( 'keyup' );
+          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' );
         } );
       }
 
