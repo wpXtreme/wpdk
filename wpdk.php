@@ -386,6 +386,8 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-preferences-viewcontroller.php' => 'WPDKPreferencesViewController',
 
+        $sPathPrefix . 'classes/ui/wpdk-scripts.php'                    => 'WPDKScripts',
+
         $sPathPrefix . 'classes/ui/wpdk-tbs-alert.php'                  => array(
           'WPDKTwitterBootstrapAlert',
           'WPDKTwitterBootstrapAlertType',
