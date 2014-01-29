@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.14
+### 2014-01-??
+
+#### Bugs
+
+* Fixed potential HTML strip in textarea
+
+
 ## Version 1.4.13
 ### 2014-01-29
 
