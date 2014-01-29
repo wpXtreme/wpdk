@@ -297,7 +297,10 @@ class WPDKUIControl {
 
     echo $this->contentWithKey( 'after' );
 
-    return WPDKHTML::endHTMLCompress();
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    return $html;
   }
 
   /**
@@ -2222,7 +2225,7 @@ class WPDKUIControlsLayout {
   private function _processItem( $item )
   {
     $class_name = isset( $item['type'] ) ? $item['type'] : '';
-    if ( !empty( $class_name ) ) {
+    if ( !empty( $class_name ) && class_exists( $class_name ) ) {
       $control = new $class_name( $item );
       $control->display();
     }
@@ -2253,11 +2256,11 @@ class WPDKUIControlsLayout {
     foreach ( $this->_cla as $key => $value ) : ?>
 
       <fieldset class="wpdk-form-fieldset">
-      <legend><?php echo $key ?></legend>
-      <div class="wpdk-fieldset-container">
-        <?php $this->_processRows( $value ) ?>
-      </div>
-    </fieldset>
+        <legend><?php echo $key ?></legend>
+        <div class="wpdk-fieldset-container">
+          <?php $this->_processRows( $value ) ?>
+        </div>
+      </fieldset>
 
     <?php endforeach;
 
