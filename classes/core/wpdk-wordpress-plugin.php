@@ -480,7 +480,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
       $this->admin();
     }
     // Improve since v1.4.13
-    elseif( !in_array( $GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php') ) ) {
+    elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
       $this->theme();
     }
   }
