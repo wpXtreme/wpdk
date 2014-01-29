@@ -139,13 +139,13 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    * @brief Construct
    *
    * @param string $id      This alert id
-   * @param string $content An HTML content for this alert
+   * @param string $content Optional. An HTML content for this alert
    * @param string $type    Optional. See WPDKTwitterBootstrapAlertType. Default WPDKTwitterBootstrapAlertType::INFORMATION
    * @param string $title   Optional. Title of alert
    *
    * @return WPDKTwitterBootstrapAlert
    */
-  public function __construct( $id, $content, $type = WPDKTwitterBootstrapAlertType::INFORMATION, $title = '' )
+  public function __construct( $id, $content = '', $type = WPDKTwitterBootstrapAlertType::INFORMATION, $title = '' )
   {
     parent::__construct( $id );
 
@@ -186,7 +186,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   private function _content()
   {
-    return wpautop( $this->content() );
+    return empty( $this->content ) ? wpautop( $this->content() ) : wpautop( $this->content );
   }
 
   /**
@@ -203,6 +203,29 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   }
 
   /**
+   * Return the title
+   *
+   * @brief Title
+   * @return string
+   */
+  private function _title()
+  {
+    return empty( $this->title ) ? sprintf( '<h4>%s</h4>', $this->title() ) : sprintf( '<h4>%s</h4>', $this->title );
+  }
+
+  /**
+   * Title
+   *
+   * @brief Title
+   * @return string
+   */
+  public function title()
+  {
+    // You can override this method
+    return $this->title;
+  }
+
+  /**
    * Return the HTML markup for  a Twitter bootstrap alert
    *
    * @brief Get HTML
@@ -213,13 +236,12 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public function html()
   {
     WPDKHTML::startCompress() ?>
-
     <div
       <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
       <?php echo empty( $this->data ) ? '' : self::dataInline( $this->data )  ?>
       class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in', 'clearfix' ) )  ?>">
       <?php echo $this->dismissButton() ?>
-      <?php echo empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title ) ?>
+      <?php echo $this->_title() ?>
       <?php echo $this->_content() ?>
     </div>
 

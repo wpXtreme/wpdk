@@ -1604,7 +1604,7 @@
               {
                 control.removeClass( 'wpdk-form-swipe-on' );
               } );
-              control.triggerHandler( 'changed', [ control, 'on'] );
+              control.triggerHandler( 'changed', [ control, 'off'] );
             }
           }
         }
@@ -1874,7 +1874,7 @@ jQuery( function ( $ )
       {
         $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
         {
-          $( this ).prev().val( '' ).triggerHandler( 'change' );
+          $( this ).prev().val( '' ).trigger( 'change' ).trigger( 'keyup' );
         } );
       }
 

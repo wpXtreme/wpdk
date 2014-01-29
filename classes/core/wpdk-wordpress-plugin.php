@@ -475,11 +475,12 @@ class WPDKWordPressPlugin extends WPDKPlugin {
       return;
     }
 
-    /* Check admin backend. */
+    // Check admin backend
     if ( is_admin() ) {
       $this->admin();
     }
-    else {
+    // Improve since v1.4.13
+    elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
       $this->theme();
     }
   }

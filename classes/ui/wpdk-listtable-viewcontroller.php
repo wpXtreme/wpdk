@@ -14,8 +14,8 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-09-24
- * @version            1.0.0
+ * @date               2014-01-27
+ * @version            1.0.1
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -68,15 +68,15 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @var array $args
    */
-  private $args;
+  protected  $args;
 
   /**
-   * An instance of __WPDKDBTable class
+   * An instance of WPDKListTableModel class
    *
    * @brief Model
    * @since 1.3.0
    *
-   * @var mixed $model
+   * @var WPDKListTableModel $model
    */
   public $model;
 
@@ -825,6 +825,42 @@ class WPDKListTableViewController extends WP_List_Table {
     $url = $this->urlRemveAction();
     wp_redirect( $url );
     exit;
+  }
+
+}
+
+/**
+ * This is a generic model to make easy a WPDKListTableViewController
+ *
+ * @class           WPDKListTableModel
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-01-27
+ * @version         1.0.0
+ * @since           1.4.13
+ *
+ */
+class WPDKListTableModel {
+
+  /**
+   * Create an instance of WPDKListTableModel class
+   *
+   * @brief Construct
+   *
+   * @return WPDKListTableModel
+   */
+  public function __construct()
+  {
+  }
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
   }
 
 }
