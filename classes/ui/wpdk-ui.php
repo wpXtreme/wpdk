@@ -287,8 +287,9 @@ class WPDKUIControl {
    *
    * @return string
    */
-  public function html() {
-    ob_start();
+  public function html()
+  {
+    WPDKHTML::startCompress();
 
     echo $this->contentWithKey( 'before' );
 
@@ -296,10 +297,7 @@ class WPDKUIControl {
 
     echo $this->contentWithKey( 'after' );
 
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    return $content;
+    return WPDKHTML::endHTMLCompress();
   }
 
   /**
@@ -381,6 +379,7 @@ class WPDKUIControl {
    * @param string                       $class Optional. CSS additional class
    */
   protected function inputType( $type = WPDKHTMLTagInputType::TEXT, $class = '' ) {
+
     echo $this->contentWithKey( 'prepend' );
 
     /* Create the label. */
@@ -412,14 +411,14 @@ class WPDKUIControl {
       $input->readonly = 'readonly';
     }
 
-    $input->display();
-
     /* Add a clear field button only. */
     if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) ) ) {
       $span_clear = new WPDKHTMLTagSpan();
       $span_clear->class[] = 'wpdk-form-clear-left';
-      $span_clear->content = WPDKGlyphIcons::html( WPDKGlyphIcons::CANCEL_CIRCLED );
+      $span_clear->content = $input->html() . WPDKGlyphIcons::html( WPDKGlyphIcons::CANCEL_CIRCLED );
       $span_clear->display();
+    } else {
+      $input->display();
     }
 
     if ( isset( $this->item['locked'] ) && true == $this->item['locked'] ) {
@@ -1049,7 +1048,8 @@ class WPDKUIControlDate extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-date wpdk-form-has-button-clear-left ' );
   }
 
@@ -1104,7 +1104,8 @@ class WPDKUIControlDateTime extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-datetime wpdk-form-has-button-clear-left ' );
   }
 
