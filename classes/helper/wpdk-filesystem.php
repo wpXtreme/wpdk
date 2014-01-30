@@ -5,8 +5,8 @@
  * @class              WPDKFilesystem
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.1.2
+ * @date               2014-01-30
+ * @version            1.1.3
  */
 
 class WPDKFilesystem extends WPDKObject {
@@ -129,14 +129,45 @@ class WPDKFilesystem extends WPDKObject {
    * Return the extension of a filename
    *
    * @brief Extension
+   * @see filename()
    *
-   * @param string $file A filename
+   * @param string $filename A comoplete filename
    *
    * @return string
    */
-  public static function ext( $file )
+  public static function ext( $filename )
   {
-    return end( explode( '.', strtolower( basename( $file ) ) ) );
+    return end( explode( '.', strtolower( basename( $filename ) ) ) );
+  }
+
+  /**
+   * Return the only filename part. if a filename is 'test.black.jpg' will return 'test.black'
+   *
+   * @brief Filename
+   * @since 1.4.15
+   * @see ext()
+   *
+   * @param string $filename A comoplete filename
+   *
+   * @return string
+   */
+  public static function filename( $filename )
+  {
+    $parts = explode( '.', strtolower( basename( $filename ) ) );
+
+    // No dot found
+    if ( empty( $parts ) ) {
+      return $filename;
+    }
+    // Multiple dot found
+    elseif ( count( $parts ) > 2 ) {
+      unset( $parts[count( $parts ) - 1] );
+      return implode( ',', $parts );
+    }
+    // Usually
+    else {
+      return current( $parts );
+    }
   }
 
 }
