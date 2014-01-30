@@ -24,7 +24,9 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.4.15
 ### 2014-01-??
 
-####
+#### Experimental
+
+* Added `WPDKScripts` class
 
 ## Version 1.4.14
 ### 2014-01-29
