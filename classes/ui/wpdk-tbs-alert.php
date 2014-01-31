@@ -210,7 +210,11 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   private function _title()
   {
-    return empty( $this->title ) ? sprintf( '<h4>%s</h4>', $this->title() ) : sprintf( '<h4>%s</h4>', $this->title );
+    if ( empty( $this->title ) ) {
+      $this->title = $this->title();
+    }
+
+    return empty( $this->title ) ? '' : sprintf( '<h4>%s</h4>', $this->title );
   }
 
   /**
