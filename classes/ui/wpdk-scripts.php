@@ -36,7 +36,7 @@ class WPDKScripts {
    */
   public function __construct()
   {
-    global $wp_scripts;
+    //global $wp_scripts;
   }
 
   /**
@@ -135,9 +135,10 @@ class WPDKScripts {
    *
    * @param string       $path      Optional. If set all scripts will be loaded fron this url
    * @param string|array $deps      Optional. One or more handle dependiences
-   * @param string       $version   Optional. If set will apply to all script
+   * @param bool|string  $version   Optional. If set will apply to all script
    * @param bool         $in_footer Optional. Default all scripts are loaded in footer
    *
+   * @return bool
    */
   public function registerScripts( $scripts, $path = '', $deps = array(), $version = false, $in_footer = true )
   {
@@ -173,6 +174,10 @@ class WPDKScripts {
           $_in_footer = $in_footer;
           $src        = sprintf( '%s%s', trailingslashit( $_path ), $info );
         }
+        // Cha!
+        else {
+          return false;
+        }
 
         // Stability
         if ( !empty( $handle ) && !empty( $src ) ) {
@@ -180,6 +185,7 @@ class WPDKScripts {
         }
       }
     }
+    return true;
   }
 
 }

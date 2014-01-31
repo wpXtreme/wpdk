@@ -25,7 +25,7 @@ class WPDKMath extends WPDKObject {
    *
    * @var string $__version
    */
-  public static $__version = '1.0.3';
+  public $__version = '1.0.3';
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC
