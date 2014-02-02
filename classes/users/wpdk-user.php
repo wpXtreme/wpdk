@@ -1754,9 +1754,9 @@ class WPDKRole extends WP_Role {
  *
  * @class              WPDKRoles
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-01-02
+ * @version            1.0.0
  *
  */
 class WPDKRoles extends WP_Roles {
@@ -1768,6 +1768,14 @@ class WPDKRoles extends WP_Roles {
    *
    */
   const OPTION_KEY = '_wpdk_roles_extends';
+
+  // since 1.4.16 - WordPress has six pre-defined roles:
+  const SUPER_ADMIN   = 'super-admin';
+  const ADMINISTRATOR = 'administrator';
+  const EDITOR        = 'editor';
+  const AUTHOR        = 'author';
+  const CONTRIBUTOR   = 'contributor';
+  const SUBSCRIBER    = 'subscriber';
 
   /**
    * An array with all active roles
