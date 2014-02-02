@@ -1755,7 +1755,7 @@ class WPDKRole extends WP_Role {
  * @class              WPDKRoles
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-02
+ * @date               2014-02-02
  * @version            1.0.0
  *
  */
