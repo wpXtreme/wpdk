@@ -501,10 +501,11 @@ class WPDKDynamicTableView extends WPDKView {
 
         <!-- Columns -->
         <thead>
-          <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
+          <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
             <?php if ( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
-              <th class="wpdk-dynamic-table-column-<?php echo $column_key ?>">
-                <?php echo $column['_label'] ?>
+              <th <?php echo ( true == $this->sortable && empty( $index ) ) ? 'colspan="2"' : '' ?>
+                class="wpdk-dynamic-table-column-<?php echo $column_key ?>">
+                <?php echo $column['_label']; $index++; ?>
               </th>
             <?php endif; ?>
           <?php endforeach; ?>
@@ -514,7 +515,7 @@ class WPDKDynamicTableView extends WPDKView {
 
           <!-- This row is used for clone -->
           <tr class="wpdk-dt-clone">
-            <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
 
               <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                 <td class="<?php echo $column_key ?>">
@@ -522,8 +523,11 @@ class WPDKDynamicTableView extends WPDKView {
                   <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
                 </td>
               <?php else : ?>
+                <?php if( $this->sortable && empty( $index ) ) : ?>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                <?php endif; ?>
                 <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
-                  <?php echo WPDKUIControlsLayout::item( $column ) ?>
+                  <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
                 </td>
               <?php endif; ?>
 
@@ -533,15 +537,18 @@ class WPDKDynamicTableView extends WPDKView {
           <!-- Main Body -->
           <?php foreach ( $this->items() as $item ) : ?>
             <tr>
-              <?php foreach ( $this->_columns() as $column_key => $column ) : $column['value'] = isset( $item[$column_key] ) ? $item[$column_key] : '' ?>
+              <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : $column['value'] = isset( $item[$column_key] ) ? $item[$column_key] : '' ?>
 
                 <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                   <td class="<?php echo $column_key ?>">
                     <?php echo $this->buttonDelete() ?>
                   </td>
                 <?php else : ?>
+                  <?php if( $this->sortable && empty( $index ) ) : ?>
+                    <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                  <?php endif; ?>
                   <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
-                    <?php echo WPDKUIControlsLayout::item( $column ) ?>
+                    <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
                   </td>
                 <?php endif; ?>
 
@@ -551,7 +558,7 @@ class WPDKDynamicTableView extends WPDKView {
 
           <!-- Extra last child row -->
           <tr>
-            <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
 
               <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
                 <td class="<?php echo $column_key ?>">
@@ -559,8 +566,11 @@ class WPDKDynamicTableView extends WPDKView {
                   <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
                 </td>
               <?php else : ?>
+                <?php if( $this->sortable && empty( $index ) ) : ?>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                <?php endif; ?>
                 <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
-                  <?php echo WPDKUIControlsLayout::item( $column ) ?>
+                  <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
                 </td>
               <?php endif; ?>
 
@@ -569,19 +579,21 @@ class WPDKDynamicTableView extends WPDKView {
 
         </tbody>
 
+        <?php if( 1 == 0 ) : ?>
         <!-- Footer -->
         <tfoot>
           <tr>
-            <?php foreach ( $this->_columns() as $column_key => $column ) : ?>
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
 
               <?php if ( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
-                <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
-                </td>
-              <?php endif; ?>
+                <td <?php echo ( true == $this->sortable && empty( $index ) ) ? 'colspan="2"' : '' ?>
+                  class="wpdk-dynamic-table-cel-<?php echo $column_key ?>"></td>
+              <?php endif; $index++ ?>
 
             <?php endforeach; ?>
           </tr>
         </tfoot>
+        <?php endif; ?>
 
       </table>
   <?php
@@ -601,6 +613,18 @@ class WPDKDynamicTableView extends WPDKView {
    */
   private function buttonAdd()
   {
+    WPDKHTML::startCompress(); ?>
+      <button
+             class="wpdk-tooltip wpdk-dt-add-row"
+             title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+             title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+             data-placement="left"
+        >
+        <?php WPDKGlyphIcons::display( WPDKGlyphIcons::PLUS_SQUARED ) ?>
+        </button>
+      <?php
+      return WPDKHTML::endHTMLCompress();
+
     WPDKHTML::startCompress(); ?>
     <input type="button"
            class="wpdk-tooltip wpdk-dt-add-row"
@@ -622,6 +646,17 @@ class WPDKDynamicTableView extends WPDKView {
    */
   private function buttonDelete()
   {
+    WPDKHTML::startCompress(); ?>
+      <button
+             class="wpdk-tooltip wpdk-dt-delete-row"
+             title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+             title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+             data-placement="left"
+        >
+        <?php WPDKGlyphIcons::display( WPDKGlyphIcons::MINUS_SQUARED ) ?>
+        </button>
+      <?php
+      return WPDKHTML::endHTMLCompress();
 
     WPDKHTML::startCompress(); ?>
     <input type="button"
