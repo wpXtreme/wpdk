@@ -243,7 +243,7 @@ class WPDKPreferences {
   public function wpdk_preferences_feedback_reset()
   {
     $message = __( 'Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
     $alert->display();
   }
 
