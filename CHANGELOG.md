@@ -22,10 +22,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 
 ## Version 1.4.16
-### 2014-01-??
+### 2014-02-03
 
 #### Bugs
 
+* Fixed potential css conflict
 * Fixed potential title output in `WPDKTwitterBootstrapAlert` when title property is empty
 
 ## Version 1.4.15

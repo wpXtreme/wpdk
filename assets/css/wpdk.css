@@ -1175,7 +1175,9 @@ div.wpdk-credits ul li a
  * =====================================================================================================================
  */
 
-.fade
+.wpdk-modal.fade,
+.wpdk-alert.fade,
+.wpdk-tooltip-box.fade
 {
   opacity            : 0;
   filter             : alpha(opacity=0);
@@ -1186,11 +1188,23 @@ div.wpdk-credits ul li a
   transition         : opacity 0.15s linear;
 }
 
-.fade.in,
-.fade.error,
-.fade.information,
-.fade.warning,
-.fade.updated
+.wpdk-modal.fade.in,
+.wpdk-modal.fade.error,
+.wpdk-modal.fade.information,
+.wpdk-modal.fade.warning,
+.wpdk-modal.fade.updated,
+
+.wpdk-alert.fade.in,
+.wpdk-alert.fade.error,
+.wpdk-alert.fade.information,
+.wpdk-alert.fade.warning,
+.wpdk-alert.fade.updated,
+
+.wpdk-tooltip-box.fade.in,
+.wpdk-tooltip-box.fade.error,
+.wpdk-tooltip-box.fade.information,
+.wpdk-tooltip-box.fade.warning,
+.wpdk-tooltip-box.fade.updated
 {
   opacity : 1;
   filter  : alpha(opacity=100);
