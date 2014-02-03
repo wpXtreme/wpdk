@@ -32,8 +32,8 @@ jQuery( function ( $ )
       {
         var table = $( 'table.wpdk-dynamic-table' );
         if ( table.length ) {
-          table.on( 'click', 'input.wpdk-dt-add-row', false, _addRow );
-          table.on( 'click', 'input.wpdk-dt-delete-row', false, _deleteRow );
+          table.on( 'click', '.wpdk-dt-add-row', false, _addRow );
+          table.on( 'click', '.wpdk-dt-delete-row', false, _deleteRow );
 
           /* Sortable. */
           $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
@@ -61,6 +61,7 @@ jQuery( function ( $ )
         {
           WPDK.init();
         } );
+        return false;
       }
 
       /**
@@ -72,6 +73,7 @@ jQuery( function ( $ )
       {
         $( this ).wpdkTooltip( 'hide' );
         $( this ).parents( 'tr' ).fadeOut( 300, function () { $( this ).remove(); } );
+        return false;
       }
 
       return $t.init();
