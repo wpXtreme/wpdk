@@ -650,26 +650,33 @@ class WPDKSubMenu {
    *
    * @brief Render
    */
-  public function render() {
+  public function render()
+  {
 
     global $plugin_page;
 
     $hook       = '';
     $global_key = WPDKMenu::sanitizeViewController( $this->viewController );
 
-    if ( !empty( $this->viewController ) ) {
-      if ( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
-        /* @todo Think $vc = %s::init() - in this way we can use the singleton in the head hook below */
+    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) && class_exists( $this->viewController ) ) {
+
+      // Check for static ::init() method
+      if ( method_exists( $this->viewController, 'init' ) ) {
+        $hook = create_function( '', sprintf( '%s::init()->display();', $this->viewController ) );
+      }
+      else {
         $hook = create_function( '', sprintf( '$view_controller = new %s; $view_controller->display();', $this->viewController ) );
       }
-      // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
-      elseif ( is_callable( $this->viewController ) ) {
-        $hook = $this->viewController;
-      }
+
+    }
+    // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
+    elseif ( is_callable( $this->viewController ) ) {
+      $hook = $this->viewController;
     }
 
     if( !empty( $global_key ) ) {
-      /* Create a global list of my own menu. */
+
+      //  Create a global list of my own menu.
       $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key ] = array(
         'parent'     => $this->parent,
         'page'       => $this->id,
@@ -701,12 +708,24 @@ class WPDKSubMenu {
       }
     }
 
-    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
-      $will_load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
-      add_action( 'load-' . $this->hookName, $will_load );
+    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController && class_exists( $this->viewController ) ) ) {
 
-      $head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
-      add_action( 'admin_head-' . $this->hookName, $head );
+      // Check for static ::init() method
+      if ( method_exists( $this->viewController, 'init' ) ) {
+        $load = create_function( '', sprintf( '%s::init()->load();', $this->viewController ) );
+        add_action( 'load-' . $this->hookName, $load );
+
+        $admin_head = create_function( '', sprintf( '%s::init()->admin_head();', $this->viewController ) );
+        add_action( 'admin_head-' . $this->hookName, $admin_head );
+      }
+      //
+      elseif ( !is_callable( $this->viewController ) && class_exists( $this->viewController ) ) {
+        $load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
+        add_action( 'load-' . $this->hookName, $load );
+
+        $admin_head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
+        add_action( 'admin_head-' . $this->hookName, $admin_head );
+      }
     }
 
     if ( !empty( $global_key ) ) {

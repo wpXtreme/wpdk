@@ -14,8 +14,8 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-27
- * @version            1.0.1
+ * @date               2014-02-03
+ * @version            1.0.2
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -105,19 +105,19 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function __construct( $id, $title, $args )
   {
-
-    /* Create an instance of WP_List_Table class. */
+    // Create an instance of WP_List_Table class
     parent::__construct( $args );
 
-    /* Set static properties. */
+    // Set static properties.
     $this->id          = sanitize_key( $id );
     $this->title       = $title;
     $this->args        = $args;
     $this->getStatusID = self::GET_STATUS;
 
-    /* Init the internal view controller. */
+    // Init the internal view controller.
     $this->viewController                = new WPDKViewController( $this->id, $this->title );
     $this->viewController->view->class[] = 'wpdk-list-table-box';
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -318,6 +318,22 @@ class WPDKListTableViewController extends WP_List_Table {
 
   /**
    * @brief To override
+   * @since 1.4.18
+   */
+  public function load()
+  {
+  }
+
+  /**
+   * @brief To override
+   * @since 1.4.18
+   */
+  public function admin_head()
+  {
+  }
+
+  /**
+   * @brief To override
    */
   public static function willLoad()
   {
@@ -330,9 +346,9 @@ class WPDKListTableViewController extends WP_List_Table {
   {
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Display
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * This method override the default WP_List_Table display.
@@ -418,9 +434,9 @@ class WPDKListTableViewController extends WP_List_Table {
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Override standard WP_List_Table
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * The itens can be not found for two main reason: the query search has param tha t doesn't match with items, or the
@@ -512,8 +528,15 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function prepare_items()
   {
+    /**
+     * Optional. You can handle your bulk actions however you see fit. In this
+     * case, we'll handle them within our package just to keep things clean.
+     */
+    if ( $this->process_bulk_action() ) {
+      return true;
+    }
 
-    /* First, lets decide how many records per page to show. */
+    // First, lets decide how many records per page to show.
     $id_user = get_current_user_id();
 
     /**
@@ -533,21 +556,14 @@ class WPDKListTableViewController extends WP_List_Table {
       }
     }
 
-    /* Columns Header */
+    // Columns Header
     $this->column_headers = $this->get_column_info();
 
-    /**
-     * Optional. You can handle your bulk actions however you see fit. In this
-     * case, we'll handle them within our package just to keep things clean.
-     */
-    if ( $this->process_bulk_action() ) {
-      return true;
-    }
-    /* This is required because some GET params keep in the url. */
+    // This is required because some GET params keep in the url
     $remove  = array( 'action' );
     $_SERVER['REQUEST_URI'] = remove_query_arg( $remove, stripslashes( $_SERVER['REQUEST_URI'] ) );
 
-    /* Get data. */
+    // Get data.
     $data = $this->data();
 
     /**
@@ -590,9 +606,9 @@ class WPDKListTableViewController extends WP_List_Table {
     return false;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // To override
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the items data list. This method will be over-ridden in a sub-class.
@@ -702,9 +718,9 @@ class WPDKListTableViewController extends WP_List_Table {
     return $this->get_bulk_actions_with_status( $current_status );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Bulk and single actions
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * This method is to override and you can use it to processed the action request sent from list table.
@@ -720,9 +736,9 @@ class WPDKListTableViewController extends WP_List_Table {
     die( __METHOD__ . ' must be over-ridden in a sub-class.' );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Utility for Bulk actions
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Utility for build a right actions list when the list table is showing items.
@@ -764,9 +780,9 @@ class WPDKListTableViewController extends WP_List_Table {
     return $actions;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Utility for build url
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the current URL without: `action` and singular id
@@ -820,6 +836,11 @@ class WPDKListTableViewController extends WP_List_Table {
     return $url;
   }
 
+  /**
+   * Redirect
+   *
+   * @brief Redirect
+   */
   public function redirect()
   {
     $url = $this->urlRemveAction();

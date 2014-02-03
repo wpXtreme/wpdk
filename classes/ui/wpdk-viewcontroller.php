@@ -14,8 +14,8 @@
  * @class              WPDKViewController
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            0.9.1
+ * @date               2014-02-03
+ * @version            0.9.2
  *
  */
 
@@ -28,7 +28,7 @@ class WPDKViewController extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '0.9.1';
+  public $__version = '0.9.21';
 
   /**
    * The unique id for this view controller
@@ -38,6 +38,7 @@ class WPDKViewController extends WPDKObject {
    * @var string $id
    */
   public $id;
+
   /**
    * The title of this view controller. This is displayed on top header
    *
@@ -46,6 +47,7 @@ class WPDKViewController extends WPDKObject {
    * @var string $title
    */
   public $title;
+
   /**
    * The view stored in this property represents the root view for the view controller hierarchy.
    *
@@ -54,6 +56,7 @@ class WPDKViewController extends WPDKObject {
    * @var WPDKView $view
    */
   public $view;
+
   /**
    * An instance of WPDKHeaderView
    *
@@ -111,10 +114,34 @@ class WPDKViewController extends WPDKObject {
    * It is used by WPDKMenu for example, as 'admin_head-' action.
    *
    * @brief Head
+   * @since 1.4.18
+   */
+  public function admin_head()
+  {
+    // To override
+  }
+
+  /**
+   * This static method is called when the head of this view controller is loaded by WordPress.
+   * It is used by WPDKMenu for example, as 'admin_head-' action.
+   *
+   * @brief Head
    */
   public static function didHeadLoad()
   {
-    /* To override */
+    // To override
+  }
+
+  /**
+   * This static method is called when the head of this view controller is loaded by WordPress.
+   * It is used by WPDKMenu for example, as 'load-' action.
+   *
+   * @brief Head
+   * @since 1.4.18
+   */
+  public function load()
+  {
+    // To override
   }
 
   /**
@@ -125,7 +152,7 @@ class WPDKViewController extends WPDKObject {
    */
   public static function willLoad()
   {
-    /* To override */
+    // To override
   }
 
   /**
