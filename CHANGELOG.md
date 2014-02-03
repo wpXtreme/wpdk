@@ -21,6 +21,13 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.18
+### 2014-02-??
+
+#### Improvements
+
+* Improved `WPDKScreenHelp`
+
 ## Version 1.4.16
 ### 2014-02-03
 
