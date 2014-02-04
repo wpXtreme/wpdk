@@ -110,7 +110,7 @@ class WPDKViewController extends WPDKObject {
   }
 
   /**
-   * This static method is called when the head of this view controller is loaded by WordPress.
+   * This method is called when the head of this view controller is loaded by WordPress.
    * It is used by WPDKMenu for example, as 'admin_head-' action.
    *
    * @brief Head
@@ -133,7 +133,7 @@ class WPDKViewController extends WPDKObject {
   }
 
   /**
-   * This static method is called when the head of this view controller is loaded by WordPress.
+   * This method is called when the head of this view controller is loaded by WordPress.
    * It is used by WPDKMenu for example, as 'load-' action.
    *
    * @brief Head
