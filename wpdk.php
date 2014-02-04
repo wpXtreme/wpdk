@@ -225,6 +225,14 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKAjaxResponse'
         ),
 
+        $sPathPrefix . 'classes/core/wpdk-cron.php'                        => array(
+          'WPDKCronSchedules',
+          'WPDKCronController',
+          'WPDKCron',
+          'WPDKRecurringCron',
+          'WPDKSingleCron',
+        ),
+
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(
           'WPDKMail',
           'WPDKMailPlaceholder',
