@@ -15,8 +15,8 @@
  * @class           WPDKCustomPostType
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-08
- * @version         1.0.1
+ * @date            2014-02-04
+ * @version         1.0.2
  * @since           1.4.0
  *
  */
@@ -29,7 +29,7 @@ class WPDKCustomPostType extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * Custom Post type ID
@@ -225,40 +225,46 @@ class WPDKCustomPostType extends WPDKObject {
    * @brief Save/update post
    * @note  You DO NOT override this method, use `update()` instead
    *
-   * @param int|string $ID   Post ID
-   * @param object     $post Post object
+   * @param int|string $post_id Post ID
+   * @param object     $post    Optional. Post object
    *
    * @return void
    */
-  public function save_post( $ID, $post )
+  public function save_post( $post_id, $post = '' )
   {
-   /* Local variables. */
-    $post_type        = get_post_type();
-    $post_type_object = get_post_type_object( $post_type );
-    $capability       = '';
-
-    /* Do nothing on auto save. */
-    if ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) {
+    // Do not save...
+    if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
+         ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ||
+         ( defined( 'DOING_CRON' ) && DOING_CRON )
+       ) {
       return;
     }
 
-    /* This function only applies to the following post_types. */
-    if ( !in_array( $post_type, array( $this->id ) ) ) {
+    // Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963
+    if ( !is_object( $post ) ) {
+      $post = get_post();
+    }
+
+    // Don't save if the post is only a revision
+    if ( 'revision' == $post->post_type ) {
       return;
     }
 
-    /* Find correct capability from post_type arguments. */
-    if ( isset( $post_type_object->cap->edit_posts ) ) {
-      $capability = $post_type_object->cap->edit_posts;
-    }
-
-    /* Return if current user cannot edit this post. */
-    if ( !current_user_can( $capability ) ) {
+    // This function only applies to the following post_types
+    if( $this->id !== $post->post_type ) {
       return;
     }
 
-    /* If all ok then update() */
-    $this->update( $ID, $post );
+    // Get the post type object
+    $post_type = get_post_type_object( $post->post_type );
+
+    // Check if the current user has permission to edit the post
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+      return $post_id;
+    }
+
+    // If all ok then update()
+    $this->update( $post_id, $post );
   }
 
   /**
@@ -266,11 +272,11 @@ class WPDKCustomPostType extends WPDKObject {
    *
    * @brief Update data
    *
-   * @param int|string $ID   Post ID
-   * @param object $post Post object
+   * @param int|string $post_id Post ID
+   * @param object     $post    Optional. Post object
    *
    */
-  public function update()
+  public function update( $post_id, $post )
   {
     /* You can override this method to save your own data */
   }
