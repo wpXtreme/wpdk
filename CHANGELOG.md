@@ -21,11 +21,16 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
-## Version 1.4.18
+## Version 1.4.20
 ### 2014-02-??
+
+#### Enhancements
+
+* Introducing the static init method in view controller
 
 #### Improvements
 
+* Stability refactor
 * Improved `WPDKScreenHelp`
 
 ## Version 1.4.16
