@@ -174,20 +174,21 @@ class WPDKCron {
     $this->timestamp  = empty( $timestap ) ? time() : $timestap;
     $this->recurrence = $recurrence;
 
+    // Add action
+    add_action( $this->name, array( $this, 'cron' ) );
+
     // If this cron jobs is not scheduled then add to the WP list
-    if ( !wp_next_scheduled( $this->name, array( $this ) ) ) {
+    if ( !wp_next_scheduled( $this->name ) ) {
 
       // Recurring
       if ( empty( $timestap ) && !empty( $recurrence ) ) {
-        wp_schedule_event( time(), $recurrence, $this->name, array( $this ) );
+        wp_schedule_event( time(), $recurrence, $this->name );
       }
       // Single event
       elseif ( !empty( $timestap ) ) {
-        wp_schedule_single_event( $timestap, $this->name, array( $this ) );
+        wp_schedule_single_event( $timestap, $this->name );
       }
     }
-
-    add_action( $this->name, array( $this, 'cron' ) );
   }
 
   /**
@@ -195,9 +196,8 @@ class WPDKCron {
    *
    * @brief Cron
    *
-   * @param array $args Optional. Array args, in current ( index 0 ) you will find a WPDKRecurringCron instance
    */
-  public function cron( $args )
+  public function cron( )
   {
     // Override
   }
