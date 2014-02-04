@@ -69,6 +69,9 @@ if ( !class_exists( 'WPDK' ) ) {
       $this->defines();
       $this->registerClasses();
 
+      // WPDK Cron schedules
+      WPDKCronSchedules::init();
+
       // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
