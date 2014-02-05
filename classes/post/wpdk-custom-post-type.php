@@ -233,42 +233,47 @@ class WPDKCustomPostType extends WPDKObject {
   public function save_post( $post_id, $post = '' )
   {
     // Do not save...
-    if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
-         ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ||
-         ( defined( 'DOING_CRON' ) && DOING_CRON )
+    if ( ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) ||
+         ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) ||
+         ( defined( 'DOING_CRON' ) && true === DOING_CRON )
        ) {
       return;
     }
 
-    // Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963
-    if ( !is_object( $post ) ) {
-      $post = get_post();
-    }
+    // Get post type information
+    $post_type        = get_post_type();
+    $post_type_object = get_post_type_object( $post_type );
 
-    // Don't save if the post is only a revision
-    if ( 'revision' == $post->post_type ) {
+    // Exit
+    if ( false == $post_type || is_null( $post_type_object ) ) {
       return;
     }
+
 
     // This function only applies to the following post_types
-    if( $this->id !== $post->post_type ) {
+    if ( !in_array( $post_type, array( $this->id ) ) ) {
       return;
     }
 
-    // Get the post type object
-    $post_type = get_post_type_object( $post->post_type );
+    // Find correct capability from post_type arguments
+    $capability       = '';
+    if ( isset( $post_type_object->cap->edit_posts ) ) {
+      $capability = $post_type_object->cap->edit_posts;
+    }
 
-    // Check if the current user has permission to edit the post
-    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
-      return $post_id;
+    // Return if current user cannot edit this post
+    if ( !current_user_can( $capability ) ) {
+      return;
     }
 
     // If all ok then update()
     $this->update( $post_id, $post );
+
   }
 
   /**
-   * Override this metho dto save/update your custom data
+   * Override this method to save/update your custom data.
+   * This method is called by hook action 'save_post'
    *
    * @brief Update data
    *
