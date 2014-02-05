@@ -266,8 +266,10 @@ class WPDKCustomPostType extends WPDKObject {
       return;
     }
 
-    // If all ok then update()
-    $this->update( $post_id, $post );
+    // If all ok and post request then update()
+    if ( wpdk_is_request_post() ) {
+      $this->update( $post_id, $post );
+    }
 
   }
 
