@@ -69,6 +69,9 @@ if ( !class_exists( 'WPDK' ) ) {
       $this->defines();
       $this->registerClasses();
 
+      // WPDK Cron schedules
+      WPDKCronSchedules::init();
+
       // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
@@ -223,6 +226,14 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/core/wpdk-ajax.php'                        => array(
           'WPDKAjax',
           'WPDKAjaxResponse'
+        ),
+
+        $sPathPrefix . 'classes/core/wpdk-cron.php'                        => array(
+          'WPDKCronSchedules',
+          'WPDKCronController',
+          'WPDKCron',
+          'WPDKRecurringCron',
+          'WPDKSingleCron',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(

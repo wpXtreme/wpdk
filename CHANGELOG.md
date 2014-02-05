@@ -27,6 +27,7 @@ For more information on SemVer, please visit http://semver.org/.
 #### Enhancements
 
 * Introducing the static init method in view controller
+* Introducing `WPDKCron` classes
 
 #### Improvements
 
