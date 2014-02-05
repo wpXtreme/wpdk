@@ -232,9 +232,6 @@ class WPDKCustomPostType extends WPDKObject {
    */
   public function save_post( $post_id, $post = '' )
   {
-
-    WPXtreme::log( 'save_post' );
-
     // Do not save...
     if ( ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) ||
          ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) ||
