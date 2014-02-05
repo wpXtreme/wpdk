@@ -475,6 +475,7 @@ class WPDKPost extends WPDKObject {
    * Update the post meta with post id
    *
    * @brief Brief
+   * @since 1.4.20
    *
    * @param int   $post_id Post ID
    * @param array $args    Key value pairs array with meta_key => meta_value
