@@ -21,6 +21,20 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.20
+### 2014-02-06
+
+#### Enhancements
+
+* Introducing the static init method in view controller
+* Introducing `WPDKCron` classes
+
+#### Improvements
+
+* Improved stability and speed in Custom Post Type
+* Stability refactor
+* Improved `WPDKScreenHelp`
+
 ## Version 1.4.16
 ### 2014-02-03
 

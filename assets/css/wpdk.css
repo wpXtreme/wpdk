@@ -1116,7 +1116,7 @@ form#wpdk-preferences
 }
 
 form#wpdk-preferences input[name=wpdk_preferences_export]
-{ margin : 0 0 0 16px }
+{ margin : 0 0 0 8px }
 
 form#wpdk-preferences input[name=wpdk_preferences_reset_all]
 { }

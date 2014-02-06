@@ -15,8 +15,8 @@
  * @class           WPDKCustomPostType
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-08
- * @version         1.0.1
+ * @date            2014-02-04
+ * @version         1.0.2
  * @since           1.4.0
  *
  */
@@ -29,7 +29,7 @@ class WPDKCustomPostType extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * Custom Post type ID
@@ -100,7 +100,7 @@ class WPDKCustomPostType extends WPDKObject {
       add_filter( 'enter_title_here', array( $this, '_enter_title_here' ) );
 
       /* Hook save post */
-      add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
+      add_action( 'save_post_' . $this->id, array( $this, 'save_post' ), 10, 2 );
 
       /* Manage column */
       add_action( 'manage_' . $this->id . '_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
@@ -220,57 +220,73 @@ class WPDKCustomPostType extends WPDKObject {
   }
 
   /**
-   * This action is called when a post is save or updated.
+   * This action is called when a post is save or updated. Use the `save_post_{post_type}` hook
    *
    * @brief Save/update post
    * @note  You DO NOT override this method, use `update()` instead
    *
-   * @param int|string $ID   Post ID
-   * @param object     $post Post object
+   * @param int|string $post_id Post ID
+   * @param object     $post    Optional. Post object
    *
    * @return void
    */
-  public function save_post( $ID, $post )
+  public function save_post( $post_id, $post = '' )
   {
-   /* Local variables. */
-    $post_type        = get_post_type();
-    $post_type_object = get_post_type_object( $post_type );
-    $capability       = '';
 
-    /* Do nothing on auto save. */
-    if ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) {
+    WPXtreme::log( 'save_post_{post_type}`' );
+
+    // Do not save...
+    if ( ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) ||
+         ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) ||
+         ( defined( 'DOING_CRON' ) && true === DOING_CRON )
+       ) {
       return;
     }
 
-    /* This function only applies to the following post_types. */
+    // Get post type information
+    $post_type        = get_post_type();
+    $post_type_object = get_post_type_object( $post_type );
+
+    // Exit
+    if ( false == $post_type || is_null( $post_type_object ) ) {
+      return;
+    }
+
+
+    // This function only applies to the following post_types
     if ( !in_array( $post_type, array( $this->id ) ) ) {
       return;
     }
 
-    /* Find correct capability from post_type arguments. */
+    // Find correct capability from post_type arguments
+    $capability       = '';
     if ( isset( $post_type_object->cap->edit_posts ) ) {
       $capability = $post_type_object->cap->edit_posts;
     }
 
-    /* Return if current user cannot edit this post. */
+    // Return if current user cannot edit this post
     if ( !current_user_can( $capability ) ) {
       return;
     }
 
-    /* If all ok then update() */
-    $this->update( $ID, $post );
+    // If all ok and post request then update()
+    if ( wpdk_is_request_post() ) {
+      $this->update( $post_id, $post );
+    }
+
   }
 
   /**
-   * Override this metho dto save/update your custom data
+   * Override this method to save/update your custom data.
+   * This method is called by hook action save_post_{post_type}`
    *
    * @brief Update data
    *
-   * @param int|string $ID   Post ID
-   * @param object $post Post object
+   * @param int|string $post_id Post ID
+   * @param object     $post    Optional. Post object
    *
    */
-  public function update()
+  public function update( $post_id, $post )
   {
     /* You can override this method to save your own data */
   }

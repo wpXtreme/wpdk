@@ -461,6 +461,35 @@ class WPDKPost extends WPDKObject {
   }
 
   /**
+   * Update meta
+   *
+   * @brief Update meta
+   * @since 1.4.20
+   */
+  public function updateMeta( $args = array() )
+  {
+    self::updateMetaWithID( $this->ID, $args );
+  }
+
+  /**
+   * Update the post meta with post id
+   *
+   * @brief Brief
+   * @since 1.4.20
+   *
+   * @param int   $post_id Post ID
+   * @param array $args    Key value pairs array with meta_key => meta_value
+   */
+  public static function updateMetaWithID( $post_id, $args = array() )
+  {
+    if ( !empty( $post_id ) && !empty( $args ) ) {
+      foreach ( $args as $meta_key => $meta_value ) {
+        update_post_meta( $post_id, $meta_key, $meta_value );
+      }
+    }
+  }
+
+  /**
    * Return or set a single post meta value
    *
    * @brief Meta value

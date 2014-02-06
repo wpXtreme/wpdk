@@ -50,6 +50,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $assetsURL
    */
   public $assetsURL;
+
   /**
    * The Filesystem plugin path more `classes/`
    *
@@ -58,6 +59,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $classesPath
    */
   public $classesPath;
+
   /**
    * The Plugin URL more `assets/css/`
    *
@@ -66,6 +68,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $cssURL
    */
   public $cssURL;
+
   /**
    * The Filesystem plugin path more `database/`
    *
@@ -74,6 +77,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $databasePath
    */
   public $databasePath;
+
   /**
    * The plugin folder, Eg. `wpx-smartshop/`
    *
@@ -82,6 +86,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $folderName
    */
   public $folderName;
+
   /**
    * The Plugin URL more `assets/css/images/`
    *
@@ -90,6 +95,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $imagesURL
    */
   public $imagesURL;
+
   /**
    * The Plugin URL more `assets/js/`
    *
@@ -98,6 +104,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $javascriptURL
    */
   public $javascriptURL;
+
   /**
    * A WPDKWatchDog pointer
    *
@@ -106,6 +113,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var WPDKWatchDog $log
    */
   public $log;
+
   /**
    * Filesystem plugin path
    *
@@ -114,6 +122,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $path
    */
   public $path;
+
   /**
    * The Plugin folder and main file, Eg. `wpx-smartshop/main.php`
    * This is used as unique code id.
@@ -123,6 +132,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $pluginBasename
    */
   public $pluginBasename;
+
   /**
    * The Protocol `http://` or `https://`
    *
@@ -132,6 +142,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @see self::protocol() static method
    */
   public $protocol;
+
   /**
    * The plugin slug build with WordPress `sanitize_title()`
    *
@@ -140,6 +151,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $slug;
    */
   public $slug;
+
   /**
    * The Plugin URL
    *
@@ -148,6 +160,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @var string $url
    */
   public $url;
+
   /**
    * The Default WordPress admin Ajax URL gateway
    *
@@ -159,48 +172,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   public $urlAjax;
 
   /**
-   * The Plugin URL more `assets/css/images/`
-   *
-   * @brief Images URL
-   *
-   * @deprecated Since 0.6.3 - Use `imagesURL` instead
-   *
-   * @var string $url_images
-   */
-  public $url_images;
-  /**
-   * The Plugin URL more `assets/js/`
-   *
-   * @brief Javascript URL
-   *
-   * @deprecated Since 0.6.3 - Use `javascriptURL` instead
-   *
-   * @var string $url_javascript
-   */
-  public $url_javascript;
-  /**
-   * Array key value pairs with list of cron jobs
-   *
-   *     array(
-   *       'recurrence' => array(
-   *          array( hook_name' => array( 'md5(args)' => args ) ),
-   *        ...
-   *     );
-   *
-   * @brief List of cron jobs
-   *
-   * @var array $_cronJobs;
-   */
-  private $_cronJobs;
-  /**
-   * Option name used to store the cron jobs
-   *
-   * @brief Cron jobs option name
-   *
-   * @var string $_cronJobsOptionName
-   */
-  private $_cronJobsOptionName;
-  /**
    * The array of loading path related to any WPX plugin class. This array is related to the specific WPX plugin
    * that extends this base class.
    *
@@ -211,6 +182,33 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @since 0.10.0
    */
   private $_wpxPluginClassLoadingPath;
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // DEPRECATED
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * The Plugin URL more `assets/css/images/`
+   *
+   * @brief Images URL
+   *
+   * @deprecated Since 0.6.3 - Use `imagesURL` instead
+   *
+   * @var string $url_images
+   */
+  public $url_images;
+
+  /**
+   * The Plugin URL more `assets/js/`
+   *
+   * @brief Javascript URL
+   *
+   * @deprecated Since 0.6.3 - Use `javascriptURL` instead
+   *
+   * @var string $url_javascript
+   */
+  public $url_javascript;
+
 
   /**
    * Create a WPDKWordPressPlugin instance
@@ -246,10 +244,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     $this->imagesURL     = $this->cssURL . 'images/';
     $this->javascriptURL = $this->assetsURL . 'js/';
 
-    /* @deprecated Since 0.6.3 */
-    $this->url_images     = $this->imagesURL;
-    $this->url_javascript = $this->javascriptURL;
-
     /* Only folder name. */
     $this->folderName = trailingslashit( basename( dirname( $file ) ) );
 
@@ -266,19 +260,15 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     /* Logs */
     $this->log = new WPDKWatchDog( $this->path );
 
-    /* Init cron jobs. */
-    $this->initCronJobs();
+    // Load specific plugin environment ONLY when I'm sure plugin father is loaded
+    add_action( 'init', array( $this, '_init' ) );
 
-    /* Load specific plugin environment ONLY when I'm sure plugin father is loaded. */
-    add_action( 'init', array( $this, 'pluginInit' ) );
+    // Admin init
+    add_action( 'admin_init', array( $this, 'admin_init' ) );
 
-    /* Admin init. */
-    add_action( 'admin_init', array( $this, 'adminInit' ) );
-
-    /* Activation & Deactivation Hook */
+    // Activation & Deactivation Hook
     register_activation_hook( $file, array( $this, 'activation' ) );
     register_deactivation_hook( $file, array( $this, 'deactivation' ) );
-    register_deactivation_hook( $file, array( $this, 'removeCronJobs' ) );
 
     /*
      * There are many pitfalls to using the uninstall hook. It ’ s a much cleaner, and easier, process to use the
@@ -291,7 +281,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
      */
     // register_uninstall_hook( $file, array( $this, 'uninstall' ) );
 
-    /* Widgets init. */
+    // Widgets init
     add_action( 'widgets_init', array( $this, 'widgets' ) );
   }
 
@@ -317,39 +307,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   public static function urlAjax()
   {
     return admin_url( 'admin-ajax.php', self::protocol() );
-  }
-
-  /**
-   * Initialize the WPDK cron job engine
-   *
-   * @brief Init cron jobs
-   * @since 1.0.0.b2
-   */
-  private function initCronJobs()
-  {
-
-    /* Add custom periodic. */
-    add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
-
-    $this->_cronJobsOptionName = sprintf( '_wpdk_cron_jobs_%s', $this->slug );
-    $this->_cronJobs           = get_option( $this->_cronJobsOptionName, array() );
-
-    if ( !empty( $this->_cronJobs ) ) {
-      foreach ( $this->_cronJobs as $hooks ) {
-        foreach ( $hooks as $hook => $keys ) {
-          add_action( $hook, array( $this, $hook ) );
-        }
-      }
-    }
-  }
-
-  /**
-   * @deprecated Since 0.6.3 - User `currentURL()` instead
-   */
-  public static function current_url()
-  {
-    _deprecated_function( __METHOD__, '0.6.3', 'self::currentURL()' );
-    return self::currentURL();
   }
 
   /**
@@ -442,34 +399,45 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    * @param string $sClassName - The class that has to be loaded right now
    *
    */
-  public function autoloadEnvironment( $sClassName ) {
-
+  public function autoloadEnvironment( $sClassName )
+  {
     // For backward compatibility and for better matching
     $sClassNameLowerCased = strtolower( $sClassName );
     if ( isset( $this->_wpxPluginClassLoadingPath[$sClassNameLowerCased] ) ) {
       require_once( $this->_wpxPluginClassLoadingPath[$sClassNameLowerCased] );
     }
-
   }
 
   /**
-   * This method is called when the plugin is loaded.
+   * Reload the text domain for multilingual. This method is useful when the loading procedure for the text domain
+   * (which occurs in `plugins_loaded()`) is not complete for some reason.
+   *
+   * @brief Force text domain reload
+   */
+  public function reloadTextDomain()
+  {
+    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // HOOK DELEGATE
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Called by action hook 'init'
    *
    * @brief WordPress action when the plugin is loaded
    */
-  public function pluginInit() {
+  public function _init()
+  {
 
-    /* Mirror */
-    $this->loaded();
-
-    /* Load the translation of the plugin. */
+    // Load the translation of the plugin
     load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
 
-    /* Good place for init options. */
-    $this->configuration();
+    // Good place for init options
     $this->preferences();
 
-    /* Check Ajax. */
+    // Check Ajax
     if ( wpdk_is_ajax() ) {
       $this->ajax();
       return;
@@ -486,32 +454,22 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   }
 
   /**
-   * Method to override called by `plugins_loaded()`
+   * Called by action hook 'admin_init'
    *
-   * @brief Alias of plugins_loaded()
+   * @brief Admin init
    */
-  public function loaded() {
+  public function admin_init()
+  {
     /* To override */
   }
 
   /**
-   * Called after `loaded()` method. Use this for init your own configuration.
-   *
-   * @brief      Action for init configuration
-   *
-   * @deprecated since 1.2.0 use preferences() instead
-   */
-  public function configuration()
-  {
-    /* To override. */
-  }
-
-  /**
-   * Called after `loaded()` method. Use this for init your own preferences.
+   * Called after `load_plugin_textDomain()` in `_init`
    *
    * @brief Init Preferences
    */
-  public function preferences() {
+  public function preferences()
+  {
     /* To override. */
   }
 
@@ -520,28 +478,21 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @brief Ajax request
    */
-  public function ajax() {
+  public function ajax()
+  {
     /* To override. */
   }
 
   /**
-   * Called when we are in backend administration.
+   * See `_init()`
    *
    * @brief Admin
    *
    * @sa theme()
    */
-  public function admin() {
+  public function admin()
+  {
     /* To override. */
-  }
-
-  /**
-   * Call from backend when administration view is init
-   *
-   * @brief Admin init
-   */
-  public function adminInit() {
-    /* To override */
   }
 
   /**
@@ -551,7 +502,8 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @sa deactivation()
    */
-  public function activation() {
+  public function activation()
+  {
     /* To override. */
   }
 
@@ -562,177 +514,56 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @sa activation()
    */
-  public function deactivation() {
+  public function deactivation()
+  {
     /* To override. */
   }
 
   /**
-   * Reload the text domain for multilingual. This method is useful when the loading procedure for the text domain
-   * (which occurs in `plugins_loaded()`) is not complete for some reason.
-   *
-   * @brief Force text domain reload
-   */
-  public function reloadTextDomain() {
-    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
-  }
-
-  /**
-   * Set WPDK custom periodic interval
-   *
-   * @brief Custom periodic interval
-   * @since 1.0.0.b2
-   *
-   * @param array $schedules
-   *
-   * @return array
-   */
-  public function cron_schedules( $schedules )
-  {
-    $new_schedules = array(
-      'half_hour'   => array(
-        'interval' => HOUR_IN_SECONDS / 2,
-        'display'  => __( 'Half hour', WPDK_TEXTDOMAIN )
-      ),
-      'two_minutes' => array(
-        'interval' => MINUTE_IN_SECONDS * 2,
-        'display'  => __( 'Two minutes', WPDK_TEXTDOMAIN )
-      ),
-    );
-    return array_merge( $schedules, $new_schedules );
-  }
-
-  /**
-   * Add a periodic event for this plugin
-   *
-   * @brief Add a cron job
-   * @since 1.0.0.b2
-   *
-   * @param string $recurrence How often the event should recur.
-   * @param string $hook       Action hook, the execution of which will be unscheduled.
-   * @param array  $args       Optional. Arguments to pass to the hook's callback function.
-   */
-  public function addCronJob( $recurrence, $hook, $args = array() )
-  {
-    /* If this cron jobs is not scheduled then add to the WP list. */
-    if ( !wp_next_scheduled( $hook, $args ) ) {
-      wp_schedule_event( time(), $recurrence, $hook, $args );
-
-      /* Store this cron jobs on my own list. */
-      $key                                       = md5( serialize( $args ) );
-      $this->_cronJobs[$recurrence][$hook][$key] = $args;
-      update_option( $this->_cronJobsOptionName, $this->_cronJobs );
-    }
-  }
-
-  /**
-   * Remove a single cron job
-   *
-   * @brief Remove a single cron job
-   * @since 1.0.0.b2
-   *
-   * @param string $hook
-   * @param array  $args
-   */
-  public function removeCronJob( $hook, $args = array() )
-  {
-    if ( !empty( $this->_cronJobs ) ) {
-      $key = md5( serialize( $args ) );
-
-      foreach ( $this->_cronJobs as $recurrence => $cron ) {
-        if ( isset( $cron[$hook][$key] ) ) {
-          wp_clear_scheduled_hook( $hook, $cron[$hook][$key] );
-          unset( $this->_cronJobs[$recurrence][$hook][$key] );
-        }
-      }
-      update_option( $this->_cronJobsOptionName, $this->_cronJobs );
-    }
-  }
-
-  /**
-   * Remove permately the cron jobs from WordPress cron list and from options.
-   * This method is useful in uninstall procedure.
-   *
-   * @brief Clear all cron job
-   * @since 1.0.0.b2
-   *
-   */
-  public function clearCronJobs()
-  {
-    $this->removeCronJobs();
-    $this->_cronJobs = array();
-    update_option( $this->_cronJobsOptionName, $this->_cronJobs );
-  }
-
-  /**
-   * Remove all cron jobs from WordPress list. Used when a plugin is deactivated.
-   *
-   * @brief Remove all cron jobs
-   * @since 1.0.0.b2
-   */
-  public function removeCronJobs()
-  {
-    if ( !empty( $this->_cronJobs ) ) {
-      foreach ( $this->_cronJobs as $recurrence => $hooks ) {
-        foreach ( $hooks as $hook => $value ) {
-          wp_clear_scheduled_hook( $hook, $value );
-        }
-      }
-    }
-  }
-
-  /**
-   * @deprecated since 0.5 - Use `theme()` instead
-   */
-  public function frontend()
-  {
-    _deprecated_function( __METHOD__, '0.5', 'theme()' );
-
-    $this->theme();
-  }
-
-  /**
-   * Called when we are in frontend theme
+   * See _init()``
    *
    * @brief Theme
    *
-   * @sa    admin()
    */
   public function theme()
   {
     /* To override. */
   }
 
-
   /**
-   * @deprecated since 0.5 - Use `configuration()` instead
-   */
-  public function init_options()
-  {
-    _deprecated_function( __METHOD__, '0.5', 'configuration()' );
-
-    $this->configuration();
-  }
-
-  /**
-   * @deprecated since 0.7.5 - Use `widgets()` instead
-   */
-  public function widgets_init()
-  {
-    _deprecated_function( __METHOD__, '0.7.5', 'widgets()' );
-
-    $this->widgets();
-  }
-
-  /**
-   * Called when the widget are init
+   * Called by action hook `widget_init`
    *
-   * @brief Widget init hook
+   * @brief Widget init
    *
    * @since 0.7.5
    */
   public function widgets()
   {
     /* To override. */
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // DEPRECATED
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Called after `loaded()` method. Use this for init your own configuration.
+   *
+   * @brief      Action for init configuration
+   *
+   * @deprecated since 1.2.0 use preferences() instead
+   */
+  public function configuration()
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.2.0', 'preferences()' );
+  }
+
+  /**
+   * @deprecated since 1.4.20
+   */
+  public function loaded()
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.20' );
   }
 
 }
@@ -761,6 +592,7 @@ class WPDKPlugin {
    * @var bool $active
    */
   public $active = false;
+
   /**
    * The Author get from `get_plugin_data()`, 'Author' parameter
    *
@@ -769,6 +601,7 @@ class WPDKPlugin {
    * @var string $author
    */
   public $author = '';
+
   /**
    * The Author name from `get_plugin_data()`, 'AuthorName' parameter
    *
@@ -777,6 +610,7 @@ class WPDKPlugin {
    * @var string $authorName
    */
   public $authorName = '';
+
   /**
    * The Author URI from `get_plugin_data()`, 'AuthorURI' parameter
    *
@@ -785,6 +619,7 @@ class WPDKPlugin {
    * @var string $authorURI
    */
   public $authorURI = '';
+
   /**
    * Long description of plugin
    *
@@ -793,6 +628,7 @@ class WPDKPlugin {
    * @var string $description
    */
   public $description = '';
+
   /**
    * Usually __FILE__
    *
@@ -803,6 +639,7 @@ class WPDKPlugin {
    * @since 1.0.0.b4
    */
   public $file = '';
+
   /**
    * The standard WPDK 64x64 icon path
    *
@@ -811,6 +648,7 @@ class WPDKPlugin {
    * @var string $icon
    */
   public $icon = '';
+
   /**
    * This is the ID of plugin. This property is 'folder/main file.php'
    *
@@ -819,6 +657,7 @@ class WPDKPlugin {
    * @var string $id
    */
   public $id = '';
+
   /**
    * Name of plugin
    *
@@ -827,6 +666,7 @@ class WPDKPlugin {
    * @var string $name
    */
   public $name = '';
+
   /**
    * The Network activation get from `get_plugin_data()`, 'Network' parameter
    *
@@ -835,6 +675,7 @@ class WPDKPlugin {
    * @var string $network
    */
   public $network = '';
+
   /**
    * Address of plugin repository
    *
@@ -843,6 +684,7 @@ class WPDKPlugin {
    * @var string $pluginURI
    */
   public $pluginURI = '';
+
   /**
    * The plugin text domain get from `get_plugin_data()`, 'Text Domain' parameter
    *
@@ -851,6 +693,7 @@ class WPDKPlugin {
    * @var string $textDomain
    */
   public $textDomain = '';
+
   /**
    * The complete Text domain Plugin url get from `get_plugin_data()`, 'Domain Path' parameter
    *
@@ -859,6 +702,7 @@ class WPDKPlugin {
    * @var string $textDomainPath
    */
   public $textDomainPath = '';
+
   /**
    * The plugin title. This is the same as name
    *
@@ -867,6 +711,7 @@ class WPDKPlugin {
    * @var string $title
    */
   public $title = '';
+
   /**
    * Plugin version
    *
@@ -880,6 +725,8 @@ class WPDKPlugin {
    * Create an instance of WPDKPlugin class
    *
    * @brief Construct
+   *
+   * @param null $file Optional. Usually constant __FILE__
    *
    * @return WPDKPlugin
    */
@@ -996,6 +843,7 @@ class WPDKPlugins {
    * @var array $plugins
    */
   public $plugins;
+
   /**
    * List of the wpXtreme plugins. This is a key pairs value array with value as WPDKPlugin object.
    *
@@ -1004,6 +852,7 @@ class WPDKPlugins {
    * @var array $wpxPlugins
    */
   public $wpxPlugins;
+
   /**
    * Index array with the list of active plugins slug.
    *
