@@ -100,7 +100,7 @@ class WPDKCustomPostType extends WPDKObject {
       add_filter( 'enter_title_here', array( $this, '_enter_title_here' ) );
 
       /* Hook save post */
-      add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
+      add_action( 'save_post_' . $this->id, array( $this, 'save_post' ), 10, 2 );
 
       /* Manage column */
       add_action( 'manage_' . $this->id . '_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
@@ -220,7 +220,7 @@ class WPDKCustomPostType extends WPDKObject {
   }
 
   /**
-   * This action is called when a post is save or updated.
+   * This action is called when a post is save or updated. Use the `save_post_{post_type}` hook
    *
    * @brief Save/update post
    * @note  You DO NOT override this method, use `update()` instead
@@ -232,6 +232,9 @@ class WPDKCustomPostType extends WPDKObject {
    */
   public function save_post( $post_id, $post = '' )
   {
+
+    WPXtreme::log( 'save_post_{post_type}`' );
+
     // Do not save...
     if ( ( defined( 'DOING_AUTOSAVE' ) && true === DOING_AUTOSAVE ) ||
          ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) ||
@@ -275,7 +278,7 @@ class WPDKCustomPostType extends WPDKObject {
 
   /**
    * Override this method to save/update your custom data.
-   * This method is called by hook action 'save_post'
+   * This method is called by hook action save_post_{post_type}`
    *
    * @brief Update data
    *

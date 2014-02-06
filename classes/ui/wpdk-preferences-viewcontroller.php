@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Useful view controller (tabs) for preferences
  *
  * @class           WPDKPreferencesViewController
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-08-20
+ * @date            2014-02-06
  * @version         1.0.0
  *
  */
@@ -37,7 +38,7 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
     $view = new WPDKjQueryTabsView( $preferences->name, $tabs );
     parent::__construct( $preferences->name, $title, $view );
 
-    /* Provide a reset all button. */
+    // Provide a reset all button
     add_action( 'wpdk_header_view_' . $this->id . '-header-view_after_title', array( $this, 'display_toolbar' ) );
   }
 
@@ -67,7 +68,7 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
 
         <input type="submit"
                name="wpdk_preferences_export"
-               class="button button-secondary right"
+               class="button button-secondary"
                value="<?php _e( 'Export', WPDK_TEXTDOMAIN ) ?>" />
 
         <input type="submit"
