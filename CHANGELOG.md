@@ -22,7 +22,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 
 ## Version 1.4.20
-### 2014-02-??
+### 2014-02-06
 
 #### Enhancements
 
@@ -31,6 +31,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Improved stability and speed in Custom Post Type
 * Stability refactor
 * Improved `WPDKScreenHelp`
 
