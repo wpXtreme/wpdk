@@ -14,8 +14,8 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-03
- * @version            1.0.2
+ * @date               2014-02-07
+ * @version            1.0.3
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -196,6 +196,26 @@ class WPDKListTableViewController extends WP_List_Table {
   public function get_bulk_actions_with_status( $status )
   {
     return array();
+  }
+
+  /**
+   * Get the current action selected from the bulk actions dropdown.
+   *
+   * @since 3.1.0
+   *
+   * @return string|bool The action name or False if no action was selected
+   */
+  public static function action()
+  {
+    if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+      return $_REQUEST['action'];
+    }
+
+    if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+      return $_REQUEST['action2'];
+    }
+
+    return false;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -856,7 +876,7 @@ class WPDKListTableViewController extends WP_List_Table {
  * @class           WPDKListTableModel
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-27
+ * @date            2014-02-07
  * @version         1.0.0
  * @since           1.4.13
  *
@@ -882,6 +902,17 @@ class WPDKListTableModel {
   public function select()
   {
     die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  /**
+   * Process actions
+   *
+   * @brief Process actions
+   * @since 1.4.21
+   */
+  public function process_action()
+  {
+    // Override when you need to process actions before wp is loaded
   }
 
 }
