@@ -506,7 +506,7 @@ class WPDKListTableViewController extends WP_List_Table {
     $filter_status = isset( $_GET[$get_status_id] ) ? $_GET[$get_status_id] : $this->_defaultStatus();
 
     // URI
-    $uri = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
+    $uri = ( isset( $_SERVER['HTTP_REFERER'] ) && wpdk_is_ajax() ) ? $_SERVER['HTTP_REFERER'] : false;
 
     foreach ( $this->get_statuses() as $key => $status ) {
 
