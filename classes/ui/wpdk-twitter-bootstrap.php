@@ -1,4 +1,5 @@
 <?php
+
 /**
  * IUnnknow for Twitter Bootstrap
  *
@@ -9,11 +10,10 @@
  * @class              WPDKTwitterBootstrap
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            1.0.2
+ * @date               2014-02-07
+ * @version            1.0.3
  *
  */
-
 class WPDKTwitterBootstrap extends WPDKHTMLTag {
 
   /**
@@ -23,7 +23,7 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
    *
    * @var string $version
    */
-  public $__version = '1.0.2';
+  public $__version = '1.0.3';
 
   /**
    * Create an instance of WPDKTwitterBootstrap class
@@ -99,8 +99,8 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
  * @class              WPDKTwitterBootstrapModal
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-15
- * @version            1.1.0
+ * @date               2014-02-07
+ * @version            1.1.1
  * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
  *
  */
@@ -260,7 +260,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function width() {
+  private function width()
+  {
     $result = '';
     if ( !empty( $this->width ) ) {
       $result = sprintf( 'width:%spx', rtrim( $this->width, 'px' ) );
@@ -276,7 +277,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  private function height() {
+  private function height()
+  {
     $result = '';
     if ( !empty( $this->height ) ) {
       $result = sprintf( 'style="height:%spx"', rtrim( $this->height, 'px' ) );
@@ -299,10 +301,10 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     if ( !empty( $buttons ) ) {
       $stack = '';
       foreach ( $buttons as $key => $value ) {
-        $class        = isset( $value['class'] ) ? $value['class'] : '';
-        $label        = isset( $value['label'] ) ? $value['label'] : '';
-        $title        = isset( $value['title'] ) ? 'title="' . $value['title'] .'"' : '';
-        if( !empty( $title ) ) {
+        $class = isset( $value['class'] ) ? $value['class'] : '';
+        $label = isset( $value['label'] ) ? $value['label'] : '';
+        $title = isset( $value['title'] ) ? 'title="' . $value['title'] . '"' : '';
+        if ( !empty( $title ) ) {
           $class .= ' wpdk-tooltip';
         }
         $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
@@ -363,7 +365,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
 
     /* Get default data as properties. */
     $this->data['keyboard'] = $this->keyboard;
@@ -372,7 +375,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     ob_start(); ?>
     <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?>"
          class="wpdk-modal <?php echo $this->static ? '' : 'hide fade' ?>"
-         <?php echo self::dataInline( $this->data ) ?>
+      <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
          tabindex="-1"
          role="dialog"
@@ -413,9 +416,9 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
         $( '#<?php echo $this->id ?>' ).wpdkModal( 'show' );
         <?php do_action( 'wpdk_tbs_dialog_javascript_show' ) ?>
         <?php do_action( 'wpdk_tbs_dialog_javascript_show-' . $this->id ) ?>
-      });
+      } );
     </script>
-  <?php echo WPDKHTML::endJavascriptCompress();
+    <?php echo WPDKHTML::endJavascriptCompress();
   }
 
   /**
@@ -430,9 +433,9 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
       jQuery( function ( $ )
       {
         $( '#<?php echo $this->id ?>' ).wpdkModal( 'toggle' );
-      });
+      } );
     </script>
-  <?php echo WPDKHTML::endJavascriptCompress();
+    <?php echo WPDKHTML::endJavascriptCompress();
   }
 
   /**
@@ -449,7 +452,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
         $( '#<?php echo $this->id ?>' ).wpdkModal( 'hide' );
       } );
     </script>
-  <?php echo WPDKHTML::endJavascriptCompress();
+    <?php echo WPDKHTML::endJavascriptCompress();
   }
 
   /**
@@ -479,7 +482,8 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
    * @param bool   $dismiss Optional. True for data-dismiss
    * @param string $class   Optional. Addition CSS class
    */
-  public function addButton( $id, $label, $dismiss = true, $class = '' ) {
+  public function addButton( $id, $label, $dismiss = true, $class = '' )
+  {
     $this->buttons[$id] = array(
       'label'   => $label,
       'class'   => $class,
@@ -533,9 +537,6 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
     return $this->buttonOpenModal( $label, $class );
   }
 }
-
-
-
 
 
 /**
@@ -673,7 +674,9 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
    *
    * @return WPDKTwitterBootstrapButton
    */
-  public function __construct( $id, $label, $type = WPDKTwitterBootstrapButtonType::PRIMARY, $tag = WPDKHTMLTagName::BUTTON ) {
+  public function __construct( $id, $label, $type = WPDKTwitterBootstrapButtonType::PRIMARY,
+                               $tag = WPDKHTMLTagName::BUTTON )
+  {
     parent::__construct( $id );
 
     $this->label = $label;
@@ -689,11 +692,18 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
    *
    * @return string
    */
-  public function html() {
+  public function html()
+  {
 
     $block    = $this->block ? 'btn-block' : '';
     $disabled = $this->disabled ? 'disabled' : '';
-    $class    = trim( join( ' ', array( 'btn', $this->type, $this->size, $block, $disabled ) ) );
+    $class    = trim( join( ' ', array(
+      'btn',
+      $this->type,
+      $this->size,
+      $block,
+      $disabled
+    ) ) );
 
     ob_start();
 
@@ -719,7 +729,7 @@ class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
 
 /**
  * @class WPDKTwitterBoostrapPopover
- * @note Not implement yet
+ * @note  Not implement yet
  */
 class WPDKTwitterBoostrapPopover {
 }

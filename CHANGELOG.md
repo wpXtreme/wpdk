@@ -21,6 +21,13 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.21
+### 2014-02-??
+
+#### Improvements
+
+* Added static method `WPDKListTableViewController::action()` to return the current action
+
 ## Version 1.4.20
 ### 2014-02-06
 

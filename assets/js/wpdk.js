@@ -1584,27 +1584,27 @@
 
           /* On. */
           if ( 'on' === v ) {
-            result = control.triggerHandler( 'change', [ control, 'on'] );
+            result = control.trigger( 'change', [ control, 'on'] );
             if ( false !== result ) {
               input.val( 'on' );
               knob.animate( { marginLeft : '23px' }, 100, function ()
               {
                 control.addClass( 'wpdk-form-swipe-on' );
               } );
-              control.triggerHandler( 'changed', [ control, 'on'] );
+              control.trigger( 'changed', [ control, 'on'] );
             }
           }
 
           /* Off. */
           else {
-            result = control.triggerHandler( 'change', [ control, 'off'] );
+            result = control.trigger( 'change', [ control, 'off'] );
             if ( false !== result ) {
               input.val( 'off' );
               knob.animate( { marginLeft : '0' }, 100, function ()
               {
                 control.removeClass( 'wpdk-form-swipe-on' );
               } );
-              control.triggerHandler( 'changed', [ control, 'off'] );
+              control.trigger( 'changed', [ control, 'off'] );
             }
           }
         }
@@ -1893,7 +1893,7 @@ jQuery( function ( $ )
           var control = $( this ).parent();
           var status = wpdk_is_bool( control.swipe() );
           var enabled = status ? 'off' : 'on';
-          var result = control.triggerHandler( 'swipe', [ control, enabled] );
+          var result = control.trigger( 'swipe', [ control, enabled] );
           if ( typeof result == 'undefined' || result ) {
             control.swipe( enabled );
           }
@@ -2513,7 +2513,7 @@ jQuery( function ( $ )
       this.message = '';
       this.data = '';
 
-      /* Init properties */
+      // Init properties
 
       if ( isset( response.error ) && !empty( response.error ) ) {
         this.error = response.error.replace( /\\n/g, "\n" );
@@ -3019,6 +3019,6 @@ jQuery( function ( $ )
   }();
 
   /* Fire when WPDK is loaded */
-  $( document ).triggerHandler( 'WPDK' );
+  $( document ).trigger( 'WPDK' );
 
 });

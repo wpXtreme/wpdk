@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Constant class for alert type
  *
@@ -12,7 +13,7 @@
  */
 class WPDKTwitterBootstrapAlertType {
   /* @deprecated const since 1.3.1 and Bootstrap v3.0.0 */
-  const ALERT       = 'alert-error';
+  const ALERT = 'alert-error';
 
   const SUCCESS     = 'alert-success';
   const INFORMATION = 'alert-info';
@@ -20,7 +21,7 @@ class WPDKTwitterBootstrapAlertType {
   const DANGER      = 'alert-danger';
 
   /* Since 1.4.8 */
-  const WHITE       = 'alert-white';
+  const WHITE = 'alert-white';
 }
 
 /**
@@ -55,8 +56,8 @@ class WPDKTwitterBootstrapAlertType {
  * @class              WPDKTwitterBootstrapAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-16
- * @version            1.6.1
+ * @date               2014-02-07
+ * @version            1.6.2
  * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
  *
  */
@@ -126,7 +127,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   /**
    * Set TRUE for alert-block class style
    *
-   * @brief Block layout
+   * @brief      Block layout
    * @deprecated Since WPDK 1.3.1 and Bootstrap 3.0.0
    *
    * @var bool $block
@@ -242,8 +243,15 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     WPDKHTML::startCompress() ?>
     <div
       <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
-      <?php echo empty( $this->data ) ? '' : self::dataInline( $this->data )  ?>
-      class="<?php echo self::classInline( $this->class, array( $this->type, 'wpdk-alert', 'fade', 'in', 'clearfix' ) )  ?>">
+      <?php echo empty( $this->data ) ? '' : self::dataInline( $this->data ) ?>
+      class="<?php echo self::classInline( $this->class, array(
+        $this->type,
+        'wpdk-alert',
+        $this->dismissable ? 'wpdk-alert-dismissable' : '',
+        'fade',
+        'in',
+        'clearfix'
+      ) ) ?>">
       <?php echo $this->dismissButton() ?>
       <?php echo $this->_title() ?>
       <?php echo $this->_content() ?>
@@ -294,7 +302,8 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   /**
    * @deprecated Use display() or html() instead
    */
-  function alert( $echo = true ) {
+  function alert( $echo = true )
+  {
     if ( $echo ) {
       $this->display();
     }
