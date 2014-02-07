@@ -498,16 +498,22 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function get_views()
   {
+    // Prepare return
     $views         = array();
+
+    // Status
     $get_status_id = $this->getStatusID;
     $filter_status = isset( $_GET[$get_status_id] ) ? $_GET[$get_status_id] : $this->_defaultStatus();
 
+    // URI
+    $uri = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
+
     foreach ( $this->get_statuses() as $key => $status ) {
 
-      /* See _defaultStatus() for detail for this array. */
+      // See _defaultStatus() for detail for this array.
       $status = is_array( $status ) ? $status[0] : $status;
 
-      /* Recompute! */
+      // Recompute!
       $count = $this->get_status( $key );
       if ( !empty( $count ) ) {
 
@@ -518,7 +524,7 @@ class WPDKListTableViewController extends WP_List_Table {
           'action'                 => false,
           $this->_args['singular'] => false
         );
-        $href    = add_query_arg( $args );
+        $href = add_query_arg( $args, $uri );
 
         $views[$key] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
