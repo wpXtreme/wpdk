@@ -2513,7 +2513,7 @@ jQuery( function ( $ )
       this.message = '';
       this.data = '';
 
-      /* Init properties */
+      // Init properties
 
       if ( isset( response.error ) && !empty( response.error ) ) {
         this.error = response.error.replace( /\\n/g, "\n" );
