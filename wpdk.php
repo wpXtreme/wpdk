@@ -75,52 +75,31 @@ if ( !class_exists( 'WPDK' ) ) {
       // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-      // @todo Register scripts and styles
-      //add_action( 'init', array( $this, 'register_scripts_and_styles' ) );
+      // Register scripts and styles
+      add_action( 'init', array( 'WPDKUIComponents', 'init' ) );
 
-      /* Users enhancer. */
+      // Users enhancer
       add_action( 'set_current_user', array( 'WPDKUsers', 'init' ) );
 
-      /* Shortcode. */
+      // Shortcodes
       add_action( 'wp_loaded', array( 'WPDKServiceShortcode', 'init' ) );
 
-      /* Ajax. */
+      // Ajax
       if ( wpdk_is_ajax() ) {
         add_action( 'wp_loaded', array( 'WPDKServiceAjax', 'init' ) );
       }
 
-      /* Loading Script & style for backend */
+      // Loading Script & style for backend
       add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ), 1 );
 
-      /* Loading script & style for frontend */
+      // Loading script & style for frontend
       add_action( 'wp_head', array( $this, 'enqueue_scripts_styles' ) );
 
-      /* Add some special WPDK class to body */
+      // Add some special WPDK class to body
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
       // Callback hook
       do_action( 'WPDK' );
-    }
-
-    /**
-     * Register all backend and frontend styles for next enqueue
-     *
-     *     DYNAMIC TABLE
-     *        wpdk-dynamic-table (js/css)
-     *
-     *     THEME
-     *        wpdk-theme (js/css)
-     *
-     * @brief Register scripts and styles
-     * @since 1.4.13
-     */
-    public function register_scripts_and_styles()
-    {
-      // Javascript
-      wp_register_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION, true );
-
-      // Style
-      wp_register_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
     }
 
     /**
@@ -404,6 +383,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKTwitterBootstrapAlertType',
         ),
 
+        $sPathPrefix . 'classes/ui/wpdk-tbs-popover.php'                => array(
+          'WPDKTwitterBootstrapPopover',
+        ),
+
         $sPathPrefix . 'classes/ui/wpdk-tinymce-plugin.php'             => array(
           'WPDKEditorButton',
           'WPDKTinyMCEPlugin'
@@ -418,8 +401,11 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKTwitterBootstrapModal',
         ),
 
-        $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => array(
-          'WPDKUI',
+        $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
+
+        $sPathPrefix . 'classes/ui/wpdk-ui-components.php'              => 'WPDKUIComponents',
+
+        $sPathPrefix . 'classes/ui/wpdk-ui-controls.php'                => array(
           'WPDKUIControl',
           'WPDKUIControlAlert',
           'WPDKUIControlButton',

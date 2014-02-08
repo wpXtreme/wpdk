@@ -169,7 +169,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
       WPDKHTML::startCompress(); ?>
       <button
         type="button"
-        class="close <?php echo empty( $this->dismissToolTip ) ? '' : 'wpdk-tooltip' ?>"
+        class="close <?php echo empty( $this->dismissToolTip ) ? '' : 'wpdk-has-tooltip' ?>"
         <?php echo empty( $this->dismissToolTip ) ? '' : 'title="' . $this->dismissToolTip . '"' ?>
         data-dismiss="alert">×</button>
       <?php

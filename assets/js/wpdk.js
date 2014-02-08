@@ -836,7 +836,7 @@
 
   }
 
-  if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
+  if( 1 == 0 && typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
   /* ========================================================================
    * wpdkTooltip based on Bootstrap: tooltip.js v3.0.0
    * http://twbs.github.com/bootstrap/javascript.html#tooltip
@@ -942,7 +942,7 @@
     Tooltip.prototype.enter = function ( obj )
     {
       var self = obj instanceof this.constructor ?
-        obj : $( obj.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'bs.' + this.type );
+        obj : $( obj.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'wpdk.' + this.type );
 
       clearTimeout( self.timeout );
 
@@ -959,7 +959,7 @@
     Tooltip.prototype.leave = function ( obj )
     {
       var self = obj instanceof this.constructor ?
-        obj : $( obj.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'bs.' + this.type );
+        obj : $( obj.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'wpdk.' + this.type );
 
       clearTimeout( self.timeout );
 
@@ -975,7 +975,7 @@
 
     Tooltip.prototype.show = function ()
     {
-      var e = $.Event( 'show.bs.' + this.type );
+      var e = $.Event( 'show.wpdk.' + this.type );
 
       if ( this.hasContent() && this.enabled ) {
         this.$element.trigger( e );
@@ -1030,7 +1030,7 @@
         var calculatedOffset = this.getCalculatedOffset( placement, pos, actualWidth, actualHeight );
 
         this.applyPlacement( calculatedOffset, placement );
-        this.$element.trigger( 'shown.bs.' + this.type )
+        this.$element.trigger( 'shown.wpdk.' + this.type )
       }
     };
 
@@ -1105,7 +1105,7 @@
     {
       var that = this;
       var $tip = this.tip();
-      var e = $.Event( 'hide.bs.' + this.type );
+      var e = $.Event( 'hide.wpdk.' + this.type );
 
       function complete()
       {
@@ -1124,7 +1124,7 @@
           .emulateTransitionEnd( 150 ) :
         complete();
 
-      this.$element.trigger( 'hidden.bs.' + this.type );
+      this.$element.trigger( 'hidden.wpdk.' + this.type );
 
       return this
     };
@@ -1206,13 +1206,13 @@
 
     Tooltip.prototype.toggle = function ( e )
     {
-      var self = e ? $( e.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'bs.' + this.type ) : this;
+      var self = e ? $( e.currentTarget )[this.type]( this.getDelegateOptions() ).data( 'wpdk.' + this.type ) : this;
       self.tip().hasClass( 'in' ) ? self.leave( self ) : self.enter( self )
     };
 
     Tooltip.prototype.destroy = function ()
     {
-      this.hide().$element.off( '.' + this.type ).removeData( 'bs.' + this.type )
+      this.hide().$element.off( '.' + this.type ).removeData( 'wpdk.' + this.type )
     };
 
 
@@ -1226,10 +1226,10 @@
       return this.each( function ()
       {
         var $t = $( this );
-        var data = $t.data( 'bs.wpdkTooltip' );
+        var data = $t.data( 'wpdk.wpdkTooltip' );
         var options = typeof option == 'object' && option;
 
-        if ( !data ) $t.data( 'bs.wpdkTooltip', (data = new Tooltip( this, options )) );
+        if ( !data ) $t.data( 'wpdk.wpdkTooltip', (data = new Tooltip( this, options )) );
         if ( typeof option == 'string' ) data[option]()
       } )
     };
@@ -1331,10 +1331,10 @@
       return this.each( function ()
       {
         var $t = $( this );
-        var data = $t.data( 'bs.wpdkButton' );
+        var data = $t.data( 'wpdk.wpdkButton' );
         var options = typeof option == 'object' && option;
 
-        if ( !data ) $t.data( 'bs.wpdkButton', (data = new Button( this, options )) );
+        if ( !data ) $t.data( 'wpdk.wpdkButton', (data = new Button( this, options )) );
 
         if ( option == 'toggle' ) data.toggle();
         else if ( option ) data.setState( option )
@@ -1357,7 +1357,7 @@
     // BUTTON DATA-API
     // ===============
 
-    $(document).on('click.bs.wpdkButton.data-api', '[data-toggle^=button]', function (e) {
+    $(document).on('click.wpdk.wpdkButton.data-api', '[data-toggle^=button]', function (e) {
       var $btn = $( e.target );
       if (!$btn.hasClass('btn')) $btn = $btn.closest( '.btn' );
       $btn.wpdkButton( 'toggle' );
@@ -2026,7 +2026,7 @@ jQuery( function ( $ )
     $t.init = function ()
     {
       /* Init tooltip. */
-      $( '.wpdk-tooltip' ).wpdkTooltip();
+      //$( '.wpdk-tooltip' ).wpdkTooltip();
 
       /* Init alert. */
       $().wpdkAlert();

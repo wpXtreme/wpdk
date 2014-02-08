@@ -93,9 +93,9 @@ class WPDKScripts {
   /**
    * Register one or more script following the view controller standard
    *
-   * @brief Brief
+   * @brief Register
    *
-   * @param array        $scripts   List of scripts
+   * @param array $scripts   List of scripts
    *
    *     $scripts = array(
    *         'wpxbz-preferences.js' => array(

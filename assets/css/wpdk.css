@@ -1176,8 +1176,7 @@ div.wpdk-credits ul li a
  */
 
 .wpdk-modal.fade,
-.wpdk-alert.fade,
-.wpdk-tooltip-box.fade
+.wpdk-alert.fade
 {
   opacity            : 0;
   filter             : alpha(opacity=0);
@@ -1198,11 +1197,6 @@ div.wpdk-credits ul li a
 .wpdk-alert.fade.information,
 .wpdk-alert.fade.warning,
 .wpdk-alert.fade.updated,
-.wpdk-tooltip-box.fade.in,
-.wpdk-tooltip-box.fade.error,
-.wpdk-tooltip-box.fade.information,
-.wpdk-tooltip-box.fade.warning,
-.wpdk-tooltip-box.fade.updated
 {
   opacity : 1;
   filter  : alpha(opacity=100);
@@ -1212,138 +1206,6 @@ div.wpdk-credits ul li a
  * START TWITTER BOOTSTRAP TOOLTIP
  * =====================================================================================================================
  */
-
-.wpdk-tooltip-box
-{
-  position    : absolute;
-  z-index     : 1030;
-  display     : block;
-  font-size   : 12px;
-  line-height : 1.4;
-  opacity     : 0;
-  filter      : alpha(opacity=0);
-  visibility  : visible;
-}
-
-.wpdk-tooltip-box.in
-{
-  opacity : 0.9;
-  filter  : alpha(opacity=90);
-}
-
-.wpdk-tooltip-box.top
-{
-  padding    : 5px 0;
-  margin-top : -3px;
-}
-
-.wpdk-tooltip-box.right
-{
-  padding     : 0 5px;
-  margin-left : 3px;
-}
-
-.wpdk-tooltip-box.bottom
-{
-  padding    : 5px 0;
-  margin-top : 3px;
-}
-
-.wpdk-tooltip-box.left
-{
-  padding     : 0 5px;
-  margin-left : -3px;
-}
-
-.tooltip-inner
-{
-  max-width             : 200px;
-  padding               : 3px 8px;
-  color                 : #fff;
-  text-align            : center;
-  text-decoration       : none;
-  background-color      : #000;
-  -webkit-border-radius : 4px;
-  -moz-border-radius    : 4px;
-  border-radius         : 4px;
-}
-
-.tooltip-arrow
-{
-  position     : absolute;
-  width        : 0;
-  height       : 0;
-  border-color : transparent;
-  border-style : solid;
-}
-
-.wpdk-tooltip-box.top .tooltip-arrow
-{
-  bottom           : 0;
-  left             : 50%;
-  margin-left      : -5px;
-  border-top-color : #000;
-  border-width     : 5px 5px 0;
-}
-
-.wpdk-tooltip-box.top-left .tooltip-arrow
-{
-  bottom           : 0;
-  left             : 5px;
-  border-top-color : #000;
-  border-width     : 5px 5px 0;
-}
-
-.wpdk-tooltip-box.top-right .tooltip-arrow
-{
-  right            : 5px;
-  bottom           : 0;
-  border-top-color : #000;
-  border-width     : 5px 5px 0;
-}
-
-.wpdk-tooltip-box.right .tooltip-arrow
-{
-  top                : 50%;
-  left               : 0;
-  margin-top         : -5px;
-  border-right-color : #000;
-  border-width       : 5px 5px 5px 0;
-}
-
-.wpdk-tooltip-box.left .tooltip-arrow
-{
-  top               : 50%;
-  right             : 0;
-  margin-top        : -5px;
-  border-left-color : #000;
-  border-width      : 5px 0 5px 5px;
-}
-
-.wpdk-tooltip-box.bottom .tooltip-arrow
-{
-  top                 : 0;
-  left                : 50%;
-  margin-left         : -5px;
-  border-bottom-color : #000;
-  border-width        : 0 5px 5px;
-}
-
-.wpdk-tooltip-box.bottom-left .tooltip-arrow
-{
-  top                 : 0;
-  left                : 5px;
-  border-bottom-color : #000;
-  border-width        : 0 5px 5px;
-}
-
-.wpdk-tooltip-box.bottom-right .tooltip-arrow
-{
-  top                 : 0;
-  right               : 5px;
-  border-bottom-color : #000;
-  border-width        : 0 5px 5px;
-}
 
 /* =====================================================================================================================
  * START WPDK MODAL BASED ON TWITTER BOOTSTRAP MODAL
