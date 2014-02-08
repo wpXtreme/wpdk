@@ -625,15 +625,15 @@ class WPDKUIControlAlert extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $value      = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $title      = isset( $this->item['title'] ) ? $this->item['title'] : '';
     $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKTwitterBootstrapAlertType::INFORMATION;
 
     $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type, $title );
     $alert->dismissButton = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
-    $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] :
-                            isset( $this->item['class'] ) ? $this->item['class'] : '';
+    $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] : isset( $this->item['class'] ) ? $this->item['class'] : '';
 
     echo $this->contentWithKey( 'prepend' );
 
