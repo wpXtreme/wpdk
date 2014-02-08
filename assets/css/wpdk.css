@@ -1566,17 +1566,16 @@ body.wpdk-modal-open
 {
   padding               : 15px !important;
   margin                : 0 0 20px 0 !important;
-  border                : none;
-  border-left-width     : 4px;
-  border-left-style     : solid;
+  border-width          : 0 0 0 4px;
+  border-style          : solid;
   position              : relative;
   background-color      : #fff;
-  -moz-border-radius    : 1px;
-  -webkit-border-radius : 1px;
-  border-radius         : 1px;
-  -moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1);
-  box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-border-radius    : 2px;
+  -webkit-border-radius : 2px;
+  border-radius         : 2px;
+  -moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+  -webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+  box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
 }
 
 .wpdk-alert h4
@@ -1621,7 +1620,7 @@ body.wpdk-modal-open
 .wpdk-alert.alert-success
 {
   color        : #264610;
-  border-color : #7AD03A;
+  border-color : #7ad03a;
 }
 
 .wpdk-alert.alert-success .alert-link
@@ -1632,7 +1631,7 @@ body.wpdk-modal-open
 .wpdk-alert.alert-info
 {
   color        : #12384c;
-  border-color : #2EA2CC;
+  border-color : #2ea2cc;
 }
 
 .wpdk-alert.alert-info .alert-link
@@ -1654,7 +1653,7 @@ body.wpdk-modal-open
 .wpdk-alert.alert-danger
 {
   color        : #35150a;
-  border-color : #D54E21;
+  border-color : #d54e21;
 }
 
 .wpdk-alert.alert-danger hr
@@ -1686,7 +1685,7 @@ body.wpdk-modal-open
 /* Adjustment for inner form */
 fieldset.wpdk-form-fieldset .wpdk-alert
 {
-  margin : 8px;
+  margin : 2px 16px 8px !important;
 }
 
 /* Brand new arrow */
