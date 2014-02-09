@@ -122,6 +122,19 @@ class WPDKViewController extends WPDKObject {
   }
 
   /**
+   * This method is called when the head of this view controller is loaded by WordPress.
+   * It is used by WPDKMenu for example, as 'admin_head-' action.
+   * Internal view controller use this method to auto-load components. See for example `WPDKPreferencesViewController`
+   *
+   * @brief Head
+   * @since 1.4.21
+   */
+  public function _admin_head()
+  {
+    // To override by WPDK class
+  }
+
+  /**
    * This static method is called when the head of this view controller is loaded by WordPress.
    * It is used by WPDKMenu for example, as 'admin_head-' action.
    *
