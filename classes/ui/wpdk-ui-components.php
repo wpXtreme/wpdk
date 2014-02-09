@@ -21,6 +21,7 @@ final class WPDKUIComponents {
   const MODAL         = 'wpdk-modal';
   const POPOVER       = 'wpdk-popover';
   const TOOLTIP       = 'wpdk-tooltip';
+  const PREFERENCES   = 'wpdk-preferences';
 
   /**
    * Create an instance of WPDKUIComponents class
@@ -61,7 +62,7 @@ final class WPDKUIComponents {
   private function components()
   {
     $components = array(
-      self::ALERT => array(
+      self::ALERT         => array(
         '.js'  => array(),
         '.css' => array()
       ),
@@ -80,6 +81,10 @@ final class WPDKUIComponents {
       self::MODAL         => array(
         '.js'  => array(),
         '.css' => array()
+      ),
+      // Internal - without css
+      self::PREFERENCES   => array(
+        '.js' => array(),
       ),
     );
 
