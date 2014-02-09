@@ -1705,65 +1705,6 @@ jQuery( function ( $ )
   }
 
   /**
-   * This class manage the Preferences view
-   *
-   * @class           WPDKPreferences
-   * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-10-30
-   * @version         1.0.1
-   *
-   */
-  if( typeof( window.WPDKPreferences ) === 'undefined' ) {
-    window.WPDKPreferences = (function () {
-
-    /**
-     * Internal class pointer
-     *
-     * @var {WPDKPreferences} $t
-     */
-    var $t = {};
-
-    /**
-     * Version
-     *
-     * @type {string}
-     */
-    $t.version = "1.0.1";
-
-    /**
-     * Return an instance of WPDKPreferences class
-     *
-     * @return {WPDKPreferences}
-     */
-    $t.init = function ()
-    {
-      /* Display a confirm dialog box before reset a specified branch to default values. */
-      $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
-      {
-        return confirm( $( this ).data( 'confirm' ) );
-      } );
-
-      /* Display a confirm dialog box before reset a specified branch to default values. */
-      $( 'input[name=reset-to-default-preferences]' ).click( function ()
-      {
-        return confirm( $( this ).data( 'confirm' ) );
-      } );
-
-      return $t;
-    };
-
-    /**
-     * This method is used to update the event when the DOM is changed
-     */
-    $t.update = function () {};
-
-    return $t.init();
-
-  })();
-  }
-
-  /**
    * Utility to manage the php WPDKAjaxResponse
    *
    * @class           WPDKAjaxResponse
