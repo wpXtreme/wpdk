@@ -16,9 +16,75 @@ final class WPDKUIComponents {
    * The unique scritpt and style id (id `wpdk-my-componenent` you have to any
    * `wpdk-my-componenent.js` or `wpdk-my-componenent.css`
    */
+  const ALERT         = 'wpdk-alert';
   const DYNAMIC_TABLE = 'wpdk-dynamic-table';
+  const MODAL         = 'wpdk-modal';
   const POPOVER       = 'wpdk-popover';
   const TOOLTIP       = 'wpdk-tooltip';
+
+  /**
+   * Create an instance of WPDKUIComponents class
+   *
+   * @brief Construct
+   *
+   * @return WPDKUIComponents
+   */
+  public function __construct()
+  {
+    // Register WPDK Javascript components
+    foreach ( $this->components() as $handle => $libs ) {
+      foreach ( $libs as $extension => $deps ) {
+
+        // Script
+        if ( '.js' == $extension ) {
+          $filename = sprintf( '%s%s%s', WPDK_URI_JAVASCRIPT, $handle, $extension );
+          wp_register_script( $handle, $filename, $deps, WPDK_VERSION, true );
+        }
+
+        // Styles
+        else if ( '.css' == $extension ) {
+          $filename = sprintf( '%s%s%s', WPDK_URI_CSS, $handle, $extension );
+          wp_register_style( $handle, $filename, $deps, WPDK_VERSION );
+        }
+      }
+    }
+
+  }
+
+  /**
+   * Return the WPDK components list
+   *
+   * @brief Components
+   *
+   * @return array
+   */
+  private function components()
+  {
+    $components = array(
+      self::ALERT => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
+      self::DYNAMIC_TABLE => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
+      self::TOOLTIP       => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
+      self::POPOVER       => array(
+        '.js'  => array( self::TOOLTIP ),
+        '.css' => array()
+      ),
+      self::MODAL         => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
+    );
+
+    return $components;
+  }
 
   /**
    * Return a singleton instance of WPDKUIComponents class
@@ -34,30 +100,6 @@ final class WPDKUIComponents {
       $instance = new WPDKUIComponents();
     }
     return $instance;
-  }
-
-  /**
-   * Create an instance of WPDKUIComponents class
-   *
-   * @brief Construct
-   *
-   * @return WPDKUIComponents
-   */
-  public function __construct()
-  {
-    // Register WPDK Javascript components
-
-    // Dynamic Table
-    wp_register_script( self::DYNAMIC_TABLE, WPDK_URI_JAVASCRIPT . self::DYNAMIC_TABLE . '.js', array(), WPDK_VERSION, true );
-    wp_register_style( self::DYNAMIC_TABLE, WPDK_URI_CSS . self::DYNAMIC_TABLE . '.css', array(), WPDK_VERSION );
-
-    // Tooltip
-    wp_register_script( self::TOOLTIP, WPDK_URI_JAVASCRIPT . self::TOOLTIP . '.js', array(), WPDK_VERSION, true );
-    wp_register_style( self::TOOLTIP, WPDK_URI_CSS . self::TOOLTIP . '.css', array(), WPDK_VERSION );
-
-    // Popover
-    wp_register_script( self::POPOVER, WPDK_URI_JAVASCRIPT . self::POPOVER . '.js', array( self::TOOLTIP ), WPDK_VERSION, true );
-    wp_register_style( self::POPOVER, WPDK_URI_CSS . self::POPOVER . '.css', array(), WPDK_VERSION );
   }
 
 }
