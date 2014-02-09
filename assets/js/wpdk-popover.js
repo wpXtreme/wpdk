@@ -16,9 +16,6 @@
  *
  */
 
-// Check for jQuery
-if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript requires jQuery') }
-
 // Check for WPDK ToolTip
 if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) { throw new Error('WPDK Popover\'s JavaScript requires WPDK ToolTip') }
 
@@ -140,6 +137,11 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
 
     // Auto init
     $( '.wpdk-has-popover' ).wpdkPopover();
+
+    // Refresh by event
+    $( document ).on( 'wpdk-popover', function() {
+      $( '.wpdk-has-popover' ).wpdkTooltip();
+    } );
 
   }(jQuery);
 

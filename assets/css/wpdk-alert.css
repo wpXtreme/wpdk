@@ -1,0 +1,218 @@
+/**
+ * WPDK Alert
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ */
+
+/*!
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+.wpdk-alert
+{
+  padding               : 15px !important;
+  margin                : 0 0 20px 0 !important;
+  border-width          : 0 0 0 4px;
+  border-style          : solid;
+  position              : relative;
+  background-color      : #fff;
+  -moz-border-radius    : 2px;
+  -webkit-border-radius : 2px;
+  border-radius         : 2px;
+  -moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+  -webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+  box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+}
+
+.wpdk-alert h4
+{
+  margin-top : 0;
+  font-size  : 16px;
+  color      : inherit;
+}
+
+.wpdk-alert .alert-link
+{
+  font-weight : bold;
+}
+
+.wpdk-alert > p,
+.wpdk-alert > ul
+{
+  margin-bottom : 0;
+  margin-top    : 0;
+  font-size     : 14px;
+  line-height   : 150%
+}
+
+.wpdk-alert > p + p
+{
+  margin-top : 5px;
+}
+
+.wpdk-alert.alert-dismissable
+{
+  padding-right : 35px;
+}
+
+.wpdk-alert.alert-dismissable .close
+{
+  position : relative;
+  top      : -2px;
+  right    : -21px;
+  color    : inherit;
+}
+
+.wpdk-alert.alert-success
+{
+  color        : #264610;
+  border-color : #7ad03a;
+}
+
+.wpdk-alert.alert-success hr
+{
+  border-top-color : #264610;
+}
+
+.wpdk-alert.alert-success .alert-link
+{
+  color : #264610;
+}
+
+.wpdk-alert.alert-info
+{
+  color        : #12384c;
+  border-color : #2ea2cc;
+}
+
+.wpdk-alert.alert-info hr
+{
+  border-top-color : #12384c;
+}
+
+.wpdk-alert.alert-info .alert-link
+{
+  color : #12384c;
+}
+
+.wpdk-alert.alert-warning
+{
+  color        : #311e00;
+  border-color : #f90;
+}
+
+.wpdk-alert.alert-warning hr
+{
+  border-top-color : #311e00;
+}
+
+.wpdk-alert.alert-warning .alert-link
+{
+  color : #311e00;
+}
+
+.wpdk-alert.alert-danger
+{
+  color        : #35150a;
+  border-color : #d54e21;
+}
+
+.wpdk-alert.alert-danger hr
+{
+  border-top-color : #35150a;
+}
+
+.wpdk-alert.alert-danger .alert-link
+{
+  color : #35150a;
+}
+
+/* Extra */
+
+.wpdk-alert.alert-white
+{
+  color        : #666;
+  border-color : #bbb;
+}
+
+/* Adjustment for inner form */
+
+fieldset.wpdk-form-fieldset .wpdk-alert
+{
+  margin : 2px 16px 8px !important;
+}
+
+/* WPDK Custom */
+
+.wpdk-alert.fade
+{
+  opacity            : 0;
+  filter             : alpha(opacity=0);
+  -webkit-transition : opacity 0.15s linear;
+  -moz-transition    : opacity 0.15s linear;
+  -ms-transition     : opacity 0.15s linear;
+  -o-transition      : opacity 0.15s linear;
+  transition         : opacity 0.15s linear;
+}
+
+.wpdk-alert.fade.in,
+.wpdk-alert.fade.error,
+.wpdk-alert.fade.information,
+.wpdk-alert.fade.warning,
+.wpdk-alert.fade.updated
+{
+  opacity : 1;
+  filter  : alpha(opacity=100);
+}
+
+/* Button close */
+
+.wpdk-alert .close
+{
+  float       : right;
+  font-size   : 21px;
+  font-weight : bold;
+  line-height : 1;
+  color       : #000;
+  text-shadow : 0 1px 0 #fff;
+  opacity     : 0.2;
+  filter      : alpha(opacity=20);
+}
+
+.wpdk-alert .close:hover,
+.wpdk-alert .close:focus
+{
+  color           : #000;
+  text-decoration : none;
+  cursor          : pointer;
+  opacity         : 0.5;
+  filter          : alpha(opacity=50);
+}
+
+.wpdk-alert button.close
+{
+  padding            : 0;
+  cursor             : pointer;
+  background         : transparent;
+  border             : 0;
+  -webkit-appearance : none;
+}
+
+/* Experimental - Brand new arrow */
+
+.wpdk-alert.arrow-top-left:before
+{
+  content             : "";
+  border              : 16px solid transparent;
+  border-bottom-color : inherit;
+  display             : block;
+  position            : absolute;
+  left                : 32px;
+  top                 : -32px;
+}

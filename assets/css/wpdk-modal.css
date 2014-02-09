@@ -1,0 +1,231 @@
+/**
+ * WPDK Modal
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ */
+
+/*!
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+body.wpdk-modal-open
+{
+  overflow : hidden;
+}
+
+.wpdk-modal
+{
+  position                   : fixed;
+  top                        : 0;
+  right                      : 0;
+  bottom                     : 0;
+  left                       : 0;
+  z-index                    : 1050;
+  display                    : none;
+  overflow                   : auto;
+  overflow-y                 : scroll;
+  -webkit-overflow-scrolling : touch;
+  outline                    : 0;
+}
+
+.wpdk-modal.fade
+{
+  opacity            : 0;
+  -webkit-transition : opacity .15s linear;
+  transition         : opacity .15s linear;
+}
+
+.wpdk-modal.fade.in
+{
+  opacity : 1;
+}
+
+.wpdk-modal.fade .modal-dialog
+{
+  -webkit-transition : -webkit-transform .3s ease-out;
+  -moz-transition    : -moz-transform .3s ease-out;
+  -o-transition      : -o-transform .3s ease-out;
+  transition         : transform .3s ease-out;
+  -webkit-transform  : translate(0, -25%);
+  -ms-transform      : translate(0, -25%);
+  transform          : translate(0, -25%);
+}
+
+.wpdk-modal.in .modal-dialog
+{
+  -webkit-transform : translate(0, 0);
+  -ms-transform     : translate(0, 0);
+  transform         : translate(0, 0);
+}
+
+.wpdk-modal-dialog
+{
+  position : relative;
+  width    : auto;
+  margin   : 10px;
+}
+
+.wpdk-modal .modal-content
+{
+  position           : relative;
+  background-color   : #fff;
+  background-clip    : padding-box;
+  border             : 1px solid #999;
+  border             : 1px solid rgba(0, 0, 0, .2);
+  border-radius      : 6px;
+  outline            : none;
+  -webkit-box-shadow : 0 3px 9px rgba(0, 0, 0, .5);
+  box-shadow         : 0 3px 9px rgba(0, 0, 0, .5);
+}
+
+.wpdk-modal-backdrop
+{
+  position         : fixed;
+  top              : 0;
+  right            : 0;
+  bottom           : 0;
+  left             : 0;
+  z-index          : 1040;
+  background-color : #000;
+}
+
+.wpdk-modal-backdrop.fade
+{
+  filter  : alpha(opacity=0);
+  opacity : 0;
+}
+
+.wpdk-modal-backdrop.in
+{
+  filter  : alpha(opacity=50);
+  opacity : .5;
+}
+
+.wpdk-modal .modal-header
+{
+  min-height    : 16.42857143px;
+  padding       : 15px;
+  border-bottom : 1px solid #e5e5e5;
+}
+
+.wpdk-modal .modal-header .close
+{
+  margin-top : -2px;
+}
+
+.wpdk-modal .modal-title
+{
+  /* WPDK increase the sizes */
+  font-size   : 20px;
+  margin      : 0;
+  line-height : 1.42857143;
+}
+
+.wpdk-modal .modal-body
+{
+  position : relative;
+  padding  : 20px;
+}
+
+.wpdk-modal .modal-footer
+{
+  padding    : 19px 20px 20px;
+  margin-top : 15px;
+  text-align : right;
+  border-top : 1px solid #e5e5e5;
+}
+
+.wpdk-modal .modal-footer .btn + .btn
+{
+  margin-bottom : 0;
+  margin-left   : 5px;
+}
+
+.wpdk-modal .modal-footer .btn-group .btn + .btn
+{
+  margin-left : -1px;
+}
+
+.modal-footer .btn-block + .btn-block
+{
+  margin-left : 0;
+}
+
+@media (min-width : 768px)
+{
+  .wpdk-modal .modal-dialog
+  {
+    width  : 600px;
+    margin : 30px auto;
+  }
+
+  .wpdk-modal .modal-content
+  {
+    -webkit-box-shadow : 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow         : 0 5px 15px rgba(0, 0, 0, .5);
+  }
+
+  .wpdk-modal .modal-sm
+  {
+    width : 300px;
+  }
+}
+
+@media (min-width : 992px)
+{
+  .wpdk-modal .modal-lg
+  {
+    width : 900px;
+  }
+}
+
+.wpdk-modal .modal-footer:before,
+.wpdk-modal .modal-footer:after
+{
+  display : table;
+  content : " ";
+}
+
+.wpdk-modal .modal-footer:after
+{
+  clear : both;
+}
+
+/* Button close */
+
+.wpdk-modal .close
+{
+  float       : right;
+  font-size   : 21px;
+  font-weight : bold;
+  line-height : 1;
+  color       : #000;
+  text-shadow : 0 1px 0 #fff;
+  filter      : alpha(opacity=20);
+  opacity     : .2;
+}
+
+.wpdk-modal .close:hover,
+.wpdk-modal .close:focus
+{
+  color           : #000;
+  text-decoration : none;
+  cursor          : pointer;
+  filter          : alpha(opacity=50);
+  opacity         : .5;
+}
+
+.wpdk-modal button.close
+{
+  -webkit-appearance : none;
+  padding            : 0;
+  cursor             : pointer;
+  background         : transparent;
+  border             : 0;
+}

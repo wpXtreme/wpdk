@@ -9,9 +9,6 @@
  * @note            Base on bootstrap: tootip.js v3.1.0
  */
 
-// Check for jQuery
-if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript requires jQuery') }
-
 // One time
 if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
 
@@ -417,6 +414,11 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
 
     // Auto init
     $( '.wpdk-has-tooltip' ).wpdkTooltip();
+
+    // Refresh by event
+    $( document ).on( 'wpdk-tooltip', function() {
+      $( '.wpdk-has-tooltip' ).wpdkTooltip();
+    } );
 
   }(jQuery);
 
