@@ -354,6 +354,14 @@ class WPDKListTableViewController extends WP_List_Table {
 
   /**
    * @brief To override
+   * @since 1.4.21
+   */
+  public function _admin_head()
+  {
+  }
+
+  /**
+   * @brief To override
    */
   public static function willLoad()
   {

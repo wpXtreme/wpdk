@@ -17,12 +17,13 @@ final class WPDKUIComponents {
    * `wpdk-my-componenent.js` or `wpdk-my-componenent.css`
    */
   const ALERT         = 'wpdk-alert';
+  const BUTTON        = 'wpdk-button';
   const DYNAMIC_TABLE = 'wpdk-dynamic-table';
   const MODAL         = 'wpdk-modal';
   const POPOVER       = 'wpdk-popover';
-  const TOOLTIP       = 'wpdk-tooltip';
-  const BUTTON        = 'wpdk-button';
   const PREFERENCES   = 'wpdk-preferences';
+  const RIBBONIZE     = 'wpdk-ribbonize';
+  const TOOLTIP       = 'wpdk-tooltip';
 
   /**
    * Create an instance of WPDKUIComponents class
@@ -76,6 +77,10 @@ final class WPDKUIComponents {
         '.css' => array()
       ),
       self::BUTTON        => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
+      self::RIBBONIZE     => array(
         '.js'  => array(),
         '.css' => array()
       ),
