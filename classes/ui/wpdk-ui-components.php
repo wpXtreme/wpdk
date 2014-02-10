@@ -21,6 +21,7 @@ final class WPDKUIComponents {
   const MODAL         = 'wpdk-modal';
   const POPOVER       = 'wpdk-popover';
   const TOOLTIP       = 'wpdk-tooltip';
+  const BUTTON        = 'wpdk-button';
   const PREFERENCES   = 'wpdk-preferences';
 
   /**
@@ -74,13 +75,17 @@ final class WPDKUIComponents {
         '.js'  => array(),
         '.css' => array()
       ),
+      self::BUTTON        => array(
+        '.js'  => array(),
+        '.css' => array()
+      ),
       self::POPOVER       => array(
         '.js'  => array( self::TOOLTIP ),
         '.css' => array()
       ),
       self::MODAL         => array(
-        '.js'  => array(),
-        '.css' => array()
+        '.js'  => array( self::BUTTON ),
+        '.css' => array( self::BUTTON )
       ),
       // Internal - without css
       self::PREFERENCES   => array(
