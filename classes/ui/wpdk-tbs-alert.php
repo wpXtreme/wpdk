@@ -12,7 +12,7 @@
  *
  */
 class WPDKTwitterBootstrapAlertType {
-  /* @deprecated const since 1.3.1 and Bootstrap v3.0.0 */
+  // @deprecated const since 1.3.1 and Bootstrap v3.0.0
   const ALERT = 'alert-error';
 
   const SUCCESS     = 'alert-success';
@@ -20,7 +20,7 @@ class WPDKTwitterBootstrapAlertType {
   const WARNING     = 'alert-warning';
   const DANGER      = 'alert-danger';
 
-  /* Since 1.4.8 */
+  // Since 1.4.8
   const WHITE = 'alert-white';
 }
 
@@ -56,12 +56,15 @@ class WPDKTwitterBootstrapAlertType {
  * @class              WPDKTwitterBootstrapAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-07
- * @version            1.6.2
+ * @date               2014-02-10
+ * @version            1.7.0
  * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
  *
  */
 class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
+
+  // Used to store for each user the dismiss alert
+  const USER_META_KEY_PERMANENT_DISMISS = '_wpdk_alert_dismiss';
 
   /**
    * @deprecated Since 1.0.0.b4 - Use dismissButton instead
@@ -125,6 +128,16 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   public $type;
 
   /**
+   * If TRUE this alert is permanet dismiss by a logged in user
+   *
+   * @brief Permanent dismiss
+   * @since 1.4.21
+   *
+   * @var bool $permanent_dismiss
+   */
+  public $permanent_dismiss = false;
+
+  /**
    * Set TRUE for alert-block class style
    *
    * @brief      Block layout
@@ -133,6 +146,15 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    * @var bool $block
    */
   public $block;
+
+  /**
+   * List of permanent dismissed alert id
+   *
+   * @brief Permanent dismissed
+   *
+   * @var array $dismissed
+   */
+  protected $dismissed = array();
 
   /**
    * Create an instance of WPDKTwitterBootstrapAlert class
@@ -153,6 +175,12 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
     $this->content = $content;
     $this->type    = $type;
     $this->title   = $title;
+
+    // @since 1.4.21 permanent dismissed
+    if ( is_user_logged_in() ) {
+      $user_id         = get_current_user_id();
+      $this->dismissed = get_user_meta( $user_id, self::USER_META_KEY_PERMANENT_DISMISS, true );
+    }
   }
 
   /**
@@ -165,16 +193,35 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
   private function dismissButton()
   {
     $result = '';
+
+    // Title
+    $title = '';
+
+    // Classes
+    $classes = array( 'close' );
+
+    // Custom title/tooltip in button close
+    if ( !empty( $this->dismissToolTip ) ) {
+      $classes[] = 'wpdk-has-tooltip';
+      $title     = sprintf( 'title="%s"', $this->dismissToolTip );
+    }
+
+    // Permanent dismiss by user logged in
+    if( true === $this->permanent_dismiss ) {
+      $classes[] = 'wpdk-alert-permanent-dismiss';
+    }
+
     if ( $this->dismissButton ) {
       WPDKHTML::startCompress(); ?>
       <button
         type="button"
-        class="close <?php echo empty( $this->dismissToolTip ) ? '' : 'wpdk-has-tooltip' ?>"
-        <?php echo empty( $this->dismissToolTip ) ? '' : 'title="' . $this->dismissToolTip . '"' ?>
+        class="<?php echo WPDKHTMLTag::classInline( $classes ) ?>"
+        <?php echo $title ?>
         data-dismiss="alert">×</button>
       <?php
       $result = WPDKHTML::endHTMLCompress();
     }
+
     return $result;
   }
 
@@ -240,6 +287,12 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
    */
   public function html()
   {
+
+    // Permanent dismiss
+    if ( !empty( $this->dismissed ) && in_array( $this->id, $this->dismissed ) ) {
+      return;
+    }
+
     WPDKHTML::startCompress() ?>
     <div
       <?php echo empty( $this->id ) ? '' : 'id="' . $this->id . '"' ?>
@@ -247,7 +300,7 @@ class WPDKTwitterBootstrapAlert extends WPDKTwitterBootstrap {
       class="<?php echo self::classInline( $this->class, array(
         $this->type,
         'wpdk-alert',
-        $this->dismissable ? 'wpdk-alert-dismissable' : '',
+        $this->dismissable ? 'alert-dismissable' : '',
         'fade',
         'in',
         'clearfix'
