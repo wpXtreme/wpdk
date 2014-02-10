@@ -24,6 +24,7 @@ final class WPDKUIComponents {
   const PREFERENCES   = 'wpdk-preferences';
   const RIBBONIZE     = 'wpdk-ribbonize';
   const TOOLTIP       = 'wpdk-tooltip';
+  const TRANSITION    = 'wpdk-transition';
 
   /**
    * Create an instance of WPDKUIComponents class
@@ -65,7 +66,7 @@ final class WPDKUIComponents {
   {
     $components = array(
       self::ALERT         => array(
-        '.js'  => array(),
+        '.js'  => array( self::TRANSITION ),
         '.css' => array()
       ),
       self::DYNAMIC_TABLE => array(
@@ -73,8 +74,11 @@ final class WPDKUIComponents {
         '.css' => array()
       ),
       self::TOOLTIP       => array(
-        '.js'  => array(),
+        '.js'  => array( self::TRANSITION ),
         '.css' => array()
+      ),
+      self::TRANSITION     => array(
+        '.js'  => array(),
       ),
       self::BUTTON        => array(
         '.js'  => array(),
@@ -89,7 +93,7 @@ final class WPDKUIComponents {
         '.css' => array()
       ),
       self::MODAL         => array(
-        '.js'  => array( self::BUTTON ),
+        '.js'  => array( self::BUTTON, self::TRANSITION ),
         '.css' => array( self::BUTTON )
       ),
       // Internal - without css
