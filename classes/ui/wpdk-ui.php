@@ -71,7 +71,7 @@ final class WPDKUI {
    *
    *     'type'                  => 'submit',
    *     'name'                  => 'button-update',
-   *     'classes'               => ' btn btn-primary button-primary',
+   *     'classes'               => ' button-primary',
    *     'additional_classes'    => '',
    *     'data'                  => ''
    *
@@ -83,7 +83,7 @@ final class WPDKUI {
     $default_args = array(
       'type'               => 'submit',
       'name'               => 'button-update',
-      'classes'            => ' btn btn-primary button button-primary alignright',
+      'classes'            => ' button button-primary alignright',
       'additional_classes' => '',
       'data'               => array(),
     );

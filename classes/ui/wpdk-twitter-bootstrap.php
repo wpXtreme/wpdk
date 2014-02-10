@@ -308,7 +308,7 @@ class WPDKTwitterBootstrapModal extends WPDKTwitterBootstrap {
           $class .= ' wpdk-has-tooltip';
         }
         $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-        $stack .= sprintf( '<button type="button" %s id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
+        $stack .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
       }
     }
 
