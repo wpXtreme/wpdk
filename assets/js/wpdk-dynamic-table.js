@@ -57,8 +57,8 @@ jQuery( function ( $ )
         clone.removeClass( 'wpdk-dt-clone' ).appendTo( table );
         $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function ()
         {
-          // @todo remove asap when split is complete
-          WPDK.init();
+          // Ask to WPDKjQuery class to refresh all data picker controls
+          $( document ).trigger( 'wpdk-jquery-data-picker' );
         } );
         return false;
       }

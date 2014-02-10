@@ -1,5 +1,5 @@
 /**
- * WPDK Javascript
+ * WPDK (core) Javascript
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
@@ -10,8 +10,11 @@
 // Stability
 if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or missing!') }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // Extends Javascript with a several useful function PHP style
-+function ( $ )
+// ---------------------------------------------------------------------------------------------------------------------
+
++function()
 {
   "use strict";
 
@@ -409,6 +412,18 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
+}();
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// WPDK (core) classes
+// ---------------------------------------------------------------------------------------------------------------------
+
+// On document ready
+jQuery( function ( $ )
+{
+  "use strict";
+
   /**
    * jQuery Cookie Plugin v1.3.1
    * https://github.com/carhartl/jquery-cookie
@@ -511,64 +526,6 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
 
   } ));
 
-
-  /**
-   * WPDK Swipe Control extend.
-   * The swipe() method get/set the current state for a swipe control
-   *
-   * @internal {string} Optional. Set the current state
-   *
-   * @returns {string} Return the current state
-   */
-  if( typeof( $.fn.swipe ) === 'undefined' ) {
-    $.fn.swipe = function () {
-
-      if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
-        /* Get main control. */
-        var control = $( this );
-
-        /* Get sub-elements. */
-        var knob = control.children( 'span' ).eq( 0 );
-        var input = control.children( 'input[type=hidden]' ).eq( 0 );
-
-        /* Set. */
-        if ( arguments.length > 0 ) {
-
-          var v = arguments[0], result;
-
-          /* On. */
-          if ( 'on' === v ) {
-            result = control.trigger( 'change', [ control, 'on'] );
-            if ( false !== result ) {
-              input.val( 'on' );
-              knob.animate( { marginLeft : '23px' }, 100, function ()
-              {
-                control.addClass( 'wpdk-form-swipe-on' );
-              } );
-              control.trigger( 'changed', [ control, 'on'] );
-            }
-          }
-
-          /* Off. */
-          else {
-            result = control.trigger( 'change', [ control, 'off'] );
-            if ( false !== result ) {
-              input.val( 'off' );
-              knob.animate( { marginLeft : '0' }, 100, function ()
-              {
-                control.removeClass( 'wpdk-form-swipe-on' );
-              } );
-              control.trigger( 'changed', [ control, 'off'] );
-            }
-          }
-        }
-
-        /* Return always the state */
-        return input.val();
-      }
-    };
-  }
-
   /**
    * Manage the Glyph Icon
    */
@@ -580,7 +537,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         display         : _display,
         html            : _html,
 
-        /* Glyph constants */
+        // Glyph constants
         ANGLE_DOWN      : 'wpdk-icon-angle-down',
         UPDOWN_CIRCLE   : 'wpdk-icon-updown-circle',
         ANGLE_LEFT      : 'wpdk-icon-angle-left',
@@ -627,7 +584,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         TRASH           : 'wpdk-icon-trash',
         UP_OPEN         : 'wpdk-icon-up-open',
 
-        /* Since 1.4.5 */
+        // Since 1.4.5
         EMO_HAPPY       : 'wpdk-icon-emo-happy',
         EMO_UNHAPPY     : 'wpdk-icon-emo-unhappy',
         CANCEL_CIRCLED  : 'wpdk-icon-cancel-circled',
@@ -644,7 +601,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         APPLE           : 'wpdk-icon-apple',
         TWITTER         : 'wpdk-icon-twitter',
 
-        /* since 1.4.7 */
+        // Since 1.4.7
         GOOGLE_PLUS     : 'wpdk-icon-gplus'
 
       };
@@ -706,411 +663,191 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     })();
   }
 
-}( jQuery );
-
-
-// On document ready
-jQuery( function ( $ )
-{
-  "use strict";
-
   /**
-   * This class manage all forms controles and fields, attach new event and perform special actions.
-   *
-   * @class           WPDKControls
-   * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-12-04
-   * @version         1.0.3
-   *
-   */
-  if ( typeof( window.WPDKControls ) === 'undefined' ) {
-    window.WPDKControls = (function () {
-
-      /**
-       * Empty object
-       */
-      var $t = {
-        version           : '1.0.3',
-        init              : _init,
-        configurationForm : _configurationForm,
-        preferencesForm   : _preferencesForm
-      };
-
-      /**
-       * Init
-       *
-       * @returns {{version: string, init: _init, configurationForm: null, preferencesForm: null}}
-       * @private
-       */
-      function _init ()
-      {
-        _initClearInput();
-        _initSwipeControl();
-        _initScrollableControl();
-        _initLockedControl();
-        _initAccordion();
-        _initBehavior();
-        _initGuide();
-
-        return $t;
-      }
-
-      /**
-       * Return the standard form for a configuration view. See wpdk-ui.php for more detail.
-       *
-       * @since 0.9.5
-       * @deprecated since 1.2.0 use preferencesForm() instead
-       *
-       * @param {string} id Configuration view ID
-       * @return {*|jQuery|HTMLElement}
-       */
-      function _configurationForm ( id )
-      {
-        return $( 'form#wpdk_configuration_view_form-' + id );
-      }
-
-      /**
-       * Return the standard form for a preferences view. See wpdk-ui.php for more detail.
-       *
-       * @since 1.2.0
-       *
-       * @param {string} id Preferences form ID
-       *
-       * @return {*|jQuery|HTMLElement}
-       */
-      function _preferencesForm( id )
-      {
-        return $( 'form#wpdk_preferences_view_form-' + id );
-      };
-
-      /**
-       * Init the guide engine to open a modal twitter window with an iframe to developer center
-       *
-       * @since 1.0.0.b4
-       * @todo This engine will be move into wpXtreme
-       *
-       * @private
-       */
-      function _initGuide()
-      {
-        $( 'a.wpdk-guide' ).click( function ()
-        {
-          var title, content, url;
-
-          // Set guide title
-          title = $( this ).data( 'title' );
-
-          // If guide content is directly into data-content attribute
-          if ( typeof $( this ).data( 'content' ) != 'undefined' && $( this ).data( 'content' ).length > 0 ) {
-            content = $( this ).data( 'content' );
-          }
-          // If guide is in Developer Center
-          else {
-            url = sprintf( 'https://developer.wpxtre.me/api/v1/articles/%s', $( this ).attr( 'href' ) );
-            content = sprintf( '<iframe class="wpdk-iframe-guide" frameborder="0" height="520" width="530" src="%s"></iframe>', url );
-          }
-
-          var modal = new WPDKTwitterBootstrapModal( 'wpdk-guide', title, content );
-          modal.height = 512;
-          modal.display();
-
-          return false;
-        } );
-      }
-
-      /**
-       * When an input field has the clear right button, on click the previous left input is cleaned.
-       *
-       * @private
-       */
-      function _initClearInput()
-      {
-        $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
-        {
-          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' );
-        } );
-      }
-
-      /**
-       * Initialize the WPDK custom Swipe Control.
-       * When a Swipe Control is clicked (or swipe) an event `swipe` is trigged:
-       *
-       *     $('.wpdk-form-swipe').on('swipe', function(a, swipeButton, status ) {});
-       *
-       * @private
-       */
-      function _initSwipeControl()
-      {
-        $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function ()
-        {
-          var control = $( this ).parent();
-          var status = wpdk_is_bool( control.swipe() );
-          var enabled = status ? 'off' : 'on';
-          var result = control.trigger( 'swipe', [ control, enabled] );
-          if ( typeof result == 'undefined' || result ) {
-            control.swipe( enabled );
-          }
-        } );
-      }
-
-      /**
-       * Initialize the scrollale control
-       *
-       * @since 1.4.7
-       * @since 1.4.7
-       * @private
-       */
-      function _initScrollableControl()
-      {
-        var scrollable = $( '.wpdk-form-scrollable' );
-        if ( scrollable.length ) {
-          $( document ).on( 'click', '.wpdk-form-scrollable img', false, function ()
-          {
-            $( this ).toggleClass( 'wpdk-selected' );
-          } );
-        }
-      }
-
-      /**
-       * A Locked Control is a special input text when a lock to avoid change unwanted.
-       * When you try to edit this field a Javascript confirm is displayed. You have to confirm the edit to next.
-       *
-       * @private
-       */
-      function _initLockedControl()
-      {
-        $( document ).on( 'click', '.wpdk-form-locked', false, function ()
-        {
-          if ( confirm( wpdk_i18n.messageUnLockField ) ) {
-            $( this )
-              .attr( 'class', 'wpdk-form-unlocked' )
-              .prev( 'input' )
-              .removeAttr( 'readonly' );
-          }
-        } );
-      }
-
-      /**
-       * Initialize the wpdk accordion
-       *
-       * @private
-       */
-      function _initAccordion()
-      {
-        var accordion = $( 'i.wpdk-openclose-accordion' );
-        if ( accordion.length ) {
-          /* Memorizzo altezza */
-          accordion.parent().next( 'div.wpdk-accordion' ).each( function ( i, e )
-          {
-            $( this ).addClass( 'wpdk-accordion-open' ).data( 'height', $( this ).height() );
-            if ( i > 0 ) {
-              $( this ).removeClass( 'wpdk-accordion-open' );
-            }
-            else {
-              $( e ).css( 'height', $( e ).data( 'height' ) + 'px' );
-            }
-          } );
-
-          accordion.click( function ()
-          {
-            /* Chiudo tutti gli altri - solo i fieldsset del form parent */
-            var form = $( this ).parents( 'form' );
-            form.find( 'fieldset' ).removeClass( 'wpdk-accordion-open' );
-            form.find( 'fieldset div.wpdk-accordion' ).css( 'height', '0' );
-
-            /* Me stesso lo apro */
-            $( this ).parents( 'fieldset' ).addClass( 'wpdk-accordion-open' );
-
-            /* Animation su container */
-            var $container = $( this ).parent().next( 'div.wpdk-accordion' );
-            $container.css( 'height', $container.data( 'height' ) + 'px' );
-
-          } );
-        }
-      }
-
-      /**
-       * Initialize special behaviors as auto disabled after click, and more.
-       *
-       * @private
-       */
-      function _initBehavior()
-      {
-
-        /* Disabled after click for input. */
-        $( 'input.wpdk-disable-after-click' ).click( function ()
-        {
-          $( this ).addClass( 'disabled' );
-        } );
-      }
-
-      return $t;
-
-    })();
-  }
-
-  /**
-   * This class manage all jQuery enhancer
+   * This class manage all jQuery enhancer and hacks
    *
    * @class           WPDKjQuery
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-08-23
-   * @version         1.1.1
+   * @date            2014-02-10
+   * @version         1.2.0
    */
-  if( typeof( window.WPDKjQuery ) === 'undefined' ) {
-    window.WPDKjQuery = (function () {
-
-    /**
-     *
-     * @type {{}}
-     */
-    var $t = {};
-
-    /**
-     * Version
-     *
-     * @type {string}
-     */
-    $t.version = "1.1.0";
-
-    /**
-     * Return the jQury version.
-     *
-     * @return {string}
-     */
-    $t.jQueryVersion = function ()
-    {
-      return $().jquery;
-    };
-
-    /**
-     * Return the jQury UI version. Return false if jQuery UI is not loaded
-     *
-     * @returns {string|boolean}
-     */
-    $t.jQueryUIVersion = function ()
-    {
-      if ( $.ui && $.ui.version ) {
-        return $.ui.version;
-      }
-      return false;
-    };
-
-    /**
-     * Init this class
-     */
-    $t.init = function ()
-    {
-      _initDatePicker();
-      _initTabs();
-      __initAutocomplete();
-      _initAutocomplete();
-      _initCopyPaste();
-
-      /* Wrap the date picker with my pwn class. */
-      $( '#ui-datepicker-div' ).wrap( '<div class="wpdk-jquery-ui"/>' );
-
-      return $t;
-    };
-
-    /**
-     * Initialize the Date Picker
-     *
-     * @private
-     */
-    function _initDatePicker()
+  if ( 'undefined' === typeof( window.WPDKjQuery ) ) {
+    window.WPDKjQuery = (function ()
     {
 
-      /* Enable Date Picker on wpdk input class. */
-      $( 'input.wpdk-form-date' ).datepicker();
+      // This object
+      var $t = {
+        version         : '1.2.0',
+        jQueryVersion   : _jQueryVersion,
+        jQueryUIVersion : _jQueryUIVersion
+      };
 
-      /* Locale */
-      if ( $().datetimepicker ) {
-        $( 'input.wpdk-form-datetime:visible' ).datetimepicker( {
-          timeOnlyTitle : wpdk_i18n.timeOnlyTitle,
-          timeText      : wpdk_i18n.timeText,
-          hourText      : wpdk_i18n.hourText,
-          minuteText    : wpdk_i18n.minuteText,
-          secondText    : wpdk_i18n.secondText,
-          currentText   : wpdk_i18n.currentText,
-          dayNamesMin   : (wpdk_i18n.dayNamesMin).split( ',' ),
-          monthNames    : (wpdk_i18n.monthNames).split( ',' ),
-          closeText     : wpdk_i18n.closeText,
-          timeFormat    : wpdk_i18n.timeFormat,
-          dateFormat    : wpdk_i18n.dateFormat
+      /**
+       * Init this class
+       */
+      $t.init = function ()
+      {
+        _initDatePicker();
+        _initTabs();
+        _initAutocomplete();
+        _initCopyPaste();
+
+        // Wrap the date picker with my pwn class
+        $( '#ui-datepicker-div' ).wrap( '<div class="wpdk-jquery-ui"/>' );
+
+        __initAutocomplete();
+
+        return $t;
+      };
+
+      /**
+       * Initialize the Date Picker
+       *
+       * @private
+       */
+      function _initDatePicker()
+      {
+        // Attach event for refresh
+        $( document ).on( 'wpdk-jquery-data-picker', _initDatePicker );
+
+        // Enable Date Picker on wpdk input class
+        $( 'input.wpdk-form-date' ).datepicker();
+
+        // Locale
+        if ( $().datetimepicker ) {
+          $( 'input.wpdk-form-datetime:visible' ).datetimepicker( {
+            timeOnlyTitle : wpdk_i18n.timeOnlyTitle,
+            timeText      : wpdk_i18n.timeText,
+            hourText      : wpdk_i18n.hourText,
+            minuteText    : wpdk_i18n.minuteText,
+            secondText    : wpdk_i18n.secondText,
+            currentText   : wpdk_i18n.currentText,
+            dayNamesMin   : (wpdk_i18n.dayNamesMin).split( ',' ),
+            monthNames    : (wpdk_i18n.monthNames).split( ',' ),
+            closeText     : wpdk_i18n.closeText,
+            timeFormat    : wpdk_i18n.timeFormat,
+            dateFormat    : wpdk_i18n.dateFormat
+          } );
+        }
+        else {
+          if ( typeof window.console !== 'undefined' ) {
+            alert( 'Date Time Picker not loaded' );
+          }
+        }
+
+        // Date Picker defaults
+        $.datepicker.setDefaults( {
+          changeMonth     : true,
+          changeYear      : true,
+          dayNamesMin     : (wpdk_i18n.dayNamesMin).split( ',' ),
+          monthNames      : (wpdk_i18n.monthNames).split( ',' ),
+          monthNamesShort : (wpdk_i18n.monthNamesShort).split( ',' ),
+          dateFormat      : wpdk_i18n.dateFormat
         } );
       }
-      else {
-        if ( typeof window.console !== 'undefined' ) {
-          alert( 'Date Time Picker not loaded' );
+
+      /**
+       * Initialize the jQuery Tabs with special cookie for remember the open tab.
+       *
+       * @private
+       */
+      function _initTabs()
+      {
+        // Attach event for refresh
+        $( document ).on( 'wpdk-jquery-tabs', _initTabs );
+
+        // Get tabs
+        var tabs = $( ".wpdk-tabs" );
+
+        // Init
+        tabs.tabs();
+
+        if ( document.location.href.indexOf( '#' ) > 0 ) {
+          // OoO
+        }
+        // Enable cookie tabs remember
+        else {
+          tabs.each( function ()
+          {
+            var id = $( this ).attr( "id" );
+            if ( 'undefined' !== typeof(id) ) {
+              $( this ).tabs( {
+                activate : function ( e, ui )
+                {
+                  $.cookie( id, ui.newTab.index(), { path : '/' } );
+                },
+                active   : $.cookie( id )
+              } );
+            }
+          } );
         }
       }
 
-      /* Date Picker defaults */
-      $.datepicker.setDefaults( {
-        changeMonth     : true,
-        changeYear      : true,
-        dayNamesMin     : (wpdk_i18n.dayNamesMin).split( ',' ),
-        monthNames      : (wpdk_i18n.monthNames).split( ',' ),
-        monthNamesShort : (wpdk_i18n.monthNamesShort).split( ',' ),
-        dateFormat      : wpdk_i18n.dateFormat
-      } );
-    }
+      /**
+       * Select all input with data-autocomplete attribute and init the right autocomplete subset
+       *
+       * @private
+       */
+      function _initAutocomplete()
+      {
+        // Attach event for refresh
+        $( document ).on( 'wpdk-jquery-autocomplete', _initAutocomplete );
 
-    /**
-     * Initialize the jQuery Tabs with special cookie for remember the open tab.
-     *
-     * @private
-     */
-    function _initTabs()
-    {
-      var tabs = $( ".wpdk-tabs" );
-      tabs.tabs();
-
-      if ( document.location.href.indexOf( '#' ) > 0 ) {
-      }
-      else {
-        tabs.each( function ()
+        $( 'input[data-autocomplete]' ).each( function ( index, element )
         {
-          var id = $( this ).attr( "id" );
-          if ( 'undefined' !== typeof(id) ) {
-            $( this ).tabs( {
-              activate : function ( e, ui )
-              {
-                $.cookie( id, ui.newTab.index(), { path : '/' } );
-              },
-              active   : $.cookie( id )
-            } );
+          switch ( $( element ).data( 'autocomplete' ) ) {
+            case 'posts':
+              _initAutocompletePosts( element );
+              break;
+
+            case 'embed':
+            case 'inline':
+              _initAutocompleteEmbed( element );
+              break;
+
+            case 'custom':
+              _initAutocompleteCustom( element );
+              break;
           }
         } );
       }
-    }
 
-    /**
-     * Attach an autocomplete Ajax event when an input has the `data-autocomplete_action` attribute.
-     * Usually you will use an input text. When you digit smething an Ajax call is made with action get from
-     * `autocomplete_action` attribute.
-     *
-     * @deprecated Since 1.0.0.b4
-     *
-     * @private
-     */
-    function __initAutocomplete()
-    {
-      $( 'input[data-autocomplete_action]' ).each( function ( index, element )
+      /**
+       * Attach an autocomplete Ajax event when an input has the `data-autocomplete_posts` attribute.
+       * Usually you will use an input text. When you digit something an Ajax call 'wpdk_action_autocomplete_posts' is made.
+       *
+       * @param element DOM element
+       *
+       * @private
+       */
+      function _initAutocompletePosts( element )
       {
+        // Init
         $( element ).autocomplete(
           {
             source    : function ( request, response )
             {
               $.post( wpdk_i18n.ajaxURL,
                 {
-                  action          : $( element ).data( 'autocomplete_action' ),
-                  autocomplete_id : $( element ).data( 'autocomplete_id' ),
-                  data            : $( element ).data( 'user_data' ),
-                  term            : request.term
+                  action      : 'wpdk_action_autocomplete_posts',
+                  post_type   : function ()
+                  {
+                    var post_type = '';
+                    if ( $( $( element ).data( 'post_type' ) ).length ) {
+                      post_type = $( $( element ).data( 'post_type' ) ).val();
+                    }
+                    // The data attribute post type contains the post type id
+                    else {
+                      post_type = $( element ).data( 'post_type' );
+                    }
+                    return post_type;
+                  },
+                  post_status : $( element ).data( 'post_status' ),
+                  limit       : $( element ).data( 'limit' ),
+                  order       : $( element ).data( 'order' ),
+                  orderby     : $( element ).data( 'orderby' ),
+                  term        : request.term
                 },
                 function ( data )
                 {
@@ -1123,218 +860,222 @@ jQuery( function ( $ )
                 document.location = ui.item.href;
               }
               else {
-                var $name = $( element ).data( 'autocomplete_target' );
-                $( 'input[name=' + $name + ']' ).val( ui.item.id );
+                var $name = $( element ).data( 'target' );
+                if ( !empty( $name ) ) {
+                  $( 'input[name=' + $name + ']' ).val( ui.item.id );
+                }
               }
             },
-            minLength : $( element ).data( 'autocomplete_min_length' ) | 0
+            minLength : $( element ).data( 'min_length' ) | 0
           }
         );
-      } );
-    }
+      }
 
-    /**
-     * Select all input with data-autocomplete attribute and init the right autocomplete subset
-     *
-     * @private
-     */
-    function _initAutocomplete()
-    {
-      $( 'input[data-autocomplete]' ).each( function ( index, element )
+      /**
+       * Init an autocomplete with a jSON array embed (inner) into the element
+       *
+       * @param element DOM element
+       * @private
+       */
+      function _initAutocompleteEmbed( element )
       {
-        switch ( $( element ).data( 'autocomplete' ) ) {
-          case 'posts':
-            _initAutocompletePosts( element );
-            break;
+        var source = $( element ).data( 'source' );
 
-          case 'embed':
-          case 'inline':
-            _initAutocompleteEmbed( element );
-            break;
+        if ( !empty( source ) ) {
 
-          case 'custom':
-            _initAutocompleteCustom( element );
-            break;
-        }
-      } );
-    }
-
-    /**
-     * Attach an autocomplete Ajax event when an input has the `data-autocomplete_posts` attribute.
-     * Usually you will use an input text. When you digit something an Ajax call 'wpdk_action_autocomplete_posts' is made.
-     *
-     * @param element DOM element
-     *
-     * @private
-     */
-    function _initAutocompletePosts( element )
-    {
-
-      /* Init. */
-      $( element ).autocomplete(
-        {
-          source    : function ( request, response )
-          {
-            $.post( wpdk_i18n.ajaxURL,
-              {
-                action      : 'wpdk_action_autocomplete_posts',
-                post_type   : function ()
-                {
-                  var post_type = '';
-                  if ( $( $( element ).data( 'post_type' ) ).length ) {
-                    post_type = $( $( element ).data( 'post_type' ) ).val();
-                  }
-                  /* The data attribute post type contains the post type id. */
-                  else {
-                    post_type = $( element ).data( 'post_type' );
-                  }
-                  return post_type;
-                },
-                post_status : $( element ).data( 'post_status' ),
-                limit       : $( element ).data( 'limit' ),
-                order       : $( element ).data( 'order' ),
-                orderby     : $( element ).data( 'orderby' ),
-                term        : request.term
-              },
-              function ( data )
-              {
-                response( $.parseJSON( data ) );
-              } );
-          },
-          select    : function ( event, ui )
-          {
-            if ( typeof ui.item.href !== 'undefined' ) {
-              document.location = ui.item.href;
+          source = $.parseJSON( $( element ).data( 'source' ).replace( /'/g, "\"" ) );
+          $( element ).autocomplete(
+            {
+              source    : source,
+              minLength : $( element ).data( 'min_length' ) | 0
             }
-            else {
-              var $name = $( element ).data( 'target' );
-              if ( !empty( $name ) ) {
-                $( 'input[name=' + $name + ']' ).val( ui.item.id );
-              }
-            }
-          },
-          minLength : $( element ).data( 'min_length' ) | 0
+          );
         }
-      );
-    }
+      }
 
-    /**
-     * Init an autocomplete with a jSON array embed (inner) into the element
-     *
-     * @param element DOM element
-     * @private
-     */
-    function _initAutocompleteEmbed( element )
-    {
-      var source = $( element ).data( 'source' );
+      /**
+       * Init an autocomplete with a jSON array embed (inner) into the element
+       *
+       * @param element DOM element
+       * @private
+       */
+      function _initAutocompleteCustom( element )
+      {
+        var source = $.parseJSON( $( element ).data( 'source' ).replace( /'/g, "\"" ) );
+        var callable = $( element ).data( 'function' );
+        var select = $( element ).data( 'select' );
 
-      if ( !empty( source ) ) {
-
-        source = $.parseJSON( $( element ).data( 'source' ).replace( /'/g, "\"" ) );
         $( element ).autocomplete(
           {
             source    : source,
             minLength : $( element ).data( 'min_length' ) | 0
           }
-        );
+        ).data( "ui-autocomplete" )._renderItem = eval( callable );
       }
-    }
 
-    /**
-     * Init an autocomplete with a jSON array embed (inner) into the element
-     *
-     * @param element DOM element
-     * @private
-     */
-    function _initAutocompleteCustom( element )
-    {
-      var source = $.parseJSON( $( element ).data( 'source' ).replace( /'/g, "\"" ) );
-      var callable = $( element ).data( 'function' );
-      var select = $( element ).data( 'select' );
-
-      $( element ).autocomplete(
-        {
-          source    : source,
-          minLength : $( element ).data( 'min_length' ) | 0
-        }
-      ).data( "ui-autocomplete" )._renderItem = eval( callable );
-    }
-
-    /**
-     * The Copy and Paste engine allow to copy a value from a source input to a target input.
-     *
-     * @private
-     */
-    function _initCopyPaste()
-    {
-
-      /* This is a hack to send in POST/GET the new value in the multiple select tag. */
-      $( 'form' ).submit( function ()
+      /**
+       * The Copy and Paste engine allow to copy a value from a source input to a target input.
+       *
+       * @private
+       */
+      function _initCopyPaste()
       {
-        $( '[data-paste]' ).each( function ()
+
+        // This is a hack to send in POST/GET the new value in the multiple select tag
+        $( 'form' ).submit( function ()
         {
-          var paste = $( '#' + $( this ).attr( 'data-paste' ) );
-          var element_paste_type = paste.get( 0 ).tagName;
-          if ( element_paste_type.toLowerCase() == 'select' && paste.attr( 'multiple' ) !== 'undefined' ) {
-            paste.find( 'option' ).attr( 'selected', 'selected' );
-          }
-        } );
-      } );
-
-      /* Copy & Paste */
-      $( document ).on( 'click', '.wpdk-form-button-copy-paste', false, function ()
-      {
-        /* Recupero options */
-        var options = $( this ).attr( 'data-options' ) ? $( this ).attr( 'data-options' ).split( ' ' ) : [];
-
-        /* @todo Aggiungere evento/filtro */
-
-        var copy = $( '#' + $( this ).attr( 'data-copy' ) );
-        var paste = $( '#' + $( this ).attr( 'data-paste' ) );
-
-        /* Determino da dove copio e dove incollo */
-        var element_copy_type = copy.get( 0 ).tagName;
-
-        var value, text;
-
-        switch ( element_copy_type.toLowerCase() ) {
-          case 'input':
-            value = copy.val();
-            text = value;
-            if ( $.inArray( 'clear_after_copy', options ) !== false ) {
-              copy.val( '' );
+          $( '[data-paste]' ).each( function ()
+          {
+            var paste = $( '#' + $( this ).attr( 'data-paste' ) );
+            var element_paste_type = paste.get( 0 ).tagName;
+            if ( element_paste_type.toLowerCase() == 'select' && paste.attr( 'multiple' ) !== 'undefined' ) {
+              paste.find( 'option' ).attr( 'selected', 'selected' );
             }
-            break;
-          case 'select':
-            value = $( 'option:selected', copy ).val();
-            text = $( 'option:selected', copy ).text();
-            break;
-        }
+          } );
+        } );
 
-        if ( value != '' || value != '' ) {
+        // Copy & Paste
+        $( document ).on( 'click', '.wpdk-form-button-copy-paste', false, function ()
+        {
 
-          /* Determino dove devo incollare */
-          var element_paste_type = paste.get( 0 ).tagName;
+          var options,
+              copy, paste,
+              element_copy_type, element_paste_type,
+              value, text;
 
-          switch ( element_paste_type.toLowerCase() ) {
+          // Options
+          options = $( this ).attr( 'data-options' ) ? $( this ).attr( 'data-options' ).split( ' ' ) : [];
+
+          // @todo add event/filter
+
+          copy = $( '#' + $( this ).attr( 'data-copy' ) );
+          paste = $( '#' + $( this ).attr( 'data-paste' ) );
+
+          // Copy from and paste to...
+          element_copy_type = copy.get( 0 ).tagName;
+
+          // Check source HTML element
+          switch ( element_copy_type.toLowerCase() ) {
+
+            // INPUT
+            case 'input':
+              value = copy.val();
+              text = value;
+              if ( $.inArray( 'clear_after_copy', options ) !== false ) {
+                copy.val( '' );
+              }
+              break;
+
+            // SELECT
             case 'select':
-              paste.append( '<option class="wpdk-form-option" value="' + value + '">' + text + '</option>' );
+              value = $( 'option:selected', copy ).val();
+              text = $( 'option:selected', copy ).text();
               break;
           }
-        }
-      } );
 
-      /* Remove. */
-      $( document ).on( 'click', '.wpdk-form-button-remove', false, function ()
+          if ( value != '' ) {
+
+            // Paste to...
+            element_paste_type = paste.get( 0 ).tagName;
+
+            // Check target HTML element
+            switch ( element_paste_type.toLowerCase() ) {
+
+              // SELECT
+              case 'select':
+                paste.append( '<option class="wpdk-form-option" value="' + value + '">' + text + '</option>' );
+                break;
+            }
+          }
+        } );
+
+        // Remove
+        $( document ).on( 'click', '.wpdk-form-button-remove', false, function ()
+        {
+          var remove_from = $( this ).attr( 'data-remove_from' );
+          $( 'option:selected', '#' + remove_from ).remove();
+        } );
+      }
+
+      // ---------------------------------------------------------------------------------------------------------------
+      // Utility
+      // ---------------------------------------------------------------------------------------------------------------
+
+      /**
+       * Return the jQuery version.
+       *
+       * @return {string}
+       */
+      function _jQueryVersion()
       {
-        var remove_from = $( this ).attr( 'data-remove_from' );
-        $( 'option:selected', '#' + remove_from ).remove();
-      } );
-    }
+        return $().jquery;
+      }
 
-    return $t;
+      /**
+       * Return the jQuery UI version. Return false if jQuery UI is not loaded
+       *
+       * @returns {string|boolean}
+       */
+      function _jQueryUIVersion()
+      {
+        if ( $.ui && $.ui.version ) {
+          return $.ui.version;
+        }
+        return false;
+      }
 
-  })();
+      // ---------------------------------------------------------------------------------------------------------------
+      // Deprecated
+      // ---------------------------------------------------------------------------------------------------------------
+
+      /**
+       * Attach an autocomplete Ajax event when an input has the `data-autocomplete_action` attribute.
+       * Usually you will use an input text. When you digit smething an Ajax call is made with action get from
+       * `autocomplete_action` attribute.
+       *
+       * @deprecated Since 1.0.0.b4
+       *
+       * @private
+       */
+      function __initAutocomplete()
+      {
+        $( 'input[data-autocomplete_action]' ).each( function ( index, element )
+        {
+          $( element ).autocomplete(
+            {
+              source    : function ( request, response )
+              {
+                $.post( wpdk_i18n.ajaxURL,
+                  {
+                    action          : $( element ).data( 'autocomplete_action' ),
+                    autocomplete_id : $( element ).data( 'autocomplete_id' ),
+                    data            : $( element ).data( 'user_data' ),
+                    term            : request.term
+                  },
+                  function ( data )
+                  {
+                    response( $.parseJSON( data ) );
+                  } );
+              },
+              select    : function ( event, ui )
+              {
+                if ( typeof ui.item.href !== 'undefined' ) {
+                  document.location = ui.item.href;
+                }
+                else {
+                  var $name = $( element ).data( 'autocomplete_target' );
+                  $( 'input[name=' + $name + ']' ).val( ui.item.id );
+                }
+              },
+              minLength : $( element ).data( 'autocomplete_min_length' ) | 0
+            }
+          );
+        } );
+      }
+
+      return $t.init();
+
+    })();
   }
 
   /**
@@ -1350,7 +1091,7 @@ jQuery( function ( $ )
    * @param {string} response JSON response
    * @constructor
    */
-  if ( typeof( window.WPDKAjaxResponse ) === 'undefined' ) {
+  if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
     window.WPDKAjaxResponse = function ( response ) {
       /**
        * Resolve conflict
@@ -1382,27 +1123,27 @@ jQuery( function ( $ )
   }
 
   /**
-   * This is a little Javascript framework to improve the UI and checking control specially in the form management.
+   * The main WPDK (core) class
    *
    * @class           WPDK
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-12-19
-   * @version         0.9.7
+   * @date            2014-02-10
+   * @version         1.0.0
    *
    */
-  if ( typeof( window.WPDK ) === 'undefined' ) {
+  if ( 'undefined' === typeof( window.WPDK ) ) {
     window.WPDK = (function () {
 
-      /**
-       * Internal class pointer
-       */
+      // This object
       var $t = {
-        version        : '0.9.7',
+        version        : '1.0.0',
         init           : _init,
-        refresh        : _refresh,
         loading        : _loading,
-        reloadDocument : _reloadDocument
+        reloadDocument : _reloadDocument,
+
+        // Deprecated
+        refresh        : _refresh
       };
 
       /**
@@ -1411,21 +1152,10 @@ jQuery( function ( $ )
        */
       function _init ()
       {
+        // Hack WordPress 3.8 menu
         _hackMenu();
-        WPDKjQuery.init();
-        WPDKControls.init();
 
         return $t;
-      };
-
-      /**
-       * See WPDK.init();
-       *
-       * @deprecated Use WPDK.init() instead
-       */
-      function _refresh ()
-      {
-        $t.init();
       };
 
       /**
@@ -1527,6 +1257,21 @@ jQuery( function ( $ )
         rgb += ')';
         return rgb;
       }
+
+      // ---------------------------------------------------------------------------------------------------------------
+      // DEPRECATED
+      // ---------------------------------------------------------------------------------------------------------------
+
+      /**
+       * See WPDK.init();
+       *
+       * @deprecated Use WPDK.init() instead
+       */
+      function _refresh ()
+      {
+        $t.init();
+      };
+
 
       return $t.init();
 

@@ -1,4 +1,72 @@
 /**
+ * WPDK Swipe Control extend.
+ *
+ * The swipe() method get/set the current state for a swipe control
+ *
+ * @internal {string} Optional. Set the current state
+ *
+ * @returns {string} Return the current state
+ */
+if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
+
+  +function ( $ )
+  {
+    'use strict';
+
+    $.fn.swipe = function ()
+    {
+
+      if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
+
+        // Get main control
+        var $control = $( this );
+
+        // Get sub-elements
+        var knob = $control.children( 'span' ).eq( 0 );
+        var input = $control.children( 'input[type=hidden]' ).eq( 0 );
+
+        // Set
+        if ( arguments.length > 0 ) {
+
+          var v = arguments[0], result;
+
+          // On
+          if ( 'on' === v ) {
+            result = $control.trigger( 'change', [ $control, 'on'] );
+            if ( false !== result ) {
+              input.val( 'on' );
+              knob.animate( { marginLeft : '23px' }, 100, function ()
+              {
+                $control.addClass( 'wpdk-form-swipe-on' );
+              } );
+              $control.trigger( 'changed', [ $control, 'on'] );
+            }
+          }
+
+          // Off
+          else {
+            result = $control.trigger( 'change', [ $control, 'off'] );
+            if ( false !== result ) {
+              input.val( 'off' );
+              knob.animate( { marginLeft : '0' }, 100, function ()
+              {
+                $control.removeClass( 'wpdk-form-swipe-on' );
+              } );
+              $control.trigger( 'changed', [ $control, 'off'] );
+            }
+          }
+        }
+
+        // Return always the state
+        return input.val();
+      }
+    };
+
+  }(jQuery);
+
+}
+
+/**
  * This class init all WPDK controls, attach new event and perform special actions.
  *
  * @class           WPDKControls
@@ -12,7 +80,7 @@
 // One time
 if ( typeof( window.WPDKControls ) === 'undefined' ) {
 
-// On document ready
+  // On document ready
   jQuery( function ( $ )
   {
     "use strict";
@@ -126,7 +194,6 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         }
       }
 
-
       // ---------------------------------------------------------------------------------------------------------------
       // Experimental
       // ---------------------------------------------------------------------------------------------------------------
@@ -224,7 +291,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         return $( 'form#wpdk_preferences_view_form-' + id );
       }
 
-      return $t;
+      return $t.init();
 
     })();
 
