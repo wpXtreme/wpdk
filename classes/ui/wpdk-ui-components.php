@@ -18,10 +18,12 @@ final class WPDKUIComponents {
    */
   const ALERT         = 'wpdk-alert';
   const BUTTON        = 'wpdk-button';
+  const CONTROLS      = 'wpdk-controls';
   const DYNAMIC_TABLE = 'wpdk-dynamic-table';
   const MODAL         = 'wpdk-modal';
   const POPOVER       = 'wpdk-popover';
   const PREFERENCES   = 'wpdk-preferences';
+  const PROGRESS      = 'wpdk-progress';
   const RIBBONIZE     = 'wpdk-ribbonize';
   const TOOLTIP       = 'wpdk-tooltip';
   const TRANSITION    = 'wpdk-transition';
@@ -65,40 +67,46 @@ final class WPDKUIComponents {
   private function components()
   {
     $components = array(
-      self::ALERT         => array(
-        '.js'  => array( self::TRANSITION ),
-        '.css' => array()
-      ),
-      self::DYNAMIC_TABLE => array(
+      self::CONTROLS      => array(
         '.js'  => array(),
         '.css' => array()
+      ),
+      self::ALERT         => array(
+        '.js'  => array( self::CONTROLS, self::TRANSITION ),
+        '.css' => array( self::CONTROLS )
+      ),
+      self::DYNAMIC_TABLE => array(
+        '.js'  => array( self::CONTROLS ),
+        '.css' => array( self::CONTROLS )
       ),
       self::TOOLTIP       => array(
         '.js'  => array( self::TRANSITION ),
         '.css' => array()
       ),
-      self::TRANSITION     => array(
-        '.js'  => array(),
+      self::TRANSITION    => array(
+        '.js' => array(),
       ),
       self::BUTTON        => array(
-        '.js'  => array(),
-        '.css' => array()
+        '.js'  => array( self::CONTROLS ),
+        '.css' => array( self::CONTROLS )
       ),
       self::RIBBONIZE     => array(
         '.js'  => array(),
         '.css' => array()
       ),
       self::POPOVER       => array(
-        '.js'  => array( self::TOOLTIP ),
-        '.css' => array()
+        '.js'  => array( self::CONTROLS, self::TOOLTIP ),
+        '.css' => array( self::CONTROLS )
       ),
       self::MODAL         => array(
-        '.js'  => array( self::BUTTON, self::TRANSITION ),
-        '.css' => array( self::BUTTON )
+        '.js'  => array( self::CONTROLS, self::BUTTON, self::TRANSITION ),
+        '.css' => array( self::CONTROLS, self::BUTTON ) ),
+      self::PROGRESS      => array(
+        '.css' => array(),
       ),
       // Internal - without css
       self::PREFERENCES   => array(
-        '.js' => array(),
+        '.js' => array( self::CONTROLS ),
       ),
     );
 
