@@ -6,6 +6,11 @@
  * @date	        2014-02-08
  * @version       3.1.0
  * @note          Base on bootstrap.css v3.1.0
+ * @see           wpdk-button.css
+ *
+ * - Add `.wpdk-button` main class
+ * - Renamed `btn` with `button`
+ *
  */
 
 /*!
@@ -141,21 +146,26 @@ body.wpdk-modal-open
   border-top : 1px solid #e5e5e5;
 }
 
-.wpdk-modal .modal-footer .btn + .btn
+.wpdk-modal .modal-footer .button + .button
 {
   margin-bottom : 0;
   margin-left   : 5px;
 }
 
-.wpdk-modal .modal-footer .btn-group .btn + .btn
+.wpdk-modal .modal-footer wpdk-button.btn-group .button + .button
 {
   margin-left : -1px;
 }
 
+
+/* Unused */
+
+/*
 .modal-footer .btn-block + .btn-block
 {
   margin-left : 0;
 }
+*/
 
 @media (min-width : 768px)
 {

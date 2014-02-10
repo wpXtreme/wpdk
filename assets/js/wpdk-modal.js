@@ -368,7 +368,7 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
           var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
           var $label = isset( $value['label'] ) ? $value['label'] : '';
           var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-          buttons += sprintf( '<button id="%s" class="btn button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
+          buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
         }
       }
 
