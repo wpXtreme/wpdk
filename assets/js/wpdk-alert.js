@@ -54,7 +54,7 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
       if (e) e.preventDefault()
 
       if (!$parent.length) {
-        $parent = $this.hasClass('wpdk-has-alert') ? $this : $this.parent()
+        $parent = $this.hasClass('wpdk-alert') ? $this : $this.parent()
       }
 
       $parent.trigger(e = $.Event('close.wpdk.alert'))
@@ -105,14 +105,39 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
     // ALERT DATA-API
     // ==============
 
-    $(document).on('click.wpdk.alert.data-api', dismiss, Alert.prototype.close)
+    $( document ).on('click.wpdk.alert.data-api', dismiss, Alert.prototype.close)
 
     // Auto init
-    $( '.wpdk-has-alert' ).wpdkAlert();
+    $( '.wpdk-alert' ).wpdkAlert();
 
     // Refresh by event
     $( document ).on( 'wpdk-alert', function() {
-      $( '.wpdk-has-alert' ).wpdkAlert();
+      $( '.wpdk-alert' ).wpdkAlert();
+    } );
+
+    // Extends with Permanent dismiss
+    $( document ).on( 'click', '.wpdk-alert button.close.wpdk-alert-permanent-dismiss', function() {
+      var $this    = $(this);
+      var alert_id = $this.parent().attr( 'id' );
+
+      // Ajax
+      $.post( wpdk_i18n.ajaxURL, {
+          action      : 'wpdk_action_alert_dismiss',
+          alert_id    : alert_id
+        }, function ( data )
+        {
+          var response = new WPDKAjaxResponse( data );
+
+          if ( empty( response.error ) ) {
+            // Process response
+
+          }
+          // An error return
+          else {
+            alert( response.error );
+          }
+        }
+      );
     } );
 
   }(jQuery);
