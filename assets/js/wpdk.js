@@ -64,7 +64,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         }
       }
 
-      if( $.isArray( mixed_var ) ) {
+      if( typeof jQuery !== 'undefined' && jQuery.isArray( mixed_var ) ) {
         return !( mixed_var.length > 0 );
       }
 
