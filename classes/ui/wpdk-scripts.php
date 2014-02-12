@@ -188,6 +188,79 @@ class WPDKScripts {
     return true;
   }
 
+  /**
+   * Enqueue script for list of page template. Return FALSE if $page_templates is empty
+   *
+   * @brief Enqueue scripts
+   *
+   * @param array        $page_templates Array of page slug template
+   * @param string|array $handle         The script handle or an array of handles
+   * @param bool         $src            Optional. Source URI
+   * @param array        $deps           Optional. Array of other handle
+   * @param bool         $ver            Optional. Version to avoid cache
+   * @param bool         $in_footer      Optional. Load in footer
+   *
+   * @return bool
+   */
+  public static function enqueue_scripts_page_template( $page_templates, $handle, $src = false, $deps = array(),
+                                                        $ver = false, $in_footer = false )
+  {
+    if ( empty( $page_templates ) ) {
+      return false;
+    }
+    if ( is_string( $page_templates ) ) {
+      $page_templates = array( $page_templates );
+    }
+
+    // Any single or array
+    $handles = (array)$handle;
+    foreach ( $page_templates as $slug ) {
+      if ( is_page_template( $slug ) ) {
+        foreach ( $handles as $handle ) {
+          wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Enqueue script for list of page template. Return FALSE if $page_templates is empty
+   *
+   * @brief Enqueue styles
+   *
+   * @param array        $page_templates Array of page slug template
+   * @param string|array $handle         The script handle or andarray of handles
+   * @param bool         $src            Optional. Source URI
+   * @param array        $deps           Optional. Array of other handle
+   * @param bool         $ver            Optional. Version to avoid cache
+   *
+   * @return bool
+   */
+  public static function enqueue_styles_page_template( $page_templates, $handle, $src = false, $deps = array(), $ver = false )
+  {
+    if ( empty( $page_templates ) ) {
+      return false;
+    }
+    if ( is_string( $page_templates ) ) {
+      $page_templates = array( $page_templates );
+    }
+
+    // Any single or array
+    $handles = (array)$handle;
+    foreach ( $page_templates as $slug ) {
+      if ( is_page_template( $slug ) ) {
+        foreach ( $handles as $handle ) {
+          wp_enqueue_style( $handle, $src, $deps, $ver );
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
+
 }
 
 /// @endcond
