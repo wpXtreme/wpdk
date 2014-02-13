@@ -500,6 +500,7 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
    * @date            2013-10-30
    * @version         0.2.2
+   * @deprecated      since 1.4.21 - use WPDKUIModalDialog instead
    *
    */
   window.WPDKTwitterBootstrapModal = function ( $id, $title, $content )
