@@ -271,7 +271,7 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
 
-       // -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // HELPER
         // -------------------------------------------------------------------------------------------------------------
 
@@ -403,6 +403,8 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
 
+        $sPathPrefix . 'classes/ui/wpdk-ui-alert.php'                   => 'WPDKUIAlert',
+
         $sPathPrefix . 'classes/ui/wpdk-ui-components.php'              => 'WPDKUIComponents',
 
         $sPathPrefix . 'classes/ui/wpdk-ui-controls.php'                => array(
@@ -434,6 +436,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIControlTextarea',
           'WPDKUIControlType',
         ),
+
+        $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog.php'            => 'WPDKUIModalDialog',
+
+        $sPathPrefix . 'classes/ui/wpdk-ui-popover.php'                 => 'WPDKUIPopover ',
 
         $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
 

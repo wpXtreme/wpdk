@@ -265,6 +265,231 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
 }
 
 // Once time...
+if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
+
+  /**
+   * Utility WPDKUI Modal dialog.
+   *
+   * @class           WPDKUIModalDialog
+   * @author          =undo= <info@wpxtre.me>
+   * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date            2014-02-13
+   * @version         1.0.0
+   *
+   */
+  window.WPDKUIModalDialog = function ( $id, $title, $content )
+  {
+
+    // Remove conflict
+    var $ = window.jQuery;
+
+    this.version = '1.0.0';
+    this.id = $id;
+    this.title = $title;
+    this.content = $content;
+    this.width = '';
+    this.height = '';
+    this.close_button = true;
+    this.buttons = [];
+    this.data = [];
+
+    /**
+     * @type {WPDKUIModalDialog}
+     */
+    var $t = this;
+
+    /**
+     * Return the HTML aria title format
+     *
+     * @return string
+     */
+    function aria_title()
+    {
+      return $t.id + '-title';
+    }
+
+    /**
+     * Return the HTML markup for top right dismiss button [x]
+     *
+     * @return {string}
+     */
+    function close_button()
+    {
+      var $result = '';
+      if ( $t.close_button ) {
+        $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+      }
+      return $result;
+    }
+
+    /**
+     * Build the inline CSS style for width and heght
+     *
+     * @return string
+     */
+    function size()
+    {
+      var result = '', styles = {}, style, stack = [];
+
+      if ( !empty( $t.width ) ) {
+        styles.width = $t.width + 'px';
+      }
+
+      if ( !empty( $t.height ) ) {
+        styles.height = $t.height + 'px';
+      }
+
+      for ( style in styles ) {
+        stack.push( style + ':' + styles[style] );
+      }
+
+      if ( !empty( stack ) ) {
+        result = 'style="' + implode( ';', stack ) + '"';
+      }
+
+      return result;
+    }
+
+    /**
+     * Return the HTML markup for footer buttons
+     *
+     * @return string
+     */
+    function buttons()
+    {
+      var result = '', key, buttons = '';
+      if ( !empty( $t.buttons ) ) {
+        for ( key in $t.buttons ) {
+          var $value = $t.buttons[key];
+          var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
+          var $label = isset( $value['label'] ) ? $value['label'] : '';
+          var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
+          buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
+        }
+      }
+
+      if ( !empty( buttons ) ) {
+        result = sprintf( '<div class="modal-footer">%s</div>', buttons );
+      }
+
+      return result;
+    }
+
+    /**
+     * Return the HTML attribute markup for 'data-' attribute
+     *
+     * @return string
+     */
+    function data()
+    {
+      var result = '', stack = [], key, value;
+      if ( !empty( $t.data ) ) {
+        for ( key in $t.data ) {
+          value = $t.data[key];
+          stack.push( sprintf( 'data-%s="%s"', key, value ) );
+        }
+        result = join( ' ', stack );
+      }
+      return result;
+    }
+
+    /**
+     * Return the HTML markup for modal
+     *
+     * @return string
+     */
+    this.html = function ()
+    {
+
+      return '<div class="wpdk-modal hide fade" ' +
+        data() +
+        'id="' + $t.id + '"' +
+        'tabindex="-1"' +
+        'role="dialog"' +
+        'aria-labelledby="' + aria_title() + '"' +
+        'aria-hidden="true">' +
+        '<div ' + size() + ' class="modal-dialog">' +
+        '<div class="modal-content">' +
+        '<div class="modal-header">' +
+        close_button() +
+        '<h4 class="modal-title" id="' + aria_title() + '">' + $t.title + '</h4>' +
+        '</div>' +
+        '<div class="modal-body">' +
+        $t.content +
+        '</div>' +
+        buttons() +
+        '</div>' +
+        '</div>' +
+        '</div>';
+    };
+
+    /**
+     * Display the modal
+     */
+    this.display = function ()
+    {
+      $( 'body' ).append( $t.html() );
+      var modal = $( '#' + $t.id );
+      modal.wpdkModal( 'show' );
+      modal.on( 'hidden', function ()
+      {
+        $( this ).remove();
+      } );
+
+      // Twitter Bootstrap v.3.1.0
+      modal.on( 'hidden.wpdk.modal', function ()
+      {
+        $( this ).remove();
+      } );
+    };
+
+    /**
+     * Add a footer button
+     *
+     * @param {string} id
+     * @param {string} label
+     * @param {boolean} dismiss Boolean
+     * @param {string} classes Additional classes
+     */
+    this.add_buttons = function ( id, label, dismiss, classes )
+    {
+      $t.buttons[id] = {
+        label   : label,
+        classes : classes || '',
+        dismiss : dismiss || true
+      };
+    };
+
+    /**
+     * Add an attribute data
+     */
+    this.add_data = function ( $key, $value )
+    {
+      $t.data.push(
+        {
+          key   : key,
+          value : $value
+        } );
+    };
+
+    /**
+     * Return the HTML markup for button tag to open this modal dialog
+     *
+     * @param {string} label Text button label
+     * @param {string} classes Additional class
+     *
+     * @return {string}
+     */
+    this.button_open_modal = function ( label, classes )
+    {
+      var id = '#' + $t.id;
+      return sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', ( classes || '' ), id, label );
+    }
+
+  };
+}
+
+// Once time...
 if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
 
   /**
