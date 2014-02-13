@@ -18,7 +18,7 @@
 if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or missing!') }
 
 // One time
-if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
 
   /* ========================================================================
    * Bootstrap: alert.js v3.1.0
