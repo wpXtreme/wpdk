@@ -99,6 +99,15 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public $dismissButton = true;
 
   /**
+   * Glyph used like dismiss button
+   *
+   * @brief Dismiss button glyph icone
+   *
+   * @var string $dismiss_button_glyph
+   */
+  public $dismiss_button_glyph = '×';
+
+  /**
    * HTML content
    *
    * @brief Content
@@ -206,7 +215,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
         type="button"
         class="<?php echo WPDKHTMLTag::classInline( $classes ) ?>"
         <?php echo $title ?>
-        data-dismiss="alert">?</button>
+        data-dismiss="alert"><?php echo $this->dismiss_button_glyph ?></button>
       <?php
       $result = WPDKHTML::endHTMLCompress();
     }

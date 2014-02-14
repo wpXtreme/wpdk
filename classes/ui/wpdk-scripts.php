@@ -189,6 +189,80 @@ class WPDKScripts {
   }
 
   /**
+   * Enqueue script for list of page. Return FALSE if $pages is empty
+   *
+   * @brief Enqueue scripts
+   *
+   * @param array        $pages     Array of page slug
+   * @param string|array $handle    The script handle or an array of handles
+   * @param bool         $src       Optional. Source URI
+   * @param array        $deps      Optional. Array of other handle
+   * @param bool         $ver       Optional. Version to avoid cache
+   * @param bool         $in_footer Optional. Load in footer
+   *
+   * @return bool
+   */
+  public static function enqueue_script_pages( $pages, $handle, $src = false, $deps = array(), $ver = false,
+                                                $in_footer = false )
+  {
+    if ( empty( $pages ) ) {
+      return false;
+    }
+    if ( is_string( $pages ) ) {
+      $pages = array( $pages );
+    }
+
+    // Any single or array
+    $handles = (array)$handle;
+    foreach ( $pages as $slug ) {
+      if ( is_page( $slug ) ) {
+        foreach ( $handles as $handle ) {
+          wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Enqueue style for list of page. Return FALSE if $pages is empty
+   *
+   * @brief Enqueue style
+   *
+   * @param array        $pages     Array of page slug
+   * @param string|array $handle    The script handle or an array of handles
+   * @param bool         $src       Optional. Source URI
+   * @param array        $deps      Optional. Array of other handle
+   * @param bool         $ver       Optional. Version to avoid cache
+   *
+   * @return bool
+   */
+  public static function enqueue_style_pages( $pages, $handle, $src = false, $deps = array(), $ver = false )
+  {
+    if ( empty( $pages ) ) {
+      return false;
+    }
+    if ( is_string( $pages ) ) {
+      $pages = array( $pages );
+    }
+
+    // Any single or array
+    $handles = (array)$handle;
+    foreach ( $pages as $slug ) {
+      if ( is_page( $slug ) ) {
+        foreach ( $handles as $handle ) {
+          wp_enqueue_style( $handle, $src, $deps, $ver );
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
+
+
+  /**
    * Enqueue script for list of page template. Return FALSE if $page_templates is empty
    *
    * @brief Enqueue scripts
@@ -202,7 +276,7 @@ class WPDKScripts {
    *
    * @return bool
    */
-  public static function enqueue_scripts_page_template( $page_templates, $handle, $src = false, $deps = array(),
+  public static function enqueue_script_page_templates( $page_templates, $handle, $src = false, $deps = array(),
                                                         $ver = false, $in_footer = false )
   {
     if ( empty( $page_templates ) ) {
@@ -238,7 +312,7 @@ class WPDKScripts {
    *
    * @return bool
    */
-  public static function enqueue_styles_page_template( $page_templates, $handle, $src = false, $deps = array(), $ver = false )
+  public static function enqueue_style_page_templates( $page_templates, $handle, $src = false, $deps = array(), $ver = false )
   {
     if ( empty( $page_templates ) ) {
       return false;
