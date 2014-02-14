@@ -168,8 +168,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
    */
   public function __construct( $id, $content = '', $type = WPDKUIAlertType::INFORMATION, $title = '' )
   {
-    parent::__construct( $id );
-
+    $this->id      = sanitize_title( $id );
     $this->content = $content;
     $this->type    = $type;
     $this->title   = $title;

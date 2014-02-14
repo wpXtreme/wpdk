@@ -165,8 +165,8 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   public function __construct( $id, $title, $content = '' )
   {
-    parent::__construct( $id );
 
+    $this->id      = sanitize_title( $id );
     $this->title   = $title;
     $this->content = $content;
   }
