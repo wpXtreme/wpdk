@@ -800,16 +800,16 @@ class WPDKHTMLTagA extends WPDKHTMLTag {
    */
   public function __construct( $content = '', $href = '' ) {
 
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::A );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* The href. Late binding */
+    // The href. Late binding
     $this->href = $href;
 
-    /* Setting. */
+    // Setting
     $this->open       = '<a';
     $this->close      = '</a>';
     $this->attributes = array(
@@ -855,6 +855,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $autofocus
    */
   public $autofocus;
+
   /**
    * Set to 'disabled'. Specifies that a button should be disabled.
    *
@@ -913,6 +914,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $formtarget
    */
   public $formtarget;
+
   /**
    * Specifies a name for the button.
    *
@@ -921,6 +923,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $name
    */
   public $name;
+
   /**
    * Specifies the type of button: button, reset, submit
    *
@@ -929,6 +932,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $type
    */
   public $type;
+
   /**
    * Specifies an initial value for the button
    *
@@ -945,15 +949,16 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    *
    * @param string $content HTML inner (or adjacent) content
    */
-  public function __construct( $content = '' ) {
+  public function __construct( $content = '' )
+  {
 
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::BUTTON );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* Setting. */
+    // Setting
     $this->open       = '<button';
     $this->close      = '</button>';
     $this->attributes = array(
@@ -1054,11 +1059,12 @@ class WPDKHTMLTagFieldset extends WPDKHTMLTag {
     );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Over-riding
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
-  public function beforeContent() {
+  public function beforeContent()
+  {
     if ( !empty( $this->legend ) ) {
       $this->legend->display();
     }

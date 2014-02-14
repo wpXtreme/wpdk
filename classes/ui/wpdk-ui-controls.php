@@ -169,7 +169,7 @@ class WPDKUIControl {
   {
     $this->item = $item_control;
 
-    /* Sanitize the common array key. */
+    // Sanitize the common array key
 
     $this->attrs = WPDKHTMLTag::sanitizeAttributes( isset( $this->item['attrs'] ) ? $this->item['attrs'] : array() );
     $this->data  = WPDKHTMLTag::sanitizeData( isset( $this->item['data'] ) ? $this->item['data'] : array() );
@@ -184,7 +184,7 @@ class WPDKUIControl {
 
     $this->name = isset( $this->item['name'] ) ? $this->item['name'] : '';
 
-    /* Input size attribute for specific type. */
+    // Input size attribute for specific type
     $this->_sizeForType = array(
       WPDKUIControlType::DATE     => 10,
       WPDKUIControlType::DATETIME => 16,
@@ -680,7 +680,8 @@ class WPDKUIControlButton extends WPDKUIControl {
    *
    * @return WPDKUIControlButton
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::BUTTON;
     parent::__construct( $item );
   }
@@ -690,17 +691,31 @@ class WPDKUIControlButton extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     echo $this->contentWithKey( 'prepend' );
 
-    $input        = new WPDKHTMLTagInput( '', $this->name, $this->id );
-    $input->type  = WPDKHTMLTagInputType::BUTTON;
-    $input->class = $this->class;
-    $input->data  = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
-    $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
-
-    $input->display();
+    // Since 1.4.21
+    if ( isset( $this->item['content'] ) ) {
+      $button          = new WPDKHTMLTagButton( $this->item['content'] );
+      $button->class   = $this->class;
+      $button->class[] = 'wpdk-form-button';
+      $button->id      = isset( $this->item['id'] ) ? $this->item['id'] : '';
+      $button->name    = isset( $this->item['name'] ) ? $this->item['name'] : '';
+      $button->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
+      $button->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
+      $button->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+    }
+    // Backward compatibility - deprecated - will be remove asap
+    else {
+      $button        = new WPDKHTMLTagInput( '', $this->name, $this->id );
+      $button->type  = WPDKHTMLTagInputType::BUTTON;
+      $button->class = $this->class;
+      $button->data  = isset( $this->item['data'] ) ? $this->item['data'] : '';
+      $button->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
+      $button->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+    }
+    $button->display();
 
     echo $this->contentWithKey( 'append' );
   }
