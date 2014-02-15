@@ -6,9 +6,9 @@
  *
  * @class           WPDKGlyphIcons
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-08
- * @version         1.0.2
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-01-15
+ * @version         1.0.3
  *
  */
 final class WPDKGlyphIcons extends WPDKObject {
@@ -59,7 +59,7 @@ final class WPDKGlyphIcons extends WPDKObject {
   const TRASH           = 'wpdk-icon-trash';
   const UP_OPEN         = 'wpdk-icon-up-open';
 
-  /* since 1.4.5 */
+  // since 1.4.5
   const EMO_HAPPY       = 'wpdk-icon-emo-happy';
   const EMO_UNHAPPY     = 'wpdk-icon-emo-unhappy';
   const CANCEL_CIRCLED  = 'wpdk-icon-cancel-circled';
@@ -76,8 +76,17 @@ final class WPDKGlyphIcons extends WPDKObject {
   const APPLE           = 'wpdk-icon-apple';
   const TWITTER         = 'wpdk-icon-twitter';
 
-  /* since 1.4.7 */
+  // since 1.4.7
   const GOOGLE_PLUS     = 'wpdk-icon-gplus';
+
+  // since 1.4.21
+  const FIREFOX         = 'wpdk-icon-firefox';
+  const CHROME          = 'wpdk-icon-chrome';
+  const OPERA           = 'wpdk-icon-opera';
+  const IE              = 'wpdk-icon-ie';
+  const TAG             = 'wpdk-icon-tag';
+  const TAGS            = 'wpdk-icon-tags';
+  const DOC_INV         = 'wpdk-icon-doc-inv';
 
   /**
    * Override version
@@ -86,7 +95,7 @@ final class WPDKGlyphIcons extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.2';
+  public $__version = '1.0.3';
     
   /**
    * Create an instance of WPDKGlyphIcons class

@@ -2,9 +2,9 @@
  * WPDK (core) Javascript
  *
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-08
- * @version            1.2.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-02-15
+ * @version            1.2.1
  */
 
 // Stability
@@ -602,7 +602,16 @@ jQuery( function ( $ )
         TWITTER         : 'wpdk-icon-twitter',
 
         // Since 1.4.7
-        GOOGLE_PLUS     : 'wpdk-icon-gplus'
+        GOOGLE_PLUS     : 'wpdk-icon-gplus',
+        
+        // Since 1.4.21
+        FIREFOX         : 'wpdk-icon-firefox',     
+        CHROME          : 'wpdk-icon-chrome',      
+        OPERA           : 'wpdk-icon-opera',       
+        IE              : 'wpdk-icon-ie',          
+        TAG             : 'wpdk-icon-tag',         
+        TAGS            : 'wpdk-icon-tags',        
+        DOC_INV         : 'wpdk-icon-doc-inv'
 
       };
 
