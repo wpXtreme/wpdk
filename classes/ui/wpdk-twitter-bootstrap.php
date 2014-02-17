@@ -103,6 +103,7 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
  * @date               2014-02-07
  * @version            1.1.1
  * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
+ * @deprecated         since 1.4.21 - use WPDKUIModalDialog
  *
  */
 class WPDKTwitterBootstrapModal extends WPDKUIModalDialog {
