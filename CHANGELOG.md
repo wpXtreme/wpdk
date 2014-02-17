@@ -20,6 +20,238 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+
+## Version 1.4.21
+### 2014-02-17
+
+#### Enhancements
+
+* Added permanent dismiss alert by user logged in
+* Added `WPDKComponents` class
+* Added `WPDKTwitterBootstrapPopover` class
+
+#### Improvements
+
+* Updated Glyph Icons
+* Rewritten Javascript and CSS
+* Added autoload components for several view controler
+* Added static method `WPDKListTableViewController::action()` to return the current action
+
+#### Bugs
+
+* Fixes and stabilty
+
+
+## Version 1.4.20
+### 2014-02-06
+
+#### Enhancements
+
+* Introducing the static init method in view controller
+* Introducing `WPDKCron` classes
+
+#### Improvements
+
+* Improved stability and speed in Custom Post Type
+* Stability refactor
+* Improved `WPDKScreenHelp`
+
+## Version 1.4.16
+### 2014-02-03
+
+#### Bugs
+
+* Fixed potential css conflict
+* Fixed potential title output in `WPDKTwitterBootstrapAlert` when title property is empty
+
+## Version 1.4.15
+### 2014-01-31
+
+#### Bugs
+
+* Fixed static declaration
+
+#### Experimental
+
+* Added `WPDKScripts` class
+
+## Version 1.4.14
+### 2014-01-29
+
+#### Bugs
+
+* Fixed potential HTML strip in textarea
+
+
+## Version 1.4.13
+### 2014-01-29
+
+#### Enhancements
+
+* Introducing `WPDKListTableModel` class
+
+#### Bugs
+
+* Fixed missing style attribute in input type tag and control
+* Minor stability fixes in css
+
+## Version 1.4.12
+### 2014-01-24
+
+#### Bugs
+
+* Fixed potential missing autoload classes
+* Minor stable improvements on WordPress dbDelta() procedure
+
+
+## Version 1.4.11
+### 2014-01-23
+
+#### Bugs
+
+* Fixed wrong include `WPDKHTMLTagImg`
+* Fixed `WPDKDynamicTableView` output
+
+
+## Version 1.4.10
+### 2014-01-23
+
+#### Improvements
+
+* Improved Javascript
+* Improved `WPDKTerm::term()`
+
+#### Experimental
+
+* Added `WPDKDynamicTableView` class
+* Added column styles
+
+
+## Version 1.4.9
+### 2014-01-17
+
+#### Bugs
+
+* Fixed wrong get page name in autocomplete
+
+#### Improvements
+
+* Introducing a new behaviour in `WPDKTwitterBootstrapModal` for subclassing
+* Introducing a new behaviour in `WPDKTwitterBootstrapAlert` for subclassing
+* Revision some filesystem file
+
+
+## Version 1.4.8
+### 2014-01-09
+
+#### Enhancements
+
+* Added `WPDKTwitterBootstrapAlertType::WHITE` for WordPress 3.8 style
+* Added `dismissToolTip` property in Twitter Alert
+* Added `WPDKArray::arrayMatch()`
+* Added `WPDKArray::arrayMatchWithKeys()`
+* Added `WPDKArray::arrayMatchWithValues()`
+* Added `WPDKUser::getTransientTimeWithUser()`
+* Added `WPDKUser::getTransientWithUser()`
+* Added `WPDKUser::getTransient()`
+* Added `WPDKUser::getTransientTime()`
+* Improved menu divider color for WordPress 3.8 admin themes scheme
+* Added Dutch localization by Frans Pronk beheer@ifra.nl
+
+#### Bugs
+
+* Fixed set current user hooks
+* Fixed WordPress 3.8 menu
+
+#### Deprecated
+
+* `wpdk_get_user_transient()` use WPDKUser::getTransientWithUser()` instead
+
+
+## Version 1.4.7
+### 2013-12-17
+
+#### Enhancements
+
+* Added `WPDKHTMLTag::styleInline()`
+* Added `WPDKHTMLTag::sanitizeStyles()`
+* Added `WPDKGlyphIcons::GOOGLE_PLUS` icon
+
+#### Bugs
+
+* Fixed potential wrong replacement on css compressor
+
+#### Improvements
+
+* Start minor fixes and adjustment for WordPress 3.8
+* Improved WPDKHTML classes
+* Extends WPDKTheme with new WPDKThemeSetup
+* Minor filesystem optimizations
+
+## Version 1.4.6
+### 2013-12-02
+
+#### Bugs
+
+* Fixed WPDKAjaxResponse data init
+* Bugfix release
+
+#### Improvements
+
+* Added remote address ip in user information
+
+
+## Version 1.4.5
+### 2013-11-28
+
+#### Enhancements
+
+* Added 16 new Glyphs Icons
+
+#### Improvements
+
+* Improved `wpdk_enqueue_script_page_template()` function
+* Minor stable fixes
+
+#### Experimental
+
+* Added `WPDKHTML::endJavascriptCompress()`
+
+
+## Version 1.4.4
+### 2013-11-22
+
+#### Bugs
+
+* Fixed potential conflict in Javascript
+
+
+## Version 1.4.3
+### 2013-11-21
+
+#### Improvements
+
+* Improved `WPDKMenu::menu()` with support of any callable function or view controller class name
+* Improved WPDK Javascript
+
+#### Bugs
+
+* Fixed potential unload sequence in Javascript
+
+
+## Version 1.4.2
+### 2013-11-19
+
+#### Enhancements
+
+* Added `wpdk_watchdog_log` action filter
+
+#### Bugs
+
+* Fixed potential fatal error on removed `_WPDKPost` class
+* Several fixes for docs
+
+
 ## Version 1.4.1
 ### 2013-11-18
 

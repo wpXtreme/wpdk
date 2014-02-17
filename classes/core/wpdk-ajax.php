@@ -6,7 +6,12 @@ if ( wpdk_is_ajax() ) {
    * Ajax class for extends an Ajax parent class.
    * You will use this class to extends a your own Ajax gateway class.
    *
-   *     class YourClass extends WPDKAjax {}
+   *     class YourClass extends WPDKAjax {
+   *       public function actions()
+   *       {
+   *         return array();
+   *       }
+   *     }
    *
    * In this way you can access to `registerActions` method
    *
@@ -90,8 +95,8 @@ if ( wpdk_is_ajax() ) {
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-15
-   * @version         1.0.1
+   * @date            2014-01-08
+   * @version         1.0.3
    * @since           1.4.0
    *
    */
@@ -102,9 +107,9 @@ if ( wpdk_is_ajax() ) {
      *
      * @brief Version
      *
-     * @var string $version
+     * @var string $__version
      */
-    public $version = '1.0.1';
+    public $__version = '1.0.3';
 
     /**
      * User define error code or string

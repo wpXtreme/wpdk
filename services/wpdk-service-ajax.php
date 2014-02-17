@@ -8,9 +8,9 @@ if ( wpdk_is_ajax() ) {
    *
    * @class              WPDKServiceAjax
    * @author             =undo= <info@wpxtre.me>
-   * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2012-11-28
-   * @version            0.8.1
+   * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date               2014-02-10
+   * @version            0.8.3
    *
    */
   class WPDKServiceAjax extends WPDKAjax {
@@ -22,7 +22,8 @@ if ( wpdk_is_ajax() ) {
      *
      * @return WPDKServiceAjax
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
       static $instance = null;
       if ( is_null( $instance ) ) {
         $instance = new WPDKServiceAjax();
@@ -37,7 +38,8 @@ if ( wpdk_is_ajax() ) {
      *
      * @return WPDKServiceAjax
      */
-    public static function init() {
+    public static function init()
+    {
       return self::getInstance();
     }
 
@@ -49,14 +51,19 @@ if ( wpdk_is_ajax() ) {
      *
      * @return array
      */
-    protected function actions() {
+    protected function actions()
+    {
 
       $actionsMethods = array(
         'wpdk_action_user_by'            => true,
         'wpdk_action_autocomplete'       => true,
         'wpdk_action_autocomplete_posts' => true,
         'wpdk_action_dismiss_wp_pointer' => true,
+
+        // since 1.4.21
+        'wpdk_action_alert_dismiss'      => false,
       );
+
       return $actionsMethods;
     }
 
@@ -67,15 +74,16 @@ if ( wpdk_is_ajax() ) {
     /**
      * Display the autocomplete for input tag. List all user by term.
      *
-     * @brief Do autocomplete
+     * @brief    Do autocomplete
      *
      * @internal string $_POST['term'] Term to searching for
      *
      * @return string JSON encode with search results
      */
-    public function wpdk_action_user_by() {
+    public function wpdk_action_user_by()
+    {
 
-      /* ID, name, email... */
+      // ID, name, email...
       $pattern = esc_attr( $_POST['term'] );
 
       if ( !empty( $pattern ) ) {
@@ -98,14 +106,15 @@ if ( wpdk_is_ajax() ) {
     /**
      * This method is such `wpdk_action_user_by` but used for custom autocomplete.
      *
-     * @brief Custom autocomplete
+     * @brief      Custom autocomplete
      * @deprecated Since 1.0.0.b4
      *
      * @internal   string $_POST['term'] Term to searching for
      *
      * @return string JSON encode with search results
      */
-    public function wpdk_action_autocomplete() {
+    public function wpdk_action_autocomplete()
+    {
       $pattern         = esc_attr( $_POST['term'] );
       $autocomplete_id = esc_attr( $_POST['autocomplete_id'] );
 
@@ -121,10 +130,11 @@ if ( wpdk_is_ajax() ) {
      *
      * @return string
      */
-    public function wpdk_action_autocomplete_posts() {
+    public function wpdk_action_autocomplete_posts()
+    {
       global $wpdb;
 
-      /* Get params. */
+      // Get params
       $post_type   = esc_attr( isset( $_POST['post_type'] ) ? $_POST['post_type'] : WPDKPostType::PAGE );
       $post_status = esc_attr( isset( $_POST['post_status'] ) ? $_POST['post_status'] : WPDKPostStatus::PUBLISH );
       $limit       = esc_attr( isset( $_POST['limit'] ) ? sprintf( 'LIMIT 0,%s', $_POST['limit'] ) : '' );
@@ -143,20 +153,28 @@ if ( wpdk_is_ajax() ) {
       }
 
       $sql    = <<< SQL
-SELECT post_name, post_title
+SELECT
+ ID,
+ post_title
+
 FROM {$table_posts}
+
 WHERE 1
+
 {$where_post_name}
+
 AND post_type = '{$post_type}'
 AND post_status = '{$post_status}'
+
 ORDER BY {$orderby} {$order}
+
 {$limit}
 SQL;
       $result = $wpdb->get_results( $sql );
       if ( !is_wp_error( $result ) ) {
         foreach ( $result as $post ) {
           $response[] = array(
-            'value' => $post->post_name,
+            'value' => get_page_uri( $post->ID ),
             'label' => apply_filters( 'the_title', $post->post_title ),
           );
         }
@@ -172,7 +190,8 @@ SQL;
      *
      * @brief Dismiss pointer
      */
-    public function wpdk_action_dismiss_wp_pointer() {
+    public function wpdk_action_dismiss_wp_pointer()
+    {
       $id_user             = get_current_user_id();
       $pointer             = esc_attr( $_POST['pointer'] );
       $dismissed           = unserialize( get_user_meta( $id_user, 'wpdk_dismissed_wp_pointer', true ) );
@@ -180,6 +199,47 @@ SQL;
       update_user_meta( $id_user, 'wpdk_dismissed_wp_pointer', serialize( $dismissed ) );
       die();
     }
+
+    /**
+     * Permanent alert dismiss by user logged in
+     *
+     * @brief Permanent alert dismiss
+     * @since 1.4.21
+     */
+    public function wpdk_action_alert_dismiss()
+    {
+      $response = new WPDKAjaxResponse();
+
+      // Get the alert id via post
+      $alert_id = isset( $_POST['alert_id'] ) ? $_POST['alert_id'] : '';
+
+      // Stability
+      if( empty( $alert_id ) ) {
+        $response->error = __( 'Malformed data sedning: no alert id found!', WPDK_TEXTDOMAIN );
+        $response->json();
+      }
+
+      // Stability
+      if( !is_user_logged_in() ) {
+        $response->error = __( 'Severe error: no user logged in!', WPDK_TEXTDOMAIN );
+        $response->json();
+      }
+
+      // Get the logged in user
+      $user_id = get_current_user_id();
+
+      // Get the dismissed list
+      $dismissed = get_user_meta( $user_id, WPDKTwitterBootstrapAlert::USER_META_KEY_PERMANENT_DISMISS, true );
+      $dismissed = empty( $dismissed ) ? array() : $dismissed;
+
+      // Add this alert id and make array unique - avoid duplicate
+      $dismissed = array_unique( array_merge( $dismissed, (array)$alert_id ) );
+      update_user_meta( $user_id, WPDKTwitterBootstrapAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
+
+      $response->json();
+    }
+
+
 
   } // class WPDKServiceAjax
 

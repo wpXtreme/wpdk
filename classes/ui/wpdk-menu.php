@@ -121,16 +121,41 @@ class WPDKMenu {
   }
 
   /**
+   * Return a sanitize view controller for a callable
+   *
+   * @brief Sanitize
+   *
+   * @param string|array $view_controller Callable
+   *
+   * @return string
+   */
+  public static function sanitizeViewController( $view_controller )
+  {
+    $result = '';
+
+    if ( is_string( $view_controller ) ) {
+      $result = $view_controller;
+    }
+    elseif ( is_array( $view_controller ) ) {
+      $result = get_class( $view_controller[0] ) . '-' . $view_controller[1];
+    }
+    return $result;
+  }
+
+  /**
    * Return the WPDK menu info by name of view controller of submenu item
    *
-   * @param string $view_controller The view controller class name
+   * @param string|array $view_controller Any callable or view controller class name
    *
    * @return array
    */
-  public static function menu( $view_controller ) {
+  public static function menu( $view_controller )
+  {
+    $global_key = self::sanitizeViewController( $view_controller );
+
     if ( isset( $GLOBALS[self::GLOBAL_MENU] ) ) {
-      if ( !empty( $view_controller ) && !empty( $GLOBALS[self::GLOBAL_MENU][$view_controller] ) ) {
-        return $GLOBALS[self::GLOBAL_MENU][$view_controller];
+      if ( !empty( $global_key ) && !empty( $GLOBALS[self::GLOBAL_MENU][$global_key] ) ) {
+        return $GLOBALS[self::GLOBAL_MENU][$global_key];
       }
     }
     else {
@@ -151,9 +176,9 @@ class WPDKMenu {
     $info = self::menu( $view_controller );
 
     $url = '';
-    if ( !empty( $info ) ) {
+    if ( !empty( $info ) && isset( $info['parent'] ) ) {
 
-      if ( false === strpos( '.php', $info['parent'] ) ) {
+      if ( false === strpos( $info['parent'], '.php' ) ) {
         $url = add_query_arg( array( 'page' => $info['page'] ), admin_url( 'admin.php' ) );
       }
       else {
@@ -292,12 +317,14 @@ class WPDKMenu {
    *
    * @return WPDKSubMenu
    */
-  public function addDivider( $title = '' ) {
+  public function addDivider( $title = '' )
+  {
     if ( count( $this->subMenus ) > 0 ) {
       $divider                      = new WPDKSubMenuDivider( $this->id, $title );
       $this->subMenus[$divider->id] = $divider;
       return $divider;
     }
+    return false;
   }
 
   /**
@@ -332,10 +359,10 @@ class WPDKMenu {
   public function render() {
     $this->hookName = add_menu_page( $this->pageTitle, $this->menuTitle, $this->capability, $this->id, '', $this->icon, $this->position );
 
-    while ( $sub_menu = current( $this->subMenus ) ) {
+    while ( ( $sub_menu = current( $this->subMenus ) ) ) {
       $next = next( $this->subMenus );
       if ( is_a( $sub_menu, 'WPDKSubMenuDivider' ) ) {
-        if ( isset( $next ) ) {
+        if ( isset( $next ) && isset( $next->capability ) ) {
           $sub_menu->capability = $next->capability;
         }
       }
@@ -623,28 +650,39 @@ class WPDKSubMenu {
    *
    * @brief Render
    */
-  public function render() {
+  public function render()
+  {
 
     global $plugin_page;
 
-    $hook = '';
+    $hook       = '';
+    $global_key = WPDKMenu::sanitizeViewController( $this->viewController );
 
-    if ( !empty( $this->viewController ) ) {
-      if( is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
+    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) && class_exists( $this->viewController ) ) {
+
+      // Check for static ::init() method
+      if ( method_exists( $this->viewController, 'init' ) ) {
+        $hook = create_function( '', sprintf( '%s::init()->display();', $this->viewController ) );
+      }
+      else {
         $hook = create_function( '', sprintf( '$view_controller = new %s; $view_controller->display();', $this->viewController ) );
+      }
 
-        /* Create a global list of my own menu. */
-        $GLOBALS[ WPDKMenu::GLOBAL_MENU ][$this->viewController] = array(
-          'parent'     => $this->parent,
-          'page'       => $this->id,
-          'hook'       => '',
-          'menu_title' => ''
-        );
-      }
-      // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
-      elseif( is_callable( $this->viewController ) ) {
-        $hook = $this->viewController;
-      }
+    }
+    // If the callable is in the form array( obj, method ), I have to properly init $hook anyway
+    elseif ( is_callable( $this->viewController ) ) {
+      $hook = $this->viewController;
+    }
+
+    if( !empty( $global_key ) ) {
+
+      //  Create a global list of my own menu.
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key ] = array(
+        'parent'     => $this->parent,
+        'page'       => $this->id,
+        'hook'       => '',
+        'menu_title' => ''
+      );
     }
 
     /* Apply filter for change the title. */
@@ -670,16 +708,29 @@ class WPDKSubMenu {
       }
     }
 
-    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController ) ) {
+    if ( !empty( $this->viewController ) && is_string( $this->viewController ) && !function_exists( $this->viewController && class_exists( $this->viewController ) ) ) {
 
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$this->viewController]['hook']       = $this->hookName;
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$this->viewController]['menu_title'] = $menu_title;
+      // Check for static ::init() method
+      if ( method_exists( $this->viewController, 'init' ) ) {
+        $load = create_function( '', sprintf( '%s::init()->load();', $this->viewController ) );
+        add_action( 'load-' . $this->hookName, $load );
 
-      $will_load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
-      add_action( 'load-' . $this->hookName, $will_load );
+        $admin_head = create_function( '', sprintf( '$v=%s::init();$v->admin_head();$v->_admin_head();', $this->viewController ) );
+        add_action( 'admin_head-' . $this->hookName, $admin_head );
+      }
+      //
+      elseif ( !is_callable( $this->viewController ) && class_exists( $this->viewController ) ) {
+        $load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
+        add_action( 'load-' . $this->hookName, $load );
 
-      $head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
-      add_action( 'admin_head-' . $this->hookName, $head );
+        $admin_head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
+        add_action( 'admin_head-' . $this->hookName, $admin_head );
+      }
+    }
+
+    if ( !empty( $global_key ) ) {
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['hook']       = $this->hookName;
+      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['menu_title'] = $menu_title;
     }
   }
 

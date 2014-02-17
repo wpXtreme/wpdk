@@ -5,8 +5,8 @@
  * @class              WPDKFilesystem
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            1.1.1
+ * @date               2014-01-30
+ * @version            1.1.3
  */
 
 class WPDKFilesystem extends WPDKObject {
@@ -16,9 +16,9 @@ class WPDKFilesystem extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.1.1';
+  public $__version = '1.1.2';
 
   /**
    * Return the file size well formatted.
@@ -60,16 +60,16 @@ class WPDKFilesystem extends WPDKObject {
   /**
    * Return an array with all matched files from root folder. This method release the follow filters:
    *
-   * * wpdk_rglob_find_dir( true, $file ) - when find a dir
-   * * wpdk_rglob_find_file( true, $file ) - when find a a file
-   * * wpdk_rglob_matched( $regexp_result, $file, $match ) - after preg_match() done
+   *     wpdk_rglob_find_dir( true, $file ) - when find a dir
+   *     wpdk_rglob_find_file( true, $file ) - when find a a file
+   *     wpdk_rglob_matched( $regexp_result, $file, $match ) - after preg_match() done
    *
    * @brief get all matched files
    * @since 1.0.0.b4
    *
    * @param string $path    Folder root
    * @param string $match   Optional. Regex to apply on file name. For example use '/^.*\.(php)$/i' to get only php file.
-   *                        Defaul is empty
+   *                        Default is empty
    *
    * @return array
    */
@@ -84,7 +84,7 @@ class WPDKFilesystem extends WPDKObject {
      *
      * @param string $path    Folder root
      * @param string $match   Optional. Regex to apply on file name. For example use '/^.*\.(php)$/i' to get only php file
-     * @param array  $result  Optional. Result array. Empty form first call
+     * @param array  &$result  Optional. Result array. Empty form first call
      *
      * @return array
      */
@@ -129,14 +129,45 @@ class WPDKFilesystem extends WPDKObject {
    * Return the extension of a filename
    *
    * @brief Extension
+   * @see filename()
    *
-   * @param string $file A filename
+   * @param string $filename A comoplete filename
    *
    * @return string
    */
-  public static function ext( $file )
+  public static function ext( $filename )
   {
-    return end( explode( '.', strtolower( basename( $file ) ) ) );
+    return end( explode( '.', strtolower( basename( $filename ) ) ) );
+  }
+
+  /**
+   * Return the only filename part. if a filename is 'test.black.jpg' will return 'test.black'
+   *
+   * @brief Filename
+   * @since 1.4.15
+   * @see ext()
+   *
+   * @param string $filename A comoplete filename
+   *
+   * @return string
+   */
+  public static function filename( $filename )
+  {
+    $parts = explode( '.', strtolower( basename( $filename ) ) );
+
+    // No dot found
+    if ( empty( $parts ) ) {
+      return $filename;
+    }
+    // Multiple dot found
+    elseif ( count( $parts ) > 2 ) {
+      unset( $parts[count( $parts ) - 1] );
+      return implode( ',', $parts );
+    }
+    // Usually
+    else {
+      return current( $parts );
+    }
   }
 
 }

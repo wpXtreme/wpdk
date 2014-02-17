@@ -1,0 +1,261 @@
+/**
+ * WPDK Button
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ *
+ * - Add `.wpdk-button` main class
+ * - Renamed `btn` with `button`
+ *
+ */
+
+/*!
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/* Button group */
+
+.wpdk-button.btn-group,
+.wpdk-button.btn-group-vertical
+{
+  position       : relative;
+  display        : inline-block;
+  vertical-align : middle;
+}
+
+.wpdk-button.btn-group > .button,
+.wpdk-button.btn-group-vertical > .button
+{
+  position : relative;
+  float    : left;
+}
+
+.wpdk-button.btn-group > .button:hover,
+.wpdk-button.btn-group-vertical > .button:hover,
+.wpdk-button.btn-group > .button:focus,
+.wpdk-button.btn-group-vertical > .button:focus,
+.wpdk-button.btn-group > .button:active,
+.wpdk-button.btn-group-vertical > .button:active,
+.wpdk-button.btn-group > .button.active,
+.wpdk-button.btn-group-vertical > .button.active
+{
+  z-index : 2;
+}
+
+.wpdk-button.btn-group > .button:focus,
+.wpdk-button.btn-group-vertical > .button:focus
+{
+  outline : none;
+}
+
+.wpdk-button.btn-group .button + .button,
+.wpdk-button.btn-group .button + .wpdk-button.btn-group,
+.wpdk-button.btn-group .wpdk-button.btn-group + .button,
+.wpdk-button.btn-group .wpdk-button.btn-group + .wpdk-button.btn-group
+{
+  margin-left : -1px;
+}
+
+.wpdk-button.btn-toolbar
+{
+  margin-left : -5px;
+}
+
+.wpdk-button.btn-toolbar .wpdk-button.btn-group,
+.wpdk-button.btn-toolbar .input-group
+{
+  float : left;
+}
+
+.wpdk-button.btn-toolbar > .button,
+.wpdk-button.btn-toolbar > .wpdk-button.btn-group,
+.wpdk-button.btn-toolbar > .input-group
+{
+  margin-left : 5px;
+}
+
+.wpdk-button.btn-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle)
+{
+  border-radius : 0;
+}
+
+.wpdk-button.btn-group > .button:first-child
+{
+  margin-left : 0;
+}
+
+.wpdk-button.btn-group > .button:first-child:not(:last-child):not(.dropdown-toggle)
+{
+  border-top-right-radius    : 0;
+  border-bottom-right-radius : 0;
+}
+
+.wpdk-button.btn-group > .button:last-child:not(:first-child),
+.wpdk-button.btn-group > .dropdown-toggle:not(:first-child)
+{
+  border-top-left-radius    : 0;
+  border-bottom-left-radius : 0;
+}
+
+.wpdk-button.btn-group > .wpdk-button.btn-group
+{
+  float : left;
+}
+
+.wpdk-button.btn-group > .wpdk-button.btn-group:not(:first-child):not(:last-child) > .button
+{
+  border-radius : 0;
+}
+
+.wpdk-button.btn-group > .wpdk-button.btn-group:first-child > .button:last-child,
+.wpdk-button.btn-group > .wpdk-button.btn-group:first-child > .dropdown-toggle
+{
+  border-top-right-radius    : 0;
+  border-bottom-right-radius : 0;
+}
+
+.wpdk-button.btn-group > .wpdk-button.btn-group:last-child > .button:first-child
+{
+  border-top-left-radius    : 0;
+  border-bottom-left-radius : 0;
+}
+
+.wpdk-button.btn-group .dropdown-toggle:active,
+.wpdk-button.btn-group.open .dropdown-toggle
+{
+  outline : 0;
+}
+
+.wpdk-button.btn-group > .button + .dropdown-toggle
+{
+  padding-right : 8px;
+  padding-left  : 8px;
+}
+
+.wpdk-button.btn-group > .button-lg + .dropdown-toggle
+{
+  padding-right : 12px;
+  padding-left  : 12px;
+}
+
+.wpdk-button.btn-group.open .dropdown-toggle
+{
+  -webkit-box-shadow : inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow         : inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.wpdk-button.btn-group.open .dropdown-toggle.button-link
+{
+  -webkit-box-shadow : none;
+  box-shadow         : none;
+}
+
+.btn .caret
+{
+  margin-left : 0;
+}
+
+.btn-lg .caret
+{
+  border-width        : 5px 5px 0;
+  border-bottom-width : 0;
+}
+
+.dropup .btn-lg .caret
+{
+  border-width : 0 5px 5px;
+}
+
+.wpdk-button.btn-group-vertical > .button,
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group,
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group > .button
+{
+  display   : block;
+  float     : none;
+  width     : 100%;
+  max-width : 100%;
+}
+
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group > .button
+{
+  float : none;
+}
+
+.wpdk-button.btn-group-vertical > .button + .button,
+.wpdk-button.btn-group-vertical > .button + .wpdk-button.btn-group,
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group + .button,
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group + .wpdk-button.btn-group
+{
+  margin-top  : -1px;
+  margin-left : 0;
+}
+
+.wpdk-button.btn-group-vertical > .button:not(:first-child):not(:last-child)
+{
+  border-radius : 0;
+}
+
+.wpdk-button.btn-group-vertical > .button:first-child:not(:last-child)
+{
+  border-top-right-radius    : 4px;
+  border-bottom-right-radius : 0;
+  border-bottom-left-radius  : 0;
+}
+
+.wpdk-button.btn-group-vertical > .button:last-child:not(:first-child)
+{
+  border-top-left-radius    : 0;
+  border-top-right-radius   : 0;
+  border-bottom-left-radius : 4px;
+}
+
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group:not(:first-child):not(:last-child) > .button
+{
+  border-radius : 0;
+}
+
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group:first-child:not(:last-child) > .button:last-child,
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group:first-child:not(:last-child) > .dropdown-toggle
+{
+  border-bottom-right-radius : 0;
+  border-bottom-left-radius  : 0;
+}
+
+.wpdk-button.btn-group-vertical > .wpdk-button.btn-group:last-child:not(:first-child) > .button:first-child
+{
+  border-top-left-radius  : 0;
+  border-top-right-radius : 0;
+}
+
+.wpdk-button.btn-group-justified
+{
+  display         : table;
+  width           : 100%;
+  table-layout    : fixed;
+  border-collapse : separate;
+}
+
+.wpdk-button.btn-group-justified > .button,
+.wpdk-button.btn-group-justified > .wpdk-button.btn-group
+{
+  display : table-cell;
+  float   : none;
+  width   : 1%;
+}
+
+.wpdk-button.btn-group-justified > .wpdk-button.btn-group .button
+{
+  width : 100%;
+}
+
+[data-toggle="buttons"] > .button > input[type="radio"],
+[data-toggle="buttons"] > .button > input[type="checkbox"]
+{
+  display : none;
+}
+

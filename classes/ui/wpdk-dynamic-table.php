@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The WPDKDynamicTable class create and manage a special amazing table list view where you can add/remove rows.
  * In addition you can drag & drop a single row to sort.
@@ -10,8 +11,10 @@
  * @class              WPDKDynamicTable
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-12-05
- * @version            0.8.5
+ * @date               2014-01-22
+ * @version            0.8.6
+ * @deprecated         since 1.4.10 use WPDKDynamicTableView instead
+ *
  */
 
 class WPDKDynamicTable {
@@ -91,6 +94,10 @@ class WPDKDynamicTable {
 
     /* Added dynamic + */
     $this->_columns[self::COLUMN_ROW_MANAGE] = '';
+
+    // Backward compatibility
+    wp_enqueue_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION );
+    wp_enqueue_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -200,7 +207,7 @@ HTML;
     $title = __( 'Add a new empty row', WPDK_TEXTDOMAIN );
 
     $html = <<< HTML
-    <input data-placement="left" title="{$title}" title-backup="{$title}" type="button" value="{$label}" class="wpdk-tooltip wpdk-dt-add-row">
+    <input data-placement="left" title="{$title}" title-backup="{$title}" type="button" value="{$label}" class="wpdk-has-tooltip wpdk-dt-add-row">
 HTML;
     return $html;
   }
@@ -217,7 +224,7 @@ HTML;
     $title = __( 'Delete entire row', WPDK_TEXTDOMAIN );
 
     $html = <<< HTML
-    <input data-placement="left" title="{$title}" content="{$title}" type="button" value="{$label}" class="wpdk-tooltip wpdk-dt-delete-row">
+    <input data-placement="left" title="{$title}" content="{$title}" type="button" value="{$label}" class="wpdk-has-tooltip wpdk-dt-delete-row">
 HTML;
     return $html;
   }
@@ -304,14 +311,14 @@ HTML;
         /* Get a single field. */
         $field = WPDKUIControlsLayout::item( $column );
 
-        $tds .= sprintf( '<td class="wpdk-dynamic-table-cel-%s">%s</th>', $key, $field );
+        $tds .= sprintf( '<td class="wpdk-dynamic-table-cel-%s">%s</td>', $key, $field );
       }
       else {
         if ( is_null( $item ) ) {
-          $tds .= sprintf( '<td class="%s">%s<span class="wpdk-dt-clone delete">%s</span></th>', $key, $this->buttonAdd(), $this->buttonDelete() );
+          $tds .= sprintf( '<td class="%s">%s<span class="wpdk-dt-clone delete">%s</span></td>', $key, $this->buttonAdd(), $this->buttonDelete() );
         }
         else {
-          $tds .= sprintf( '<td class="%s">%s</th>', $key, $this->buttonDelete() );
+          $tds .= sprintf( '<td class="%s">%s</td>', $key, $this->buttonDelete() );
         }
 
       }
@@ -331,7 +338,7 @@ HTML;
     $tds = '';
     foreach ( $this->_columns as $key => $column ) {
       if ( $key != self::COLUMN_ROW_MANAGE ) {
-        $tds .= sprintf( '<td class="wpdk-dynamic-table-cel-%s"></th>', $key );
+        $tds .= sprintf( '<td class="wpdk-dynamic-table-cel-%s"></td>', $key );
       }
       else {
       }
@@ -344,6 +351,321 @@ HTML;
     </tfoot>
 HTML;
     return $html;
+  }
+
+}
+
+
+/**
+ * The WPDKDynamicTableView is a new version of old WPDKDynamicTable. This class can be instance or subclass.
+ * In addition you can drag & drop a single row to sort.
+ *
+ * @class              WPDKDynamicTable
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-01-22
+ * @version            1.0.0
+ * @since              1.4.10
+ */
+
+class WPDKDynamicTableView extends WPDKView {
+
+  /**
+   * This is the internal code name of the column (last column) used for add/del a row.
+   *
+   * @brief Column add/del
+   */
+  const COLUMN_ROW_MANAGE = '_wpdk_dt_column_row_manage';
+
+  /**
+   * Set TRUE for sortable rows
+   *
+   * @brief Sortable
+   *
+   * @var bool $sortable
+   */
+  public $sortable = false;
+
+  /**
+   * This is a key value pairs array with the column name and type
+   *
+   * @brief Columns list
+   *
+   * @var array $columns
+   */
+  private $columns;
+
+  /**
+   * Create an instance of WPDKDynamicTableView class
+   *
+   * @brief Construct
+   *
+   * @param string $id      ID for this dynamic table
+   *
+   * @return WPDKDynamicTableView
+   */
+  public function __construct( $id ) {
+
+    parent::__construct( $id );
+
+    // Added dynamic
+    $this->columns[self::COLUMN_ROW_MANAGE] = '';
+
+    wp_enqueue_script( WPDKUIComponents::DYNAMIC_TABLE );
+    wp_enqueue_style( WPDKUIComponents::DYNAMIC_TABLE );
+
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Columns
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return a key value pairs array with the column list
+   *
+   *     $columns = array(
+   *       'type'        => array(
+   *         '_label'      => __( 'Type', WPXUSERSMANAGER_TEXTDOMAIN ), // Head label
+   *         'label'       => __( 'Type', WPXUSERSMANAGER_TEXTDOMAIN ),
+   *         'type'        => WPDKUIControlType::SELECT,
+   *         'name'        => 'type[]',
+   *         'class'       => 'wpxm_users_extra_field_type',
+   *         'title'       => __( 'Select a field type', WPXUSERSMANAGER_TEXTDOMAIN ),
+   *         'data'        => array( 'placement' => 'left' ),
+   *         'options'     => $fields_type,
+   *         'value'       => '',
+   *       ),
+   *       ...
+   *     );
+   *
+   *
+   *
+   * @brief Columns
+   */
+  public function columns()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  /**
+   * Return the columns list with internal column to add/remove a row tool
+   *
+   * @brief Columns
+   */
+  private function _columns()
+  {
+    $columns                          = $this->columns();
+    $columns[self::COLUMN_ROW_MANAGE] = '';
+    return $columns;
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Items
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Retrun the items data to display
+   *
+   * @brief Dynamic table items
+   *
+   * @return array
+   */
+  public function items()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Display
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the HTML markup for dynamic table
+   *
+   * @brief Get the HTML markup for dynamic table
+   *
+   * @return string
+   */
+  public function draw()
+  {
+    WPDKHTML::startCompress();
+    ?>
+    <table id="<?php printf( 'wpdk-dynamic-table-%s', $this->id ) ?>"
+           class="wpdk-dynamic-table <?php echo $this->sortable ? 'wpdk-dynamic-table-sortable' : '' ?>"
+      <?php echo $this->sortable ? 'data-sortable="true"' : '' ?>
+           cellspacing="0"
+           cellpadding="0"
+           border="0">
+
+        <!-- Columns -->
+        <thead>
+          <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
+            <?php if ( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
+              <th <?php echo ( true == $this->sortable && empty( $index ) ) ? 'colspan="2"' : '' ?>
+                class="wpdk-dynamic-table-column-<?php echo $column_key ?>">
+                <?php echo $column['_label']; $index++; ?>
+              </th>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </thead>
+
+        <tbody>
+
+          <!-- This row is used for clone -->
+          <tr class="wpdk-dt-clone">
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
+
+              <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+                <td class="<?php echo $column_key ?>">
+                  <?php echo $this->buttonAdd() ?>
+                  <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
+                </td>
+              <?php else : ?>
+                <?php if( $this->sortable && empty( $index ) ) : ?>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                <?php endif; ?>
+                <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
+                  <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
+                </td>
+              <?php endif; ?>
+
+            <?php endforeach; ?>
+          </tr>
+
+          <!-- Main Body -->
+          <?php foreach ( $this->items() as $item ) : ?>
+            <tr>
+              <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : $column['value'] = isset( $item[$column_key] ) ? $item[$column_key] : '' ?>
+
+                <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+                  <td class="<?php echo $column_key ?>">
+                    <?php echo $this->buttonDelete() ?>
+                  </td>
+                <?php else : ?>
+                  <?php if( $this->sortable && empty( $index ) ) : ?>
+                    <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                  <?php endif; ?>
+                  <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
+                    <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
+                  </td>
+                <?php endif; ?>
+
+              <?php endforeach; ?>
+            </tr>
+          <?php endforeach; ?>
+
+          <!-- Extra last child row -->
+          <tr>
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
+
+              <?php if ( self::COLUMN_ROW_MANAGE == $column_key ) : ?>
+                <td class="<?php echo $column_key ?>">
+                  <?php echo $this->buttonAdd() ?>
+                  <span class="wpdk-dt-clone delete"><?php echo $this->buttonDelete() ?></span>
+                </td>
+              <?php else : ?>
+                <?php if( $this->sortable && empty( $index ) ) : ?>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                <?php endif; ?>
+                <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
+                  <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
+                </td>
+              <?php endif; ?>
+
+            <?php endforeach; ?>
+          </tr>
+
+        </tbody>
+
+        <?php if( 1 == 0 ) : ?>
+        <!-- Footer -->
+        <tfoot>
+          <tr>
+            <?php $index = 0; foreach ( $this->_columns() as $column_key => $column ) : ?>
+
+              <?php if ( self::COLUMN_ROW_MANAGE != $column_key ) : ?>
+                <td <?php echo ( true == $this->sortable && empty( $index ) ) ? 'colspan="2"' : '' ?>
+                  class="wpdk-dynamic-table-cel-<?php echo $column_key ?>"></td>
+              <?php endif; $index++ ?>
+
+            <?php endforeach; ?>
+          </tr>
+        </tfoot>
+        <?php endif; ?>
+
+      </table>
+  <?php
+    echo WPDKHTML::endHTMLCompress();
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // HTML assets
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the HTML markup to display the add row button.
+   *
+   * @brief Button add row
+   *
+   * @return string
+   */
+  private function buttonAdd()
+  {
+    WPDKHTML::startCompress(); ?>
+      <button
+             class="wpdk-has-tooltip wpdk-dt-add-row"
+             title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+             title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+             data-placement="left"
+        >
+        <?php WPDKGlyphIcons::display( WPDKGlyphIcons::PLUS_SQUARED ) ?>
+        </button>
+      <?php
+      return WPDKHTML::endHTMLCompress();
+
+    WPDKHTML::startCompress(); ?>
+    <input type="button"
+           class="wpdk-has-tooltip wpdk-dt-add-row"
+           title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+           title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
+           data-placement="left"
+           value="<?php _e( 'Add', WPDK_TEXTDOMAIN ) ?>"
+      />
+    <?php
+    return WPDKHTML::endHTMLCompress();
+  }
+
+  /**
+   * Return the HTML markup to display the delete row button.
+   *
+   * @brief Button delete row
+   *
+   * @return string
+   */
+  private function buttonDelete()
+  {
+    WPDKHTML::startCompress(); ?>
+      <button
+             class="wpdk-has-tooltip wpdk-dt-delete-row"
+             title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+             title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+             data-placement="left"
+        >
+        <?php WPDKGlyphIcons::display( WPDKGlyphIcons::MINUS_SQUARED ) ?>
+        </button>
+      <?php
+      return WPDKHTML::endHTMLCompress();
+
+    WPDKHTML::startCompress(); ?>
+    <input type="button"
+           class="wpdk-has-tooltip wpdk-dt-delete-row"
+           title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+           title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
+           data-placement="left"
+           value="<?php _e( 'Delete', WPDK_TEXTDOMAIN ) ?>"
+      />
+    <?php
+    return WPDKHTML::endHTMLCompress();
   }
 
 }

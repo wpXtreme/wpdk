@@ -66,7 +66,7 @@ class WPDKTerm {
    *                                    If object will apply filters and return $term.
    *                                    If string started with `%` will get by `get_term_by( 'name' )`
    *                                    Else if string will get by `get_term_by( 'slug' )`
-   * @param string            $taxonomy Taxonomy name that $term is part of.
+   * @param string            $taxonomy Optipnal. Taxonomy name that $term is part of. If FASLE retrive the term info
    * @param string            $output   Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
    * @param string            $filter   Optional. Default is raw or no WordPress defined filter will applied.
    * @param bool              $parent   Optional. If TRUE an object WPDKTerm is create in parent_term property
@@ -74,8 +74,34 @@ class WPDKTerm {
    * @return WPDKTerm|WP_Error Term Row from database. Will return null if $term is empty. If taxonomy does not
    *        exist then WP_Error will be returned.
    */
-  public static function term( $term, $taxonomy, $output = OBJECT, $filter = 'raw', $parent = false )
+  public static function term( $term, $taxonomy = false, $output = OBJECT, $filter = 'raw', $parent = false )
   {
+    global $wpdb;
+
+    if ( empty( $taxonomy ) ) {
+      $sql = sprintf( 'SELECT t.*, tt.description, tt.taxonomy FROM %s AS t LEFT JOIN %s AS tt ON ( tt.term_id = t.term_id )', $wpdb->terms, $wpdb->term_taxonomy );
+      if ( is_numeric( $term ) ) {
+        $sql .= sprintf( ' WHERE t.term_id = %s', $term );
+      }
+      elseif ( is_string( $term ) ) {
+        $sql .= sprintf( ' WHERE t.slug = "%s"', $term );
+      }
+      elseif ( is_object( $term ) ) {
+        $sql .= sprintf( ' WHERE t.term_id = "%s"', $term->term_id );
+      }
+      else {
+        return false;
+      }
+
+      $row = $wpdb->get_row( $sql );
+      if ( is_null( $row ) ) {
+        return false;
+      }
+      $term     = $row->term_id;
+      $taxonomy = $row->taxonomy;
+    }
+
+
     if ( is_object( $term ) || is_numeric( $term ) ) {
       $term = get_term( $term, $taxonomy, $output, $filter );
     }
@@ -161,7 +187,7 @@ class WPDKTerms {
    *
    * @brief
    *
-   * @var string
+   * @var string $cache_domain
    */
   public $cache_domain;
   /**
@@ -333,7 +359,7 @@ class WPDKTerms {
    *
    * @brief Texnonomy ID
    *
-   * @var array|string
+   * @var array|string $_taxonomy
    */
   private $_taxonomy;
 
@@ -391,8 +417,40 @@ class WPDKTerms {
 
     /* Remove private. */
     unset( $args['WPDKTerms_taxonomy'] );
-
     $terms = get_terms( $this->_taxonomy, $args );
+
+    return $terms;
+  }
+
+  /**
+   * Return a tree list of terms. Used to build an indent list of children
+   *
+   * @brief Tree
+   *
+   * @param bool $child_of Optional. Default false
+   *
+   * @return array|WP_Error
+   */
+  public function tree( $child_of = false )
+  {
+    if ( empty( $child_of ) ) {
+      $args           = (array)$this;
+      $args['parent'] = 0;
+      unset( $args['WPDKTerms_taxonomy'] );
+      $terms = get_terms( $this->_taxonomy, $args );
+      foreach ( $terms as $term ) {
+        $term->children = $this->tree( $term );
+      }
+    }
+    else {
+      $args             = (array)$this;
+      $args['parent']   = $child_of->term_id;
+      unset( $args['WPDKTerms_taxonomy'] );
+      $terms = get_terms( $this->_taxonomy, $args );
+      foreach ( $terms as $term ) {
+        $term->children = $this->tree( $term );
+      }
+    }
 
     return $terms;
   }

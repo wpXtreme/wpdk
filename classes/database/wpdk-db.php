@@ -19,8 +19,8 @@
  * @class              __WPDKDBTable
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-09-30
- * @version            1.0.0
+ * @date               2014-01-08
+ * @version            1.0.1
  *
  */
 class WPDKDBTableStatus extends WPDKObject {
@@ -34,9 +34,9 @@ class WPDKDBTableStatus extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string
+   * @var string $__version
    */
-  public $version = '1.0.0';
+  public $__version = '1.0.1';
 
   /**
    * Return a key pairs array with the list of statuses
@@ -409,7 +409,15 @@ SQL;
    */
   public function update()
   {
+    global $wpdb;
+
+    // Hide database warning and error
+    $wpdb->hide_errors();
+    $wpdb->suppress_errors();
+
+    // Buffering
     ob_start();
+
     if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
       if ( !function_exists( 'dbDelta' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -419,9 +427,44 @@ SQL;
         ob_end_clean();
         return false;
       }
-      /* @todo Replace sprintf() with str_replace( '%s', $this->tableName ) - because more instances */
-      $sql = sprintf( $content, $this->tableName );
-      @dbDelta( $sql );
+
+      // Replace table name
+      $sql = str_replace( '%s', $this->tableName, $content );
+
+      // Remove comments
+      $pattern = '@(([\'"]).*?[^\\\]\2)|((?:\#|--).*?$|/\*(?:[^/*]|/(?!\*)|\*(?!/)|(?R))*\*\/)\s*|(?<=;)\s+@ms';
+      /*
+       * Commented version
+       *
+       * $sqlComments = '@
+       *     (([\'"]).*?[^\\\]\2) # $1 : Skip single & double quoted expressions
+       *     |(                   # $3 : Match comments
+       *         (?:\#|--).*?$    # - Single line comments
+       *         |                # - Multi line (nested) comments
+       *          /\*             #   . comment open marker
+       *             (?: [^/*]    #   . non comment-marker characters
+       *                 |/(?!\*) #   . ! not a comment open
+       *                 |\*(?!/) #   . ! not a comment close
+       *                 |(?R)    #   . recursive case
+       *             )*           #   . repeat eventually
+       *         \*\/             #   . comment close marker
+       *     )\s*                 # Trim after comments
+       *     |(?<=;)\s+           # Trim after semi-colon
+       *     @msx';
+       *
+       */
+      $sql_sanitize = trim( preg_replace( $pattern, '$1', $sql ) );
+      preg_match_all( $pattern, $sql, $comments );
+
+      // Only commnets
+      //$extractedComments = array_filter( $comments[ 3 ] );
+
+      // Execute delta
+      @dbDelta( $sql_sanitize );
+
+      // Clear error
+      global $EZSQL_ERROR;
+      $EZSQL_ERROR = array();
     }
     ob_end_clean();
     return true;

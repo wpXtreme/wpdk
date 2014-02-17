@@ -1,0 +1,940 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpXtreme v1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-03 14:41+0100\n"
+"PO-Revision-Date: 2014-02-03 14:41+0100\n"
+"Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
+"Language-Team: FRANS PRONK <beheer@ifra.nl>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+# @ wpdk
+#: ../wpdk.php:603
+msgid ""
+"Please confirm before unlock this form field.\n"
+"Do you want unlock this form field?"
+msgstr ""
+"Gelieve te bevestigen voordat dit formulier veld ontgrendelt. \n"
+" Wilt u dit veld op het formulier ontgrendelen?"
+
+# @ wpdk
+#: ../wpdk.php:605
+msgid "Choose Time"
+msgstr "Kies tijd"
+
+# @ wpdk
+#: ../wpdk.php:606
+msgid "Time"
+msgstr "Tijd"
+
+# @ wpdk
+#: ../wpdk.php:607
+msgid "Hour"
+msgstr "Uur"
+
+# @ wpdk
+#: ../wpdk.php:608
+msgid "Minute"
+msgstr "Minuut"
+
+# @ wpdk
+#: ../wpdk.php:609
+msgid "Seconds"
+msgstr "Seconden"
+
+# @ wpdk
+#: ../wpdk.php:610
+msgid "Now"
+msgstr "Nu"
+
+# @ wpdk
+#: ../wpdk.php:611
+msgid "Su,Mo,Tu,We,Th,Fr,Sa"
+msgstr "Zo,Ma,Di,Wo,Do,Vr,Za"
+
+# @ wpdk
+#: ../wpdk.php:612
+msgid ""
+"January,February,March,April,May,June,July,August,September,October,November,"
+"December"
+msgstr ""
+"Januari, februari, maart, mei April, juni, juli, augustus, September, "
+"oktober, November, December"
+
+# @ wpdk
+#: ../wpdk.php:613
+msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+msgstr "Jan, Feb, mrt, Apr, mei, Jun, Jul, Aug, Sep, okt, Nov, Dec"
+
+# @ wpdk
+#: ../wpdk.php:614
+msgid "Close"
+msgstr "Sluiten"
+
+# @ wpdk
+#: ../wpdk.php:615
+msgid "mm/dd/yy"
+msgstr "mm/dd/yy"
+
+# @ wpdk
+#: ../wpdk.php:616
+msgid "HH:mm"
+msgstr "HH:mm"
+
+# @ wpdk
+#: ../classes/core/wpdk-mail.php:230
+msgid "User First name"
+msgstr "Voornaam gebruiker"
+
+# @ wpdk
+#: ../classes/core/wpdk-mail.php:234
+msgid "User Last name"
+msgstr "Achternaam gebruiker"
+
+# @ wpdk
+#: ../classes/core/wpdk-mail.php:238
+msgid "User Display name"
+msgstr "Gebruikersnaam"
+
+# @ wpdk
+#: ../classes/core/wpdk-mail.php:242
+msgid "User email"
+msgstr "Email gebruiker"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:245
+msgid "Your preferences were successfully restored to defaults values!"
+msgstr "Uw voorkeuren zijn naar standaardwaarden hersteld!"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:257
+msgid "Your preferences values were successfully updated!"
+msgstr "Uw voorkeuren zijn bijgewerkt!"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:577
+msgid "Warning!"
+msgstr "Waarschuwing!"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:584
+msgid "Successfully!"
+msgstr "Gelukt!"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:585
+msgid "Import complete."
+msgstr "Importeren voltooid."
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:589
+msgid "Error while read file! Error code:"
+msgstr "Fout bij lezen bestand! Foutcode:"
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:593
+msgid "Malformed file."
+msgstr "Ongeldig bestand."
+
+# @ wpdk
+#: ../classes/core/wpdk-preferences.php:597
+msgid ""
+"Wrong file version! You are try to import a most recent of export file. "
+"Please update your plugin before continue."
+msgstr ""
+"Verkeerde bestandsversie! U zijn probeert een meest recente exportbestand te "
+"importeren. Update svp uw plugin voordat u doorgaat."
+
+# @ wpdk
+#: ../classes/core/wpdk-wordpress-plugin.php:594
+msgid "Half hour"
+msgstr "Half uur"
+
+# @ wpdk
+#: ../classes/core/wpdk-wordpress-plugin.php:598
+msgid "Two minutes"
+msgstr "Twee minuutjes"
+
+# @ wpdk
+#: ../classes/database/wpdk-db.php:52
+msgid "All"
+msgstr "Alles"
+
+# @ wpdk
+#: ../classes/database/wpdk-db.php:53
+msgid "Draft"
+msgstr "Ontwerp"
+
+# @ wpdk
+#: ../classes/database/wpdk-db.php:54
+msgid "Publish"
+msgstr "Publiceren"
+
+# @ wpdk
+#: ../classes/database/wpdk-db.php:55
+msgid "Trash"
+msgstr "Prullenbak"
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-configuration.php:672
+#, php-format
+msgid ""
+"<strong>%s</strong> settings were successfully restored to defaults values!"
+msgstr ""
+"<strong>%s</strong> instellingen zijn met succes naar standaardwaarden "
+"hersteld!"
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-configuration.php:687
+msgid "No Reset to default settings implement yet!"
+msgstr "Er is nog een Reset naar standaard instellingen implementeren!"
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-configuration.php:744
+#, php-format
+msgid "<strong>%s</strong> settings values were successfully updated!"
+msgstr "<strong>%s</strong> instellingen waarden zijn bijgewerkt!"
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:136
+#: ../classes/deprecated/wpdk-roles-caps.php:1162
+msgid "Role data cannot be empty."
+msgstr "Rol data mag niet ontbreken."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:143
+#: ../classes/deprecated/wpdk-roles-caps.php:1169
+#, php-format
+msgid "Role data cannot be more than %s chars."
+msgstr "Rol gegevens kunnen niet meer dan %s tekens bevatten."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:149
+msgid "Role name can contain only letters, digits, '_' and '-' chars."
+msgstr "Rolnaam kan alleen letters, cijfers, '_' en '-' tekens bevatten."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:154
+#: ../classes/deprecated/wpdk-roles-caps.php:1180
+#, php-format
+msgid "Can't create two roles with the same name '%s'."
+msgstr "Twee rollen kunnen niet dezelfde naam '%s' hebben."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:187
+#: ../classes/deprecated/wpdk-roles-caps.php:1211
+msgid "Capability name cannot be empty."
+msgstr "Vermogen mag niet leeg zijn."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:192
+#: ../classes/deprecated/wpdk-roles-caps.php:1216
+msgid "Capability name can contain only letters, digits, _ and - chars."
+msgstr "Naam kan alleen letters, cijfers, _ en - tekens bevatten."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:198
+#: ../classes/deprecated/wpdk-roles-caps.php:1222
+#, php-format
+msgid "Can't add a capability to the unexistent role %s."
+msgstr "Kan niet een vermogen aan de unexistent rol %s toevoegen."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:203
+#: ../classes/deprecated/wpdk-roles-caps.php:1227
+msgid "Can't add a capability with the same name of an already existent one."
+msgstr ""
+"Kan niet een vermogen met dezelfde naam van een reeds bestaande toevoegen."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:233
+#: ../classes/deprecated/wpdk-roles-caps.php:278
+#: ../classes/deprecated/wpdk-roles-caps.php:324
+#: ../classes/deprecated/wpdk-roles-caps.php:791
+#: ../classes/deprecated/wpdk-roles-caps.php:1257
+#: ../classes/deprecated/wpdk-roles-caps.php:1302
+#: ../classes/deprecated/wpdk-roles-caps.php:1348
+#: ../classes/deprecated/wpdk-roles-caps.php:1815
+#, php-format
+msgid "User %d does not exist in system."
+msgstr "Gebruiker %d bestaat niet in het systeem."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:238
+#: ../classes/deprecated/wpdk-roles-caps.php:362
+#: ../classes/deprecated/wpdk-roles-caps.php:405
+#: ../classes/deprecated/wpdk-roles-caps.php:447
+#: ../classes/deprecated/wpdk-roles-caps.php:1262
+#: ../classes/deprecated/wpdk-roles-caps.php:1386
+#: ../classes/deprecated/wpdk-roles-caps.php:1429
+#: ../classes/deprecated/wpdk-roles-caps.php:1471
+#, php-format
+msgid "Role %s does not exist in system."
+msgstr "Rol %s bestaat niet in het systeem."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:245
+#: ../classes/deprecated/wpdk-roles-caps.php:1269
+#, php-format
+msgid "The main role of user \"%s\" is already \"%s\"."
+msgstr "De belangrijkste rol van de gebruiker \"%s\\ is\\\" al \"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:283
+#: ../classes/deprecated/wpdk-roles-caps.php:1307
+#, php-format
+msgid "Unable to add unexistent capability \"%s\" to user \"%s\"."
+msgstr ""
+"Niet mogelijk om unexistent vermogen \"%s\\ toe te voegen\\\"aan gebruiker "
+"\"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:291
+#: ../classes/deprecated/wpdk-roles-caps.php:1315
+#, php-format
+msgid "User \"%s\" has already the capability \"%s\"."
+msgstr "Gebruiker \"%s\\ heeft\\\" al de mogelijkheid \"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:331
+#: ../classes/deprecated/wpdk-roles-caps.php:1355
+#, php-format
+msgid "User \"%s\" does not have the capability \"%s\"."
+msgstr "Gebruiker \"%s\" beschikt niet over het vermogen \"%s\\ \\\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:367
+#: ../classes/deprecated/wpdk-roles-caps.php:1391
+#, php-format
+msgid "Unable to add unexistent capability \"%s\" to role \"%s\"."
+msgstr ""
+"Niet mogelijk om unexistent vermogen \"%s\\ toe te voegen\\\"aan rol \"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:373
+#: ../classes/deprecated/wpdk-roles-caps.php:1397
+#, php-format
+msgid "Role \"%s\" has already the capability \"%s\"."
+msgstr "Rol \"%s\"  heeft\\\" al de mogelijkheid \"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:410
+#: ../classes/deprecated/wpdk-roles-caps.php:1434
+#, php-format
+msgid "Unable to delete unexistent capability \"%s\" to role \"%s\"."
+msgstr "Onmogelijk om unexistent vermogen \"%s\"aan rol \"%s\" te schrappen."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:416
+#: ../classes/deprecated/wpdk-roles-caps.php:1440
+#, php-format
+msgid "Role \"%s\" has not the capability \"%s\"."
+msgstr "Rol \"%s\\ heeft\\\" niet het vermogen \"%s\"."
+
+# @ wpdk
+#: ../classes/deprecated/wpdk-roles-caps.php:1174
+msgid "Role name can contain only letters, digits, _ and - chars."
+msgstr "Rolnaam kan alleen letters, cijfers, _ en - tekens bevatten."
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:732
+msgid "A newly created post, with no content"
+msgstr "Een nieuw gecreëerd bericht, zonder inhoud"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:733
+msgid "The post is draft"
+msgstr "Het bericht is ontwerp"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:734
+msgid "The post to publish in the future"
+msgstr "Om het bericht in de toekomst te publiceren"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:735
+msgid "The post is a revision"
+msgstr "Het bericht is een herziening"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:736
+msgid "The post is pending review"
+msgstr "Het bericht wacht op een review"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:737
+msgid "Not visible to users who are not logged in"
+msgstr "Niet zichtbaar voor gebruikers die niet zijn ingelogd"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:738
+msgid "A published post or page"
+msgstr "Een gepubliceerd bericht of pagina"
+
+# @ wpdk
+#: ../classes/post/wpdk-post.php:739
+msgid "The post is in trashbin"
+msgstr "Het bericht is in de prullenbak"
+
+# @ wpdk
+#: ../classes/ui/wpdk-dynamic-table.php:208
+#: ../classes/ui/wpdk-dynamic-table.php:634 ../classes/ui/wpdk-ui.php:347
+msgid "Add"
+msgstr "Toevoegen"
+
+# @ wpdk
+#: ../classes/ui/wpdk-dynamic-table.php:209
+#: ../classes/ui/wpdk-dynamic-table.php:619
+#: ../classes/ui/wpdk-dynamic-table.php:620
+#: ../classes/ui/wpdk-dynamic-table.php:631
+#: ../classes/ui/wpdk-dynamic-table.php:632
+msgid "Add a new empty row"
+msgstr "Voeg een lege rij toe"
+
+# @ wpdk
+#: ../classes/ui/wpdk-dynamic-table.php:225
+#: ../classes/ui/wpdk-dynamic-table.php:667
+msgid "Delete"
+msgstr "Verwijder"
+
+# @ wpdk
+#: ../classes/ui/wpdk-dynamic-table.php:226
+#: ../classes/ui/wpdk-dynamic-table.php:652
+#: ../classes/ui/wpdk-dynamic-table.php:653
+#: ../classes/ui/wpdk-dynamic-table.php:664
+#: ../classes/ui/wpdk-dynamic-table.php:665
+msgid "Delete entire row"
+msgstr "Verwijder hele rij"
+
+# @ wpdk
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:413
+msgid "Add New"
+msgstr "Voeg nieuwe toe"
+
+# @ wpdk
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:435
+#, php-format
+msgid "No %s found."
+msgstr "Geen %s gevonden."
+
+# @ wpdk
+#: ../classes/ui/wpdk-listtable-viewcontroller.php:440
+msgid "Please, check again your search parameters."
+msgstr "Controleer uw zoekparameters."
+
+# @ wpdk
+#: ../classes/ui/wpdk-pointer.php:127
+msgid "Dismiss"
+msgstr "Ontslaan"
+
+# @ wpdk
+#: ../classes/ui/wpdk-pointer.php:135
+msgid "Next"
+msgstr "Volgende"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-view.php:122 ../classes/ui/wpdk-ui.php:2409
+msgid "Update"
+msgstr "Update"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-view.php:124
+msgid ""
+"Are you sure to reset this preferences to default values?\n"
+"\n"
+"This operation is not reversible!"
+msgstr ""
+"Weet u zeker dat u deze voorkeuren op standaardwaarden wilt resetten? \n"
+"\n"
+" Deze handeling is niet omkeerbaar!"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-view.php:132 ../classes/ui/wpdk-ui.php:2346
+msgid "Reset to default"
+msgstr "Standaardinstellingen herstellen"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:51
+msgid ""
+"Are you sure to reset All preferences to default value?\n"
+"\n"
+"This operation is not reversible!"
+msgstr ""
+"Weet u zeker dat alle voorkeuren naar de standaardwaarde moeten worden "
+"teruggezet? \n"
+"\n"
+" Deze handeling is niet omkeerbaar!"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:66
+msgid "Import"
+msgstr "Importeren"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:71
+msgid "Export"
+msgstr "Exporteren"
+
+# @ wpdk
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:77
+msgid "Reset All"
+msgstr "Alles resetten"
+
+#: ../classes/ui/wpdk-tinymce-plugin.php:311
+msgid "WPDK Editor Manager"
+msgstr ""
+
+#: ../classes/ui/wpdk-tinymce-plugin.php:311
+msgid "<h4>Information</h4><p>This feature coming in next soon release!</p>"
+msgstr ""
+
+#: ../classes/ui/wpdk-ui.php:339
+msgid "Remove"
+msgstr ""
+
+# @ wpdk
+#: ../classes/ui/wpdk-ui.php:428
+msgid ""
+"This field is locked for your security. However you can unlock just by click "
+"here."
+msgstr ""
+"Dit veld is vergrendeld voor uw veiligheid. U kunt ontgrendelen enkel door "
+"hier te klikken."
+
+# @ wpdk
+#: ../classes/ui/wpdk-ui.php:549 ../classes/ui/wpdk-ui.php:552
+msgid "Guide"
+msgstr "Gids"
+
+# @ wpdk
+#: ../classes/ui/wpdk-ui.php:555
+msgid "Open the guide"
+msgstr "Open de gids"
+
+# @ wpdk
+#: ../classes/ui/wpdk-ui.php:2366
+msgid "Submit"
+msgstr "Opslaan"
+
+# @ default
+#: ../classes/users/wpdk-user.php:162
+msgid "Not set"
+msgstr ""
+
+# @ default
+#: ../classes/users/wpdk-user.php:163
+msgid "Disabled"
+msgstr ""
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1209
+msgid ""
+"This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
+"Please, have a look below for additional information."
+msgstr ""
+"Deze weergave <strong>is verbeterd</strong> door wpXtreme en WPDK kader. "
+"Alstublieft, neem hieronder een kijkje voor meer informatie."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1224
+msgid "Login information"
+msgstr "Login-gegevens"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1229
+msgid "Last success login"
+msgstr "Laatste succesvolle login"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1230 ../classes/users/wpdk-user.php:1246
+#: ../classes/users/wpdk-user.php:1265
+msgid "m/d/Y H:i"
+msgstr "m/d/Y H:i"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1236
+msgid "# success login"
+msgstr "# succes ingelogd"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1245
+msgid "Last wrong login"
+msgstr "Laatste verkeerde login"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1252
+msgid "# wrong login"
+msgstr "# verkeerde logins"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1259
+msgid "Logout information"
+msgstr "Logout informatie"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1264
+msgid "Last logout"
+msgstr "Laatste keer uitgelogd"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1271 ../classes/users/wpdk-user.php:1276
+msgid "Status"
+msgstr "Status"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1288
+msgid "Description"
+msgstr "Beschrijving"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1289
+msgid "eg: this user is disabled because..."
+msgstr "bijvoorbeeld: deze gebruiker is uitgeschakeld omdat..."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:1330
+msgid ""
+"This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
+"Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
+"additional information."
+msgstr ""
+"Deze weergave <strong>is verbeterd</strong> door wpXtreme en WPDK kader. "
+"Alstublieft, <strong><a href=\"#wpdk\"> Neem een kijkje hieronder</a></"
+"strong> voor meer informatie."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2088
+msgid "Somebody who has access to all the administration features"
+msgstr "Iemand die toegang tot alle de functies voor beheer heeft"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2089
+msgid ""
+"Somebody who can publish and manage posts and pages as well as manage other "
+"users posts, etc."
+msgstr ""
+"Iemand die berichten en pagina's kan publiceren en beheren, alsook berichten "
+"van andere gebruikers etc kan beheren."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2090
+msgid "Somebody who can publish and manage their own posts"
+msgstr "Iemand die eigen berichten kan publiceren en beheren"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2091
+msgid "Somebody who can write and manage their posts but not publish them"
+msgstr ""
+"Iemand die hun berichten kan schrijven en beheren maar niet kan publiceren"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2092
+msgid "Somebody who can only manage their profile"
+msgstr "Iemand die alleen zijn/haar profiel kan beheren"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2373
+msgid "Allows access to Administration Panel options: Plugins"
+msgstr "Biedt toegang tot het Administratiepaneel opties: Plugins"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2374
+msgid "add_users"
+msgstr "Gebruikers toevoegen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2375
+msgid "create_users"
+msgstr "Gebruikers aanmaken"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2376
+msgid "delete_others_pages"
+msgstr "Pagina's van anderen verwijderen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2377
+msgid "delete_others_posts"
+msgstr "Berichten van anderen verwijderen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2378
+msgid "delete_pages"
+msgstr "Verwijder pagina's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2379
+msgid "delete_plugins"
+msgstr "Verwijder plugins"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2380
+msgid "delete_posts"
+msgstr "Verwijder berichten"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2381
+msgid "delete_private_pages"
+msgstr "Verwijder privé-pagina's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2382
+msgid "delete_private_posts"
+msgstr "Verwijder privé-berichten"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2383
+msgid "delete_published_pages"
+msgstr "Verwijder gepubliceerde pagina's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2384
+msgid "delete_published_posts"
+msgstr "Verwijder gepubliceerde berichten"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2385
+msgid "delete_users"
+msgstr "Verwijder gebruikers"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2386
+msgid "edit_dashboard"
+msgstr "Bewerk dashboard"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2387
+msgid "No longer used."
+msgstr "Niet langer in gebruik."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2388
+msgid "edit_others_pages"
+msgstr "Bewerk pagina's van anderen."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2389
+msgid "edit_others_posts"
+msgstr "Bewerk berichten van anderen."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2390
+msgid "edit_pages"
+msgstr "Bewerk pagina's."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2391
+msgid "edit_plugins"
+msgstr "Bewerk plugins."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2392
+msgid "edit_posts"
+msgstr "Bewerk berichten."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2393
+msgid "edit_private_pages"
+msgstr "Bewerk privè-pagina's."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2394
+msgid "edit_private_posts"
+msgstr "Bewerk privé berichten"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2395
+msgid "edit_published_pages"
+msgstr "Bewerk gepubliceerde pagina's."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2396
+msgid "edit_published_posts"
+msgstr "Bewerk gepubliceerde berichten."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2397
+msgid ""
+"Allows access to Administration Panel options: Appearance > Widgets, "
+"Appearance > Menus, Appearance > Theme Options if they are supported by the "
+"current theme, Appearance > Background, Appearance > Header "
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: uiterlijk > Widgets, "
+"uiterlijk > menu's, uiterlijk > Theme Options als ze worden ondersteund door "
+"het huidige thema, het uiterlijk > achtergrond, verschijning > Header"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2398
+msgid "edit_themes"
+msgstr "Bewerk thema's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2399
+msgid "Allows access to Administration Panel options: Users"
+msgstr "Biedt toegang tot het Administratiepaneel opties: gebruikers"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2400
+msgid "import"
+msgstr "Importeren"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2401
+msgid "Allows access to Administration Panel options: Plugins > Add New "
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: Plugins > nieuwe toevoegen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2402
+msgid ""
+"Allows access to Administration Panel options: Appearance > Add New Themes"
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: uiterlijk > toevoegen "
+"nieuwe thema's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2403
+msgid "list_users"
+msgstr "Lijst gebruikers"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2404
+msgid ""
+"Allows access to Administration Panel options: Posts > Categories, Links > "
+"Categories"
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: berichten > categorieën, "
+"Links > Categorieën"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2405
+msgid "Allows access to Administration Panel options: Links Links > Add New"
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: Links Links > nieuwe "
+"toevoegen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2406
+msgid ""
+"Allows access to Administration Panel options: Settings > General, Settings "
+"> Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, "
+"Settings > Miscellaneous"
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: instellingen > "
+"instellingen, General > schrijven, instellingen > lezen, instellingen > "
+"discussie, instellingen > Permalinks, instellingen > Diversen"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2407
+msgid ""
+"Allows users to moderate comments from the Comments SubPanel (although a "
+"user needs the edit_posts Capability in order to access this)"
+msgstr ""
+"Staat gebruikers toe opmerkingen van het Opmerkingen SubPanel (hoewel een "
+"gebruiker de edit_posts bevoegdheid moet hebben om hier toegang tot te "
+"krijgen) te bewerken"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2408
+msgid "promote_users"
+msgstr "Promoot gebruikers"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2409
+msgid "publish_pages"
+msgstr "publiceer pagina's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2410
+msgid ""
+"See and use the \"publish\" button when editing their post (otherwise they "
+"can only save drafts). Can use XML-RPC to publish (otherwise they get a "
+"\"Sorry, you can not post on this weblog or category.\")"
+msgstr ""
+"Zie en gebruik de \"publish\" knop bij het bewerken van hun post (anders ze "
+"kunnen alleen concepten opslaan).Kunnen XML-RPC gebruiken om te publiceren "
+"(anders krijgen ze een \"Sorry, kunt u niet op dit weblog of deze categorie "
+"posten. \")"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2411
+msgid ""
+"Allows access to Administration Panel options: Dashboard, Users > Your "
+"Profile. Used nowhere in the core code except the menu.php"
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: Dashboard, gebruikers > uw "
+"profiel. Nergens de broncode gebruikt met uitzondering van de menu.php."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2412
+msgid "read_private_pages"
+msgstr "Lees privé-pagina's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2413
+msgid "read_private_posts"
+msgstr "Lees privé-berichten"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2414
+msgid "remove_users"
+msgstr "Verwijder gebruikers"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2415
+msgid ""
+"Allows access to Administration Panel options: Appearance, Appearance > "
+"Themes "
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: uiterlijk, uiterlijk > "
+"thema's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2416
+msgid ""
+"Allows user to post HTML markup or even JavaScript code in pages, posts, and "
+"comments. Note: Enabling this option for untrusted users may result in their "
+"posting malicious or poorly formatted code. "
+msgstr ""
+"Hiermee kan de gebruiker HTML-opmaak of zelfs JavaScript-code in pagina's, "
+"berichten en opmerkingen gebruiken. Opmerking: het toestaan van deze optie "
+"voor niet-vertrouwde gebruikers kan resulteren in schadelijke of slecht "
+"geformatteerde code."
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2417
+msgid "unfiltered_upload"
+msgstr "Ongefilterde upload"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2418
+msgid "update_core"
+msgstr "Update bron"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2419
+msgid "update_plugins"
+msgstr "Update plugins"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2420
+msgid "update_themes"
+msgstr "Update thema's"
+
+# @ wpdk
+#: ../classes/users/wpdk-user.php:2421
+msgid "Allows access to Administration Panel options: Media, Media > Add New "
+msgstr ""
+"Biedt toegang tot het Administratiepaneel opties: Media, Media > nieuwe "
+"toevoegen"

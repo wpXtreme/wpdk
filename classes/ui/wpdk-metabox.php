@@ -21,13 +21,18 @@ class WPDKMetaBoxView extends WPDKView {
    * @param string|object $screen        Optional. The screen on which to show the box (post, page, link). Defaults to current screen.
    * @param string        $context       Optional. The context within the page where the boxes should show ('normal', 'advanced').
    * @param string        $priority      Optional. The priority within the context where the boxes should show ('high', 'low').   *
-   * @param callable      $callback_args Optional. Callable args.
+   * @param mixed         $callback_args Optional. Callable args.
    *
    * @return WPDKMetaBoxView
    */
-  public function __construct( $id, $title, $screen = null, $context = WPDKMetaBoxContext::ADVANCED, $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null ) {
+  public function __construct( $id, $title, $screen = null, $context = WPDKMetaBoxContext::ADVANCED,
+                               $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null )
+  {
     parent::__construct( $id );
-    add_meta_box( $id, $title, array( $this, 'display' ), $screen, $context, $priority, $callback_args );
+    add_meta_box( $id, $title, array(
+      $this,
+      'display'
+    ), $screen, $context, $priority, $callback_args );
   }
 
 }

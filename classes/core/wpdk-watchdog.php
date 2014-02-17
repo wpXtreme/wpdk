@@ -171,12 +171,15 @@ class WPDKWatchDog {
     if ( $this->enabled && $this->available ) {
 
       /* If not a pre-formatted string, grab the var dump object, array or mixed for output */
-      if ( !is_string( $txt ) || !is_numeric( $txt ) ) {
+      if ( !is_string( $txt ) && !is_numeric( $txt ) ) {
         ob_start();
         var_dump( $txt );
         $content = ob_get_contents();
         ob_end_clean();
         $txt = $content;
+
+        /* @since 1.4.3 */
+        do_action( 'wpdk_watchdog_log', $content );
       }
 
       $date   = sprintf( '[%s]', date( 'Y-m-d H:i:s' ) );

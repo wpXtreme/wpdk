@@ -1,0 +1,174 @@
+/**
+ * WPDK Popover
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ *
+ * - Rename class `.popover` in `.wpdk-popover`
+ * - Rename class `.arrow` in `.popover-arrow`
+ *
+ */
+
+/*!
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+.wpdk-popover
+{
+  position           : absolute;
+  top                : 0;
+  left               : 0;
+  z-index            : 1010;
+  display            : none;
+  max-width          : 276px;
+  padding            : 1px;
+  text-align         : left;
+  white-space        : normal;
+  background-color   : #fff;
+  background-clip    : padding-box;
+  border             : 1px solid #ccc;
+  border             : 1px solid rgba(0, 0, 0, .2);
+  border-radius      : 6px;
+  -webkit-box-shadow : 0 5px 10px rgba(0, 0, 0, .2);
+  box-shadow         : 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.wpdk-popover.top
+{
+  margin-top : -10px;
+}
+
+.wpdk-popover.right
+{
+  margin-left : 10px;
+}
+
+.wpdk-popover.bottom
+{
+  margin-top : 10px;
+}
+
+.wpdk-popover.left
+{
+  margin-left : -10px;
+}
+
+.wpdk-popover .popover-title
+{
+  padding          : 8px 14px;
+  margin           : 0;
+  font-size        : 14px;
+  font-weight      : normal;
+  line-height      : 18px;
+  background-color : #f7f7f7;
+  border-bottom    : 1px solid #ebebeb;
+  border-radius    : 5px 5px 0 0;
+}
+
+.wpdk-popover .popover-content
+{
+  padding : 9px 14px;
+}
+
+.wpdk-popover > .popover-arrow,
+.wpdk-popover > .popover-arrow:after
+{
+  position     : absolute;
+  display      : block;
+  width        : 0;
+  height       : 0;
+  border-color : transparent;
+  border-style : solid;
+}
+
+.wpdk-popover > .popover-arrow
+{
+  border-width : 11px;
+}
+
+.wpdk-popover > .popover-arrow:after
+{
+  content      : "";
+  border-width : 10px;
+}
+
+.wpdk-popover.top > .popover-arrow
+{
+  bottom              : -11px;
+  left                : 50%;
+  margin-left         : -11px;
+  border-top-color    : #999;
+  border-top-color    : rgba(0, 0, 0, .25);
+  border-bottom-width : 0;
+}
+
+.wpdk-popover.top > .popover-arrow:after
+{
+  bottom              : 1px;
+  margin-left         : -10px;
+  content             : " ";
+  border-top-color    : #fff;
+  border-bottom-width : 0;
+}
+
+.wpdk-popover.right > .popover-arrow
+{
+  top                : 50%;
+  left               : -11px;
+  margin-top         : -11px;
+  border-right-color : #999;
+  border-right-color : rgba(0, 0, 0, .25);
+  border-left-width  : 0;
+}
+
+.wpdk-popover.right > .popover-arrow:after
+{
+  bottom             : -10px;
+  left               : 1px;
+  content            : " ";
+  border-right-color : #fff;
+  border-left-width  : 0;
+}
+
+.wpdk-popover.bottom > .popover-arrow
+{
+  top                 : -11px;
+  left                : 50%;
+  margin-left         : -11px;
+  border-top-width    : 0;
+  border-bottom-color : #999;
+  border-bottom-color : rgba(0, 0, 0, .25);
+}
+
+.wpdk-popover.bottom > .popover-arrow:after
+{
+  top                 : 1px;
+  margin-left         : -10px;
+  content             : " ";
+  border-top-width    : 0;
+  border-bottom-color : #fff;
+}
+
+.wpdk-popover.left > .popover-arrow
+{
+  top                : 50%;
+  right              : -11px;
+  margin-top         : -11px;
+  border-right-width : 0;
+  border-left-color  : #999;
+  border-left-color  : rgba(0, 0, 0, .25);
+}
+
+.wpdk-popover.left > .popover-arrow:after
+{
+  right              : 1px;
+  bottom             : -10px;
+  content            : " ";
+  border-right-width : 0;
+  border-left-color  : #fff;
+}

@@ -5,8 +5,8 @@
  * @class              WPDKMath
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            1.0.2
+ * @date               2014-01-08
+ * @version            1.0.3
  */
 
 class WPDKMath extends WPDKObject {
@@ -23,9 +23,9 @@ class WPDKMath extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public static $version = '1.0.2';
+  public $__version = '1.0.3';
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC

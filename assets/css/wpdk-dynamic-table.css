@@ -1,0 +1,160 @@
+/**
+ * WPDK Dynamic Table css styles
+ *
+ * @author 			  =undo= <info@wpxtre.me>
+ * @copyright 		Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date          2014-01-22
+ * @version       1.0.0
+ */
+
+.wpdk-dt-add-row,
+.wpdk-dt-delete-row
+{
+  cursor                : pointer;
+  display               : block;
+  padding               : 0;
+  margin                : 0 auto;
+  background-color      : transparent;
+  font-size             : 15px;
+  color                 : #e43502;
+  border                : none !important;
+  -moz-border-radius    : 0;
+  -webkit-border-radius : 0;
+  border-radius         : 0;
+  -moz-box-shadow       : none !important;
+  -webkit-box-shadow    : none !important;
+  box-shadow            : none !important;
+}
+
+.wpdk-dt-add-row
+{
+  color : #54a75f;
+}
+
+table.wpdk-dynamic-table
+{
+  width : 100%;
+}
+
+table.wpdk-dynamic-table thead th:first-child
+{
+  -moz-border-radius    : 3px 0 0 0;
+  -webkit-border-radius : 3px 0 0 0;
+  border-radius         : 3px 0 0 0;
+  border-left           : none;
+}
+
+table.wpdk-dynamic-table thead th:last-child
+{
+  -moz-border-radius    : 0 3px 0 0;
+  -webkit-border-radius : 0 3px 0 0;
+  border-radius         : 0 3px 0 0;
+  border-right          : none;
+}
+
+table.wpdk-dynamic-table thead th
+{
+  background   : #99a;
+  border-right : 1px solid #889;
+  color        : #fff;
+  font-size    : 14px;
+  padding      : 12px 4px;
+}
+
+table.wpdk-dynamic-table tbody td
+{
+  border-right  : 1px solid #e5e5e5;
+  border-bottom : 1px solid #ccc;
+  padding       : 8px 4px;
+  text-align    : center;
+}
+
+table.wpdk-dynamic-table tbody tr:first-child
+{
+  display : none;
+}
+
+table.wpdk-dynamic-table tbody td:last-child
+{
+  width : 32px;
+}
+
+table.wpdk-dynamic-table tbody tr td
+{
+  -webkit-transition : background linear 0.3s;
+  -moz-transition    : background linear 0.3s;
+  -ms-transition     : background linear 0.3s;
+  -o-transition      : background linear 0.3s;
+  transition         : background linear 0.3s;
+}
+
+table.wpdk-dynamic-table .wpdk-dt-clone.delete
+{
+  display : none;
+}
+
+table.wpdk-dynamic-table .wpdk-dt-highlight .delete td
+{
+  background-color : rgba(255, 0, 0, 0.2);
+}
+
+table.wpdk-dynamic-table tbody td:first-child
+{
+  border-left  : 1px solid #e5e5e5;
+  border-right : none;
+}
+
+table.wpdk-dynamic-table tbody td:last-child
+{
+  background            : none;
+  border-right          : none;
+  border-left           : none;
+  border-bottom         : none;
+  -moz-border-radius    : 0 3px 3px 0;
+  -webkit-border-radius : 0 3px 3px 0;
+  border-radius         : 0 3px 3px 0;
+}
+
+table.wpdk-dynamic-table tfoot td
+{
+  border-right  : 1px solid #ccc;
+  border-left   : 1px solid #fff;
+  border-bottom : 1px solid #ccc;
+  padding       : 4px;
+  background    : #eee;
+}
+
+table.wpdk-dynamic-table tfoot td:first-child
+{
+  border-left           : 1px solid #ccc;
+  -moz-border-radius    : 0 0 0 4px;
+  -webkit-border-radius : 0 0 0 4px;
+  border-radius         : 0 0 0 4px;
+}
+
+table.wpdk-dynamic-table tfoot td:last-child
+{
+  border-right          : 1px solid #ccc;
+  -moz-border-radius    : 0 0 4px 0;
+  -webkit-border-radius : 0 0 4px 0;
+  border-radius         : 0 0 4px 0;
+}
+
+/* Sortable */
+table.wpdk-dynamic-table-sortable tbody td
+{
+  cursor : move;
+}
+
+table.wpdk-dynamic-table-sortable tbody td:first-child .wpdk-icon-updown-circle
+{
+  color          : #888;
+  cursor         : move;
+  font-size      : 20px;
+  vertical-align : middle;
+}
+
+table.wpdk-dynamic-table-sortable tbody tr:hover td
+{
+  background-color : rgba(0, 0, 0, 0.05);
+}

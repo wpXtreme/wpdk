@@ -110,7 +110,7 @@ function wpdk_is_child( $parent = '' )
 {
   global $post;
 
-  $parent_obj   = get_page( $post->post_parent, ARRAY_A );
+  $parent_obj   = get_post( $post->post_parent, ARRAY_A );
   $parent       = (string)$parent;
   $parent_array = (array)$parent;
 
@@ -315,12 +315,12 @@ SQL;
  *
  * @return Object the delta Object tree
  *
- * @deprecated Since 1.2.0 Use WPDKObject::delta() instead
+ * @deprecated Since 1.2.0 Use WPDKObject::__delta() instead
  */
 function wpdk_delta_object( $last_version, $old_version )
 {
-  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::delta()' );
-  return WPDKObject::delta( $last_version, $old_version );
+  _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKObject::__delta()' );
+  return WPDKObject::__delta( $last_version, $old_version );
 }
 
 /**
@@ -512,14 +512,15 @@ function wpdk_add_page( $page_slug, $page_title, $capability, $function = '', $h
 /**
  * Enqueue script for list of page template
  *
- * @brief Enqueue script
+ * @brief      Enqueue script
+ * @deprecated since 1.4.21 Use WPDKScripts::enqueue_scripts_page_template() instead
  *
- * @param array  $pages          Array of page slug
- * @param string $handle         The script /unique) handle
- * @param bool   $src            Optional. Source URI
- * @param array  $deps           Optional. Array of other handle
- * @param bool   $ver            Optional. Version to avoid cache
- * @param bool   $in_footer      Optional. Load in footer
+ * @param array  $pages     Array of page slug
+ * @param string $handle    The script /unique) handle
+ * @param bool   $src       Optional. Source URI
+ * @param array  $deps      Optional. Array of other handle
+ * @param bool   $ver       Optional. Version to avoid cache
+ * @param bool   $in_footer Optional. Load in footer
  */
 function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false )
 {
@@ -532,9 +533,10 @@ function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(
 }
 
 /**
- * Enqueue script for list of page template
+ * Enqueue script for list of page template. Return FALSE if $page_templates is empty
  *
- * @brief Enqueue script
+ * @brief      Enqueue script
+ * @deprecated since 1.4.21 Use WPDKScripts::enqueue_scripts_page_template() instead
  *
  * @param array  $page_templates Array of page slug template
  * @param string $handle         The script /unique) handle
@@ -542,16 +544,24 @@ function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(
  * @param array  $deps           Optional. Array of other handle
  * @param bool   $ver            Optional. Version to avoid cache
  * @param bool   $in_footer      Optional. Load in footer
+ *
+ * @return bool
  */
-function wpdk_enqueue_script_page_teplate( $page_templates, $handle, $src = false, $deps = array(), $ver = false,
-                                           $in_footer = false )
+function wpdk_enqueue_script_page_template( $page_templates, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false )
 {
+  if ( empty( $page_templates ) ) {
+    return false;
+  }
+  if ( is_string( $page_templates ) ) {
+    $page_templates = array( $page_templates );
+  }
   foreach ( $page_templates as $slug ) {
     if ( is_page_template( $slug ) ) {
       wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
       break;
     }
   }
+  return true;
 }
 
 /**
@@ -586,6 +596,7 @@ function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id 
  *
  * @brief Get
  * @since 1.0.0
+ * @deprecated since 1.4.8 - Use WPDKUser::getTransientWithUser()
  *
  * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
  *        false will "short-circuit" the retrieval of the transient and return the returned value.
@@ -598,24 +609,8 @@ function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id 
  */
 function wpdk_get_user_transient( $transient, $user_id = null )
 {
-  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
-
-  $pre = apply_filters( 'pre_user_transient_' . $transient, false, $user_id );
-  if ( false !== $pre ) {
-    return $pre;
-  }
-
-  $transient_timeout = '_transient_timeout_' . $transient;
-  $transient         = '_transient_' . $transient;
-  if ( get_user_meta( $user_id, $transient_timeout, true ) < time() ) {
-    delete_user_meta( $user_id, $transient );
-    delete_user_meta( $user_id, $transient_timeout );
-    return false;
-  }
-
-  $value = get_user_meta( $user_id, $transient, true );
-
-  return apply_filters( 'user_transient_' . $transient, $value, $user_id );
+  _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', 'WPDKUser::getTransientWithUser()' );
+  return WPDKUser::getTransientWithUser( $transient, $user_id );
 }
 
 /**

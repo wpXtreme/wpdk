@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The WPDKPost class is a WordPress Post as object.
  *
@@ -14,14 +15,13 @@
  *
  * ### Create a virtual post
  *
- * @class              _WPDKPost
+ * @class              WPDKPost
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-15
- * @version            1.0.1
+ * @date               2014-01-08
+ * @version            1.0.2
  *
  */
-
 class WPDKPost extends WPDKObject {
 
   const COLUMN_COMMENT_COUNT         = 'comment_count';
@@ -53,9 +53,9 @@ class WPDKPost extends WPDKObject {
    *
    * @brief Version
    *
-   * @var string $version
+   * @var string $__version
    */
-  public $version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * The post ID
@@ -441,14 +441,14 @@ class WPDKPost extends WPDKObject {
   /**
    * Update this post on database. Also this method check if you are in admin backend area for this custom post.
    * In this case the post update if turn off and save the post meta only.
+   * Return value 0 or WP_Error on failure. The post ID on success.
    *
    * @brief Update
    *
    * @since 0.9
    * @uses  wp_update_post()
-   * @uses  self::updatePostMeta()
    *
-   * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
+   * @return int|WP_Error
    */
   public function update()
   {
@@ -457,6 +457,35 @@ class WPDKPost extends WPDKObject {
 
     if ( 'post.php' != $pagenow ) {
       return wp_update_post( $this, true );
+    }
+  }
+
+  /**
+   * Update meta
+   *
+   * @brief Update meta
+   * @since 1.4.20
+   */
+  public function updateMeta( $args = array() )
+  {
+    self::updateMetaWithID( $this->ID, $args );
+  }
+
+  /**
+   * Update the post meta with post id
+   *
+   * @brief Brief
+   * @since 1.4.20
+   *
+   * @param int   $post_id Post ID
+   * @param array $args    Key value pairs array with meta_key => meta_value
+   */
+  public static function updateMetaWithID( $post_id, $args = array() )
+  {
+    if ( !empty( $post_id ) && !empty( $args ) ) {
+      foreach ( $args as $meta_key => $meta_value ) {
+        update_post_meta( $post_id, $meta_key, $meta_value );
+      }
     }
   }
 
@@ -529,7 +558,8 @@ class WPDKPost extends WPDKObject {
    * @brief Get thumbnail image
    * @since 1.3.1
    *
-   * @param string $size Optional. Default 'full'
+   * @param int    $post_id Post id
+   * @param string $size    Optional. Default 'full'
    *
    * @return bool|WPDKHTMLTagImg
    */
@@ -742,6 +772,11 @@ class WPDKPostStatus {
   }
 }
 
+/// @cond private
+/* Backward copatibility */
+class _WPDKPost extends WPDKPost {}
+/// @endcond
+
 /**
  * WordPress standard Post Type at 3.4 release
  *
@@ -804,9 +839,9 @@ class WPDKPosts {
 class WPDKPostMeta {
 
   /**
-   * Pointer to _WPDKPost object
+   * Pointer to WPDKPost object
    *
-   * @brief An instance of _WPDKPost class
+   * @brief An instance of WPDKPost class
    *
    * @var WPDKPost $_post
    */

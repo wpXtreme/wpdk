@@ -3,7 +3,7 @@
  * Useful class to manage mail as post
  *
  * ## Overview
- * Extends _WPDKPost with useful method and property to mail
+ * Extends WPDKPost with useful method and property to mail
  *
  * @class           WPDKMail
  * @author          =undo= <info@wpxtre.me>
@@ -13,6 +13,35 @@
  *
  */
 class WPDKMail extends WPDKPost {
+
+  /**
+   * Header for carbon copy
+   *
+   * @brief Carbon copy
+   * @since 1.4.9
+   *
+   * @var string $cc
+   */
+  public $cc = '';
+
+  /**
+   * Header for carbon copy
+   *
+   * @brief Carbon copy
+   * @since 1.4.9
+   *
+   * @var string $bcc
+   */
+  public $bcc = '';
+
+  /**
+   * From for header
+   *
+   * @brief From
+   *
+   * @var string $from
+   */
+  private $from = '';
 
   /**
    * Create an instance of WPDKMail class
@@ -25,7 +54,8 @@ class WPDKMail extends WPDKPost {
    *
    * @return WPDKMail
    */
-  public function __construct( $mail = null, $post_type = 'page' ) {
+  public function __construct( $mail = null, $post_type = 'page' )
+  {
     parent::__construct( $mail, $post_type );
   }
 
@@ -49,27 +79,31 @@ class WPDKMail extends WPDKPost {
    */
   public function send( $to, $subject = false, $from = '', $placeholders = array() ) {
 
-    if ( is_numeric( $from ) ) {
+    /* Use shared private property */
+    $this->from = $from;
+
+    if ( is_numeric( $this->from ) ) {
       $user = new WP_User( $from );
-      $from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
+      $this->from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
-    /* $from è nel formato 'NOME <email>', ad esempio: 'wpXtreme <info@wpxtre.me>' */
-    if ( empty( $from ) ) {
-      /* Get the defaul WordPress email. */
-      $from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
+    /* $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>' */
+    if ( empty( $this->from ) ) {
+      /* Get the default WordPress email. */
+      $this->from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
 
-    $headers = array(
-      'From: ' . $from . "\r\n",
-      'Content-Type: text/html' . "\r\n"
-    );
-
-    /* Se $to è un numero corriponde ad un id_user */
+    /* User id for $to? */
     $user = false;
     if ( is_numeric( $to ) ) {
-      $user = new WP_User( $to );
-      $to   = sprintf( '  %s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
+      $user  = new WP_User( $to );
+      $email = sanitize_email( $user->get( 'user_email' ) );
+
+      /* If user has not email exit */
+      if ( empty( $email ) ) {
+        return;
+      }
+      $to = sprintf( '  %s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
     if ( $subject === false ) {
@@ -80,7 +114,42 @@ class WPDKMail extends WPDKPost {
     $body = $this->post_content;
     $body = $this->replacePlaceholder( $body, $user, $placeholders );
 
-    return wp_mail( $to, $subject, $body, $headers );
+    return wp_mail( $to, $subject, $body, $this->headers() );
+  }
+
+  /**
+   * Return the computated header for mail
+   *
+   * @brief Headers
+   *
+   * @return string
+   */
+  private function headers()
+  {
+    /* Build the header */
+    $headers = array(
+      'From: ' . $this->from,
+      'Content-Type: text/html'
+    );
+
+    /* Added cc and bcc */
+    if ( !empty( $this->cc ) ) {
+      $this->cc = explode( ',', $this->cc );
+      foreach ( $this->cc as $email ) {
+        $headers[] = sprintf( 'Cc: %s', $email );
+      }
+    }
+
+    if ( !empty( $this->bcc ) ) {
+      $this->bcc = explode( ',', $this->bcc );
+      foreach ( $this->bcc as $email ) {
+        $headers[] = sprintf( 'Bcc: %s', $email );
+      }
+    }
+
+    $headers = apply_filters( 'wpdk_mail_headers', $headers );
+
+    return implode( "\r\n", $headers );
   }
 
   /**
