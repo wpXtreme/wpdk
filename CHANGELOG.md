@@ -21,8 +21,16 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
-## Version 1.4.21
+## Version 1.4.22
 ### 2014-02-??
+
+#### Improvements
+
+* Cosmetic docs
+
+
+## Version 1.4.21
+### 2014-02-17
 
 #### Enhancements
 
@@ -32,7 +40,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
-* Rewritten Javascript and css
+* Updated Glyph Icons
+* Rewritten Javascript and CSS
 * Added autoload components for several view controler
 * Added static method `WPDKListTableViewController::action()` to return the current action
 

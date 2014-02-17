@@ -60,6 +60,7 @@ class WPDKTwitterBootstrapAlertType {
  * @date               2014-02-10
  * @version            1.7.0
  * @note               Updated HTML markup and CSS to Bootstrap v3.0.0
+ * @deprecated         since 1.4.21 - use WPDKUIAlert
  *
  */
 class WPDKTwitterBootstrapAlert extends WPDKUIAlert {
