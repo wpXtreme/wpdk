@@ -21,6 +21,14 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.22
+### 2014-02-??
+
+#### Improvements
+
+* Cosmetic docs
+
+
 ## Version 1.4.21
 ### 2014-02-17
 
