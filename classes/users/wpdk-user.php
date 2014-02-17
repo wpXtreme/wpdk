@@ -176,8 +176,8 @@ class WPDKUserStatus {
  * @class              WPDKUser
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-09-17
- * @version            1.0.0
+ * @date               2014-02-11
+ * @version            1.0.1
  *
  */
 class WPDKUser extends WP_User {
@@ -255,6 +255,24 @@ class WPDKUser extends WP_User {
   public $statusDescription;
 
   /**
+   * Return an instance of WPDKUser class for the current user logged in or null if no user found/logged in
+   *
+   * @brief Return the current user
+   *
+   * @since 1.4.21
+   *
+   * @return WPDKUser
+   */
+  public static function current_user()
+  {
+    // Check for user logged in
+    if( !is_user_logged_in() ) {
+      return null;
+    }
+    return new self;
+  }
+
+  /**
    * Create an instance of WPDKUser class
    *
    * @brief Constructor
@@ -271,10 +289,11 @@ class WPDKUser extends WP_User {
 
     $id_user = 0;
 
-    /* Sanitize $id. */
+    // Sanitize $id
     if ( is_numeric( $user ) ) {
       $id_user = $user;
-      /* If zero get the current id user. */
+
+      // If zero get the current id user
       if ( empty( $id_user ) ) {
         $id_user = get_current_user_id();
       }
@@ -285,7 +304,8 @@ class WPDKUser extends WP_User {
     elseif ( is_array( $user ) && isset( $user['ID'] ) ) {
       $id_user = absint( $user['ID'] );
     }
-    /* Get by email. */
+
+    // Get by email
     elseif ( is_string( $user ) && is_email( $user ) ) {
       $user    = get_user_by( 'email', $user );
       $id_user = $user->ID;
@@ -293,7 +313,7 @@ class WPDKUser extends WP_User {
 
     parent::__construct( $id_user, $name, $blog_id );
 
-    /* Set the extended property when an user is set. */
+    // Set the extended property when an user is set
     if ( !empty( $id_user ) ) {
       $this->first_name        = $this->get( 'first_name' );
       $this->last_name         = $this->get( 'last_name' );
@@ -303,7 +323,8 @@ class WPDKUser extends WP_User {
       $this->email             = sanitize_email( $this->data->user_email );
       $this->status            = $this->get( WPDKUserMeta::STATUS );
       $this->statusDescription = $this->get( WPDKUserMeta::STATUS_DESCRIPTION );
-      /* Sanitize string->int */
+
+      // Sanitize string->int
       $this->data->ID = absint( $id_user );
     }
   }
@@ -365,9 +386,9 @@ class WPDKUser extends WP_User {
     return WPDKUsers::init()->create( $first_name, $last_name, $email, $password, $enabled, $role );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // User transient
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Get the value of a user transient.
@@ -536,9 +557,9 @@ class WPDKUser extends WP_User {
   }
 
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // User info
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * This method is an alias of WPDKUsers::gravatar(). Return the HTML markup for tag img. False otherwise.
@@ -605,9 +626,9 @@ class WPDKUser extends WP_User {
     return intval( $year_diff );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Roles
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return TRUE if the current user has one o more roles.
@@ -1206,9 +1227,9 @@ class WPDKUsers {
 
     echo '<br clear="all" /><a name="wpdk"></a>';
 
-    $message              = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, have a look below for additional information.', WPDK_TEXTDOMAIN );
-    $alert                = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
-    $alert->dismissButton = false;
+    $message                  = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, have a look below for additional information.', WPDK_TEXTDOMAIN );
+    $alert                    = new WPDKTwitterBootstrapAlert( 'wpdk-alert-show_user_profile', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert->permanent_dismiss = true;
     $alert->display();
 
     /* Only the administrator can edit this extra information */
@@ -1328,7 +1349,8 @@ class WPDKUsers {
   public function personal_options( $user )
   {
     $message = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert   = new WPDKTwitterBootstrapAlert( 'wpdk-alert-personal_options', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert->permanent_dismiss = true;
     $alert->display();
   }
 

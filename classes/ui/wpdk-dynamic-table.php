@@ -98,8 +98,6 @@ class WPDKDynamicTable {
     // Backward compatibility
     wp_enqueue_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION );
     wp_enqueue_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
-
-
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -209,7 +207,7 @@ HTML;
     $title = __( 'Add a new empty row', WPDK_TEXTDOMAIN );
 
     $html = <<< HTML
-    <input data-placement="left" title="{$title}" title-backup="{$title}" type="button" value="{$label}" class="wpdk-tooltip wpdk-dt-add-row">
+    <input data-placement="left" title="{$title}" title-backup="{$title}" type="button" value="{$label}" class="wpdk-has-tooltip wpdk-dt-add-row">
 HTML;
     return $html;
   }
@@ -226,7 +224,7 @@ HTML;
     $title = __( 'Delete entire row', WPDK_TEXTDOMAIN );
 
     $html = <<< HTML
-    <input data-placement="left" title="{$title}" content="{$title}" type="button" value="{$label}" class="wpdk-tooltip wpdk-dt-delete-row">
+    <input data-placement="left" title="{$title}" content="{$title}" type="button" value="{$label}" class="wpdk-has-tooltip wpdk-dt-delete-row">
 HTML;
     return $html;
   }
@@ -413,8 +411,8 @@ class WPDKDynamicTableView extends WPDKView {
     // Added dynamic
     $this->columns[self::COLUMN_ROW_MANAGE] = '';
 
-    wp_enqueue_script( 'wpdk-dynamic-table', WPDK_URI_JAVASCRIPT . 'wpdk-dynamic-table.js', array(), WPDK_VERSION );
-    wp_enqueue_style( 'wpdk-dynamic-table', WPDK_URI_CSS . 'wpdk-dynamic-table.css', array(), WPDK_VERSION );
+    wp_enqueue_script( WPDKUIComponents::DYNAMIC_TABLE );
+    wp_enqueue_style( WPDKUIComponents::DYNAMIC_TABLE );
 
   }
 
@@ -615,7 +613,7 @@ class WPDKDynamicTableView extends WPDKView {
   {
     WPDKHTML::startCompress(); ?>
       <button
-             class="wpdk-tooltip wpdk-dt-add-row"
+             class="wpdk-has-tooltip wpdk-dt-add-row"
              title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
              title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
              data-placement="left"
@@ -627,7 +625,7 @@ class WPDKDynamicTableView extends WPDKView {
 
     WPDKHTML::startCompress(); ?>
     <input type="button"
-           class="wpdk-tooltip wpdk-dt-add-row"
+           class="wpdk-has-tooltip wpdk-dt-add-row"
            title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
            title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
            data-placement="left"
@@ -648,7 +646,7 @@ class WPDKDynamicTableView extends WPDKView {
   {
     WPDKHTML::startCompress(); ?>
       <button
-             class="wpdk-tooltip wpdk-dt-delete-row"
+             class="wpdk-has-tooltip wpdk-dt-delete-row"
              title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
              title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
              data-placement="left"
@@ -660,7 +658,7 @@ class WPDKDynamicTableView extends WPDKView {
 
     WPDKHTML::startCompress(); ?>
     <input type="button"
-           class="wpdk-tooltip wpdk-dt-delete-row"
+           class="wpdk-has-tooltip wpdk-dt-delete-row"
            title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
            title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
            data-placement="left"

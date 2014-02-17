@@ -567,8 +567,8 @@ class WPDKTheme extends WPDKObject {
    */
   public function _wp_head()
   {
-    if ( !empty( $this->setup->theme_css ) ) {
-      wp_enqueue_style( 'wpdk-theme', WPDK_URI_CSS . 'wpdk-theme.css', array(), WPDK_VERSION );
+    if ( !empty( $this->setup->normalize_css ) ) {
+      wp_enqueue_style( 'normalize', WPDK_URI_CSS . 'normalize.css', array(), WPDK_VERSION );
     }
 
     if ( !empty( $this->setup->theme_js ) ) {
@@ -709,8 +709,8 @@ class WPDKTheme extends WPDKObject {
  * @class           WPDKThemeSetup
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-14
- * @version         1.0.1
+ * @date            2014-02-11
+ * @version         1.0.2
  *
  */
 class WPDKThemeSetup {
@@ -905,10 +905,20 @@ class WPDKThemeSetup {
    * Include standard WPDK Theme (reset) styles
    *
    * @brief Theme CSS
+   * @deprecated since 1.4.21 - use normalize
    *
    * @var bool $theme_css
    */
-  public $theme_css = true;  
+  public $theme_css = true;
+
+  /**
+   * If TRUE normalize.css will be load ( http://necolas.github.io/normalize.css/ )
+   *
+   * @brief Normalize
+   *
+   * @var bool $normalize_css
+   */
+  public $normalize_css = true;
 
   /**
    * Create an instance of WPDKThemeSetup class

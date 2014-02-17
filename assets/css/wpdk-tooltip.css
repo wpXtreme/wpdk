@@ -1,0 +1,156 @@
+/**
+ * WPDK Tooltip
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ */
+
+/*!
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+.wpdk-tooltip.fade
+{
+  opacity            : 0;
+  filter             : alpha(opacity=0);
+  -webkit-transition : opacity 0.15s linear;
+  -moz-transition    : opacity 0.15s linear;
+  -ms-transition     : opacity 0.15s linear;
+  -o-transition      : opacity 0.15s linear;
+  transition         : opacity 0.15s linear;
+}
+
+.wpdk-tooltip
+{
+  position    : absolute;
+  z-index     : 1030;
+  display     : block;
+  font-size   : 12px;
+  line-height : 1.4;
+  visibility  : visible;
+  filter      : alpha(opacity=0);
+  opacity     : 0;
+}
+
+.wpdk-tooltip.in
+{
+  filter  : alpha(opacity=90);
+  opacity : .9;
+}
+
+.wpdk-tooltip.top
+{
+  padding    : 5px 0;
+  margin-top : -3px;
+}
+
+.wpdk-tooltip.right
+{
+  padding     : 0 5px;
+  margin-left : 3px;
+}
+
+.wpdk-tooltip.bottom
+{
+  padding    : 5px 0;
+  margin-top : 3px;
+}
+
+.wpdk-tooltip.left
+{
+  padding     : 0 5px;
+  margin-left : -3px;
+}
+
+.wpdk-tooltip .tooltip-inner
+{
+  max-width        : 200px;
+  padding          : 12px 8px;
+  color            : #fff;
+  text-align       : center;
+  text-decoration  : none;
+  background-color : #000;
+  border-radius    : 4px;
+}
+
+.wpdk-tooltip .tooltip-arrow
+{
+  position     : absolute;
+  width        : 0;
+  height       : 0;
+  border-color : transparent;
+  border-style : solid;
+}
+
+.wpdk-tooltip.top .tooltip-arrow
+{
+  bottom           : 0;
+  left             : 50%;
+  margin-left      : -5px;
+  border-width     : 5px 5px 0;
+  border-top-color : #000;
+}
+
+.wpdk-tooltip.top-left .tooltip-arrow
+{
+  bottom           : 0;
+  left             : 5px;
+  border-width     : 5px 5px 0;
+  border-top-color : #000;
+}
+
+.wpdk-tooltip.top-right .tooltip-arrow
+{
+  right            : 5px;
+  bottom           : 0;
+  border-width     : 5px 5px 0;
+  border-top-color : #000;
+}
+
+.wpdk-tooltip.right .tooltip-arrow
+{
+  top                : 50%;
+  left               : 0;
+  margin-top         : -5px;
+  border-width       : 5px 5px 5px 0;
+  border-right-color : #000;
+}
+
+.wpdk-tooltip.left .tooltip-arrow
+{
+  top               : 50%;
+  right             : 0;
+  margin-top        : -5px;
+  border-width      : 5px 0 5px 5px;
+  border-left-color : #000;
+}
+
+.wpdk-tooltip.bottom .tooltip-arrow
+{
+  top                 : 0;
+  left                : 50%;
+  margin-left         : -5px;
+  border-width        : 0 5px 5px;
+  border-bottom-color : #000;
+}
+
+.wpdk-tooltip.bottom-left .tooltip-arrow
+{
+  top                 : 0;
+  left                : 5px;
+  border-width        : 0 5px 5px;
+  border-bottom-color : #000;
+}
+
+.wpdk-tooltip.bottom-right .tooltip-arrow
+{
+  top                 : 0;
+  right               : 5px;
+  border-width        : 0 5px 5px;
+  border-bottom-color : #000;
+}

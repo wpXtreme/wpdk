@@ -64,3 +64,9 @@ require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk/wpdk.php' );
 Have a :bug: bug? Please create an issue here on GitHub that conforms with [our guidelines](https://github.com/wpdk/wpdk/blob/master/ISSUE-GUIDELINES.md).
 
 https://github.com/wpdk/wpdk/issues
+
+### Coding Guidelines
+
+* [Javascript](https://github.com/airbnb/javascript)
+
+

@@ -43,6 +43,19 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
   }
 
   /**
+   * This method is called when the head of this view controller is loaded by WordPress.
+   * It is used by WPDKMenu for example, as 'admin_head-' action.
+   *
+   * @brief Head
+   * @since 1.4.18
+   */
+  public function _admin_head()
+  {
+    wp_enqueue_script( WPDKUIComponents::PREFERENCES );
+  }
+
+
+  /**
    * Hook used to display a form toolbar preferences
    *
    * @brief Tolbar

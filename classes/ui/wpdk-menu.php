@@ -715,7 +715,7 @@ class WPDKSubMenu {
         $load = create_function( '', sprintf( '%s::init()->load();', $this->viewController ) );
         add_action( 'load-' . $this->hookName, $load );
 
-        $admin_head = create_function( '', sprintf( '%s::init()->admin_head();', $this->viewController ) );
+        $admin_head = create_function( '', sprintf( '$v=%s::init();$v->admin_head();$v->_admin_head();', $this->viewController ) );
         add_action( 'admin_head-' . $this->hookName, $admin_head );
       }
       //

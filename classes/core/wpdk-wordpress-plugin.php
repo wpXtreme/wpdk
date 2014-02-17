@@ -223,41 +223,42 @@ class WPDKWordPressPlugin extends WPDKPlugin {
 
     parent::__construct( $file );
 
-    //-------------------------------------------------------------------------------------
-    // Load SPL autoload logic for this instance
-    // NOTE: any WPX plugin has its own SPL autoload logic
-    //-------------------------------------------------------------------------------------
+    /*
+     * Load SPL autoload logic for this instance
+     * NOTE: any WPX plugin has its own SPL autoload logic
+     *
+     */
 
     $this->_wpxPluginsClassesLoadingPath = array();
     spl_autoload_extensions( '.php' ); // for faster execution
     spl_autoload_register( array( $this, 'autoloadEnvironment' ) );
 
-    /* Path unix. */
+    // Path unix
     $this->path         = trailingslashit( plugin_dir_path( $file ) );
     $this->classesPath  = $this->path . 'classes/';
     $this->databasePath = $this->path . 'database/';
 
-    /* URL */
+    // URL
     $this->url           = trailingslashit( plugin_dir_url( $file ) );
     $this->assetsURL     = $this->url . 'assets/';
     $this->cssURL        = $this->assetsURL . 'css/';
     $this->imagesURL     = $this->cssURL . 'images/';
     $this->javascriptURL = $this->assetsURL . 'js/';
 
-    /* Only folder name. */
+    // Only folder name
     $this->folderName = trailingslashit( basename( dirname( $file ) ) );
 
-    /* WordPress slug plugin, Eg. wpx-smartshop/main.php */
+    // WordPress slug plugin, Eg. wpx-smartshop/main.php
     $this->pluginBasename = plugin_basename( $file );
 
-    /* Built-in slug */
+    // Built-in slug
     $this->slug = sanitize_title( $this->name );
 
-    /* Useful property. */
+    // Useful property
     $this->protocol = self::protocol();
     $this->urlAjax  = self::urlAjax();
 
-    /* Logs */
+    // Logs
     $this->log = new WPDKWatchDog( $this->path );
 
     // Load specific plugin environment ONLY when I'm sure plugin father is loaded
@@ -278,7 +279,9 @@ class WPDKWordPressPlugin extends WPDKPlugin {
      * separate file. To use this method, create an uninstall.php file and place it in the root directory of your
      * plugin. If this file exists WordPress executes its contents when the plugin is deleted from the WordPress
      * Plugins screen page.
+     *
      */
+
     // register_uninstall_hook( $file, array( $this, 'uninstall' ) );
 
     // Widgets init
@@ -316,11 +319,12 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return string The current complete URL
    */
-  public static function currentURL() {
+  public static function currentURL()
+  {
     $protocol = self::protocol();
     $port     = ( '80' != $_SERVER['SERVER_PORT'] ) ? ':' . $_SERVER['SERVER_PORT'] : '';
 
-    /* Get host by HTTP_X_FORWARDED_HOST. This is available from PHP 5.1+ and in a proxy server. */
+    // Get host by HTTP_X_FORWARDED_HOST. This is available from PHP 5.1+ and in a proxy server
     if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
       $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
       if ( !empty( $host ) ) {
@@ -357,16 +361,18 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @param string|array  $sLoadingPath Path of class when $mClassName is a string
    * @param string        $mClassName   Optional. The single class name or key value pairs array with path => classes
+   *
    */
-  public function registerAutoloadClass( $sLoadingPath, $mClassName = '' ) {
+  public function registerAutoloadClass( $sLoadingPath, $mClassName = '' )
+  {
 
-    /* 1. */
+    // 1.
     if ( is_string( $sLoadingPath ) && is_string( $mClassName ) && !empty( $mClassName  ) ) {
       $sClassNameLowerCased                                    = strtolower( $mClassName );
       $this->_wpxPluginClassLoadingPath[$sClassNameLowerCased] = $sLoadingPath;
     }
 
-    /* 2. */
+    // 2.
     elseif ( is_array( $sLoadingPath ) ) {
       foreach ( $sLoadingPath as $path => $classes ) {
         if ( is_string( $classes ) ) {
@@ -374,7 +380,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
           $this->_wpxPluginClassLoadingPath[$class_name] = $path;
         }
 
-        /* 3. */
+        // 3.
         elseif ( is_array( $classes ) ) {
           foreach ( $classes as $class_name ) {
             $class_name                                    = strtolower( $class_name );
@@ -447,6 +453,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     if ( is_admin() ) {
       $this->admin();
     }
+
     // Improve since v1.4.13
     elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
       $this->theme();
@@ -869,7 +876,8 @@ class WPDKPlugins {
    *
    * @return WPDKPlugins
    */
-  private function __construct() {
+  private function __construct()
+  {
     $this->_init();
     $this->_initPluginsLists();
   }
@@ -879,7 +887,8 @@ class WPDKPlugins {
    *
    * @brief Init the properties
    */
-  private function _init() {
+  private function _init()
+  {
     $this->_activePlugins = array();
     $this->plugins        = array();
     $this->wpxPlugins     = array();
@@ -890,25 +899,27 @@ class WPDKPlugins {
    *
    * @brief Build the plugins list
    */
-  private function _initPluginsLists() {
+  private function _initPluginsLists()
+  {
 
     if ( empty( $this->plugins ) ) {
-      /* Get all installed plugins. */
+
+      // Get all installed plugins
       $all_plugins = get_plugins();
 
-      /* Get all active plugins. */
+      // Get all active plugins
       $this->_activePlugins = get_option( 'active_plugins' );
 
       foreach ( $all_plugins as $key => $value ) {
         $file   = sprintf( '%s%s', trailingslashit( WP_PLUGIN_DIR ), $key );
         $plugin = new WPDKPlugin( $file );
 
-        /* Put this WPDKPlugin in wpXtreme list. */
+        // Put this WPDKPlugin in wpXtreme list
         if ( 'https://wpxtre.me' == $value['PluginURI'] ) {
           $this->wpxPlugins[$key] = $plugin;
         }
 
-        /* Put this WPDKPlugin in generic list. */
+        // Put this WPDKPlugin in generic list
         else {
           $this->plugins[$key] = $plugin;
         }
@@ -921,7 +932,8 @@ class WPDKPlugins {
    *
    * @return WPDKPlugins
    */
-  static function getInstance() {
+  static function getInstance()
+  {
     static $instance = null;
     if ( is_null( $instance ) ) {
       $instance = new WPDKPlugins();
@@ -961,7 +973,8 @@ class WPDKWordPressPaths {
    *
    * @return string Home url link with optional path appended.
    */
-  public static function homeURL( $blog_id = null, $path = '', $scheme = null ) {
+  public static function homeURL( $blog_id = null, $path = '', $scheme = null )
+  {
     return trailingslashit( get_home_url( $blog_id, $path, $scheme ) );
   }
 
@@ -976,7 +989,8 @@ class WPDKWordPressPaths {
    *
    * @return string Admin url link with optional path appended.
    */
-  public static function adminURL( $blog_id = null, $path = '', $scheme = 'admin' ) {
+  public static function adminURL( $blog_id = null, $path = '', $scheme = 'admin' )
+  {
     return trailingslashit( get_admin_url( $blog_id, $path, $scheme ) );
   }
 
@@ -989,7 +1003,8 @@ class WPDKWordPressPaths {
    *
    * @return string Includes url link with optional path appended.
    */
-  public static function includesURL( $path = '' ) {
+  public static function includesURL( $path = '' )
+  {
     return trailingslashit( includes_url( $path ) );
   }
 
@@ -1004,7 +1019,8 @@ class WPDKWordPressPaths {
    *
    * @return string Plugins url link with optional path appended.
    */
-  public static function pluginsURL( $path = '', $plugin = '' ) {
+  public static function pluginsURL( $path = '', $plugin = '' )
+  {
     return trailingslashit( plugins_url( $path, $plugin ) );
   }
 

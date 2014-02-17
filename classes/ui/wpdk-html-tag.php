@@ -32,10 +32,11 @@ class WPDKHTMLTag extends WPDKObject {
    *
    */
 
-  /* Global attributes. */
+  // Global attributes
 
   public $accesskey = '';
   public $class = array();
+
   /**
    * HTML inner content of tag.
    *
@@ -121,12 +122,12 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @return WPDKHTMLTag
    */
-  public function __construct( $tag_name ) {
-
-    /* Store this tag name. */
+  public function __construct( $tag_name )
+  {
+    // Store this tag name
     $this->tagName = $tag_name;
 
-    /* The global attributes below can be used on any HTML element. */
+    // The global attributes below can be used on any HTML element
     $this->_globalAttributes = array(
       'accesskey',
       'class',
@@ -196,17 +197,17 @@ class WPDKHTMLTag extends WPDKObject {
   public function html() {
     ob_start();
 
-    /* Open. */
+    // Open the tag
     echo $this->open;
 
-    /* Cycle for tag specify attributes. */
+    // Cycle for tag specify attributes
     foreach ( $this->attributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
         printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
       }
     }
 
-    /* Cycle for global common attributes. */
+    // Cycle for global common attributes
     foreach ( $this->_globalAttributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
         if ( 'class' == $attr ) {
@@ -221,32 +222,33 @@ class WPDKHTMLTag extends WPDKObject {
       }
     }
 
-    /* Generic data attribute. */
+    // Generic data attribute
     $data = self::dataInline( $this->data );
     if ( !empty( $data ) ) {
       printf( ' %s', $data );
     }
 
-    /* Content, only for enclousure TAG. */
+    // Content, only for enclousure TAG
     if ( '/>' !== $this->close ) {
 
-      /* Close the first part tag. */
+      // Close the first part tag
       echo '>';
 
-      /* Before content. */
+      // Before content
       $this->beforeContent();
 
-      /* Content. */
+      // Content
       $this->draw();
 
-      /* After content. */
+      // After content
       $this->afterContent();
 
-      /* Close. */
+      // Close
       echo $this->close;
     }
+
+    // Close
     else {
-      /* Close. */
       echo $this->close;
       echo $this->content;
     }
@@ -331,7 +333,7 @@ class WPDKHTMLTag extends WPDKObject {
       return array();
     }
 
-    /* Convert the string classes in array */
+    // Convert the string classes in array
     if ( is_string( $classes ) ) {
       $classes = explode( ' ', $classes );
     }
@@ -366,7 +368,7 @@ class WPDKHTMLTag extends WPDKObject {
       return array();
     }
 
-    /* Convert the string styles in array */
+    // Convert the string styles in array
     if ( is_string( $styles ) ) {
       $entries = explode( ';', $styles );
       $styles  = array();
@@ -633,7 +635,7 @@ class WPDKHTMLTag extends WPDKObject {
  */
 class WPDKHTMLTagName {
 
-  /* HTML 4.1 tags */
+  // HTML 4.1 tags
   const A        = 'a';
   const BUTTON   = 'button';
   const FIELDSET = 'fieldset';
@@ -658,7 +660,7 @@ class WPDKHTMLTagName {
  */
 class WPDKHTMLTagInputType {
 
-  /* Input types */
+  // Input types
   const BUTTON         = 'button';
   const CHECKBOX       = 'checkbox';
   const COLOR          = 'color';
@@ -798,16 +800,16 @@ class WPDKHTMLTagA extends WPDKHTMLTag {
    */
   public function __construct( $content = '', $href = '' ) {
 
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::A );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* The href. Late binding */
+    // The href. Late binding
     $this->href = $href;
 
-    /* Setting. */
+    // Setting
     $this->open       = '<a';
     $this->close      = '</a>';
     $this->attributes = array(
@@ -853,6 +855,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $autofocus
    */
   public $autofocus;
+
   /**
    * Set to 'disabled'. Specifies that a button should be disabled.
    *
@@ -911,6 +914,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $formtarget
    */
   public $formtarget;
+
   /**
    * Specifies a name for the button.
    *
@@ -919,6 +923,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $name
    */
   public $name;
+
   /**
    * Specifies the type of button: button, reset, submit
    *
@@ -927,6 +932,7 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    * @var string $type
    */
   public $type;
+
   /**
    * Specifies an initial value for the button
    *
@@ -943,15 +949,16 @@ class WPDKHTMLTagButton extends WPDKHTMLTag {
    *
    * @param string $content HTML inner (or adjacent) content
    */
-  public function __construct( $content = '' ) {
+  public function __construct( $content = '' )
+  {
 
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::BUTTON );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* Setting. */
+    // Setting
     $this->open       = '<button';
     $this->close      = '</button>';
     $this->attributes = array(
@@ -1052,11 +1059,12 @@ class WPDKHTMLTagFieldset extends WPDKHTMLTag {
     );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Over-riding
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
-  public function beforeContent() {
+  public function beforeContent()
+  {
     if ( !empty( $this->legend ) ) {
       $this->legend->display();
     }
@@ -1086,6 +1094,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $accept
    */
   public $accept;
+
   /**
    * Specifies the character encodings that are to be used for the form submission. Value: character_set
    *
@@ -1094,6 +1103,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $accept_charset
    */
   public $accept_charset;
+
   /**
    * Specifies where to send the form-data when a form is submitted.
    *
@@ -1102,6 +1112,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $action
    */
   public $action;
+
   /**
    * New in HTML 5. Specifies whether a form should have autocomplete on or off. Values: on, off
    *
@@ -1110,6 +1121,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $autocomplete
    */
   public $autocomplete;
+
   /**
    * Specifies how the form-data should be encoded when submitting it to the server (only for method="post").
    * Values: application/x-www-form-urlencoded, multipart/form-data, text/plain
@@ -1119,6 +1131,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $enctype
    */
   public $enctype;
+
   /**
    * Specifies the HTTP method to use when sending form-data. Values: get, post
    *
@@ -1127,6 +1140,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $method
    */
   public $method;
+
   /**
    * Specifies the name of a form
    *
@@ -1135,6 +1149,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $name
    */
   public $name;
+
   /**
    * New in HTML 5. Specifies that the form should not be validated when submitted. Value: novalidate
    *
@@ -1143,6 +1158,7 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    * @var string $novalidate
    */
   public $novalidate;
+
   /**
    * Specifies where to display the response that is received after submitting the form.
    * Values: _blank, _self, _parent, _top
@@ -1162,15 +1178,15 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
    *
    * @return WPDKHTMLTagForm
    */
-  public function __construct( $content = '' ) {
-
-    /* Create an WPDKHTMLTag instance. */
+  public function __construct( $content = '' )
+  {
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::FORM );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* Setting. */
+    // Setting
     $this->open       = '<form';
     $this->close      = '</form>';
     $this->attributes = array(
@@ -1567,22 +1583,24 @@ class WPDKHTMLTagInput extends WPDKHTMLTag {
    */
   public function __construct( $content = '', $name = '', $id = '' ) {
 
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::INPUT );
 
-    /* The content. */
+    // The content
     $this->content = $content;
 
-    /* Set name. */
+    // Set name
     if ( !empty( $name ) ) {
       $this->name = $name;
     }
 
-    /* To default, if $name exists and $id not exists, then $id = $name. */
+    // To default, if $name exists and $id not exists, then $id = $name
     if ( !empty( $name ) && empty( $id ) ) {
-      /* Check if field is an array. */
+
+      // Check if field is an array
       if ( '[]' == substr( $name, -2 ) ) {
-        /* Sanitize id. */
+
+        // Sanitize id
         $this->id = substr( $name, 0, strlen( $name ) - 2 );
       }
 
@@ -1590,12 +1608,13 @@ class WPDKHTMLTagInput extends WPDKHTMLTag {
         $this->id = $name;
       }
     }
-    /* This is the case where $name = '' and $id != '' */
+
+    // This is the case where $name = '' and $id != ''
     elseif ( !empty( $id ) ) {
       $this->id = $id;
     }
 
-    /* Setting. */
+    // Setting
     $this->open       = '<input';
     $this->close      = '/>';
     $this->attributes = array(

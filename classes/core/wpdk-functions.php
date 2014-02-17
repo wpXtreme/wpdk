@@ -512,14 +512,15 @@ function wpdk_add_page( $page_slug, $page_title, $capability, $function = '', $h
 /**
  * Enqueue script for list of page template
  *
- * @brief Enqueue script
+ * @brief      Enqueue script
+ * @deprecated since 1.4.21 Use WPDKScripts::enqueue_scripts_page_template() instead
  *
- * @param array  $pages          Array of page slug
- * @param string $handle         The script /unique) handle
- * @param bool   $src            Optional. Source URI
- * @param array  $deps           Optional. Array of other handle
- * @param bool   $ver            Optional. Version to avoid cache
- * @param bool   $in_footer      Optional. Load in footer
+ * @param array  $pages     Array of page slug
+ * @param string $handle    The script /unique) handle
+ * @param bool   $src       Optional. Source URI
+ * @param array  $deps      Optional. Array of other handle
+ * @param bool   $ver       Optional. Version to avoid cache
+ * @param bool   $in_footer Optional. Load in footer
  */
 function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(), $ver = false, $in_footer = false )
 {
@@ -534,7 +535,8 @@ function wpdk_enqueue_script_page( $pages, $handle, $src = false, $deps = array(
 /**
  * Enqueue script for list of page template. Return FALSE if $page_templates is empty
  *
- * @brief Enqueue script
+ * @brief      Enqueue script
+ * @deprecated since 1.4.21 Use WPDKScripts::enqueue_scripts_page_template() instead
  *
  * @param array  $page_templates Array of page slug template
  * @param string $handle         The script /unique) handle

@@ -21,6 +21,27 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.21
+### 2014-02-17
+
+#### Enhancements
+
+* Added permanent dismiss alert by user logged in
+* Added `WPDKComponents` class
+* Added `WPDKTwitterBootstrapPopover` class
+
+#### Improvements
+
+* Updated Glyph Icons
+* Rewritten Javascript and CSS
+* Added autoload components for several view controler
+* Added static method `WPDKListTableViewController::action()` to return the current action
+
+#### Bugs
+
+* Fixes and stabilty
+
+
 ## Version 1.4.20
 ### 2014-02-06
 
