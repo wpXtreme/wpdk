@@ -1,0 +1,116 @@
+/**
+ * WPDK Ribbonize
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       1.0.1
+ *
+ */
+
+.wpdk-ribbonize
+{
+  position    : absolute;
+  z-index     : 1030;
+  display     : inline-block;
+  font-size   : 11px;
+  line-height : 1.4;
+  opacity     : 0;
+  filter      : alpha(opacity=0);
+  visibility  : visible;
+  margin-top  : -4px;
+}
+
+.wpdk-ribbonize.in
+{
+  opacity : 0.8;
+  filter  : alpha(opacity=80);
+}
+
+.wpdk-ribbonize.top
+{
+  padding    : 5px 0;
+  margin-top : -3px;
+}
+
+.wpdk-ribbonize.right
+{
+  padding     : 0 5px;
+  margin-left : 3px;
+}
+
+.wpdk-ribbonize.bottom
+{
+  padding    : 5px 0;
+  margin-top : 3px;
+}
+
+.wpdk-ribbonize.left
+{
+  padding     : 0 5px;
+  margin-left : -3px;
+}
+
+.wpdk-ribbonize-inner
+{
+  /*max-width: 200px;*/
+  padding               : 8px;
+  color                 : #fff;
+  text-align            : center;
+  font-size             : 12px;
+  text-decoration       : none;
+  background-color      : #aa3d4b;
+  -webkit-border-radius : 4px;
+  -moz-border-radius    : 4px;
+  border-radius         : 4px;
+}
+
+.wpdk-ribbonize-inner strong
+{
+  color : #ffcc2f;
+}
+
+.wpdk-ribbonize-arrow
+{
+  position     : absolute;
+  width        : 0;
+  height       : 0;
+  border-color : transparent;
+  border-style : solid;
+}
+
+.wpdk-ribbonize.top .wpdk-ribbonize-arrow
+{
+  bottom           : 0;
+  left             : 50%;
+  margin-left      : -5px;
+  border-top-color : #aa3d4b;
+  border-width     : 5px 5px 0;
+}
+
+.wpdk-ribbonize.right .wpdk-ribbonize-arrow
+{
+  top                : 50%;
+  left               : 0;
+  margin-top         : -5px;
+  border-right-color : #aa3d4b;
+  border-width       : 5px 5px 5px 0;
+}
+
+.wpdk-ribbonize.left .wpdk-ribbonize-arrow
+{
+  top               : 50%;
+  right             : 0;
+  margin-top        : -5px;
+  border-left-color : #aa3d4b;
+  border-width      : 5px 0 5px 5px;
+}
+
+.wpdk-ribbonize.bottom .wpdk-ribbonize-arrow
+{
+  top                 : 0;
+  left                : 50%;
+  margin-left         : -5px;
+  border-bottom-color : #aa3d4b;
+  border-width        : 0 5px 5px;
+}

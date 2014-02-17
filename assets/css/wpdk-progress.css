@@ -1,0 +1,154 @@
+/**
+ * WPDK Progress
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-02-08
+ * @version       3.1.0
+ * @note          Base on bootstrap.css v3.1.0
+ *
+ */
+
+@-webkit-keyframes wpdk-progress-bar-stripes
+{
+  from
+  {
+    background-position : 40px 0;
+  }
+  to
+  {
+    background-position : 0 0;
+  }
+}
+
+@-moz-keyframes wpdk-progress-bar-stripes
+{
+  from
+  {
+    background-position : 40px 0;
+  }
+  to
+  {
+    background-position : 0 0;
+  }
+}
+
+@-ms-keyframes wpdk-progress-bar-stripes
+{
+  from
+  {
+    background-position : 40px 0;
+  }
+  to
+  {
+    background-position : 0 0;
+  }
+}
+
+@-o-keyframes wpdk-progress-bar-stripes
+{
+  from
+  {
+    background-position : 0 0;
+  }
+  to
+  {
+    background-position : 40px 0;
+  }
+}
+
+@keyframes wpdk-progress-bar-stripes
+{
+  from
+  {
+    background-position : 40px 0;
+  }
+  to
+  {
+    background-position : 0 0;
+  }
+}
+
+.wpdk-progress
+{
+  height             : 20px;
+  margin-bottom      : 20px;
+  overflow           : hidden;
+  background-color   : #f5f5f5;
+  border-radius      : 4px;
+  -webkit-box-shadow : inset 0 1px 2px rgba(0, 0, 0, .1);
+  box-shadow         : inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+.wpdk-progress-bar
+{
+  float              : left;
+  width              : 0;
+  height             : 100%;
+  font-size          : 12px;
+  line-height        : 20px;
+  color              : #fff;
+  text-align         : center;
+  background-color   : #428bca;
+  -webkit-box-shadow : inset 0 -1px 0 rgba(0, 0, 0, .15);
+  box-shadow         : inset 0 -1px 0 rgba(0, 0, 0, .15);
+  -webkit-transition : width .6s ease;
+  transition         : width .6s ease;
+}
+
+.wpdk-progress-striped .wpdk-progress-bar
+{
+  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-size  : 40px 40px;
+}
+
+.wpdk-progress.active .wpdk-progress-bar
+{
+  -webkit-animation : wpdk-progress-bar-stripes 2s linear infinite;
+  animation         : wpdk-progress-bar-stripes 2s linear infinite;
+}
+
+.wpdk-progress-bar-success
+{
+  background-color : #5cb85c;
+}
+
+.wpdk-progress-striped .wpdk-progress-bar-success
+{
+  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.wpdk-progress-bar-info
+{
+  background-color : #5bc0de;
+}
+
+.wpdk-progress-striped .wpdk-progress-bar-info
+{
+  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.wpdk-progress-bar-warning
+{
+  background-color : #f0ad4e;
+}
+
+.wpdk-progress-striped .wpdk-progress-bar-warning
+{
+  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.wpdk-progress-bar-danger
+{
+  background-color : #d9534f;
+}
+
+.wpdk-progress-striped .wpdk-progress-bar-danger
+{
+  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
