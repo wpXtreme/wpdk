@@ -153,6 +153,16 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public $static = false;
 
   /**
+   * Glyph used like dismiss button
+   *
+   * @brief Dismiss button glyph icon
+   * @since 1.4.22
+   *
+   * @var string $dismiss_button_glyph
+   */
+  public $dismiss_button_glyph = '×';
+
+  /**
    * Create an instance of WPDKUIModalDialog class
    *
    * @brief Construct
@@ -194,7 +204,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   {
     $result = '';
     if ( $this->dismissButton  ) {
-      $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>';
+      $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
     }
     return $result;
   }
