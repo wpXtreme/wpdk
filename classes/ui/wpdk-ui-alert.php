@@ -101,7 +101,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   /**
    * Glyph used like dismiss button
    *
-   * @brief Dismiss button glyph icone
+   * @brief Dismiss button glyph icon
    *
    * @var string $dismiss_button_glyph
    */

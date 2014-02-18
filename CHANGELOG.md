@@ -21,6 +21,19 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 
+## Version 1.4.22
+### 2014-02-18
+
+#### Improvements
+
+* Cosmetic docs
+
+#### Bugs
+
+* Fixed dynamic table view controller components
+* Fixed gravatar ssl url
+
+
 ## Version 1.4.21
 ### 2014-02-17
 

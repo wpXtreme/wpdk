@@ -153,6 +153,16 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public $static = false;
 
   /**
+   * Glyph used like dismiss button
+   *
+   * @brief Dismiss button glyph icon
+   * @since 1.4.22
+   *
+   * @var string $dismiss_button_glyph
+   */
+  public $dismiss_button_glyph = '×';
+
+  /**
    * Create an instance of WPDKUIModalDialog class
    *
    * @brief Construct
@@ -193,8 +203,8 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   private function dismissButton()
   {
     $result = '';
-    if ( $this->dismissButton || $this->close_button ) {
-      $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>';
+    if ( $this->dismissButton  ) {
+      $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
     }
     return $result;
   }
@@ -321,7 +331,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
 
     ob_start(); ?>
     <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?>"
-         class="wpdk-modal <?php echo $this->static ? '' : 'hide fade' ?>"
+         class="wpdk-modal <?php echo $this->static ? '' : 'fade' ?>"
       <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
          tabindex="-1"
