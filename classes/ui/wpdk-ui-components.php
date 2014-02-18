@@ -76,8 +76,8 @@ final class WPDKUIComponents {
         '.css' => array( self::CONTROLS )
       ),
       self::DYNAMIC_TABLE => array(
-        '.js'  => array( self::CONTROLS ),
-        '.css' => array( self::CONTROLS )
+        '.js'  => array( self::CONTROLS, self::TOOLTIP ),
+        '.css' => array( self::CONTROLS, self::TOOLTIP )
       ),
       self::TOOLTIP       => array(
         '.js'  => array( self::TRANSITION ),
