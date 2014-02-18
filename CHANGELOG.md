@@ -28,6 +28,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Cosmetic docs
 
+#### Bugs
+
+* Fixed gravatar ssl url
+
 
 ## Version 1.4.21
 ### 2014-02-17
