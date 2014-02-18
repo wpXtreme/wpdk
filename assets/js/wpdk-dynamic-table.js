@@ -34,7 +34,7 @@ jQuery( function ( $ )
           table.on( 'click', '.wpdk-dt-add-row', false, _addRow );
           table.on( 'click', '.wpdk-dt-delete-row', false, _deleteRow );
 
-          /* Sortable. */
+          // Sortable
           $( 'table.wpdk-dynamic-table-sortable tbody' ).sortable( {
             axis   : "y",
             cursor : "n-resize",

@@ -1523,9 +1523,9 @@ SQL;
     return $users;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // User info
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the HTML markup of tag img with the user gravatar. FALSE otherwise.
@@ -1547,7 +1547,11 @@ SQL;
     $user = new WPDKUser( $id_user );
     if ( $user ) {
       $alt  = empty( $alt ) ? $user->display_name : $alt;
-      $src  = sprintf( 'http://www.gravatar.com/avatar/%s?s=%s&d=%s', md5( $user->email ), $size, $default );
+
+      // Use SSL
+      $gravatar = is_ssl() ? 'https://secure.gravatar.com/avatar/' : 'http://0.gravatar.com/avatar/';
+
+      $src  = sprintf( '%s%s?s=%s&d=%s', $gravatar, md5( $user->email ), $size, $default );
       $html = sprintf( '<img src="%s" alt="%s" title="%s" />', $src, $alt, $alt );
 
       return $html;
@@ -1577,7 +1581,10 @@ SQL;
 
       $default = apply_filters( 'wpdk_default_avatar', 'wavatar' );
 
-      $src = sprintf( 'http://www.gravatar.com/avatar/%s?s=%s&d=%s', md5( $user->email ), $size, $default );
+      // Use SSL
+      $gravatar = is_ssl() ? 'https://secure.gravatar.com/avatar/' : 'http://0.gravatar.com/avatar/';
+
+      $src = sprintf( '%s%s?s=%s&d=%s', $gravatar, md5( $user->email ), $size, $default );
       $img = new WPDKHTMLTagImg( $src, $alt, $size, $size );
       return $img;
     }
