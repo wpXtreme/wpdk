@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @class WPDKTwitterBoostrapPopover
+ * @class WPDKUIPopover
  * @note  Not implement yet
  */
-class WPDK extends WPDKHTMLTag {
+class WPDKUIPopover extends WPDKHTMLTag {
 }
