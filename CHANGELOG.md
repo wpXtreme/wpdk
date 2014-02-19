@@ -20,6 +20,18 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.4.23
+### 2014-02-19
+
+#### Enhancements
+
+* Added `WPDKHTML::endCompress()`
+
+#### Bugs
+
+* Fixed wrong WPDKUIAlertType
+* Fixed potential override WPDK alias WPDKUIPopover
+
 
 ## Version 1.4.22
 ### 2014-02-18

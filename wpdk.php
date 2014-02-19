@@ -403,7 +403,10 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
 
-        $sPathPrefix . 'classes/ui/wpdk-ui-alert.php'                   => 'WPDKUIAlert',
+        $sPathPrefix . 'classes/ui/wpdk-ui-alert.php'                   => array(
+          'WPDKUIAlert',
+          'WPDKUIAlertType',
+        ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui-components.php'              => 'WPDKUIComponents',
 
