@@ -1192,7 +1192,7 @@ jQuery( function ( $ )
         if ( 0 == arguments.length ) {
           $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
         }
-        document.location = document.location.href;
+        document.location.reload( true );
       };
 
       /**
