@@ -1102,11 +1102,8 @@ jQuery( function ( $ )
    */
   if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
     window.WPDKAjaxResponse = function ( response ) {
-      /**
-       * Resolve conflict
-       *
-       * @type {jQuery}
-       */
+
+      // Resolve conflict
       var $ = window.jQuery;
 
       this.version = '1.0.2';
