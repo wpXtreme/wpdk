@@ -5,8 +5,8 @@
  * @class           WPDKHTML
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-08
- * @version         1.0.1
+ * @date            2014-02-18
+ * @version         1.0.2
  * @since           1.4.0
  *
  */
@@ -19,7 +19,7 @@ class WPDKHTML extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * Utility to start buffering
@@ -29,6 +29,22 @@ class WPDKHTML extends WPDKObject {
   public static function startCompress()
   {
     ob_start();
+  }
+
+  /**
+   * Return the buffer
+   *
+   * @brief Brief
+   * @since 1.4.23
+   *
+   * @return string
+   */
+  public static function endCompress()
+  {
+    $buffer = ob_get_contents();
+    ob_end_clean();
+
+    return $buffer;
   }
 
   /**
@@ -44,10 +60,10 @@ class WPDKHTML extends WPDKObject {
     }
     ob_end_clean();
 
-    /* Remove comments */
+    // Remove comments
     $css = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
 
-    /* Replace with none */
+    // Replace with none
     $none = array(
       "\r\n",
       "\n",
@@ -59,7 +75,7 @@ class WPDKHTML extends WPDKObject {
     );
     $css  = str_replace( $none, '', $css );
 
-    /* Optimized */
+    // Optimized
     $css = str_replace( array( '; ', ' ;', ';;' ) , ';', $css );
     $css = str_replace( array( ': ', ' :' ), ':', $css );
     $css = str_replace( array( '{ ', ' {' ), '{', $css );
@@ -86,10 +102,10 @@ class WPDKHTML extends WPDKObject {
     }
     ob_end_clean();
 
-    /* Remove comments */
+    // Remove comments
     //$content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
 
-    /* Replace with none */
+    // Replace with none
     $none = array(
       "\t",
       '  ',
@@ -98,10 +114,10 @@ class WPDKHTML extends WPDKObject {
     );
     $js   = str_replace( $none, '', $js );
 
-    /* Optimized */
+    // Optimized
     $js = str_replace( array( '= ', ' =' ) , '=', $js );
 
-    /* Remove tabs, spaces, newlines, etc. */
+    // Remove tabs, spaces, newlines, etc..
     $content = trim( $js );
 
     return $content;
@@ -126,7 +142,7 @@ class WPDKHTML extends WPDKObject {
     }
     ob_end_clean();
 
-    /* Replace with none */
+    // Replace with none
     $none = array(
       "\r\n",
       "\n",
@@ -135,7 +151,7 @@ class WPDKHTML extends WPDKObject {
     );
     $html = str_replace( $none, '', $html );
 
-    /* Optimized */
+    // Optimized
     $html = str_replace( array( '  ', '   ', '    ', '     ' ) , ' ', $html );
 
     return trim( $html );
