@@ -308,6 +308,79 @@ class WPDKHTMLTag extends WPDKObject {
     }
   }
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // SANITIZE
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return a key value pairs array with generic attribute list
+   *
+   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize attributes
+   *
+   * @param string $attributes Attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeAttributes( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts            = explode( '=', $attribute );
+        $stack[$parts[0]] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      return $attributes;
+    }
+
+    return $stack;
+  }
+
+  /**
+   * Return a key value pairs array with data attribute list
+   *
+   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
+   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
+   *
+   * @brief Sanitize data attributes
+   *
+   * @param string $attributes Data attribute inline
+   *
+   * @return array
+   */
+  public static function sanitizeData( $attributes )
+  {
+    $stack = array();
+    if ( is_string( $attributes ) && !empty( $attributes ) ) {
+      $single_attrobutes = explode( ' ', $attributes );
+      foreach ( $single_attrobutes as $attribute ) {
+        $parts = explode( '=', $attribute );
+        $key   = $parts[0];
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $parts[1], "\"''" );
+      }
+    }
+
+    if ( is_array( $attributes ) ) {
+      foreach ( $attributes as $key => $value ) {
+        if ( 'data-' == substr( $key, 0, 5 ) ) {
+          $key = substr( $key, 5 );
+        }
+        $stack[$key] = trim( $value, "\"''" );
+      }
+    }
+
+    return $stack;
+  }
+
   /**
    * Return key value pairs array unique with css class list. In this way you can unset a secified class.
    * If the input is a string (space separate strings) will return an array with css classes.
@@ -381,34 +454,73 @@ class WPDKHTMLTag extends WPDKObject {
     return array_unique( $styles, SORT_STRING );
   }
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // INLINE
+  // -------------------------------------------------------------------------------------------------------------------
+
   /**
-   * Merge one or more class
+   * Return a inline generic attribute
    *
-   * @brief Merge
-   * @since 1.4.0
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
+   *     // 'color="red" size="12" modal="true"'
    *
-   * @param array|string $class  Initial string or array class to merge
-   * @param array|string $class2 Optional.
-   * @param array|string $_      Optional.
+   * @brief Inline Data attribute
    *
-   * @return array
+   * @param array      $attributes            Key value pairs array with data attribute list
+   * @param array|bool $additional_attributes Optional. Additional data
+   *
+   * @return string
    */
-  public static function mergeClasses( $class, $class2 = null, $_ = null )
+  public static function attributeInline( $attributes, $additional_attributes = false )
   {
-    $class = self::sanitizeClasses( $class );
 
-    if ( func_num_args() < 2 ) {
-      return $class;
-    }
+    $attributes = self::sanitizeAttributes( $attributes );
 
-    for ( $i = 1; $i < func_num_args(); $i++ ) {
-      $arg = func_get_arg( $i );
-      if ( !is_null( $arg ) ) {
-        $s     = self::sanitizeClasses( $arg );
-        $class = array_merge( $class, $s );
-      }
+    if ( !empty( $additional_attributes ) ) {
+      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
+      $attributes = array_merge( $attributes, $additional_attributes );
     }
-    return self::sanitizeClasses( $class );
+    $stack = array();
+    foreach ( $attributes as $key => $value ) {
+      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
+  }
+
+  /**
+   * Return a inline data attribute
+   *
+   *     $data = array(
+   *       'color' => 'red',
+   *       'size'  => 12
+   *     );
+   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
+   *     // 'data-color="red" data-size="12" data-modal="true"'
+   *
+   * @brief Inline Data attribute
+   *
+   * @param array      $data            Key value pairs array with data attribute list
+   * @param array|bool $additional_data Optional. Additional data
+   *
+   * @return string
+   */
+  public static function dataInline( $data, $additional_data = false )
+  {
+    $data = self::sanitizeData( $data );
+
+    if ( !empty( $additional_data ) ) {
+      $additional_data = self::sanitizeData( $additional_data );
+      $data = array_merge( $data, $additional_data );
+    }
+    $stack = array();
+    foreach ( $data as $key => $value ) {
+      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
+    }
+    return join( ' ', $stack );
   }
 
   /**
@@ -488,138 +600,38 @@ class WPDKHTMLTag extends WPDKObject {
 
   }
 
-  /**
-   * Return a inline data attribute
-   *
-   *     $data = array(
-   *       'color' => 'red',
-   *       'size'  => 12
-   *     );
-   *     echo self::dataInline( $data, array( 'modal' => "true" ) );
-   *     // 'data-color="red" data-size="12" data-modal="true"'
-   *
-   * @brief Inline Data attribute
-   *
-   * @param array      $data            Key value pairs array with data attribute list
-   * @param array|bool $additional_data Optional. Additional data
-   *
-   * @return string
-   */
-  public static function dataInline( $data, $additional_data = false )
-  {
-    $data = self::sanitizeData( $data );
-
-    if ( !empty( $additional_data ) ) {
-      $additional_data = self::sanitizeData( $additional_data );
-      $data = array_merge( $data, $additional_data );
-    }
-    $stack = array();
-    foreach ( $data as $key => $value ) {
-      $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-    }
-    return join( ' ', $stack );
-  }
+  // -------------------------------------------------------------------------------------------------------------------
+  // UTILITIES
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Return a inline generic attribute
+   * Merge one or more class
    *
-   *     $data = array(
-   *       'color' => 'red',
-   *       'size'  => 12
-   *     );
-   *     echo self::attributeInline( $data, array( 'modal' => "true" ) );
-   *     // 'color="red" size="12" modal="true"'
+   * @brief Merge
+   * @since 1.4.0
    *
-   * @brief Inline Data attribute
-   *
-   * @param array      $attributes            Key value pairs array with data attribute list
-   * @param array|bool $additional_attributes Optional. Additional data
-   *
-   * @return string
-   */
-  public static function attributeInline( $attributes, $additional_attributes = false )
-  {
-
-    $attributes = self::sanitizeAttributes( $attributes );
-
-    if ( !empty( $additional_attributes ) ) {
-      $additional_attributes = self::sanitizeAttributes( $additional_attributes );
-      $attributes = array_merge( $attributes, $additional_attributes );
-    }
-    $stack = array();
-    foreach ( $attributes as $key => $value ) {
-      $stack[] = sprintf( '%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-    }
-    return join( ' ', $stack );
-  }
-
-  /**
-   * Return a key value pairs array with generic attribute list
-   *
-   *     self::sanitizeAttributes( 'modal="false" modal="true" color=red' );
-   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
-   *
-   * @brief Sanitize attributes
-   *
-   * @param string $attributes Attribute inline
+   * @param array|string $class  Initial string or array class to merge
+   * @param array|string $class2 Optional.
+   * @param array|string $_      Optional.
    *
    * @return array
    */
-  public static function sanitizeAttributes( $attributes )
+  public static function mergeClasses( $class, $class2 = null, $_ = null )
   {
-    $stack = array();
-    if ( is_string( $attributes ) && !empty( $attributes ) ) {
-      $single_attrobutes = explode( ' ', $attributes );
-      foreach ( $single_attrobutes as $attribute ) {
-        $parts            = explode( '=', $attribute );
-        $stack[$parts[0]] = trim( $parts[1], "\"''" );
+    $class = self::sanitizeClasses( $class );
+
+    if ( func_num_args() < 2 ) {
+      return $class;
+    }
+
+    for ( $i = 1; $i < func_num_args(); $i++ ) {
+      $arg = func_get_arg( $i );
+      if ( !is_null( $arg ) ) {
+        $s     = self::sanitizeClasses( $arg );
+        $class = array_merge( $class, $s );
       }
     }
-
-    if ( is_array( $attributes ) ) {
-      return $attributes;
-    }
-
-    return $stack;
-  }
-
-  /**
-   * Return a key value pairs array with data attribute list
-   *
-   *     self::sanitizeAttributes( 'data-modal="false" modal="true" data-color=red' );
-   *     // array(2) { ["modal"]=> string(5) "true" ["color"]=> string(3) "red" }
-   *
-   * @brief Sanitize data attributes
-   *
-   * @param string $attributes Data attribute inline
-   *
-   * @return array
-   */
-  public static function sanitizeData( $attributes )
-  {
-    $stack = array();
-    if ( is_string( $attributes ) && !empty( $attributes ) ) {
-      $single_attrobutes = explode( ' ', $attributes );
-      foreach ( $single_attrobutes as $attribute ) {
-        $parts = explode( '=', $attribute );
-        $key   = $parts[0];
-        if ( 'data-' == substr( $key, 0, 5 ) ) {
-          $key = substr( $key, 5 );
-        }
-        $stack[$key] = trim( $parts[1], "\"''" );
-      }
-    }
-
-    if ( is_array( $attributes ) ) {
-      foreach ( $attributes as $key => $value ) {
-        if ( 'data-' == substr( $key, 0, 5 ) ) {
-          $key = substr( $key, 5 );
-        }
-        $stack[$key] = trim( $value, "\"''" );
-      }
-    }
-
-    return $stack;
+    return self::sanitizeClasses( $class );
   }
 
 }

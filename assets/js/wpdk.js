@@ -1102,11 +1102,8 @@ jQuery( function ( $ )
    */
   if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
     window.WPDKAjaxResponse = function ( response ) {
-      /**
-       * Resolve conflict
-       *
-       * @type {jQuery}
-       */
+
+      // Resolve conflict
       var $ = window.jQuery;
 
       this.version = '1.0.2';
@@ -1195,7 +1192,7 @@ jQuery( function ( $ )
         if ( 0 == arguments.length ) {
           $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
         }
-        document.location = document.location.href;
+        document.location.reload( true );
       };
 
       /**
