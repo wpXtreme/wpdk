@@ -146,7 +146,9 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public $backdrop = 'true';
 
   /**
-   * Render a modal as static. Defaul is FALSE
+   * Render as static. Default is FALSE
+   *
+   * @brief Static
    *
    * @var bool $static
    */
@@ -329,7 +331,8 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     $this->data['keyboard'] = $this->keyboard;
     $this->data['backdrop'] = $this->backdrop;
 
-    ob_start(); ?>
+    WPDKHTML::startCompress(); ?>
+
     <div style="<?php echo $this->static ? 'position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%' : 'display:none;' ?>"
          class="wpdk-modal <?php echo $this->static ? '' : 'fade' ?>"
       <?php echo self::dataInline( $this->data ) ?>
@@ -353,9 +356,8 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     </div>
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+
+    return WPDKHTML::endCompress();
   }
 
   /**
