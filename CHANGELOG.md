@@ -20,6 +20,18 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.0
+### 2014-02-??
+
+#### Enhancements
+
+* Added `enqueue()` method in `WPDKUIComponents`
+* Added `WPDKUIComponents` in Javascript
+* Introducing `WPDKUIPopover`
+* Improved `WPDKGlyphIcons` Javascript loading
+* Updated Glyphs
+
+
 ## Version 1.4.23
 ### 2014-02-19
 

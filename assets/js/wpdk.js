@@ -498,7 +498,11 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         IE              : 'wpdk-icon-ie',
         TAG             : 'wpdk-icon-tag',
         TAGS            : 'wpdk-icon-tags',
-        DOC_INV         : 'wpdk-icon-doc-inv'
+        DOC_INV         : 'wpdk-icon-doc-inv',
+
+        // since 1.5.0
+        HELP_CIRCLED    : 'wpdk-icon-help-circled',
+        INFO_CIRCLED    : 'wpdk-icon-info-circled'
 
       };
 

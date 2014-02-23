@@ -244,6 +244,8 @@ div.wpdk-loader
 .wpdk-icon-export:before { content: '\e82a'; } /* '' */
 .wpdk-icon-clock-1:before { content: '\e820'; } /* '' */
 .wpdk-icon-thumbs-up-alt:before { content: '\e832'; } /* '' */
+.wpdk-icon-help-circled:before { content: '\e846'; } /* '' */
+.wpdk-icon-info-circled:before { content: '\e844'; } /* '' */
 
 /*
    Animation example, for spinners

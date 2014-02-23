@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'wpdk-fonts';
-  src: url('../font/wpdk-fonts.eot?82053470');
-  src: url('../font/wpdk-fonts.eot?82053470#iefix') format('embedded-opentype'),
-       url('../font/wpdk-fonts.woff?82053470') format('woff'),
-       url('../font/wpdk-fonts.ttf?82053470') format('truetype'),
-       url('../font/wpdk-fonts.svg?82053470#wpdk-fonts') format('svg');
+  src: url('../font/wpdk-fonts.eot?37456097');
+  src: url('../font/wpdk-fonts.eot?37456097#iefix') format('embedded-opentype'),
+       url('../font/wpdk-fonts.woff?37456097') format('woff'),
+       url('../font/wpdk-fonts.ttf?37456097') format('truetype'),
+       url('../font/wpdk-fonts.svg?37456097#wpdk-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'wpdk-fonts';
-    src: url('../font/wpdk-fonts.svg?82053470#wpdk-fonts') format('svg');
+    src: url('../font/wpdk-fonts.svg?37456097#wpdk-fonts') format('svg');
   }
 }
 */
@@ -77,14 +77,16 @@
 .wpdk-icon-cancel-circled2:before { content: '\e81e'; } /* '' */
 .wpdk-icon-plus-squared:before { content: '\e81c'; } /* '' */
 .wpdk-icon-minus-squared:before { content: '\e81d'; } /* '' */
+.wpdk-icon-help-circled:before { content: '\e846'; } /* '' */
+.wpdk-icon-info-circled:before { content: '\e844'; } /* '' */
 .wpdk-icon-lock:before { content: '\e810'; } /* '' */
 .wpdk-icon-lock-open:before { content: '\e80f'; } /* '' */
 .wpdk-icon-lock-open-alt:before { content: '\e811'; } /* '' */
 .wpdk-icon-tag:before { content: '\e841'; } /* '' */
 .wpdk-icon-tags:before { content: '\e842'; } /* '' */
 .wpdk-icon-thumbs-up:before { content: '\e82f'; } /* '' */
-.wpdk-icon-thumbs-down:before { content: '\e831'; } /* '' */
 .wpdk-icon-emo-unhappy:before { content: '\e82d'; } /* '' */
+.wpdk-icon-thumbs-up-alt:before { content: '\e832'; } /* '' */
 .wpdk-icon-thumbs-down-alt:before { content: '\e833'; } /* '' */
 .wpdk-icon-pencil:before { content: '\e81b'; } /* '' */
 .wpdk-icon-chat:before { content: '\e813'; } /* '' */
@@ -117,4 +119,4 @@
 .wpdk-icon-twitter:before { content: '\e83b'; } /* '' */
 .wpdk-icon-export:before { content: '\e82a'; } /* '' */
 .wpdk-icon-clock-1:before { content: '\e820'; } /* '' */
-.wpdk-icon-thumbs-up-alt:before { content: '\e832'; } /* '' */
+.wpdk-icon-thumbs-down:before { content: '\e831'; } /* '' */
