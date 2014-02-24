@@ -115,11 +115,22 @@ final class WPDKUIComponents {
   }
 
   /**
-   * Perform an enqueue of scripts and style of a  component
+   * Perform an enqueue of scripts and styles of a one or more components
+   *
+   *     // Load a single components
+   *     WPDKUIComponents::enqueue( WPDKUIComponents::TOOLTIP );
+   *
+   *     // Load one or more components
+   *     WPDKUIComponents::enqueue( array( WPDKUIComponents::MODAL, WPDKUIComponents::TOOLTIP ) );
+   *
+   *     // Or... like kind of magic
+   *     WPDKUIComponents::enqueue( WPDKUIComponents::MODAL, WPDKUIComponents::TOOLTIP );
    *
    * @brief Enqueue component
+   * @since 1.5.0
    *
-   * @param $component_handles One or more Component handle
+   * @param string|array $component_handles One or more Component handle
+   *
    */
   public static function enqueue( $component_handles )
   {
@@ -128,6 +139,11 @@ final class WPDKUIComponents {
 
     // Handles, one or more
     $handles = (array)$component_handles;
+
+    // Magic
+    if( func_num_args() > 1 ) {
+      $handles = func_get_args();
+    }
 
     // Loop
     foreach( $handles as $handle ) {
