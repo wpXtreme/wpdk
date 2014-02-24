@@ -411,8 +411,8 @@ class WPDKDynamicTableView extends WPDKView {
     // Added dynamic
     $this->columns[self::COLUMN_ROW_MANAGE] = '';
 
-    wp_enqueue_script( WPDKUIComponents::DYNAMIC_TABLE );
-    wp_enqueue_style( WPDKUIComponents::DYNAMIC_TABLE );
+    // Enqueue components
+    WPDKUIComponents::enqueue( WPDKUIComponents::DYNAMIC_TABLE );
 
   }
 
