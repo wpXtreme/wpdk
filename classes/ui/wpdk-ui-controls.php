@@ -1902,14 +1902,20 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
     $swipe          = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
     $class          = isset( $this->item['class'] ) ?  $this->item['class'] : '';
-    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe wpdk-has-tooltip ' . $status );
+    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe ' . $status );
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
 
     if ( isset( $this->item['userdata'] ) ) {
       $swipe->data['userdata'] = esc_attr( $this->item['userdata'] );
     }
+
+    // Title and tooltip
     $swipe->title = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    if ( !empty( $swipe->title ) ) {
+      $swipe->class[] = 'wpdk-has-tooltip';
+    }
+
     $swipe->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
 
     // since 1.5.0 - check for popover
@@ -1933,8 +1939,7 @@ class WPDKUIControlSwipe extends WPDKUIControl {
       $swipe->data['animation'] = $popover->animation;
       $swipe->data['container'] = $popover->container;
 
-      // TODO check array and convert in json
-      $swipe->data['delay']     = $popover->delay;
+      $swipe->data['delay']     = json_encode( $popover->delay );
       $swipe->data['html']      = $popover->html;
       $swipe->data['placement'] = $popover->placement;
       $swipe->data['selector']  = $popover->selector;
