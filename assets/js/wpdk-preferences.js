@@ -4,8 +4,8 @@
  * @class           WPDKPreferences
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-09
- * @version         1.0.2
+ * @date            2014-02-25
+ * @version         1.0.3
  */
 
 jQuery( function ( $ )
@@ -16,13 +16,9 @@ jQuery( function ( $ )
     window.WPDKPreferences = (function ()
     {
 
-      /**
-       * Internal class pointer
-       *
-       * @var {object} $t
-       */
+      // This object
       var $t = {
-        version : '1.0.2',
+        version : '1.0.3',
         init    : _init
       };
 
