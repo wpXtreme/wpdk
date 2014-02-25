@@ -172,3 +172,34 @@
   border-right-width : 0;
   border-left-color  : #fff;
 }
+
+/* =====================================================================================================================
+ * SWIPE WITH POPOVER
+ * =====================================================================================================================
+ */
+
+.wpdk-popover-container
+{
+  display            : inline-block;
+  margin             : 0 0 0 8px;
+  padding            : 0;
+  width              : 340px;
+  -webkit-transition : background-color linear 0.2s;
+  -moz-transition    : background-color linear 0.2s;
+  -ms-transition     : background-color linear 0.2s;
+  -o-transition      : background-color linear 0.2s;
+  transition         : background-color linear 0.2s;
+}
+
+.wpdk-popover-container.wpdk-popover-visible,
+.wpdk-popover-container:hover
+{
+  padding               : 8px 0;
+  margin-top            : -8px;
+  margin-bottom         : -8px;
+  cursor                : help;
+  background-color      : #f6f6f6;
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+}
