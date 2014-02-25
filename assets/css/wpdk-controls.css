@@ -3,8 +3,8 @@
  *
  * @author        wpXtreme, Inc.
  * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date	        2014-02-10
- * @version       1.0.0
+ * @date	        2014-02-25
+ * @version       1.0.1
  *
  */
 
@@ -119,15 +119,24 @@ form#wpdk-preferences input[name=wpdk_preferences_export]
 }
 
 /* =====================================================================================================================
+ * WPDK UI CONTROLS
+ * =====================================================================================================================
+ */
+
+/* since 1.5.0 all controls have the unque class wpdk-ui-control */
+.wpdk-ui-control {}
+
+
+/* =====================================================================================================================
  * INPUT POINTER
  * =====================================================================================================================
  */
 
-input[type="checkbox"],
-input[type="radio"],
-input[type="button"],
-input[type="reset"],
-input[type="submit"]
+input.wpdk-ui-control[type="checkbox"],
+input.wpdk-ui-control[type="radio"],
+input.wpdk-ui-control[type="button"],
+input.wpdk-ui-control[type="reset"],
+input.wpdk-ui-control[type="submit"]
 {
   cursor : pointer;
 }
@@ -137,22 +146,22 @@ input[type="submit"]
  * =====================================================================================================================
  */
 
-input[disabled],
-select[disabled],
-textarea[disabled],
-input[readonly],
-select[readonly],
-textarea[readonly]
+input.wpdk-ui-control[disabled],
+select.wpdk-ui-control[disabled],
+textarea.wpdk-ui-control[disabled],
+input.wpdk-ui-control[readonly],
+select.wpdk-ui-control[readonly],
+textarea.wpdk-ui-control[readonly]
 {
   cursor           : not-allowed;
   background-color : #eee !important;
   color            : #999 !important;
 }
 
-input[type="radio"][disabled],
-input[type="checkbox"][disabled],
-input[type="radio"][readonly],
-input[type="checkbox"][readonly]
+input.wpdk-ui-control[type="radio"][disabled],
+input.wpdk-ui-control[type="checkbox"][disabled],
+input.wpdk-ui-control[type="radio"][readonly],
+input.wpdk-ui-control[type="checkbox"][readonly]
 {
   background-color : transparent !important;
 }
@@ -295,7 +304,7 @@ option.wpdk-form-option[selected]
 
 .wpdk-form-clear-left
 {
-  /**zoom       : 1 !important;*/
+  /* zoom       : 1 !important; */
   cursor      : pointer;
   display     : inline;
   position    : relative;
@@ -416,6 +425,7 @@ input.wpdk-form-has-button-clear-left
  */
 span.wpdk-form-swipe
 {
+  cursor                : pointer;
   display               : inline-block;
   *display              : inline;
   position              : relative;
@@ -443,7 +453,6 @@ span.wpdk-form-swipe span
   -moz-border-radius    : 100%;
   -webkit-border-radius : 100%;
   border-radius         : 100%;
-  cursor                : pointer;
 }
 
 span.wpdk-form-swipe.wpdk-form-swipe-on
