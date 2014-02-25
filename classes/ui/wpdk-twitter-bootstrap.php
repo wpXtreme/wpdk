@@ -117,11 +117,12 @@ class WPDKTwitterBootstrapModal extends WPDKUIModalDialog {
  * ## Overview
  * This class enum all Twitter Bootstrap buttons types
  *
- * @class           WPDKTwitterBootstrapButtonType
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-28
- * @version         1.1.0
+ * @class              WPDKTwitterBootstrapButtonType
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-02-28
+ * @version            1.1.0
+ * @deprecated         since 1.4.21
  *
  */
 class WPDKTwitterBootstrapButtonType {
@@ -141,11 +142,12 @@ class WPDKTwitterBootstrapButtonType {
  * ## Overview
  * This class enum all Twitter Bootstrap buttons sizes
  *
- * @class           WPDKTwitterBootstrapButtonSize
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-28
- * @version         1.1.0
+ * @class              WPDKTwitterBootstrapButtonSize
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-02-28
+ * @version            1.1.0
+ * @deprecated         since 1.4.21
  *
  */
 class WPDKTwitterBootstrapButtonSize {
@@ -162,11 +164,12 @@ class WPDKTwitterBootstrapButtonSize {
  * ## Overview
  * This class is a wrap of Twitter Bootstrap Button
  *
- * @class           WPDKTwitterBootstrapButton
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-28
- * @version         1.1.0
+ * @class              WPDKTwitterBootstrapButton
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2013-02-28
+ * @version            1.1.0
+ * @deprecated         since 1.4.21
  *
  */
 class WPDKTwitterBootstrapButton extends WPDKTwitterBootstrap {
