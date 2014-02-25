@@ -169,6 +169,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "17ebadd1e3f274ff0205601eef7b9cc4",
+      "css": "help-circled",
+      "code": 59462,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e82cedfa1d5f15b00c5a81c9bd731ea2",
+      "css": "info-circled",
+      "code": 59460,
+      "src": "fontawesome"
+    },
+    {
       "uid": "c1f1975c885aa9f3dad7810c53b82074",
       "css": "lock",
       "code": 59408,

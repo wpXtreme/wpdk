@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Manage the Javascript/css components
+ * Manage the Javascript/css components under the WPDK assets folder
  *
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-08
- * @version         1.0.0
+ * @date            2014-02-23
+ * @version         1.0.1
  *
  */
 final class WPDKUIComponents {
@@ -48,10 +48,11 @@ final class WPDKUIComponents {
         }
 
         // Styles
-        else if ( '.css' == $extension ) {
+        elseif ( '.css' == $extension ) {
           $filename = sprintf( '%s%s%s', WPDK_URI_CSS, $handle, $extension );
           wp_register_style( $handle, $filename, $deps, WPDK_VERSION );
         }
+
       }
     }
 
@@ -96,7 +97,7 @@ final class WPDKUIComponents {
       ),
       self::POPOVER       => array(
         '.js'  => array( self::CONTROLS, self::TOOLTIP ),
-        '.css' => array( self::CONTROLS )
+        '.css' => array( self::CONTROLS, self::TOOLTIP )
       ),
       self::MODAL         => array(
         '.js'  => array( self::CONTROLS, self::BUTTON, self::TRANSITION ),
@@ -111,6 +112,59 @@ final class WPDKUIComponents {
     );
 
     return $components;
+  }
+
+  /**
+   * Perform an enqueue of scripts and styles of a one or more components
+   *
+   *     // Load a single components
+   *     WPDKUIComponents::enqueue( WPDKUIComponents::TOOLTIP );
+   *
+   *     // Load one or more components
+   *     WPDKUIComponents::enqueue( array( WPDKUIComponents::MODAL, WPDKUIComponents::TOOLTIP ) );
+   *
+   *     // Or... like kind of magic
+   *     WPDKUIComponents::enqueue( WPDKUIComponents::MODAL, WPDKUIComponents::TOOLTIP );
+   *
+   * @brief Enqueue component
+   * @since 1.5.0
+   *
+   * @param string|array $component_handles One or more Component handle
+   *
+   */
+  public static function enqueue( $component_handles )
+  {
+    // Get components list
+    $components = self::init()->components();
+
+    // Handles, one or more
+    $handles = (array)$component_handles;
+
+    // Magic
+    if( func_num_args() > 1 ) {
+      $handles = func_get_args();
+    }
+
+    // Loop
+    foreach( $handles as $handle ) {
+
+      // Exists this component?
+      if ( in_array( $handle, array_keys( $components ) ) ) {
+
+        // Get scripts and styles
+        $component = $components[$handle];
+
+        // Load scripts?
+        if ( isset( $component['.js'] ) ) {
+          wp_enqueue_script( $handle );
+        }
+
+        // Load styles?
+        if ( isset( $component['.css'] ) ) {
+          wp_enqueue_style( $handle );
+        }
+      }
+    }
   }
 
   /**

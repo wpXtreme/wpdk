@@ -140,7 +140,7 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
 
     // Refresh by event
     $( document ).on( 'wpdk-popover', function() {
-      $( '.wpdk-has-popover' ).wpdkTooltip();
+      $( '.wpdk-has-popover' ).wpdkPopover();
     } );
 
   }(jQuery);

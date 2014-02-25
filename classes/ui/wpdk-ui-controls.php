@@ -1846,16 +1846,17 @@ class WPDKUIControlSubmit extends WPDKUIControl {
  *         'data'            => '',
  *         'class'           => '',
  *         'style'           => '',
- *         'title'           => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'           => 'This title is Tooltip',
  *         'prepend'         => '',
  *         'append'          => '',
+ *         'popover'         => instance of WPDKUIPopover
  *     );
  *
  * @class              WPDKUIControlSwipe
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-30
- * @version            0.8.2
+ * @date               2014-02-23
+ * @version            0.9.0
  *
  */
 class WPDKUIControlSwipe extends WPDKUIControl {
@@ -1870,7 +1871,8 @@ class WPDKUIControlSwipe extends WPDKUIControl {
    *
    * @return WPDKUIControlSwipe
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::SWIPE;
     parent::__construct( $item );
   }
@@ -1880,13 +1882,14 @@ class WPDKUIControlSwipe extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     echo $this->contentWithKey( 'prepend' );
 
-    /* Create the label. */
+    // Create the label
     $label = $this->label();
 
-    /* Display left label. */
+    // Display left label
     if ( !isset( $this->item['label_placement'] ) || 'left' == $this->item['label_placement'] ) {
       echo is_null( $label ) ? '' : $label->html();
     }
@@ -1899,18 +1902,53 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
     $swipe          = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
     $class          = isset( $this->item['class'] ) ?  $this->item['class'] : '';
-    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe wpdk-has-tooltip ' . $status );
+    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe ' . $status );
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
+
     if ( isset( $this->item['userdata'] ) ) {
       $swipe->data['userdata'] = esc_attr( $this->item['userdata'] );
     }
+
+    // Title and tooltip
     $swipe->title = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    if ( !empty( $swipe->title ) ) {
+      $swipe->class[] = 'wpdk-has-tooltip';
+    }
+
     $swipe->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+
+    // since 1.5.0 - check for popover
+    if( isset( $this->item['popover'] ) && is_a( $this->item['popover'], 'WPDKUIPopover' ) ) {
+
+      /**
+       * Get popover
+       *
+       * @var WPDKUIPopover $popover
+       */
+      $popover = $this->item['popover'];
+
+      // Add popover class
+      $swipe->class[] = 'wpdk-has-popover';
+
+      // Set data attribute
+      $swipe->data['title']   = $popover->title();
+      $swipe->data['content'] = $popover->content();
+
+      // Extra
+      $swipe->data['animation'] = $popover->animation;
+      $swipe->data['container'] = $popover->container;
+
+      $swipe->data['delay']     = json_encode( $popover->delay );
+      $swipe->data['html']      = $popover->html;
+      $swipe->data['placement'] = $popover->placement;
+      $swipe->data['selector']  = $popover->selector;
+      $swipe->data['trigger']   = $popover->trigger;
+    }
 
     $swipe->display();
 
-    /* Display right label. */
+    // Display right label
     if ( isset( $this->item['label_placement'] ) && 'right' == $this->item['label_placement'] ) {
       echo is_null( $label ) ? '' : $label->html();
     }

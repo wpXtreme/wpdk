@@ -250,21 +250,19 @@ class WPDKCustomPostType extends WPDKObject {
       return;
     }
 
-
     // This function only applies to the following post_types
     if ( !in_array( $post_type, array( $this->id ) ) ) {
       return;
     }
 
     // Find correct capability from post_type arguments
-    $capability       = '';
     if ( isset( $post_type_object->cap->edit_posts ) ) {
       $capability = $post_type_object->cap->edit_posts;
-    }
 
-    // Return if current user cannot edit this post
-    if ( !current_user_can( $capability ) ) {
-      return;
+      // Return if current user cannot edit this post
+      if ( !current_user_can( $capability ) ) {
+        return;
+      }
     }
 
     // If all ok and post request then update()

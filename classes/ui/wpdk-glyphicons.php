@@ -88,6 +88,10 @@ final class WPDKGlyphIcons extends WPDKObject {
   const TAGS            = 'wpdk-icon-tags';
   const DOC_INV         = 'wpdk-icon-doc-inv';
 
+  // since 1.5.0
+  const HELP_CIRCLED    = 'wpdk-icon-help-circled';
+  const INFO_CIRCLED    = 'wpdk-icon-info-circled';
+
   /**
    * Override version
    *

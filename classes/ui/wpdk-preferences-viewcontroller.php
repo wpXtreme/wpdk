@@ -51,7 +51,7 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
    */
   public function _admin_head()
   {
-    wp_enqueue_script( WPDKUIComponents::PREFERENCES );
+    WPDKUIComponents::enqueue( WPDKUIComponents::PREFERENCES );
   }
 
 

@@ -412,6 +412,185 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
+
+  /**
+   * Manage the Glyph Icon
+   */
+  if ( 'undefined' === typeof( window.WPDKGlyphIcons ) ) {
+    window.WPDKGlyphIcons = (function ()
+    {
+      var $t = {
+        version         : '1.0.2',
+        display         : _display,
+        html            : _html,
+
+        // Glyph constants
+        ANGLE_DOWN      : 'wpdk-icon-angle-down',
+        UPDOWN_CIRCLE   : 'wpdk-icon-updown-circle',
+        ANGLE_LEFT      : 'wpdk-icon-angle-left',
+        ANGLE_RIGHT     : 'wpdk-icon-angle-right',
+        ANGLE_UP        : 'wpdk-icon-angle-up',
+        ARROWS_CW       : 'wpdk-icon-arrows-cw',
+        ATTENTION       : 'wpdk-icon-attention',
+        BUG             : 'wpdk-icon-bug',
+        CANCEL_CIRCLED2 : 'wpdk-icon-cancel-circled2',
+        CCW             : 'wpdk-icon-ccw',
+        CHAT            : 'wpdk-icon-chat',
+        CLOCK           : 'wpdk-icon-clock-1',
+        COMMENT_EMPTY   : 'wpdk-icon-comment-empty',
+        CW              : 'wpdk-icon-cw',
+        DOWN_BIG        : 'wpdk-icon-down-big',
+        DOWN_OPEN       : 'wpdk-icon-down-open',
+        EMO_COFFEE      : 'wpdk-icon-emo-coffee',
+        EXPORT          : 'wpdk-icon-export',
+        GITHUB          : 'wpdk-icon-github',
+        HEART           : 'wpdk-icon-heart',
+        HEART_EMPTY     : 'wpdk-icon-heart-empty',
+        LEFT_OPEN       : 'wpdk-icon-left-open',
+        LOCK            : 'wpdk-icon-lock',
+        LOCK_OPEN       : 'wpdk-icon-lock-open',
+        LOCK_OPEN_ALT   : 'wpdk-icon-lock-open-alt',
+        MAIL            : 'wpdk-icon-mail',
+        MINUS_SQUARED   : 'wpdk-icon-minus-squared',
+        OK              : 'wpdk-icon-ok',
+        OK_CIRCLED      : 'wpdk-icon-ok-circled',
+        PENCIL          : 'wpdk-icon-pencil',
+        PLUS_SQUARED    : 'wpdk-icon-plus-squared',
+        RIGHT_OPEN      : 'wpdk-icon-right-open',
+        SEARCH          : 'wpdk-icon-search',
+        SPIN1           : 'wpdk-icon-spin1 animate-spin',
+        SPIN2           : 'wpdk-icon-spin2 animate-spin',
+        SPIN3           : 'wpdk-icon-spin3 animate-spin',
+        SPIN4           : 'wpdk-icon-spin4 animate-spin',
+        SPIN5           : 'wpdk-icon-spin5 animate-spin',
+        SPIN6           : 'wpdk-icon-spin6 animate-spin',
+        STAR            : 'wpdk-icon-star',
+        STAR_EMPTY      : 'wpdk-icon-star-empty',
+        STAR_HALF       : 'wpdk-icon-star-half',
+        STAR_HALF_ALT   : 'wpdk-icon-star-half-alt',
+        TRASH           : 'wpdk-icon-trash',
+        UP_OPEN         : 'wpdk-icon-up-open',
+
+        // Since 1.4.5
+        EMO_HAPPY       : 'wpdk-icon-emo-happy',
+        EMO_UNHAPPY     : 'wpdk-icon-emo-unhappy',
+        CANCEL_CIRCLED  : 'wpdk-icon-cancel-circled',
+        THUMBS_UP_ALT   : 'wpdk-icon-thumbs-up-alt',
+        THUMBS_DOWN_ALT : 'wpdk-icon-thumbs-down-alt',
+        THUMBS_UP       : 'wpdk-icon-thumbs-up',
+        THUMBS_DOWN     : 'wpdk-icon-thumbs-down',
+        COG             : 'wpdk-icon-cog',
+        UP_BIG          : 'wpdk-icon-up-big',
+        LEFT_BIG        : 'wpdk-icon-left-big',
+        RIGHT_BIG       : 'wpdk-icon-right-big',
+        OFF             : 'wpdk-icon-off',
+        FACEBOOK        : 'wpdk-icon-facebook',
+        APPLE           : 'wpdk-icon-apple',
+        TWITTER         : 'wpdk-icon-twitter',
+
+        // Since 1.4.7
+        GOOGLE_PLUS     : 'wpdk-icon-gplus',
+
+        // Since 1.4.21
+        FIREFOX         : 'wpdk-icon-firefox',
+        CHROME          : 'wpdk-icon-chrome',
+        OPERA           : 'wpdk-icon-opera',
+        IE              : 'wpdk-icon-ie',
+        TAG             : 'wpdk-icon-tag',
+        TAGS            : 'wpdk-icon-tags',
+        DOC_INV         : 'wpdk-icon-doc-inv',
+
+        // since 1.5.0
+        HELP_CIRCLED    : 'wpdk-icon-help-circled',
+        INFO_CIRCLED    : 'wpdk-icon-info-circled'
+
+      };
+
+      /**
+       * Return the HTML markup for glyph icon
+       *
+       * @param {string} glypho
+       * @param {string} size Optional. Default = ''
+       * @param {string} color Optional. Default = ''
+       * @param {string} tag Optional. Default = 'i'
+       *
+       * @returns {string}
+       * @private
+       */
+      function _display( glypho, size, color, tag )
+      {
+        document.write( _html( glypho, size, color, tag ) );
+      }
+
+      /**
+       * Return the HTML markup for glyph icon
+       *
+       * @param {string} glypho
+       * @param {string} size Optional. Default = ''
+       * @param {string} color Optional. Default = ''
+       * @param {string} tag Optional. Default = 'i'
+       *
+       * @returns {string}
+       * @private
+       */
+      function _html( glypho, size, color, tag )
+      {
+        var d = {
+          size  : size || '',
+          color : color || '',
+          tag   : tag || 'i'
+        };
+
+        var stack = [], style = '';
+
+        if ( !empty( d.size ) ) {
+          stack.push( sprintf( 'font-size:%s', d.size ) );
+        }
+
+        if ( !empty( d.color ) ) {
+          stack.push( sprintf( 'color:%s', d.color ) );
+        }
+
+        if ( !empty( stack ) ) {
+          style = sprintf( 'style="%s"', implode( ';', stack ) );
+        }
+
+        return sprintf( '<%s %s class="%s"></%s>', d.tag, style, glypho, d.tag );
+      }
+
+      return $t;
+
+    })();
+  }
+
+  /**
+   * Manage the Components
+   */
+  if ( 'undefined' === typeof( window.WPDKUIComponents ) ) {
+    window.WPDKUIComponents = (function(){
+
+      var $t = {
+        version       : '1.0.0',
+
+        // See WPDKUIComponents in php
+        ALERT         : 'wpdk-alert',           
+        BUTTON        : 'wpdk-button',          
+        CONTROLS      : 'wpdk-controls',        
+        DYNAMIC_TABLE : 'wpdk-dynamic-table',   
+        MODAL         : 'wpdk-modal',           
+        POPOVER       : 'wpdk-popover',         
+        PREFERENCES   : 'wpdk-preferences',     
+        PROGRESS      : 'wpdk-progress',        
+        RIBBONIZE     : 'wpdk-ribbonize',       
+        TOOLTIP       : 'wpdk-tooltip',         
+        TRANSITION    : 'wpdk-transition'
+      };
+
+      return $t;
+
+    })();
+  }
+
 }();
 
 
@@ -525,152 +704,6 @@ jQuery( function ( $ )
     };
 
   } ));
-
-  /**
-   * Manage the Glyph Icon
-   */
-  if ( 'undefined' === typeof( window.WPDKGlyphIcons ) ) {
-    window.WPDKGlyphIcons = (function ()
-    {
-      var $t = {
-        version         : '1.0.2',
-        display         : _display,
-        html            : _html,
-
-        // Glyph constants
-        ANGLE_DOWN      : 'wpdk-icon-angle-down',
-        UPDOWN_CIRCLE   : 'wpdk-icon-updown-circle',
-        ANGLE_LEFT      : 'wpdk-icon-angle-left',
-        ANGLE_RIGHT     : 'wpdk-icon-angle-right',
-        ANGLE_UP        : 'wpdk-icon-angle-up',
-        ARROWS_CW       : 'wpdk-icon-arrows-cw',
-        ATTENTION       : 'wpdk-icon-attention',
-        BUG             : 'wpdk-icon-bug',
-        CANCEL_CIRCLED2 : 'wpdk-icon-cancel-circled2',
-        CCW             : 'wpdk-icon-ccw',
-        CHAT            : 'wpdk-icon-chat',
-        CLOCK           : 'wpdk-icon-clock-1',
-        COMMENT_EMPTY   : 'wpdk-icon-comment-empty',
-        CW              : 'wpdk-icon-cw',
-        DOWN_BIG        : 'wpdk-icon-down-big',
-        DOWN_OPEN       : 'wpdk-icon-down-open',
-        EMO_COFFEE      : 'wpdk-icon-emo-coffee',
-        EXPORT          : 'wpdk-icon-export',
-        GITHUB          : 'wpdk-icon-github',
-        HEART           : 'wpdk-icon-heart',
-        HEART_EMPTY     : 'wpdk-icon-heart-empty',
-        LEFT_OPEN       : 'wpdk-icon-left-open',
-        LOCK            : 'wpdk-icon-lock',
-        LOCK_OPEN       : 'wpdk-icon-lock-open',
-        LOCK_OPEN_ALT   : 'wpdk-icon-lock-open-alt',
-        MAIL            : 'wpdk-icon-mail',
-        MINUS_SQUARED   : 'wpdk-icon-minus-squared',
-        OK              : 'wpdk-icon-ok',
-        OK_CIRCLED      : 'wpdk-icon-ok-circled',
-        PENCIL          : 'wpdk-icon-pencil',
-        PLUS_SQUARED    : 'wpdk-icon-plus-squared',
-        RIGHT_OPEN      : 'wpdk-icon-right-open',
-        SEARCH          : 'wpdk-icon-search',
-        SPIN1           : 'wpdk-icon-spin1 animate-spin',
-        SPIN2           : 'wpdk-icon-spin2 animate-spin',
-        SPIN3           : 'wpdk-icon-spin3 animate-spin',
-        SPIN4           : 'wpdk-icon-spin4 animate-spin',
-        SPIN5           : 'wpdk-icon-spin5 animate-spin',
-        SPIN6           : 'wpdk-icon-spin6 animate-spin',
-        STAR            : 'wpdk-icon-star',
-        STAR_EMPTY      : 'wpdk-icon-star-empty',
-        STAR_HALF       : 'wpdk-icon-star-half',
-        STAR_HALF_ALT   : 'wpdk-icon-star-half-alt',
-        TRASH           : 'wpdk-icon-trash',
-        UP_OPEN         : 'wpdk-icon-up-open',
-
-        // Since 1.4.5
-        EMO_HAPPY       : 'wpdk-icon-emo-happy',
-        EMO_UNHAPPY     : 'wpdk-icon-emo-unhappy',
-        CANCEL_CIRCLED  : 'wpdk-icon-cancel-circled',
-        THUMBS_UP_ALT   : 'wpdk-icon-thumbs-up-alt',
-        THUMBS_DOWN_ALT : 'wpdk-icon-thumbs-down-alt',
-        THUMBS_UP       : 'wpdk-icon-thumbs-up',
-        THUMBS_DOWN     : 'wpdk-icon-thumbs-down',
-        COG             : 'wpdk-icon-cog',
-        UP_BIG          : 'wpdk-icon-up-big',
-        LEFT_BIG        : 'wpdk-icon-left-big',
-        RIGHT_BIG       : 'wpdk-icon-right-big',
-        OFF             : 'wpdk-icon-off',
-        FACEBOOK        : 'wpdk-icon-facebook',
-        APPLE           : 'wpdk-icon-apple',
-        TWITTER         : 'wpdk-icon-twitter',
-
-        // Since 1.4.7
-        GOOGLE_PLUS     : 'wpdk-icon-gplus',
-        
-        // Since 1.4.21
-        FIREFOX         : 'wpdk-icon-firefox',     
-        CHROME          : 'wpdk-icon-chrome',      
-        OPERA           : 'wpdk-icon-opera',       
-        IE              : 'wpdk-icon-ie',          
-        TAG             : 'wpdk-icon-tag',         
-        TAGS            : 'wpdk-icon-tags',        
-        DOC_INV         : 'wpdk-icon-doc-inv'
-
-      };
-
-      /**
-       * Return the HTML markup for glyph icon
-       *
-       * @param {string} glypho
-       * @param {string} size Optional. Default = ''
-       * @param {string} color Optional. Default = ''
-       * @param {string} tag Optional. Default = 'i'
-       *
-       * @returns {string}
-       * @private
-       */
-      function _display( glypho, size, color, tag )
-      {
-        document.write( _html( glypho, size, color, tag ) );
-      }
-
-      /**
-       * Return the HTML markup for glyph icon
-       *
-       * @param {string} glypho
-       * @param {string} size Optional. Default = ''
-       * @param {string} color Optional. Default = ''
-       * @param {string} tag Optional. Default = 'i'
-       *
-       * @returns {string}
-       * @private
-       */
-      function _html( glypho, size, color, tag )
-      {
-        var d = {
-          size  : size || '',
-          color : color || '',
-          tag   : tag || 'i'
-        };
-
-        var stack = [], style = '';
-
-        if ( !empty( d.size ) ) {
-          stack.push( sprintf( 'font-size:%s', d.size ) );
-        }
-
-        if ( !empty( d.color ) ) {
-          stack.push( sprintf( 'color:%s', d.color ) );
-        }
-
-        if ( !empty( stack ) ) {
-          style = sprintf( 'style="%s"', implode( ';', stack ) );
-        }
-
-        return sprintf( '<%s %s class="%s"></%s>', d.tag, style, glypho, d.tag );
-      }
-
-      return $t;
-
-    })();
-  }
 
   /**
    * This class manage all jQuery enhancer and hacks
