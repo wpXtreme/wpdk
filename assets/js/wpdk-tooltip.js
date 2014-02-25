@@ -142,6 +142,9 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
       if (this.hasContent() && this.enabled) {
         this.$element.trigger(e)
 
+        // WPDK add class when visible
+        this.$element.addClass( 'wpdk-visible' )
+
         if (e.isDefaultPrevented()) return
         var that = this;
 
@@ -290,6 +293,9 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
       }
 
       this.$element.trigger(e)
+
+      // WPDK add class when visible
+      this.$element.removeClass( 'wpdk-visible' )
 
       if (e.isDefaultPrevented()) return
 
