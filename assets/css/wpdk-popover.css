@@ -191,7 +191,7 @@
   transition         : background-color linear 0.2s;
 }
 
-.wpdk-popover-container.wpdk-popover-visible,
+.wpdk-popover-container.wpdk-visible,
 .wpdk-popover-container:hover
 {
   padding               : 8px 0;
