@@ -378,23 +378,9 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-scripts.php'                    => 'WPDKScripts',
 
-        $sPathPrefix . 'classes/ui/wpdk-tbs-alert.php'                  => array(
-          'WPDKTwitterBootstrapAlert',
-          'WPDKTwitterBootstrapAlertType',
-        ),
-
         $sPathPrefix . 'classes/ui/wpdk-tinymce-plugin.php'             => array(
           'WPDKEditorButton',
           'WPDKTinyMCEPlugin'
-        ),
-
-        $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'          => array(
-          'WPDKTwitterBoostrapPopover',
-          'WPDKTwitterBootstrap',
-          'WPDKTwitterBootstrapButton',
-          'WPDKTwitterBootstrapButtonSize',
-          'WPDKTwitterBootstrapButtonType',
-          'WPDKTwitterBootstrapModal',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
@@ -482,19 +468,33 @@ if ( !class_exists( 'WPDK' ) ) {
         // DEPRECATED
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'      => array(
+        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'          => array(
           'WPDKDBTable',
           '_WPDKDBTable',
         ),
 
-        $sPathPrefix . 'classes/deprecated/wpdk-configuration.php' => array(
+        $sPathPrefix . 'classes/deprecated/wpdk-configuration.php'     => array(
           'WPDKConfig',
           'WPDKConfigBranch',
           'WPDKConfiguration',
           'WPDKConfigurationView',
         ),
 
-        /* Extra libs */
+        $sPathPrefix . 'classes/deprecated/wpdk-tbs-alert.php'         => array(
+          'WPDKTwitterBootstrapAlert',
+          'WPDKTwitterBootstrapAlertType',
+        ),
+
+        $sPathPrefix . 'classes/deprecated/wpdk-twitter-bootstrap.php' => array(
+          'WPDKTwitterBoostrapPopover',
+          'WPDKTwitterBootstrap',
+          'WPDKTwitterBootstrapButton',
+          'WPDKTwitterBootstrapButtonSize',
+          'WPDKTwitterBootstrapButtonType',
+          'WPDKTwitterBootstrapModal',
+        ),
+
+        // Extra libs
 
       );
 

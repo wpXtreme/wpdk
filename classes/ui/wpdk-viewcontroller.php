@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The WPDKViewCntroller is the main view likely WordPress
  *
@@ -13,9 +14,9 @@
  *
  * @class              WPDKViewController
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-03
- * @version            0.9.2
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-02-26
+ * @version            0.9.22
  *
  */
 
@@ -28,7 +29,7 @@ class WPDKViewController extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '0.9.21';
+  public $__version = '0.9.22';
 
   /**
    * The unique id for this view controller
@@ -37,7 +38,7 @@ class WPDKViewController extends WPDKObject {
    *
    * @var string $id
    */
-  public $id;
+  public $id = '';
 
   /**
    * The title of this view controller. This is displayed on top header
@@ -46,7 +47,7 @@ class WPDKViewController extends WPDKObject {
    *
    * @var string $title
    */
-  public $title;
+  public $title = '';
 
   /**
    * The view stored in this property represents the root view for the view controller hierarchy.
@@ -177,11 +178,9 @@ class WPDKViewController extends WPDKObject {
    */
   public function html()
   {
-    ob_start();
+    WPDKHTML::startCompress();
     $this->display();
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+    return WPDKHTML::endCompress();
   }
 
   /**
@@ -191,19 +190,17 @@ class WPDKViewController extends WPDKObject {
    */
   public function display()
   {
-    ?>
+    do_action( $this->id . '_will_view_appear', $this );
 
-    <?php do_action( $this->id . '_will_view_appear', $this ) ?>
+    // @deprecated
+    do_action( 'wpdk_view_controller_will_view_appear', $this->view, $this );
 
-    <?php do_action( 'wpdk_view_controller_will_view_appear', $this->view, $this ); // @deprecated ?>
+    $this->view->display();
 
-    <?php $this->view->display() ?>
+    // @deprecated
+    do_action( 'wpdk_view_controller_did_view_appear', $this->view, $this );
 
-    <?php do_action( 'wpdk_view_controller_did_view_appear', $this->view, $this ); // @deprecated ?>
-
-    <?php do_action( $this->id . '_did_view_appear', $this ) ?>
-
-  <?php
+    do_action( $this->id . '_did_view_appear', $this );
   }
 }
 
@@ -242,7 +239,7 @@ class WPDKHeaderView extends WPDKView {
   {
     parent::__construct( $id, 'clearfix wpdk-header-view' );
 
-    /* WPDKHeaderView property. */
+    // WPDKHeaderView property
     $this->title = $title;
   }
 
@@ -257,13 +254,16 @@ class WPDKHeaderView extends WPDKView {
     <div data-type="wpdk-header-view" id="<?php echo $this->id ?>" class="wpdk-vc-header-icon"></div>
     <h2><?php echo $this->title ?>
       <?php
-      /* @todo Add action docs. */
+
+      // @todo Add action docs
       do_action( 'wpdk_header_view_' . $this->id . '_title_did_appear', $this );
+
       // @deprecated
       do_action( 'wpdk_header_view_title_did_appear', $this );
       ?></h2>
     <?php
     do_action( 'wpdk_header_view_' . $this->id . '_after_title', $this );
+
     // @deprecated
     do_action( 'wpdk_header_view_after_title', $this );
     ?>
