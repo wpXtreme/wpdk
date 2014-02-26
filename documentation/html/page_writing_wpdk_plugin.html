@@ -130,12 +130,6 @@ if( !class_exists( 'TestPlugin' ) )
 
   class TestPlugin extends WPDKWordPressPlugin { }
 }
-
-```php
-&lt;?php
-
-    $this-&gt;hello();
-```
 </pre><p>Please note the declaration of a class named <code>TestPlugin</code>, that extends <code><a class="el" href="classWPDKWordPressPlugin.html">WPDKWordPressPlugin</a></code> class. We have to deepen the behaviour of the <code><a class="el" href="classWPDKWordPressPlugin.html">WPDKWordPressPlugin</a></code> class, because your main class inherits all things it needs directly from it.</p>
 <p>The <code><a class="el" href="classWPDKWordPressPlugin.html">WPDKWordPressPlugin</a></code> class is one of the most important class of the whole <em>WPDK framework</em>. It encapsulates all init procedures for a plugin, and provides the fundamental startup of a plugin in order to make it full compatible with the WPDK standard. You rarely (never) instantiate <code><a class="el" href="classWPDKWordPressPlugin.html">WPDKWordPressPlugin</a></code> object directly. Instead, you instantiate subclasses of the <code><a class="el" href="classWPDKWordPressPlugin.html">WPDKWordPressPlugin</a></code> class.</p>
 <p>In WPDK environment, this class <b>must</b> be used to extend the main class of a plugin: its goal is to initialize the environment in which the plugin itself operates.</p>
