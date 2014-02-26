@@ -1,0 +1,26 @@
+var classWPDKHTMLTagInputType =
+[
+    [ "BUTTON", "classWPDKHTMLTagInputType.html#a5ec448edc74963821c3632c8e47c9d3a", null ],
+    [ "CHECKBOX", "classWPDKHTMLTagInputType.html#a22ee02a9e39e2c60aa6f659a5321b6ec", null ],
+    [ "COLOR", "classWPDKHTMLTagInputType.html#ae54cf2804038e04210c465ed7e65812d", null ],
+    [ "DATE", "classWPDKHTMLTagInputType.html#a2710435d730458ebdf5de85f8fee5c85", null ],
+    [ "DATETIME", "classWPDKHTMLTagInputType.html#a864dd340de42f0b84af9517e4978cd50", null ],
+    [ "DATETIME_LOCAL", "classWPDKHTMLTagInputType.html#a938d9e1a32bc7b04d77e04ebd7e42192", null ],
+    [ "EMAIL", "classWPDKHTMLTagInputType.html#a012cde27958c21fff18f42b21dd26408", null ],
+    [ "FILE", "classWPDKHTMLTagInputType.html#a46fd04797b946f38fd86fea1c23123d6", null ],
+    [ "HIDDEN", "classWPDKHTMLTagInputType.html#acc1b06baa1fdef1e41ba494f83adbf75", null ],
+    [ "IMAGE", "classWPDKHTMLTagInputType.html#af002e64a6e7831649f0365b88c0c5b32", null ],
+    [ "MONTH", "classWPDKHTMLTagInputType.html#afd31cd42304af28c427461a748531138", null ],
+    [ "NUMBER", "classWPDKHTMLTagInputType.html#af0ab3ab75e0ff56d8c02872bc91f68a2", null ],
+    [ "PASSWORD", "classWPDKHTMLTagInputType.html#a627633cf1f3c4ee60fcc7d025a4039ed", null ],
+    [ "RADIO", "classWPDKHTMLTagInputType.html#a8dcd01e0b22ec069baf8224696ebf5a4", null ],
+    [ "RANGE", "classWPDKHTMLTagInputType.html#af7d3ec37ed1b60abfa98968e4faf3b82", null ],
+    [ "RESET", "classWPDKHTMLTagInputType.html#a469ee33c689dc4ae8973e28506e8f9bc", null ],
+    [ "SEARCH", "classWPDKHTMLTagInputType.html#a501262d491262075e63207f41679eceb", null ],
+    [ "SUBMIT", "classWPDKHTMLTagInputType.html#ae0b4dedd130aeeef7c6f782a84df24c1", null ],
+    [ "TEL", "classWPDKHTMLTagInputType.html#a53ac0344cdf3ebfb4ef52e847ccbf29a", null ],
+    [ "TEXT", "classWPDKHTMLTagInputType.html#a653f16b93fcf9478a4317617e95b01d2", null ],
+    [ "TIME", "classWPDKHTMLTagInputType.html#a51eb6cfbceb348ac5f40f954bb47b5a5", null ],
+    [ "URL", "classWPDKHTMLTagInputType.html#a2a5fb34fada8ceb9b494ec16878c09dc", null ],
+    [ "WEEK", "classWPDKHTMLTagInputType.html#a0de14fe1a225ec31c9350c477b12dc19", null ]
+];
