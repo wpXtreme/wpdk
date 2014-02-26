@@ -55,9 +55,10 @@ This is the main file of the plugin. You can named it as you like. In this file 
 * Including the WPDK framework
 * Start your plugin
 
-````php
+```php
+<?php
 require_once( trailingslashit( dirname( __FILE__ ) ) . 'wpdk/wpdk.php' );
-````
+```
 
 ### Issue and Bug Tracking
 
