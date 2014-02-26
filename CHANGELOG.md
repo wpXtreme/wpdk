@@ -21,12 +21,13 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.5.0
-### 2014-02-??
+### 2014-02-26
 
 #### Enhancements
 
 * Added `enqueue()` method in `WPDKUIComponents`
 * Added `WPDKUIComponents` in Javascript
+* Removed `WPDKTwitterBootstrapPopover` class (never used and replaced with `WPDKUIPopover`)
 * Introducing `WPDKUIPopover`
 * Improved `WPDKGlyphIcons` Javascript loading
 * Updated Glyphs

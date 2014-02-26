@@ -1,14 +1,14 @@
 <?php
 /// @cond private
 
-/* Avoid directly access */
+// Avoid directly access
 if ( !defined( 'ABSPATH' ) ) {
   exit;
 }
 
 if ( !class_exists( 'WPDK' ) ) {
 
-  /* Include config. */
+  // Include config
   require_once( trailingslashit( dirname( __FILE__ ) ) . 'config.php' );
 
   /**
@@ -124,13 +124,13 @@ if ( !class_exists( 'WPDK' ) ) {
     public function registerAutoloadClass( $sLoadingPath, $mClassName = '' )
     {
 
-      /* 1. */
+      // 1.
       if ( is_string( $sLoadingPath ) && is_string( $mClassName ) && !empty( $mClassName ) ) {
         $sClassNameLowerCased                               = strtolower( $mClassName );
         $this->_wpdkClassLoadingPath[$sClassNameLowerCased] = $sLoadingPath;
       }
 
-      /* 2. */
+      // 2.
       elseif ( is_array( $sLoadingPath ) ) {
         foreach ( $sLoadingPath as $path => $classes ) {
           if ( is_string( $classes ) ) {
@@ -138,7 +138,7 @@ if ( !class_exists( 'WPDK' ) ) {
             $this->_wpdkClassLoadingPath[$class_name] = $path;
           }
 
-          /* 3. */
+          // 3.
           elseif ( is_array( $classes ) ) {
             foreach ( $classes as $class_name ) {
               $class_name                               = strtolower( $class_name );
@@ -177,7 +177,7 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     private function defines()
     {
-      /* define WPDK constants. */
+      // define WPDK constants
       require_once( trailingslashit( dirname( __FILE__ ) ) . 'defines.php' );
     }
 
@@ -194,7 +194,7 @@ if ( !class_exists( 'WPDK' ) ) {
       // Put here files that have to be directly included without autoloading
       require_once( $sPathPrefix . 'classes/core/wpdk-functions.php' );
 
-      /* Start autoloading register */
+      // Start autoloading register
 
       $includes = array(
 
@@ -378,27 +378,9 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-scripts.php'                    => 'WPDKScripts',
 
-        $sPathPrefix . 'classes/ui/wpdk-tbs-alert.php'                  => array(
-          'WPDKTwitterBootstrapAlert',
-          'WPDKTwitterBootstrapAlertType',
-        ),
-
-        $sPathPrefix . 'classes/ui/wpdk-tbs-popover.php'                => array(
-          'WPDKTwitterBootstrapPopover',
-        ),
-
         $sPathPrefix . 'classes/ui/wpdk-tinymce-plugin.php'             => array(
           'WPDKEditorButton',
           'WPDKTinyMCEPlugin'
-        ),
-
-        $sPathPrefix . 'classes/ui/wpdk-twitter-bootstrap.php'          => array(
-          'WPDKTwitterBoostrapPopover',
-          'WPDKTwitterBootstrap',
-          'WPDKTwitterBootstrapButton',
-          'WPDKTwitterBootstrapButtonSize',
-          'WPDKTwitterBootstrapButtonType',
-          'WPDKTwitterBootstrapModal',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
@@ -443,8 +425,8 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog.php'            => 'WPDKUIModalDialog',
 
         $sPathPrefix . 'classes/ui/wpdk-ui-popover.php'                 => array(
+          'WPDKUIPopover',
           'WPDKUIPopoverPlacement',
-          'WPDKUIPopover'
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
@@ -486,19 +468,33 @@ if ( !class_exists( 'WPDK' ) ) {
         // DEPRECATED
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'      => array(
+        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'          => array(
           'WPDKDBTable',
           '_WPDKDBTable',
         ),
 
-        $sPathPrefix . 'classes/deprecated/wpdk-configuration.php' => array(
+        $sPathPrefix . 'classes/deprecated/wpdk-configuration.php'     => array(
           'WPDKConfig',
           'WPDKConfigBranch',
           'WPDKConfiguration',
           'WPDKConfigurationView',
         ),
 
-        /* Extra libs */
+        $sPathPrefix . 'classes/deprecated/wpdk-tbs-alert.php'         => array(
+          'WPDKTwitterBootstrapAlert',
+          'WPDKTwitterBootstrapAlertType',
+        ),
+
+        $sPathPrefix . 'classes/deprecated/wpdk-twitter-bootstrap.php' => array(
+          'WPDKTwitterBoostrapPopover',
+          'WPDKTwitterBootstrap',
+          'WPDKTwitterBootstrapButton',
+          'WPDKTwitterBootstrapButtonSize',
+          'WPDKTwitterBootstrapButtonType',
+          'WPDKTwitterBootstrapModal',
+        ),
+
+        // Extra libs
 
       );
 
