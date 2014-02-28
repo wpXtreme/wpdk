@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-26 10:29+0100\n"
-"PO-Revision-Date: 2014-02-26 10:29+0100\n"
+"POT-Creation-Date: 2014-02-28 16:59+0100\n"
+"PO-Revision-Date: 2014-02-28 16:59+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
@@ -45,6 +45,12 @@ msgstr ""
 msgid "Your preferences were successfully restored to defaults values!"
 msgstr ""
 
+#: ../classes/core/wpdk-preferences.php:246
+#: ../classes/core/wpdk-preferences.php:258
+#, fuzzy
+msgid "Information"
+msgstr "Informazioni account"
+
 #: ../classes/core/wpdk-preferences.php:257
 msgid "Your preferences values were successfully updated!"
 msgstr ""
@@ -61,15 +67,15 @@ msgstr ""
 msgid "Import complete."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:589
+#: ../classes/core/wpdk-preferences.php:590
 msgid "Error while read file! Error code:"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:593
+#: ../classes/core/wpdk-preferences.php:595
 msgid "Malformed file."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:597
+#: ../classes/core/wpdk-preferences.php:600
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
@@ -682,7 +688,7 @@ msgstr ""
 msgid "Severe error: no user logged in!"
 msgstr ""
 
-#: ../wpdk.php:612
+#: ../wpdk.php:608
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -690,35 +696,35 @@ msgstr ""
 "Devi confermare prima di sbloccare questo campo.\n"
 "Vuoi bloccare questo campo?"
 
-#: ../wpdk.php:614
+#: ../wpdk.php:610
 msgid "Choose Time"
 msgstr "Scegli un orario"
 
-#: ../wpdk.php:615
+#: ../wpdk.php:611
 msgid "Time"
 msgstr "Orario"
 
-#: ../wpdk.php:616
+#: ../wpdk.php:612
 msgid "Hour"
 msgstr "Ora"
 
-#: ../wpdk.php:617
+#: ../wpdk.php:613
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../wpdk.php:618
+#: ../wpdk.php:614
 msgid "Seconds"
 msgstr "Secondi"
 
-#: ../wpdk.php:619
+#: ../wpdk.php:615
 msgid "Now"
 msgstr "Adesso"
 
-#: ../wpdk.php:620
+#: ../wpdk.php:616
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Do,Lu,Ma,Me,Gi,Ve,Sa"
 
-#: ../wpdk.php:621
+#: ../wpdk.php:617
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -726,19 +732,19 @@ msgstr ""
 "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,"
 "Novembre,Dicembre"
 
-#: ../wpdk.php:622
+#: ../wpdk.php:618
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic"
 
-#: ../wpdk.php:623
+#: ../wpdk.php:619
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../wpdk.php:624
+#: ../wpdk.php:620
 msgid "mm/dd/yy"
 msgstr "dd/mm/yy"
 
-#: ../wpdk.php:625
+#: ../wpdk.php:621
 msgid "HH:mm"
 msgstr ""
 
@@ -787,9 +793,6 @@ msgstr ""
 
 #~ msgid "Last name"
 #~ msgstr "Cognome"
-
-#~ msgid "Account information"
-#~ msgstr "Informazioni account"
 
 #~ msgid "Warning! Your email is not valid."
 #~ msgstr "Attenzione! Indirizzo email non valido."
