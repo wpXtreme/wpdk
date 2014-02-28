@@ -243,7 +243,7 @@ class WPDKPreferences {
   public function wpdk_preferences_feedback_reset()
   {
     $message = __( 'Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
+    $alert   = new WPDKUIAlert( 'info', $message, WPDKUIAlertType::SUCCESS, __( 'Information', WPDK_TEXTDOMAIN ) );
     $alert->display();
   }
 
@@ -255,7 +255,7 @@ class WPDKPreferences {
   public function wpdk_preferences_feedback_update()
   {
     $message = __( 'Your preferences values were successfully updated!', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
+    $alert   = new WPDKUIAlert( 'info', $message, WPDKUIAlertType::SUCCESS, __( 'Information', WPDK_TEXTDOMAIN ) );
     $alert->display();
   }
 
@@ -579,26 +579,29 @@ class WPDKPreferencesImportExport {
 
     switch ( $this->error ) {
 
-      /* All ok. */
+      // ALL OK
       case self::ERROR_NONE;
         $title   = __( 'Successfully!', WPDK_TEXTDOMAIN );
         $content = __( 'Import complete.', WPDK_TEXTDOMAIN );
         break;
-      /* Error while reading upload file. */
+
+      // ERROR while reading upload file
       case self::ERROR_READ_FILE:
         $content = sprintf( '%s %s', __( 'Error while read file! Error code:', WPDK_TEXTDOMAIN ), $_FILES['file']['error'] );
         break;
-      /* Error while uncompress upload file. */
+
+      // ERROR while uncompress upload file
       case self::ERROR_MALFORMED_FILE:
         $content = __( 'Malformed file.', WPDK_TEXTDOMAIN );
         break;
-      /* Version export error. */
+
+      // Version export error
       case self::ERROR_VERSION:
         $content = __( 'Wrong file version! You are try to import a most recent of export file. Please update your plugin before continue.', WPDK_TEXTDOMAIN );
         break;
     }
 
-    $alert = new WPDKTwitterBootstrapAlert( 'feedback', $content, empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::WARNING, $title );
+    $alert = new WPDKUIAlert( 'feedback', $content, empty( $this->error ) ? WPDKUIAlertType::SUCCESS : WPDKUIAlertType::WARNING, $title );
     $alert->display();
   }
 

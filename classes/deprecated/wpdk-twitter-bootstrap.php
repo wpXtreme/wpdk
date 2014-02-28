@@ -38,6 +38,8 @@ class WPDKTwitterBootstrap extends WPDKHTMLTag {
   public function __construct( $id )
   {
     $this->id = $id;
+
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.1', 'WPDKUIAlert, WPDKUIModalDialog, ...' );
   }
 
   /**

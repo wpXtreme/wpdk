@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.1
+### 2014-02-??
+
+#### Improvements
+
+* Replaced deprecated
+
+
 ## Version 1.5.0
 ### 2014-02-26
 

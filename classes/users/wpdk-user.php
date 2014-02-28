@@ -1228,7 +1228,7 @@ class WPDKUsers {
     echo '<br clear="all" /><a name="wpdk"></a>';
 
     $message                  = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, have a look below for additional information.', WPDK_TEXTDOMAIN );
-    $alert                    = new WPDKTwitterBootstrapAlert( 'wpdk-alert-show_user_profile', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert                    = new WPDKUIAlert( 'wpdk-alert-show_user_profile', $message, WPDKUIAlertType::INFORMATION );
     $alert->permanent_dismiss = true;
     $alert->display();
 
@@ -1349,7 +1349,7 @@ class WPDKUsers {
   public function personal_options( $user )
   {
     $message = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'wpdk-alert-personal_options', $message, WPDKTwitterBootstrapAlertType::INFORMATION );
+    $alert   = new WPDKUIAlert( 'wpdk-alert-personal_options', $message, WPDKUIAlertType::INFORMATION );
     $alert->permanent_dismiss = true;
     $alert->display();
   }
