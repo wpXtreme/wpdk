@@ -608,11 +608,11 @@ class WPDKUIControl {
 }
 
 /**
- * Simple Twitter Alert control.
+ * Simple Alert control.
  *
  *     $item = array(
  *         'type'           => WPDKUIControlType::ALERT,
- *         'alert_type'     => WPDKTwitterBootstrapAlertType::INFORMATION,
+ *         'alert_type'     => WPDKUIAlertType::INFORMATION,
  *         'id'             => 'id',
  *         'value'          => 'Alert content',
  *         'title'          => 'Alert title',
@@ -624,9 +624,9 @@ class WPDKUIControl {
  *
  * @class              WPDKUIControlAlert
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-29
- * @version            0.9.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-02-28
+ * @version            1.0.0
  *
  */
 class WPDKUIControlAlert extends WPDKUIControl {
@@ -640,9 +640,9 @@ class WPDKUIControlAlert extends WPDKUIControl {
   {
     $value      = isset( $this->item['value'] ) ? $this->item['value'] : '';
     $title      = isset( $this->item['title'] ) ? $this->item['title'] : '';
-    $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKTwitterBootstrapAlertType::INFORMATION;
+    $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKUIAlertType::INFORMATION;
 
-    $alert                = new WPDKTwitterBootstrapAlert( $this->id, $value, $alert_type, $title );
+    $alert                = new WPDKUIAlert( $this->id, $value, $alert_type, $title );
     $alert->dismissButton = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
     $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] : isset( $this->item['class'] ) ? $this->item['class'] : '';
 
@@ -667,7 +667,7 @@ class WPDKUIControlAlert extends WPDKUIControl {
  *         'data'           => '',
  *         'class'          => '',
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -751,7 +751,7 @@ class WPDKUIControlButton extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -906,7 +906,7 @@ class WPDKUIControlCheckboxes extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1046,7 +1046,7 @@ class WPDKUIControlCustom extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1102,7 +1102,7 @@ class WPDKUIControlDate extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1158,7 +1158,7 @@ class WPDKUIControlDateTime extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1213,7 +1213,7 @@ class WPDKUIControlEmail extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1311,7 +1311,7 @@ class WPDKUIControlHidden extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1378,7 +1378,7 @@ class WPDKUIControlLabel extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1434,7 +1434,7 @@ class WPDKUIControlNumber extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1490,7 +1490,7 @@ class WPDKUIControlPassword extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1548,7 +1548,7 @@ class WPDKUIControlPhone extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1641,7 +1641,7 @@ class WPDKUIControlSection extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1721,7 +1721,7 @@ class WPDKUIControlSelect extends WPDKUIControl {
  *         'data'           => array(),
  *         'class'          => array(),
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'size'           => '5',
  *         'prepend'        => '',
  *         'append'         => '',
@@ -1798,7 +1798,7 @@ class WPDKUIControlSelectList extends WPDKUIControl {
  *         'data'           => '',
  *         'class'          => '',
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
@@ -1993,7 +1993,7 @@ class WPDKUIControlSwipe extends WPDKUIControl {
  *         'data'            => '',
  *         'class'           => '',
  *         'style'           => '',
- *         'title'           => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'           => 'This title is a tooltip',
  *         'prepend'         => '',
  *         'append'          => '',
  *     );
@@ -2075,14 +2075,14 @@ class WPDKUIControlSwitch extends WPDKUIControl {
  *         'data'           => '',
  *         'class'          => '',
  *         'style'          => '',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *         'guide'          => 'slug-of-guide'
  *     );
  *
  * ### guide
- * The new key `guide` is used to open a Twitter Bootstrap Modal with an iframe on the Developer Center. You can display
+ * The new key `guide` is used to open a Modal Dialog with an iframe on the Developer Center. You can display
  * any Developer Center public guide, just by slug name page. The key `guide` can be an array too:
  *
  *     'guide'   => array(
@@ -2146,7 +2146,7 @@ class WPDKUIControlText extends WPDKUIControl {
  *         'style'          => '',
  *         'cols'           => '10',
  *         'rows'           => '4',
- *         'title'          => 'This title is Twitter Bootstrap Tooltips',
+ *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
  *     );
