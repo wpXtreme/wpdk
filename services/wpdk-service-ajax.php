@@ -9,8 +9,8 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKServiceAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
-   * @date               2014-02-10
-   * @version            0.8.3
+   * @date               2014-03-03
+   * @version            1.0.0
    *
    */
   class WPDKServiceAjax extends WPDKAjax {
@@ -58,6 +58,7 @@ if ( wpdk_is_ajax() ) {
         'wpdk_action_user_by'            => true,
         'wpdk_action_autocomplete'       => true,
         'wpdk_action_autocomplete_posts' => true,
+        'wpdk_action_autocomplete_users' => true,
         'wpdk_action_dismiss_wp_pointer' => true,
 
         // since 1.4.21
@@ -67,9 +68,63 @@ if ( wpdk_is_ajax() ) {
       return $actionsMethods;
     }
 
-    // -------------------------------------------------------------------------------------------------------------
-    // Actions methods
-    // -------------------------------------------------------------------------------------------------------------
+    /**
+     * Return the autocomplete for users
+     *
+     * @brief Autocomplete for users
+     * @since 1.5.1
+     */
+    public function wpdk_action_autocomplete_users()
+    {
+      // Get the term
+      $term = isset( $_POST['term'] ) ? $_POST['term'] : '';
+
+      if( empty( $term ) ) {
+        wp_die( -1 );
+      }
+
+      // Get the site id
+      $site_id = isset( $_POST['site_id'] ) ? absint( $_POST['site_id'] ) : get_current_blog_id();
+
+      // Get avatar
+      $avatar      = isset( $_POST['avatar'] ) ? (bool)( $_POST['avatar'] ) : true;
+      $avatar_size = isset( $_POST['avatar_size'] ) ? absint( $_POST['avatar_size'] ) : 32;
+
+      // Get query
+      $query = isset( $_POST['query'] ) ? (array)$_POST['query'] : array( 'user_login', 'user_nicename', 'user_email' );
+
+      // Include users
+      $include_blog_users = get_users( array( 'blog_id' => $site_id, 'fields'  => 'ID' ) );
+      $exclude_blog_users = get_users( array( 'blog_id' => $site_id, 'fields'  => 'ID' ) );
+
+      $users = get_users( array(
+          'blog_id'        => false,
+          'search'         => '*' . $term . '*',
+          'include'        => $include_blog_users,
+          'exclude'        => $exclude_blog_users,
+          'search_columns' => $query,
+      ) );
+
+      // Prepare array response
+      $return = array();
+
+      // Loop in users
+      foreach ( $users as $user ) {
+
+        // Get avatar
+        $img_avatar = $avatar ? get_avatar( $user->ID, $avatar_size, '', 'Avatar' ) : '';
+
+        // Return
+        $return[] = array(
+          'value' => $user->user_email,
+          'label' => sprintf( '%s %s %s (%s)', $img_avatar, $user->user_firstname, $user->user_lastname, $user->user_email ),
+          'id'    => $user->ID
+        );
+      }
+
+     	wp_die( json_encode( $return ) );
+
+    }
 
     /**
      * Display the autocomplete for input tag. List all user by term.
