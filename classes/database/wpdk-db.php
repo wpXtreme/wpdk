@@ -9,6 +9,477 @@
  *
  */
 
+/**
+ * Manage the common status of a row in database.
+ * You can override this class for own extensions.
+ *
+ * @class           WPDKDBTableRowStatuses
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-03-01
+ * @version         1.0.0
+ * @since           1.5.1
+ *
+ */
+class WPDKDBTableRowStatuses {
+
+  // Default standard statuses
+  const ALL     = 'all';
+  const PUBLISH = 'publish';
+  const DRAFT   = 'draft';
+  const TRASH   = 'trash';
+
+  /**
+   * Return a key pairs array with the list of statuses
+   *
+   * @brief Statuses
+   *
+   * @return array
+   */
+  public static function statuses()
+  {
+    $statuses = array(
+      self::ALL     => __( 'All', WPDK_TEXTDOMAIN ),
+      self::DRAFT   => __( 'Draft', WPDK_TEXTDOMAIN ),
+      self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
+      self::TRASH   => __( 'Trash', WPDK_TEXTDOMAIN ),
+    );
+    return $statuses;
+  }
+
+  /**
+   * Return a key pairs array with the list of icons for statuses
+   *
+   * @brief Icons glyph
+   *
+   * @return array
+   */
+  public static function icon_statuses()
+  {
+    $statuses = array(
+      self::DRAFT   => WPDKGlyphIcons::html( WPDKGlyphIcons::CLOCK ),
+      self::PUBLISH => WPDKGlyphIcons::html( WPDKGlyphIcons::OK ),
+      self::TRASH   => WPDKGlyphIcons::html( WPDKGlyphIcons::TRASH ),
+    );
+    return $statuses;
+  }
+
+}
+
+
+/**
+ * A model for a database table.
+ * If you would like use this model in a list table view controller, see the interface of WPDKListTableModel.
+ *
+ * @class           WPDKDBTableModel
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-03-01
+ * @version         1.0.0
+ *
+ */
+class WPDKDBTableModel {
+
+  // Extends with your const column
+
+  /**
+   * Name of field as primary key
+   *
+   * @brief Primary key
+   *
+   * @var string $primary_key
+   */
+  public $primary_key = '';
+
+  /**
+   * The filename of SQL file with the database table structure and init data.
+   *
+   * @brief SQL file
+   *
+   * @var string $sql_filename
+   */
+  public $sql_filename = '';
+
+  /**
+   * The name of the database table with the WordPress prefix
+   *
+   * @brief Table name
+   *
+   * @var string $table_name
+   */
+  public $table_name = '';
+
+  /**
+   * Create an instance of WPDKDBTableModel class
+   *
+   * @brief Construct
+   *
+   * @param string $table_name The name of the database table without WordPress prefix
+   * @param string $sql_file   Optional. The filename of SQL file with the database table structure and init data.
+   * @return WPDKDBTableModel
+   */
+  public function __construct( $table_name, $sql_file = '' )
+  {
+    global $wpdb;
+
+    // Add the WordPres database prefix
+    $this->table_name = sprintf( '%s%s', $wpdb->prefix, $table_name );
+
+    // $sql_file must be complete of path
+    $this->sql_filename = $sql_file;
+
+    // Try to get the Primary key
+    $this->primary_key = $this->primary_key();
+  }
+
+  /**
+   * Return the name of the primary key
+   *
+   * @brief Get the primay key name column
+   *
+   * @note  In case you can override this method and return your pwn primary key
+   *
+   * @return string
+   */
+  public function primary_key()
+  {
+    global $wpdb;
+
+    $db = DB_NAME;
+
+    $sql = <<< SQL
+SELECT `COLUMN_NAME`
+FROM `information_schema`.`COLUMNS`
+WHERE (`TABLE_SCHEMA` = '{$db}')
+AND (`TABLE_NAME` = '{$this->table_name}')
+AND (`COLUMN_KEY` = 'PRI');
+SQL;
+
+    return $wpdb->get_var( $sql );
+  }
+
+  /**
+   * Delete one or more record from table. Return the number of rows affected/selected or false on error.
+   * Use the `primaryKey`.
+   *
+   * @brief Delete
+   *
+   * @param int|array $pks Any single int or array list of primary keys
+   *
+   * @return int|bool
+   */
+  public function delete( $pks )
+  {
+    global $wpdb;
+
+    $ids = implode( ',', (array)$pks );
+
+    $sql    = <<< SQL
+DELETE FROM `{$this->table_ame}`
+WHERE `$this->primary_key` IN({$ids})
+SQL;
+    $result = $wpdb->query( $sql );
+
+    return $result;
+  }
+
+  /**
+   * Map the properties fields of single database row into a destination object model.
+   * The $destination_object can implement a method named `column_[property]` to override map process.
+   *
+   * @brief Map a database record into a model row
+   *
+   * @param object $source_row         Database record
+   * @param object $destination_object Object to map
+   *
+   * @return object|bool The destination object with new properties or FALSE if error.
+   */
+  public function map( $source_row, $destination_object )
+  {
+    if ( is_object( $source_row ) ) {
+      foreach ( $source_row as $field => $value ) {
+        $destination_object->$field = $value;
+        if ( method_exists( $destination_object, 'column_' . $field ) ) {
+          call_user_func( array( $destination_object, 'column_' . $field ), $value );
+        }
+      }
+      return $destination_object;
+    }
+    return false;
+  }
+
+  /**
+   * Do an update the table via WordPress dbDelta() function. Apply a new SQL file on the exists (or do not exists)
+   * table. Return TRUE on success
+   *
+   * @brief Update table
+   *
+   * @return bool
+   */
+  public function update_table()
+  {
+    global $wpdb;
+
+    // Hide database warning and error
+    $wpdb->hide_errors();
+    $wpdb->suppress_errors();
+
+    // Buffering
+    ob_start();
+
+    if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
+      if ( !function_exists( 'dbDelta' ) ) {
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      }
+      $content = file_get_contents( $this->sqlFilename );
+      if ( empty( $content ) ) {
+        ob_end_clean();
+        return false;
+      }
+
+      // Replace table name
+      $sql = str_replace( '%s', $this->tableName, $content );
+
+      // Remove comments
+      $pattern = '@(([\'"]).*?[^\\\]\2)|((?:\#|--).*?$|/\*(?:[^/*]|/(?!\*)|\*(?!/)|(?R))*\*\/)\s*|(?<=;)\s+@ms';
+      /*
+       * Commented version
+       *
+       * $sqlComments = '@
+       *     (([\'"]).*?[^\\\]\2) # $1 : Skip single & double quoted expressions
+       *     |(                   # $3 : Match comments
+       *         (?:\#|--).*?$    # - Single line comments
+       *         |                # - Multi line (nested) comments
+       *          /\*             #   . comment open marker
+       *             (?: [^/*]    #   . non comment-marker characters
+       *                 |/(?!\*) #   . ! not a comment open
+       *                 |\*(?!/) #   . ! not a comment close
+       *                 |(?R)    #   . recursive case
+       *             )*           #   . repeat eventually
+       *         \*\/             #   . comment close marker
+       *     )\s*                 # Trim after comments
+       *     |(?<=;)\s+           # Trim after semi-colon
+       *     @msx';
+       *
+       */
+      $sql_sanitize = trim( preg_replace( $pattern, '$1', $sql ) );
+      preg_match_all( $pattern, $sql, $comments );
+
+      // Only commnets
+      //$extractedComments = array_filter( $comments[ 3 ] );
+
+      // Execute delta
+      @dbDelta( $sql_sanitize );
+
+      // Clear error
+      global $EZSQL_ERROR;
+      $EZSQL_ERROR = array();
+    }
+    ob_end_clean();
+    return true;
+  }
+
+  /**
+   * Select data
+   *
+   * @brief Select
+   * @note Override this method with your own select
+   */
+  public function select()
+  {
+    // Override this method with your own select
+  }
+
+  // You'll override with CRUD
+
+}
+
+/**
+ * Use this class when your database model is shows in a list table view controller
+ *
+ * @class           WPDKDBTableModelListTable
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-03-02
+ * @version         1.0.0
+ *
+ */
+class WPDKDBTableModelListTable extends WPDKDBTableModel {
+
+  /**
+   * Used for check the action and bulk action results
+   *
+   * @brief Action result
+   *
+   * @var bool $action_result
+   */
+  public $action_result = false;
+
+  /**
+   * Create an instance of WPDKDBTableModelListTable class
+   *
+   * @brief Construct
+   *
+   * @param string $table_name The name of the database table without WordPress prefix
+   * @param string $sql_file   Optional. The filename of SQL file with the database table structure and init data.
+   *
+   * @return WPDKDBTableModelListTable
+   */
+  public function __construct( $table_name, $sql_file = '' )
+  {
+    // Init the database table model
+    parent::__construct( $table_name, $sql_file );
+
+    // List table model
+    $this->process_bulk_action();
+  }
+
+  /**
+   * Return a key value pairs array with the list of columns
+   *
+   * @brief Return the list of columns
+   *
+   * @return array
+   */
+  public function get_columns()
+  {
+    return array();
+  }
+
+  /**
+   * Return the sortable columns
+   *
+   * @brief Sortable columns
+   *
+   * @return array
+   */
+  public function get_sortable_columns()
+  {
+    return array();
+  }
+
+  /**
+   * Return a key value pairs array with statuses supported
+   *
+   * @brief Statuses
+   *
+   * @return array
+   */
+  public function get_statuses()
+  {
+    // Default return the common statuses
+    return WPDKDBTableRowStatuses::statuses();
+  }
+
+  /**
+   * Return a key value pairs array with statuses icons glyph
+   *
+   * @brief Icons
+   *
+   * @return array
+   */
+  public function get_icon_statuses()
+  {
+    // Default return the common statuses
+    return WPDKDBTableRowStatuses::icon_statuses();
+  }
+
+  /**
+   * Return the count of specific status
+   *
+   * @brief Count status
+   *
+   * @param string $status
+   *
+   * @return int
+   */
+  public function get_status( $status )
+  {
+    return;
+  }
+
+  /**
+   * Return tha array with the action for the current status
+   *
+   * @brief Action with status
+   *
+   * @param mixed  $item   The item
+   * @param string $status Current status
+   *
+   * @return array
+   */
+  public function get_actions_with_status( $item, $status )
+  {
+    return array();
+  }
+
+  /**
+   * Return the array with the buk action for the combo menu for a status of view
+   *
+   * @brief Bulk actions
+   *
+   * @param string $status Current status
+   *
+   * @return array
+   */
+  public function get_bulk_actions_with_status( $status )
+  {
+    return array();
+  }
+
+  /**
+   * Get the current action selected from the bulk actions dropdown.
+   *
+   * @brief Current action
+   *
+   * @return string|bool The action name or FALSE if no action was selected
+   */
+  public static function action()
+  {
+    if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+      return $_REQUEST['action'];
+    }
+
+    if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+      return $_REQUEST['action2'];
+    }
+
+    return false;
+  }
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
+  /**
+   * Process actions
+   *
+   * @brief Process actions
+   * @since 1.4.21
+   */
+  public function process_bulk_action()
+  {
+    // Override when you need to process actions before wp is loaded
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Standard default statuses for a generic table
@@ -21,6 +492,7 @@
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2014-01-08
  * @version            1.0.1
+ * @deprecated         since v1.5.1 - Use WPDKDBTableRowStatuses instead
  *
  */
 class WPDKDBTableStatus extends WPDKObject {
@@ -93,7 +565,7 @@ class WPDKDBTableStatus extends WPDKObject {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-12-10
  * @version            0.1.0
- *
+ * @deprecated         since 1.5.1 - Use WPDKDBTableModel instead
  */
 
 class __WPDKDBTable {
@@ -566,6 +1038,7 @@ SQL;
  * @date               2013-09-27
  * @version            1.0.1
  * @note               No stable - Used by SmartShop carrier
+ * @deprecated         since 1.5.1
  *
  */
 
