@@ -23,8 +23,16 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.1
 ### 2014-02-??
 
+#### Enhancements
+
+* Add `WPDKDBTableModel`
+* Add `WPDKDBTableModelListTable`
+* Add `WPDKDBTableRowStatuses`
+
 #### Improvements
 
+* Improved `WPDKListTableViewController`
+* Improved `WPDKListTableModel`
 * Replaced deprecated
 
 
