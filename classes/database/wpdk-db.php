@@ -359,7 +359,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   }
 
   /**
-   * Return a key value pairs array with statuses supported
+   * Return a key value pairs array with statuses supported.
+   * You can override this method to return your own statuses.
    *
    * @brief Statuses
    *
