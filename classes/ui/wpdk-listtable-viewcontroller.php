@@ -118,6 +118,13 @@ class WPDKListTableViewController extends WP_List_Table {
     $this->viewController                = new WPDKViewController( $this->id, $this->title );
     $this->viewController->view->class[] = 'wpdk-list-table-box';
 
+    // Do an action used to get the post data from model
+    $action = get_class( $this->model ) . '-listtable-viewcontroller';
+
+    // This action must be call one time only
+    if ( !did_action( $action ) ) {
+      do_action( $action );
+    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -1011,7 +1018,10 @@ class WPDKListTableModel {
    */
   public function __construct()
   {
-    $this->process_bulk_action();
+    // Add action to get the post data
+    $action = get_class( $this ) . '-listtable-viewcontroller';
+    add_action( $action, array( $this, 'process_bulk_action' ) );
+
   }
 
   /**
