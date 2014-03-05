@@ -839,6 +839,14 @@ jQuery( function ( $ )
 
         $( 'input[data-autocomplete]' ).each( function ( index, element )
         {
+          // Clear target on change and lost focus
+          $( element ).on( 'blur change', function ()
+          {
+            if ( empty( $( this ).val() ) ) {
+              $( $( element ).data( 'target' ) ).val( '' );
+            }
+          } );
+
           switch ( $( element ).data( 'autocomplete' ) ) {
 
             // Posts
@@ -888,7 +896,7 @@ jQuery( function ( $ )
           position  : position,
 
           // Source
-          source    : function( request, response ) {
+          source : function( request, response ) {
             $.post( ajaxurl,
               {
                 action      : 'wpdk_action_autocomplete_users',
@@ -916,11 +924,11 @@ jQuery( function ( $ )
           },
 
           // Open
-          open      : function ()
+          open    : function ()
           {
             $( this ).addClass( 'wpdk-autocomplete-open' );
           },
-          close     : function ()
+          close   : function ()
           {
             $( this ).removeClass( 'wpdk-autocomplete-open' );
           }
