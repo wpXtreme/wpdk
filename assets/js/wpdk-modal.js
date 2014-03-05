@@ -422,13 +422,13 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
         'role="dialog"' +
-        'aria-labelledby="' + aria_title() + '"' +
+        'aria-labelledby="' + _aria_title() + '"' +
         'aria-hidden="true">' +
-        '<div ' + size() + ' class="modal-dialog">' +
+        '<div ' + _size() + ' class="modal-dialog">' +
         '<div class="modal-content">' +
         '<div class="modal-header">' +
         _dismiss_button() +
-        '<h4 class="modal-title" id="' + aria_title() + '">' + $t.title + '</h4>' +
+        '<h4 class="modal-title" id="' + _aria_title() + '">' + $t.title + '</h4>' +
         '</div>' +
         '<div class="modal-body">' +
         $t.content +
@@ -502,6 +502,8 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
       var id = '#' + $t.id;
       return sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', ( classes || '' ), id, label );
     }
+
+    return $t;
 
   };
 }
