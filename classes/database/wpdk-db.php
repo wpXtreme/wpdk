@@ -330,8 +330,9 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     // Init the database table model
     parent::__construct( $table_name, $sql_file );
 
-    // List table model
-    $this->process_bulk_action();
+    // Add action to get the post data
+    $action = get_class( $this ) . '-listtable-viewcontroller';
+    add_action( $action, array( $this, 'process_bulk_action' ) );
   }
 
   /**
