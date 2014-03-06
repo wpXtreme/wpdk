@@ -2116,7 +2116,8 @@ class WPDKUIControlText extends WPDKUIControl {
    *
    * @return WPDKUIControlText
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::TEXT;
     parent::__construct( $item );
   }
@@ -2126,7 +2127,8 @@ class WPDKUIControlText extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
+  public function draw()
+  {
     $this->inputType( WPDKHTMLTagInputType::TEXT );
   }
 }
