@@ -608,10 +608,6 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
     {
       var result = '', key, str_buttons = '';
 
-      console.log( '#1' );
-      console.log( $t.buttons );
-
-
       if ( !empty( $t.buttons ) ) {
         for ( key in $t.buttons ) {
           var $value = $t.buttons[key];
@@ -619,9 +615,6 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
           var $label = isset( $value['label'] ) ? $value['label'] : '';
           var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
           str_buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
-
-          console.log( str_buttons );
-
         }
       }
 
