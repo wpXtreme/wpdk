@@ -148,11 +148,11 @@ class WPDKDBTableModel {
     $db = DB_NAME;
 
     $sql = <<< SQL
-SELECT `COLUMN_NAME`
-FROM `information_schema`.`COLUMNS`
-WHERE (`TABLE_SCHEMA` = '{$db}')
-AND (`TABLE_NAME` = '{$this->table_name}')
-AND (`COLUMN_KEY` = 'PRI');
+SELECT COLUMN_NAME
+FROM information_schema.COLUMNS
+WHERE (TABLE_SCHEMA = '{$db}')
+AND (TABLE_NAME = '{$this->table_name}')
+AND (COLUMN_KEY = 'PRI');
 SQL;
 
     return $wpdb->get_var( $sql );
@@ -160,23 +160,23 @@ SQL;
 
   /**
    * Delete one or more record from table. Return the number of rows affected/selected or false on error.
-   * Use the `primaryKey`.
+   * Use the primaryKey.
    *
    * @brief Delete
    *
-   * @param int|array $pks Any single int or array list of primary keys
+   * @param int|array $id Any single int or array list of primary keys
    *
    * @return int|bool
    */
-  public function delete( $pks )
+  public function delete( $id )
   {
     global $wpdb;
 
-    $ids = implode( ',', (array)$pks );
+    $ids = implode( ',', (array)$id );
 
     $sql    = <<< SQL
-DELETE FROM `{$this->table_ame}`
-WHERE `$this->primary_key` IN({$ids})
+DELETE FROM {$this->table_name}
+WHERE {$this->primary_key} IN( {$ids} )
 SQL;
     $result = $wpdb->query( $sql );
 
@@ -185,7 +185,7 @@ SQL;
 
   /**
    * Map the properties fields of single database row into a destination object model.
-   * The $destination_object can implement a method named `column_[property]` to override map process.
+   * The $destination_object can implement a method named column_[property] to override map process.
    *
    * @brief Map a database record into a model row
    *
@@ -641,11 +641,11 @@ class __WPDKDBTable {
     $db = DB_NAME;
 
     $sql = <<< SQL
-SELECT `COLUMN_NAME`
-FROM `information_schema`.`COLUMNS`
-WHERE (`TABLE_SCHEMA` = '{$db}')
-  AND (`TABLE_NAME` = '{$this->tableName}')
-  AND (`COLUMN_KEY` = 'PRI');
+SELECT COLUMN_NAME
+FROM information_schema.COLUMNS
+WHERE (TABLE_SCHEMA = '{$db}')
+  AND (TABLE_NAME = '{$this->tableName}')
+  AND (COLUMN_KEY = 'PRI');
 SQL;
     return $wpdb->get_var( $sql );
   }
@@ -677,18 +677,18 @@ SQL;
     if ( empty( $distinct ) ) {
       $sql = <<< SQL
 SELECT COUNT(*) AS count
-  FROM `{$this->tableName}`
+  FROM {$this->tableName}
   {$where}
 SQL;
       return absint( $wpdb->get_var( $sql ) );
     }
     else {
       $sql = <<< SQL
-SELECT DISTINCT(`{$distinct}`),
+SELECT DISTINCT({$distinct}),
   COUNT(*) AS count
-  FROM `{$this->tableName}`
+  FROM {$this->tableName}
   {$where}
-  GROUP BY `{$distinct}`
+  GROUP BY {$distinct}
 SQL;
 
       $results = $wpdb->get_results( $sql, ARRAY_A );
@@ -703,7 +703,7 @@ SQL;
 
   /**
    * Delete one or more record from table. Return the number of rows affected/selected or false on error.
-   * Use the `primaryKey`.
+   * Use the primaryKey.
    *
    * @brief Delete
    *
@@ -722,8 +722,8 @@ SQL;
     $ids = implode( ',', $pks );
 
     $sql    = <<< SQL
-DELETE FROM `{$this->tableName}`
-WHERE `$this->primaryKey` IN({$ids})
+DELETE FROM {$this->tableName}
+WHERE $this->primaryKey IN({$ids})
 SQL;
     $result = $wpdb->query( $sql );
 
@@ -745,12 +745,12 @@ SQL;
   {
     global $wpdb;
 
-    $sql_order = $order_by ? sprintf( 'ORDER BY `%s` %s', $column, $order ) : '';
+    $sql_order = $order_by ? sprintf( 'ORDER BY %s %s', $column, $order ) : '';
 
     $sql     = <<< SQL
-SELECT `$column`
-  FROM `{$this->tableName}`
-  GROUP BY `$column`
+SELECT $column
+  FROM {$this->tableName}
+  GROUP BY $column
   {$sql_order}
 SQL;
     $results = $wpdb->get_results( $sql, ARRAY_A );
@@ -765,7 +765,7 @@ SQL;
 
   /**
    * Map the properties fields of single database row into a destination object model.
-   * The $destination_object can implement a method named `column_[property]` to override map process.
+   * The $destination_object can implement a method named column_[property] to override map process.
    *
    * @brief Map a database record into a model row
    *
@@ -830,7 +830,7 @@ SQL;
     $order_by = empty( $order_by ) ? $this->primaryKey : $order_by;
 
     $sql = <<< SQL
-SELECT * FROM `{$this->tableName}`
+SELECT * FROM {$this->tableName}
 WHERE 1 {$sql_where}
 ORDER BY {$order_by} {$order}
 SQL;
@@ -847,7 +847,7 @@ SQL;
    *
    * @param object $query    Optional. $query An object used for build the where. Usualy a subclass of WPDKDBTableRow
    * @param string $order_by Optional. Order by column name
-   * @param string $order    Optional. Order. Default `ASC`
+   * @param string $order    Optional. Order. Default ASC
    *
    * @return array
    */
@@ -980,7 +980,7 @@ SQL;
       foreach ( $query as $property => $value ) {
         if ( isset( $desc[$property] ) && !is_null( $value ) ) {
 
-          /* Remove `(` from type. */
+          /* Remove ( from type. */
           $type = $desc[$property]->Type;
           $pos  = strpos( $type, '(' );
           $type = ( false === $pos ) ? $type : substr( $type, 0, $pos );
@@ -1029,11 +1029,11 @@ SQL;
  *
  * ## Overview
  * This class is a map of a single record on database. When a record is loaded the column are mapped as properties of
- * this class. For this reason exist the internal private property `_excludeProperties`. It is used to avoid get the
+ * this class. For this reason exist the internal private property _excludeProperties. It is used to avoid get the
  * class properties.
  *
  * ### Property naming
- * To avoid property override, all `protected`, `private` or `public` property of this class **must** start with a
+ * To avoid property override, all protected, private or public property of this class **must** start with a
  * underscore prefix.
  *
  * @class              WPDKDBTableRow
