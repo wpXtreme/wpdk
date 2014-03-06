@@ -264,7 +264,11 @@ if ( !class_exists( 'WPDK' ) ) {
         // DATABASE
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . './classes/database/wpdk-db.php'                    => array(
+        $sPathPrefix . 'classes/database/wpdk-db.php'                    => array(
+          'WPDKDBTableModel',
+          'WPDKDBTableModelListTable',
+          'WPDKDBTableRowStatuses',
+
           '__WPDKDBTable',
           'WPDKDBTableRow',
           'WPDKDBTableStatus',
@@ -467,11 +471,6 @@ if ( !class_exists( 'WPDK' ) ) {
         // -------------------------------------------------------------------------------------------------------------
         // DEPRECATED
         // -------------------------------------------------------------------------------------------------------------
-
-        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'          => array(
-          'WPDKDBTable',
-          '_WPDKDBTable',
-        ),
 
         $sPathPrefix . 'classes/deprecated/wpdk-configuration.php'     => array(
           'WPDKConfig',

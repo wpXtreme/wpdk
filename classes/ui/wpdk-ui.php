@@ -90,12 +90,12 @@ final class WPDKUI {
 
     $args = wp_parse_args( $args, $default_args );
 
-    /* Label */
+    // Label
     if ( empty( $label ) ) {
       $label = __( 'Update', WPDK_TEXTDOMAIN );
     }
 
-    /* Name attribute */
+    // Name attribute
     if ( empty( $args['name'] ) ) {
       $name = '';
     }
@@ -103,7 +103,7 @@ final class WPDKUI {
       $name = sprintf( 'name="%s"', $args['name'] );
     }
 
-    /* Create data attributes. */
+    // Create data attributes
     $data = '';
     if ( !empty( $args['data'] ) ) {
       $stack = array();
@@ -113,7 +113,7 @@ final class WPDKUI {
       $data = implode( ',', $stack );
     }
 
-    /* Additional classes */
+    // Additional classes
     $classes = '';
     if ( !empty( $args['additional_classes'] ) ) {
       if ( !is_array( $args['additional_classes'] ) ) {
@@ -123,14 +123,14 @@ final class WPDKUI {
         }
       }
 
-      /* Split default class to remove duplicate. */
+      // Split default class to remove duplicate
       $default = explode( ' ', $args['classes'] );
       $classes = implode( ' ', array_merge( $default, $new ) );
     }
 
     $classes .= $args['classes'];
 
-    ob_start(); ?>
+    WPDKHTML::startCompress() ?>
 
     <input type="<?php echo $args['type'] ?>" <?php echo $name ?>
       <?php echo $data ?>
@@ -138,9 +138,8 @@ final class WPDKUI {
            value="<?php echo $label ?>" />
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+
+    return WPDKHTML::endHTMLCompress();
   }
 
   // -------------------------------------------------------------------------------------------------------------------

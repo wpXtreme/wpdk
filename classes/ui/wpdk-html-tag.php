@@ -212,7 +212,7 @@ class WPDKHTMLTag extends WPDKObject {
     // Cycle for tag specify attributes
     foreach ( $this->attributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        printf( ' %s="%s"', $attr, stripslashes( $this->$attr ) );
       }
     }
 

@@ -422,13 +422,13 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
         'role="dialog"' +
-        'aria-labelledby="' + aria_title() + '"' +
+        'aria-labelledby="' + _aria_title() + '"' +
         'aria-hidden="true">' +
-        '<div ' + size() + ' class="modal-dialog">' +
+        '<div ' + _size() + ' class="modal-dialog">' +
         '<div class="modal-content">' +
         '<div class="modal-header">' +
         _dismiss_button() +
-        '<h4 class="modal-title" id="' + aria_title() + '">' + $t.title + '</h4>' +
+        '<h4 class="modal-title" id="' + _aria_title() + '">' + $t.title + '</h4>' +
         '</div>' +
         '<div class="modal-body">' +
         $t.content +
@@ -502,6 +502,8 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
       var id = '#' + $t.id;
       return sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', ( classes || '' ), id, label );
     }
+
+    return $t;
 
   };
 }
@@ -606,10 +608,6 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
     {
       var result = '', key, str_buttons = '';
 
-      console.log( '#1' );
-      console.log( $t.buttons );
-
-
       if ( !empty( $t.buttons ) ) {
         for ( key in $t.buttons ) {
           var $value = $t.buttons[key];
@@ -617,9 +615,6 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
           var $label = isset( $value['label'] ) ? $value['label'] : '';
           var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
           str_buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
-
-          console.log( str_buttons );
-
         }
       }
 

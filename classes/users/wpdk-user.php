@@ -88,40 +88,40 @@ class WPDKUserMeta {
   public static function update( $user_id, $post_data )
   {
 
-    /* LAST_TIME_SUCCESS_LOGIN */
+    // LAST_TIME_SUCCESS_LOGIN
     $value = isset( $post_data[self::LAST_TIME_SUCCESS_LOGIN] ) ? $post_data[self::LAST_TIME_SUCCESS_LOGIN] : '';
     if ( !empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_SUCCESS_LOGIN, $value );
     }
 
-    /* COUNT_SUCCESS_LOGIN */
+    // COUNT_SUCCESS_LOGIN
     $value = isset( $post_data[self::COUNT_SUCCESS_LOGIN] ) ? $post_data[self::COUNT_SUCCESS_LOGIN] : '';
     update_user_meta( $user_id, self::COUNT_SUCCESS_LOGIN, $value );
 
-    /* LAST_TIME_WRONG_LOGIN */
+    // LAST_TIME_WRONG_LOGIN
     $value = isset( $post_data[self::LAST_TIME_WRONG_LOGIN] ) ? $post_data[self::LAST_TIME_WRONG_LOGIN] : '';
     if ( !empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_WRONG_LOGIN, $value );
     }
 
-    /* COUNT_WRONG_LOGIN */
+    // COUNT_WRONG_LOGIN
     $value = isset( $post_data[self::COUNT_WRONG_LOGIN] ) ? $post_data[self::COUNT_WRONG_LOGIN] : '';
     update_user_meta( $user_id, self::COUNT_WRONG_LOGIN, $value );
 
-    /* LAST_TIME_LOGOUT */
+    // LAST_TIME_LOGOUT
     $value = isset( $post_data[self::LAST_TIME_LOGOUT] ) ? $post_data[self::LAST_TIME_LOGOUT] : '';
     if ( !empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_LOGOUT, $value );
     }
 
-    /* STATUS */
+    // STATUS
     $value = isset( $post_data[self::STATUS] ) ? $post_data[self::STATUS] : '';
     update_user_meta( $user_id, self::STATUS, $value );
 
-    /* STATUS_DESCRIPTION */
+    // STATUS_DESCRIPTION
     $value = isset( $post_data[self::STATUS_DESCRIPTION] ) ? $post_data[self::STATUS_DESCRIPTION] : '';
     update_user_meta( $user_id, self::STATUS_DESCRIPTION, $value );
 
@@ -835,40 +835,38 @@ class WPDKUsers {
   private function __construct()
   {
 
-    /* Do a several action/filter to monitoring user action. */
-
     //$this->logout();
     add_action( 'init', array( $this, 'logout' ) );
 
-    /* Main hook for common check in front end. */
+    // Main hook for common check in front end
     //add_action( 'wp_head', array( $this, 'wp_head_signin' ) );
     //add_action( 'wp_head', array( $this, 'wp_head_signout' ) );
 
-    /* Hook on Login. */
+    // Hook on Login
     add_action( 'wp_login', array( $this, 'wp_login' ) );
     add_action( 'wp_logout', array( $this, 'wp_logout' ) );
     add_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 
-    /* includes/wp_insert_user() Nuovo Utente registrato  */
+    // includes/wp_insert_user() Nuovo Utente registrato
     //add_action( 'user_register', array( $this, 'user_register' ) );
 
-    /* includes/wp_insert_user() Utente già registrato quindi aggiornamento dati */
+    // includes/wp_insert_user() Utente già registrato quindi aggiornamento dati
     add_action( 'delete_user', array( $this, 'delete_user' ) );
     add_action( 'deleted_user', array( $this, 'deleted_user' ) );
 
-    /* Backend user profile (own) */
+    // Backend user profile (own)
     add_action( 'show_user_profile', array( $this, 'show_user_profile' ) );
     add_action( 'personal_options_update', array( $this, 'personal_options_update' ) );
     add_action( 'personal_options', array( $this, 'personal_options' ) );
     add_action( 'profile_personal_options', array( $this, 'profile_personal_options' ) );
 
-    /* Backend user profile (other) */
+    // Backend user profile (other)
     add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ) );
     add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ) );
 
-    /* Extends User edit profile */
+    // Extends User edit profile
 
-    /* Disable and locking featured */
+    // Disable and locking featured
     add_filter( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 1 );
 
     add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
@@ -881,40 +879,33 @@ class WPDKUsers {
    */
   public function logout()
   {
-    /* If a user is logged in. */
+    // If a user is logged in
     if ( is_user_logged_in() ) {
       $user_id = get_current_user_id();
       $status  = get_user_meta( $user_id, WPDKUserMeta::STATUS, true );
       $logout  = false;
 
-      /* Logout for disabled User. */
+      // Logout for disabled User
       if ( !empty( $status ) && WPDKUserStatus::DISABLED == $status ) {
         $logout = true;
       }
 
-      /* Manual logout. */
+      // Manual logout
       if ( isset( $_REQUEST['wpdk_logout'] ) ) {
         $logout = true;
       }
 
       if ( true === $logout ) {
-        /* Log off the user. */
+
+        // Log off the user
         wp_logout();
-        if ( is_admin() ) {
-          wp_safe_redirect( wp_login_url( wp_get_referer() ) );
-        }
-        else {
-          wp_safe_redirect( stripslashes( $_SERVER['REQUEST_URI'] ) );
-        }
-        exit;
       }
     }
   }
 
-
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Signin actions and filters
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Called when an user is authenticate.
@@ -931,12 +922,14 @@ class WPDKUsers {
       return $user;
     }
 
-    /* Get the user status. */
+    // Get the user status
     $status = $user->get( WPDKUserMeta::STATUS );
 
     if ( WPDKUserStatus::DISABLED == $status ) {
-      /* Ask for continue. */
+
+      // Ask for continue
       $continue = apply_filters( 'wpdk_users_should_denied_signin', true, $user->ID, $status );
+
       if ( $continue ) {
         $message = $user->get( WPDKUserMeta::STATUS_DESCRIPTION );
         $message = apply_filters( 'wpdk_users_access_denied_status_description', $message, $user->ID, $status );
@@ -961,16 +954,18 @@ class WPDKUsers {
   public function wp_login( $user_login, $user = null )
   {
 
-    /* Get user by login. */
+    // Get user by login
     if ( is_null( $user ) ) {
       $user = get_user_by( 'login', $user_login );
     }
 
-    /* Get success login count. */
+    // Get success login count
     $count = absint( $user->get( WPDKUserMeta::COUNT_SUCCESS_LOGIN ) );
+
     if ( empty( $count ) ) {
       $count = 0;
     }
+
     update_user_meta( $user->ID, WPDKUserMeta::COUNT_SUCCESS_LOGIN, $count + 1 );
     update_user_meta( $user->ID, WPDKUserMeta::COUNT_WRONG_LOGIN, 0 );
     update_user_meta( $user->ID, WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN, time() );
@@ -1005,10 +1000,10 @@ class WPDKUsers {
     }
     $count++;
 
-    /* Update the wrong login count. */
+    // Update the wrong login count
     update_user_meta( $user->ID, WPDKUserMeta::COUNT_WRONG_LOGIN, $count );
 
-    /* Notified the wrong user login count. */
+    // Notified the wrong user login count
     do_action( 'wpdk_user_wrong_login_count', $user->ID, $count );
 
     return true;
@@ -1036,18 +1031,22 @@ class WPDKUsers {
     $user_id = false;
     $email   = '';
 
-    /* Check user id */
+    // Check user id
     if ( is_numeric( $user ) ) {
       $user_id = $user;
     }
-    /* Check for email */
+
+    // Check for email
     elseif ( is_email( $user ) ) {
-      /* Sanitize email */
+
+      // Sanitize email
       $email = sanitize_email( $user );
-      /* User exists with email */
+
+      // User exists with email
       $user_id = email_exists( $email );
     }
-    /* Check for user login */
+
+    // Check for user login
     else {
       $user = get_user_by( 'login', $user );
       if ( $user ) {
@@ -1058,16 +1057,19 @@ class WPDKUsers {
     if ( false !== $user_id ) {
       $user = new WPDKUser( $user_id );
       if ( $user->exists() && WPDKUserStatus::DISABLED !== $user->status ) {
+
         $result = wp_authenticate( $user->user_login, $password );
+
         if ( !is_wp_error( $result ) ) {
-          /* Set remember cookie */
+
+          // Set remember cookie
           wp_set_auth_cookie( $user->ID, $remember );
           do_action( 'wp_login', $user->user_login, $user );
 
-          /* Internal counter */
+          // Internal counter
           $this->wp_login( $user->user_login, $user );
 
-          /* Authenticate! You are */
+          // Authenticate! You are
           wp_set_current_user( $user->ID );
           return true;
         }
@@ -1107,9 +1109,9 @@ class WPDKUsers {
     return false;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Signout actions and filters
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * This method is called when an user signout with homonymous WordPress action `wp_logout`.
@@ -1124,30 +1126,24 @@ class WPDKUsers {
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Signout utility
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Perform sign out.
+   * Perform signout. This method is an alias of `wp_logout()`
    *
    * @brief Do signout
    */
   public function signout()
   {
-
-    /* Esegue il logout da WordPress. */
+    // Do WordPress logout
     wp_logout();
-
-    /* Per default ridirezione sulla home page del sito. */
-    $blog_url = get_bloginfo( 'url' );
-    wp_safe_redirect( $blog_url );
-    exit();
   }
 
-  // ----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Create utility
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Create a WordPress user and return the user id on success, WP_Error otherwise.
@@ -1164,10 +1160,11 @@ class WPDKUsers {
   public function create( $first_name, $last_name, $email, $password = false, $enabled = false, $role = 'subscriber' )
   {
 
-    /* For security reason an user must have a password. */
+    // For security reason an user must have a password
     if ( false === $password ) {
       $password = WPDKCrypt::randomAlphaNumber();
-      /* @todo Notify to user the password. */
+
+      // @todo Notify to user the password
       do_action( 'wpdk_users_random_password', $password );
     }
 
@@ -1192,12 +1189,12 @@ class WPDKUsers {
       return $user_id;
     }
 
-    /* Store IP Address */
+    // Store IP Address
     if ( isset( $_SERVER['REMOTE_ADDR'] ) && !empty( $_SERVER['REMOTE_ADDR'] ) ) {
       update_user_meta( $user_id, WPDKUserMeta::REMOTE_ADDR, $_SERVER['REMOTE_ADDR'] );
     }
 
-    /* Disable user if required */
+    // Disable user if required
     if ( false === $enabled ) {
       $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
@@ -1210,9 +1207,9 @@ class WPDKUsers {
   }
 
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // User profile (own)
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * This hook only triggers when a user is viewing their own profile page. If you want to apply your hook to ALL
@@ -1232,10 +1229,10 @@ class WPDKUsers {
     $alert->permanent_dismiss = true;
     $alert->display();
 
-    /* Only the administrator can edit this extra information */
+    // Only the administrator can edit this extra information
     $disabled = !current_user_can( 'manage_options' );
 
-    /* Sanitize values */
+    // Sanitize values
     $last_time_success_login = $user->get( WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN );
     $last_time_wrong_login   = $user->get( WPDKUserMeta::LAST_TIME_WRONG_LOGIN );
     $last_time_logout        = $user->get( WPDKUserMeta::LAST_TIME_LOGOUT );
@@ -1334,7 +1331,7 @@ class WPDKUsers {
    */
   public function personal_options_update( $id_user )
   {
-    /* Same for other users, see below */
+    // Same for other users, see below
     $this->edit_user_profile_update( $id_user );
   }
 
@@ -1366,7 +1363,7 @@ class WPDKUsers {
    */
   public function profile_personal_options( $user )
   {
-    /* Nothing to do... for now */
+    // Nothing to do... for now
   }
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -1384,7 +1381,7 @@ class WPDKUsers {
    */
   public function edit_user_profile( $user )
   {
-    /* At this moment display the same informations */
+    // At this moment display the same informations
     $this->show_user_profile( $user );
   }
 
@@ -1405,7 +1402,7 @@ class WPDKUsers {
       return false;
     }
 
-    /* Update the WPDK extra information */
+    // Update the WPDK extra information
     if ( current_user_can( 'manage_options' ) ) {
       WPDKUserMeta::update( $id_user, $_POST );
     }
@@ -1432,7 +1429,7 @@ class WPDKUsers {
    */
   public function delete_user( $id_user )
   {
-    /* @todo Do implement */
+    // @todo Do implement
   }
 
   /**
@@ -1456,7 +1453,7 @@ class WPDKUsers {
    */
   public function deleted_user( $id_user )
   {
-    /* @todo Do implement */
+    // @todo Do implement
   }
 
   /**
@@ -1591,11 +1588,9 @@ SQL;
     return false;
   }
 
-
-
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Users list
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Restituisce un array in formato SDF con la lista degli utenti, formattata con 'display name (email)'
@@ -1715,16 +1710,17 @@ class WPDKRole extends WP_Role {
   public function __construct( $role, $display_name = '', $capabilities = array(), $description = '', $owner = '' )
   {
 
-    /* Sanitize the role name. */
+    // Sanitize the role name
     $role_id = sanitize_title( strtolower( $role ) );
 
-    /* Get Roles */
+    // Get Roles
     $wpdk_roles  = WPDKRoles::getInstance();
     $role_object = $wpdk_roles->get_role( $role_id );
 
-    /* If role not exists then create it. */
+    // If role not exists then create it
     if ( is_null( $role_object ) ) {
-      /* If display name is empty and doesn't exists, then the display name is the role name-id */
+
+      // If display name is empty and doesn't exists, then the display name is the role name-id
       if ( empty( $display_name ) ) {
         $display_name = ucfirst( $role );
       }
@@ -1733,7 +1729,7 @@ class WPDKRole extends WP_Role {
       $this->capabilities = $role_object->capabilities;
       $this->name         = $role_id;
 
-      /* Extends */
+      // Extends
       $this->description = $description;
       $this->owner       = $owner;
     }
@@ -1742,7 +1738,7 @@ class WPDKRole extends WP_Role {
       $this->displayName  = $wpdk_roles->role_names[$role_id];
       $this->capabilities = $role_object->capabilities;
 
-      /* Extends */
+      // Extends
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
       if ( !empty( $extra ) && isset( $extra[$role_id] ) ) {
@@ -1934,20 +1930,20 @@ class WPDKRoles extends WP_Roles {
   {
     parent::__construct();
 
-    /* Get the extended data. */
+    // Get the extended data
     $this->_extendedData = get_option( self::OPTION_KEY );
 
     if ( !empty( $this->role_names ) ) {
       $this->count = count( $this->role_names );
     }
 
-    /* Init properties. */
+    // Init properties
     $this->wordPressRoles();
     $this->activeRoles();
     $this->inactiveRoles();
     $this->countUsersByRole();
 
-    /* Create An key value pairs array with key = role and value = list of capabilities. */
+    // Create An key value pairs array with key = role and value = list of capabilities
     $this->arrayCapabilitiesByRole();
 
     if ( empty( $this->_extendedData ) ) {
@@ -1957,9 +1953,9 @@ class WPDKRoles extends WP_Roles {
 
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Information
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Gets all the roles that have users for the site.
@@ -1971,7 +1967,7 @@ class WPDKRoles extends WP_Roles {
   public function activeRoles()
   {
 
-    /* Calculate only if the property if note set. */
+    // Calculate only if the property if note set
     if ( !isset( $this->activeRoles ) ) {
 
       $this->activeRoles = array();
@@ -1996,7 +1992,7 @@ class WPDKRoles extends WP_Roles {
   public function inactiveRoles()
   {
 
-    /* Calculate only if the property if note set. */
+    // Calculate only if the property if note set
     if ( !isset( $this->inactiveRoles ) ) {
 
       $this->inactiveRoles = array();
@@ -2026,7 +2022,7 @@ class WPDKRoles extends WP_Roles {
   public function countUsersByRole( $user_role = '' )
   {
 
-    /* If the count is not already set for all roles, let's get it. */
+    // If the count is not already set for all roles, let's get it
     if ( !isset( $this->arrayCountUsersByRole ) ) {
 
       $this->arrayCountUsersByRole = array();
@@ -2046,23 +2042,23 @@ class WPDKRoles extends WP_Roles {
        */
       $user_count = count_users();
 
-      /* Loop through the user count by role to get a count of the users with each role. */
+      // Loop through the user count by role to get a count of the users with each role
       foreach ( $user_count['avail_roles'] as $role => $count ) {
         $this->arrayCountUsersByRole[$role] = $count;
       }
     }
 
-    /* If the $user_role parameter wasn't passed into this function, return the array of user counts. */
+    // If the $user_role parameter wasn't passed into this function, return the array of user counts
     if ( empty( $user_role ) ) {
       return $this->arrayCountUsersByRole;
     }
 
-    /* If the role has no users, we need to set it to '0'. */
+    // If the role has no users, we need to set it to '0'
     if ( !isset( $this->arrayCountUsersByRole[$user_role] ) ) {
       $this->arrayCountUsersByRole[$user_role] = 0;
     }
 
-    /* Return the user count for the given role. */
+    // Return the user count for the given role
     return $this->arrayCountUsersByRole[$user_role];
   }
 
@@ -2076,12 +2072,12 @@ class WPDKRoles extends WP_Roles {
   public function arrayCapabilitiesByRole()
   {
 
-    /* If the count is not already set for all roles, let's get it. */
+    // If the count is not already set for all roles, let's get it
     if ( !isset( $this->arrayCapabilitiesByRole ) ) {
 
       foreach ( $this->get_names() as $role => $name ) {
 
-        /* Count capabilities for role too. */
+        // Count capabilities for role too
         $wp_role = $this->get_role( $role );
         ksort( $wp_role->capabilities );
         $this->arrayCapabilitiesByRole[$role] = $wp_role->capabilities;
@@ -2152,7 +2148,7 @@ class WPDKRoles extends WP_Roles {
    */
   public function add_role( $role, $display_name, $capabilities = array(), $description = '', $owner = '' )
   {
-    /* Normalize caps */
+    // Normalize caps
     $caps = array();
     foreach ( $capabilities as $cap ) {
       $caps[$cap] = true;
@@ -2187,9 +2183,9 @@ class WPDKRoles extends WP_Roles {
   }
 
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // UI
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return the HTML markup for a combo select
@@ -2211,7 +2207,7 @@ class WPDKRoles extends WP_Roles {
     <?php foreach ( $this->arrayCapabilitiesByRole[$role] as $cap => $enabled ): ?>
       <option><?php echo $cap ?></option>
     <?php endforeach ?>
-  </select>
+    </select>
 
     <?php
     $content = ob_get_contents();
@@ -2330,23 +2326,23 @@ class WPDKCapabilities {
   private function __construct()
   {
 
-    /* Get the extended data. */
+    // Get the extended data
     $this->_extendedData = get_option( self::OPTION_KEY );
 
-    /* Preset WordPress capabilities list. */
+    // Preset WordPress capabilities list
     $this->defaultCapabilities = array_keys( $this->defaultCapabilities() );
 
-    /* Get the role capabilities. */
+    // Get the role capabilities
     $this->roleCapabilities = array_keys( $this->roleCapabilities() );
 
-    /* Get the role users. */
+    // Get the role users
     $this->userCapabilities = array_keys( $this->userCapabilities() );
 
-    /* Setup only plugin capabilities. */
+    // Setup only plugin capabilities
     $this->capabilities = array_unique( array_merge( array_diff( $this->roleCapabilities, $this->defaultCapabilities ), $this->userCapabilities ) );
     sort( $this->capabilities );
 
-    /* All caps */
+    // All caps
     $this->allCapabilities = array_unique( array_merge( $this->userCapabilities, $this->roleCapabilities, $this->defaultCapabilities ) );
     sort( $this->allCapabilities );
   }
@@ -2397,7 +2393,7 @@ class WPDKCapabilities {
   public static function defaultCapabilities()
   {
 
-    /* Create an array of all the default WordPress capabilities so the user doesn't accidentally get rid of them. */
+    // Create an array of all the default WordPress capabilities so the user doesn't accidentally get rid of them
     $defaults = array(
       'activate_plugins'       => array( 'activate_plugins', __( 'Allows access to Administration Panel options: Plugins', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'add_users'              => array( 'add_users', __( 'add_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
@@ -2500,19 +2496,19 @@ class WPDKCapabilities {
   public function roleCapabilities()
   {
 
-    /* Get WPDKRoles */
+    // Get WPDKRoles
     $wpdk_roles = WPDKRoles::getInstance();
 
-    /* Set up an empty capabilities array. */
+    // Set up an empty capabilities array
     $capabilities = array();
 
-    /* Loop through each role object because we need to get the caps. */
+    // Loop through each role object because we need to get the caps
     foreach ( $wpdk_roles->role_objects as $key => $role ) {
 
-      /* Roles without capabilities will cause an error, so we need to check if $role->capabilities is an array. */
+      // Roles without capabilities will cause an error, so we need to check if $role->capabilities is an array
       if ( is_array( $role->capabilities ) ) {
 
-        /* Loop through the role's capabilities and add them to the $capabilities array. */
+        // Loop through the role's capabilities and add them to the $capabilities array
         $exclude = self::oldLevels();
         foreach ( $role->capabilities as $cap => $grant ) {
           if ( !isset( $exclude[$cap] ) ) {
@@ -2526,10 +2522,10 @@ class WPDKCapabilities {
       }
     }
 
-    /* Sort the capabilities by name so they're easier to read when shown on the screen. */
+    // Sort the capabilities by name so they're easier to read when shown on the screen
     ksort( $capabilities );
 
-    /* Return the capabilities array */
+    // Return the capabilities array
     return $capabilities;
   }
 
@@ -2554,7 +2550,8 @@ class WPDKCapabilities {
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
-        /* A cap is store with a bolean flah that here is ignored. */
+
+        // A cap is store with a bolean flah that here is ignored
         $temp = array_keys( unserialize( $user_cap['meta_value'] ) );
         foreach ( $temp as $key ) {
           $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array(
@@ -2567,7 +2564,7 @@ class WPDKCapabilities {
       //set_transient( '_wpdk_users_caps', $capabilities, 120 );
     }
 
-    /* Sort the capabilities by name so they're easier to read when shown on the screen. */
+    // Sort the capabilities by name so they're easier to read when shown on the screen
     ksort( $capabilities );
 
     return $capabilities;
@@ -2589,7 +2586,7 @@ class WPDKCapabilities {
     $capabilities = array_merge( $capabilities, $this->roleCapabilities() );
     $capabilities = array_merge( $capabilities, $this->defaultCapabilities() );
 
-    /* Sort the capabilities by name so they're easier to read when shown on the screen. */
+    // Sort the capabilities by name so they're easier to read when shown on the screen
     ksort( $capabilities );
 
     return $capabilities;
