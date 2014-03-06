@@ -845,7 +845,6 @@ class WPDKUsers {
     // Hook on Login
     add_action( 'wp_login', array( $this, 'wp_login' ) );
     add_action( 'wp_logout', array( $this, 'wp_logout' ) );
-    add_filter( 'logout_url', array( $this, 'logout_url' ), 10, 2 );
     add_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 
     // includes/wp_insert_user() Nuovo Utente registrato
@@ -902,34 +901,6 @@ class WPDKUsers {
         wp_logout();
       }
     }
-  }
-
-
-  // -------------------------------------------------------------------------------------------------------------------
-  // SIGNOUT
-  // -------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * This filter is used to redirect after logout
-   *
-   * @brief Logout URL
-   *
-   * @param string $logout_url Complete logout URL
-   * @param string $redirect Optional. Redirect
-   */
-  public function logout_url( $logout_url, $redirect )
-  {
-    // Get signout url from preferences
-    $signout_url = WPXUsersManagerPreferencesSignout::init()->signout_display->redirect_url;
-
-    if ( empty( $signout_url ) ) {
-      return $logout_url;
-    }
-
-    // My custom redirect
-    $logout_url = add_query_arg( array( 'redirect_to' => urlencode( $signout_url ) ), $logout_url );
-
-    return $logout_url;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
