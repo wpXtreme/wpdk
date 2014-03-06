@@ -453,6 +453,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    * Return the items array. This is an array of key value pairs array
    *
    * @brief Items
+   *
+   * @return array
    */
   public function select()
   {
