@@ -28,6 +28,7 @@ For more information on SemVer, please visit http://semver.org/.
 * Add `WPDKDBTableModel`
 * Add `WPDKDBTableModelListTable`
 * Add `WPDKDBTableRowStatuses`
+* Removed/moved deprecated database classes
 
 #### Improvements
 
