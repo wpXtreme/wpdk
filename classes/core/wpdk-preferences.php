@@ -138,15 +138,27 @@ class WPDKPreferences {
    *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION, $user_id );
    *     }
    *
-   * @param string      $name       A string used as name for options. Make it unique more possible.
-   * @param string      $class_name The subclass class name
-   * @param bool|string $version    Optional. Version compare
-   * @param bool|int    $user_id    Optional. User ID
+   * @internal string      $name       A string used as name for options. Make it unique more possible.
+   * @internal string      $class_name The subclass class name
+   * @internal bool|string $version    Optional. Version compare
+   * @internal bool|int    $user_id    Optional. User ID
    *
    * @return WPDKPreferences
    */
-  public static function init( $name, $class_name, $version = false, $user_id = false )
+  //public static function init( $name, $class_name, $version = false, $user_id = false )
+  public static function init()
   {
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of ::init() should be compatible with WPDKPreferences::init'
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args = func_get_args();
+    list( $name, $class_name ) = $args;
+    $version = isset( $args[2] ) ? $args[2] : false;
+    $user_id = isset( $args[3] ) ? $args[3] : false;
+
     static $instance = array();
     static $busy = false;
 
