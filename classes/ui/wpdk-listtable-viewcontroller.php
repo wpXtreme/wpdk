@@ -426,7 +426,7 @@ class WPDKListTableViewController extends WP_List_Table {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This delegate mathod is called before display views
+   * This delegate method is called before display views
    *
    * @brief Before views
    * @since 1.5.1
@@ -437,7 +437,7 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
-   * This delegate mathod is called before display the table, inner the form
+   * This delegate method is called before display the table, inner the form
    *
    * @brief Before display
    * @since 1.5.1
@@ -458,7 +458,7 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
-   * This delegate mathod is called after display the table, inner the form.
+   * This delegate method is called after display the table, inner the form.
    *
    * @brief After display
    * @since 1.5.1
@@ -619,7 +619,7 @@ class WPDKListTableViewController extends WP_List_Table {
 
         $current = ( $filter_status == $key ) ? 'class="current"' : '';
         $args    = array(
-          'status'                 => $key,
+          $get_status_id           => $key,
           'paged'                  => false,
           'action'                 => false,
           $this->_args['singular'] => false
@@ -800,25 +800,27 @@ class WPDKListTableViewController extends WP_List_Table {
     $stack = array();
     foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
       if ( !empty( $action ) ) {
-        $args           = array(
+
+        $args = array(
           'action'                => $action,
-          $this->args['singular'] => $item[$this->args['singular']]
+          $this->args['singular'] => $item[ $this->args['singular'] ]
         );
 
         // url
         $url = add_query_arg( $args );
 
         // since 1.5.1 nonce
-        if( !empty( $nonce ) ) {
+        if ( !empty( $nonce ) ) {
           $url = wp_nonce_url( $url, $nonce );
         }
 
-        $href           = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
-        $stack[$action] = sprintf( '<a href="%s">%s</a>', $href, $label );
+        $href             = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
+        $stack[ $action ] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
 
-    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[$column_name] ) : $custom_content;
+    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[ $column_name ] ) : $custom_content;
+
     return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }
 
