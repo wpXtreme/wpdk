@@ -100,6 +100,15 @@ class WPDKDBTableModel {
   public $table_name = '';
 
   /**
+   * Used for check the CRUD action results
+   *
+   * @brief CRUD result
+   *
+   * @var bool $crud_results
+   */
+  public $crud_results = false;
+
+  /**
    * Create an instance of WPDKDBTableModel class
    *
    * @brief Construct
@@ -282,6 +291,110 @@ SQL;
   }
 
   // You'll override with CRUD
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // UTILITIES
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return a list of groupped by column. Use 'value' as selector
+   *
+   *    $results = ::group_by( 'column' );
+   *    foreach( $results as $row ) echo $row->value;
+   *
+   * @brief Group by a column
+   *
+   * @param string $column Column name
+   * @param string $order  Optional. Order 'ASC' or 'DESC'
+   *
+   * @return mixed
+   */
+  public function group_by( $column, $order = 'ASC' )
+  {
+    global $wpdb;
+
+    $sql = <<< SQL
+SELECT {$column} AS value
+FROM {$this->table_name}
+GROUP BY {$column}
+ORDER BY {$column} {$order}
+SQL;
+
+    return $wpdb->get_results( $sql );
+
+  }
+
+  /**
+   * Return a where condiction with possible OR values
+   *
+   *     $where[] = ::where( $args, self::COLUMN_STATUS, '', array( WPXSSCouponStatus::ALL ) );
+   *
+   *     // If $args[self::COLUMN_STATUS] is an array
+   *     // ( status = 'pending' OR status = 'confirmed' )
+   *
+   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // ( status = 'pending' )
+   *
+   *     $where[] = ::where( $args, self::COLUMN_STATUS, 'coupon', array( WPXSSCouponStatus::ALL ) );
+   *
+   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // ( coupon.status = 'pending' )
+   *
+   * @brief Where
+   *
+   * @param array  $args         Arguments list
+   * @param string $key          A key selector
+   * @param string $table_prefix Optional. Table prefix
+   * @param array  $not_in       Optional. Value to exclude
+   * @param string $cond         Optional. Condiction used, default '=' or 'LIKE'
+   *
+   * @return string
+   */
+  public static function where( $args, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
+  {
+    if ( isset( $args[$key] ) && !empty( $args[$key] ) && !in_array( $args[$key], (array)$not_in ) ) {
+
+      // Append dot to table if exists
+      $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
+
+      // Every array
+      $array = (array)$args[$key];
+      $stack = array();
+      foreach ( $array as $value ) {
+        $stack[] = sprintf( "%s%s %s '%s'", $table_prefix, $key, $cond, $value );
+      }
+      return sprintf( "( %s )", implode( ' OR ', $stack ) );
+    }
+    return false;
+  }
+
+  /**
+   * Return a where condiction with possible OR values for a filter. Useful for JOIN table
+   *
+   *     $where[] = ::where( $args, self::FILTER_USER_ID, 'ID', 'users' );
+   *
+   *     // ( users.ID = '34' )
+   *
+   * @brief Where
+   *
+   * @param array  $args         Arguments list
+   * @param string $filter       A key for filter
+   * @param string $key          A key selector
+   * @param string $table_prefix Optional. Table prefix
+   * @param array  $not_in       Optional. Value to exclude
+   * @param string $cond         Optional. Condiction used, default '=' or 'LIKE'
+   *
+   * @return string
+   */
+  public static function where_filter( $args, $filter, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
+  {
+    if ( isset( $args[$filter] ) && !empty( $args[$filter] ) && !in_array( $args[$filter], (array)$not_in ) ) {
+      $args[$key] = $args[$filter];
+
+      return self::where( $args, $key, $table_prefix, array(), $cond );
+    }
+  }
+
 
 }
 
@@ -635,34 +748,6 @@ SQL;
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Return a list of groupped by column. Use 'value' as selector
-   *
-   *    $results = ::group_by( 'column' );
-   *    foreach( $results as $row ) echo $row->value;
-   *
-   * @brief Group by a column
-   *
-   * @param string $column Column name
-   * @param string $order  Optional. Order 'ASC' or 'DESC'
-   *
-   * @return mixed
-   */
-  public function group_by( $column, $order = 'ASC' )
-  {
-    global $wpdb;
-
-    $sql = <<< SQL
-SELECT {$column} AS value
-FROM {$this->table_name}
-GROUP BY {$column}
-ORDER BY {$column} {$order}
-SQL;
-
-    return $wpdb->get_results( $sql );
-
-  }
-
-  /**
    * Set one or more record wit a status
    *
    * @brief Set a status
@@ -693,77 +778,6 @@ SQL;
       return $num_rows;
     }
     return false;
-  }
-
-  /**
-   * Return a where condiction with possible OR values
-   *
-   *     $where[] = ::where( $args, self::COLUMN_STATUS, '', array( WPXSSCouponStatus::ALL ) );
-   *
-   *     // If $args[self::COLUMN_STATUS] is an array
-   *     // ( status = 'pending' OR status = 'confirmed' )
-   *
-   *     // If $args[self::COLUMN_STATUS] is an string
-   *     // ( status = 'pending' )
-   *
-   *     $where[] = ::where( $args, self::COLUMN_STATUS, 'coupon', array( WPXSSCouponStatus::ALL ) );
-   *
-   *     // If $args[self::COLUMN_STATUS] is an string
-   *     // ( coupon.status = 'pending' )
-   *
-   * @brief Where
-   *
-   * @param array  $args         Arguments list
-   * @param string $key          A key selector
-   * @param string $table_prefix Optional. Table prefix
-   * @param array  $not_in       Optional. Value to exclude
-   * @param string $cond         Optional. Condiction used, default '=' or 'LIKE'
-   *
-   * @return string
-   */
-  public static function where( $args, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
-  {
-    if ( isset( $args[$key] ) && !empty( $args[$key] ) && !in_array( $args[$key], (array)$not_in ) ) {
-
-      // Append dot to table if exists
-      $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
-
-      // Every array
-      $array = (array)$args[$key];
-      $stack = array();
-      foreach ( $array as $value ) {
-        $stack[] = sprintf( "%s%s %s '%s'", $table_prefix, $key, $cond, $value );
-      }
-      return sprintf( "( %s )", implode( ' OR ', $stack ) );
-    }
-    return false;
-  }
-
-  /**
-   * Return a where condiction with possible OR values for a filter. Useful for JOIN table
-   *
-   *     $where[] = ::where( $args, self::FILTER_USER_ID, 'ID', 'users' );
-   *
-   *     // ( users.ID = '34' )
-   *
-   * @brief Where
-   *
-   * @param array  $args         Arguments list
-   * @param string $filter       A key for filter
-   * @param string $key          A key selector
-   * @param string $table_prefix Optional. Table prefix
-   * @param array  $not_in       Optional. Value to exclude
-   * @param string $cond         Optional. Condiction used, default '=' or 'LIKE'
-   *
-   * @return string
-   */
-  public static function where_filter( $args, $filter, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
-  {
-    if ( isset( $args[$filter] ) && !empty( $args[$filter] ) && !in_array( $args[$filter], (array)$not_in ) ) {
-      $args[$key] = $args[$filter];
-
-      return self::where( $args, $key, $table_prefix, array(), $cond );
-    }
   }
 
 }
