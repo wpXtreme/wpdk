@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Filesystem helper.
  *
@@ -129,7 +130,7 @@ class WPDKFilesystem extends WPDKObject {
    * Return the extension of a filename
    *
    * @brief Extension
-   * @see filename()
+   * @see   filename()
    *
    * @param string $filename A comoplete filename
    *
@@ -137,7 +138,16 @@ class WPDKFilesystem extends WPDKObject {
    */
   public static function ext( $filename )
   {
-    return end( explode( '.', strtolower( basename( $filename ) ) ) );
+    $filename = strtolower( basename( $filename ) );
+    $parts    = explode( '.', $filename );
+
+    if ( empty( $parts ) ) {
+      return false;
+    }
+
+    $ext = end( $parts );
+
+    return $ext;
   }
 
   /**
@@ -145,7 +155,7 @@ class WPDKFilesystem extends WPDKObject {
    *
    * @brief Filename
    * @since 1.4.15
-   * @see ext()
+   * @see   ext()
    *
    * @param string $filename A comoplete filename
    *
@@ -153,17 +163,21 @@ class WPDKFilesystem extends WPDKObject {
    */
   public static function filename( $filename )
   {
-    $parts = explode( '.', strtolower( basename( $filename ) ) );
+    $filename = strtolower( basename( $filename ) );
+    $parts    = explode( '.', $filename );
 
     // No dot found
     if ( empty( $parts ) ) {
       return $filename;
     }
+
     // Multiple dot found
     elseif ( count( $parts ) > 2 ) {
-      unset( $parts[count( $parts ) - 1] );
+      unset( $parts[ count( $parts ) - 1 ] );
+
       return implode( ',', $parts );
     }
+
     // Usually
     else {
       return current( $parts );
