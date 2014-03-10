@@ -568,49 +568,64 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   /**
    * Return the integer count of all rows when $distinct param is emmpty or an array of distinct count for $distinct column.
    *
-   * @brief Count
+   * @brief    Count
    *
-   * @param string       $distinct Optional. Name of field to distinct group by
-   * @param array|string $status   Optional. Key value paier for where condiction on field: key = fields, vallue = value
+   * @internal string       $distinct Optional. Name of field to distinct group by
+   * @internal array|string $status   Optional. Key value paier for where condiction on field: key = fields, vallue = value
    *
    * @return int|array
    */
-  public function count( $distinct = '', $status = '' )
+  //public function count( $distinct = '', $status = '' )
+  public function count()
   {
     global $wpdb;
 
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of [...] should be compatible with [...]
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args     = func_get_args();
+    $distinct = isset( $args[0] ) ? $args[0] : '';
+    $status   = isset( $args[1] ) ? $args[1] : '';
+
     $where = '';
     if ( !empty( $status ) && is_array( $status ) ) {
-      if ( is_numeric( $status[key( $status )] ) ) {
-        $where = sprintf( 'WHERE %s = %s', key( $status ), $status[key( $status )] );
+      if ( is_numeric( $status[ key( $status ) ] ) ) {
+        $where = sprintf( 'WHERE %s = %s', key( $status ), $status[ key( $status ) ] );
       }
       else {
-        $where = sprintf( "WHERE %s = '%s'", key( $status ), $status[key( $status )] );
+        $where = sprintf( "WHERE %s = '%s'", key( $status ), $status[ key( $status ) ] );
       }
     }
 
     if ( empty( $distinct ) ) {
       $sql = <<< SQL
 SELECT COUNT(*) AS count
-  FROM `{$this->table_name}`
+  FROM {$this->table_name}
   {$where}
 SQL;
+
       return absint( $wpdb->get_var( $sql ) );
     }
     else {
       $sql = <<< SQL
-SELECT DISTINCT(`{$distinct}`),
+SELECT DISTINCT( {$distinct} ),
   COUNT(*) AS count
-  FROM `{$this->table_name}`
+  FROM {$this->table_name}
+
   {$where}
-  GROUP BY `{$distinct}`
+
+  GROUP BY {$distinct}
 SQL;
 
       $results = $wpdb->get_results( $sql, ARRAY_A );
       $result  = array();
       foreach ( $results as $res ) {
-        $result[$res[$distinct]] = $res['count'];
+        $result[ $res[ $distinct ] ] = $res['count'];
       }
+
       return $result;
     }
   }
