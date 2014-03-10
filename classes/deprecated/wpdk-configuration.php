@@ -428,7 +428,18 @@ class WPDKConfiguration {
    *
    * @return WPDKConfiguration
    */
-  public static function init( $name, $class_name ) {
+  //public static function init( $name = null, $class_name = null ) {
+  public static function init() {
+
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of ::init() should be compatible with WPDKPreferences::init'
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args = func_get_args();
+    list( $name, $class_name ) = $args;
+
     static $instance = array();
 
     $name = sanitize_title( $name );
