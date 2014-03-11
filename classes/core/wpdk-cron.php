@@ -75,6 +75,7 @@ class WPDKCronSchedules {
 
 /**
  * WordPress Cron Controller (model)
+ *
  * @class           WPDKCronController
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
@@ -158,20 +159,20 @@ class WPDKCron {
   public $recurrence = 0;
 
   /**
-   * Create an instance of WPDKRecurringCron class
+   * Create an instance of WPDKCron class
    *
    * @brief Construct
    *
    * @param string $name       Unique cron name
-   * @param string $timestap   Optional. Timestamp for when to run the event.
-   * @param string $recurrence Optional. How often the event should recur.
+   * @param string $timestamp  Optional. Timestamp for when to run the event.
+   * @param string $recurrence Optional. How often the event should recur. See WPDKCronSchedules
    *
-   * @return WPDKRecurringCron
+   * @return WPDKCron
    */
-  public function __construct( $name, $timestap = false, $recurrence = 0 )
+  public function __construct( $name, $timestamp = false, $recurrence = 0 )
   {
     $this->name       = sanitize_title( $name );
-    $this->timestamp  = empty( $timestap ) ? time() : $timestap;
+    $this->timestamp  = empty( $timestamp ) ? time() : $timestamp;
     $this->recurrence = $recurrence;
 
     // Add action
@@ -181,12 +182,12 @@ class WPDKCron {
     if ( !wp_next_scheduled( $this->name ) ) {
 
       // Recurring
-      if ( empty( $timestap ) && !empty( $recurrence ) ) {
+      if ( empty( $timestamp ) && !empty( $recurrence ) ) {
         wp_schedule_event( time(), $recurrence, $this->name );
       }
       // Single event
-      elseif ( !empty( $timestap ) ) {
-        wp_schedule_single_event( $timestap, $this->name );
+      elseif ( !empty( $timestamp ) ) {
+        wp_schedule_single_event( $timestamp, $this->name );
       }
     }
   }
@@ -264,14 +265,14 @@ class WPDKSingleCron extends WPDKCron {
    *
    * @brief Construct
    *
-   * @param string $name       Unique cron id used as hook
-   * @param string $timestap Timestamp for when to run the event.
+   * @param string $name      Unique cron id used as hook
+   * @param string $timestamp Timestamp for when to run the event.
    *
    * @return WPDKSingleCron
    */
-  public function __construct( $name, $timestap )
+  public function __construct( $name, $timestamp )
   {
-    parent::__construct( $name, $timestap );
+    parent::__construct( $name, $timestamp );
   }
 
 }
