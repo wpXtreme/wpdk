@@ -246,26 +246,6 @@ class WPDKListTableViewController extends WP_List_Table {
     return array();
   }
 
-  /**
-   * Get the current action selected from the bulk actions dropdown.
-   *
-   * @since 3.1.0
-   *
-   * @return string|bool The action name or False if no action was selected
-   */
-  public static function action()
-  {
-    if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-      return $_REQUEST['action'];
-    }
-
-    if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-      return $_REQUEST['action2'];
-    }
-
-    return false;
-  }
-
   // -------------------------------------------------------------------------------------------------------------------
   // Private Utility
   // -------------------------------------------------------------------------------------------------------------------
@@ -426,7 +406,7 @@ class WPDKListTableViewController extends WP_List_Table {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This delegate mathod is called before display views
+   * This delegate method is called before display views
    *
    * @brief Before views
    * @since 1.5.1
@@ -437,7 +417,7 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
-   * This delegate mathod is called before display the table, inner the form
+   * This delegate method is called before display the table, inner the form
    *
    * @brief Before display
    * @since 1.5.1
@@ -458,7 +438,7 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
-   * This delegate mathod is called after display the table, inner the form.
+   * This delegate method is called after display the table, inner the form.
    *
    * @brief After display
    * @since 1.5.1
@@ -494,8 +474,6 @@ class WPDKListTableViewController extends WP_List_Table {
 
       <form id="<?php echo $this->id ?>" class="wpdk-list-table-form" method="get" action="">
 
-      <?php wp_nonce_field( $this->id ) ?>
-
       <?php if ( isset( $_REQUEST['page'] ) ) : ?>
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
       <?php endif; ?>
@@ -515,7 +493,7 @@ class WPDKListTableViewController extends WP_List_Table {
       <?php do_action( 'wpdk_list_table_form', $this ); // @deprecated action since 1.5.1 - use 'before_display()' instead ?>
 
       <?php unset( $_REQUEST['action'] ); ?>
-      <?php $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'action', '_wp_http_referer', '_wp_nonce' ), $_SERVER['REQUEST_URI']); ?>
+      <?php $_SERVER['REQUEST_URI'] = isset( $_REQUEST['_wp_http_referer'] ) ? $_REQUEST['_wp_http_referer'] : $_SERVER['REQUEST_URI'] ?>
 
       <?php $this->before_display(); // since 1.5.1 ?>
 
@@ -605,9 +583,6 @@ class WPDKListTableViewController extends WP_List_Table {
     $get_status_id = $this->getStatusID;
     $filter_status = isset( $_GET[$get_status_id] ) ? $_GET[$get_status_id] : $this->_defaultStatus();
 
-    // URI
-    $uri = ( isset( $_SERVER['HTTP_REFERER'] ) && wpdk_is_ajax() ) ? $_SERVER['HTTP_REFERER'] : false;
-
     foreach ( $this->get_statuses() as $key => $status ) {
 
       // See _defaultStatus() for detail for this array.
@@ -618,13 +593,23 @@ class WPDKListTableViewController extends WP_List_Table {
       if ( !empty( $count ) ) {
 
         $current = ( $filter_status == $key ) ? 'class="current"' : '';
-        $args    = array(
-          'status'                 => $key,
+
+        // Clear URI
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
+          '_action',
+          '_action_result'
+        ), $_SERVER['REQUEST_URI'] );
+
+        $args = array(
+          $get_status_id           => $key,
           'paged'                  => false,
           'action'                 => false,
+          '_action'                => false,
+          '_action_result'         => false,
           $this->_args['singular'] => false
         );
-        $href = add_query_arg( $args, $uri );
+
+        $href = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
         $views[$key] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
@@ -658,7 +643,7 @@ class WPDKListTableViewController extends WP_List_Table {
      * Optional. You can handle your bulk actions however you see fit. In this
      * case, we'll handle them within our package just to keep things clean.
      */
-    if ( $this->process_bulk_action() ) {
+    if ( $this->process_bulk_action( $this->action() ) ) {
       return true;
     }
 
@@ -782,13 +767,12 @@ class WPDKListTableViewController extends WP_List_Table {
    * @param string $column_name    Optional. The column action id. Default 'description'
    * @param string $item_status    Optional. Overwrite the view status for item in a specific status
    * @param string $custom_content Optional. Useful tuo override `$custom_content`
-   * @param string $nonce          Optional. Create a nonce param
    *
    * @note  You can override this method for your costum view. This method is called only there is a column named "id"
    *
    * @return string
    */
-  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '', $nonce = '' )
+  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' )
   {
     // Get the current view status
     $status = $this->_currentViewStatus();
@@ -800,25 +784,32 @@ class WPDKListTableViewController extends WP_List_Table {
     $stack = array();
     foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
       if ( !empty( $action ) ) {
-        $args           = array(
+
+        // Clear URI
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
+          '_action',
+          '_action_result'
+        ), $_SERVER['REQUEST_URI'] );
+
+        $args = array(
           'action'                => $action,
-          $this->args['singular'] => $item[$this->args['singular']]
+          $this->args['singular'] => $item[ $this->args['singular'] ],
+          '_wpnonce'              => wp_create_nonce( 'bulk-' . $this->args['plural'] ),
+          '_wp_http_referer'      => esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ),
+          '_action'               => false,
+          '_action_result'        => false,
         );
 
         // url
-        $url = add_query_arg( $args );
+        $url = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
-        // since 1.5.1 nonce
-        if( !empty( $nonce ) ) {
-          $url = wp_nonce_url( $url, $nonce );
-        }
-
-        $href           = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
-        $stack[$action] = sprintf( '<a href="%s">%s</a>', $href, $label );
+        $href             = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
+        $stack[ $action ] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
 
-    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[$column_name] ) : $custom_content;
+    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[ $column_name ] ) : $custom_content;
+
     return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }
 
@@ -914,6 +905,55 @@ class WPDKListTableViewController extends WP_List_Table {
     }
 
     return $actions;
+  }
+
+  /**
+ 	 * Get the current action selected from the bulk actions dropdown.
+   * Return the action name or FALSE if no action was selected.
+ 	 *
+   * @brief Action
+   * @since 1.5.1
+   *
+ 	 * @return string|bool
+ 	 */
+  public function current_action()
+  {
+    return isset( $_REQUEST['_action'] ) ? $_REQUEST['_action'] : parent::current_action();
+  }
+
+  /**
+   * Return the action result
+   *
+   * @brief Action result
+   *
+   * @return bool
+   */
+  public function action_result()
+  {
+    return isset( $_REQUEST['_action_result'] ) ? $_REQUEST['_action_result'] : true;
+  }
+
+  /**
+   * Return the action result
+   *
+   * @brief Action result
+   *
+   * @return bool
+   */
+  public function action()
+  {
+    $action = false;
+
+    if ( isset( $_REQUEST['_action'] ) ) {
+      $action = $_REQUEST['_action'];
+    }
+    elseif ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+      $action = $_REQUEST['action'];
+    }
+    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+      $action = $_REQUEST['action2'];
+    }
+    return $action;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -1113,29 +1153,24 @@ class WPDKListTableModel {
    */
   public function current_action( $nonce = '' )
   {
-    // Nonce
-    if( !empty( $nonce ) ) {
-
-      // Stability
-      if ( !isset( $_REQUEST['_wpnonce'] ) ) {
-        return false;
-      }
-
-      // Check the nonce
-      if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], $nonce ) ) {
-        return false;
-      }
-    }
+    // Action
+    $action = false;
 
     if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-      return $_REQUEST['action'];
+      $action = $_REQUEST['action'];
+    }
+    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+      $action = $_REQUEST['action2'];
     }
 
-    if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-      return $_REQUEST['action2'];
+    // Nonce
+    if ( !empty( $nonce ) && !empty( $action ) ) {
+      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
+        return $action;
+      }
     }
 
-    return false;
+    return $action;
   }
 
   /**
@@ -1153,9 +1188,27 @@ class WPDKListTableModel {
    *
    * @brief Process actions
    * @since 1.4.21
+   *
    */
   public function process_bulk_action()
   {
     // Override when you need to process actions before wp is loaded
+
+    $action = $this->current_action();
+
+    if ( $action ) {
+      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
+        $args = array(
+          '_action_result'  => $this->action_result,
+          '_action'         => $action,
+          'action'          => false,
+          'action2'         => false,
+          'page'            => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
+        );
+        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+
+        wp_safe_redirect( $uri );
+      }
+    }
   }
 }

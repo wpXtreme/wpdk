@@ -219,7 +219,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    *
    * @return WPDKWordPressPlugin
    */
-  public function __construct( $file ) {
+  public function __construct( $file = null ) {
 
     parent::__construct( $file );
 
