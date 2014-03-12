@@ -172,7 +172,13 @@ SQL;
   {
     global $wpdb;
 
+    // Stability
+    if ( empty( $id ) ) {
+      return false;
+    }
+
     $ids = implode( ',', (array)$id );
+
 
     $sql    = <<< SQL
 DELETE FROM {$this->table_name}
