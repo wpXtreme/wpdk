@@ -767,13 +767,12 @@ class WPDKListTableViewController extends WP_List_Table {
    * @param string $column_name    Optional. The column action id. Default 'description'
    * @param string $item_status    Optional. Overwrite the view status for item in a specific status
    * @param string $custom_content Optional. Useful tuo override `$custom_content`
-   * @param string $nonce          Optional. Create a nonce param
    *
    * @note  You can override this method for your costum view. This method is called only there is a column named "id"
    *
    * @return string
    */
-  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '', $nonce = '' )
+  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' )
   {
     // Get the current view status
     $status = $this->_currentViewStatus();
