@@ -643,7 +643,7 @@ class WPDKListTableViewController extends WP_List_Table {
      * Optional. You can handle your bulk actions however you see fit. In this
      * case, we'll handle them within our package just to keep things clean.
      */
-    if ( $this->process_bulk_action() ) {
+    if ( $this->process_bulk_action( $this->action() ) ) {
       return true;
     }
 
