@@ -393,6 +393,7 @@ SQL;
 
       return self::where( $args, $key, $table_prefix, array(), $cond );
     }
+    return false;
   }
 
 
@@ -547,6 +548,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    * Get the current action selected from the bulk actions dropdown.
    *
    * @brief Current action
+   *
+   * @param string $nonce Optional. Force nonce verify
    *
    * @return string|bool The action name or False if no action was selected
    */
