@@ -597,7 +597,7 @@ class WPDKListTableViewController extends WP_List_Table {
         // Clear URI
         $_SERVER['REQUEST_URI'] = remove_query_arg( array(
           '_action',
-          '_action_results'
+          '_action_result'
         ), $_SERVER['REQUEST_URI'] );
 
         $args = array(
@@ -605,7 +605,7 @@ class WPDKListTableViewController extends WP_List_Table {
           'paged'                  => false,
           'action'                 => false,
           '_action'                => false,
-          '_action_results'        => false,
+          '_action_result'         => false,
           $this->_args['singular'] => false
         );
 
@@ -789,7 +789,7 @@ class WPDKListTableViewController extends WP_List_Table {
         // Clear URI
         $_SERVER['REQUEST_URI'] = remove_query_arg( array(
           '_action',
-          '_action_results'
+          '_action_result'
         ), $_SERVER['REQUEST_URI'] );
 
         $args = array(
@@ -798,7 +798,7 @@ class WPDKListTableViewController extends WP_List_Table {
           '_wpnonce'              => wp_create_nonce( 'bulk-' . $this->args['plural'] ),
           '_wp_http_referer'      => esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ),
           '_action'               => false,
-          '_action_results'       => false,
+          '_action_result'        => false,
         );
 
         // url
@@ -1200,7 +1200,7 @@ class WPDKListTableModel {
     if ( $action ) {
       if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
         $args = array(
-          '_action_results' => $this->action_result,
+          '_action_result'  => $this->action_result,
           '_action'         => $action,
           'action'          => false,
           'action2'         => false,

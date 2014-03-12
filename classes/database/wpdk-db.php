@@ -591,7 +591,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     if ( $action ) {
       if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
         $args = array(
-          '_action_results' => $this->action_result,
+          '_action_result'  => $this->action_result,
           '_action'         => $action,
           'action'          => false,
           'action2'         => false,
