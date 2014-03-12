@@ -123,7 +123,7 @@ class WPDKListTableViewController extends WP_List_Table {
 
     // This action must be call one time only
     if ( !did_action( $action ) ) {
-      do_action( $action, $this->action() );
+      do_action( $action );
     }
   }
 
