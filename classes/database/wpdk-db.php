@@ -548,19 +548,28 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    *
    * @brief Current action
    *
-   * @return string|bool The action name or FALSE if no action was selected
+   * @return string|bool The action name or False if no action was selected
    */
-  public static function action()
+  public function current_action( $nonce = '' )
   {
+    // Action
+    $action = false;
+
     if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-      return $_REQUEST['action'];
+      $action = $_REQUEST['action'];
+    }
+    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+      $action = $_REQUEST['action2'];
     }
 
-    if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-      return $_REQUEST['action2'];
+    // Nonce
+    if ( !empty( $nonce ) && !empty( $action ) ) {
+      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
+        return $action;
+      }
     }
 
-    return false;
+    return $action;
   }
 
   /**
@@ -568,10 +577,27 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    *
    * @brief Process actions
    * @since 1.4.21
+   *
    */
   public function process_bulk_action()
   {
     // Override when you need to process actions before wp is loaded
+
+    $action = $this->current_action();
+
+    if ( $action ) {
+      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
+        $args = array(
+          '_action_results' => $this->action_result,
+          '_action'         => $action,
+          'action'          => false,
+          'action2'         => false,
+        );
+        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+
+        wp_safe_redirect( $uri );
+      }
+    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------
