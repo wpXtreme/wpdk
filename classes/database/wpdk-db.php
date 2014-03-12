@@ -591,10 +591,11 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     if ( $action ) {
       if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
         $args = array(
-          '_action_result'  => $this->action_result,
-          '_action'         => $action,
-          'action'          => false,
-          'action2'         => false,
+          '_action_result' => $this->action_result,
+          '_action'        => $action,
+          'action'         => false,
+          'action2'        => false,
+          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
         );
         $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
