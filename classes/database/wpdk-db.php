@@ -603,7 +603,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
           'action2'        => false,
           'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
         );
-        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
         wp_safe_redirect( $uri );
       }
