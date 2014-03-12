@@ -1905,16 +1905,16 @@ class WPDKUIControlSwipe extends WPDKUIControl {
    */
   public function draw()
   {
+    // Prepare popover
+
+    /**
+      * @var WPDKUIPopover $popover
+     */
+    $popover = null;
 
     // since 1.5.0 - check for popover
-    $popover = false;
     if ( isset( $this->item['popover'] ) && is_a( $this->item['popover'], 'WPDKUIPopover' ) ) :
 
-      /**
-       * Get popover
-       *
-       * @var WPDKUIPopover $popover
-       */
       $popover = $this->item['popover']; ?>
 
       <div class='wpdk-has-popover wpdk-popover-container'
@@ -1971,7 +1971,7 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
     echo $this->contentWithKey( 'append' );
 
-    if( $popover ) {
+    if( ! empty( $popover ) ) {
       echo '</div>';
     }
   }
@@ -2299,7 +2299,7 @@ class WPDKUIControlsLayout {
    *
    * @param array $item Control description in CLA format
    */
-  private function _processItem( $item )
+  private static function _processItem( $item )
   {
     $class_name = isset( $item['type'] ) ? $item['type'] : '';
     if ( !empty( $class_name ) && class_exists( $class_name ) ) {
