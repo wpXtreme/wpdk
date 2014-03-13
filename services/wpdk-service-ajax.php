@@ -108,11 +108,16 @@ if ( wpdk_is_ajax() ) {
       // Prepare array response
       $return = array();
 
-      // Loop in users
+      /**
+       * @var WP_User $user
+       */
+      $user = null;
+
+      // Loop in users WP_User
       foreach ( $users as $user ) {
 
         // Get avatar
-        $img_avatar = $avatar ? get_avatar( $user->ID, $avatar_size, '', 'Avatar' ) : '';
+        $img_avatar = $avatar ? get_avatar( $user->ID, $avatar_size, 'wavatar', $user->data->display_name ) : '';
 
         // Return
         $return[] = array(
