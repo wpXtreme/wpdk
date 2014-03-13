@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generic HTML model. This class is sub class from above class.
  * Thanks to http://www.w3schools.com/tags/default.asp for definitions
