@@ -34,6 +34,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Improved `WPDKListTableViewController`
 * Improved `WPDKListTableModel`
+* Improved and fixes user avatar
 * Replaced deprecated
 
 

@@ -1543,15 +1543,11 @@ SQL;
     }
     $user = new WPDKUser( $id_user );
     if ( $user ) {
+
+      // Alt image
       $alt  = empty( $alt ) ? $user->display_name : $alt;
 
-      // Use SSL
-      $gravatar = is_ssl() ? 'https://secure.gravatar.com/avatar/' : 'http://0.gravatar.com/avatar/';
-
-      $src  = sprintf( '%s%s?s=%s&d=%s', $gravatar, md5( $user->email ), $size, $default );
-      $html = sprintf( '<img src="%s" alt="%s" title="%s" />', $src, $alt, $alt );
-
-      return $html;
+      return get_avatar( $user->ID, $size, $default, $alt );
     }
     return false;
   }

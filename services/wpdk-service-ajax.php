@@ -108,11 +108,16 @@ if ( wpdk_is_ajax() ) {
       // Prepare array response
       $return = array();
 
-      // Loop in users
+      /**
+       * @var WP_User $user
+       */
+      $user = null;
+
+      // Loop in users WP_User
       foreach ( $users as $user ) {
 
         // Get avatar
-        $img_avatar = $avatar ? get_avatar( $user->ID, $avatar_size, '', 'Avatar' ) : '';
+        $img_avatar = $avatar ? get_avatar( $user->ID, $avatar_size, 'wavatar', $user->data->display_name ) : '';
 
         // Return
         $return[] = array(
@@ -284,12 +289,12 @@ SQL;
       $user_id = get_current_user_id();
 
       // Get the dismissed list
-      $dismissed = get_user_meta( $user_id, WPDKTwitterBootstrapAlert::USER_META_KEY_PERMANENT_DISMISS, true );
+      $dismissed = get_user_meta( $user_id, WPDKUIAlert::USER_META_KEY_PERMANENT_DISMISS, true );
       $dismissed = empty( $dismissed ) ? array() : $dismissed;
 
       // Add this alert id and make array unique - avoid duplicate
       $dismissed = array_unique( array_merge( $dismissed, (array)$alert_id ) );
-      update_user_meta( $user_id, WPDKTwitterBootstrapAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
+      update_user_meta( $user_id, WPDKUIAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
 
       $response->json();
     }

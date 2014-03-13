@@ -308,7 +308,7 @@ class WPDKTinyMCEPlugin {
       var _WPDKShortcodes = {
         wpdk_uri_css        : '<?php echo WPDK_URI_CSS ?>',
         wpdk_uri_javascript : '<?php echo WPDK_URI_JAVASCRIPT ?>',
-        open_dialog         : function() { var dialog = new WPDKTwitterBootstrapModal( 'wpdk-shortcodes-dialog', '<?php _e( 'WPDK Editor Manager', WPDK_TEXTDOMAIN ) ?>', '<?php _e( '<h4>Information</h4><p>This feature coming in next soon release!</p>', WPDK_TEXTDOMAIN ) ?>' ); dialog.display(); },
+        open_dialog         : function() { var dialog = new WPDKUIModalDialog( 'wpdk-shortcodes-dialog', '<?php _e( 'WPDK Editor Manager', WPDK_TEXTDOMAIN ) ?>', '<?php _e( '<h4>Information</h4><p>This feature coming in next soon release!</p>', WPDK_TEXTDOMAIN ) ?>' ); dialog.display(); },
         buttons             : [
         <?php
           $s = array();
