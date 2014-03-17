@@ -428,6 +428,17 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
+   * Display a search box field
+   *
+   * @brief Search Box
+   * @since 1.5.1
+   */
+  public function search_box_field()
+  {
+    // Override
+  }
+
+  /**
    * This method override the default WP_List_Table display.
    *
    * @brief Display the list table view
@@ -473,6 +484,8 @@ class WPDKListTableViewController extends WP_List_Table {
       ?>
 
       <form id="<?php echo $this->id ?>" class="wpdk-list-table-form" method="get" action="">
+
+      <?php $this->search_box_field() ?>
 
       <?php if ( isset( $_REQUEST['page'] ) ) : ?>
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
