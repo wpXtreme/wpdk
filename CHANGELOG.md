@@ -20,6 +20,31 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.1
+### 2014-03-18
+
+#### Enhancements
+
+* Added `WPDKUser::deleteTransientWithUser()`
+* Deprecated `wpdk_delete_user_transient` function
+* Added search box field support in `WPDKListTableViewController`
+* Added `WPDKDBTableModel`
+* Added `WPDKDBTableModelListTable`
+* Added `WPDKDBTableRowStatuses`
+* Removed/moved deprecated database classes
+
+#### Improvements
+
+* Improved `WPDKListTableViewController`
+* Improved `WPDKListTableModel`
+* Improved and fixes user avatar
+* Replaced deprecated
+
+#### Bugs
+
+* Try to avoid 'PHP Strict Standards: Declaration of ... should be con...' Thanks to [Mte90](https://github.com/Mte90)
+
+
 ## Version 1.5.0
 ### 2014-02-26
 

@@ -275,7 +275,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   }
 
   /**
-   * Return the HTML markup for  a Twitter bootstrap alert
+   * Return the HTML markup for alert
    *
    * @brief Get HTML
    *

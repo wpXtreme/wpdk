@@ -711,8 +711,8 @@ jQuery( function ( $ )
    * @class           WPDKjQuery
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2014-02-10
-   * @version         1.2.0
+   * @date            2014-03-02
+   * @version         1.2.1
    */
   if ( 'undefined' === typeof( window.WPDKjQuery ) ) {
     window.WPDKjQuery = (function ()
@@ -720,15 +720,16 @@ jQuery( function ( $ )
 
       // This object
       var $t = {
-        version         : '1.2.0',
+        version         : '1.2.1',
         jQueryVersion   : _jQueryVersion,
-        jQueryUIVersion : _jQueryUIVersion
+        jQueryUIVersion : _jQueryUIVersion,
+        init            : _init
       };
 
       /**
        * Init this class
        */
-      $t.init = function ()
+      function _init ()
       {
         _initDatePicker();
         _initTabs();
@@ -838,9 +839,24 @@ jQuery( function ( $ )
 
         $( 'input[data-autocomplete]' ).each( function ( index, element )
         {
+          // Clear target on change and lost focus
+          $( element ).on( 'blur change', function ()
+          {
+            if ( empty( $( this ).val() ) ) {
+              $( $( element ).data( 'target' ) ).val( '' );
+            }
+          } );
+
           switch ( $( element ).data( 'autocomplete' ) ) {
+
+            // Posts
             case 'posts':
               _initAutocompletePosts( element );
+              break;
+
+            // Users
+            case 'users':
+              _initAutocompleteUsers( element );
               break;
 
             case 'embed':
@@ -856,8 +872,77 @@ jQuery( function ( $ )
       }
 
       /**
-       * Attach an autocomplete Ajax event when an input has the `data-autocomplete_posts` attribute.
-       * Usually you will use an input text. When you digit something an Ajax call 'wpdk_action_autocomplete_posts' is made.
+       * Attach an autocomplete Ajax event when an input has the `data-autocomplete="users"` attribute.
+       * Usually you will use an input text. When you digit something an Ajax call 'wpdk_action_autocomplete_users'
+       * is made.
+       *
+       * @private
+       */
+      function _initAutocompleteUsers( element )
+      {
+        //var id = ( typeof current_site_id !== 'undefined' ) ? '&site_id=' + current_site_id : '';
+
+        // Calculate position
+        var position = { offset : '0, -1' };
+        if ( typeof isRtl !== 'undefined' && isRtl ) {
+          position.my = 'right top';
+          position.at = 'right bottom';
+        }
+
+        // Do autocomplete
+        $( element ).autocomplete( {
+          delay     : $( element ).data( 'delay' ) || 500,
+          minLength : $( element ).data( 'min_length' ) || 2,
+          position  : position,
+
+          // Source
+          source : function( request, response ) {
+            $.post( ajaxurl,
+              {
+                action      : 'wpdk_action_autocomplete_users',
+                avatar      : $( element ).data( 'avatar' ) || true,
+                avatar_size : $( element ).data( 'avatar_size' ) || 32,
+                query       : $( element ).data( 'query' ) || ["user_login","user_nicename","user_email"],
+                term        : request.term
+              }, function( data ) {
+                response( $.parseJSON( data ) );
+              });
+          },
+
+          // Select
+          select : function ( event, ui )
+          {
+            if ( typeof ui.item.href !== 'undefined' ) {
+              document.location = ui.item.href;
+            }
+            else {
+              var target = $( element ).data( 'target' );
+              if ( !empty( target ) ) {
+                $( target  ).val( ui.item.id );
+              }
+            }
+          },
+
+          // Open
+          open    : function ()
+          {
+            $( this ).addClass( 'wpdk-autocomplete-open' );
+          },
+          close   : function ()
+          {
+            $( this ).removeClass( 'wpdk-autocomplete-open' );
+          }
+        } ).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            return $( '<li>' )
+            .append( '<a class="clearfix">' + item.label + '</a>' )
+            .appendTo( ul );
+            };
+      }
+
+      /**
+       * Attach an autocomplete Ajax event when an input has the `data-autocomplete="posts"` attribute.
+       * Usually you will use an input text. When you digit something an Ajax call 'wpdk_action_autocomplete_posts'
+       * is made.
        *
        * @param element DOM element
        *
@@ -1115,7 +1200,7 @@ jQuery( function ( $ )
         } );
       }
 
-      return $t.init();
+      return _init();
 
     })();
   }

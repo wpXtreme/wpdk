@@ -264,10 +264,10 @@ if ( !class_exists( 'WPDK' ) ) {
         // DATABASE
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . './classes/database/wpdk-db.php'                    => array(
-          '__WPDKDBTable',
-          'WPDKDBTableRow',
-          'WPDKDBTableStatus',
+        $sPathPrefix . 'classes/database/wpdk-db.php'                      => array(
+          'WPDKDBTableModel',
+          'WPDKDBTableModelListTable',
+          'WPDKDBTableRowStatuses',
         ),
 
 
@@ -468,16 +468,19 @@ if ( !class_exists( 'WPDK' ) ) {
         // DEPRECATED
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'          => array(
-          'WPDKDBTable',
-          '_WPDKDBTable',
-        ),
-
         $sPathPrefix . 'classes/deprecated/wpdk-configuration.php'     => array(
           'WPDKConfig',
           'WPDKConfigBranch',
           'WPDKConfiguration',
           'WPDKConfigurationView',
+        ),
+
+        $sPathPrefix . 'classes/deprecated/wpdk-db-table.php'     => array(
+          '__WPDKDBTable',
+          '_WPDKDBTable',
+          'WPDKDBTable',
+          'WPDKDBTableRow',
+          'WPDKDBTableStatus',
         ),
 
         $sPathPrefix . 'classes/deprecated/wpdk-tbs-alert.php'         => array(
@@ -520,12 +523,10 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function enqueue_scripts_styles()
     {
-      /* Dato che attualmente non vi è distinizione, riuso stili e script del backend */
-
-      /* WPDK CSS styles. */
+      // WPDK CSS styles
       $this->admin_styles();
 
-      /* WPDK Javascript framework engine. */
+      // WPDK Javascript framework engine
       $this->admin_scripts();
     }
 
@@ -550,9 +551,7 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     private function admin_styles()
     {
-      $deps = array(
-        'thickbox'
-      );
+      $deps = array( 'thickbox' );
 
       wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
       wp_enqueue_style( 'wpdk-style', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );

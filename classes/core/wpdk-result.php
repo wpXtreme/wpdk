@@ -62,35 +62,35 @@ class WPDKResult extends WP_Error {
    */
   public function display( $echo = true, $log = null )
   {
-    $message = '<div class="wpdk-watchdog-wp-error">';
+    $content = '<div class="wpdk-watchdog-wp-error">';
 
     foreach ( $this->errors as $code => $single ) {
-      $message .= sprintf( '<code>Code: 0x%x, Description: %s</code>', $code, $single[0] );
+      $content .= sprintf( '<code>Code: 0x%x, Description: %s</code>', $code, $single[0] );
       $error_data = $this->get_error_data( $code );
       if ( !empty( $error_data ) ) {
         if ( is_array( $error_data ) ) {
           foreach ( $error_data as $key => $data ) {
-            $message .= sprintf( '<code>Key: %s, Data: %s</code>', $key, urldecode( $data ) );
+            $content .= sprintf( '<code>Key: %s, Data: %s</code>', $key, urldecode( $data ) );
           }
         }
         else {
-          $message .= sprintf( '<code>Data: %s</code>', urldecode( $error_data ) );
+          $content .= sprintf( '<code>Data: %s</code>', urldecode( $error_data ) );
         }
       }
     }
 
-    /* log to file if enabled */
+    // log to file if enabled
     if ( !is_null( $log ) ) {
-      $log->log( esc_attr( wp_strip_all_tags( $message ) ) );
+      $log->log( esc_attr( wp_strip_all_tags( $content ) ) );
     }
 
-    $message .= '</div>';
+    $content .= '</div>';
 
     if ( $echo ) {
-      echo $message;
+      echo $content;
       return true;
     }
-    return $message;
+    return $content;
   }
 
   /**

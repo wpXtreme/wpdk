@@ -1,7 +1,12 @@
 <?php
 
 /**
- * @class WPDKUIPopoverPlacement
+ * @class              WPDKUIPopoverPlacement
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-02-23
+ * @version            1.0.0
+ * @since              1.5.0
  */
 class WPDKUIPopoverPlacement {
 
@@ -37,7 +42,7 @@ class WPDKUIPopover extends WPDKHTMLTag {
    * the triggering element - which will prevent the popover from floating away from the triggering element during a
    * window resize.
    *
-   * @brief COntainer
+   * @brief Container
    *
    * @var bool $container
    */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helper class to manage HTML
  *

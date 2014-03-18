@@ -277,33 +277,39 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
    * @version         1.0.0
    *
    */
-  window.WPDKUIModalDialog = function ( $id, $title, $content )
+  window.WPDKUIModalDialog = function ( id, title, content )
   {
+
+    "use strict";
 
     // Remove conflict
     var $ = window.jQuery;
 
-    this.version = '1.0.0';
-    this.id = $id;
-    this.title = $title;
-    this.content = $content;
-    this.width = '';
-    this.height = '';
-    this.close_button = true;
-    this.buttons = [];
-    this.data = [];
+    // This object
+    var $t = {
+      version        : '1.0.0',
+      id             : id,
+      title          : title || '',
+      content        : content || '',
+      width          : '',
+      height         : '',
+      dismiss_button : true,
+      data           : [],
 
-    /**
-     * @type {WPDKUIModalDialog}
-     */
-    var $t = this;
+      html       : _html,
+      display    : _display,
+      add_button : _add_button
+    };
+
+    // Private
+    var buttons = [];
 
     /**
      * Return the HTML aria title format
      *
      * @return string
      */
-    function aria_title()
+    function _aria_title()
     {
       return $t.id + '-title';
     }
@@ -313,13 +319,13 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      *
      * @return {string}
      */
-    function close_button()
+    function _dismiss_button()
     {
-      var $result = '';
-      if ( $t.close_button ) {
-        $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+      var result = '';
+      if ( $t.dismiss_button ) {
+        result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
       }
-      return $result;
+      return result;
     }
 
     /**
@@ -327,9 +333,12 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      *
      * @return string
      */
-    function size()
+    function _size()
     {
-      var result = '', styles = {}, style, stack = [];
+      var result = '',
+        styles = {},
+        style,
+        stack = [];
 
       if ( !empty( $t.width ) ) {
         styles.width = $t.width + 'px';
@@ -355,17 +364,18 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      *
      * @return string
      */
-    function buttons()
+    function _buttons()
     {
-      var result = '', key, buttons = '';
-      if ( !empty( $t.buttons ) ) {
-        for ( key in $t.buttons ) {
-          var $value = $t.buttons[key];
-          var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
-          var $label = isset( $value['label'] ) ? $value['label'] : '';
-          var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-          buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
-        }
+      var result = '',
+        key,
+        buttons = '';
+
+      for ( key in $t.buttons ) {
+        var $value = $t.buttons[key];
+        var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
+        var $label = isset( $value['label'] ) ? $value['label'] : '';
+        var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
+        buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
       }
 
       if ( !empty( buttons ) ) {
@@ -380,16 +390,22 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      *
      * @return string
      */
-    function data()
+    function _data()
     {
-      var result = '', stack = [], key, value;
-      if ( !empty( $t.data ) ) {
-        for ( key in $t.data ) {
-          value = $t.data[key];
-          stack.push( sprintf( 'data-%s="%s"', key, value ) );
-        }
+      var result = '',
+        stack = [],
+        key,
+        value;
+
+      for ( key in $t.data ) {
+        value = $t.data[key];
+        stack.push( sprintf( 'data-%s="%s"', key, value ) );
+      }
+
+      if( !empty( stack ) ) {
         result = join( ' ', stack );
       }
+
       return result;
     }
 
@@ -398,50 +414,51 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      *
      * @return string
      */
-    this.html = function ()
+    function _html()
     {
 
       return '<div class="wpdk-modal hide fade" ' +
-        data() +
+        _data() +
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
         'role="dialog"' +
-        'aria-labelledby="' + aria_title() + '"' +
+        'aria-labelledby="' + _aria_title() + '"' +
         'aria-hidden="true">' +
-        '<div ' + size() + ' class="modal-dialog">' +
+        '<div ' + _size() + ' class="modal-dialog">' +
         '<div class="modal-content">' +
         '<div class="modal-header">' +
-        close_button() +
-        '<h4 class="modal-title" id="' + aria_title() + '">' + $t.title + '</h4>' +
+        _dismiss_button() +
+        '<h4 class="modal-title" id="' + _aria_title() + '">' + $t.title + '</h4>' +
         '</div>' +
         '<div class="modal-body">' +
         $t.content +
         '</div>' +
-        buttons() +
+        _buttons() +
         '</div>' +
         '</div>' +
         '</div>';
-    };
+    }
 
     /**
      * Display the modal
      */
-    this.display = function ()
+    function _display()
     {
-      $( 'body' ).append( $t.html() );
-      var modal = $( '#' + $t.id );
-      modal.wpdkModal( 'show' );
-      modal.on( 'hidden', function ()
-      {
-        $( this ).remove();
-      } );
+      // Attach under the body
+      $( 'body' ).append( _html() );
 
-      // Twitter Bootstrap v.3.1.0
-      modal.on( 'hidden.wpdk.modal', function ()
+      // Get element
+      var $modal = $( '#' + $t.id );
+
+      // Display
+      $modal.wpdkModal( 'show' );
+
+      // Remove HTML markup when hide
+      $modal.on( 'hidden.wpdk.wpdkModal', function ()
       {
         $( this ).remove();
       } );
-    };
+    }
 
     /**
      * Add a footer button
@@ -451,19 +468,19 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
      * @param {boolean} dismiss Boolean
      * @param {string} classes Additional classes
      */
-    this.add_buttons = function ( id, label, dismiss, classes )
+    function _add_button( id, label, dismiss, classes )
     {
-      $t.buttons[id] = {
+     buttons[id] = {
         label   : label,
         classes : classes || '',
         dismiss : dismiss || true
       };
-    };
+    }
 
     /**
      * Add an attribute data
      */
-    this.add_data = function ( $key, $value )
+    function _add_data( $key, $value )
     {
       $t.data.push(
         {
@@ -485,6 +502,8 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
       var id = '#' + $t.id;
       return sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', ( classes || '' ), id, label );
     }
+
+    return $t;
 
   };
 }
@@ -587,18 +606,19 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
      */
     function buttons()
     {
-      var result = '', key, buttons = '';
+      var result = '', key, str_buttons = '';
+
       if ( !empty( $t.buttons ) ) {
         for ( key in $t.buttons ) {
           var $value = $t.buttons[key];
           var $class = isset( $value['classes'] ) ? $value['classes'] : isset( $value['class'] ) ? $value['class'] : '';
           var $label = isset( $value['label'] ) ? $value['label'] : '';
           var $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
-          buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
+          str_buttons += sprintf( '<button id="%s" class="button %s" %s aria-hidden="true">%s</button>', key, $class, $data_dismiss, $label );
         }
       }
 
-      if ( !empty( buttons ) ) {
+      if ( !empty( str_buttons ) ) {
         result = sprintf( '<div class="modal-footer">%s</div>', buttons );
       }
 

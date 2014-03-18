@@ -138,15 +138,27 @@ class WPDKPreferences {
    *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION, $user_id );
    *     }
    *
-   * @param string      $name       A string used as name for options. Make it unique more possible.
-   * @param string      $class_name The subclass class name
-   * @param bool|string $version    Optional. Version compare
-   * @param bool|int    $user_id    Optional. User ID
+   * @internal string      $name       A string used as name for options. Make it unique more possible.
+   * @internal string      $class_name The subclass class name
+   * @internal bool|string $version    Optional. Version compare
+   * @internal bool|int    $user_id    Optional. User ID
    *
    * @return WPDKPreferences
    */
-  public static function init( $name, $class_name, $version = false, $user_id = false )
+  //public static function init( $name, $class_name, $version = false, $user_id = false )
+  public static function init()
   {
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of ::init() should be compatible with WPDKPreferences::init'
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args = func_get_args();
+    list( $name, $class_name ) = $args;
+    $version = isset( $args[2] ) ? $args[2] : false;
+    $user_id = isset( $args[3] ) ? $args[3] : false;
+
     static $instance = array();
     static $busy = false;
 
@@ -163,15 +175,17 @@ class WPDKPreferences {
     }
 
     if ( !empty( $version ) ) {
-      /* Or if the onfly version is different from stored version. */
+
+      // Or if the onfly version is different from stored version
       if ( version_compare( $preferences->version, $version ) < 0 ) {
-        /* For i.e. you would like update the version property. */
+
+        // For i.e. you would like update the version property
         $preferences->version = $version;
         $preferences->update();
       }
     }
 
-    /* Check for post data. */
+    // Check for post data
     if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
       if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) &&
         $_POST['wpdk_preferences_class'] == get_class( $preferences )
@@ -180,7 +194,7 @@ class WPDKPreferences {
         if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
           $branch = $_POST['wpdk_preferences_branch'];
 
-          /* Reset to default a specified branch. */
+          // Reset to default a specified branch
           if ( isset( $_POST['reset-to-default-preferences'] ) ) {
             add_action( 'wpdk_preferences_feedback-' . $branch, array(
               $preferences,
@@ -190,24 +204,21 @@ class WPDKPreferences {
             $preferences->update();
           }
 
-          /* Update a specified branch. */
+          // Update a specified branch
           elseif ( isset( $_POST['update-preferences'] ) ) {
-            add_action( 'wpdk_preferences_feedback-' . $branch, array(
-              $preferences,
-              'wpdk_preferences_feedback_update'
-            ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
             $preferences->$branch->update();
             $preferences->update();
           }
         }
 
-        /* Reset all preferences. */
+        // Reset all preferences
         elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
           $preferences->defaults();
           $preferences->update();
         }
 
-        /* Try for import/export. */
+        // Try for import/export
         else {
           $preferences = WPDKPreferencesImportExport::init( $preferences );
         }
@@ -243,7 +254,7 @@ class WPDKPreferences {
   public function wpdk_preferences_feedback_reset()
   {
     $message = __( 'Your preferences were successfully restored to defaults values!', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
+    $alert   = new WPDKUIAlert( 'info', $message, WPDKUIAlertType::SUCCESS, __( 'Information', WPDK_TEXTDOMAIN ) );
     $alert->display();
   }
 
@@ -255,7 +266,7 @@ class WPDKPreferences {
   public function wpdk_preferences_feedback_update()
   {
     $message = __( 'Your preferences values were successfully updated!', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKTwitterBootstrapAlert( 'info', $message, WPDKTwitterBootstrapAlertType::SUCCESS );
+    $alert   = new WPDKUIAlert( 'info', $message, WPDKUIAlertType::SUCCESS, __( 'Information', WPDK_TEXTDOMAIN ) );
     $alert->display();
   }
 
@@ -292,24 +303,25 @@ class WPDKPreferences {
   public function delta()
   {
 
-    /* Check if exists a store version. */
+    // Check if exists a store version
     $store_version = $this->get();
 
-    /* Get subclass name. */
+    // Get subclass name
     $subclass_name = get_class( $this );
 
-    /* Prepare an onfly instance. */
+    // Prepare an onfly instance
     $delta = $instance = new $subclass_name( $this->name );
 
     if ( !empty( $store_version ) ) {
 
-      /* In rare case could happen that the stored class is different from onfly class. */
+      // In rare case could happen that the stored class is different from onfly class
       if ( !is_a( $store_version, $subclass_name ) ) {
         $this->delete();
         $instance->update();
       }
+
+      // Do delta
       else {
-        /* Do delta. */
         $delta = WPDKObject::__delta( $instance, $store_version );
         $delta->update();
       }
@@ -480,13 +492,16 @@ class WPDKPreferencesImportExport {
     $this->import      = '';
     $this->error       = false;
 
-    /* Check post data. */
+    // Check post data
     if ( isset( $_POST['wpdk_preferences_export'] ) ) {
       $this->download();
     }
-    /* Import. */
+
+    // Import
     elseif ( isset( $_POST['wpdk_preferences_import'] ) ) {
+
       //add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
+
       add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array(
         $this,
         'wpdk_preferences_import_export_feedback'
@@ -512,13 +527,13 @@ class WPDKPreferencesImportExport {
   {
     $this->import = unserialize( gzinflate( file_get_contents( $filename ) ) );
 
-    /* Check for error in file structure. */
+    // Check for error in file structure
     if ( !is_object( $this->import ) || !is_a( $this->import, get_class( $this->preferences ) ) ) {
       $this->error = self::ERROR_MALFORMED_FILE;
       return;
     }
 
-    /* Check for wrong version. */
+    // Check for wrong version
     if ( version_compare( $this->import->version, $this->preferences->version ) > 0 ) {
       $this->error = self::ERROR_VERSION;
       return;
@@ -547,11 +562,11 @@ class WPDKPreferencesImportExport {
    */
   private function download()
   {
-    /* Create a filtrable filename. Default `name-preferences.wpx`. */
+    // Create a filtrable filename. Default `name-preferences.wpx`
     $filename = sprintf( '%s.wpx', $this->preferences->name );
     $filename = apply_filters( 'wpdk_preferences_export_filename', $filename, $this->preferences );
 
-    /* GZIP the object. */
+    // GZIP the object
     $buffer = gzdeflate( serialize( $this->preferences ) );
 
     header( 'Content-Type: application/download' );
@@ -579,26 +594,29 @@ class WPDKPreferencesImportExport {
 
     switch ( $this->error ) {
 
-      /* All ok. */
+      // ALL OK
       case self::ERROR_NONE;
         $title   = __( 'Successfully!', WPDK_TEXTDOMAIN );
         $content = __( 'Import complete.', WPDK_TEXTDOMAIN );
         break;
-      /* Error while reading upload file. */
+
+      // ERROR while reading upload file
       case self::ERROR_READ_FILE:
         $content = sprintf( '%s %s', __( 'Error while read file! Error code:', WPDK_TEXTDOMAIN ), $_FILES['file']['error'] );
         break;
-      /* Error while uncompress upload file. */
+
+      // ERROR while uncompress upload file
       case self::ERROR_MALFORMED_FILE:
         $content = __( 'Malformed file.', WPDK_TEXTDOMAIN );
         break;
-      /* Version export error. */
+
+      // Version export error
       case self::ERROR_VERSION:
         $content = __( 'Wrong file version! You are try to import a most recent of export file. Please update your plugin before continue.', WPDK_TEXTDOMAIN );
         break;
     }
 
-    $alert = new WPDKTwitterBootstrapAlert( 'feedback', $content, empty( $this->error ) ? WPDKTwitterBootstrapAlertType::SUCCESS : WPDKTwitterBootstrapAlertType::WARNING, $title );
+    $alert = new WPDKUIAlert( 'feedback', $content, empty( $this->error ) ? WPDKUIAlertType::SUCCESS : WPDKUIAlertType::WARNING, $title );
     $alert->display();
   }
 

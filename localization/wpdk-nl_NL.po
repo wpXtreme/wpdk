@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wpXtreme v1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-26 10:29+0100\n"
-"PO-Revision-Date: 2014-02-26 10:29+0100\n"
+"POT-Creation-Date: 2014-02-28 16:59+0100\n"
+"PO-Revision-Date: 2014-02-28 16:59+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: FRANS PRONK <beheer@ifra.nl>\n"
 "Language: nl_NL\n"
@@ -55,6 +55,13 @@ msgid "Your preferences were successfully restored to defaults values!"
 msgstr "Uw voorkeuren zijn naar standaardwaarden hersteld!"
 
 # @ wpdk
+#: ../classes/core/wpdk-preferences.php:246
+#: ../classes/core/wpdk-preferences.php:258
+#, fuzzy
+msgid "Information"
+msgstr "Login-gegevens"
+
+# @ wpdk
 #: ../classes/core/wpdk-preferences.php:257
 msgid "Your preferences values were successfully updated!"
 msgstr "Uw voorkeuren zijn bijgewerkt!"
@@ -75,17 +82,17 @@ msgid "Import complete."
 msgstr "Importeren voltooid."
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:589
+#: ../classes/core/wpdk-preferences.php:590
 msgid "Error while read file! Error code:"
 msgstr "Fout bij lezen bestand! Foutcode:"
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:593
+#: ../classes/core/wpdk-preferences.php:595
 msgid "Malformed file."
 msgstr "Ongeldig bestand."
 
 # @ wpdk
-#: ../classes/core/wpdk-preferences.php:597
+#: ../classes/core/wpdk-preferences.php:600
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
@@ -877,7 +884,7 @@ msgid "Severe error: no user logged in!"
 msgstr ""
 
 # @ wpdk
-#: ../wpdk.php:612
+#: ../wpdk.php:608
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -886,42 +893,42 @@ msgstr ""
 " Wilt u dit veld op het formulier ontgrendelen?"
 
 # @ wpdk
-#: ../wpdk.php:614
+#: ../wpdk.php:610
 msgid "Choose Time"
 msgstr "Kies tijd"
 
 # @ wpdk
-#: ../wpdk.php:615
+#: ../wpdk.php:611
 msgid "Time"
 msgstr "Tijd"
 
 # @ wpdk
-#: ../wpdk.php:616
+#: ../wpdk.php:612
 msgid "Hour"
 msgstr "Uur"
 
 # @ wpdk
-#: ../wpdk.php:617
+#: ../wpdk.php:613
 msgid "Minute"
 msgstr "Minuut"
 
 # @ wpdk
-#: ../wpdk.php:618
+#: ../wpdk.php:614
 msgid "Seconds"
 msgstr "Seconden"
 
 # @ wpdk
-#: ../wpdk.php:619
+#: ../wpdk.php:615
 msgid "Now"
 msgstr "Nu"
 
 # @ wpdk
-#: ../wpdk.php:620
+#: ../wpdk.php:616
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Zo,Ma,Di,Wo,Do,Vr,Za"
 
 # @ wpdk
-#: ../wpdk.php:621
+#: ../wpdk.php:617
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -930,21 +937,21 @@ msgstr ""
 "oktober, November, December"
 
 # @ wpdk
-#: ../wpdk.php:622
+#: ../wpdk.php:618
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Jan, Feb, mrt, Apr, mei, Jun, Jul, Aug, Sep, okt, Nov, Dec"
 
 # @ wpdk
-#: ../wpdk.php:623
+#: ../wpdk.php:619
 msgid "Close"
 msgstr "Sluiten"
 
 # @ wpdk
-#: ../wpdk.php:624
+#: ../wpdk.php:620
 msgid "mm/dd/yy"
 msgstr "mm/dd/yy"
 
 # @ wpdk
-#: ../wpdk.php:625
+#: ../wpdk.php:621
 msgid "HH:mm"
 msgstr "HH:mm"

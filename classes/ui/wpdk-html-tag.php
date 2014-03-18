@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generic HTML model. This class is sub class from above class.
  * Thanks to http://www.w3schools.com/tags/default.asp for definitions
@@ -76,7 +77,13 @@ class WPDKHTMLTag extends WPDKObject {
    */
   public $tagName;
 
-  /* Global events */
+  /**
+   * Title
+   *
+   * @brief Title
+   *
+   * @var string $title
+   */
   public $title;
 
   /**
@@ -194,8 +201,11 @@ class WPDKHTMLTag extends WPDKObject {
    *
    * @return string
    */
-  public function html() {
-    ob_start();
+  public function html()
+  {
+
+    // Start buffering
+    WPDKHTML::startCompress();
 
     // Open the tag
     echo $this->open;
@@ -203,7 +213,7 @@ class WPDKHTMLTag extends WPDKObject {
     // Cycle for tag specify attributes
     foreach ( $this->attributes as $attr ) {
       if ( isset( $this->$attr ) && !is_null( $this->$attr ) ) {
-        printf( ' %s="%s"', $attr, htmlspecialchars( stripslashes( $this->$attr ) ) );
+        printf( ' %s="%s"', $attr, stripslashes( $this->$attr ) );
       }
     }
 
@@ -253,10 +263,7 @@ class WPDKHTMLTag extends WPDKObject {
       echo $this->content;
     }
 
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    return $content;
+    return WPDKHTML::endCompress();
   }
 
   /**
@@ -1230,8 +1237,6 @@ class WPDKHTMLTagForm extends WPDKHTMLTag {
  */
 class WPDKHTMLTagImg extends WPDKHTMLTag {
 
-  /* Interface. */
-
   /**
    * Specifies an alternate text for an image
    *
@@ -1296,7 +1301,7 @@ class WPDKHTMLTagImg extends WPDKHTMLTag {
    */
   public function __construct( $src = '', $alt = '', $width = '', $height = '' )
   {
-    /* Create an WPDKHTMLTag instance. */
+    // Create an WPDKHTMLTag instance
     parent::__construct( WPDKHTMLTagName::IMG );
 
     $this->src    = $src;
