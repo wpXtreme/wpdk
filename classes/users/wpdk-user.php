@@ -485,7 +485,6 @@ class WPDKUser extends WP_User {
     }
   }
 
-
   /**
    * Set/update the value of a user transient.
    *
@@ -555,6 +554,59 @@ class WPDKUser extends WP_User {
       self::setTransientWithUser( $transient, $value, $expiration, $this->ID );
     }
   }
+
+  /**
+   * Delete a user transient. Return TRUE if successful, FALSE otherwise
+   *
+   * @brief Delete
+   * @since 1.5.1
+   *
+   * @uses  do_action() Calls 'delete_user_transient_$transient' hook before transient is deleted.
+   * @uses  do_action() Calls 'deleted_user_transient' hook on success.
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped.
+   * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+   *
+   * @return bool
+   */
+  public static function deleteTransientWithUser( $transient, $user_id = null )
+  {
+    $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
+
+    do_action( 'delete_user_transient_' . $transient, $transient, $user_id );
+
+    $transient_timeout = '_transient_timeout_' . $transient;
+    $transient         = '_transient_' . $transient;
+    $result            = delete_user_meta( $user_id, $transient );
+    if ( $result ) {
+      delete_user_meta( $user_id, $transient_timeout );
+      do_action( 'deleted_user_transient', $transient, $user_id );
+    }
+
+    return $result;
+  }
+
+  /**
+   * Delete a user transient for this WPDKUser object instance. Return TRUE if successful, FALSE otherwise
+   *
+   * @brief Delete
+   * @since 1.5.1
+   *
+   * @uses  do_action() Calls 'delete_user_transient_$transient' hook before transient is deleted.
+   * @uses  do_action() Calls 'deleted_user_transient' hook on success.
+   *
+   * @param string $transient Transient name. Expected to not be SQL-escaped.
+   * @param int    $user_id   Optional. User ID. If null the current user id is used instead
+   *
+   * @return bool
+   */
+  public function deleteTransient( $transient )
+  {
+    if ( !empty( $this->ID ) ) {
+      self::deleteTransientWithUser( $transient, $this->ID );
+    }
+  }
+
 
 
   // -------------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file               wpdk-functions.php
  *
@@ -10,13 +11,13 @@
  * @brief              Very useful functions for common cases.
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-01-21
- * @version            0.9.0
+ * @date               2014-03-18
+ * @version            0.9.1
  */
 
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 // has/is zone
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
  * Return TRUE if the string NOT contains '', 'false', '0', 'no', 'n', 'off', null.
@@ -131,9 +132,9 @@ function wpdk_is_child( $parent = '' )
   return false;
 }
 
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 // Sanitize
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
  * Return a possibile function name
@@ -405,9 +406,9 @@ function wpdk_get_image_from_attachments( $id_post )
   return false;
 }
 
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 // WPDKResult check
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
  * Looks at the object and if a WPDKError class. Does not check to see if the parent is also WPDKError or a WPDKResult,
@@ -464,9 +465,9 @@ function is_wpdk_status( $thing )
   return WPDKResult::isWarning( $thing );
 }
 
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 // WPDKResult check
-// -----------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
  * Add a custom hidden (without menu) page in the admin backend area and return the page's hook_suffix.
@@ -571,7 +572,7 @@ function wpdk_enqueue_script_page_template( $page_templates, $handle, $src = fal
  *
  * @brief      Set
  * @since      1.0.0
- * @deprecated since 1.3.0 - Use WPDKUser::setTransientWithUser()
+ * @deprecated since 1.3.0 - Use WPDKUser::setTransientWithUser() instead
  *
  * @uses       apply_filters() Calls 'pre_set_user_transient_$transient' hook to allow overwriting the transient value to be
  *             stored.
@@ -596,7 +597,7 @@ function wpdk_set_user_transient( $transient, $value, $expiration = 0, $user_id 
  *
  * @brief Get
  * @since 1.0.0
- * @deprecated since 1.4.8 - Use WPDKUser::getTransientWithUser()
+ * @deprecated since 1.4.8 - Use WPDKUser::getTransientWithUser() instead
  *
  * @uses  apply_filters() Calls 'pre_user_transient_$transient' hook before checking the transient. Any value other than
  *        false will "short-circuit" the retrieval of the transient and return the returned value.
@@ -616,11 +617,12 @@ function wpdk_get_user_transient( $transient, $user_id = null )
 /**
  * Delete a user transient.
  *
- * @brief Delete
- * @since 1.1.0
+ * @brief      Delete
+ * @since      1.1.0
+ * @deprecated since 1.5.1 - Use WPDKUser::deleteTransientWithUser() instead
  *
- * @uses  do_action() Calls 'delete_user_transient_$transient' hook before transient is deleted.
- * @uses  do_action() Calls 'deleted_user_transient' hook on success.
+ * @uses       do_action() Calls 'delete_user_transient_$transient' hook before transient is deleted.
+ * @uses       do_action() Calls 'deleted_user_transient' hook on success.
  *
  * @param string $transient Transient name. Expected to not be SQL-escaped.
  * @param int    $user_id   Optional. User ID. If null the current user id is used instead
@@ -630,19 +632,8 @@ function wpdk_get_user_transient( $transient, $user_id = null )
 function wpdk_delete_user_transient( $transient, $user_id = null )
 {
 
-  $user_id = is_null( $user_id ) ? get_current_user_id() : $user_id;
-
-  do_action( 'delete_user_transient_' . $transient, $transient, $user_id );
-
-  $transient_timeout = '_transient_timeout_' . $transient;
-  $transient         = '_transient_' . $transient;
-  $result            = delete_user_meta( $user_id, $transient );
-  if ( $result ) {
-    delete_user_meta( $user_id, $transient_timeout );
-    do_action( 'deleted_user_transient', $transient, $user_id );
-  }
-
-  return $result;
+  _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.1', 'WPDKUser::deleteTransientWithUser()' );
+  return WPDKUser::deleteTransientWithUser( $transient, $user_id );
 }
 
 /**

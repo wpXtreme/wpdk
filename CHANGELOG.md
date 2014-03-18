@@ -25,6 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKUser::deleteTransientWithUser()`
+* Deprecated `wpdk_delete_user_transient` function
 * Added search box field support in `WPDKListTableViewController`
 * Added `WPDKDBTableModel`
 * Added `WPDKDBTableModelListTable`
