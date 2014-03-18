@@ -25,9 +25,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
-* Add `WPDKDBTableModel`
-* Add `WPDKDBTableModelListTable`
-* Add `WPDKDBTableRowStatuses`
+* Added search box field support in `WPDKListTableViewController`
+* Added `WPDKDBTableModel`
+* Added `WPDKDBTableModelListTable`
+* Added `WPDKDBTableRowStatuses`
 * Removed/moved deprecated database classes
 
 #### Improvements

@@ -206,10 +206,7 @@ class WPDKPreferences {
 
           // Update a specified branch
           elseif ( isset( $_POST['update-preferences'] ) ) {
-            add_action( 'wpdk_preferences_feedback-' . $branch, array(
-              $preferences,
-              'wpdk_preferences_feedback_update'
-            ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
             $preferences->$branch->update();
             $preferences->update();
           }
