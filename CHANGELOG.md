@@ -20,8 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.2
+### 2014-03-??
+
+#### Improvements
+
+* Improved list view controller and model with filters
+
 ## Version 1.5.1
-### 2014-02-??
+### 2014-03-18
 
 #### Enhancements
 
@@ -39,6 +46,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Improved `WPDKListTableModel`
 * Improved and fixes user avatar
 * Replaced deprecated
+
+#### Bugs
+
+* Try to avoid 'PHP Strict Standards: Declaration of ... should be con...' Thanks to [Mte90](https://github.com/Mte90)
 
 
 ## Version 1.5.0

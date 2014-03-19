@@ -457,6 +457,19 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   }
 
   /**
+   * Return a key values array with registered filters
+   *
+   * @brief Filters
+   * @since 1.5.2
+   *
+   * @return array
+   */
+  public function get_filters()
+  {
+    return array();
+  }
+
+  /**
    * Return a key value pairs array with the list of columns
    *
    * @brief Return the list of columns
@@ -603,7 +616,21 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
           'action2'        => false,
           'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
         );
-        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+
+        // Previous selected filters
+        $filters = $this->get_filters();
+        $filter_args = array();
+        foreach ( $filters as $key => $value ) {
+          if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
+            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+          }
+        }
+
+        //  merge standard args with filters args
+        $args = array_merge( $args, $filter_args );
+
+        // New referrer
+        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
         wp_safe_redirect( $uri );
       }
