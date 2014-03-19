@@ -496,13 +496,13 @@ class WPDKListTableViewController extends WP_List_Table {
 
       <?php
       $filters = $this->get_filters();
-      $query_args = array();
+      $filter_args = array();
       foreach ( $filters as $key => $value ) {
-        if ( isset( $_REQUEST[ $key ] ) ) {
-          $query_args[ $key ] = $_REQUEST[ $key ];
+        if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
+          $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
         }
       }
-      $_SERVER['REQUEST_URI'] = add_query_arg( $query_args, $_SERVER['REQUEST_URI'] );
+      $_SERVER['REQUEST_URI'] = add_query_arg( $filter_args, $_SERVER['REQUEST_URI'] );
       ?>
 
       <?php $this->before_display(); // since 1.5.1 ?>
@@ -554,11 +554,12 @@ class WPDKListTableViewController extends WP_List_Table {
   protected function html_filters()
   {
     WPDKHTML::startCompress();
-    foreach( $this->get_filters() as $request => $value ) {
-      if ( isset( $_REQUEST[ $request ] ) ) :
-        ?><input type="hidden" name="<?php echo $request ?>" value="<?php echo $_REQUEST[ $request ] ?>" /><?php
+    foreach ( $this->get_filters() as $request => $value ) {
+      if ( isset( $_REQUEST[ $request ] ) && !empty( $_REQUEST[ $request ] ) ) :
+        ?><input type="hidden" name="<?php echo $request ?>" value="<?php echo urlencode( $_REQUEST[ $request ] ) ?>" /><?php
       endif;
     }
+
     return WPDKHTML::endCompress();
   }
 
@@ -1270,6 +1271,20 @@ class WPDKListTableModel {
           'action2'         => false,
           'page'            => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
         );
+
+        // Previous selected filters
+        $filters = $this->get_filters();
+        $filter_args = array();
+        foreach ( $filters as $key => $value ) {
+          if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
+            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+          }
+        }
+
+        //  merge standard args with filters args
+        $args = array_merge( $args, $filter_args );
+
+        // New referrer
         $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
         wp_safe_redirect( $uri );
