@@ -457,6 +457,19 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   }
 
   /**
+   * Return a key values array with registered filters
+   *
+   * @brief Filters
+   * @since 1.5.2
+   *
+   * @return array
+   */
+  public function get_filters()
+  {
+    return array();
+  }
+
+  /**
    * Return a key value pairs array with the list of columns
    *
    * @brief Return the list of columns

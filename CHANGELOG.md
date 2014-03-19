@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.2
+### 2014-03-??
+
+#### Improvements
+
+* Improved list view controller and model with filters
+
 ## Version 1.5.1
 ### 2014-03-18
 
