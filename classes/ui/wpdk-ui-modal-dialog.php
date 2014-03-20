@@ -206,7 +206,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   {
     $result = '';
     if ( $this->dismissButton  ) {
-      $result = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
+      $result = '<button type="button" class="close" data-dismiss="wpdkModal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
     }
     return $result;
   }
@@ -266,7 +266,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
         if ( !empty( $title ) ) {
           $class .= ' wpdk-has-tooltip';
         }
-        $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="modal"' : '';
+        $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="wpdkModal"' : '';
         $stack .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
       }
     }

@@ -4,16 +4,13 @@
  * @class           wpdkButton
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-10
- * @version         3.1.0
+ * @date            2014-03-20
+ * @version         3.1.1
  * @note            Base on bootstrap: button.js v3.1.0
  *
  * - Rename namespace button with wpdkButton
  * - Rename namespace "bs" with "wpdk"
- * - Rename namespace "wpdk.button" with "wpdk.button"
- * - Rename class `.popover` in `.wpdk-popover`
- * - Rename class `.arrow` in `.popover-arrow`
- *
+ * - Rename namespace "wpdk.button" with "wpdk.wpdkButton"
  */
 
 // One time
@@ -93,10 +90,10 @@ if( typeof( jQuery.fn.wpdkButton ) === 'undefined' ) {
     $.fn.wpdkButton = function (option) {
       return this.each(function () {
         var $this   = $(this)
-        var data    = $this.data('wpdk.button')
+        var data    = $this.data('wpdk.wpdkButton')
         var options = typeof option == 'object' && option
 
-        if (!data) $this.data('wpdk.button', (data = new Button(this, options)))
+        if (!data) $this.data('wpdk.wpdkButton', (data = new Button(this, options)))
 
         if (option == 'toggle') data.toggle()
         else if (option) data.setState(option)
@@ -118,7 +115,7 @@ if( typeof( jQuery.fn.wpdkButton ) === 'undefined' ) {
     // BUTTON DATA-API
     // ===============
 
-    $(document).on('click.wpdk.button.data-api', '[data-toggle^=button]', function (e) {
+    $(document).on('click.wpdk.wpdkButton.data-api', '[data-toggle^=wpdkButton]', function (e) {
       var $btn = $(e.target)
       if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
       $btn.wpdkButton('toggle')

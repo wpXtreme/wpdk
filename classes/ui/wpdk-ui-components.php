@@ -145,21 +145,12 @@ class WPDKUIComponents {
           'has_css' => array()
         ),
         self::ALERT         => array(
-          'has_js'  => array(
-            self::CONTROLS,
-            self::TRANSITION
-          ),
+          'has_js'  => array( self::CONTROLS, self::TRANSITION ),
           'has_css' => array( self::CONTROLS )
         ),
         self::DYNAMIC_TABLE => array(
-          'has_js'  => array(
-            self::CONTROLS,
-            self::TOOLTIP
-          ),
-          'has_css' => array(
-            self::CONTROLS,
-            self::TOOLTIP
-          )
+          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
+          'has_css' => array( self::CONTROLS, self::TOOLTIP )
         ),
         self::TOOLTIP       => array(
           'has_js'  => array( self::TRANSITION ),
@@ -177,25 +168,12 @@ class WPDKUIComponents {
           'has_css' => array()
         ),
         self::POPOVER       => array(
-          'has_js'  => array(
-            self::CONTROLS,
-            self::TOOLTIP
-          ),
-          'has_css' => array(
-            self::CONTROLS,
-            self::TOOLTIP
-          )
+          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
+          'has_css' => array( self::CONTROLS, self::TOOLTIP )
         ),
         self::MODAL         => array(
-          'has_js'  => array(
-            self::CONTROLS,
-            self::BUTTON,
-            self::TRANSITION
-          ),
-          'has_css' => array(
-            self::CONTROLS,
-            self::BUTTON
-          )
+          'has_js'  => array( self::CONTROLS, self::BUTTON, self::TRANSITION ),
+          'has_css' => array( self::CONTROLS, self::BUTTON )
         ),
         self::PROGRESS      => array(
           'has_css' => array(),

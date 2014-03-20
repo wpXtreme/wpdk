@@ -588,7 +588,16 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         PROGRESS      : 'wpdk-progress',        
         RIBBONIZE     : 'wpdk-ribbonize',       
         TOOLTIP       : 'wpdk-tooltip',         
-        TRANSITION    : 'wpdk-transition'
+        TRANSITION    : 'wpdk-transition',
+
+        // Refresh event
+        REFRESH_ALERT               : 'refresh.wpdk.wpdkAlert',
+        REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
+        REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
+        REFRESH_SWIPE               : 'refresh.wpdk.swipe',
+        REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+        REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery,autocomplete',
+        REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
 
       return $t;
@@ -757,7 +766,7 @@ jQuery( function ( $ )
       function _initDatePicker()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-data-picker', _initDatePicker );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER, _initDatePicker );
 
         // Enable Date Picker on wpdk input class
         $( 'input.wpdk-form-date' ).datepicker();
@@ -803,10 +812,10 @@ jQuery( function ( $ )
       function _initTabs()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-tabs', _initTabs );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_TABS, _initTabs );
 
         // Get tabs
-        var tabs = $( ".wpdk-tabs" );
+        var tabs = $( '.wpdk-tabs' );
 
         // Init
         tabs.tabs();
@@ -840,7 +849,7 @@ jQuery( function ( $ )
       function _initAutocomplete()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-autocomplete', _initAutocomplete );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_AUTOCOMPLETE, _initAutocomplete );
 
         $( 'input[data-autocomplete]' ).each( function ( index, element )
         {

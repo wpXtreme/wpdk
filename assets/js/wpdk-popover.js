@@ -10,7 +10,7 @@
  *
  * - Rename namespace popover with wpdkPopover
  * - Rename namespace "bs" with "wpdk"
- * - Rename namespace "bs.popover" with "wpdk.popover"
+ * - Rename namespace "bs.popover" with "wpdk.wpdkPopover"
  * - Rename class `.popover` in `.wpdk-popover`
  * - Rename class `.arrow` in `.popover-arrow`
  *
@@ -139,6 +139,11 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
     $( '.wpdk-has-popover' ).wpdkPopover();
 
     // Refresh by event
+    $( document ).on( WPDKUIComponents.REFRESH_POPOVER, function() {
+      $( '.wpdk-has-popover' ).wpdkPopover();
+    } );
+
+    // @deprecated since 1.5.2 use WPDKUIComponents.REFRESH_POPOVER ('refresh.wpdk.wpdkPopover') instead
     $( document ).on( 'wpdk-popover', function() {
       $( '.wpdk-has-popover' ).wpdkPopover();
     } );
