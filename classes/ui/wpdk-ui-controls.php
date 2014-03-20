@@ -1300,7 +1300,7 @@ class WPDKUIControlHidden extends WPDKUIControl {
  * Label control.
  *
  *     $item = array(
- *         'type'           => WPDKUIControlType::FILE,
+ *         'type'           => WPDKUIControlType::LABEL,
  *         'id'             => 'id',
  *         'for'            => '',
  *         'value'          => 'Label Text',
@@ -1315,9 +1315,9 @@ class WPDKUIControlHidden extends WPDKUIControl {
  *
  * @class              WPDKUIControlLabel
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-03-20
+ * @version            1.0.0
  *
  */
 class WPDKUIControlLabel extends WPDKUIControl {
