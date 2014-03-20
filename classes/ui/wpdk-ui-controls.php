@@ -298,10 +298,7 @@ class WPDKUIControl {
 
     echo $this->contentWithKey( 'after' );
 
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    return $html;
+    return WPDKHTML::endCompress();
   }
 
   /**
@@ -712,8 +709,8 @@ class WPDKUIControlButton extends WPDKUIControl {
       $button->class   = $this->class;
       $button->class[] = 'wpdk-form-button';
       $button->class[] = 'wpdk-ui-control';
-      $button->id      = isset( $this->item['id'] ) ? $this->item['id'] : '';
       $button->name    = isset( $this->item['name'] ) ? $this->item['name'] : '';
+      $button->id      = isset( $this->item['id'] ) ? $this->item['id'] : $button->name;
       $button->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
       $button->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
       $button->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
