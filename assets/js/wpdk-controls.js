@@ -31,7 +31,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
           var v = arguments[0], result;
 
           // On
-          if ( 'on' === v ) {
+          if ( wpdk_is_bool( v ) ) {
             result = $control.trigger( 'change', [ $control, 'on'] );
             if ( false !== result ) {
               input.val( 'on' );
@@ -169,7 +169,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
           var control = $( this ).parent();
           var status = wpdk_is_bool( control.swipe() );
           var enabled = status ? 'off' : 'on';
-          var result = control.trigger( 'swipe', [ control, enabled] );
+          var result = control.trigger( 'swipe', [ control, enabled ] );
           if ( typeof result == 'undefined' || result ) {
             control.swipe( enabled );
           }
