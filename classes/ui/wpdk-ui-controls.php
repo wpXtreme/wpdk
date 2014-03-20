@@ -1309,8 +1309,8 @@ class WPDKUIControlHidden extends WPDKUIControl {
  *         'class'          => array(),
  *         'style'          => '',
  *         'title'          => 'This title is a tooltip',
- *         'prepend'        => '',
  *         'append'         => '',
+ *         'prepend'        => '',
  *     );
  *
  * @class              WPDKUIControlLabel
