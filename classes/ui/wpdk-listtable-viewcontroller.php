@@ -650,7 +650,7 @@ class WPDKListTableViewController extends WP_List_Table {
         $_SERVER['REQUEST_URI'] = remove_query_arg( array(
           '_action',
           '_action_result'
-        ), $_SERVER['REQUEST_URI'] );
+        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
 
         $args = array(
           $get_status_id           => $key,
@@ -1219,6 +1219,11 @@ class WPDKListTableModel {
    */
   public function current_action( $nonce = '' )
   {
+    // Ajax
+    if ( wpdk_is_ajax() ) {
+      return false;
+    }
+
     // Action
     $action = false;
 
