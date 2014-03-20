@@ -401,6 +401,11 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
   if ( typeof( window.wpdk_is_bool ) === 'undefined' ) {
     window.wpdk_is_bool = function ( mixed )
     {
+      // Stability
+      if ( true === mixed ) {
+        return true;
+      }
+
       var undef, i, len;
       var emptyValues = [undef, null, false, 0, "", "0", 'n', 'no', 'off', 'false'];
       for ( i = 0, len = emptyValues.length; i < len; i++ ) {
