@@ -115,7 +115,7 @@ if( typeof( jQuery.fn.wpdkButton ) === 'undefined' ) {
     // BUTTON DATA-API
     // ===============
 
-    $(document).on('click.wpdk.wpdkButton.data-api', '[data-toggle^=wpdkButton]', function (e) {
+    $(document).on('click.wpdk.wpdkButton.data-api', '[data-toggle^=button]', function (e) {
       var $btn = $(e.target)
       if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
       $btn.wpdkButton('toggle')
