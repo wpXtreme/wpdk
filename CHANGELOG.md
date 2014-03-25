@@ -29,6 +29,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Fixed potential bugs with WP Super Cache when preferences saved
 * Fixed potential wrong data-api on ui components
 * Fixed potential wrong trigger on swipe control
 
