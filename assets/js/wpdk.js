@@ -1224,9 +1224,9 @@ jQuery( function ( $ )
    *
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-19
-   * @version         1.0.2
+   * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date            2014-03-26
+   * @version         1.0.3
    * @since           1.4.0
    *
    * @param {string} response JSON response
@@ -1235,10 +1235,12 @@ jQuery( function ( $ )
   if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
     window.WPDKAjaxResponse = function ( response ) {
 
-      // Resolve conflict
-      var $ = window.jQuery;
+      //console.log( 'WPDKAjaxResponse construct' );
 
-      this.version = '1.0.2';
+      // Resolve conflict
+      //var $ = window.jQuery;
+
+      this.__version = '1.0.3';
       this.error = '';
       this.message = '';
       this.data = '';
