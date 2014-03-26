@@ -338,12 +338,12 @@ SQL;
    *     // If $args[self::COLUMN_STATUS] is an array
    *     // ( status = 'pending' OR status = 'confirmed' )
    *
-   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // If $args[self::COLUMN_STATUS] is a string
    *     // ( status = 'pending' )
    *
    *     $where[] = ::where( $args, self::COLUMN_STATUS, 'coupon', array( WPXSSCouponStatus::ALL ) );
    *
-   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // If $args[self::COLUMN_STATUS] is a string
    *     // ( coupon.status = 'pending' )
    *
    * @brief Where
@@ -369,6 +369,54 @@ SQL;
       foreach ( $array as $value ) {
         $stack[] = sprintf( "%s%s %s '%s'", $table_prefix, $key, $cond, $value );
       }
+      return sprintf( "( %s )", implode( ' OR ', $stack ) );
+    }
+    return false;
+  }
+
+  /**
+   * Return a where condiction for date and date time
+   *
+   *     $where[] = ::where_date( $args, self::COLUMN_DATE );
+   *
+   *     // If $args[self::COLUMN_DATE] is a string
+   *     // ( DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) = '2014-01-01' )
+   *
+   *     // If $args[self::COLUMN_DATE] is an array( '2014-01-01', '2014-02-01' )
+   *     // (
+   *     //    DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) >= '2014-01-01' )
+   *     //    AND
+   *     //    DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) <= '2014-02-01' )
+   *     //  )
+   *
+   * @brief Where for date
+   *
+   * @param array  $args         Arguments list
+   * @param string $column_key   Name of column
+   * @param string $table_prefix Optional. Table prefix
+   * @param string $accuracy     Optional. Default = '%Y-%m-%d %H:%i:%s'
+   *
+   * @return string
+   */
+  public static function where_date( $args, $column_key, $table_prefix = '', $accuracy = '%Y-%m-%d %H:%i:%s' )
+  {
+    if ( isset( $args[$column_key] ) && !empty( $args[$column_key] ) ) {
+
+      // Append dot to table if exists
+      $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
+
+      // If $args[$column_key] is a string as '2014-01-01'
+      if( is_string( $args[$column_key] ) ) {
+        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) %s '%s'", $table_prefix, $column_key, $accuracy, '=', $args[$column_key] );
+      }
+      // If $args[$column_key] is an array as array( 2014-01-01', 2014-02-01' )
+      else {
+        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) > '%s' AND DATE_FORMAT( %s%s, '%s' ) < '%s'",
+          $table_prefix, $column_key, $accuracy, $args[$column_key][0],
+          $table_prefix, $column_key, $accuracy, $args[$column_key][1]
+        );
+      }
+
       return sprintf( "( %s )", implode( ' OR ', $stack ) );
     }
     return false;
