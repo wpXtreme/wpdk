@@ -266,7 +266,7 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/database/wpdk-db.php'                      => array(
           'WPDKDBTableModel',
-          'WPDKDBTableModelListTable',
+          'WPDKDBListTableModel',
           'WPDKDBTableRowStatuses',
         ),
 
@@ -482,6 +482,8 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKDBTableRow',
           'WPDKDBTableStatus',
         ),
+
+        $sPathPrefix . 'classes/deprecated/wpdk-db-table-model-listtable.php'          => 'WPDKDBTableModelListTable',
 
         $sPathPrefix . 'classes/deprecated/wpdk-tbs-alert.php'         => array(
           'WPDKTwitterBootstrapAlert',

@@ -1081,6 +1081,110 @@ class WPDKListTableViewController extends WP_List_Table {
 }
 
 /**
+ * Interface definition for reminder dialog
+ *
+ * @interface       IWPDKListTableModel
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-03-27
+ * @version         1.0.0
+ * @since           1.5.2
+ */
+interface IWPDKListTableModel {
+
+  /**
+   * Create an instance of WPDKListTableModel class
+   *
+   * @brief Construct
+   *
+   * @return WPDKListTableModel
+   */
+  public function __construct();
+
+  /**
+   * Return a key value pairs array with the list of columns
+   *
+   * @brief Return the list of columns
+   *
+   * @return array
+   */
+  public function get_columns();
+
+  /**
+   * Return a key value pairs array with statuses supported
+   *
+   * @brief Statuses
+   *
+   * @return array
+   */
+  public function get_statuses();
+
+  /**
+   * Return the count of specific status
+   *
+   * @brief Count status
+   *
+   * @param string $status
+   *
+   * @return int
+   */
+  public function get_status( $status );
+
+  /**
+   * Return tha array with the action for the current status
+   *
+   * @brief Action with status
+   *
+   * @param array $item   The item
+   * @param array $status Describe one or more status of single item
+   *
+   * @return array
+   */
+  public function get_actions_with_status( $item, $status );
+
+  /**
+   * Return the array with the buk action for the combo menu for a status of view
+   *
+   * @brief Bulk actions
+   *
+   * @param string $status Current status. Usually this is the status in the URI, when user select 'All', 'Publish', etc...
+   *
+   * @return array
+   */
+  public function get_bulk_actions_with_status( $status );
+
+  /**
+   * Get the current action selected from the bulk actions dropdown.
+   *
+   * @brief Current action
+   *
+   * @return string|bool The action name or False if no action was selected
+   */
+  public function current_action( $nonce = '' );
+
+  /**
+   * Process actions
+   *
+   * @brief Process actions
+   * @since 1.4.21
+   *
+   */
+  public function process_bulk_action();
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // CRUD
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select();
+
+}
+
+/**
  * This is a generic model to make easy a WPDKListTableViewController
  *
  * @class           WPDKListTableModel
@@ -1091,7 +1195,7 @@ class WPDKListTableViewController extends WP_List_Table {
  * @since           1.4.13
  *
  */
-class WPDKListTableModel {
+class WPDKListTableModel implements IWPDKListTableModel {
 
   /**
    * Used for check the action and bulk action results
