@@ -1100,7 +1100,7 @@ class WPDKListTableModel {
    *
    * @var bool $action_result
    */
-  protected $action_result = false;
+  public $action_result = false;
 
   /**
    * Create an instance of WPDKListTableModel class
@@ -1245,16 +1245,6 @@ class WPDKListTableModel {
   }
 
   /**
-   * Return the items array. This is an array of key value pairs array
-   *
-   * @brief Items
-   */
-  public function select()
-  {
-    die( __METHOD__ . ' must be override in your subclass' );
-  }
-
-  /**
    * Process actions
    *
    * @brief Process actions
@@ -1296,4 +1286,19 @@ class WPDKListTableModel {
       }
     }
   }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // CRUD
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
 }
