@@ -211,10 +211,7 @@ class WPDKPreferences {
             if ( function_exists( 'wp_cache_clear_cache' ) ) {
               wp_cache_clear_cache();
             }
-            add_action( 'wpdk_preferences_feedback-' . $branch, array(
-                $preferences,
-                'wpdk_preferences_feedback_update'
-              ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
             $preferences->$branch->update();
             $preferences->update();
           }
