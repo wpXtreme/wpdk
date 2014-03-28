@@ -351,8 +351,9 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-listtable-viewcontroller.php'   => array(
-          'WPDKListTableViewController',
+          'IWPDKListTableModel',
           'WPDKListTableModel',
+          'WPDKListTableViewController',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-menu.php'                       => array(

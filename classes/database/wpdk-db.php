@@ -593,10 +593,6 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     // Update
     $result = $wpdb->update( $this->table->table_name, $values, $where, $format );
 
-    WPXtreme::log( $this->table->table_name );
-    WPXtreme::log( $values );
-    WPXtreme::log( $where );
-
     // Action hook
     do_action( $prefix . '_updated', $result, $values, $where );
 
