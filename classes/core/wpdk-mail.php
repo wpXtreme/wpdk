@@ -75,11 +75,11 @@ class WPDKMail extends WPDKPost {
    *                                                blog name and admin email
    * @param array           $placeholders           Optional. A Key value pairs with placeholders substitution.
    *
-   * @return bool
+   * @return bool|WPDKError
    */
   public function send( $to, $subject = false, $from = '', $placeholders = array() ) {
 
-    /* Use shared private property */
+    // Use shared private property
     $this->from = $from;
 
     if ( is_numeric( $this->from ) ) {
@@ -87,19 +87,20 @@ class WPDKMail extends WPDKPost {
       $this->from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
     }
 
-    /* $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>' */
+    // $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>'
     if ( empty( $this->from ) ) {
-      /* Get the default WordPress email. */
+
+      // Get the default WordPress email
       $this->from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
 
-    /* User id for $to? */
+    // User id for $to?
     $user = false;
     if ( is_numeric( $to ) ) {
       $user  = new WP_User( $to );
       $email = sanitize_email( $user->get( 'user_email' ) );
 
-      /* If user has not email exit */
+      // If user has not email exit
       if ( empty( $email ) ) {
         return;
       }
@@ -114,7 +115,14 @@ class WPDKMail extends WPDKPost {
     $body = $this->post_content;
     $body = $this->replacePlaceholder( $body, $user, $placeholders );
 
-    return wp_mail( $to, $subject, $body, $this->headers() );
+    try {
+      $result = wp_mail( $to, $subject, $body, $this->headers() );
+    }
+    catch (phpmailerException $e) {
+      return new WPDKError( 'wpxmm-send', $e->getMessage(), $e );
+    }
+
+    return $result;
   }
 
   /**

@@ -5,9 +5,9 @@
  *
  * @class              WPDKDateTime
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.0.2
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-03-21
+ * @version            1.1.0
  *
  */
 
@@ -34,7 +34,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.2';
+  public $__version = '1.1.0';
 
   /**
    * Format a date time in your custom own format. The source format is auto-detect.
@@ -90,6 +90,114 @@ class WPDKDateTime extends WPDKObject {
     $diff = $date - time();
     $days = floatval( round( $diff / ( 60 * 60 * 24 ) ) );
     return $days;
+  }
+
+  /**
+   * This method is similar to WordPress human_time_diff(), with the different that every amount is display.
+   * For example if WordPress human_time_diff() display '10 hours', this method display '9 Hours 47 Minutes 56 Seconds'.
+   *
+   * @brief More readable time elapsed
+   *
+   * @param int  $timestamp  Date from elapsed
+   * @param bool $hide_empty Optional. If TRUE '0 Year' will not return. Default TRUE.
+   * @param int  $to         Optional. Date to elapsed. If empty time() is used
+   *
+   * @return string
+   */
+  public static function elapsed_string( $timestamp, $hide_empty = true, $to = 0 )
+  {
+    // If no $to then now
+    if ( empty( $to ) ) {
+      $to = time();
+    }
+
+    // Key and string output
+    $useful = array(
+      'y' => array( __( 'Year'   ),  __( 'Years'   ) ),
+      'm' => array( __( 'Month'  ),  __( 'Months'  ) ),
+      'd' => array( __( 'Day'    ),  __( 'Days'    ) ),
+      'h' => array( __( 'Hour'   ),  __( 'Hours'   ) ),
+      'i' => array( __( 'Minute' ),  __( 'Minutes' ) ),
+      's' => array( __( 'Second' ),  __( 'Seconds' ) ),
+    );
+
+    $matrix = array(
+       'y' => array( 12 * 30 * 24 * 60 * 60, 12 ),
+       'm' => array( 30 * 24 * 60 * 60, 30 ),
+       'd' => array( 24 * 60 * 60, 24 ),
+       'h' => array( 60 * 60, 60 ),
+       'i' => array( 60, 60 ),
+       's' => array( 1, 60 ),
+     );
+
+    $diff = $timestamp - $to;
+
+    $stack = array();
+    foreach ( $useful as $w => $strings ) {
+
+      $value = floor( $diff / $matrix[ $w ][0] ) % $matrix[ $w ][1];
+
+      if( empty( $value ) || $value < 0 ) {
+        if ( $hide_empty ) {
+          continue;
+        }
+        $value = 0;
+      }
+
+      $stack[] = sprintf( '%s %s', $value, _n( $strings[0], $strings[1], $value ) );
+    }
+
+    return implode( ' ', $stack );
+
+  }
+
+  // TODO proto
+  public static function elapsed( $timestamp, $to = false, $w = 's' )
+  {
+    // If no $to then now
+    if ( empty( $to ) ) {
+      $to = time();
+    }
+
+    // Useful to convert request
+    $useful = array(
+      'y' => array( 'y', 'year' ),
+      'm' => array( 'm', 'month' ),
+      'd' => array( 'd', 'day' ),
+      'h' => array( 'h', 'hour' ),
+      'i' => array( 'i', 'minute' ),
+      's' => array( 's', 'second' ),
+    );
+
+    // Easy search
+    $w = strtolower( $w );
+
+    // What you want?
+    foreach( $useful as $key => $array ) {
+      if( in_array( $w, $array ) ) {
+        $w = $key;
+        break;
+      }
+    }
+
+    // Convesion matrix
+    $matrix = array(
+      'y' => 12 * 30 * 24 * 60 * 60,
+      'm' => 30 * 24 * 60 * 60,
+      'd' => 24 * 60 * 60,
+      'h' => 60 * 60,
+      'i' => 60,
+      's' => 1
+    );
+
+    // Calculate difference
+    $elapsed = $timestamp - $to;
+
+    // Get days or months or ...
+    $return = floatval( round( $elapsed / $matrix[ $w ] ) );
+
+    return $return;
+
   }
 
   /**
@@ -247,9 +355,9 @@ class WPDKDateTime extends WPDKObject {
     return ( $date - $days_to_start );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // TODOS
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
 
   /// TO DO
@@ -263,9 +371,9 @@ class WPDKDateTime extends WPDKObject {
   }
 
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // DEPRECATED
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Format a date time. You can select a source format and destination format in order to return the right output

@@ -338,12 +338,12 @@ SQL;
    *     // If $args[self::COLUMN_STATUS] is an array
    *     // ( status = 'pending' OR status = 'confirmed' )
    *
-   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // If $args[self::COLUMN_STATUS] is a string
    *     // ( status = 'pending' )
    *
    *     $where[] = ::where( $args, self::COLUMN_STATUS, 'coupon', array( WPXSSCouponStatus::ALL ) );
    *
-   *     // If $args[self::COLUMN_STATUS] is an string
+   *     // If $args[self::COLUMN_STATUS] is a string
    *     // ( coupon.status = 'pending' )
    *
    * @brief Where
@@ -369,6 +369,54 @@ SQL;
       foreach ( $array as $value ) {
         $stack[] = sprintf( "%s%s %s '%s'", $table_prefix, $key, $cond, $value );
       }
+      return sprintf( "( %s )", implode( ' OR ', $stack ) );
+    }
+    return false;
+  }
+
+  /**
+   * Return a where condiction for date and date time
+   *
+   *     $where[] = ::where_date( $args, self::COLUMN_DATE );
+   *
+   *     // If $args[self::COLUMN_DATE] is a string
+   *     // ( DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) = '2014-01-01' )
+   *
+   *     // If $args[self::COLUMN_DATE] is an array( '2014-01-01', '2014-02-01' )
+   *     // (
+   *     //    DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) >= '2014-01-01' )
+   *     //    AND
+   *     //    DATE_FORMAT( col_date, '%Y-%m-%d %H:%i:%s' ) <= '2014-02-01' )
+   *     //  )
+   *
+   * @brief Where for date
+   *
+   * @param array  $args         Arguments list
+   * @param string $column_key   Name of column
+   * @param string $table_prefix Optional. Table prefix
+   * @param string $accuracy     Optional. Default = '%Y-%m-%d %H:%i:%s'
+   *
+   * @return string
+   */
+  public static function where_date( $args, $column_key, $table_prefix = '', $accuracy = '%Y-%m-%d %H:%i:%s' )
+  {
+    if ( isset( $args[$column_key] ) && !empty( $args[$column_key] ) ) {
+
+      // Append dot to table if exists
+      $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
+
+      // If $args[$column_key] is a string as '2014-01-01'
+      if( is_string( $args[$column_key] ) ) {
+        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) %s '%s'", $table_prefix, $column_key, $accuracy, '=', $args[$column_key] );
+      }
+      // If $args[$column_key] is an array as array( 2014-01-01', 2014-02-01' )
+      else {
+        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) > '%s' AND DATE_FORMAT( %s%s, '%s' ) < '%s'",
+          $table_prefix, $column_key, $accuracy, $args[$column_key][0],
+          $table_prefix, $column_key, $accuracy, $args[$column_key][1]
+        );
+      }
+
       return sprintf( "( %s )", implode( ' OR ', $stack ) );
     }
     return false;
@@ -406,16 +454,24 @@ SQL;
 }
 
 /**
- * Use this class when your database model is shows in a list table view controller
+ * Similar to WPDKListTableModel but some useful init and methods for Database.
  *
- * @class           WPDKDBTableModelListTable
+ * PHP does not allow to inherit from more than one class. So one way to solve the problem is to provide a pointer to
+ * the class that you want to inherit.
+ *
+ * This class, therefore, is as if it were understood in this way:
+ *
+ *     class WPDKDBListTableModel extends WPDKListTableModel, WPDKDBTableModel {}
+ *
+ *
+ * @class           WPDKDBListTableModel
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-02
+ * @date            2014-03-26
  * @version         1.0.0
  *
  */
-class WPDKDBTableModelListTable extends WPDKDBTableModel {
+class WPDKDBListTableModel extends WPDKListTableModel {
 
   // Common Actions
   const ACTION_NEW     = 'new';
@@ -428,212 +484,33 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   const ACTION_RESTORE = 'action_restore';
 
   /**
-   * Used for check the action and bulk action results
+   * PHP does not allow to inherit from more than one class. So one way to solve the problem is to provide a pointer to
+   * the class that you want to inherit.
    *
-   * @brief Action result
+   * @brief Table
    *
-   * @var bool $action_result
+   * @var WPDKDBTableModel $table
    */
-  public $action_result = false;
+  public $table;
 
   /**
-   * Create an instance of WPDKDBTableModelListTable class
+   * Create an instance of WPDKDBListTableModel class
    *
    * @brief Construct
    *
-   * @param string $table_name The name of the database table without WordPress prefix
+   * @param string $table_name Optional. The name of the database table without WordPress prefix
    * @param string $sql_file   Optional. The filename of SQL file with the database table structure and init data.
    *
-   * @return WPDKDBTableModelListTable
+   * @return WPDKDBListTableModel
    */
-  public function __construct( $table_name, $sql_file = '' )
+  public function __construct( $table_name = '', $sql_file = '' )
   {
-    // Init the database table model
-    parent::__construct( $table_name, $sql_file );
+    // Init parent
+    parent::__construct();
 
-    // Add action to get the post data
-    $action = get_class( $this ) . '-listtable-viewcontroller';
-    add_action( $action, array( $this, 'process_bulk_action' ) );
-  }
-
-  /**
-   * Return a key values array with registered filters
-   *
-   * @brief Filters
-   * @since 1.5.2
-   *
-   * @return array
-   */
-  public function get_filters()
-  {
-    return array();
-  }
-
-  /**
-   * Return a key value pairs array with the list of columns
-   *
-   * @brief Return the list of columns
-   *
-   * @return array
-   */
-  public function get_columns()
-  {
-    return array();
-  }
-
-  /**
-   * Return the sortable columns
-   *
-   * @brief Sortable columns
-   *
-   * @return array
-   */
-  public function get_sortable_columns()
-  {
-    return array();
-  }
-
-  /**
-   * Return a key value pairs array with statuses supported.
-   * You can override this method to return your own statuses.
-   *
-   * @brief Statuses
-   *
-   * @return array
-   */
-  public function get_statuses()
-  {
-    // Default return the common statuses
-    return WPDKDBTableRowStatuses::statuses();
-  }
-
-  /**
-   * Return a key value pairs array with statuses icons glyph
-   *
-   * @brief Icons
-   *
-   * @return array
-   */
-  public function get_icon_statuses()
-  {
-    // Default return the common statuses
-    return WPDKDBTableRowStatuses::icon_statuses();
-  }
-
-  /**
-   * Return the count of specific status
-   *
-   * @brief Count status
-   *
-   * @param string $status
-   *
-   * @return int
-   */
-  public function get_status( $status )
-  {
-    return;
-  }
-
-  /**
-   * Return tha array with the action for the current status
-   *
-   * @brief Action with status
-   *
-   * @param mixed  $item   The item
-   * @param string $status Current status
-   *
-   * @return array
-   */
-  public function get_actions_with_status( $item, $status )
-  {
-    return array();
-  }
-
-  /**
-   * Return the array with the buk action for the combo menu for a status of view
-   *
-   * @brief Bulk actions
-   *
-   * @param string $status Current status
-   *
-   * @return array
-   */
-  public function get_bulk_actions_with_status( $status )
-  {
-    return array();
-  }
-
-  /**
-   * Get the current action selected from the bulk actions dropdown.
-   *
-   * @brief Current action
-   *
-   * @param string $nonce Optional. Force nonce verify
-   *
-   * @return string|bool The action name or False if no action was selected
-   */
-  public function current_action( $nonce = '' )
-  {
-    // Action
-    $action = false;
-
-    if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-      $action = $_REQUEST['action'];
-    }
-    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-      $action = $_REQUEST['action2'];
-    }
-
-    // Nonce
-    if ( !empty( $nonce ) && !empty( $action ) ) {
-      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
-        return $action;
-      }
-    }
-
-    return $action;
-  }
-
-  /**
-   * Process actions
-   *
-   * @brief Process actions
-   * @since 1.4.21
-   *
-   */
-  public function process_bulk_action()
-  {
-    // Override when you need to process actions before wp is loaded
-
-    $action = $this->current_action();
-
-    if ( $action ) {
-      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-        $args = array(
-          '_action_result' => $this->action_result,
-          '_action'        => $action,
-          'action'         => false,
-          'action2'        => false,
-          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-        );
-
-        // Previous selected filters
-        $filters = $this->get_filters();
-        $filter_args = array();
-        foreach ( $filters as $key => $value ) {
-          if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
-            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-          }
-        }
-
-        //  merge standard args with filters args
-        $args = array_merge( $args, $filter_args );
-
-        // New referrer
-        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-
-        wp_safe_redirect( $uri );
-      }
+    // Init the table model
+    if( !empty( $table_name ) ) {
+      $this->table = new WPDKDBTableModel( $table_name, $sql_file );
     }
   }
 
@@ -652,7 +529,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    *
    * @return int|bool
    */
-  //public function insert( $prefix, $values, $format = array() )
   public function insert()
   {
     global $wpdb;
@@ -671,7 +547,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     $values = apply_filters( $prefix . '_insert_values', $values );
 
     // Insert
-    $result = $wpdb->insert( $this->table_name, $values, $format );
+    $result = $wpdb->insert( $this->table->table_name, $values, $format );
 
     // Action hook
     do_action( $prefix . '_inserted', $result, $values );
@@ -682,18 +558,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
 
     // Get the id
     return $wpdb->insert_id;
-  }
-
-  /**
-   * Return the items array. This is an array of key value pairs array
-   *
-   * @brief Items
-   *
-   * @return array
-   */
-  public function select()
-  {
-    die( __METHOD__ . ' must be override in your subclass' );
   }
 
   /**
@@ -709,7 +573,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    *
    * @return array|bool
    */
-  //public function update( $prefix, $values, $where, $format = array() )
   public function update()
   {
     global $wpdb;
@@ -728,7 +591,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     $values = apply_filters( $prefix . '_update_values', $values );
 
     // Update
-    $result = $wpdb->update( $this->table_name, $values, $where, $format );
+    $result = $wpdb->update( $this->table->table_name, $values, $where, $format );
 
     // Action hook
     do_action( $prefix . '_updated', $result, $values, $where );
@@ -751,7 +614,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    *
    * @return int|array
    */
-  //public function count( $distinct = '', $status = '' )
   public function count()
   {
     global $wpdb;
@@ -779,7 +641,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     if ( empty( $distinct ) ) {
       $sql = <<< SQL
 SELECT COUNT(*) AS count
-  FROM {$this->table_name}
+  FROM {$this->table->table_name}
   {$where}
 SQL;
 
@@ -789,7 +651,7 @@ SQL;
       $sql = <<< SQL
 SELECT DISTINCT( {$distinct} ),
   COUNT(*) AS count
-  FROM {$this->table_name}
+  FROM {$this->table->table_name}
 
   {$where}
 
@@ -831,7 +693,7 @@ SQL;
       $id = implode( ',', (array)$id );
 
       $sql = <<< SQL
-UPDATE {$this->table_name}
+UPDATE {$this->table->table_name}
 SET status = '{$status}'
 WHERE id IN( {$id} )
 SQL;
@@ -844,7 +706,6 @@ SQL;
   }
 
 }
-
 
 
 

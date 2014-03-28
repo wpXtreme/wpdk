@@ -65,7 +65,7 @@ class WPDKPreferencesView extends WPDKView {
    */
   public function draw()
   {
-    /* Create a nonce key. */
+    // Create a nonce key
     $nonce                     = md5( $this->id );
     $input_hidden_nonce        = new WPDKHTMLTagInput( '', $nonce, $nonce );
     $input_hidden_nonce->type  = WPDKHTMLTagInputType::HIDDEN;

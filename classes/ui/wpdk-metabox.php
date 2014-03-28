@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A meta box view
  *
@@ -29,10 +30,8 @@ class WPDKMetaBoxView extends WPDKView {
                                $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null )
   {
     parent::__construct( $id );
-    add_meta_box( $id, $title, array(
-      $this,
-      'display'
-    ), $screen, $context, $priority, $callback_args );
+
+    add_meta_box( $id, $title, array( $this, 'display' ), $screen, $context, $priority, $callback_args );
   }
 
 }
@@ -72,15 +71,17 @@ class WPDKMetaBoxContext {
  */
 class WPDKMetaBoxPriority {
 
-  const CORE   = 'core';
+  const CORE = 'core';
+
   /**
    * In PHP DEFAULT is a reserved keywowd, so we must append an underscore
    *
    * @brief Default
    */
   const DEFAULT_ = 'default';
-  const HIGH   = 'high';
-  const LOW    = 'low';
+  const HIGH     = 'high';
+  const LOW      = 'low';
+
   /**
    * This is an alias of DEFAULT
    *

@@ -401,6 +401,11 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
   if ( typeof( window.wpdk_is_bool ) === 'undefined' ) {
     window.wpdk_is_bool = function ( mixed )
     {
+      // Stability
+      if ( true === mixed ) {
+        return true;
+      }
+
       var undef, i, len;
       var emptyValues = [undef, null, false, 0, "", "0", 'n', 'no', 'off', 'false'];
       for ( i = 0, len = emptyValues.length; i < len; i++ ) {
@@ -583,7 +588,16 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         PROGRESS      : 'wpdk-progress',        
         RIBBONIZE     : 'wpdk-ribbonize',       
         TOOLTIP       : 'wpdk-tooltip',         
-        TRANSITION    : 'wpdk-transition'
+        TRANSITION    : 'wpdk-transition',
+
+        // Refresh event
+        REFRESH_ALERT               : 'refresh.wpdk.wpdkAlert',
+        REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
+        REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
+        REFRESH_SWIPE               : 'refresh.wpdk.swipe',
+        REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+        REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery,autocomplete',
+        REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
 
       return $t;
@@ -752,7 +766,7 @@ jQuery( function ( $ )
       function _initDatePicker()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-data-picker', _initDatePicker );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER, _initDatePicker );
 
         // Enable Date Picker on wpdk input class
         $( 'input.wpdk-form-date' ).datepicker();
@@ -798,10 +812,10 @@ jQuery( function ( $ )
       function _initTabs()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-tabs', _initTabs );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_TABS, _initTabs );
 
         // Get tabs
-        var tabs = $( ".wpdk-tabs" );
+        var tabs = $( '.wpdk-tabs' );
 
         // Init
         tabs.tabs();
@@ -835,7 +849,7 @@ jQuery( function ( $ )
       function _initAutocomplete()
       {
         // Attach event for refresh
-        $( document ).on( 'wpdk-jquery-autocomplete', _initAutocomplete );
+        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_AUTOCOMPLETE, _initAutocomplete );
 
         $( 'input[data-autocomplete]' ).each( function ( index, element )
         {
@@ -1210,9 +1224,9 @@ jQuery( function ( $ )
    *
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-11-19
-   * @version         1.0.2
+   * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date            2014-03-26
+   * @version         1.0.3
    * @since           1.4.0
    *
    * @param {string} response JSON response
@@ -1221,10 +1235,12 @@ jQuery( function ( $ )
   if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
     window.WPDKAjaxResponse = function ( response ) {
 
-      // Resolve conflict
-      var $ = window.jQuery;
+      //console.log( 'WPDKAjaxResponse construct' );
 
-      this.version = '1.0.2';
+      // Resolve conflict
+      //var $ = window.jQuery;
+
+      this.__version = '1.0.3';
       this.error = '';
       this.message = '';
       this.data = '';

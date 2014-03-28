@@ -27,6 +27,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Improved list view controller and model with filters
 
+#### Bugs
+
+* Fixed potential bugs with WP Super Cache when preferences saved
+* Fixed potential wrong data-api on ui components
+* Fixed potential wrong trigger on swipe control
+
 ## Version 1.5.1
 ### 2014-03-18
 

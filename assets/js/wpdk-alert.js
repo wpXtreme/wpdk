@@ -4,13 +4,13 @@
  * @class           wpdkAlert
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-08
- * @version         3.1.0
+ * @date            2014-03-20
+ * @version         3.1.1
  * @note            Base on bootstrap: alert.js v3.1.0
  *
  * - Rename namespace popover with wpdkAlert
  * - Rename namespace "bs" with "wpdk"
- * - Rename namespace "bs.alert" with "wpdk.alert"
+ * - Rename namespace "bs.alert" with "wpdk.wpdkAlert"
  *
  */
 
@@ -35,7 +35,7 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
     // ALERT CLASS DEFINITION
     // ======================
 
-    var dismiss = '[data-dismiss="alert"]'
+    var dismiss = '[data-dismiss="wpdkAlert"]'
     var Alert   = function (el) {
       $(el).on('click', dismiss, this.close)
     }
@@ -57,14 +57,14 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
         $parent = $this.hasClass('wpdk-alert') ? $this : $this.parent()
       }
 
-      $parent.trigger(e = $.Event('close.wpdk.alert'))
+      $parent.trigger(e = $.Event('close.wpdk.wpdkAlert'))
 
       if (e.isDefaultPrevented()) return
 
       $parent.removeClass('in')
 
       function removeElement() {
-        $parent.trigger('closed.wpdk.alert').remove()
+        $parent.trigger('closed.wpdk.wpdkAlert').remove()
       }
 
       $.support.transition && $parent.hasClass('fade') ?
@@ -83,9 +83,9 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
     $.fn.wpdkAlert = function (option) {
       return this.each(function () {
         var $this = $(this)
-        var data  = $this.data('wpdk.alert')
+        var data  = $this.data('wpdk.wpdkAlert')
 
-        if (!data) $this.data('wpdk.alert', (data = new Alert(this)))
+        if (!data) $this.data('wpdk.wpdkAlert', (data = new Alert(this)))
         if (typeof option == 'string') data[option].call($this)
       })
     }
@@ -101,19 +101,24 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
       return this
     }
 
-
     // ALERT DATA-API
     // ==============
 
-    $( document ).on('click.wpdk.alert.data-api', dismiss, Alert.prototype.close)
+    $( document ).on( 'click.wpdk.wpdkAlert.data-api', dismiss, Alert.prototype.close)
 
     // Auto init
     $( '.wpdk-alert' ).wpdkAlert();
 
     // Refresh by event
+    $( document ).on( WPDKUIComponents.REFRESH_ALERT, function() {
+      $( '.wpdk-alert' ).wpdkAlert();
+    } );
+
+    // @deprecated since 1.5.2 use WPDKUIComponents.REFRESH_ALERT ('refresh.wpdk.wpdkAlert') instead
     $( document ).on( 'wpdk-alert', function() {
       $( '.wpdk-alert' ).wpdkAlert();
     } );
+
 
     // Extends with Permanent dismiss
     $( document ).on( 'click', '.wpdk-alert button.close.wpdk-alert-permanent-dismiss', function() {

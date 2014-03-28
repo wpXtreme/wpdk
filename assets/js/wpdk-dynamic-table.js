@@ -58,7 +58,7 @@ jQuery( function ( $ )
         $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function ()
         {
           // Ask to WPDKjQuery class to refresh all data picker controls
-          $( document ).trigger( 'wpdk-jquery-data-picker' );
+          $( document ).trigger( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER );
         } );
         return false;
       }
