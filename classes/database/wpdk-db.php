@@ -498,18 +498,20 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    *
    * @brief Construct
    *
-   * @param string $table_name The name of the database table without WordPress prefix
-   * @param string $sql_file Optional. The filename of SQL file with the database table structure and init data.
+   * @param string $table_name Optional. The name of the database table without WordPress prefix
+   * @param string $sql_file   Optional. The filename of SQL file with the database table structure and init data.
    *
    * @return WPDKDBListTableModel
    */
-  public function __construct( $table_name, $sql_file = '' )
+  public function __construct( $table_name = '', $sql_file = '' )
   {
     // Init parent
     parent::__construct();
 
     // Init the table model
-    $this->table = new WPDKDBTableModel( $table_name, $sql_file );
+    if( !empty( $table_name ) ) {
+      $this->table = new WPDKDBTableModel( $table_name, $sql_file );
+    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -545,7 +547,7 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     $values = apply_filters( $prefix . '_insert_values', $values );
 
     // Insert
-    $result = $wpdb->insert( $this->table_name, $values, $format );
+    $result = $wpdb->insert( $this->table->table_name, $values, $format );
 
     // Action hook
     do_action( $prefix . '_inserted', $result, $values );
@@ -589,7 +591,11 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     $values = apply_filters( $prefix . '_update_values', $values );
 
     // Update
-    $result = $wpdb->update( $this->table_name, $values, $where, $format );
+    $result = $wpdb->update( $this->table->table_name, $values, $where, $format );
+
+    WPXtreme::log( $this->table->table_name );
+    WPXtreme::log( $values );
+    WPXtreme::log( $where );
 
     // Action hook
     do_action( $prefix . '_updated', $result, $values, $where );
@@ -639,7 +645,7 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     if ( empty( $distinct ) ) {
       $sql = <<< SQL
 SELECT COUNT(*) AS count
-  FROM {$this->table_name}
+  FROM {$this->table->table_name}
   {$where}
 SQL;
 
@@ -649,7 +655,7 @@ SQL;
       $sql = <<< SQL
 SELECT DISTINCT( {$distinct} ),
   COUNT(*) AS count
-  FROM {$this->table_name}
+  FROM {$this->table->table_name}
 
   {$where}
 
@@ -691,7 +697,7 @@ SQL;
       $id = implode( ',', (array)$id );
 
       $sql = <<< SQL
-UPDATE {$this->table_name}
+UPDATE {$this->table->table_name}
 SET status = '{$status}'
 WHERE id IN( {$id} )
 SQL;
