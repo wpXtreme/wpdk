@@ -13,7 +13,7 @@ and theme for WordPress evironment.
 
 ### Requirements
 
-* Wordpress 3.4 or higher (last version is suggest)
+* Wordpress 3.7 or higher (last version is suggest)
 * PHP version 5.2.4 or greater
 * MySQL version 5.0 or greater
 

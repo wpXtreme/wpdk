@@ -487,26 +487,23 @@ class WPDKListTableViewController extends WP_List_Table {
 
       <?php $this->search_box_field() ?>
 
-      <?php if ( isset( $_REQUEST['page'] ) ) : ?>
-        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-      <?php endif; ?>
-
-      <?php if ( isset( $_REQUEST['post_type'] ) ) : ?>
-        <input type="hidden" name="post_type" value="<?php echo $_REQUEST['post_type'] ?>" />
-      <?php endif; ?>
-
-      <?php if ( isset( $_REQUEST['orderby'] ) ) : ?>
-        <input type="hidden" name="orderby" value="<?php echo $_REQUEST['orderby'] ?>" />
-      <?php endif; ?>
-
-      <?php if ( isset( $_REQUEST['order'] ) ) : ?>
-        <input type="hidden" name="order" value="<?php echo $_REQUEST['order'] ?>" />
-      <?php endif; ?>
+      <?php echo $this->html_filters() ?>
 
       <?php do_action( 'wpdk_list_table_form', $this ); // @deprecated action since 1.5.1 - use 'before_display()' instead ?>
 
       <?php unset( $_REQUEST['action'] ); ?>
       <?php $_SERVER['REQUEST_URI'] = isset( $_REQUEST['_wp_http_referer'] ) ? $_REQUEST['_wp_http_referer'] : $_SERVER['REQUEST_URI'] ?>
+
+      <?php
+      $filters = $this->get_filters();
+      $filter_args = array();
+      foreach ( $filters as $key => $value ) {
+        if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
+          $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+        }
+      }
+      $_SERVER['REQUEST_URI'] = add_query_arg( $filter_args, $_SERVER['REQUEST_URI'] );
+      ?>
 
       <?php $this->before_display(); // since 1.5.1 ?>
 
@@ -525,6 +522,48 @@ class WPDKListTableViewController extends WP_List_Table {
 
     return $this->viewController->html();
   }
+
+  /**
+   * Return a set of registered filters
+   *
+   * @brief Brief
+   */
+  protected function get_filters()
+  {
+    $standard_filters = array(
+      'page'      => array(),
+      'post_type' => array(),
+      'orderby'   => array(),
+      'order'     => array(),
+    );
+
+    if ( !empty( $this->model ) && method_exists( $this->model, 'get_filters' ) ) {
+      $standard_filters = array_merge( $standard_filters, (array)$this->model->get_filters() );
+    }
+
+    return $standard_filters;
+  }
+
+  /**
+   * Return a set of input hidden fields for registered filters
+   *
+   * @brief Brief
+   *
+   * @return string
+   */
+  protected function html_filters()
+  {
+    WPDKHTML::startCompress();
+    foreach ( $this->get_filters() as $request => $value ) {
+      if ( isset( $_REQUEST[ $request ] ) && !empty( $_REQUEST[ $request ] ) ) :
+        ?><input type="hidden" name="<?php echo $request ?>" value="<?php echo urlencode( $_REQUEST[ $request ] ) ?>" /><?php
+      endif;
+    }
+
+    return WPDKHTML::endCompress();
+  }
+
+
 
   /**
    * Called when the title has been drawed
@@ -611,7 +650,7 @@ class WPDKListTableViewController extends WP_List_Table {
         $_SERVER['REQUEST_URI'] = remove_query_arg( array(
           '_action',
           '_action_result'
-        ), $_SERVER['REQUEST_URI'] );
+        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
 
         $args = array(
           $get_status_id           => $key,
@@ -840,7 +879,8 @@ class WPDKListTableViewController extends WP_List_Table {
   public function column_cb( $item )
   {
     $name  = $this->args['singular'];
-    $value = $item[$name];
+    $value = $item[ $name ];
+
     return sprintf( '<input type="checkbox" name="%s[]" value="%s" />', $name, $value );
   }
 
@@ -1041,6 +1081,110 @@ class WPDKListTableViewController extends WP_List_Table {
 }
 
 /**
+ * Interface definition for reminder dialog
+ *
+ * @interface       IWPDKListTableModel
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-03-27
+ * @version         1.0.0
+ * @since           1.5.2
+ */
+interface IWPDKListTableModel {
+
+  /**
+   * Create an instance of WPDKListTableModel class
+   *
+   * @brief Construct
+   *
+   * @return WPDKListTableModel
+   */
+  public function __construct();
+
+  /**
+   * Return a key value pairs array with the list of columns
+   *
+   * @brief Return the list of columns
+   *
+   * @return array
+   */
+  public function get_columns();
+
+  /**
+   * Return a key value pairs array with statuses supported
+   *
+   * @brief Statuses
+   *
+   * @return array
+   */
+  public function get_statuses();
+
+  /**
+   * Return the count of specific status
+   *
+   * @brief Count status
+   *
+   * @param string $status
+   *
+   * @return int
+   */
+  public function get_status( $status );
+
+  /**
+   * Return tha array with the action for the current status
+   *
+   * @brief Action with status
+   *
+   * @param array $item   The item
+   * @param array $status Describe one or more status of single item
+   *
+   * @return array
+   */
+  public function get_actions_with_status( $item, $status );
+
+  /**
+   * Return the array with the buk action for the combo menu for a status of view
+   *
+   * @brief Bulk actions
+   *
+   * @param string $status Current status. Usually this is the status in the URI, when user select 'All', 'Publish', etc...
+   *
+   * @return array
+   */
+  public function get_bulk_actions_with_status( $status );
+
+  /**
+   * Get the current action selected from the bulk actions dropdown.
+   *
+   * @brief Current action
+   *
+   * @return string|bool The action name or False if no action was selected
+   */
+  public function current_action( $nonce = '' );
+
+  /**
+   * Process actions
+   *
+   * @brief Process actions
+   * @since 1.4.21
+   *
+   */
+  public function process_bulk_action();
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // CRUD
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select();
+
+}
+
+/**
  * This is a generic model to make easy a WPDKListTableViewController
  *
  * @class           WPDKListTableModel
@@ -1051,7 +1195,7 @@ class WPDKListTableViewController extends WP_List_Table {
  * @since           1.4.13
  *
  */
-class WPDKListTableModel {
+class WPDKListTableModel implements IWPDKListTableModel {
 
   /**
    * Used for check the action and bulk action results
@@ -1060,7 +1204,7 @@ class WPDKListTableModel {
    *
    * @var bool $action_result
    */
-  protected $action_result = false;
+  public $action_result = false;
 
   /**
    * Create an instance of WPDKListTableModel class
@@ -1075,6 +1219,19 @@ class WPDKListTableModel {
     $action = get_class( $this ) . '-listtable-viewcontroller';
     add_action( $action, array( $this, 'process_bulk_action' ) );
 
+  }
+
+  /**
+   * Return a key values array with registered filters
+   *
+   * @brief Filters
+   * @since 1.5.2
+   *
+   * @return array
+   */
+  public function get_filters()
+  {
+    return array();
   }
 
   /**
@@ -1166,6 +1323,11 @@ class WPDKListTableModel {
    */
   public function current_action( $nonce = '' )
   {
+    // Ajax
+    if ( wpdk_is_ajax() ) {
+      return false;
+    }
+
     // Action
     $action = false;
 
@@ -1184,16 +1346,6 @@ class WPDKListTableModel {
     }
 
     return $action;
-  }
-
-  /**
-   * Return the items array. This is an array of key value pairs array
-   *
-   * @brief Items
-   */
-  public function select()
-  {
-    die( __METHOD__ . ' must be override in your subclass' );
   }
 
   /**
@@ -1218,10 +1370,39 @@ class WPDKListTableModel {
           'action2'         => false,
           'page'            => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
         );
+
+        // Previous selected filters
+        $filters = $this->get_filters();
+        $filter_args = array();
+        foreach ( $filters as $key => $value ) {
+          if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
+            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+          }
+        }
+
+        //  merge standard args with filters args
+        $args = array_merge( $args, $filter_args );
+
+        // New referrer
         $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
         wp_safe_redirect( $uri );
       }
     }
   }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // CRUD
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the items array. This is an array of key value pairs array
+   *
+   * @brief Items
+   */
+  public function select()
+  {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
+
 }

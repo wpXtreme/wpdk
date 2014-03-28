@@ -206,6 +206,11 @@ class WPDKPreferences {
 
           // Update a specified branch
           elseif ( isset( $_POST['update-preferences'] ) ) {
+
+            // since 1.5.2 - WP SuperCache patch
+            if ( function_exists( 'wp_cache_clear_cache' ) ) {
+              wp_cache_clear_cache();
+            }
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
             $preferences->$branch->update();
             $preferences->update();

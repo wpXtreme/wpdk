@@ -4,8 +4,8 @@
  * @class           wpdkTooltip
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-08
- * @version         3.1.0
+ * @date            2014-03-20
+ * @version         3.1.1
  * @note            Base on bootstrap: tootip.js v3.1.0
  */
 
@@ -36,7 +36,7 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
       this.$element   = null
 
       // WPDK change namespace
-      this.init('wpdkTooltip', element, options)
+      this.init( 'wpdkTooltip', element, options)
     }
 
     Tooltip.DEFAULTS = {
@@ -422,6 +422,11 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
     $( '.wpdk-has-tooltip' ).wpdkTooltip();
 
     // Refresh by event
+    $( document ).on( WPDKUIComponents.REFRESH_TOOLTIP, function() {
+      $( '.wpdk-has-tooltip' ).wpdkTooltip();
+    } );
+
+    // @deprecated since 1.5.2 use WPDKUIComponents.REFRESH_TOOLTIP ('refresh.wpdk.wpdkTooltip') instead
     $( document ).on( 'wpdk-tooltip', function() {
       $( '.wpdk-has-tooltip' ).wpdkTooltip();
     } );

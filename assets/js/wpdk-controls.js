@@ -28,32 +28,33 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
         // Set
         if ( arguments.length > 0 ) {
 
-          var v = arguments[0], result;
+          // Get value
+          var v = arguments[0];
+
+          if ( false === $control.triggerHandler( 'change', [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
+            return input.val();
+          }
 
           // On
-          if ( 'on' === v ) {
-            result = $control.trigger( 'change', [ $control, 'on'] );
-            if ( false !== result ) {
-              input.val( 'on' );
-              knob.animate( { marginLeft : '23px' }, 100, function ()
-              {
-                $control.addClass( 'wpdk-form-swipe-on' );
-              } );
-              $control.trigger( 'changed', [ $control, 'on'] );
-            }
+          if ( wpdk_is_bool( v ) ) {
+            //$control.trigger( 'change', [ $control, 'on'] );
+            input.val( 'on' );
+            knob.animate( { marginLeft : '23px' }, 100, function ()
+            {
+              $control.addClass( 'wpdk-form-swipe-on' );
+            } );
+            $control.trigger( 'changed', [ $control, 'on'] );
           }
 
           // Off
           else {
-            result = $control.trigger( 'change', [ $control, 'off'] );
-            if ( false !== result ) {
-              input.val( 'off' );
-              knob.animate( { marginLeft : '0' }, 100, function ()
-              {
-                $control.removeClass( 'wpdk-form-swipe-on' );
-              } );
-              $control.trigger( 'changed', [ $control, 'off'] );
-            }
+            //$control.trigger( 'change', [ $control, 'off'] );
+            input.val( 'off' );
+            knob.animate( { marginLeft : '0' }, 100, function ()
+            {
+              $control.removeClass( 'wpdk-form-swipe-on' );
+            } );
+            $control.trigger( 'changed', [ $control, 'off'] );
           }
         }
 
@@ -62,7 +63,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
       }
     };
 
-  }(jQuery);
+  }( jQuery );
 
 }
 
@@ -72,8 +73,8 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-10
- * @version         1.1.0
+ * @date            2014-03-20
+ * @version         1.1.1
  *
  */
 
@@ -164,16 +165,21 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
        */
       function _initSwipe()
       {
+        // Remove all previous bind event
+        $( document ).off( 'click', 'span.wpdk-form-swipe span' );
+
+        // Bind click on right span
         $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function ()
         {
           var control = $( this ).parent();
           var status = wpdk_is_bool( control.swipe() );
           var enabled = status ? 'off' : 'on';
-          var result = control.trigger( 'swipe', [ control, enabled] );
-          if ( typeof result == 'undefined' || result ) {
-            control.swipe( enabled );
-          }
+          control.trigger( 'swipe', [ control, enabled] );
+          control.swipe( enabled );
         } );
+
+        // Refreshing
+        $( document ).on( WPDKUIComponents.REFRESH_SWIPE, _initSwipe );
       }
 
       /**
@@ -291,7 +297,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         return $( 'form#wpdk_preferences_view_form-' + id );
       }
 
-      return $t.init();
+      return _init();
 
     })();
 

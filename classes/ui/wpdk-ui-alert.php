@@ -214,7 +214,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
         type="button"
         class="<?php echo WPDKHTMLTag::classInline( $classes ) ?>"
         <?php echo $title ?>
-        data-dismiss="alert"><?php echo $this->dismiss_button_glyph ?></button>
+        data-dismiss="wpdkAlert"><?php echo $this->dismiss_button_glyph ?></button>
       <?php
       $result = WPDKHTML::endHTMLCompress();
     }
