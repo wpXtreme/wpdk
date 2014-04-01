@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class is useful to convert date and date time from a lot of format. It was design for MySQL conversion and
  * jQuery date and datetime picker manage.
@@ -6,11 +7,10 @@
  * @class              WPDKDateTime
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-21
- * @version            1.1.0
+ * @date               2014-03-31
+ * @version            1.1.1
  *
  */
-
 class WPDKDateTime extends WPDKObject {
 
   /**
@@ -34,7 +34,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.1.0';
+  public $__version = '1.1.1';
 
   /**
    * Format a date time in your custom own format. The source format is auto-detect.
@@ -42,8 +42,8 @@ class WPDKDateTime extends WPDKObject {
    * @brief Format a date time
    * @since 1.0.0
    *
-   * @param string $date       Source date string format
-   * @param string $to         Optional. Destination/outout format, default `m/d/Y H:i`
+   * @param string $date Source date string format
+   * @param string $to   Optional. Destination/outout format, default `m/d/Y H:i`
    *
    * @return string
    */
@@ -54,6 +54,7 @@ class WPDKDateTime extends WPDKObject {
       $timestamp = strtotime( $date );
       $result    = date( $to, $timestamp );
     }
+
     return $result;
   }
 
@@ -73,6 +74,7 @@ class WPDKDateTime extends WPDKObject {
   static function expirationDate( $date, $duration, $duration_type )
   {
     $expiredate = strtotime( "+{$duration} {$duration_type}", strtotime( $date ) );
+
     return $expiredate;
   }
 
@@ -89,6 +91,7 @@ class WPDKDateTime extends WPDKObject {
   {
     $diff = $date - time();
     $days = floatval( round( $diff / ( 60 * 60 * 24 ) ) );
+
     return $days;
   }
 
@@ -113,22 +116,58 @@ class WPDKDateTime extends WPDKObject {
 
     // Key and string output
     $useful = array(
-      'y' => array( __( 'Year'   ),  __( 'Years'   ) ),
-      'm' => array( __( 'Month'  ),  __( 'Months'  ) ),
-      'd' => array( __( 'Day'    ),  __( 'Days'    ) ),
-      'h' => array( __( 'Hour'   ),  __( 'Hours'   ) ),
-      'i' => array( __( 'Minute' ),  __( 'Minutes' ) ),
-      's' => array( __( 'Second' ),  __( 'Seconds' ) ),
+      'y' => array(
+        __( 'Year' ),
+        __( 'Years' )
+      ),
+      'm' => array(
+        __( 'Month' ),
+        __( 'Months' )
+      ),
+      'd' => array(
+        __( 'Day' ),
+        __( 'Days' )
+      ),
+      'h' => array(
+        __( 'Hour' ),
+        __( 'Hours' )
+      ),
+      'i' => array(
+        __( 'Minute' ),
+        __( 'Minutes' )
+      ),
+      's' => array(
+        __( 'Second' ),
+        __( 'Seconds' )
+      ),
     );
 
     $matrix = array(
-       'y' => array( 12 * 30 * 24 * 60 * 60, 12 ),
-       'm' => array( 30 * 24 * 60 * 60, 30 ),
-       'd' => array( 24 * 60 * 60, 24 ),
-       'h' => array( 60 * 60, 60 ),
-       'i' => array( 60, 60 ),
-       's' => array( 1, 60 ),
-     );
+      'y' => array(
+        12 * 30 * 24 * 60 * 60,
+        12
+      ),
+      'm' => array(
+        30 * 24 * 60 * 60,
+        30
+      ),
+      'd' => array(
+        24 * 60 * 60,
+        24
+      ),
+      'h' => array(
+        60 * 60,
+        60
+      ),
+      'i' => array(
+        60,
+        60
+      ),
+      's' => array(
+        1,
+        60
+      ),
+    );
 
     $diff = $timestamp - $to;
 
@@ -137,7 +176,7 @@ class WPDKDateTime extends WPDKObject {
 
       $value = floor( $diff / $matrix[ $w ][0] ) % $matrix[ $w ][1];
 
-      if( empty( $value ) || $value < 0 ) {
+      if ( empty( $value ) || $value < 0 ) {
         if ( $hide_empty ) {
           continue;
         }
@@ -161,20 +200,38 @@ class WPDKDateTime extends WPDKObject {
 
     // Useful to convert request
     $useful = array(
-      'y' => array( 'y', 'year' ),
-      'm' => array( 'm', 'month' ),
-      'd' => array( 'd', 'day' ),
-      'h' => array( 'h', 'hour' ),
-      'i' => array( 'i', 'minute' ),
-      's' => array( 's', 'second' ),
+      'y' => array(
+        'y',
+        'year'
+      ),
+      'm' => array(
+        'm',
+        'month'
+      ),
+      'd' => array(
+        'd',
+        'day'
+      ),
+      'h' => array(
+        'h',
+        'hour'
+      ),
+      'i' => array(
+        'i',
+        'minute'
+      ),
+      's' => array(
+        's',
+        'second'
+      ),
     );
 
     // Easy search
     $w = strtolower( $w );
 
     // What you want?
-    foreach( $useful as $key => $array ) {
-      if( in_array( $w, $array ) ) {
+    foreach ( $useful as $key => $array ) {
+      if ( in_array( $w, $array ) ) {
         $w = $key;
         break;
       }
@@ -261,7 +318,40 @@ class WPDKDateTime extends WPDKObject {
         return true;
       }
     }
+
     return false;
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // MYSQL
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the accuracy date format
+   *
+   * @brief Brief
+   * @since 1.5.3
+   *
+   * @param string $v Optional. Any acuracy 'seconds', 'hours', etc...
+   *
+   * @return string
+   */
+  public static function accuracy( $v = false )
+  {
+    $conversion = array(
+      'seconds' => '%Y-%m-%d %H:%i:%s',
+      'minutes' => '%Y-%m-%d %H:%i',
+      'hours'   => '%Y-%m-%d %H',
+      'days'    => '%Y-%m-%d',
+      'months'  => '%Y-%m',
+      'years'   => '%Y',
+    );
+
+    if ( in_array( strtolower( $v ), array_keys( $conversion ) ) ) {
+      return $conversion[ strtolower( $v ) ];
+    }
+
+    return current( $conversion );
   }
 
   /**
@@ -332,9 +422,10 @@ class WPDKDateTime extends WPDKObject {
 
     );
 
-    $start_day_number   = $week_days[$first_day];
+    $start_day_number   = $week_days[ $first_day ];
     $wday               = $date->format( "w" );
     $current_day_number = ( $wday != 0 ? $wday - 1 : 6 );
+
     return WPDKMath::rModulus( ( $current_day_number - $start_day_number ), 7 );
 
   }
@@ -352,6 +443,7 @@ class WPDKDateTime extends WPDKObject {
   public static function beginningOfWeek( $date, $first_day = 'monday' )
   {
     $days_to_start = WPDKDateTime::daysToWeekStart( $date, $first_day );
+
     return ( $date - $days_to_start );
   }
 
@@ -423,13 +515,14 @@ class WPDKDateTime extends WPDKObject {
     $date_part     = explode( '/', $split[0] );
     $time_part     = explode( ':', $split[1] );
     $time          = mktime( $time_part[0], $time_part[1], 0, $date_part[0], $date_part[1], $date_part[2] );
+
     return $time;
   }
 
   /**
    * Return any date/time in simple mySQL date format: `YYYY-MM-DD`
    *
-   * @brief Date for mySQL
+   * @brief      Date for mySQL
    * @deprecated since 1.3.0 use mySQLDate() instead
    *
    * @param string $date       Date
@@ -443,6 +536,7 @@ class WPDKDateTime extends WPDKObject {
       _deprecated_argument( __METHOD__, '1.0.0.b2' );
     }
     _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDate()' );
+
     return self::mySQLDate( $date );
   }
 
@@ -450,7 +544,7 @@ class WPDKDateTime extends WPDKObject {
    * Formatta una data e ora per essere inserita in mySQL, quindi in formato YYYY-MM-DD HH:MM:SS
    * Return any date/time in simple mySQL date format: `YYYY-MM-DD HH:MM:SS`
    *
-   * @brief Date and time for mySQL
+   * @brief      Date and time for mySQL
    * @deprecated since 1.3.0 use mySQLDateTime() instead
    *
    * @param string $datetime   Date
@@ -464,6 +558,7 @@ class WPDKDateTime extends WPDKObject {
       _deprecated_argument( __METHOD__, '1.0.0.b2' );
     }
     _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDateTime()' );
+
     return self::mySQLDateTime( $datetime );
   }
 
