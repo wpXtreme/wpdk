@@ -233,18 +233,18 @@ SQL;
     // Buffering
     ob_start();
 
-    if ( !empty( $this->sqlFilename ) && !empty( $this->tableName ) ) {
+    if ( !empty( $this->sql_filename ) && !empty( $this->table_name ) ) {
       if ( !function_exists( 'dbDelta' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       }
-      $content = file_get_contents( $this->sqlFilename );
+      $content = file_get_contents( $this->sql_filename );
       if ( empty( $content ) ) {
         ob_end_clean();
         return false;
       }
 
       // Replace table name
-      $sql = str_replace( '%s', $this->tableName, $content );
+      $sql = str_replace( '%s', $this->table_name, $content );
 
       // Remove comments
       $pattern = '@(([\'"]).*?[^\\\]\2)|((?:\#|--).*?$|/\*(?:[^/*]|/(?!\*)|\*(?!/)|(?R))*\*\/)\s*|(?<=;)\s+@ms';
