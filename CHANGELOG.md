@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.3
 ### 2014-04-??
 
+#### Bugs
+
+* Fixed wrong sqp filename and table name in delta() database method
+
 #### Improvements
 
 * Cosmetic
