@@ -130,7 +130,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         // Init with clear
         $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
         {
-          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' );
+          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( 'clear.wpdk.input');
         } );
 
         // Init with disable after click
@@ -144,6 +144,8 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         {
           // Check for custom data confirm
           var message = $( this ).data( 'confirm' );
+
+          // TODO Add event
 
           if ( confirm( empty( message ) ? wpdk_i18n.messageUnLockField : message ) ) {
             $( this )
