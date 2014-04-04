@@ -16,20 +16,23 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
     $.fn.swipe = function ()
     {
 
+      var v = ( arguments.length > 0 ) ? arguments[0] : null;
+
       if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
 
-        // Get main control
-        var $control = $( this );
+        if ( null == v ) {
+          return $( this ).children( 'input[type=hidden]' ).eq( 0 ).val();
+        }
 
-        // Get sub-elements
-        var knob = $control.children( 'span' ).eq( 0 );
-        var input = $control.children( 'input[type=hidden]' ).eq( 0 );
+        return this.each( function ()
+        {
 
-        // Set
-        if ( arguments.length > 0 ) {
+          // Get main control
+          var $control = $( this );
 
-          // Get value
-          var v = arguments[0];
+          // Get sub-elements
+          var knob = $control.children( 'span' ).eq( 0 );
+          var input = $control.children( 'input[type=hidden]' ).eq( 0 );
 
           if ( false === $control.triggerHandler( 'change', [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
             return input.val();
@@ -56,10 +59,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
             } );
             $control.trigger( 'changed', [ $control, 'off'] );
           }
-        }
-
-        // Return always the state
-        return input.val();
+        } );
       }
     };
 
