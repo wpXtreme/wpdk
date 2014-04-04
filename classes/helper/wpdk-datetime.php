@@ -347,8 +347,14 @@ class WPDKDateTime extends WPDKObject {
       'years'   => '%Y',
     );
 
+    // Check for keys
     if ( in_array( strtolower( $v ), array_keys( $conversion ) ) ) {
       return $conversion[ strtolower( $v ) ];
+    }
+
+    // Check for values
+    if ( in_array( $v, array_values( $conversion ) ) ) {
+      return $v;
     }
 
     return current( $conversion );
