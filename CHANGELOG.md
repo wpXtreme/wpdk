@@ -29,6 +29,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Improved and fixed `WPDKWidget` class
 * Cosmetic
 
 
