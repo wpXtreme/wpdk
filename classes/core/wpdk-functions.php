@@ -178,9 +178,17 @@ function wpdk_get_image_size( $name )
  */
 function wpdk_checked( $haystack, $current, $echo = true )
 {
-  if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
-    $current = $haystack = 1;
+  if ( is_array( $haystack ) ) {
+    if ( in_array( $current, $haystack ) ) {
+      $current = $haystack = 1;
+
+      return checked( $haystack, $current, $echo );
+
+    }
+
+    return false;
   }
+
   return checked( $haystack, $current, $echo );
 }
 
@@ -198,10 +206,7 @@ function wpdk_selected( $haystack, $current, $echo = true )
 {
   _deprecated_function( __FUNCTION__, '1.2.0', 'WPDKHTMLTagSelect::selected()' );
 
-  if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
-    $current = $haystack = 1;
-  }
-  return selected( $haystack, $current, $echo );
+  return WPDKHTMLTagSelect::selected( $haystack, $current );
 }
 
 /// @cond private
