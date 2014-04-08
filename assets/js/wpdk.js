@@ -789,7 +789,7 @@ jQuery( function ( $ )
         }
         else {
           if ( typeof window.console !== 'undefined' ) {
-            alert( 'Date Time Picker not loaded' );
+            //alert( 'Date Time Picker not loaded' );
           }
         }
 
