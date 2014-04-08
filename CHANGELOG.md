@@ -20,6 +20,19 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.3
+### 2014-04-08
+
+#### Bugs
+
+* Fixed wrong sqp filename and table name in delta() database method
+
+#### Improvements
+
+* Improved and fixed `WPDKWidget` class
+* Cosmetic
+
+
 ## Version 1.5.2
 ### 2014-03-28
 

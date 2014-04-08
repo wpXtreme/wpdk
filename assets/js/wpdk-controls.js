@@ -16,20 +16,23 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
     $.fn.swipe = function ()
     {
 
+      var v = ( arguments.length > 0 ) ? arguments[0] : null;
+
       if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
 
-        // Get main control
-        var $control = $( this );
+        if ( null == v ) {
+          return $( this ).children( 'input[type=hidden]' ).eq( 0 ).val();
+        }
 
-        // Get sub-elements
-        var knob = $control.children( 'span' ).eq( 0 );
-        var input = $control.children( 'input[type=hidden]' ).eq( 0 );
+        return this.each( function ()
+        {
 
-        // Set
-        if ( arguments.length > 0 ) {
+          // Get main control
+          var $control = $( this );
 
-          // Get value
-          var v = arguments[0];
+          // Get sub-elements
+          var knob = $control.children( 'span' ).eq( 0 );
+          var input = $control.children( 'input[type=hidden]' ).eq( 0 );
 
           if ( false === $control.triggerHandler( 'change', [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
             return input.val();
@@ -56,10 +59,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
             } );
             $control.trigger( 'changed', [ $control, 'off'] );
           }
-        }
-
-        // Return always the state
-        return input.val();
+        } );
       }
     };
 
@@ -130,7 +130,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         // Init with clear
         $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
         {
-          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' );
+          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( 'clear.wpdk.input');
         } );
 
         // Init with disable after click
@@ -144,6 +144,8 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         {
           // Check for custom data confirm
           var message = $( this ).data( 'confirm' );
+
+          // TODO Add event
 
           if ( confirm( empty( message ) ? wpdk_i18n.messageUnLockField : message ) ) {
             $( this )

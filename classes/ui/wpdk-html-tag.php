@@ -1960,9 +1960,16 @@ class WPDKHTMLTagSelect extends WPDKHTMLTag {
    */
   public static function selected( $haystack, $current )
   {
-    if ( is_array( $haystack ) && in_array( $current, $haystack ) ) {
-      $current = $haystack = 1;
+    if ( is_array( $haystack ) ) {
+      if ( in_array( $current, $haystack ) ) {
+        $current = $haystack = 1;
+
+        return selected( $haystack, $current, false );
+      }
+
+      return false;
     }
+
     return selected( $haystack, $current, false );
   }
 

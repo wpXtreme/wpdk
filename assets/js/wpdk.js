@@ -409,7 +409,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       var undef, i, len;
       var emptyValues = [undef, null, false, 0, "", "0", 'n', 'no', 'off', 'false'];
       for ( i = 0, len = emptyValues.length; i < len; i++ ) {
-        if ( mixed === emptyValues[i] || mixed.toLowerCase() == emptyValues[i] ) {
+        if ( mixed === emptyValues[i] || ( 'string' === typeof( mixed ) && mixed.toLowerCase() == emptyValues[i] ) ) {
           return false;
         }
       }
@@ -789,7 +789,7 @@ jQuery( function ( $ )
         }
         else {
           if ( typeof window.console !== 'undefined' ) {
-            alert( 'Date Time Picker not loaded' );
+            //alert( 'Date Time Picker not loaded' );
           }
         }
 

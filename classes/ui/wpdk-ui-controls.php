@@ -394,7 +394,7 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input wpdk-ui-control' );
+    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input wpdk-ui-control wpdk-has-tooltip' );
     $input->style        = WPDKHTMLTag::styleInline( isset( $this->item['style'] ) ? $this->item['style'] : '' );
     $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
@@ -608,22 +608,23 @@ class WPDKUIControl {
  * Simple Alert control.
  *
  *     $item = array(
- *         'type'           => WPDKUIControlType::ALERT,
- *         'alert_type'     => WPDKUIAlertType::INFORMATION,
- *         'id'             => 'id',
- *         'value'          => 'Alert content',
- *         'title'          => 'Alert title',
- *         'class'          => '' | array(),
- *         'dismiss_button' => true,
- *         'prepend'        => '',
- *         'append'         => ''
+ *         'type'              => WPDKUIControlType::ALERT,
+ *         'alert_type'        => WPDKUIAlertType::INFORMATION,
+ *         'id'                => 'id',
+ *         'value'             => 'Alert content',
+ *         'title'             => 'Alert title',
+ *         'class'             => '' | array(),
+ *         'dismiss_button'    => true,
+ *         'prepend'           => '',
+ *         'append'            => '',
+ *         'permanent_dismiss' => false, // If TRUE this alert is permanently dismissed after close
  *     );
  *
  * @class              WPDKUIControlAlert
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-28
- * @version            1.0.0
+ * @date               2014-04-07
+ * @version            1.0.2
  *
  */
 class WPDKUIControlAlert extends WPDKUIControl {
@@ -639,9 +640,10 @@ class WPDKUIControlAlert extends WPDKUIControl {
     $title      = isset( $this->item['title'] ) ? $this->item['title'] : '';
     $alert_type = isset( $this->item['alert_type'] ) ? $this->item['alert_type'] : WPDKUIAlertType::INFORMATION;
 
-    $alert                = new WPDKUIAlert( $this->id, $value, $alert_type, $title );
-    $alert->dismissButton = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
-    $alert->class         = isset( $this->item['classes'] ) ? $this->item['classes'] : isset( $this->item['class'] ) ? $this->item['class'] : '';
+    $alert                    = new WPDKUIAlert( $this->id, $value, $alert_type, $title );
+    $alert->dismissButton     = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
+    $alert->class             = isset( $this->item['classes'] ) ? $this->item['classes'] : isset( $this->item['class'] ) ? $this->item['class'] : '';
+    $alert->permanent_dismiss = isset( $this->item['permanent_dismiss'] ) ? $this->item['permanent_dismiss'] : false;
 
     echo $this->contentWithKey( 'prepend' );
 
