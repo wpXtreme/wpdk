@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-27 11:13+0100\n"
-"PO-Revision-Date: 2014-03-27 11:13+0100\n"
+"POT-Creation-Date: 2014-04-08 10:05+0100\n"
+"PO-Revision-Date: 2014-04-08 10:05+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: it_IT\n"
@@ -41,41 +41,41 @@ msgstr ""
 msgid "User email"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:264
+#: ../classes/core/wpdk-preferences.php:261
 msgid "Your preferences were successfully restored to defaults values!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:265
-#: ../classes/core/wpdk-preferences.php:277
+#: ../classes/core/wpdk-preferences.php:262
+#: ../classes/core/wpdk-preferences.php:274
 #, fuzzy
 msgid "Information"
 msgstr "Informazioni account"
 
-#: ../classes/core/wpdk-preferences.php:276
+#: ../classes/core/wpdk-preferences.php:273
 msgid "Your preferences values were successfully updated!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:600
+#: ../classes/core/wpdk-preferences.php:597
 msgid "Warning!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:607
+#: ../classes/core/wpdk-preferences.php:604
 msgid "Successfully!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:608
+#: ../classes/core/wpdk-preferences.php:605
 msgid "Import complete."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:613
+#: ../classes/core/wpdk-preferences.php:610
 msgid "Error while read file! Error code:"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:618
+#: ../classes/core/wpdk-preferences.php:615
 msgid "Malformed file."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:623
+#: ../classes/core/wpdk-preferences.php:620
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
@@ -234,54 +234,54 @@ msgstr ""
 msgid "Role name can contain only letters, digits, _ and - chars."
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:116
+#: ../classes/helper/wpdk-datetime.php:120
 msgid "Year"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:116
+#: ../classes/helper/wpdk-datetime.php:121
 msgid "Years"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:117
+#: ../classes/helper/wpdk-datetime.php:124
 msgid "Month"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:117
+#: ../classes/helper/wpdk-datetime.php:125
 msgid "Months"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:118
+#: ../classes/helper/wpdk-datetime.php:128
 msgid "Day"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:118
+#: ../classes/helper/wpdk-datetime.php:129
 msgid "Days"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:119 ../wpdk.php:611
+#: ../classes/helper/wpdk-datetime.php:132 ../wpdk.php:614
 msgid "Hour"
 msgstr "Ora"
 
-#: ../classes/helper/wpdk-datetime.php:119
+#: ../classes/helper/wpdk-datetime.php:133
 #, fuzzy
 msgid "Hours"
 msgstr "Ora"
 
-#: ../classes/helper/wpdk-datetime.php:120 ../wpdk.php:612
+#: ../classes/helper/wpdk-datetime.php:136 ../wpdk.php:615
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../classes/helper/wpdk-datetime.php:120
+#: ../classes/helper/wpdk-datetime.php:137
 #, fuzzy
 msgid "Minutes"
 msgstr "Minuto"
 
-#: ../classes/helper/wpdk-datetime.php:121
+#: ../classes/helper/wpdk-datetime.php:140
 #, fuzzy
 msgid "Second"
 msgstr "Secondi"
 
-#: ../classes/helper/wpdk-datetime.php:121 ../wpdk.php:613
+#: ../classes/helper/wpdk-datetime.php:141 ../wpdk.php:616
 msgid "Seconds"
 msgstr "Secondi"
 
@@ -743,7 +743,7 @@ msgstr ""
 msgid "Severe error: no user logged in!"
 msgstr ""
 
-#: ../wpdk.php:607
+#: ../wpdk.php:610
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -751,23 +751,23 @@ msgstr ""
 "Devi confermare prima di sbloccare questo campo.\n"
 "Vuoi bloccare questo campo?"
 
-#: ../wpdk.php:609
+#: ../wpdk.php:612
 msgid "Choose Time"
 msgstr "Scegli un orario"
 
-#: ../wpdk.php:610
+#: ../wpdk.php:613
 msgid "Time"
 msgstr "Orario"
 
-#: ../wpdk.php:614
+#: ../wpdk.php:617
 msgid "Now"
 msgstr "Adesso"
 
-#: ../wpdk.php:615
+#: ../wpdk.php:618
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Do,Lu,Ma,Me,Gi,Ve,Sa"
 
-#: ../wpdk.php:616
+#: ../wpdk.php:619
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -775,19 +775,19 @@ msgstr ""
 "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,"
 "Novembre,Dicembre"
 
-#: ../wpdk.php:617
+#: ../wpdk.php:620
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic"
 
-#: ../wpdk.php:618
+#: ../wpdk.php:621
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../wpdk.php:619
+#: ../wpdk.php:622
 msgid "mm/dd/yy"
 msgstr "dd/mm/yy"
 
-#: ../wpdk.php:620
+#: ../wpdk.php:623
 msgid "HH:mm"
 msgstr ""
 

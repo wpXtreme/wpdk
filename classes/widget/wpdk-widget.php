@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Widget model class
  *
  * @class           WPDKWidget
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-11-08
- * @version         1.0.0
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-04-07
+ * @version         1.0.1
  * @since           1.4.0
  *
  */
@@ -35,13 +36,16 @@ class WPDKWidget extends WP_Widget {
   {
     $this->id_base = $id_base;
 
-    /* Load scripts and styles for admin page */
-    add_action( 'widgets_admin_page', array( $this, 'willWidgetsAdminPage') );
-
-    /* Load scripts and styles for admin page */
+    // Load scripts and styles for admin page
     add_action( 'admin_print_styles-widgets.php', array( $this, 'admin_print_styles' ) );
 
-    /* Create the widget */
+    // Load scripts and styles for admin page
+    add_action( 'admin_head-widgets.php', array( $this, 'admin_head' ) );
+
+    // Fires before the Widgets administration page content loads.
+    add_action( 'widgets_admin_page', array( $this, 'widgets_admin_page') );
+
+    // Create the widget
     parent::__construct( $id_base, $name, $widget_options, $control_options );
   }
 
@@ -55,7 +59,7 @@ class WPDKWidget extends WP_Widget {
     $logo    = isset( $this->control_options['wpdk_icon'] ) ? $this->control_options['wpdk_icon'] : '';
     $version = isset( $this->control_options['wpdk_version'] ) ? $this->control_options['wpdk_version'] : '';
 
-    /* If no wpdk extends info set exit. */
+    // If no wpdk extends info set exit
     if ( empty( $logo ) && empty( $version ) ) {
       return;
     }
@@ -83,17 +87,18 @@ class WPDKWidget extends WP_Widget {
   </style>
     <?php
     echo WPDKHTML::endCSSCompress();
-    $this->willWidgetsHeadAdminPage();
   }
 
   /**
-   * This delegate action hook is called in the head of Widgets admin page
+   * Widgets admin head
    *
-   * @brief Widgets head admin page
+   * @brief Widgets admin head
+   *
+   * @since 1.5.3
    */
-  public function willWidgetsHeadAdminPage()
+  public function admin_head()
   {
-    /* You can override this delegate method */
+    // Override
   }
 
   /**
@@ -101,9 +106,20 @@ class WPDKWidget extends WP_Widget {
    *
    * @brief Widgets admin page
    */
+  public function widgets_admin_page()
+  {
+    // You can override this delegate method
+  }
+
+  /**
+   * Fires before the Widgets administration page content loads
+   *
+   * @brief      Widgets admin page
+   * @deprecated since 1.5.3 use widgets_admin_page instead
+   */
   public function willWidgetsAdminPage()
   {
-    /* You can override this delegate method */
+    // You can override this delegate method
   }
 
 }
