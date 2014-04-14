@@ -13,7 +13,13 @@
  */
 class WPDKCronSchedules {
 
-  const HALF_HOUR   = 'wpdk_half_hour';
+  // standard WordPress predefined
+  const HOURLY = 'hourly';
+  const TWICEDAILY = 'twicedaily';
+  const DAILY = 'daily';
+
+  // WPDK Custom
+  const HALF_HOUR = 'wpdk_half_hour';
   const TWO_MINUTES = 'wpdk_two_minutes';
 
   /**
@@ -27,7 +33,7 @@ class WPDKCronSchedules {
   {
     static $instance = null;
     if ( is_null( $instance ) ) {
-      $instance = new WPDKCronSchedules();
+      $instance = new self();
     }
     return $instance;
   }
