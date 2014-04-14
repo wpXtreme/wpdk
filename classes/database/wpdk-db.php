@@ -409,12 +409,18 @@ SQL;
       if( is_string( $args[$column_key] ) ) {
         $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) %s '%s'", $table_prefix, $column_key, $accuracy, '=', $args[$column_key] );
       }
-      // If $args[$column_key] is an array as array( 2014-01-01', 2014-02-01' )
-      else {
-        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) > '%s' AND DATE_FORMAT( %s%s, '%s' ) < '%s'",
-          $table_prefix, $column_key, $accuracy, $args[$column_key][0],
-          $table_prefix, $column_key, $accuracy, $args[$column_key][1]
-        );
+      // Handle if $args[$column_key] is an array as array( '2014-01-01', '2014-02-01' )
+      elseif( is_array( $args[$column_key] ) ) {
+
+        // Handle if $args[$column_key] is an array as array( false, '2014-02-01' )
+        if( !empty( $args[$column_key][0] ) ) {
+          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) >= '%s'", $table_prefix, $column_key, $accuracy, $args[$column_key][0] );
+        }
+
+        // Handle if $args[$column_key] is an array as array( '2014-02-01' ) or array( '2014-02-01', false )
+        if( isset( $args[$column_key][1] ) && !empty( $args[$column_key][1] ) ) {
+          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) <= '%s'", $table_prefix, $column_key, $accuracy, $args[$column_key][1] );
+        }
       }
 
       return sprintf( "( %s )", implode( ' OR ', $stack ) );
