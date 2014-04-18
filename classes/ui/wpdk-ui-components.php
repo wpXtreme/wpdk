@@ -235,10 +235,26 @@ class WPDKUIComponents {
         if ( isset( $component['has_js'] ) ) {
           wp_enqueue_script( $handle );
         }
+        // Check if other deps components have css
+        else {
+          foreach ( $component['has_css'] as $dep ) {
+            if ( isset( $components[ $dep ]['has_js'] ) ) {
+              wp_enqueue_script( $dep );
+            }
+          }
+        }
 
         // Load styles?
         if ( isset( $component['has_css'] ) ) {
           wp_enqueue_style( $handle );
+        }
+        // Check if other deps components have css
+        else {
+          foreach ( $component['has_js'] as $dep ) {
+            if ( isset( $components[ $dep ]['has_css'] ) ) {
+              wp_enqueue_style( $dep );
+            }
+          }
         }
       }
     }
