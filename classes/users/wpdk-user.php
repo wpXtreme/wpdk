@@ -1781,17 +1781,18 @@ class WPDKRole extends WP_Role {
       $this->description = $description;
       $this->owner       = $owner;
     }
+    // Get the object (for return or update)
     else {
-      $this->name         = $role;
-      $this->displayName  = $wpdk_roles->role_names[$role_id];
+      $this->name         = $role_id;
+      $this->displayName  = $wpdk_roles->role_names[ $role_id ];
       $this->capabilities = $role_object->capabilities;
 
       // Extends
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
-      if ( !empty( $extra ) && isset( $extra[$role_id] ) ) {
-        $this->description = $extra[$role][1];
-        $this->owner       = $extra[$role][2];
+      if ( !empty( $extra ) && isset( $extra[ $role_id ] ) ) {
+        $this->description = $extra[ $role ][1];
+        $this->owner       = $extra[ $role ][2];
       }
     }
   }
@@ -1805,6 +1806,25 @@ class WPDKRole extends WP_Role {
    */
   public function update()
   {
+    // Roles
+    if ( isset( WPDKRoles::getInstance()->roles[ $this->name ] ) ) {
+
+      // Reset all capabilities
+      WPDKRoles::getInstance()->roles[ $this->name ]['capabilities'] = array();
+
+      // Set new capabilities
+      foreach ( $this->capabilities as $cap ) {
+        WPDKRoles::getInstance()->roles[ $this->name ]['capabilities'][ $cap ] = true;
+      }
+
+      // Updated
+      if( WPDKRoles::getInstance()->use_db ) {
+        update_option(  WPDKRoles::getInstance()->role_key, WPDKRoles::getInstance()->roles );
+        WPDKRoles::invalidate();
+      }
+
+    }
+
     $extra = get_option( WPDKRoles::OPTION_KEY );
     if ( !empty( $extra ) ) {
       $extra[$this->name] = array(
