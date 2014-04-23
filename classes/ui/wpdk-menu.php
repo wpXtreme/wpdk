@@ -735,8 +735,6 @@ class WPDKSubMenu {
     // since 1.5.4 - create and check load and admin head for callable custom function
     elseif ( is_callable( $this->viewController ) && is_array( $this->viewController ) ) {
 
-      WPXtreme::log( 'c' );
-
       // Load
       $load = array( $this->viewController[0], 'load_' . $this->viewController[1] );
       if ( is_callable( $load ) ) {
