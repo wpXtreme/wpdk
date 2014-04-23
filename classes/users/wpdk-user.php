@@ -1560,7 +1560,7 @@ SQL;
    */
   public static function usersWithCaps( $find_caps )
   {
-    $users_caps = WPDKCapabilities::getInstance()->usersCapability();
+    $users_caps = WPDKCapabilities::init()->usersCapability();
 
     $users = array();
     foreach ( $users_caps as $user_id => $caps ) {
@@ -2371,11 +2371,26 @@ class WPDKCapabilities {
   /**
    * Return a singleton instance of WPDKCapabilities class
    *
-   * @brief Singleton instance of WPDKCapabilities
+   * @brief      Singleton instance of WPDKCapabilities
+   * @deprecated since 1.5.4 use get_instance() or init() instead
    *
    * @return WPDKCapabilities
    */
   public static function getInstance()
+  {
+    _deprecated_function( __METHOD__, '1.5.4', 'init()' );
+
+    return self::init();
+  }
+
+  /**
+   * Return a singleton instance of WPDKCapabilities class
+   *
+   * @brief Singleton instance of WPDKCapabilities
+   *
+   * @return WPDKCapabilities
+   */
+  public static function init()
   {
     static $instance = null;
     if ( is_null( $instance ) ) {
@@ -2437,10 +2452,6 @@ class WPDKCapabilities {
     }
     return $cap;
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Capabilities list
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return a key value pairs array with unique id key of capability and the description as value.
@@ -2514,7 +2525,10 @@ class WPDKCapabilities {
       'upload_files'           => array( 'upload_files', __( 'Allows access to Administration Panel options: Media, Media > Add New ', WPDK_TEXTDOMAIN ), 'WordPress' ),
     );
 
-    /* Return the array of default capabilities. */
+    // Sorting
+    ksort( $defaults );
+
+    // Return the array of default capabilities
     return apply_filters( 'wpdk_capabilities_defaults', $defaults );
   }
 
@@ -2613,20 +2627,17 @@ class WPDKCapabilities {
 
     //$capabilities = get_transient( '_wpdk_users_caps' );
     $capabilities = ''; // cache off for debug
+
     if ( empty( $capabilities ) ) {
-      $sql    = "SELECT user_id, meta_value FROM `{$wpdb->usermeta}` WHERE meta_key = 'wp_capabilities'";
+      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities'";
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
 
-        // A cap is store with a bolean flah that here is ignored
+        // A cap is store with a bolean flag that here is ignored
         $temp = array_keys( unserialize( $user_cap['meta_value'] ) );
         foreach ( $temp as $key ) {
-          $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array(
-            $key,
-            '',
-            ''
-          );
+          $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array( $key, '', '' );
         }
       }
       //set_transient( '_wpdk_users_caps', $capabilities, 120 );
@@ -2687,11 +2698,14 @@ class WPDKCapabilities {
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
-        $user_caps[$user_cap['user_id']] = get_userdata( $user_cap['user_id'] )->allcaps;
+        $user_caps[ $user_cap['user_id'] ] = get_userdata( $user_cap['user_id'] )->allcaps;
       }
 
       //set_transient( '_wpdk_users_caps', $user_caps, 120 );
     }
+
+    ksort( $user_caps );
+
     return $user_caps;
 
   }
@@ -2773,7 +2787,7 @@ class WPDKCapability {
       );
     }
     else {
-      $extra = WPDKCapabilities::getInstance()->capabilities;
+      $extra = WPDKCapabilities::init()->capabilities;
     }
     return update_option( WPDKCapabilities::OPTION_KEY, $extra );
   }
