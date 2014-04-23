@@ -1952,7 +1952,10 @@ class WPDKRoles extends WP_Roles {
    */
   public static function init()
   {
-    return self::getInstance();
+    if ( is_null( self::$instance ) ) {
+      self::$instance = new self();
+    }
+    return self::$instance;
   }
 
   /**
@@ -1964,10 +1967,19 @@ class WPDKRoles extends WP_Roles {
    */
   public static function getInstance()
   {
-    if ( is_null( self::$instance ) ) {
-      self::$instance = new WPDKRoles();
-    }
-    return self::$instance;
+    return self::init();
+  }
+
+  /**
+   * Create a singleton instance of WPDKRoles class
+   *
+   * @brief Get singleton instance
+   *
+   * @return WPDKRoles
+   */
+  public static function get_instance()
+  {
+    return self::init();
   }
 
   /**
@@ -1980,7 +1992,7 @@ class WPDKRoles extends WP_Roles {
   public static function invalidate()
   {
     self::$instance = null;
-    return self::getInstance();
+    return self::get_instance();
   }
 
 
@@ -2577,7 +2589,6 @@ class WPDKCapabilities {
    */
   public function roleCapabilities()
   {
-
     // Get WPDKRoles
     $wpdk_roles = WPDKRoles::getInstance();
 
@@ -2594,11 +2605,7 @@ class WPDKCapabilities {
         $exclude = self::oldLevels();
         foreach ( $role->capabilities as $cap => $grant ) {
           if ( !isset( $exclude[$cap] ) ) {
-            $capabilities[$cap] = isset( $this->_extendedData[$cap] ) ? $this->_extendedData[$cap] : array(
-              $cap,
-              '',
-              ''
-            );
+            $capabilities[$cap] = isset( $this->_extendedData[$cap] ) ? $this->_extendedData[$cap] : array( $cap, '', '' );
           }
         }
       }
