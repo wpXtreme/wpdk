@@ -64,8 +64,8 @@
 
 .wpdk-header-view h2
 {
-  line-height   : 38px;
-  margin-bottom : 24px;
+  line-height   : 38px !important;
+  margin-bottom : 24px !important;
 }
 
 .wpdk-add-new
