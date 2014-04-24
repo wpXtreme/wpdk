@@ -13,9 +13,9 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  *
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-01
- * @version            1.1.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-04-24
+ * @version            1.2.0
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -125,6 +125,10 @@ class WPDKListTableViewController extends WP_List_Table {
     if ( !did_action( $action ) ) {
       do_action( $action );
     }
+
+    // Enqueue components
+    WPDKUIComponents::init()->enqueue( WPDKUIComponents::LIST_TABLE );
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
