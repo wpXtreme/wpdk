@@ -105,8 +105,12 @@ class WPDKUIComponents {
     foreach ( $components as $handle => $libs ) {
       foreach ( $libs as $extension => $deps ) {
 
+        // Always deps from WPDK
+        $deps[] = 'wpdk';
+
         // Script
         if ( 'has_js' == $extension ) {
+
           $filename = sprintf( '%s%s.js', $url_js, $handle );
           wp_register_script( $handle, $filename, $deps, $version, true );
         }
