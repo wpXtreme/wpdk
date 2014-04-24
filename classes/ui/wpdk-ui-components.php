@@ -29,8 +29,8 @@
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-03
- * @version         1.0.2
+ * @date            2014-04-24
+ * @version         1.0.3
  *
  */
 class WPDKUIComponents {
@@ -50,6 +50,7 @@ class WPDKUIComponents {
   const RIBBONIZE     = 'wpdk-ribbonize';
   const TOOLTIP       = 'wpdk-tooltip';
   const TRANSITION    = 'wpdk-transition';
+  const LIST_TABLE    = 'wpdk-list-table';
 
   /**
    * Return a singleton instance of WPDKUIComponents class
@@ -155,6 +156,9 @@ class WPDKUIComponents {
         self::DYNAMIC_TABLE => array(
           'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
           'has_css' => array( self::CONTROLS, self::TOOLTIP )
+        ),
+        self::LIST_TABLE => array(
+          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
         ),
         self::TOOLTIP       => array(
           'has_js'  => array( self::TRANSITION ),
