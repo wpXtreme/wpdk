@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.4
 ### 2014-04-??
 
+#### Enhancements
+
+* Added Component Javascript for `WPDKListTableViewController`
+
 #### Improvements
 
 * Improved `WPDKMenu`
