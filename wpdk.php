@@ -557,7 +557,7 @@ if ( !class_exists( 'WPDK' ) ) {
       $deps = array( 'thickbox' );
 
       wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
-      wp_enqueue_style( 'wpdk-style', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
+      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
     }
 
     /**
@@ -588,11 +588,11 @@ if ( !class_exists( 'WPDK' ) ) {
       wp_enqueue_script( 'wpdk-jquery-validation', WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
       wp_enqueue_script( 'wpdk-jquery-validation-additional-method', WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
 
-      /* Main wpdk. */
-      wp_enqueue_script( 'wpdk-script', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
+      // Main wpdk
+      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
 
-      /* Localize wpdk_i18n*/
-      wp_localize_script( 'wpdk-script', 'wpdk_i18n', $this->scriptLocalization() );
+      // Localize wpdk_i18n
+      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
     }
 
     /**
