@@ -1930,9 +1930,9 @@ class WPDKRoles extends WP_Roles {
    *
    * @brief Extended data for role
    *
-   * @var array $_extendedData
+   * @var array $extend_data
    */
-  private $_extendedData;
+  private $extend_data;
 
   /**
    * Singleton instance
@@ -2012,7 +2012,7 @@ class WPDKRoles extends WP_Roles {
     parent::__construct();
 
     // Get the extended data
-    $this->_extendedData = get_option( self::OPTION_KEY );
+    $this->extend_data = get_option( self::OPTION_KEY );
 
     if ( !empty( $this->role_names ) ) {
       $this->count = count( $this->role_names );
@@ -2027,9 +2027,9 @@ class WPDKRoles extends WP_Roles {
     // Create An key value pairs array with key = role and value = list of capabilities
     $this->arrayCapabilitiesByRole();
 
-    if ( empty( $this->_extendedData ) ) {
-      $this->_extendedData = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
-      update_option( self::OPTION_KEY, $this->_extendedData );
+    if ( empty( $this->extend_data ) ) {
+      $this->extend_data = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
+      update_option( self::OPTION_KEY, $this->extend_data );
     }
 
   }
@@ -2055,7 +2055,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( !empty( $count ) ) {
-          $this->activeRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
+          $this->activeRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
         }
       }
     }
@@ -2080,7 +2080,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( empty( $count ) ) {
-          $this->inactiveRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
+          $this->inactiveRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
         }
       }
     }
@@ -2275,14 +2275,14 @@ class WPDKRoles extends WP_Roles {
 
     $role_object = parent::add_role( $role, $display_name, $caps );
     if ( !is_null( $role_object ) ) {
-      if ( !isset( $this->_extendedData[$role] ) ) {
-        $this->_extendedData[$role] = array(
+      if ( !isset( $this->extend_data[$role] ) ) {
+        $this->extend_data[$role] = array(
           $display_name,
           $description,
           $owner
         );
       }
-      update_option( self::OPTION_KEY, $this->_extendedData );
+      update_option( self::OPTION_KEY, $this->extend_data );
     }
     return $role_object;
   }
@@ -2297,8 +2297,8 @@ class WPDKRoles extends WP_Roles {
   public function remove_role( $role )
   {
     parent::remove_role( $role );
-    unset( $this->_extendedData[$role] );
-    update_option( self::OPTION_KEY, $this->_extendedData );
+    unset( $this->extend_data[$role] );
+    update_option( self::OPTION_KEY, $this->extend_data );
   }
 
 
