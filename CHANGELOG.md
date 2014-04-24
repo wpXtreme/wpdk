@@ -32,6 +32,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Fixed potential missing dependence from WPDK (js and css)
 * Fixed potential wrong URL on Ajax request in `WPDKListTableViewController`
 * Fixed `WPDKRoles`
 * Fixed potential bugs on filter `post_updated_messages` (for missing params) in Custom Post Type
