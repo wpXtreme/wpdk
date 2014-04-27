@@ -23,6 +23,22 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.4
 ### 2014-04-??
 
+#### Enhancements
+
+* Added Component Javascript for `WPDKListTableViewController`
+
+#### Improvements
+
+* Improved `WPDKMenu`
+* Improved `WPDKUser`
+* Improved `WPDKRoles`
+* Improved `WPDKCapabilities`
+
+#### Bugs
+
+* Fixed potential missing dependence from WPDK (js and css)
+* Fixed potential wrong URL on Ajax request in `WPDKListTableViewController`
+* Fixed `WPDKRoles`
 * Fixed potential bugs on filter `post_updated_messages` (for missing params) in Custom Post Type
 
 ## Version 1.5.3

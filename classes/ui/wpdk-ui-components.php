@@ -29,8 +29,8 @@
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-03
- * @version         1.0.2
+ * @date            2014-04-24
+ * @version         1.0.3
  *
  */
 class WPDKUIComponents {
@@ -50,6 +50,7 @@ class WPDKUIComponents {
   const RIBBONIZE     = 'wpdk-ribbonize';
   const TOOLTIP       = 'wpdk-tooltip';
   const TRANSITION    = 'wpdk-transition';
+  const LIST_TABLE    = 'wpdk-list-table';
 
   /**
    * Return a singleton instance of WPDKUIComponents class
@@ -105,8 +106,12 @@ class WPDKUIComponents {
     foreach ( $components as $handle => $libs ) {
       foreach ( $libs as $extension => $deps ) {
 
+        // Always deps from WPDK
+        $deps[] = 'wpdk';
+
         // Script
         if ( 'has_js' == $extension ) {
+
           $filename = sprintf( '%s%s.js', $url_js, $handle );
           wp_register_script( $handle, $filename, $deps, $version, true );
         }
@@ -151,6 +156,9 @@ class WPDKUIComponents {
         self::DYNAMIC_TABLE => array(
           'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
           'has_css' => array( self::CONTROLS, self::TOOLTIP )
+        ),
+        self::LIST_TABLE => array(
+          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
         ),
         self::TOOLTIP       => array(
           'has_js'  => array( self::TRANSITION ),
@@ -235,10 +243,26 @@ class WPDKUIComponents {
         if ( isset( $component['has_js'] ) ) {
           wp_enqueue_script( $handle );
         }
+        // Check if other deps components have css
+        else {
+          foreach ( $component['has_css'] as $dep ) {
+            if ( isset( $components[ $dep ]['has_js'] ) ) {
+              wp_enqueue_script( $dep );
+            }
+          }
+        }
 
         // Load styles?
         if ( isset( $component['has_css'] ) ) {
           wp_enqueue_style( $handle );
+        }
+        // Check if other deps components have css
+        else {
+          foreach ( $component['has_js'] as $dep ) {
+            if ( isset( $components[ $dep ]['has_css'] ) ) {
+              wp_enqueue_style( $dep );
+            }
+          }
         }
       }
     }

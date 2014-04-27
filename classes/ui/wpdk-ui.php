@@ -103,32 +103,11 @@ final class WPDKUI {
       $name = sprintf( 'name="%s"', $args['name'] );
     }
 
-    // Create data attributes
-    $data = '';
-    if ( !empty( $args['data'] ) ) {
-      $stack = array();
-      foreach ( $args['data'] as $key => $value ) {
-        $stack[] = sprintf( 'data-%s="%s"', $key, htmlspecialchars( stripslashes( $value ) ) );
-      }
-      $data = implode( ',', $stack );
-    }
+    // Build data
+    $data = WPDKHTMLTag::dataInline(  $args['data'] );
 
-    // Additional classes
-    $classes = '';
-    if ( !empty( $args['additional_classes'] ) ) {
-      if ( !is_array( $args['additional_classes'] ) ) {
-        $new = explode( ' ', $args['additional_classes'] );
-        if ( empty( $new ) ) {
-          $new = array( $args['additional_classes'] );
-        }
-      }
-
-      // Split default class to remove duplicate
-      $default = explode( ' ', $args['classes'] );
-      $classes = implode( ' ', array_merge( $default, $new ) );
-    }
-
-    $classes .= $args['classes'];
+    // Build classes
+    $classes = WPDKHTMLTag::classInline( $args['classes'], $args['additional_classes'] );
 
     WPDKHTML::startCompress() ?>
 

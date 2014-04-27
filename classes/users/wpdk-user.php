@@ -805,6 +805,7 @@ class WPDKUser extends WP_User {
     $result = array_keys( $merge );
     sort( $result );
     $result = array_combine( $result, $result );
+
     return $result;
   }
 
@@ -1560,7 +1561,7 @@ SQL;
    */
   public static function usersWithCaps( $find_caps )
   {
-    $users_caps = WPDKCapabilities::getInstance()->usersCapability();
+    $users_caps = WPDKCapabilities::init()->usersCapability();
 
     $users = array();
     foreach ( $users_caps as $user_id => $caps ) {
@@ -1781,17 +1782,18 @@ class WPDKRole extends WP_Role {
       $this->description = $description;
       $this->owner       = $owner;
     }
+    // Get the object (for return or update)
     else {
-      $this->name         = $role;
-      $this->displayName  = $wpdk_roles->role_names[$role_id];
+      $this->name         = $role_id;
+      $this->displayName  = $wpdk_roles->role_names[ $role_id ];
       $this->capabilities = $role_object->capabilities;
 
       // Extends
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
-      if ( !empty( $extra ) && isset( $extra[$role_id] ) ) {
-        $this->description = $extra[$role][1];
-        $this->owner       = $extra[$role][2];
+      if ( !empty( $extra ) && isset( $extra[ $role_id ] ) ) {
+        $this->description = $extra[ $role ][1];
+        $this->owner       = $extra[ $role ][2];
       }
     }
   }
@@ -1805,6 +1807,25 @@ class WPDKRole extends WP_Role {
    */
   public function update()
   {
+    // Roles
+    if ( isset( WPDKRoles::getInstance()->roles[ $this->name ] ) ) {
+
+      // Reset all capabilities
+      WPDKRoles::getInstance()->roles[ $this->name ]['capabilities'] = array();
+
+      // Set new capabilities
+      foreach ( $this->capabilities as $cap ) {
+        WPDKRoles::getInstance()->roles[ $this->name ]['capabilities'][ $cap ] = true;
+      }
+
+      // Updated
+      if( WPDKRoles::getInstance()->use_db ) {
+        update_option(  WPDKRoles::getInstance()->role_key, WPDKRoles::getInstance()->roles );
+        WPDKRoles::invalidate();
+      }
+
+    }
+
     $extra = get_option( WPDKRoles::OPTION_KEY );
     if ( !empty( $extra ) ) {
       $extra[$this->name] = array(
@@ -1909,9 +1930,9 @@ class WPDKRoles extends WP_Roles {
    *
    * @brief Extended data for role
    *
-   * @var array $_extendedData
+   * @var array $extend_data
    */
-  private $_extendedData;
+  private $extend_data;
 
   /**
    * Singleton instance
@@ -1932,7 +1953,10 @@ class WPDKRoles extends WP_Roles {
    */
   public static function init()
   {
-    return self::getInstance();
+    if ( is_null( self::$instance ) ) {
+      self::$instance = new self();
+    }
+    return self::$instance;
   }
 
   /**
@@ -1944,10 +1968,19 @@ class WPDKRoles extends WP_Roles {
    */
   public static function getInstance()
   {
-    if ( is_null( self::$instance ) ) {
-      self::$instance = new WPDKRoles();
-    }
-    return self::$instance;
+    return self::init();
+  }
+
+  /**
+   * Create a singleton instance of WPDKRoles class
+   *
+   * @brief Get singleton instance
+   *
+   * @return WPDKRoles
+   */
+  public static function get_instance()
+  {
+    return self::init();
   }
 
   /**
@@ -1960,7 +1993,7 @@ class WPDKRoles extends WP_Roles {
   public static function invalidate()
   {
     self::$instance = null;
-    return self::getInstance();
+    return self::get_instance();
   }
 
 
@@ -1979,7 +2012,7 @@ class WPDKRoles extends WP_Roles {
     parent::__construct();
 
     // Get the extended data
-    $this->_extendedData = get_option( self::OPTION_KEY );
+    $this->extend_data = get_option( self::OPTION_KEY );
 
     if ( !empty( $this->role_names ) ) {
       $this->count = count( $this->role_names );
@@ -1994,9 +2027,9 @@ class WPDKRoles extends WP_Roles {
     // Create An key value pairs array with key = role and value = list of capabilities
     $this->arrayCapabilitiesByRole();
 
-    if ( empty( $this->_extendedData ) ) {
-      $this->_extendedData = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
-      update_option( self::OPTION_KEY, $this->_extendedData );
+    if ( empty( $this->extend_data ) ) {
+      $this->extend_data = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
+      update_option( self::OPTION_KEY, $this->extend_data );
     }
 
   }
@@ -2022,7 +2055,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( !empty( $count ) ) {
-          $this->activeRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
+          $this->activeRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
         }
       }
     }
@@ -2047,7 +2080,7 @@ class WPDKRoles extends WP_Roles {
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( empty( $count ) ) {
-          $this->inactiveRoles[$role] = isset( $this->_extendedData[$role] ) ? $this->_extendedData[$role] : array( $name, '', '' );
+          $this->inactiveRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
         }
       }
     }
@@ -2135,6 +2168,44 @@ class WPDKRoles extends WP_Roles {
   }
 
   /**
+   * Return the roles id list with one or more caps
+   *
+   * @brief Roles with cap
+   * @since  1.5.4
+   *
+   * @param WPDKCapability|string|array $caps Any instance of WPDKCapability class, capability name or array of
+   *                                          capability name/instance of WPDKCapability class
+   *
+   * @return array
+   */
+  public function rolesWithCaps( $caps )
+  {
+    // Makes array
+    $caps = (array)$caps;
+
+    // Normalize caps
+    $normalize_caps = array();
+    foreach ( $caps as $cap ) {
+      $normalize_caps[] = is_string( $cap ) ? $cap : $cap->id;
+    }
+
+    // Prepare results
+    $results = array();
+
+    // Roles with capabilities
+    foreach ( $this->arrayCapabilitiesByRole as $role => $capabilities ) {
+      foreach ( $normalize_caps as $normalize_cap ) {
+        if ( in_array( $normalize_cap, $capabilities ) ) {
+          $results[] = $role;
+          break;
+        }
+      }
+    }
+
+    return $results;
+  }
+
+  /**
    * Return TRUE if the role exists
    *
    * @brief Check if a role exists
@@ -2204,14 +2275,14 @@ class WPDKRoles extends WP_Roles {
 
     $role_object = parent::add_role( $role, $display_name, $caps );
     if ( !is_null( $role_object ) ) {
-      if ( !isset( $this->_extendedData[$role] ) ) {
-        $this->_extendedData[$role] = array(
+      if ( !isset( $this->extend_data[$role] ) ) {
+        $this->extend_data[$role] = array(
           $display_name,
           $description,
           $owner
         );
       }
-      update_option( self::OPTION_KEY, $this->_extendedData );
+      update_option( self::OPTION_KEY, $this->extend_data );
     }
     return $role_object;
   }
@@ -2226,8 +2297,8 @@ class WPDKRoles extends WP_Roles {
   public function remove_role( $role )
   {
     parent::remove_role( $role );
-    unset( $this->_extendedData[$role] );
-    update_option( self::OPTION_KEY, $this->_extendedData );
+    unset( $this->extend_data[$role] );
+    update_option( self::OPTION_KEY, $this->extend_data );
   }
 
 
@@ -2338,7 +2409,6 @@ class WPDKCapabilities {
    */
   public $allCapabilities;
 
-
   /**
    * A key value pairs array with capability id for key and a key value pairs array for value.
    *
@@ -2346,7 +2416,79 @@ class WPDKCapabilities {
    *
    * @var array $_extendedData
    */
-  private $_extendedData;
+  private $_extendedData = array();
+
+  /**
+   * Updated the capabilties extended data
+   *
+   * @brief Updated
+   * @since 1.5.4
+   *
+   * @param WPDKCapability $capability An instance of WPDKCapability class
+   */
+  public function update_extended_data( $capability )
+  {
+    $this->_extendedData[ $capability->id ] = array(
+      $capability->id,
+      $capability->description,
+      $capability->owner
+    );
+
+    update_option( WPDKCapabilities::OPTION_KEY, $this->_extendedData );
+  }
+
+  /**
+   * Return the capabilties extended data or FALSE if not found.
+   *
+   * @brief Get
+   * @since 1.5.4
+   *
+   * @param string|WPDKCapability $capability Any cap id or WPDKCapability istance
+   *
+   * @return bool
+   */
+  public function get_extended_data( $capability )
+  {
+    // String or Object ?
+    $id = is_object( $capability ) ? $capability->id : $capability;
+
+    return isset( $this->_extendedData[ $id ] ) ? $this->_extendedData[ $id ] : false;
+  }
+
+  /**
+   * Delete the capabilties extended data
+   *
+   * @brief Get
+   * @since 1.5.4
+   *
+   * @param string|WPDKCapability $capability Any cap id or WPDKCapability istance
+   */
+  public function delete_extended_data( $capability )
+  {
+    // String or Object ?
+    $id = is_object( $capability ) ? $capability->id : $capability;
+
+    // Destroy
+    unset( $this->_extendedData[ $id ] );
+
+    // Update
+    update_option( WPDKCapabilities::OPTION_KEY, $this->_extendedData );
+  }
+
+  /**
+   * Return a singleton instance of WPDKCapabilities class
+   *
+   * @brief      Singleton instance of WPDKCapabilities
+   * @deprecated since 1.5.4 use get_instance() or init() instead
+   *
+   * @return WPDKCapabilities
+   */
+  public static function getInstance()
+  {
+    _deprecated_function( __METHOD__, '1.5.4', 'init()' );
+
+    return self::init();
+  }
 
   /**
    * Return a singleton instance of WPDKCapabilities class
@@ -2355,7 +2497,7 @@ class WPDKCapabilities {
    *
    * @return WPDKCapabilities
    */
-  public static function getInstance()
+  public static function init()
   {
     static $instance = null;
     if ( is_null( $instance ) ) {
@@ -2392,35 +2534,10 @@ class WPDKCapabilities {
 
     // All caps
     $this->allCapabilities = array_unique( array_merge( $this->userCapabilities, $this->roleCapabilities, $this->defaultCapabilities ) );
+
+    // Sort
     sort( $this->allCapabilities );
   }
-
-  /**
-   * Return an instance of WPDKCapability class or false if not exists
-   *
-   * @brief Get a capability
-   *
-   * @param string $cap_id Capability id
-   *
-   * @return WPDKCapability
-   */
-  public function get_cap( $cap_id )
-  {
-    $cap = false;
-    if ( isset( $this->allCapabilities[$cap_id] ) ) {
-      $description = '';
-      $owner       = '';
-      if ( isset( $this->_extendedData[$cap_id] ) ) {
-        list( $cap_id, $description, $owner ) = $this->_extendedData[$cap_id];
-      }
-      $cap = new WPDKCapability( $cap_id, $description, $owner );
-    }
-    return $cap;
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Capabilities list
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Return a key value pairs array with unique id key of capability and the description as value.
@@ -2494,7 +2611,10 @@ class WPDKCapabilities {
       'upload_files'           => array( 'upload_files', __( 'Allows access to Administration Panel options: Media, Media > Add New ', WPDK_TEXTDOMAIN ), 'WordPress' ),
     );
 
-    /* Return the array of default capabilities. */
+    // Sorting
+    ksort( $defaults );
+
+    // Return the array of default capabilities
     return apply_filters( 'wpdk_capabilities_defaults', $defaults );
   }
 
@@ -2543,7 +2663,6 @@ class WPDKCapabilities {
    */
   public function roleCapabilities()
   {
-
     // Get WPDKRoles
     $wpdk_roles = WPDKRoles::getInstance();
 
@@ -2560,11 +2679,7 @@ class WPDKCapabilities {
         $exclude = self::oldLevels();
         foreach ( $role->capabilities as $cap => $grant ) {
           if ( !isset( $exclude[$cap] ) ) {
-            $capabilities[$cap] = isset( $this->_extendedData[$cap] ) ? $this->_extendedData[$cap] : array(
-              $cap,
-              '',
-              ''
-            );
+            $capabilities[$cap] = isset( $this->_extendedData[$cap] ) ? $this->_extendedData[$cap] : array( $cap, '', '' );
           }
         }
       }
@@ -2593,20 +2708,17 @@ class WPDKCapabilities {
 
     //$capabilities = get_transient( '_wpdk_users_caps' );
     $capabilities = ''; // cache off for debug
+
     if ( empty( $capabilities ) ) {
-      $sql    = "SELECT user_id, meta_value FROM `{$wpdb->usermeta}` WHERE meta_key = 'wp_capabilities'";
+      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities'";
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
 
-        // A cap is store with a bolean flah that here is ignored
+        // A cap is store with a bolean flag that here is ignored
         $temp = array_keys( unserialize( $user_cap['meta_value'] ) );
         foreach ( $temp as $key ) {
-          $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array(
-            $key,
-            '',
-            ''
-          );
+          $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array( $key, '', '' );
         }
       }
       //set_transient( '_wpdk_users_caps', $capabilities, 120 );
@@ -2640,10 +2752,56 @@ class WPDKCapabilities {
     return $capabilities;
   }
 
+  /**
+   * Return TRUE if a capability exists
+   *
+   * @brief Capability exists
+   * @since 1.5.4
+   *
+   * @param string $cap Capability ID
+   *
+   * @return bool
+   */
+  public function capabilityExists( $cap )
+  {
+    return in_array( $cap, $this->allCapabilities );
+  }
 
   // -------------------------------------------------------------------------------------------------------------------
   // Extra
   // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Add a capability to roles and/or users
+   *
+   * @brief Add a cap
+   * @since 1.5.4
+   *
+   * @param WPDKCapability $cap   An instance of WPDKCapability class
+   * @param array          $roles Optional. List of roles where add this cap
+   * @param array          $users Optional. List of user id where add this cap
+   */
+  public function add_cap( $cap, $roles = array(), $users = array() )
+  {
+    // Add this cap to roles?
+    if ( !empty( $roles ) ) {
+      foreach ( $roles as $role ) {
+        WPDKRoles::init()->add_cap( $role, $cap->id );
+      }
+    }
+
+    // Add this cap to users?
+    if ( !empty( $users ) ) {
+      foreach ( $users as $user_id ) {
+        $user = new WP_User( $user_id );
+        $user->add_cap( $cap->id );
+      }
+    }
+
+    // Store the extra info
+    $this->update_extended_data( $cap );
+
+  }
 
   /**
    * Return a key value pairs array. For each user the list of its capabilties.
@@ -2667,12 +2825,99 @@ class WPDKCapabilities {
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
-        $user_caps[$user_cap['user_id']] = get_userdata( $user_cap['user_id'] )->allcaps;
+        $user_caps[ $user_cap['user_id'] ] = get_userdata( $user_cap['user_id'] )->allcaps;
       }
 
       //set_transient( '_wpdk_users_caps', $user_caps, 120 );
     }
+
+    ksort( $user_caps );
+
     return $user_caps;
+
+  }
+
+  /**
+   * Delete capabilities
+   *
+   * @brief Delete
+   *
+   * @param string|array $id Any single or array of caps
+   */
+  public function delete( $id )
+  {
+    // Makes array
+    $id = (array)$id;
+
+    // Get extra info
+    $extra = get_option( self::OPTION_KEY );
+
+    // Loop
+    foreach( $id as $cap ) {
+
+      // Destroy extra info
+      unset( $extra[ $cap ] );
+
+      /*
+       * Remove this cap from users
+       */
+
+      // Gets users
+      $users = $this->usersWithCaps( $cap );
+
+      foreach( $users as $user_id ) {
+        $user = new WP_User( $user_id );
+        $user->remove_cap( $cap );
+      }
+
+      /*
+       * Remove cap from roles
+       */
+
+      // Loop in roles
+      foreach( WPDKRoles::init()->arrayCapabilitiesByRole as $role => $caps ) {
+        if( in_array( $cap, array_keys( $caps ) ) ) {
+          WPDKRoles::init()->remove_cap( $role, $cap );
+        }
+      }
+
+    }
+
+    // Update extra info
+    update_option( self::OPTION_KEY, $extra );
+  }
+
+  /**
+   * Return a list of users id with any caps
+   *
+   * @brief Users with caps
+   * @since 1.5.4
+   *
+   * @param string|array $caps Any single or array of caps
+   */
+  public function usersWithCaps( $caps )
+  {
+    global $wpdb;
+
+    // Makes array
+    $caps = (array)$caps;
+
+    // Likes
+    $likes = array();
+
+    // Loop
+    foreach( $caps as $cap ) {
+      $likes[] = "meta_value LIKE '%\"$cap\"%'";
+    }
+
+    // Build `meta_value LIKE "" OR meta_value LIKE "" OR ...`
+    $likes_str = implode( ' OR ', $likes );
+
+    // Prepare select
+    $sql = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities' AND ( $likes_str )";
+
+    // Gets users
+    return array_keys( $wpdb->get_results( $sql, OBJECT_K ) );
 
   }
 
@@ -2719,6 +2964,24 @@ class WPDKCapability {
   public $owner;
 
   /**
+   * List of users id with this cap
+   *
+   * @brief Users
+   *
+   * @var array $users
+   */
+  public $users = array();
+
+  /**
+   * List of role id with this cap
+   *
+   * @brief Roles
+   *
+   * @var array $roles
+   */
+  public $roles = array();
+
+  /**
    * Create an instance of WPDKCapability class
    *
    * @brief Construct
@@ -2735,6 +2998,28 @@ class WPDKCapability {
     $this->description = $description;
     $this->owner       = $owner;
 
+    // Cap already exists ? Then get the data
+    if ( WPDKCapabilities::init()->capabilityExists( $id ) ) {
+
+      // Get extends data
+      $extend_data = WPDKCapabilities::init()->get_extended_data( $id );
+
+      if ( !empty( $extend_data ) ) {
+
+        list( $id, $description, $owner ) = $extend_data;
+
+        // Population
+        $this->description = $description;
+        $this->owner       = $owner;
+      }
+
+      // Get the users id list with this cap
+      $this->users = WPDKCapabilities::init()->usersWithCaps( $id );
+
+      // Get the roles id list with this cap
+      $this->roles = WPDKRoles::init()->rolesWithCaps( $id );
+    }
+
   }
 
   /**
@@ -2744,18 +3029,8 @@ class WPDKCapability {
    */
   public function update()
   {
-    $extra = get_option( WPDKCapabilities::OPTION_KEY );
-    if ( !empty( $extra ) ) {
-      $extra[$this->id] = array(
-        $this->id,
-        $this->description,
-        $this->owner
-      );
-    }
-    else {
-      $extra = WPDKCapabilities::getInstance()->capabilities;
-    }
-    return update_option( WPDKCapabilities::OPTION_KEY, $extra );
+    // Update extra data
+    WPDKCapabilities::init()->update_extended_data( $this );
   }
 
 }
