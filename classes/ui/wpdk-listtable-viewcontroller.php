@@ -873,19 +873,38 @@ class WPDKListTableViewController extends WP_List_Table {
    * Return the HTML markup for the checkbox element used for multiple selections.
    *
    * @brief Standard checkbox for group actions
+   * @note  Please, do not override this method directly, but use `column_checbox` instead
    *
-   * @note  You can override this method for your custom view. This method is called only there is a column named "cb"
-   *
-   * @param $item
+   * @param array $item The single item from items
    *
    * @return string
    */
   public function column_cb( $item )
   {
+    if( ! $this->column_checkbox( $item ) ) {
+      return;
+    }
+
     $name  = $this->args['singular'];
     $value = $item[ $name ];
 
     return sprintf( '<input type="checkbox" name="%s[]" value="%s" />', $name, $value );
+  }
+
+  /**
+   * Return TRUE to display the checkbox, FALSE otherwise
+   *
+   * @brief Standard checkbox for group actions
+   * @since 1.5.5
+   * @note  You can override this method for your custom view. This method is called only there is a column named "cb"
+   *
+   * @param array $item The single item from items
+   *
+   * @return bool
+   */
+  public function column_checkbox( $item )
+  {
+    return true;
   }
 
   /**
