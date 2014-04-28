@@ -13,9 +13,9 @@ if ( !class_exists( 'WP_List_Table' ) ) {
  *
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-01
- * @version            1.1.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-04-24
+ * @version            1.2.0
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -125,6 +125,10 @@ class WPDKListTableViewController extends WP_List_Table {
     if ( !did_action( $action ) ) {
       do_action( $action );
     }
+
+    // Enqueue components
+    WPDKUIComponents::init()->enqueue( WPDKUIComponents::LIST_TABLE );
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -841,7 +845,7 @@ class WPDKListTableViewController extends WP_List_Table {
         $_SERVER['REQUEST_URI'] = remove_query_arg( array(
           '_action',
           '_action_result'
-        ), $_SERVER['REQUEST_URI'] );
+        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
 
         $args = array(
           'action'                => $action,
@@ -1339,7 +1343,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
     }
 
     // Nonce
-    if ( !empty( $nonce ) && !empty( $action ) ) {
+    if ( !empty( $nonce ) && !empty( $action ) && isset( $_REQUEST['_wpnonce'] ) ) {
       if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
         return $action;
       }
@@ -1384,7 +1388,9 @@ class WPDKListTableModel implements IWPDKListTableModel {
         $args = array_merge( $args, $filter_args );
 
         // New referrer
-        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+
+        WPXtreme::log( $uri, "redirect" );
 
         wp_safe_redirect( $uri );
       }

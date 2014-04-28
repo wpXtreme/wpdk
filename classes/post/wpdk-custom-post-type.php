@@ -259,9 +259,10 @@ class WPDKCustomPostType extends WPDKObject {
    *
    * @return array
    */
-  public function post_updated_messages()
+  public function post_updated_messages( $messages )
   {
     // You can override this hook method
+    return $messages;
   }
 
   /**

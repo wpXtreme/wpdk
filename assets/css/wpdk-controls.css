@@ -64,8 +64,8 @@
 
 .wpdk-header-view h2
 {
-  line-height   : 38px;
-  margin-bottom : 24px;
+  line-height   : 38px !important;
+  margin-bottom : 24px !important;
 }
 
 .wpdk-add-new
@@ -316,7 +316,7 @@ option.wpdk-form-option[selected]
   color     : #ff664b;
   font-size : 16px;
   position  : absolute;
-  right     : 5px;
+  right     : 8px;
   top       : 3px;
 }
 

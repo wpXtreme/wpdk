@@ -285,7 +285,8 @@ class WPDKMenu {
             }
             else {
               $sub_menu = $menu->addSubMenu( $svalue['menuTitle'], $svalue['viewController'] );
-              /* Extra properties for sub menu */
+
+              // Extra properties for sub menu
               foreach ( $svalue as $property => $pvalue ) {
                 $sub_menu->$property = $pvalue;
               }
@@ -293,14 +294,14 @@ class WPDKMenu {
           }
         }
 
-        /* Extra properties for menu */
+        // Extra properties for menu
         foreach( $value as $property => $pvalue ) {
           if ( !in_array( $property, array( 'subMenus' ) ) ) {
             $menu->$property = $pvalue;
           }
         }
 
-        /* Over */
+        // Over
         $menu->render();
         $result[$key] = $menu;
       }
@@ -628,7 +629,8 @@ class WPDKSubMenu {
               $id = sprintf( '%s-submenu-%s', sanitize_title( $sub_item['viewController'] ), $index++ );
             }
             $item = new WPDKSubMenu( $parent, $id, $sub_item['menuTitle'], $sub_item['viewController'] );
-            /* Extra properties */
+
+            // Extra properties
             foreach ( $sub_item as $property => $svalue ) {
               $item->$property = $svalue;
             }
@@ -674,10 +676,10 @@ class WPDKSubMenu {
       $hook = $this->viewController;
     }
 
-    if( !empty( $global_key ) ) {
+    if ( !empty( $global_key ) ) {
 
-      //  Create a global list of my own menu.
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key ] = array(
+      // Create a global list of my own menu.
+      $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ] = array(
         'parent'     => $this->parent,
         'page'       => $this->id,
         'hook'       => '',
@@ -685,13 +687,13 @@ class WPDKSubMenu {
       );
     }
 
-    /* Apply filter for change the title. */
+    // Apply filter for change the title
     $menu_title = apply_filters( 'wpdk_submenu_title', $this->menuTitle, $this->id, $this->parent );
 
-    /* Create the menu item. */
+    // Create the menu item
     $this->hookName = add_submenu_page( $this->parent, $this->pageTitle, $menu_title, $this->capability, $this->id, $hook );
 
-    /* Check for query args. */
+    // Check for query args
     if ( isset( $this->query_args ) && !empty( $this->query_args ) ) {
       $stack = array();
       foreach ( $this->query_args as $var => $value ) {
@@ -701,7 +703,7 @@ class WPDKSubMenu {
       add_action( 'load-' . $this->hookName, $func );
     }
 
-    /* Execute this action when the page displayed ids for this submenu view. */
+    // Execute this action when the page displayed ids for this submenu view
     if( !empty( $plugin_page ) ) {
       if( $this->id === $plugin_page ) {
         do_action( 'wpdk_submenu_page', $this, $plugin_page );
@@ -718,12 +720,30 @@ class WPDKSubMenu {
         $admin_head = create_function( '', sprintf( '$v=%s::init();$v->admin_head();$v->_admin_head();', $this->viewController ) );
         add_action( 'admin_head-' . $this->hookName, $admin_head );
       }
-      //
+
+      // Single view controller
       elseif ( !is_callable( $this->viewController ) && class_exists( $this->viewController ) ) {
+
         $load = create_function( '', sprintf( '%s::willLoad();', $this->viewController ) );
         add_action( 'load-' . $this->hookName, $load );
 
         $admin_head = create_function( '', sprintf( '%s::didHeadLoad();', $this->viewController ) );
+        add_action( 'admin_head-' . $this->hookName, $admin_head );
+      }
+    }
+
+    // since 1.5.4 - create and check load and admin head for callable custom function
+    elseif ( is_callable( $this->viewController ) && is_array( $this->viewController ) ) {
+
+      // Load
+      $load = array( $this->viewController[0], 'load_' . $this->viewController[1] );
+      if ( is_callable( $load ) ) {
+        add_action( 'load-' . $this->hookName, $load );
+      }
+
+      // Head
+      $admin_head = array( $this->viewController[0], 'admin_head_' . $this->viewController[1] );
+      if ( is_callable( $admin_head ) ) {
         add_action( 'admin_head-' . $this->hookName, $admin_head );
       }
     }
