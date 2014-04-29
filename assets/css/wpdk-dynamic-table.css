@@ -16,7 +16,7 @@
   margin                : 0 auto;
   background-color      : transparent;
   font-size             : 15px;
-  color                 : #e43502;
+  color                 : #ed5a61;
   border                : none !important;
   -moz-border-radius    : 0;
   -webkit-border-radius : 0;
@@ -28,7 +28,7 @@
 
 .wpdk-dt-add-row
 {
-  color : #54a75f;
+  color : #8ab485;
 }
 
 table.wpdk-dynamic-table

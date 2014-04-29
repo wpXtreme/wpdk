@@ -612,27 +612,12 @@ class WPDKDynamicTableView extends WPDKView {
   private function buttonAdd()
   {
     WPDKHTML::startCompress(); ?>
-      <button
-             class="wpdk-has-tooltip wpdk-dt-add-row"
-             title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
-             title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
-             data-placement="left"
-        >
+    <button class="wpdk-dt-add-row">
         <?php WPDKGlyphIcons::display( WPDKGlyphIcons::PLUS_SQUARED ) ?>
         </button>
-      <?php
-      return WPDKHTML::endHTMLCompress();
-
-    WPDKHTML::startCompress(); ?>
-    <input type="button"
-           class="wpdk-has-tooltip wpdk-dt-add-row"
-           title="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
-           title-backup="<?php _e( 'Add a new empty row', WPDK_TEXTDOMAIN ) ?>"
-           data-placement="left"
-           value="<?php _e( 'Add', WPDK_TEXTDOMAIN ) ?>"
-      />
     <?php
     return WPDKHTML::endHTMLCompress();
+
   }
 
   /**
@@ -645,25 +630,9 @@ class WPDKDynamicTableView extends WPDKView {
   private function buttonDelete()
   {
     WPDKHTML::startCompress(); ?>
-      <button
-             class="wpdk-has-tooltip wpdk-dt-delete-row"
-             title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
-             title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
-             data-placement="left"
-        >
+    <button class="wpdk-dt-delete-row">
         <?php WPDKGlyphIcons::display( WPDKGlyphIcons::MINUS_SQUARED ) ?>
         </button>
-      <?php
-      return WPDKHTML::endHTMLCompress();
-
-    WPDKHTML::startCompress(); ?>
-    <input type="button"
-           class="wpdk-has-tooltip wpdk-dt-delete-row"
-           title="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
-           title-backup="<?php _e( 'Delete entire row', WPDK_TEXTDOMAIN ) ?>"
-           data-placement="left"
-           value="<?php _e( 'Delete', WPDK_TEXTDOMAIN ) ?>"
-      />
     <?php
     return WPDKHTML::endHTMLCompress();
   }
