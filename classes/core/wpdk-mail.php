@@ -118,7 +118,7 @@ class WPDKMail extends WPDKPost {
     try {
       $result = wp_mail( $to, $subject, $body, $this->headers() );
     }
-    catch (phpmailerException $e) {
+    catch ( phpmailerException $e ) {
       return new WPDKError( 'wpxmm-send', $e->getMessage(), $e );
     }
 
