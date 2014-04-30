@@ -337,17 +337,16 @@ class WPDKUIControl {
 
         case WPDKUIControl::APPEND_SELECT_LIST_REMOVE:
           $label                = empty( $destination_select ) ? __( 'Remove', WPDK_TEXTDOMAIN ) : $destination_select;
-          $this->item['append'] = '<input data-remove_from="' . $this->item['id'] .
-            '" class="wpdk-form-button wpdk-form-button-remove button-secondary" style="vertical-align:top" type="button" value="' .
-            $label . '" />';
+          $this->item['append'] = '<button data-remove_from="' . $this->item['id'] .
+            '" class="wpdk-form-button wpdk-form-button-remove button-secondary" style="vertical-align:top" type="button">' .
+            $label . '</button>';
           break;
 
         case WPDKUIControl::APPEND_SELECT_LIST_ADD:
           if ( !empty( $destination_select ) ) {
             $label                = empty( $label ) ? __( 'Add', WPDK_TEXTDOMAIN ) : $label;
-            $this->item['append'] =
-              '<input type="button" data-copy="' . $this->item['name'] . '" data-paste="' . $destination_select .
-              '" class="wpdk-form-button wpdk-form-button-copy-paste button-secondary" value="' . $label . '" />';
+            $this->item['append'] = '<button type="button" data-options="clear_after_copy" data-copy="' . $this->item['name'] . '" data-paste="' . $destination_select .
+              '" class="wpdk-form-button wpdk-form-button-copy-paste button-secondary">' . $label . '</button>';
           }
           break;
       }
