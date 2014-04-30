@@ -135,9 +135,9 @@ class WPDKUserMeta {
  *
  * @class           WPDKUserMeta
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-26
- * @version         1.0.0
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-04-29
+ * @version         1.1.0
  *
  */
 class WPDKUserStatus {
@@ -150,6 +150,14 @@ class WPDKUserStatus {
   const DISABLED = 'disabled';
 
   /**
+   * The user is cancelled
+   *
+   * @brief Cancelled
+   * @since 1.5.5
+   */
+  const CANCELED = 'canceled';
+
+  /**
    * Return the list of supported user statuses
    *
    * @brief User statuses
@@ -160,8 +168,10 @@ class WPDKUserStatus {
   {
     $statuses = array(
       ''             => __( 'Not set' ),
-      self::DISABLED => __( 'Disabled' ),
+      self::DISABLED => __( 'Disabled', WPDK_TEXTDOMAIN ),
+      self::CANCELED => __( 'Canceled', WPDK_TEXTDOMAIN ),
     );
+
     return apply_filters( 'wpdk_user_status_statuses', $statuses );
   }
 }
@@ -939,7 +949,7 @@ class WPDKUsers {
       $logout  = false;
 
       // Logout for disabled User
-      if ( !empty( $status ) && WPDKUserStatus::DISABLED == $status ) {
+      if ( !empty( $status ) && in_array( $status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
         $logout = true;
       }
 
@@ -978,7 +988,7 @@ class WPDKUsers {
     // Get the user status
     $status = $user->get( WPDKUserMeta::STATUS );
 
-    if ( WPDKUserStatus::DISABLED == $status ) {
+    if ( in_array( $status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
 
       // Ask for continue
       $continue = apply_filters( 'wpdk_users_should_denied_signin', true, $user->ID, $status );
@@ -986,10 +996,7 @@ class WPDKUsers {
       if ( $continue ) {
         $message = $user->get( WPDKUserMeta::STATUS_DESCRIPTION );
         $message = apply_filters( 'wpdk_users_access_denied_status_description', $message, $user->ID, $status );
-        return new WP_Error( 'wpdk_users_access_denied', $message, array(
-          $user,
-          $status
-        ) );
+        return new WP_Error( 'wpdk_users_access_denied', $message, array( $user, $status ) );
       }
     }
 
@@ -1109,7 +1116,7 @@ class WPDKUsers {
 
     if ( false !== $user_id ) {
       $user = new WPDKUser( $user_id );
-      if ( $user->exists() && WPDKUserStatus::DISABLED !== $user->status ) {
+      if ( $user->exists() && !in_array( $user->status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
 
         $result = wp_authenticate( $user->user_login, $password );
 

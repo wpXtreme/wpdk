@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Added `canceled` status in user
 * Added `column_checkbox` method to display/hide the checkbox in list table view controller
 
 ## Version 1.5.4
