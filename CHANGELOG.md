@@ -20,6 +20,17 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.6
+### 2014-05-??
+
+#### Improvements
+
+* Added `href` ( TAG A instead BUTTON ) in `WPDKUIModalDialog` buttons
+
+#### Bugs
+
+* Fixed potential overwrite sidebar in `WPDKScreenHelp`
+
 ## Version 1.5.5
 ### 2014-04-30
 
