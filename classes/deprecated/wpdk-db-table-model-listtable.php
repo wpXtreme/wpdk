@@ -263,13 +263,22 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     list( $prefix, $values ) = $args;
     $format = isset( $args[2] ) ? $args[2] : array();
 
-    // Filtrable
+    /**
+     * Filter the values array for insert.
+     *
+     * @param array $values Array values for insert.
+     */
     $values = apply_filters( $prefix . '_insert_values', $values );
 
     // Insert
     $result = $wpdb->insert( $this->table_name, $values, $format );
 
-    // Action hook
+    /**
+     * Fires when a record is inserted
+     *
+     * @param bool  $result Result of insert
+     * @param array $values Array with values of insert
+     */
     do_action( $prefix . '_inserted', $result, $values );
 
     if ( false == $result ) {
@@ -320,13 +329,23 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     list( $prefix, $values, $where ) = $args;
     $format = isset( $args[3] ) ? $args[3] : array();
 
-    // Filtrable
+    /**
+     * Filter the values array for update
+     *
+     * @param array $values Array values for update.
+     */
     $values = apply_filters( $prefix . '_update_values', $values );
 
     // Update
     $result = $wpdb->update( $this->table_name, $values, $where, $format );
 
-    // Action hook
+    /**
+     * Fires when a record is updated
+     *
+     * @param bool|int $result Returns the number of rows updated, or false if there is an error.
+     * @param array    $values Array with values of update.
+     * @param array    $where  Array with values of where condiction.
+     */
     do_action( $prefix . '_updated', $result, $values, $where );
 
     if ( false == $result ) {
