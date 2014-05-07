@@ -204,9 +204,10 @@ class WPDKCustomPostType extends WPDKObject {
   }
 
   /**
-   * Description
+   * Fires in <head> for all admin pages.
+   * Used to prepend the right css style for icon rendering.
    *
-   * @brief Brief
+   * @brief Head
    */
   public function admin_head()
   {
@@ -230,6 +231,11 @@ class WPDKCustomPostType extends WPDKObject {
     </style>
     <?php
     echo WPDKHTML::endCSSCompress();
+
+    /**
+     * Fires when head for this custom post type is load
+     */
+    do_action( 'admin_head-' . $this->id );
   }
 
   /**
@@ -407,7 +413,7 @@ class WPDKCustomPostType extends WPDKObject {
    */
   public function manage_edit_sortable_columns( $columns )
   {
-    /* You can override this hook method */
+    // You can override this hook method
     return $columns;
   }
 
@@ -422,9 +428,22 @@ class WPDKCustomPostType extends WPDKObject {
 
     if ( $post_type == $this->id ) {
       $this->willLoadAdminPost();
+
       if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
+
+        /**
+         * Fires when this custom post type is edit
+         */
+        do_action( 'admin_head_post_edit-' . $this->id );
+
         $this->willLoadEditPost();
       } else {
+
+        /**
+         * Fires when this custom post type is listed
+         */
+        do_action( 'admin_head_post_list-' . $this->id );
+
         $this->willLoadListPost();
       }
     }
@@ -433,7 +452,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * This hook is called when your CPT edit view is loaded
    *
-   * @brief Edit
+   * @brief      Edit
+   * @deprecated since 1.5.6 Use admin_head_post_edit-{custom_post_type_id} instead
    */
   public function willLoadEditPost()
   {
@@ -443,7 +463,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * This hook is called when your CPT list view is loaded
    *
-   * @brief List
+   * @brief      List
+   * @deprecated since 1.5.6 Use admin_head_post_list-{custom_post_type_id} instead
    */
   public function willLoadListPost()
   {
@@ -460,6 +481,12 @@ class WPDKCustomPostType extends WPDKObject {
     global $post_type;
 
     if ( $this->id == $post_type ) {
+
+      /**
+       * Fires when this custom post type is new
+       */
+      do_action( 'admin_head_post_new-' . $this->id );
+
       $this->willLoadAdminPost();
       $this->willLoadPostNew();
     }
@@ -468,7 +495,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * This hook is called when your CPT new view is loaded
    *
-   * @brief New
+   * @brief      New
+   * @deprecated since 1.5.6 Use admin_head_post_new-{custom_post_type_id} instead
    */
   public function willLoadPostNew()
   {
