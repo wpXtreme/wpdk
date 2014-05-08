@@ -833,7 +833,7 @@ class WPDKPosts {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
- * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metabox.php (WPXSmartShopProductMetaBox)
+ * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metaboxes.php (WPXSmartShopProductMetaBox)
  *
  */
 class WPDKPostMeta {

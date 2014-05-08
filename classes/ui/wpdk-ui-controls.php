@@ -773,7 +773,8 @@ class WPDKUIControlCheckbox extends WPDKUIControl {
    *
    * @return WPDKUIControlCheckbox
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::CHECKBOX;
     parent::__construct( $item );
   }
@@ -786,7 +787,7 @@ class WPDKUIControlCheckbox extends WPDKUIControl {
   public function draw() {
     echo $this->contentWithKey( 'prepend' );
 
-    /* Create the label. */
+    // Create the label
     $label = $this->label();
 
     $input          = new WPDKHTMLTagInput( '', $this->name, $this->id );
@@ -807,7 +808,7 @@ class WPDKUIControlCheckbox extends WPDKUIControl {
 
     $input->display();
 
-    /* Display right label. */
+    // Display right label
     echo is_null( $label ) ? '' : $label->html();
 
     echo $this->contentWithKey( 'append' );
