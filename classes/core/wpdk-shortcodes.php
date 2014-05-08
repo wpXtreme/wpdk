@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @class      WPDKShortcode
+ * @deprecated since 1.5.6 Use WPDKShortcodes instead
+ */
+class WPDKShortcode extends WPDKShortcodes {}
+
 /**
  * Shortcode class for extends a shortcode parent class.
  * You will use this class to extends a your own shortcode class.
@@ -16,7 +23,7 @@
  *
  */
 
-class WPDKShortcode {
+class WPDKShortcodes {
 
   /**
    * Create an instance of WPDKShortcode class
@@ -50,11 +57,11 @@ class WPDKShortcode {
    *
    * @brief List of allowed shorcode
    *
-   * @return array Shortcode array
+   * @return array Shortcodes array.
    */
   protected function shortcodes()
   {
-    /* To override. */
+    // To override
     return array();
   }
 
