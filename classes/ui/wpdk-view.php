@@ -230,7 +230,7 @@ class WPDKView extends WPDKObject {
      *
      * @param WPDKView $view This view
      */
-    do_action( 'wpdk_view_' . $this->id . '_before_draw', $this );
+    do_action( 'wpdk_view_will_draw_content-' . $this->id, $this );
     ?>
 
     <?php
@@ -243,6 +243,16 @@ class WPDKView extends WPDKObject {
     ?>
 
     <?php $this->draw() ?>
+
+    <?php if ( is_array( $this->subviews ) ) : ?>
+      <?php
+      /**
+       * @var WPDKView $view
+       */
+      foreach ( $this->subviews as $view ) : ?>
+        <?php $view->display() ?>
+      <?php endforeach ?>
+    <?php endif ?>
 
     <?php
     /**
@@ -259,26 +269,7 @@ class WPDKView extends WPDKObject {
      *
      * @param WPDKView $view This view
      */
-    do_action( 'wpdk_view_' . $this->id . '_after_draw', $this );
-    ?>
-
-    <?php if ( is_array( $this->subviews ) ) : ?>
-      <?php
-      /**
-       * @var WPDKView $view
-       */
-      foreach ( $this->subviews as $view ) : ?>
-        <?php $view->display() ?>
-      <?php endforeach ?>
-    <?php endif ?>
-
-    <?php
-    /**
-     * Fires after drawing all content for all subviews for this {id} view.
-     *
-     * @param WPDKView $view This view
-     */
-    do_action( 'wpdk_view_' . $this->id . '_before_close', $this );
+    do_action( 'wpdk_view_did_draw_content-' . $this->id, $this );
     ?>
 
   </div>

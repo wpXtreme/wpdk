@@ -22,7 +22,7 @@
  * @date               2014-01-09
  * @version            1.0.1
  */
-class WPDKServiceShortcode extends WPDKShortcode {
+class WPDKServiceShortcode extends WPDKShortcodes {
 
   /**
    * Alias of getInstance();

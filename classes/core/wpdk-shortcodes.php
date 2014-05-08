@@ -10,7 +10,7 @@ class WPDKShortcode extends WPDKShortcodes {}
  * Shortcode class for extends a shortcode parent class.
  * You will use this class to extends a your own shortcode class.
  *
- *     class YouClass extends WPDKShortcode {}
+ *     class YouClass extends WPDKShortcodes {}
  *
  * In this way you can access to `registerShortcodes` method
  *
