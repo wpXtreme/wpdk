@@ -94,7 +94,7 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @var array $tabs
    */
-  public $tabs;
+  public $tabs = array();
 
   /**
    * Set to true to display the border. Default is true
@@ -103,7 +103,7 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @var bool $border
    */
-  public $border;
+  public $border = true;
 
   /**
    * Create an instance of WPDKjQueryTabsView class
@@ -118,13 +118,12 @@ class WPDKjQueryTabsView extends WPDKView {
   public function __construct( $id, $tabs = array() )
   {
     parent::__construct( $id, 'wpdk-jquery-ui' );
-    $this->tabs   = $tabs;
-    $this->border = true;
+
+    $this->tabs = $tabs;
 
     // Enqueue components
     wp_enqueue_script( 'jquery-ui-tabs' );
     wp_enqueue_style( 'jquery-ui-tabs' );
-
   }
 
   /**
@@ -170,6 +169,11 @@ class WPDKjQueryTabsView extends WPDKView {
    */
   public function draw()
   {
+    // If no tabs...
+    if( empty( $this->tabs ) ) {
+      return;
+    }
+
     $html_titles  = '';
     $html_content = '';
 
