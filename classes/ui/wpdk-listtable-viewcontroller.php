@@ -522,6 +522,7 @@ class WPDKListTableViewController extends WP_List_Table {
     // Get the content
     $this->viewController->viewHead->content = WPDKHTML::endCompress();
 
+    //
     add_action( 'wpdk_header_view_title_did_appear', array( $this, 'wpdk_header_view_title_did_appear' ) );
 
     return $this->viewController->html();
