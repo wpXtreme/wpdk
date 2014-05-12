@@ -305,8 +305,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    * Update a record by values. Return FALSE if error or the $where condiction if successfully.
    * You can use the $where condiction returned to get again the record ID.
    *
-   * @brief Update
-   *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
    * @internal array  $where  Array keys values for where update
