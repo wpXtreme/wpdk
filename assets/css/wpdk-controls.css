@@ -124,8 +124,8 @@ form#wpdk-preferences input[name=wpdk_preferences_export]
  */
 
 /* since 1.5.0 all controls have the unque class wpdk-ui-control */
-.wpdk-ui-control {}
-
+.wpdk-ui-control
+{ }
 
 /* =====================================================================================================================
  * INPUT POINTER
@@ -525,6 +525,14 @@ label.wpdk-form-label
   line-height    : 100%;
   vertical-align : middle;
   margin         : 0 6px 0 6px;
+}
+
+label.wpdk-form-label.wpdk-form-label-on-top
+{
+  display    : block;
+  text-align : left;
+  margin     : 0 0 10px 0;
+  min-width  : auto;
 }
 
 label.wpdk-form-label.wpdk-form-label-top
