@@ -443,10 +443,12 @@ class WPDKUIControl {
   protected function label()
   {
 
+    // If no label required, return
     if ( !isset( $this->item['label'] ) || empty( $this->item['label'] ) ) {
       return null;
     }
 
+    // Prepare content
     $content = '';
 
     if ( is_string( $this->item['label'] ) ) {
@@ -480,15 +482,16 @@ class WPDKUIControl {
     }
 
     // Create the lable
-    $label      = new WPDKHTMLTagLabel( $before_label . $content . $after_label );
-    $label->for = $this->id;
+    $label          = new WPDKHTMLTagLabel( $before_label . $content . $after_label );
+    $label->for     = $this->id;
     $label->class[] = 'wpdk-has-tooltip';
     $label->class[] = 'wpdk-form-label';
     $label->class[] = 'wpdk-ui-control';
 
     if ( is_array( $this->item['label'] ) ) {
-      $label->data  = isset( $this->item['label']['data'] ) ? $this->item['label']['data'] : '';
-      $label->style = isset( $this->item['label']['style'] ) ? $this->item['label']['style'] : '';
+      $label->data    = isset( $this->item['label']['data'] ) ? $this->item['label']['data'] : '';
+      $label->style   = isset( $this->item['label']['style'] ) ? $this->item['label']['style'] : '';
+      $label->class[] = isset( $this->item['label']['class'] ) ? $this->item['label']['class'] : '';
       $label->setPropertiesByArray( isset( $this->item['label']['attrs'] ) ? $this->item['label']['attrs'] : '' );
     }
 
