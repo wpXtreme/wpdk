@@ -2331,6 +2331,8 @@ class WPDKUIControlsLayout {
 
     foreach ( $this->_cla as $key => $value ) : ?>
 
+      <?php if( empty( $key ) || empty( $value ) ) continue; ?>
+
       <fieldset class="wpdk-form-fieldset wpdk-ui-control">
         <legend><?php echo $key ?></legend>
         <div class="wpdk-fieldset-container">
