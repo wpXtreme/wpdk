@@ -453,7 +453,7 @@ SQL;
 
       $num_rows = $wpdb->query( $sql );
 
-      return $num_rows;
+      return ( $num_rows > 0 );
     }
     return false;
   }
