@@ -179,11 +179,18 @@ SQL;
 
     $ids = implode( ',', (array)$id );
 
+    /**
+     * Fires before delete records from table.
+     *
+     * @param array $ids An array with the list of id.
+     */
+    do_action( 'wpdk_db_table_model_will_delete-' . $this->table_name, $ids );
 
     $sql    = <<< SQL
 DELETE FROM {$this->table_name}
 WHERE {$this->primary_key} IN( {$ids} )
 SQL;
+
     $result = $wpdb->query( $sql );
 
     return $result;
