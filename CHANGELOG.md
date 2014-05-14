@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Added WPDKUITableView` component
 * Added `href` ( TAG A instead BUTTON ) in `WPDKUIModalDialog` buttons
 
 #### Bugs
