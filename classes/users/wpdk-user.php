@@ -1856,18 +1856,13 @@ class WPDKRole extends WP_Role {
  * @class              WPDKRoles
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-02
- * @version            1.0.0
+ * @date               2014-05-14
+ * @version            1.0.1
  *
  */
 class WPDKRoles extends WP_Roles {
 
-  /**
-   * The extra data are save in option table with this prefix
-   *
-   * @brief The option key prefix
-   *
-   */
+  // The extra data are save in option table with this prefix
   const OPTION_KEY = '_wpdk_roles_extends';
 
   // since 1.4.16 - WordPress has six pre-defined roles:
@@ -1877,6 +1872,13 @@ class WPDKRoles extends WP_Roles {
   const AUTHOR        = 'author';
   const CONTRIBUTOR   = 'contributor';
   const SUBSCRIBER    = 'subscriber';
+
+  /**
+   * Array with the list of all roles.
+   *
+   * @var array $all_roles
+   */
+  public $all_roles = array();
 
   /**
    * An array with all active roles
@@ -2038,6 +2040,34 @@ class WPDKRoles extends WP_Roles {
       $this->extend_data = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
       update_option( self::OPTION_KEY, $this->extend_data );
     }
+
+    // List of all roles
+    $this->all_roles = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
+
+    /*
+     *     array(13) {
+     *      ["administrator"]=> array(3) {
+     *        [0]=> string(13) "Administrator"
+     *        [1]=> string(58) "Somebody who has access to all the administration features"
+     *        [2]=> string(9) "WordPress"
+     *      }
+     *      ["subscriber"]=> array(3) {
+     *        [0]=> string(10) "Subscriber"
+     *        [1]=> string(42) "Somebody who can only manage their profile"
+     *        [2]=> string(9) "WordPress"
+     *      }
+     *      ...
+     *      ["adv-manager"]=>
+     *      array(3) {
+     *        [0]=>
+     *        string(11) "Adv Manager"
+     *        [1]=>
+     *        string(29) "This role is for adv manager."
+     *        [2]=>
+     *        string(13) "Roles Manager"
+     *      }
+     *    }
+     */
 
   }
 
@@ -2247,9 +2277,9 @@ class WPDKRoles extends WP_Roles {
     return $this->wordPressRoles;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Override
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Updates the list of roles, if the role doesn't already exist.
@@ -2327,18 +2357,17 @@ class WPDKRoles extends WP_Roles {
       $role = $role->name;
     }
 
-    ob_start(); ?>
+    WPDKHTML::startCompress() ?>
 
     <select>
-    <?php foreach ( $this->arrayCapabilitiesByRole[$role] as $cap => $enabled ): ?>
+    <?php foreach ( $this->arrayCapabilitiesByRole[ $role ] as $cap => $enabled ): ?>
       <option><?php echo $cap ?></option>
     <?php endforeach ?>
     </select>
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+
+    return WPDKHTML::endHTMLCompress();
   }
 
 }
