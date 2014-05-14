@@ -433,6 +433,8 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIPopoverPlacement',
         ),
 
+        $sPathPrefix . 'classes/ui/wpdk-ui-table-view.php'              => 'WPDKUITableView',
+
         $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
 
         $sPathPrefix . 'classes/ui/wpdk-viewcontroller.php'             => array(
