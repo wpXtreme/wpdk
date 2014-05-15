@@ -771,6 +771,19 @@ class WPDKUIControlButton extends WPDKUIControl {
 class WPDKUIControlCheckbox extends WPDKUIControl {
 
   /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   * @since 1.5.6
+   *
+   * @return WPDKUIControlCheckbox
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
+
+  /**
    * Create an instance of WPDKUIControlCheckbox class
    *
    * @brief Construct
@@ -1401,6 +1414,19 @@ class WPDKUIControlLabel extends WPDKUIControl {
 class WPDKUIControlNumber extends WPDKUIControl {
 
   /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   * @since 1.5.6
+   *
+   * @return WPDKUIControlNumber
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
+
+  /**
    * Create an instance of WPDKUIControlNumber class
    *
    * @brief Construct
@@ -1569,6 +1595,20 @@ class WPDKUIControlPhone extends WPDKUIControl {
 class WPDKUIControlRadio extends WPDKUIControl {
 
   /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @since 1.5.6
+   *
+   * @return WPDKUIControlRadio
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
+
+  /**
    * Create an instance of WPDKUIControlRadio class
    *
    * @brief Construct
@@ -1578,7 +1618,8 @@ class WPDKUIControlRadio extends WPDKUIControl {
    *
    * @return WPDKUIControlRadio
    */
-  public function __construct( $item ) {
+  public function __construct( $item )
+  {
     $item['type'] = WPDKUIControlType::RADIO;
     parent::__construct( $item );
   }
@@ -1588,8 +1629,38 @@ class WPDKUIControlRadio extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
-    $this->inputType( WPDKHTMLTagInputType::RADIO, 'wpdk-form-radio' );
+  public function draw()
+  {
+    echo $this->contentWithKey( 'prepend' );
+
+    // Create the label
+    $label = $this->label();
+
+    $input          = new WPDKHTMLTagInput( '', $this->name, $this->id );
+    $input->type    = WPDKHTMLTagInputType::RADIO;
+    $input->class   = $this->class;
+    $input->class[] = 'wpdk-form-radio';
+    $input->class[] = 'wpdk-ui-control';
+    $input->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
+    $input->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $input->title   = isset( $this->item['title'] ) ? $this->item['title'] : '';
+    $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+
+    if ( isset( $this->item['checked'] ) ) {
+      if ( $input->value === $this->item['checked'] ) {
+        $input->checked = 'checked';
+      }
+    }
+
+    $input->display();
+
+    // Display right label
+    echo is_null( $label ) ? '' : $label->html();
+
+    echo $this->contentWithKey( 'append' );
+
+    echo ' ' . $this->guide();
+
   }
 
 }
@@ -1662,6 +1733,19 @@ class WPDKUIControlSection extends WPDKUIControl {
  *
  */
 class WPDKUIControlSelect extends WPDKUIControl {
+
+  /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   * @since 1.5.6
+   *
+   * @return WPDKUIControlSelect
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
 
   /**
    * Create an instance of WPDKUIControlSelect class
