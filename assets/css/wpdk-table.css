@@ -26,12 +26,11 @@
 {
   border-bottom : 1px solid #e5e5e5;
   border-right  : 1px solid #e5e5e5;
-  padding       : 4px 10px;
+  padding       : 10px;
 }
 
 .wpdk-ui-table-view th
 {
-  padding       : 10px;
   text-align    : left;
   border-right  : 1px solid #ccc;
   border-bottom : 1px solid #ccc;
@@ -50,6 +49,11 @@
   -webkit-border-radius : 0 3px 0 0;
   border-radius         : 0 3px 0 0;
   border-right          : none;
+}
+
+.wpdk-ui-table-view td:last-child
+{
+  border-right: none;
 }
 
 .wpdk-ui-tabl-view tr:hover th,
