@@ -1,15 +1,16 @@
 <?php
+
 /**
- * Useful class to manage mail as post
+ * Useful class to manage mail as post.
  *
  * ## Overview
- * Extends WPDKPost with useful method and property to mail
+ * Extends WPDKPost with useful method and property to mail.
  *
  * @class           WPDKMail
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-18
- * @version         1.0.0
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-05-15
+ * @version         1.0.1
  *
  */
 class WPDKMail extends WPDKPost {
@@ -58,10 +59,6 @@ class WPDKMail extends WPDKPost {
   {
     parent::__construct( $mail, $post_type );
   }
-
-  // -----------------------------------------------------------------------------------------------------------------
-  // Public methods
-  // -----------------------------------------------------------------------------------------------------------------
 
   /**
    * Perform a send mail. Return FALSE if an error occour.
@@ -134,13 +131,13 @@ class WPDKMail extends WPDKPost {
    */
   private function headers()
   {
-    /* Build the header */
+    // Build the header
     $headers = array(
       'From: ' . $this->from,
       'Content-Type: text/html'
     );
 
-    /* Added cc and bcc */
+    // Added cc and bcc
     if ( !empty( $this->cc ) ) {
       $this->cc = explode( ',', $this->cc );
       foreach ( $this->cc as $email ) {
@@ -155,6 +152,11 @@ class WPDKMail extends WPDKPost {
       }
     }
 
+    /**
+     * Filter the headers array.
+     *
+     * @param array $headers The headers array.
+     */
     $headers = apply_filters( 'wpdk_mail_headers', $headers );
 
     return implode( "\r\n", $headers );
@@ -172,8 +174,9 @@ class WPDKMail extends WPDKPost {
    *
    * @return string
    */
-  private function replacePlaceholder( $content, $id_user = false, $extra = array() ) {
-
+  private function replacePlaceholder( $content, $id_user = false, $extra = array() )
+  {
+    // If no user set get the current user logged in
     if ( false === $id_user ) {
       $id_user = get_current_user_id();
       $user    = new WP_User( $id_user );
@@ -188,6 +191,7 @@ class WPDKMail extends WPDKPost {
       return $content;
     }
 
+    // Defaults placeholder
     $str_replaces = array(
       WPDKMailPlaceholder::USER_FIRST_NAME   => $user->get( 'first_name' ),
       WPDKMailPlaceholder::USER_LAST_NAME    => $user->get( 'last_name' ),
@@ -195,10 +199,17 @@ class WPDKMail extends WPDKPost {
       WPDKMailPlaceholder::USER_EMAIL        => $user->data->user_email,
     );
 
+    // inline extra placeholder
     if ( !empty( $extra ) ) {
       $str_replaces = array_merge( $str_replaces, $extra );
     }
 
+    /**
+     * Filter the defaults placeholder.
+     *
+     * @param array $str_replaces An array with {place holder key} => {value}.
+     * @param int   $id_user      The User ID.
+     */
     $str_replaces = apply_filters( 'wpdk_mail_replace_placeholders', $str_replaces, $id_user );
 
     $content = strtr( $content, $str_replaces );
@@ -233,6 +244,7 @@ class WPDKMailPlaceholder {
    * @return array
    */
   public static function placeholders() {
+
     $placeholders = array(
       self::USER_FIRST_NAME   => array(
         __( 'User First name', WPDK_TEXTDOMAIN ),
@@ -251,6 +263,12 @@ class WPDKMailPlaceholder {
         'Core'
       ),
     );
+
+    /**
+     * Filter the mail placeholder.
+     *
+     * @param array $placeholders An array with {placeholder string} => array( {label description} => {owner} ).
+     */
 
     return apply_filters( 'wpdk_mail_placeholders', $placeholders );
   }
