@@ -51,7 +51,7 @@ class WPDKServiceShortcode extends WPDKShortcodes {
   {
     static $instance = null;
     if ( is_null( $instance ) ) {
-      $instance = new WPDKServiceShortcode();
+      $instance = new self();
     }
     return $instance;
   }
