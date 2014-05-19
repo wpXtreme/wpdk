@@ -133,7 +133,7 @@ if ( wpdk_is_ajax() ) {
     public $message = '';
 
     /**
-     * Any data
+     * Use this property to set any your own data to return.
      *
      * @brief Data
      *
