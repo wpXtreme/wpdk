@@ -262,15 +262,18 @@ class WPDKTinyMCEPlugin {
     $this->buttons     = $buttons;
     $this->javascript  = $javascript;
 
+    // TODO Commented (ticket #612) because if you display the wp editor in frontend and error occurs on _WPDKShortcodes
+    // TODO Use `/wp-admin/plugin-editor.php?file=wpxtreme%2Fwpdk/wpdk.php&plugin=wpxtreme%2Fmain.php` to edit in wp plugin editor
+
     if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
       add_filter( 'mce_buttons', array( $this, 'mce_buttons' ) );
       add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
 
-      /* Passing PHP params to script */
+      // Passing PHP params to script
       add_action( 'admin_head-post.php', array( $this, 'admin_head' ) );
       add_action( 'admin_head-post-new.php', array( $this, 'admin_head' ) );
 
-      /* Add bbutton in HTML view */
+      // Add bbutton in HTML view
       add_action( 'admin_footer-post.php', array( $this, 'admin_footer' ) );
       add_action( 'admin_footer-post-new.php', array( $this, 'admin_footer' ) );
     }
