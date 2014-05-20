@@ -23,6 +23,8 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.6
 ### 2014-05-??
 
+#### Enhancements
+
 #### Improvements
 
 * Added WPDKUITableView` component
