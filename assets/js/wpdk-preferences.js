@@ -44,7 +44,7 @@ jQuery( function ( $ )
         return $t;
       };
 
-      return $t.init();
+      return _init();
 
     })();
   }

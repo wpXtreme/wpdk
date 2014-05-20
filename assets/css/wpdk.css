@@ -462,5 +462,15 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
   max-height : 100%;
 }
 
+/* =====================================================================================================================
+ * WPDK TINYMCE BUTTON
+ * =====================================================================================================================
+ */
+
+i.mce-i-wpdk-mce-button
+{
+  background-image  : url(images/wpdk-shortcodes.png);
+  background-repeat : no-repeat;
+}
 
 
