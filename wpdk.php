@@ -98,7 +98,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // Add some special WPDK class to body
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-      // Callback hook
+      /**
+       * Fires when WPDK is loaded.
+       */
       do_action( 'WPDK' );
     }
 
@@ -217,7 +219,7 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(
           'WPDKMail',
-          'WPDKMailPlaceholder',
+          'WPDKMailPlaceholders',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-object.php'                      => 'WPDKObject',
@@ -303,6 +305,11 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKPosts',
           'WPDKPostStatus',
           'WPDKPostType',
+        ),
+
+        $sPathPrefix . 'classes/post/wpdk-post-placeholders.php'                        => array(
+          'WPDKPostPlaceholders',
+          'WPDKPostPlaceholdersTableView',
         ),
 
         // -------------------------------------------------------------------------------------------------------------
