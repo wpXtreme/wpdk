@@ -78,8 +78,10 @@ class WPDKScreenHelp {
 
     // Add the sidebar if exists
     $sidebar = $this->sidebar();
+
     if ( !empty( $sidebar ) ) {
       $current = $this->currentScreen->get_help_sidebar();
+
       $this->currentScreen->set_help_sidebar( $current . $sidebar );
     }
   }
