@@ -193,10 +193,10 @@ class WPDKMail extends WPDKPost {
 
     // Defaults placeholder
     $str_replaces = array(
-      WPDKMailPlaceholder::USER_FIRST_NAME   => $user->get( 'first_name' ),
-      WPDKMailPlaceholder::USER_LAST_NAME    => $user->get( 'last_name' ),
-      WPDKMailPlaceholder::USER_DISPLAY_NAME => $user->data->display_name,
-      WPDKMailPlaceholder::USER_EMAIL        => $user->data->user_email,
+      WPDKMailPlaceholders::USER_FIRST_NAME   => $user->get( 'first_name' ),
+      WPDKMailPlaceholders::USER_LAST_NAME    => $user->get( 'last_name' ),
+      WPDKMailPlaceholders::USER_DISPLAY_NAME => $user->data->display_name,
+      WPDKMailPlaceholders::USER_EMAIL        => $user->data->user_email,
     );
 
     // inline extra placeholder
@@ -222,13 +222,13 @@ class WPDKMail extends WPDKPost {
 /**
  * This class contains the definition of mail placeholder
  *
- * @class              WPDKMailPlaceholder
+ * @class              WPDKMailPlaceholders
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2013-02-18
  * @version            0.8.1
  */
-class WPDKMailPlaceholder {
+class WPDKMailPlaceholders {
 
   const USER_DISPLAY_NAME = '${USER_DISPLAY_NAME}';
   const USER_EMAIL        = '${USER_EMAIL}';
@@ -274,3 +274,4 @@ class WPDKMailPlaceholder {
   }
 
 }
+
