@@ -17,7 +17,7 @@ jQuery( function ( $ )
     {
 
       // This object
-      var $t = {
+      var _WPDKPreferences = {
         version : '1.0.3',
         init    : _init
       };
@@ -30,18 +30,18 @@ jQuery( function ( $ )
       function _init()
       {
         // Display a confirm dialog box before reset a specified branch to default values
-        $( 'input[name=wpdk_preferences_reset_all]' ).click( function ()
+        $( 'input[name="wpdk_preferences_reset_all"]' ).click( function ()
         {
           return confirm( $( this ).data( 'confirm' ) );
         } );
 
         // Display a confirm dialog box before reset a specified branch to default values
-        $( 'input[name=reset-to-default-preferences]' ).click( function ()
+        $( 'input[name="reset-to-default-preferences"]' ).click( function ()
         {
           return confirm( $( this ).data( 'confirm' ) );
         } );
 
-        return $t;
+        return _WPDKPreferences;
       };
 
       return _init();
