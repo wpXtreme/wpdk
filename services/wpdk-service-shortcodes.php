@@ -16,6 +16,8 @@
  *
  * These are the low-level shortcode for WordPress with prefix `wpdk_`.
  *
+ * TODO To complete
+ *
  * @class              WPDKServiceShortcodes
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
@@ -49,25 +51,33 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
     if ( is_null( $instance ) ) {
       $instance = new self();
 
+      // TODO Uncomment to complete the shortcodes manager view
+
       // Print the scripts for rich editor
-      add_action( 'admin_print_scripts', array( $instance, 'admin_print_scripts' ) );
+      //add_action( 'admin_print_scripts', array( $instance, 'admin_print_scripts' ) );
 
       // Add action for mce buttons
-      add_action( 'admin_head', array( $instance, 'admin_head' ) );
+      //add_action( 'admin_head', array( $instance, 'admin_head' ) );
 
       // Print the script for no rich editor
-      add_action( 'admin_print_footer_scripts', array( $instance, 'admin_print_footer_scripts' ) );
+      //add_action( 'admin_print_footer_scripts', array( $instance, 'admin_print_footer_scripts' ) );
 
     }
     return $instance;
   }
 
+  /**
+   * Fires when scripts are printed for all admin pages.
+   */
   public function admin_print_scripts()
   {
     // Load the WPDK MCE engine
     wp_enqueue_script( 'wpdk-mce', WPDK_URI_JAVASCRIPT . 'wpdk-mce.js', array(), WPDK_VERSION );
   }
 
+  /**
+   * Fires in <head> for all admin pages.
+   */
   public function admin_head()
   {
     // check user permissions
@@ -80,9 +90,8 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
   }
 
   /**
-   * Right way to add a editor button in HTML view
-   *
-   * @brief Brief
+   * Prints any scripts and data queued for the footer.
+   * Right way to add a editor button in HTML view.
    */
   public function admin_print_footer_scripts()
   {
@@ -104,6 +113,21 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
     echo WPDKHTML::endJavascriptCompress();
   }
 
+  /**
+   * Filter the list of TinyMCE external plugins.
+   *
+   * The filter takes an associative array of external plugins for
+   * TinyMCE in the form 'plugin_name' => 'url'.
+   *
+   * The url should be absolute, and should include the js filename
+   * to be loaded. For example:
+   * 'myplugin' => 'http://mysite.com/wp-content/plugins/myfolder/mce_plugin.js'.
+   *
+   * If the external plugin adds a button, it should be added with
+   * one of the 'mce_buttons' filters.
+   *
+   * @param array $external_plugins An array of external TinyMCE plugins.
+   */
   public function mce_external_plugins( $plugin_array )
   {
     $plugin_array['wpdk_shortcodes_button'] = WPDK_URI_JAVASCRIPT . 'wpdk-mce-button.js';
@@ -111,6 +135,12 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
     return $plugin_array;
   }
 
+  /**
+   * Filter the first-row list of TinyMCE buttons (Visual tab).
+   *
+   * @param array  $buttons   First-row list of buttons.
+   * @param string $editor_id Unique editor identifier, e.g. 'content'.
+   */
   public function mce_buttons( $buttons )
   {
     array_push( $buttons, 'wpdk_shortcodes_button' );
