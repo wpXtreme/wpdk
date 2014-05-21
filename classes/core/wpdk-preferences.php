@@ -209,6 +209,14 @@ class WPDKPreferences {
               wp_cache_clear_cache();
             }
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
+
+            /**
+             * Fires when preferences branch update will updated.
+             *
+             * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
+             */
+             //do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
+
             $preferences->$branch->update();
             $preferences->update();
           }
