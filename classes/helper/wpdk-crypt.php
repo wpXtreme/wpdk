@@ -69,4 +69,76 @@ class WPDKCrypt extends WPDKObject {
 
     return $result;
   }
+
+  /**
+   * Simple custom crypt/decrypt with salt. Return a encrypted or decrypted string.
+   *
+   * @brief Crypt/Decrypt
+   * @since 1.5.6
+   *
+   * @param string $data    Your data to crypt or decrypt.
+   * @param string $salt    Any random salt.
+   * @param bool   $encrypt Optional. FALSE to decrypt. Default TRUE.
+   *
+   * @return string
+   */
+  public static function crypt_decrypt( $data, $salt, $encrypt = true )
+  {
+    $key    = array();
+    $result = '';
+    $state  = array();
+    $salt   = md5( str_rot13( $salt ) );
+    $len    = strlen( $salt );
+
+    if ( $encrypt ) {
+      $data = str_rot13( $data );
+    }
+    else {
+      $data = base64_decode( $data );
+    }
+
+    $ii = -1;
+
+    while ( ++$ii < 256 ) {
+      $key[ $ii ]   = ord( substr( $salt, ( ( $ii % $len ) + 1 ), 1 ) );
+      $state[ $ii ] = $ii;
+    }
+
+    $ii = -1;
+    $j  = 0;
+
+    while ( ++$ii < 256 ) {
+      $j = ( $j + $key[ $ii ] + $state[ $ii ] ) % 255;
+      $t = $state[ $j ];
+
+      $state[ $ii ] = $state[ $j ];
+      $state[ $j ]  = $t;
+    }
+
+    $len = strlen( $data );
+    $ii  = -1;
+    $j   = 0;
+    $k   = 0;
+
+    while ( ++$ii < $len ) {
+      $j = ( $j + 1 ) % 256;
+      $k = ( $k + $state[ $j ] ) % 255;
+      $t = $key[ $j ];
+
+      $state[ $j ] = $state[ $k ];
+      $state[ $k ] = $t;
+
+      $x = $state[ ( ( $state[ $j ] + $state[ $k ] ) % 255 ) ];
+      $result .= chr( ord( $data[ $ii ] ) ^ $x );
+    }
+
+    if ( $encrypt ) {
+      $result = base64_encode( $result );
+    }
+    else {
+      $result = str_rot13( $result );
+    }
+
+    return $result;
+  }
 }
