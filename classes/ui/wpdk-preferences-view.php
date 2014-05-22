@@ -93,6 +93,13 @@ class WPDKPreferencesView extends WPDKView {
     $form->action  = '';
 
     /**
+     * Filter the form object for this branch view.
+     *
+     * @param WPDKHTMLTagForm $form An instance of WPDKHTMLTagForm class.
+     */
+    $form = apply_filters( 'wpdk_preferences_branch_form', $form );
+
+    /**
      * Fires before display the view. You can add your custome feedback message.
      */
     do_action( 'wpdk_preferences_feedback-' . $this->branch_property );
