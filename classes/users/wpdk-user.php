@@ -1118,9 +1118,13 @@ class WPDKUsers {
       $user = new WPDKUser( $user_id );
       if ( $user->exists() && !in_array( $user->status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
 
+        // Check access
         $result = wp_authenticate( $user->user_login, $password );
 
         if ( !is_wp_error( $result ) ) {
+
+          // Clear the cookie
+          wp_clear_auth_cookie();
 
           // Set remember cookie
           wp_set_auth_cookie( $user->ID, $remember );
