@@ -158,6 +158,126 @@ SQL;
     return $wpdb->get_var( $sql );
   }
 
+  // -------------------------------------------------------------------------------------------------------------------
+  // CRUD
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Insert a record by values. Return FALSE if error or id of record if successfully.
+   *
+   * @brief Insert
+   *
+   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @internal array  $values Array keys values
+   * @internal array  $format Optional. Array keys values for format null values
+   *
+   * @return int|bool
+   */
+  public function insert()
+  {
+    global $wpdb;
+
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of ::insert() should be compatible with self::insert'
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args = func_get_args();
+    list( $prefix, $values ) = $args;
+    $format = isset( $args[2] ) ? $args[2] : array();
+
+    /**
+     * Filter the values array for insert.
+     *
+     * @param array $values Array values for insert.
+     */
+    $values = apply_filters( $prefix . '_insert_values', $values );
+
+    // Insert
+    $this->crud_results = $wpdb->insert( $this->table_name, $values, $format );
+
+    /**
+     * Fires when a record is inserted.
+     *
+     * @param bool  $result Result of insert.
+     * @param array $values Array with values of insert.
+     */
+    do_action( $prefix . '_inserted', $this->crud_results, $values );
+
+    if ( false == $this->crud_results ) {
+      return false;
+    }
+
+    // Get the id
+    return $wpdb->insert_id;
+  }
+
+  /**
+   * Select data
+   *
+   * @brief Select
+   * @note Override this method with your own select
+   */
+  public function select()
+  {
+    // Override this method with your own select
+  }
+
+  /**
+   * Update a record by values. Return FALSE if error or the $where condiction if successfully.
+   * You can use the $where condiction returned to get again the record ID.
+   *
+   * @brief Update
+   *
+   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @internal array  $values Array keys values
+   * @internal array  $where  Array keys values for where update
+   * @internal array  $format Optional. Array keys values for format null values
+   *
+   * @return array|bool
+   */
+  public function update()
+  {
+    global $wpdb;
+
+    /*
+     * since 1.5.1
+     * try to avoid 'PHP Strict Standards:  Declaration of ::update() should be compatible with self::update'
+     *
+     * Remeber that if a params is missing it is NULL
+     */
+    $args = func_get_args();
+    list( $prefix, $values, $where ) = $args;
+    $format = isset( $args[3] ) ? $args[3] : array();
+
+    /**
+     * Filter the values array for update.
+     *
+     * @param array $values Array values for update.
+     */
+    $values = apply_filters( $prefix . '_update_values', $values );
+
+    // Update
+    $this->crud_results = $wpdb->update( $this->table_name, $values, $where, $format );
+
+    /**
+     * Fires when a record is updated.
+     *
+     * @param bool|int $result Returns the number of rows updated, or false if there is an error.
+     * @param array    $values Array with values of update.
+     * @param array    $where  Array with values of where condiction.
+     */
+    do_action( $prefix . '_updated', $this->crud_results, $values, $where );
+
+    if ( false == $this->crud_results ) {
+      return false;
+    }
+
+    // Get the id
+    return $where;
+  }
+
   /**
    * Delete one or more record from table. Return the number of rows affected/selected or false on error.
    * Use the primaryKey.
@@ -291,19 +411,6 @@ SQL;
     ob_end_clean();
     return true;
   }
-
-  /**
-   * Select data
-   *
-   * @brief Select
-   * @note Override this method with your own select
-   */
-  public function select()
-  {
-    // Override this method with your own select
-  }
-
-  // You'll override with CRUD
 
   // -------------------------------------------------------------------------------------------------------------------
   // UTILITIES
