@@ -1336,9 +1336,10 @@ jQuery( function ( $ )
        */
       function _hackMenu()
       {
-        $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
+        $( 'ul#adminmenu .wp-submenu a[href*="wpdk_menu_divider"]' ).each( function ()
         {
           var content = $( this ).html();
+
           $( this )
             .parent()
             .replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );
