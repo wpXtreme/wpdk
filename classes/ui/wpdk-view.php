@@ -134,16 +134,6 @@ class WPDKView extends WPDKObject {
   public $superview;
 
   /**
-   * An array list with views of this view controller
-   *
-   * @brief      List of views
-   * @deprecated Since 1.0.0.b4 - Use subviews instead
-   *
-   * @var array $views;
-   */
-  protected $views;
-
-  /**
    * Create an instance of WPDKView class
    *
    * @brief Construct
