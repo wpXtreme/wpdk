@@ -259,9 +259,6 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
 
     if ( !empty( $buttons ) ) {
 
-      // Prepare stack
-      $stack = '';
-
       // Loop in buttons
       foreach ( $buttons as $key => $value ) {
         $class = isset( $value['class'] ) ? $value['class'] : '';
@@ -278,20 +275,51 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
 
         // Switch between button | a
         if( empty( $href ) ) {
-          $stack .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
+          $result .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
         }
         // Use tag a
         else {
-          $stack .= sprintf( '<a href="%s" %s id="%s" class="button %s" %s aria-hidden="true">%s</a>', $href, $title, $key, $class, $data_dismiss, $label );
+          $result .= sprintf( '<a href="%s" %s id="%s" class="button %s" %s aria-hidden="true">%s</a>', $href, $title, $key, $class, $data_dismiss, $label );
         }
       }
     }
 
-    if ( !empty( $stack ) ) {
-      $result = sprintf( '<div class="modal-footer">%s</div>', $stack );
+    return $result;
+  }
+
+  /**
+   * Return the footer content.
+   *
+   * @brief Footer
+   *
+   * @return string
+   */
+  private function _footer()
+  {
+    $footer = $this->footer();
+
+    if( empty( $footer ) ) {
+      $footer = $this->_buttons();
     }
 
-    return $result;
+    if( empty( $footer ) ) {
+      return $footer;
+    }
+
+    return sprintf( '<div class="modal-footer">%s</div>', $footer );
+
+  }
+
+  /**
+   * Content of the footer of dialog. You can override this method.
+   *
+   * @brief Footer
+   *
+   * @return string
+   */
+  public function footer()
+  {
+    return '';
   }
 
   /**
@@ -366,7 +394,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
           <div class="modal-body" <?php echo $this->height() ?>>
             <?php echo $this->content() ?>
           </div>
-          <?php echo $this->_buttons() ?>
+          <?php echo $this->_footer() ?>
         </div>
       </div>
     </div>
