@@ -113,7 +113,8 @@ div.meta-box-sortables div.wpdk-border-container
  * =====================================================================================================================
  */
 
-form#wpdk-preferences input[name=wpdk_preferences_export]
+form#wpdk-preferences input[name=wpdk_preferences_export],
+form#wpdk-preferences input[name=wpdk_preferences_reset_all]
 {
   margin : 0 0 0 8px;
 }

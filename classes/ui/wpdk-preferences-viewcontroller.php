@@ -90,6 +90,12 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
                data-confirm="<?php echo $confirm ?>"
                value="<?php _e( 'Reset All', WPDK_TEXTDOMAIN ) ?>" />
 
+        <input type="submit"
+               name="wpdk_preferences_repair"
+               class="button right"
+               data-confirm="<?php echo $confirm ?>"
+               value="<?php _e( 'Repair', WPDK_TEXTDOMAIN ) ?>" />
+
         <?php do_action( 'wpdk_preferences_view_controller-' . $this->id . '-tablenav-top', $this ) ?>
       </form>
     </div>

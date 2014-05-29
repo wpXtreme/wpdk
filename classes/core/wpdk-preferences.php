@@ -228,6 +228,11 @@ class WPDKPreferences {
           $preferences->update();
         }
 
+        // Repair with delta
+        elseif ( isset( $_POST['wpdk_preferences_repair'] ) ) {
+          $preferences->delta();
+        }
+
         // Try for import/export
         else {
           $preferences = WPDKPreferencesImportExport::init( $preferences );
