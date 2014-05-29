@@ -52,6 +52,7 @@ class WPDKUIComponents {
   const TRANSITION    = 'wpdk-transition';
   const LIST_TABLE    = 'wpdk-list-table';
   const TABLE         = 'wpdk-table';
+  const PAGE          = 'wpdk-page';
 
   /**
    * Return a singleton instance of WPDKUIComponents class
@@ -186,6 +187,10 @@ class WPDKUIComponents {
         self::MODAL         => array(
           'has_js'  => array( self::CONTROLS, self::BUTTON, self::TRANSITION ),
           'has_css' => array( self::CONTROLS, self::BUTTON )
+        ),
+        self::PAGE         => array(
+          'has_js'  => array(),
+          'has_css' => array()
         ),
         self::PROGRESS      => array(
           'has_css' => array(),
