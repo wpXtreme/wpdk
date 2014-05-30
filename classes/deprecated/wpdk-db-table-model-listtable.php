@@ -251,6 +251,9 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   //public function insert( $prefix, $values, $format = array() )
   public function insert()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -273,6 +276,9 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     // Insert
     $result = $wpdb->insert( $this->table_name, $values, $format );
 
+    // Get the id
+    $id = $wpdb->insert_id;
+
     /**
      * Fires when a record is inserted
      *
@@ -285,8 +291,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
       return false;
     }
 
-    // Get the id
-    return $wpdb->insert_id;
+    // Return the id
+    return $id;
   }
 
   /**

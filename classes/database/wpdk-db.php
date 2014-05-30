@@ -175,6 +175,9 @@ SQL;
    */
   public function insert()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -197,6 +200,9 @@ SQL;
     // Insert
     $this->crud_results = $wpdb->insert( $this->table_name, $values, $format );
 
+    // Get the id
+    $id = $wpdb->insert_id;
+
     /**
      * Fires when a record is inserted.
      *
@@ -209,8 +215,8 @@ SQL;
       return false;
     }
 
-    // Get the id
-    return $wpdb->insert_id;
+    // Return the id
+    return $id;
   }
 
   /**
