@@ -12,6 +12,7 @@
  */
 class WPDKUIPageView extends WPDKView {
 
+  // ID view
   const ID = 'wpdk-ui-page-view';
 
   /**
