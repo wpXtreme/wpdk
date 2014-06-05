@@ -98,6 +98,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // Add some special WPDK class to body
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
+      // Placeholder metabox
+      add_action( 'admin_init', array( 'WPDKPostPlaceholders', 'init' ) );
+
       /**
        * Fires when WPDK is loaded.
        */
@@ -305,6 +308,11 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKPosts',
           'WPDKPostStatus',
           'WPDKPostType',
+        ),
+
+        $sPathPrefix . 'classes/post/wpdk-post-placeholders.php'                        => array(
+          'WPDKPostPlaceholders',
+          'WPDKPostPlaceholdersMetaBoxView',
         ),
 
         // -------------------------------------------------------------------------------------------------------------
