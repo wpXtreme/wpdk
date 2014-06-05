@@ -61,6 +61,30 @@ class WPDKMail extends WPDKPost {
   }
 
   /**
+   * Return the array with the available post type used to send a mail.
+   *
+   * @brief Post types for mail
+   *
+   * @return array
+   */
+  public static function postTypes()
+  {
+    // Register the post type for mail
+    $post_types = array(
+      'post' => 'Post',
+      'page' => 'Page'
+    );
+
+    /**
+     * Filter the available post types used to send a mail.
+     *
+     * @param array $post_types An array with post type id and label.
+     */
+
+    return apply_filters( 'wpdk_mail_post_types', $post_types );
+  }
+
+  /**
    * Perform a send mail. Return FALSE if an error occour.
    *
    * @brief Send mail
