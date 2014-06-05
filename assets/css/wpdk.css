@@ -453,6 +453,46 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 }
 
 /* =====================================================================================================================
+ * WPDK POSTS PLACEHOLDER
+ * =====================================================================================================================
+ */
+
+#wpdk-post-placeholder-metabox-view select
+{
+  width         : 100%;
+  margin-bottom : 8px;
+}
+
+.wpdk-post-placeholders
+{
+  max-height     : 320px;
+  overflow-y     : scroll;
+}
+
+.wpdk-post-placeholders small
+{
+  padding       : 1px 2px;
+  display       : block;
+  border-bottom : 1px solid #e5e5e5;
+  text-align    : right;
+}
+
+.wpdk-post-placeholders a
+{
+  display               : block;
+  text-decoration       : none;
+  line-height           : 200%;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+}
+
+.wpdk-post-placeholders a:hover
+{
+  background-color : #e5e5e5;
+}
+
+/* =====================================================================================================================
  * GUIDE MODAL DIALOG ASSETS
  * =====================================================================================================================
  */
