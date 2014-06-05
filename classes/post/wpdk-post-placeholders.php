@@ -14,10 +14,12 @@
  */
 class WPDKPostPlaceholders {
 
+  const DATE = '${DATE}';
+  const DATE_TIME = '${DATE_TIME}';
   const USER_DISPLAY_NAME = '${USER_DISPLAY_NAME}';
-  const USER_EMAIL        = '${USER_EMAIL}';
-  const USER_FIRST_NAME   = '${USER_FIRST_NAME}';
-  const USER_LAST_NAME    = '${USER_LAST_NAME}';
+  const USER_EMAIL = '${USER_EMAIL}';
+  const USER_FIRST_NAME = '${USER_FIRST_NAME}';
+  const USER_LAST_NAME = '${USER_LAST_NAME}';
 
   /**
    * Return a singleton instance of WPDKPostPlaceholders class
@@ -92,6 +94,8 @@ class WPDKPostPlaceholders {
   {
 
     $wpdk_mail_placeholders = array(
+      self::DATE              => array( __( 'Date', WPDK_TEXTDOMAIN ), 'Core' ),
+      self::DATE_TIME         => array( __( 'Date & Time', WPDK_TEXTDOMAIN ), 'Core' ),
       self::USER_FIRST_NAME   => array( __( 'User First name', WPDK_TEXTDOMAIN ), 'Core' ),
       self::USER_LAST_NAME    => array( __( 'User Last name', WPDK_TEXTDOMAIN ), 'Core' ),
       self::USER_DISPLAY_NAME => array( __( 'User Display name', WPDK_TEXTDOMAIN ), 'Core' ),
