@@ -1,13 +1,15 @@
 <?php
 
 /**
- * Description
+ * Manage the registered placeholders used to compose a mail from a post, page or any custom post type.
+ * See thirth part extensions like Users Manager.
  *
  * @class           WPDKPostPlaceholders
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-06-04
  * @version         1.0.0
+ * @since           1.5.6
  *
  */
 class WPDKPostPlaceholders {
@@ -44,10 +46,41 @@ class WPDKPostPlaceholders {
   public function __construct()
   {
     // Fires after all built-in meta boxes have been added.
-    add_action( 'add_meta_boxes', array( 'WPDKPostPlaceholdersMetaBoxView', 'init' ) );
+    add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 
     // Filter the list of registered placeholder.
     add_filter( 'wpdk_post_placeholders', array( $this, 'wpdk_post_placeholders' ) );
+  }
+
+  /**
+   * Fires after all built-in meta boxes have been added.
+   *
+   * @since 3.0.0
+   *
+   * @param string  $post_type Post type.
+   * @param WP_Post $post      Post object.
+   */
+  public function add_meta_boxes( $post_type, $post )
+  {
+    /**
+     * Filter used to display the WPDK Post Placeholders metabox.
+     * Usually the placeholders maetabox is display only on post and page post type. If your custom post type would
+     * display the placeholders metabox you have add this filter in your register custom post type init.
+     *
+     * @param bool    $display Set to TRUE to display placeholers metabox. Defaul FALSE.
+     * @param WP_Post $post    Post object.
+     */
+    $display = apply_filters( 'wpdk_post_placeholders_metabox_will_display-' . $post_type, false, $post );
+
+    if ( true === $display || in_array( $post_type, array( 'post', 'page' ) ) ) {
+
+      // Add wpdk post placeholders metabox
+      WPDKPostPlaceholdersMetaBoxView::init();
+
+      // Welcome tour in all edit form
+      // TODO Check in user post meta for one time view
+      add_action( 'edit_form_top', array( WPDKPostPlaceholdersTourModalDialog::init(), 'open' ) );
+    }
   }
 
   /**
@@ -71,7 +104,7 @@ class WPDKPostPlaceholders {
 }
 
 /**
- * Description
+ * WPDK Post Placeholders Metabox View
  *
  * @class           WPDKPostPlaceholdersMetaBoxView
  * @author          =undo= <info@wpxtre.me>
@@ -197,6 +230,92 @@ class WPDKPostPlaceholdersMetaBoxView extends WPDKMetaBoxView {
     </script>
 
   <?php
+  }
+
+}
+
+/**
+ * WPDK Post Placeholder tour.
+ *
+ * @class           WPDKPostPlaceholdersTourModalDialog
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-06-05
+ * @version         1.0.0
+ *
+ */
+class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
+
+  /**
+   * An instance of WPDKUIPageView class
+   *
+   * @brief Page view
+   *
+   * @var WPDKUIPageView $page_view
+   */
+  private $page_view;
+
+  /**
+   * Return a singleton instance of WPDKPostPlaceholdersTourModalDialog class
+   *
+   * @brief Singleton
+   *
+   * @return WPDKPostPlaceholdersTourModalDialog
+   */
+  public static function init()
+  {
+    static $instance = null;
+    if ( is_null( $instance ) ) {
+      $instance = new self();
+    }
+
+    return $instance;
+  }
+
+  /**
+   * Create an instance of WPDKPostPlaceholdersTourModalDialog class
+   *
+   * @brief Construct
+   *
+   * @return WPDKPostPlaceholdersTourModalDialog
+   */
+  public function __construct()
+  {
+    parent::__construct( 'wpdk-post-placeholder-welcome-tour', __( 'New Placeholders Metabox' ) );
+
+    // Enqueue page view
+    WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
+
+    // List of page
+    $pages = array(
+      'Prima',
+      'Seconda',
+    );
+
+    // Display the page view
+    $this->page_view = WPDKUIPageView::initWithPages( $pages );
+  }
+
+  /**
+   * Content
+   *
+   * @brief Content
+   * @return string
+   */
+  public function content()
+  {
+    return $this->page_view->html();
+  }
+
+  /**
+   * Footer
+   *
+   * @brief Footer
+   * @return string
+   */
+  public function footer()
+  {
+    return $this->page_view->navigator();
   }
 
 }
