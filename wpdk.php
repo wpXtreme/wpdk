@@ -222,7 +222,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(
           'WPDKMail',
-          'WPDKMailPlaceholders',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-object.php'                      => 'WPDKObject',
