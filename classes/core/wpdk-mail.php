@@ -219,10 +219,12 @@ class WPDKMail extends WPDKPost {
 
     // Defaults placeholder
     $str_replaces = array(
-      WPDKMailPlaceholders::USER_FIRST_NAME   => $user->get( 'first_name' ),
-      WPDKMailPlaceholders::USER_LAST_NAME    => $user->get( 'last_name' ),
-      WPDKMailPlaceholders::USER_DISPLAY_NAME => $user->data->display_name,
-      WPDKMailPlaceholders::USER_EMAIL        => $user->data->user_email,
+      WPDKPostPlaceholders::DATE              => date( 'j M, Y' ),
+      WPDKPostPlaceholders::DATE_TIME         => date( 'j M, Y H:i:s' ),
+      WPDKPostPlaceholders::USER_FIRST_NAME   => $user->get( 'first_name' ),
+      WPDKPostPlaceholders::USER_LAST_NAME    => $user->get( 'last_name' ),
+      WPDKPostPlaceholders::USER_DISPLAY_NAME => $user->data->display_name,
+      WPDKPostPlaceholders::USER_EMAIL        => $user->data->user_email,
     );
 
     // Inline extra placeholder
@@ -245,49 +247,3 @@ class WPDKMail extends WPDKPost {
   }
 
 }
-
-/**
- * This class contains the definition of mail placeholder
- *
- * @class              WPDKMailPlaceholders
- * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-18
- * @version            0.8.1
- */
-class WPDKMailPlaceholders {
-
-  const USER_DISPLAY_NAME = '${USER_DISPLAY_NAME}';
-  const USER_EMAIL        = '${USER_EMAIL}';
-  const USER_FIRST_NAME   = '${USER_FIRST_NAME}';
-  const USER_LAST_NAME    = '${USER_LAST_NAME}';
-
-  /**
-   * Return a key values pairs array with the list of placehodlers. This array has a key with the placeholder string
-   * and an array( description, plugin name )
-   *
-   * @brief Placeholders list
-   *
-   * @return array
-   */
-  public static function placeholders()
-  {
-
-    $placeholders = array(
-      self::USER_FIRST_NAME   => array( __( 'User First name', WPDK_TEXTDOMAIN ), 'Core' ),
-      self::USER_LAST_NAME    => array( __( 'User Last name', WPDK_TEXTDOMAIN ), 'Core' ),
-      self::USER_DISPLAY_NAME => array( __( 'User Display name', WPDK_TEXTDOMAIN ), 'Core' ),
-      self::USER_EMAIL        => array( __( 'User email', WPDK_TEXTDOMAIN ), 'Core' ),
-    );
-
-    /**
-     * Filter the mail placeholder.
-     *
-     * @param array $placeholders An array with {placeholder string} => array( {label description} => {owner} ).
-     */
-
-    return apply_filters( 'wpdk_mail_placeholders', $placeholders );
-  }
-
-}
-
