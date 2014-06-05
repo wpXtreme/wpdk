@@ -25,7 +25,7 @@ class WPDKUIPageView extends WPDKView {
   private static $instance = null;
 
   /**
-   * List of views to paged.
+   * List of views to paged. This can be a list of instance of WPDKView, string content or callable user functions.
    *
    * @brief Views
    *
@@ -56,7 +56,7 @@ class WPDKUIPageView extends WPDKView {
    *
    * @return WPDKUIPageView
    */
-  public static function initWithViews( $views )
+  public static function initWithPages( $views )
   {
     // Init
     self::init();
@@ -120,7 +120,20 @@ class WPDKUIPageView extends WPDKView {
     foreach( $views as $view ) : ?>
 
       <div data-view="<?php echo $index++ ?>" class="wpdk-ui-page-view-container">
-        <?php $view->display() ?>
+        <?php
+        // WPDKView
+        if ( is_object( $view ) && $view instanceof WPDKView ) {
+          $view->display();
+        }
+        // String content
+        elseif ( is_string( $view ) ) {
+          echo $view;
+        }
+        // Callable user function
+        elseif ( is_callable( $view ) ) {
+          call_user_func( $view );
+        }
+        ?>
       </div>
 
     <?php
