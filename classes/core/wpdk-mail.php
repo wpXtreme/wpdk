@@ -116,7 +116,7 @@ class WPDKMail extends WPDKPost {
       $result = wp_mail( $to, $subject, $body, $this->headers() );
     }
     catch ( phpmailerException $e ) {
-      return new WPDKError( 'wpxmm-send', $e->getMessage(), $e );
+      return new WPDKError( 'wpdk-mail-send', $e->getMessage(), $e );
     }
 
     return $result;
@@ -169,25 +169,27 @@ class WPDKMail extends WPDKPost {
    * @brief Replace placeholder with value
    *
    * @param string          $content Content to filter
-   * @param bool|int|object $id_user Optional. User ID or FALSE to get the current user id. You can set as object WP_User
+   * @param bool|int|object $user_id Optional. User ID or FALSE to get the current user id. You can set as object WP_User
    * @param array           $extra   Optional. Extra placeholder to replace, for custom use.
    *
    * @return string
    */
-  private function replacePlaceholder( $content, $id_user = false, $extra = array() )
+  private function replacePlaceholder( $content, $user_id = false, $extra = array() )
   {
     // If no user set get the current user logged in
-    if ( false === $id_user ) {
-      $id_user = get_current_user_id();
-      $user    = new WP_User( $id_user );
+    if ( false === $user_id ) {
+      $user_id = get_current_user_id();
+      $user    = get_user_by( 'id', $user_id );
     }
-    elseif ( is_object( $id_user ) && is_a( $id_user, 'WP_User' ) ) {
-      $user = $id_user;
+    elseif ( is_object( $user_id ) && is_a( $user_id, 'WP_User' ) ) {
+      $user = $user_id;
     }
-    elseif ( is_numeric( $id_user ) ) {
-      $user = new WP_User( $id_user );
+    elseif ( is_numeric( $user_id ) ) {
+      $user = get_user_by( 'id', $user_id );
     }
-    else {
+
+    // Stability
+    if ( empty( $user ) ) {
       return $content;
     }
 
@@ -199,7 +201,7 @@ class WPDKMail extends WPDKPost {
       WPDKMailPlaceholders::USER_EMAIL        => $user->data->user_email,
     );
 
-    // inline extra placeholder
+    // Inline extra placeholder
     if ( !empty( $extra ) ) {
       $str_replaces = array_merge( $str_replaces, $extra );
     }
@@ -208,10 +210,11 @@ class WPDKMail extends WPDKPost {
      * Filter the defaults placeholder.
      *
      * @param array $str_replaces An array with {place holder key} => {value}.
-     * @param int   $id_user      The User ID.
+     * @param int   $user_id      The User ID.
      */
-    $str_replaces = apply_filters( 'wpdk_mail_replace_placeholders', $str_replaces, $id_user );
+    $str_replaces = apply_filters( 'wpdk_mail_replace_placeholders', $str_replaces, $user_id );
 
+    // Replace in content
     $content = strtr( $content, $str_replaces );
 
     return $content;
@@ -236,32 +239,21 @@ class WPDKMailPlaceholders {
   const USER_LAST_NAME    = '${USER_LAST_NAME}';
 
   /**
-   * Return a key values pais array with the list of placehodlers. This array has a key with the placeholder string
+   * Return a key values pairs array with the list of placehodlers. This array has a key with the placeholder string
    * and an array( description, plugin name )
    *
    * @brief Placeholders list
    *
    * @return array
    */
-  public static function placeholders() {
+  public static function placeholders()
+  {
 
     $placeholders = array(
-      self::USER_FIRST_NAME   => array(
-        __( 'User First name', WPDK_TEXTDOMAIN ),
-        'Core'
-      ),
-      self::USER_LAST_NAME    => array(
-        __( 'User Last name', WPDK_TEXTDOMAIN ),
-        'Core'
-      ),
-      self::USER_DISPLAY_NAME => array(
-        __( 'User Display name', WPDK_TEXTDOMAIN ),
-        'Core'
-      ),
-      self::USER_EMAIL        => array(
-        __( 'User email', WPDK_TEXTDOMAIN ),
-        'Core'
-      ),
+      self::USER_FIRST_NAME   => array( __( 'User First name', WPDK_TEXTDOMAIN ), 'Core' ),
+      self::USER_LAST_NAME    => array( __( 'User Last name', WPDK_TEXTDOMAIN ), 'Core' ),
+      self::USER_DISPLAY_NAME => array( __( 'User Display name', WPDK_TEXTDOMAIN ), 'Core' ),
+      self::USER_EMAIL        => array( __( 'User email', WPDK_TEXTDOMAIN ), 'Core' ),
     );
 
     /**
