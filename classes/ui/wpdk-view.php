@@ -195,11 +195,9 @@ class WPDKView extends WPDKObject {
   }
 
   /**
-   * Return the HTML markup content for this view
+   * Display the HTML markup content for this view.
    *
-   * @brief    The view content
-   *
-   * @internal WPDKView $view
+   * @brief Display view content
    *
    * @return string
    */
