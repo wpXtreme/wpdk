@@ -1,4 +1,5 @@
 <?php
+
 /// @cond private
 
 /*
@@ -25,9 +26,9 @@
  *
  * @class              WPDKWatchDog
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-18
- * @version            1.0.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-06-06
+ * @version            1.0.2
  *
  */
 
@@ -132,18 +133,18 @@ class WPDKWatchDog {
     $this->separator         = self::LOG_SEPARATOR;
     $this->extensionFilename = $extension;
 
-    /* Under the plugin path ($path) create a log/ folder */
+    // Under the plugin path ($path) create a log/ folder
     if ( !file_exists( $this->path ) ) {
       @wp_mkdir_p( $this->path );
     }
 
     $this->logname = sprintf( '%s%s.%s', $this->path, date( 'Ymd' ), $this->extensionFilename );
 
-    /* Check if log file is available */
+    // Check if log file is available
     $handle          = @fopen( $this->logname, "a+" );
     $this->available = ( false !== $handle );
 
-    /* Remove old zero logs. */
+    // Remove old zero logs
     $yesterday_log = sprintf( '%s%s.%s', $this->path, date( 'Ymd', strtotime( '-1 days' ) ), $this->extensionFilename );
     if ( file_exists( $yesterday_log ) ) {
       $size = @filesize( $yesterday_log );
@@ -162,30 +163,66 @@ class WPDKWatchDog {
    *                       object or array. In this case the log method recognize the not string param and do
    *                       a `var_dump`.
    *
-   * @param string $title  Optional. Any free string text to context the log
+   * @param mixed $args  Optional. ...
    *
    * @return bool
    */
-  public function log( $txt, $title = '' )
+  public function log( $txt, $args = null )
   {
     if ( $this->enabled && $this->available ) {
 
-      /* If not a pre-formatted string, grab the var dump object, array or mixed for output */
+      // Get num args
+      if ( func_num_args() > 2 ) {
+
+        // Get format
+        $format = func_get_arg( 0 );
+
+        // Get args
+        $args = func_get_args();
+
+        // Removed the first (format)
+        unset( $args[0] );
+
+        // Convert
+        $values = array();
+        foreach ( $args as $txt ) {
+          ob_start();
+          var_dump( $txt );
+          $values[] = ob_get_contents();
+          ob_end_clean();
+        }
+
+        // Build the log
+        $txt = vsprintf( $format, $values );
+
+      }
+      // Value, title
+      else {
+        $title = $args;
+      }
+
+      // If not a pre-formatted string, grab the var dump object, array or mixed for output
       if ( !is_string( $txt ) && !is_numeric( $txt ) ) {
         ob_start();
         var_dump( $txt );
-        $content = ob_get_contents();
+        $txt = ob_get_contents();
         ob_end_clean();
-        $txt = $content;
-
-        /* @since 1.4.3 */
-        do_action( 'wpdk_watchdog_log', $content );
       }
 
       $date   = sprintf( '[%s]', date( 'Y-m-d H:i:s' ) );
       $sepa   = substr( $this->separator, 0, ( strlen( $this->separator ) - strlen( $date ) - 1 ) );
       $output = sprintf( "%s (%s) %s\n%s\n\n", $date, $title, $sepa, $txt );
+
+      /**
+       * Fires when a log is write.
+       *
+       * @param string $content The log content
+       */
+      do_action( 'wpdk_watchdog_log', $output );
+
       $handle = fopen( $this->logname, 'a+' );
+
+      // If handle is ok log
       if ( false !== $handle ) {
         fwrite( $handle, $output );
         fclose( $handle );
