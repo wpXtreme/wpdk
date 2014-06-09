@@ -296,6 +296,14 @@ SQL;
       $dismissed = array_unique( array_merge( $dismissed, (array)$alert_id ) );
       update_user_meta( $user_id, WPDKUIAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
 
+      /**
+       * Fires when an alert is permanent dismiss by a user.
+       *
+       * @param int    $user_id  User that dismiss this alert.
+       * @param string $alert_id The alert id.
+       */
+      do_action( 'wpdk_ui_alert_dismissed', $user_id, $alert_id );
+
       $response->json();
     }
 
