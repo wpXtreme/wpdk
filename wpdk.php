@@ -304,7 +304,6 @@ if ( !class_exists( 'WPDK' ) ) {
           '_WPDKPost',
           'WPDKPost',
           'WPDKPostMeta',
-          'WPDKPosts',
           'WPDKPostStatus',
           'WPDKPostType',
         ),
