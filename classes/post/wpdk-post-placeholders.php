@@ -287,17 +287,24 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
   {
     parent::__construct( 'wpdk-post-placeholder-welcome-tour', __( 'New Placeholders Metabox' ) );
 
-    // Enqueue page view
-    WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
+    // Check if dismissed
+    if( false === $this->is_dismissed() ) {
 
-    // List of page
-    $pages = array(
-      'Prima',
-      'Seconda',
-    );
+      // Permanent dismiss
+      $this->permanent_dismiss = true;
 
-    // Display the page view
-    $this->page_view = WPDKUIPageView::initWithPages( $pages );
+      // Enqueue page view
+      WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
+
+      // List of page
+      $pages = array(
+        'Prima',
+        'Seconda',
+      );
+
+      // Display the page view
+      $this->page_view = WPDKUIPageView::initWithPages( $pages );
+    }
   }
 
   /**
