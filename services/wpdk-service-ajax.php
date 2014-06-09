@@ -293,7 +293,7 @@ SQL;
       $dismissed = empty( $dismissed ) ? array() : $dismissed;
 
       // Add this alert id and make array unique - avoid duplicate
-      $dismissed = array_unique( array_merge( $dismissed, (array)$alert_id ) );
+      $dismissed[ $alert_id ] = time();
       update_user_meta( $user_id, WPDKUIAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
 
       /**
