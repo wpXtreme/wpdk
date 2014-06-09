@@ -246,7 +246,7 @@ class WPDKPost extends WPDKObject {
    *
    * @var string $post_type
    */
-  public $post_type;
+  public $post_type = WPDKPostType::POST;
   /**
    * List of urls to ping when post is published (for unpublished posts)
    *
@@ -267,7 +267,7 @@ class WPDKPost extends WPDKObject {
    *
    * @return WPDKPost
    */
-  public function __construct( $record = null, $post_type = 'page' )
+  public function __construct( $record = null, $post_type = WPDKPostType::POST )
   {
 
     // Get post by id
@@ -283,17 +283,32 @@ class WPDKPost extends WPDKObject {
     // Get post by name
     elseif ( !is_null( $record ) && is_string( $record ) ) {
 
-      // TODO Use get by name
+      // Try by path
       $object = get_page_by_path( $record, OBJECT, $post_type );
-      $this->initPostByPost( $object );
+
+      if( is_null( $object ) ) {
+
+        // Try by title
+        $object = get_page_by_title( $record, OBJECT, $post_type );
+      }
+
+      if( !is_null( $object ) ) {
+        $this->initPostByPost( $object );
+      }
     }
 
     // Create an empty post
     elseif ( is_null( $record ) ) {
 
+      // Save post type
+      $this->post_type = $post_type;
+
       // Create a new onfly post
       $defaults = $this->postEmpty();
       $this->initPostByArgs( $defaults );
+
+      // Insert
+      $this->ID = wp_insert_post( $defaults );
     }
   }
 
@@ -349,7 +364,7 @@ class WPDKPost extends WPDKObject {
   {
     $args = array(
       'ID'                    => 0,
-      'post_author'           => 0,
+      'post_author'           => get_current_user_id(),
       'post_date'             => '0000-00-00 00:00:00',
       'post_date_gmt'         => '0000-00-00 00:00:00',
       'post_content'          => '',
@@ -368,7 +383,7 @@ class WPDKPost extends WPDKObject {
       'post_parent'           => 0,
       'guid'                  => '',
       'menu_order'            => 0,
-      'post_type'             => WPDKPostType::POST,
+      'post_type'             => $this->post_type,
       'post_mime_type'        => '',
       'comment_count'         => 0
     );
