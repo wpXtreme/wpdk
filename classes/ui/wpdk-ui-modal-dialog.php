@@ -45,13 +45,16 @@
  * @class              WPDKUIModalDialog
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-04-04
- * @version            1.0.1
+ * @date               2014-06-09
+ * @version            1.0.2
  * @since              1.4.21
  * @note               Updated HTML markup and CSS to Bootstrap v3.1.0
  *
  */
 class WPDKUIModalDialog extends WPDKHTMLTag {
+
+  // Used to store for each user the dismiss alert
+  const USER_META_KEY_PERMANENT_DISMISS = '_wpdk_modal_dismiss';
 
   /**
    * Override version
@@ -165,6 +168,25 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public $dismiss_button_glyph = '×';
 
   /**
+   * If TRUE this modal is permanet dismiss by a logged in user
+   *
+   * @brief Permanent dismiss
+   * @since 1.5.6
+   *
+   * @var bool $permanent_dismiss
+   */
+  public $permanent_dismiss = false;
+
+  /**
+   * List of permanent dismissed dialog id
+   *
+   * @brief Permanent dismissed
+   *
+   * @var array $dismissed
+   */
+  protected $dismissed = array();
+
+  /**
    * Create an instance of WPDKUIModalDialog class
    *
    * @brief Construct
@@ -181,6 +203,27 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     $this->id      = sanitize_title( $id );
     $this->title   = $title;
     $this->content = $content;
+
+    // @since 1.5.6 permanent dismissed
+    if ( is_user_logged_in() ) {
+      $user_id         = get_current_user_id();
+      $this->dismissed = get_user_meta( $user_id, self::USER_META_KEY_PERMANENT_DISMISS, true );
+    }
+  }
+
+  /**
+   * Return TRUE if this modal dialog is dismissed. FALSE otherwise.
+   *
+   * @brief Is dismissed
+   * @return bool
+   */
+  public function is_dismissed()
+  {
+    if ( !empty( $this->dismissed ) ) {
+      return in_array( md5( $this->id ), array_keys( $this->dismissed ) );
+    }
+
+    return false;
   }
 
   /**
@@ -204,9 +247,17 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   private function dismissButton()
   {
+    // Prepare classes
+    $classes = array( 'close' );
+
+    // Permanent dismiss by user logged in
+    if( true === $this->permanent_dismiss ) {
+      $classes[] = 'wpdk-modal-permanent-dismiss';
+    }
+
     $result = '';
     if ( $this->dismissButton  ) {
-      $result = '<button type="button" class="close" data-dismiss="wpdkModal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
+      $result = sprintf( '<button type="button" class="%s" data-dismiss="wpdkModal" aria-hidden="true">%s</button>', WPDKHTMLTag::classInline( $classes ), $this->dismiss_button_glyph );
     }
     return $result;
   }
@@ -370,6 +421,10 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   public function html()
   {
+    // Permanent dismiss
+    if ( !empty( $this->dismissed ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
+      return;
+    }
 
     // Get default data as properties
     $this->data['keyboard'] = $this->keyboard;
