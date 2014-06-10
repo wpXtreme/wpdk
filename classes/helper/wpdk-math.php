@@ -5,8 +5,8 @@
  * @class              WPDKMath
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.0.3
+ * @date               2014-06-10
+ * @version            1.0.4
  */
 
 class WPDKMath extends WPDKObject {
@@ -25,7 +25,7 @@ class WPDKMath extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.3';
+  public $__version = '1.0.4';
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC
@@ -42,6 +42,21 @@ class WPDKMath extends WPDKObject {
   public static function rModulus( $a, $n )
   {
     return ( $a - ( $n * round( $a / $n ) ) );
+  }
+
+  /**
+   * Remove all alfa-char from a string and return number only.
+   *
+   * @brief Number
+   * @sice  1.5.6
+   *
+   * @param string $value Any string with number inside.
+   *
+   * @return int|float
+   */
+  public static function number( $value )
+  {
+    return preg_replace( '/\D/', '', $value );
   }
 
   /**
