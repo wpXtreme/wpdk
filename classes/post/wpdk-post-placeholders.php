@@ -52,6 +52,77 @@ class WPDKPostPlaceholders {
 
     // Filter the list of registered placeholder.
     add_filter( 'wpdk_post_placeholders', array( $this, 'wpdk_post_placeholders' ) );
+
+    // Filter the content with standard placeholder
+    add_filter( 'wpdk_post_placeholders_content', array( $this, 'wpdk_post_placeholders_content' ), 10, 3 );
+  }
+
+  /**
+   * Filter the content with standard placeholder.
+   *
+   * @brief Placeholder content
+   *
+   * @param string $content The content.
+   * @param int    $user_id Optional. User id or null for current user.
+   * @param array  $args    Optional. Mixed extra params.
+   */
+  public function wpdk_post_placeholders_content( $content, $user_id = false, $args = array() )
+  {
+
+    // Get current user
+    $user_id = empty( $user_id ) ? get_current_user_id() : $user_id;
+
+    // Default
+    $replaces = array(
+      // TODO Think to add a filter for placeholder
+      WPDKPostPlaceholders::DATE      => date( 'j M, Y' ),
+      WPDKPostPlaceholders::DATE_TIME => date( 'j M, Y H:i:s' ),
+    );
+
+    // Get user
+    $user = get_user_by( 'id', $user_id );
+
+    /*
+     * eg: $user
+     *
+     *     object(WP_User)#2650 (7) {
+     *      ["data"]=> object(stdClass)#2651 (10) {
+     *        ["ID"]=> string(5) "18791"
+     *        ["user_login"]=> string(32) "giovambattista.fazioli@gmail.com"
+     *        ["user_pass"]=> string(34) "$P$BXXPiBIFZq4X4xAoQTpyvW3qoXNueL/"
+     *        ["user_nicename"]=> string(9) "G.Fazioli"
+     *        ["user_email"]=> string(32) "giovambattista.fazioli@gmail.com"
+     *        ["user_url"]=> string(0) ""
+     *        ["user_registered"]=> string(19) "2014-06-10 11:59:38"
+     *        ["user_activation_key"]=> string(0) ""
+     *        ["user_status"]=> string(1) "0"
+     *        ["display_name"]=> string(22) "Giovambattista Fazioli"
+     *      }
+     *      ["ID"]=> int(18791)
+     *      ["caps"]=> array(1) {
+     *        ["plan-user"]=> bool(true)
+     *      }
+     *      ["cap_key"]=> string(15) "wp_capabilities"
+     *      ["roles"]=> array(1) {
+     *        [0]=> string(9) "plan-user"
+     *      }
+     *      ["allcaps"]=> array(1) {
+     *        ["plan-user"]=> bool(true)
+     *      }
+     *      ["filter"]=> NULL
+     *    }
+     *
+     */
+
+    // If user exist
+    if ( !empty( $user ) ) {
+      $replaces[ self::USER_DISPLAY_NAME ] = $user->data->display_name;
+      $replaces[ self::USER_EMAIL ]        = $user->data->user_email;
+      $replaces[ self::USER_FIRST_NAME ]   = $user->get( 'first_name ' );
+      $replaces[ self::USER_LAST_NAME ]    = $user->get( 'last_name ' );
+    }
+
+    return strtr( $content, $replaces );
   }
 
   /**
