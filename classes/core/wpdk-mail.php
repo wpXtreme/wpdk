@@ -98,15 +98,20 @@ class WPDKMail extends WPDKPost {
    *
    * @return bool|WPDKError
    */
-  public function send( $to, $subject = false, $from = '', $placeholders = array() ) {
+  public function send( $to, $subject = false, $from = '', $placeholders = array() )
+  {
+    // Set user id for replace placeholder - see classes/post/wpdk-post-placeholders.php
+    $user_id = -1;
+
+    // Check for to
+    if ( is_numeric( $to ) ) {
+      $user_to = get_user_by( 'id', $to );
+      $to      = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
+      $user_id = $to;
+    }
 
     // Use shared private property
     $this->from = $from;
-
-    if ( is_numeric( $this->from ) ) {
-      $user = new WP_User( $from );
-      $this->from = sprintf( '%s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
-    }
 
     // $from is as 'NOME <email>', eg: 'wpXtreme <info@wpxtre.me>'
     if ( empty( $this->from ) ) {
@@ -115,26 +120,19 @@ class WPDKMail extends WPDKPost {
       $this->from = sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
     }
 
-    // User id for $to?
-    $user = false;
-    if ( is_numeric( $to ) ) {
-      $user  = new WP_User( $to );
-      $email = sanitize_email( $user->get( 'user_email' ) );
-
-      // If user has not email exit
-      if ( empty( $email ) ) {
-        return;
-      }
-      $to = sprintf( '  %s <%s>', $user->data->display_name, $user->get( 'user_email' ) );
+    // Check for from
+    elseif ( is_numeric( $this->from ) ) {
+      $user_from = get_user_by( 'id', $from );
+      $this->from = sprintf( '%s <%s>', $user_from->data->display_name, $user_from->data->user_email );
     }
 
-    if ( $subject === false ) {
+    // If subject is empty get the post title
+    if ( empty( $subject ) ) {
       $subject = apply_filters( 'the_title', $this->post_title );
     }
 
-    //$body = apply_filters( 'the_content', $post->post_content );
-    $body = $this->post_content;
-    $body = $this->replacePlaceholder( $body, $user, $placeholders );
+    // Filter the content body
+    $body = apply_filters( 'wpdk_post_placeholders_content', $this->post_content, $user_id, $placeholders );
 
     try {
       $result = wp_mail( $to, $subject, $body, $this->headers() );
@@ -184,66 +182,6 @@ class WPDKMail extends WPDKPost {
     $headers = apply_filters( 'wpdk_mail_headers', $headers );
 
     return implode( "\r\n", $headers );
-  }
-
-  /**
-   * Replace every placeholder in content body mail with true data value. However some placeholder must be as extra
-   * parameter. For example the password placeholder (the password is not decryptable) must be as extra param.
-   *
-   * @brief Replace placeholder with value
-   *
-   * @param string          $content Content to filter
-   * @param bool|int|object $user_id Optional. User ID or FALSE to get the current user id. You can set as object WP_User
-   * @param array           $extra   Optional. Extra placeholder to replace, for custom use.
-   *
-   * @return string
-   */
-  private function replacePlaceholder( $content, $user_id = false, $extra = array() )
-  {
-    // If no user set get the current user logged in
-    if ( false === $user_id ) {
-      $user_id = get_current_user_id();
-      $user    = get_user_by( 'id', $user_id );
-    }
-    elseif ( is_object( $user_id ) && is_a( $user_id, 'WP_User' ) ) {
-      $user = $user_id;
-    }
-    elseif ( is_numeric( $user_id ) ) {
-      $user = get_user_by( 'id', $user_id );
-    }
-
-    // Stability
-    if ( empty( $user ) ) {
-      return $content;
-    }
-
-    // Defaults placeholder
-    $str_replaces = array(
-      WPDKPostPlaceholders::DATE              => date( 'j M, Y' ),
-      WPDKPostPlaceholders::DATE_TIME         => date( 'j M, Y H:i:s' ),
-      WPDKPostPlaceholders::USER_FIRST_NAME   => $user->get( 'first_name' ),
-      WPDKPostPlaceholders::USER_LAST_NAME    => $user->get( 'last_name' ),
-      WPDKPostPlaceholders::USER_DISPLAY_NAME => $user->data->display_name,
-      WPDKPostPlaceholders::USER_EMAIL        => $user->data->user_email,
-    );
-
-    // Inline extra placeholder
-    if ( !empty( $extra ) ) {
-      $str_replaces = array_merge( $str_replaces, $extra );
-    }
-
-    /**
-     * Filter the defaults placeholder.
-     *
-     * @param array $str_replaces An array with {place holder key} => {value}.
-     * @param int   $user_id      The User ID.
-     */
-    $str_replaces = apply_filters( 'wpdk_mail_replace_placeholders', $str_replaces, $user_id );
-
-    // Replace in content
-    $content = strtr( $content, $str_replaces );
-
-    return $content;
   }
 
 }
