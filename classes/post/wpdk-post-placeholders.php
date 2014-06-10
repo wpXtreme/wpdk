@@ -54,7 +54,7 @@ class WPDKPostPlaceholders {
     add_filter( 'wpdk_post_placeholders', array( $this, 'wpdk_post_placeholders' ) );
 
     // Filter the content with standard placeholder
-    add_filter( 'wpdk_post_placeholders_content', array( $this, 'wpdk_post_placeholders_content' ), 10, 3 );
+    add_filter( 'wpdk_post_placeholders_content', array( $this, 'wpdk_post_placeholders_content' ), 10, 4 );
   }
 
   /**
@@ -62,11 +62,12 @@ class WPDKPostPlaceholders {
    *
    * @brief Placeholder content
    *
-   * @param string $content The content.
-   * @param int    $user_id Optional. User id or null for current user.
-   * @param array  $args    Optional. Mixed extra params.
+   * @param string $content       The content.
+   * @param int    $user_id       Optional. User id or null for current user.
+   * @param array  $replace_pairs Optional. It's an array in the form array( 'from' => 'to', ...).
+   * @param array  $args          Optional. Mixed extra params.
    */
-  public function wpdk_post_placeholders_content( $content, $user_id = false, $args = array() )
+  public function wpdk_post_placeholders_content( $content, $user_id = false, $replace_pairs = array(), $args = array() )
   {
 
     // Get current user
@@ -121,6 +122,9 @@ class WPDKPostPlaceholders {
       $replaces[ self::USER_FIRST_NAME ]   = $user->get( 'first_name ' );
       $replaces[ self::USER_LAST_NAME ]    = $user->get( 'last_name ' );
     }
+
+    // Merge
+    $replaces = array_merge( $replaces, $replace_pairs );
 
     return strtr( $content, $replaces );
   }
