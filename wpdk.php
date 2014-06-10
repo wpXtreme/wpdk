@@ -78,6 +78,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // Register scripts and styles
       add_action( 'init', array( 'WPDKUIComponents', 'init' ) );
 
+      // Placeholder metabox
+      add_action( 'init', array( 'WPDKPostPlaceholders', 'init' ) );
+
       // Users enhancer
       add_action( 'set_current_user', array( 'WPDKUsers', 'init' ) );
 
@@ -97,9 +100,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
       // Add some special WPDK class to body
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
-
-      // Placeholder metabox
-      add_action( 'admin_init', array( 'WPDKPostPlaceholders', 'init' ) );
 
       /**
        * Fires when WPDK is loaded.
