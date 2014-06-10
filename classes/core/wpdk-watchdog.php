@@ -177,6 +177,9 @@ class WPDKWatchDog {
         // Get format
         $format = func_get_arg( 0 );
 
+        // Print the format as title
+        $title = $format;
+
         // Get args
         $args = func_get_args();
 
