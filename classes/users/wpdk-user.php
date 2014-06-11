@@ -336,6 +336,7 @@ class WPDKUser extends WP_User {
 
       // Sanitize string->int
       $this->data->ID = absint( $id_user );
+      $this->ID       = absint( $id_user );
     }
   }
 
@@ -743,6 +744,33 @@ class WPDKUser extends WP_User {
       }
     }
     return false;
+  }
+
+  /**
+   * Set the role of the user. Perform a cache clear for this user.
+   *
+   * This will remove the previous roles of the user and assign the user the
+   * new one. You can set the role to an empty string and it will remove all
+   * of the roles from the user.
+   *
+   * @since 1.5.6
+   *
+   * @param string $role Role name.
+   */
+  public function set_role( $role )
+  {
+    parent::set_role( $role );
+
+    // Flush user cache
+    wp_cache_delete( $this->ID, 'users' );
+
+    // Destroy the global
+    global $current_user;
+    unset( $current_user );
+    unset( $GLOBALS['current_user'] );
+
+    // Reset as current
+    wp_set_current_user( $this->ID );
   }
 
   /**
