@@ -109,6 +109,7 @@ class WPDKMail extends WPDKPost {
       $user_to = get_user_by( 'id', $user_id );
       $to      = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
     }
+    // TODO recover id from email address
 
     // Use shared private property
     $this->from = $from;
