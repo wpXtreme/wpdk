@@ -182,7 +182,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
 
     // Nonce
     if ( !empty( $nonce ) && !empty( $action ) ) {
-      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
+      if ( isset(  $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
         return $action;
       }
     }
