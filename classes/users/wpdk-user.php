@@ -759,6 +759,9 @@ class WPDKUser extends WP_User {
    */
   public function set_role( $role )
   {
+    // Before remove all previous
+    $this->remove_all_caps();
+
     parent::set_role( $role );
 
     // Flush user cache
