@@ -105,9 +105,9 @@ class WPDKMail extends WPDKPost {
 
     // Check for to
     if ( is_numeric( $to ) ) {
-      $user_to = get_user_by( 'id', $to );
-      $to      = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
       $user_id = $to;
+      $user_to = get_user_by( 'id', $user_id );
+      $to      = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
     }
 
     // Use shared private property
