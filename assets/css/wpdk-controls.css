@@ -126,7 +126,9 @@ form#wpdk-preferences input[name=wpdk_preferences_reset_all]
 
 /* since 1.5.0 all controls have the unque class wpdk-ui-control */
 .wpdk-ui-control
-{ }
+{
+  -moz-box-sizing : border-box; -webkit-box-sizing : border-box; box-sizing : border-box;
+}
 
 /* =====================================================================================================================
  * INPUT POINTER
@@ -179,7 +181,7 @@ select.wpdk-form-select
   width                 : auto;
   border                : 1px solid #dfdfdf;
   background-color      : #fff;
-  padding               : 4px;
+  padding               : 6px;
   margin                : 0 4px 0 2px;
   color                 : #444;
   outline               : none;
@@ -430,9 +432,9 @@ span.wpdk-form-swipe
   *display              : inline;
   position              : relative;
   zoom                  : 1;
-  width                 : 40px;
-  height                : 18px;
-  padding               : 2px 2px 0;
+  width                 : 44px;
+  height                : 20px;
+  padding               : 2px;
   margin                : 0 8px 0 2px;
   vertical-align        : middle;
   background-color      : #ed5a61;
