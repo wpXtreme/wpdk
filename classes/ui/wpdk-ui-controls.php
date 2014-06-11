@@ -1966,11 +1966,24 @@ class WPDKUIControlSubmit extends WPDKUIControl {
  * @class              WPDKUIControlSwipe
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-23
- * @version            0.9.0
+ * @date               2014-06-10
+ * @version            0.9.1
  *
  */
 class WPDKUIControlSwipe extends WPDKUIControl {
+
+  /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   * @since 1.5.6
+   *
+   * @return WPDKUIControlSwipe
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
 
   /**
    * Create an instance of WPDKUIControlSwipe class
@@ -2036,7 +2049,7 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
     $swipe          = new WPDKHTMLTagSpan( '<span></span>' . $input_hidden->html() );
     $class          = isset( $this->item['class'] ) ?  $this->item['class'] : '';
-    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe ' . $status );
+    $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe wpdk-ui-control ' . $status );
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
 
