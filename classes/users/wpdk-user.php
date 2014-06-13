@@ -1802,7 +1802,7 @@ class WPDKRole extends WP_Role {
   {
 
     // Sanitize the role name
-    $role_id = sanitize_title( strtolower( $role ) );
+    $role_id = str_replace( '-', '_', sanitize_title( strtolower( $role ) ) );
 
     // Get Roles
     $wpdk_roles  = WPDKRoles::getInstance();
