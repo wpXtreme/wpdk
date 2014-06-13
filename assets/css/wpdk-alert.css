@@ -18,16 +18,19 @@
 {
   padding               : 15px;
   margin                : 0 0 20px 0 !important;
-  border-width          : 0 0 0 4px;
+  border-width          : 1px 1px 1px 4px;
   border-style          : solid;
+  border-top-color      : #e5e5e5 !important;
+  border-right-color    : #e5e5e5 !important;
+  border-bottom-color   : #e5e5e5 !important;
   position              : relative;
   background-color      : #fff;
-  -moz-border-radius    : 2px;
-  -webkit-border-radius : 2px;
-  border-radius         : 2px;
-  -moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
-  -webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
-  box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);
+  -moz-border-radius    : 0 2px 2px 0;
+  -webkit-border-radius : 0 2px 2px 0;
+  border-radius         : 0 2px 2px 0;
+  /*-moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
+  /*-webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
+  /*box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
 }
 
 .wpdk-alert h4
@@ -141,11 +144,13 @@
   border-color : #bbb;
 }
 
-/* Adjustment for inner form */
+/*
+ * When use an alert info control layout
+ */
 
 fieldset.wpdk-form-fieldset .wpdk-alert
 {
-  margin : 2px 16px 8px !important;
+  margin : 2px 8px 16px !important;
 }
 
 /* WPDK Custom */
