@@ -1815,6 +1815,11 @@ class WPDKRole extends WP_Role {
       if ( empty( $display_name ) ) {
         $display_name = ucfirst( $role );
       }
+
+      // Sanitize
+      $display_name = str_replace( '-', ' ', $display_name );
+      $display_name = str_replace( '_', ' ', $display_name );
+
       $role_object        = $wpdk_roles->add_role( $role_id, $display_name, $capabilities, $description, $owner );
       $this->displayName  = $display_name;
       $this->capabilities = $role_object->capabilities;
