@@ -445,7 +445,7 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
         _data() +
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
-        'role="dialog"' +
+        'role="wpdk-dialog"' +
         'aria-labelledby="' + _aria_title() + '"' +
         'aria-hidden="true">' +
         '<div ' + _size() + ' class="modal-dialog">' +
@@ -679,7 +679,7 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
         data() +
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
-        'role="dialog"' +
+        'role="wpdk-dialog"' +
         'aria-labelledby="' + aria_title() + '"' +
         'aria-hidden="true">' +
         '<div ' + size() + ' class="modal-dialog">' +

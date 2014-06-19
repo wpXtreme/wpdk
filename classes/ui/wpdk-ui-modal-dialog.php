@@ -437,7 +437,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
       <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
          tabindex="-1"
-         role="dialog"
+         role="wpdk-dialog"
          aria-labelledby="<?php echo $this->aria_title() ?>"
          aria-hidden="true">
       <div style="<?php echo $this->width() ?>" class="modal-dialog">
