@@ -209,19 +209,6 @@ fieldset.wpdk-form-fieldset .wpdk-alert
   -webkit-appearance : none;
 }
 
-/* Experimental - Brand new arrow */
-
-.wpdk-alert.arrow-top-left:before
-{
-  content             : "";
-  border              : 16px solid transparent;
-  border-bottom-color : inherit;
-  display             : block;
-  position            : absolute;
-  left                : 32px;
-  top                 : -32px;
-}
-
 /*
  * The Glyph icons in the alert
  */
