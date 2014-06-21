@@ -221,3 +221,21 @@ fieldset.wpdk-form-fieldset .wpdk-alert
   left                : 32px;
   top                 : -32px;
 }
+
+/*
+ * The Glyph icons in the alert
+ */
+
+.wpdk-alert .wpdk-icon-info-circled
+{
+  font-size      : 24px;
+  color          : #3f8efe;
+  vertical-align : middle;
+}
+
+.wpdk-alert .wpdk-icon-attention
+{
+  font-size      : 24px;
+  color          : #ef5456;
+  vertical-align : middle;
+}

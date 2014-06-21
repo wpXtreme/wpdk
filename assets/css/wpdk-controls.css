@@ -595,7 +595,7 @@ label.inline
 }
 
 /* =====================================================================================================================
- * SUBTITLE into fieldset
+ * SUBTITLE INTO FIELDSET
  * =====================================================================================================================
  */
 
@@ -626,6 +626,31 @@ div.wpdk-form-description .code
   -moz-border-radius    : 4px;
   -webkit-border-radius : 4px;
   border-radius         : 4px;
+}
+
+/* =====================================================================================================================
+ * GLYPH ICONS INTO THE CONTROL LAYOUT ARRAY
+ * =====================================================================================================================
+ */
+.wpdk-form-description .wpdk-icon-info-circled
+{
+  font-size      : 24px;
+  color          : #6696e8;
+  vertical-align : middle;
+}
+
+.wpdk-form-description .wpdk-icon-attention
+{
+  font-size      : 24px;
+  color          : #ef5456;
+  vertical-align : middle;
+}
+
+.wpdk-form-description .wpdk-icon-ta
+{
+  font-size      : 24px;
+  color          : #70b46a;
+  vertical-align : middle;
 }
 
 /* =====================================================================================================================
