@@ -654,6 +654,12 @@ div.wpdk-form-description .code
   color          : #70b46a;
   vertical-align : middle;
 }
+.wpdk-form-description .wpdk-icon-ok
+{
+  font-size      : 24px;
+  color          : #76a071;
+  vertical-align : middle;
+}
 
 /* =====================================================================================================================
  * FIELD REQUIRES (APPLY TO LABEL TOO)
