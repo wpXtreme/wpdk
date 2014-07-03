@@ -648,8 +648,14 @@ class WPDKUIControlAlert extends WPDKUIControl {
 
     $alert                    = new WPDKUIAlert( $this->id, $value, $alert_type, $title );
     $alert->dismissButton     = isset( $this->item['dismiss_button'] ) ? $this->item['dismiss_button'] : true;
+
+    // @deprecated 'permanent_dismiss' since 1.5.6 - use 'dismiss_permanent' instead
+    $alert->dismissPermanent  = isset( $this->item['permanent_dismiss'] ) ? $this->item['permanent_dismiss'] : false;
+
+    // TODO Backward compatibility -
+    $alert->dismissPermanent  = isset( $this->item['dismiss_permanent'] ) ? $this->item['dismiss_permanent'] : $alert->dismissPermanent;
+
     $alert->class             = isset( $this->item['classes'] ) ? $this->item['classes'] : isset( $this->item['class'] ) ? $this->item['class'] : '';
-    $alert->permanent_dismiss = isset( $this->item['permanent_dismiss'] ) ? $this->item['permanent_dismiss'] : false;
 
     echo $this->contentWithKey( 'prepend' );
 
