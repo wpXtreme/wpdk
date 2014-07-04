@@ -1410,7 +1410,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
         // New referrer
         $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
-        WPXtreme::log( $uri, "redirect" );
+        //WPXtreme::log( $uri, "redirect" );
 
         wp_safe_redirect( $uri );
       }
