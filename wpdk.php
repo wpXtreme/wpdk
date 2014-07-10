@@ -78,11 +78,14 @@ if ( !class_exists( 'WPDK' ) ) {
       // Register scripts and styles
       add_action( 'init', array( 'WPDKUIComponents', 'init' ) );
 
+      // Placeholder metabox
+      add_action( 'init', array( 'WPDKPostPlaceholders', 'init' ) );
+
       // Users enhancer
       add_action( 'set_current_user', array( 'WPDKUsers', 'init' ) );
 
       // Shortcodes
-      add_action( 'wp_loaded', array( 'WPDKServiceShortcode', 'init' ) );
+      add_action( 'wp_loaded', array( 'WPDKServiceShortcodes', 'init' ) );
 
       // Ajax
       if ( wpdk_is_ajax() ) {
@@ -98,7 +101,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // Add some special WPDK class to body
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-      // Callback hook
+      /**
+       * Fires when WPDK is loaded.
+       */
       do_action( 'WPDK' );
     }
 
@@ -217,7 +222,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/core/wpdk-mail.php'                        => array(
           'WPDKMail',
-          'WPDKMailPlaceholder',
         ),
 
         $sPathPrefix . 'classes/core/wpdk-object.php'                      => 'WPDKObject',
@@ -236,7 +240,10 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKWarning',
         ),
 
-        $sPathPrefix . 'classes/core/wpdk-shortcode.php'                   => 'WPDKShortcode',
+        $sPathPrefix . 'classes/core/wpdk-shortcodes.php'                   => array(
+          'WPDKShortcode',
+          'WPDKShortcodes',
+        ),
 
         $sPathPrefix . 'classes/core/wpdk-theme-customize.php'             => array(
           'WPDKThemeCustomize',
@@ -297,9 +304,13 @@ if ( !class_exists( 'WPDK' ) ) {
           '_WPDKPost',
           'WPDKPost',
           'WPDKPostMeta',
-          'WPDKPosts',
           'WPDKPostStatus',
           'WPDKPostType',
+        ),
+
+        $sPathPrefix . 'classes/post/wpdk-post-placeholders.php'                        => array(
+          'WPDKPostPlaceholders',
+          'WPDKPostPlaceholdersMetaBoxView',
         ),
 
         // -------------------------------------------------------------------------------------------------------------
@@ -379,11 +390,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-scripts.php'                    => 'WPDKScripts',
 
-        $sPathPrefix . 'classes/ui/wpdk-tinymce-plugin.php'             => array(
-          'WPDKEditorButton',
-          'WPDKTinyMCEPlugin'
-        ),
-
         $sPathPrefix . 'classes/ui/wpdk-ui.php'                         => 'WPDKUI',
 
         $sPathPrefix . 'classes/ui/wpdk-ui-alert.php'                   => array(
@@ -425,10 +431,14 @@ if ( !class_exists( 'WPDK' ) ) {
 
         $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog.php'            => 'WPDKUIModalDialog',
 
+        $sPathPrefix . 'classes/ui/wpdk-ui-page-view.php'               => 'WPDKUIPageView',
+
         $sPathPrefix . 'classes/ui/wpdk-ui-popover.php'                 => array(
           'WPDKUIPopover',
           'WPDKUIPopoverPlacement',
         ),
+
+        $sPathPrefix . 'classes/ui/wpdk-ui-table-view.php'              => 'WPDKUITableView',
 
         $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
 
@@ -463,7 +473,7 @@ if ( !class_exists( 'WPDK' ) ) {
         // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'services/wpdk-service-ajax.php'                    => 'WPDKServiceAjax',
-        $sPathPrefix . 'services/wpdk-service-shortcode.php'               => 'WPDKServiceShortcode',
+        $sPathPrefix . 'services/wpdk-service-shortcodes.php'              => 'WPDKServiceShortcodes',
 
         // -------------------------------------------------------------------------------------------------------------
         // DEPRECATED

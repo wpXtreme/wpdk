@@ -568,29 +568,29 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     })();
   }
 
-  /**
+  /*
    * Manage the Components
    */
   if ( 'undefined' === typeof( window.WPDKUIComponents ) ) {
     window.WPDKUIComponents = (function(){
 
-      var $t = {
+      var _WPDKUIComponents = {
         version       : '1.0.0',
 
         // See WPDKUIComponents in php
-        ALERT         : 'wpdk-alert',           
-        BUTTON        : 'wpdk-button',          
-        CONTROLS      : 'wpdk-controls',        
-        DYNAMIC_TABLE : 'wpdk-dynamic-table',   
-        MODAL         : 'wpdk-modal',           
-        POPOVER       : 'wpdk-popover',         
-        PREFERENCES   : 'wpdk-preferences',     
-        PROGRESS      : 'wpdk-progress',        
-        RIBBONIZE     : 'wpdk-ribbonize',       
-        TOOLTIP       : 'wpdk-tooltip',         
+        ALERT         : 'wpdk-alert',
+        BUTTON        : 'wpdk-button',
+        CONTROLS      : 'wpdk-controls',
+        DYNAMIC_TABLE : 'wpdk-dynamic-table',
+        MODAL         : 'wpdk-modal',
+        POPOVER       : 'wpdk-popover',
+        PREFERENCES   : 'wpdk-preferences',
+        PROGRESS      : 'wpdk-progress',
+        RIBBONIZE     : 'wpdk-ribbonize',
+        TOOLTIP       : 'wpdk-tooltip',
         TRANSITION    : 'wpdk-transition',
 
-        // Refresh event
+        // TODO deprecated since 1.5.6 - use WPDKUIComponentEvents instead
         REFRESH_ALERT               : 'refresh.wpdk.wpdkAlert',
         REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
         REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
@@ -600,9 +600,28 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
 
-      return $t;
+      return _WPDKUIComponents;
 
     })();
+  }
+
+  /*
+   * Manage the Components Events
+   */
+  if ( 'undefined' === typeof( window.WPDKUIComponentEvents ) ) {
+    window.WPDKUIComponentEvents = {
+      version                     : '1.0.0',
+
+      // Refresh event
+      REFRESH_ALERT               : 'refresh.wpdk.wpdkAlert',
+      REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
+      REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
+      REFRESH_SWIPE               : 'refresh.wpdk.swipe',
+      REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+      REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery,autocomplete',
+      REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
+    };
+
   }
 
 }();
@@ -733,7 +752,7 @@ jQuery( function ( $ )
     {
 
       // This object
-      var $t = {
+      var _WPDKjQuery = {
         version         : '1.2.1',
         jQueryVersion   : _jQueryVersion,
         jQueryUIVersion : _jQueryUIVersion,
@@ -755,7 +774,7 @@ jQuery( function ( $ )
 
         __initAutocomplete();
 
-        return $t;
+        return _WPDKjQuery;
       };
 
       /**
@@ -1336,9 +1355,10 @@ jQuery( function ( $ )
        */
       function _hackMenu()
       {
-        $( 'ul#adminmenu .wp-submenu a[href*=wpdk_menu_divider]' ).each( function ()
+        $( 'ul#adminmenu .wp-submenu a[href*="wpdk_menu_divider"]' ).each( function ()
         {
           var content = $( this ).html();
+
           $( this )
             .parent()
             .replaceWith( '<li class="wpdk_menu_divider">' + content + '</li>' );

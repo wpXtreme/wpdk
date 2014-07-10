@@ -522,6 +522,7 @@ class WPDKListTableViewController extends WP_List_Table {
     // Get the content
     $this->viewController->viewHead->content = WPDKHTML::endCompress();
 
+    //
     add_action( 'wpdk_header_view_title_did_appear', array( $this, 'wpdk_header_view_title_did_appear' ) );
 
     return $this->viewController->html();
@@ -1409,7 +1410,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
         // New referrer
         $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
 
-        WPXtreme::log( $uri, "redirect" );
+        //WPXtreme::log( $uri, "redirect" );
 
         wp_safe_redirect( $uri );
       }

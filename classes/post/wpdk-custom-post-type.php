@@ -142,7 +142,7 @@ class WPDKCustomPostType extends WPDKObject {
     // Save useful properties
     $this->id = $id;
 
-    // Do a several control check in the input $args array
+    // TODO doing a several control check in the input $args array
 
     // Register MetaBox
     if ( !isset( $args['register_meta_box_cb'] ) ) {
@@ -158,7 +158,19 @@ class WPDKCustomPostType extends WPDKObject {
     register_post_type( $id, $args );
 
     // Init admin hook
-    $this->initAdminHook();
+    $this->init_admin_hooks();
+  }
+
+  /**
+   * Return TRUE if the current post type is this custom post type.
+   *
+   * @return bool
+   */
+  public function is()
+  {
+    global $post_type;
+
+    return ( $post_type === $this->id );
   }
 
   /**
@@ -166,60 +178,77 @@ class WPDKCustomPostType extends WPDKObject {
    *
    * @brief Init admin hook
    */
-  private function initAdminHook()
+  private function init_admin_hooks()
   {
     if ( is_admin() ) {
 
-      // Body header class
-      add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+      // Fires in <head> for all admin pages.
+      add_action( 'admin_head', array( $this, '_admin_head' ) );
 
-      // Feedback
-      add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
-
-      // Default Enter title
-      add_filter( 'enter_title_here', array( $this, '_enter_title_here' ) );
-
-      // Hook save post
-      add_action( 'save_post_' . $this->id, array( $this, 'save_post' ), 10, 2 );
+      // Filter the admin <body> CSS classes.
+      add_filter( 'admin_body_class', array( $this, '_admin_body_class' ) );
 
       // Manage column
       add_action( 'manage_' . $this->id . '_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
       add_filter( 'manage_edit-' . $this->id . '_columns', array( $this, 'manage_edit_columns') );
       add_filter( 'manage_edit-' . $this->id . '_sortable_columns', array( $this, 'manage_edit_sortable_columns' ) );
 
+      // Hook save post
+      add_action( 'save_post_' . $this->id, array( $this, 'save_post' ), 10, 2 );
+
+      /*
+       * DEPRECATED below
+       */
+
       // Will loaded... Action when cpt list o cpt edit are invokes
       add_action( 'admin_head-post.php', array( $this, '_will_load_post_list_edit' ) );
       add_action( 'admin_head-edit.php', array( $this, '_will_load_post_list_edit' ) );
       add_action( 'admin_head-post-new.php', array( $this, '_will_load_post_new' ) );
-      add_action( 'current_screen', array( $this, '_current_screen' ) );
 
-      // Footer page
-      add_action( 'admin_footer-post.php', array( $this, 'admin_footer') );
-
-      // Display right icon on the title
-      if( !empty( $this->url_images ) ) {
-        add_action( 'admin_head', array( $this, 'admin_head' ) );
-      }
     }
   }
 
-  /**
-   * Description
-   *
-   * @brief Brief
-   */
-  public function admin_head()
+/**
+ * Filter the admin <body> CSS classes.
+ *
+ * This filter differs from the post_class or body_class filters in two important ways:
+ * 1. $classes is a space-separated string of class names instead of an array.
+ * 2. Not all core admin classes are filterable, notably: wp-admin, wp-core-ui, and no-js cannot be removed.
+ *
+ * Use to set the right icon for this custom post type.
+ *
+ * @param string $classes Space-separated string of CSS classes.
+ */
+  public function _admin_body_class( $classes )
   {
-    global $post_type;
 
-    if ( $post_type != $this->id ) {
+    if( ! $this->is() ) {
+      return $classes;
+    }
+
+    $classes .= ' wpdk-post-type-' . $this->id;
+
+    return $classes;
+  }
+
+  /**
+   * Fires in <head> for a specific admin page based on $hook_suffix.
+   *
+   * @brief Head
+   */
+  public function _admin_head()
+  {
+    if ( ! $this->is() ) {
       return;
     }
 
-    WPDKHTML::startCompress();
-    ?>
-    <style type="text/css">
-      body.post-type-<?php echo $this->id ?> .wrap > h2
+    // Display right icon on the title
+    if ( !empty( $this->url_images ) ) {
+
+      WPDKHTML::startCompress();
+      ?>
+      <style type="text/css">
+      body.wpdk-post-type-<?php echo $this->id ?> .wrap > h2
       {
         background-image  : url(<?php echo $this->url_images ?>logo-64x64.png);
         background-repeat : no-repeat;
@@ -228,75 +257,16 @@ class WPDKCustomPostType extends WPDKObject {
         padding           : 0 0 0 80px;
       }
     </style>
-    <?php
-    echo WPDKHTML::endCSSCompress();
-  }
-
-  /**
-   * Added this custom post type ID to tag body classes.
-   *
-   * @param string $classes The class string
-   *
-   * @todo Check if WordPress already add this information
-   *
-   * @return string
-   */
-  public function admin_body_class( $classes )
-  {
-    //$classes .= ' wpdk-header-view ' . self::ID;
-    return $classes;
-  }
-
-  /**
-   * Return an array with new CPT update messages.
-   * Banner update messages.
-   *
-   * @brief Message feedback
-   *
-   * @param array $messages The array of post update messages.
-   *
-   * @see   /wp-admin/edit-form-advanced.php
-   *
-   * @return array
-   */
-  public function post_updated_messages( $messages )
-  {
-    // You can override this hook method
-    return $messages;
-  }
-
-  /**
-   * This filter allow to change the pseudo-placeholder into the text input for title in edit/new post type form.
-   *
-   * @brief The placeholder in text input of post
-   *
-   * @param string $title Default placeholder
-   *
-   * @return string
-   */
-  public function _enter_title_here( $title )
-  {
-    global $post_type;
-
-    if ( $post_type == $this->id ) {
-      $title = $this->shouldEnterTitleHere( $title );
+      <?php
+      echo WPDKHTML::endCSSCompress();
     }
-    return $title;
-  }
 
-  /**
-   * Override this delegate method to change the pseudo-placeholder into the text input for title in edit/new post type form.
-   *
-   * @brief The placeholder in text input of post
-   *
-   * @param string $title Default placeholder
-   *
-   * @return string
-   */
-  public function shouldEnterTitleHere( $title )
-  {
-    // You can override this delegate method
-    return $title;
+    /**
+     * Fires in <head> for all admin pages for this custom post type.
+     *
+     * @see "admin_head"
+     */
+    do_action( 'admin_head-' . $this->id );
   }
 
   /**
@@ -407,108 +377,8 @@ class WPDKCustomPostType extends WPDKObject {
    */
   public function manage_edit_sortable_columns( $columns )
   {
-    /* You can override this hook method */
+    // You can override this hook method
     return $columns;
-  }
-
-  /**
-   * This hook is called when a post list or edit did loaded
-   *
-   * @brief List or edit
-   */
-  public function _will_load_post_list_edit()
-  {
-    global $post_type;
-
-    if ( $post_type == $this->id ) {
-      $this->willLoadAdminPost();
-      if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
-        $this->willLoadEditPost();
-      } else {
-        $this->willLoadListPost();
-      }
-    }
-  }
-
-  /**
-   * This hook is called when your CPT edit view is loaded
-   *
-   * @brief Edit
-   */
-  public function willLoadEditPost()
-  {
-    // You can override this delegate method
-  }
-
-  /**
-   * This hook is called when your CPT list view is loaded
-   *
-   * @brief List
-   */
-  public function willLoadListPost()
-  {
-    // You can override this delegate method
-  }
-
-  /**
-   * This hook is called when a new CPT is loaded
-   *
-   * @brief New
-   */
-  public function _will_load_post_new()
-  {
-    global $post_type;
-
-    if ( $this->id == $post_type ) {
-      $this->willLoadAdminPost();
-      $this->willLoadPostNew();
-    }
-  }
-
-  /**
-   * This hook is called when your CPT new view is loaded
-   *
-   * @brief New
-   */
-  public function willLoadPostNew()
-  {
-    // You can override this delegate method
-  }
-
-  /**
-   * This hook is called when your CPT views are loaded in admin
-   *
-   * @brief Admin head
-   */
-  public function willLoadAdminPost()
-  {
-    // You can override this delegate method
-  }
-
-  /**
-   * Fire when current screen is set
-   *
-   * @brief Current Screen
-   *
-   * @param WP_Screen $screen
-   */
-  public function _current_screen( $screen )
-  {
-    if ( !empty( $screen->post_type ) && $screen->post_type == $this->id ) {
-      $this->willLoadAdminPost();
-    }
-  }
-
-
-  /**
-   * Used this hook to display footer content
-   *
-   * @note Not used Yet
-   * @brief Admin footer
-   */
-  public function admin_footer()
-  {
-
   }
 
   /**
@@ -519,6 +389,126 @@ class WPDKCustomPostType extends WPDKObject {
   public function register_meta_box()
   {
     // You can override this hook method
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // DEPRECATED
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Override this delegate method to change the pseudo-placeholder into the text input for title in edit/new post type form.
+   *
+   * @brief The placeholder in text input of post
+   * @deprecated
+   *
+   * @param string $title Default placeholder
+   *
+   * @return string
+   */
+  public function shouldEnterTitleHere( $title )
+  {
+    // You can override this delegate method
+    return $title;
+  }
+
+  /**
+   * This hook is called when a post list or edit did loaded
+   *
+   * @brief List or edit
+   *
+   * @deprecated
+   */
+  public function _will_load_post_list_edit()
+  {
+    global $post_type;
+
+    if ( $post_type == $this->id ) {
+      $this->willLoadAdminPost();
+
+      if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
+
+        /**
+         * Fires when this custom post type is edit
+         */
+        do_action( 'admin_head_post_edit-' . $this->id );
+
+        $this->willLoadEditPost();
+      } else {
+
+        /**
+         * Fires when this custom post type is listed
+         */
+        do_action( 'admin_head_post_list-' . $this->id );
+
+        $this->willLoadListPost();
+      }
+    }
+  }
+
+  /**
+   * This hook is called when your CPT edit view is loaded
+   *
+   * @brief      Edit
+   * @deprecated since 1.5.6 Use admin_head_post_edit-{custom_post_type_id} instead
+   */
+  public function willLoadEditPost()
+  {
+    // You can override this delegate method
+  }
+
+  /**
+   * This hook is called when your CPT list view is loaded
+   *
+   * @brief      List
+   * @deprecated since 1.5.6 Use admin_head_post_list-{custom_post_type_id} instead
+   */
+  public function willLoadListPost()
+  {
+    // You can override this delegate method
+  }
+
+  /**
+   * This hook is called when a new CPT is loaded
+   *
+   * @brief New
+   * @deprecated
+   */
+  public function _will_load_post_new()
+  {
+    global $post_type;
+
+    if ( $this->id == $post_type ) {
+
+      /**
+       * Fires when this custom post type is new
+       */
+      do_action( 'admin_head_post_new-' . $this->id );
+
+      $this->willLoadAdminPost();
+      $this->willLoadPostNew();
+    }
+  }
+
+  /**
+   * This hook is called when your CPT new view is loaded
+   *
+   * @brief      New
+   * @deprecated since 1.5.6 Use admin_head_post_new-{custom_post_type_id} instead
+   */
+  public function willLoadPostNew()
+  {
+    // You can override this delegate method
+  }
+
+  /**
+   * This hook is called when your CPT views are loaded in admin
+   *
+   * @brief Admin head
+   * @deprecated
+   */
+  public function willLoadAdminPost()
+  {
+    // You can override this delegate method
   }
 
 }

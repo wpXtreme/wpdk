@@ -119,7 +119,6 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
       $( '.wpdk-alert' ).wpdkAlert();
     } );
 
-
     // Extends with Permanent dismiss
     $( document ).on( 'click', '.wpdk-alert button.close.wpdk-alert-permanent-dismiss', function() {
       var $this    = $(this);

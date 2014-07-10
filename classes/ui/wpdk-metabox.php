@@ -26,8 +26,7 @@ class WPDKMetaBoxView extends WPDKView {
    *
    * @return WPDKMetaBoxView
    */
-  public function __construct( $id, $title, $screen = null, $context = WPDKMetaBoxContext::ADVANCED,
-                               $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null )
+  public function __construct( $id, $title, $screen = null, $context = WPDKMetaBoxContext::ADVANCED, $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null )
   {
     parent::__construct( $id );
 
@@ -49,6 +48,7 @@ class WPDKMetaBoxView extends WPDKView {
 class WPDKMetaBoxContext {
   const ADVANCED = 'advanced';
   const NORMAL = 'normal';
+
   /**
    * Metabox on sidebar
    *

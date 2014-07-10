@@ -336,6 +336,7 @@ class WPDKUser extends WP_User {
 
       // Sanitize string->int
       $this->data->ID = absint( $id_user );
+      $this->ID       = absint( $id_user );
     }
   }
 
@@ -746,6 +747,36 @@ class WPDKUser extends WP_User {
   }
 
   /**
+   * Set the role of the user. Perform a cache clear for this user.
+   *
+   * This will remove the previous roles of the user and assign the user the
+   * new one. You can set the role to an empty string and it will remove all
+   * of the roles from the user.
+   *
+   * @since 1.5.6
+   *
+   * @param string $role Role name.
+   */
+  public function set_role( $role )
+  {
+    // Before remove all previous
+    $this->remove_all_caps();
+
+    parent::set_role( $role );
+
+    // Flush user cache
+    wp_cache_delete( $this->ID, 'users' );
+
+    // Destroy the global
+    global $current_user;
+    unset( $current_user );
+    unset( $GLOBALS['current_user'] );
+
+    // Reset as current
+    wp_set_current_user( $this->ID );
+  }
+
+  /**
    * Restutuisce true se l'utente passato negli inputs (o l'utente corrente se non viene passato id utente) possiede
    * un determinato permesso (capability)
    *
@@ -1118,9 +1149,13 @@ class WPDKUsers {
       $user = new WPDKUser( $user_id );
       if ( $user->exists() && !in_array( $user->status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
 
+        // Check access
         $result = wp_authenticate( $user->user_login, $password );
 
         if ( !is_wp_error( $result ) ) {
+
+          // Clear the cookie
+          wp_clear_auth_cookie();
 
           // Set remember cookie
           wp_set_auth_cookie( $user->ID, $remember );
@@ -1767,7 +1802,7 @@ class WPDKRole extends WP_Role {
   {
 
     // Sanitize the role name
-    $role_id = sanitize_title( strtolower( $role ) );
+    $role_id = str_replace( '-', '_', sanitize_title( strtolower( $role ) ) );
 
     // Get Roles
     $wpdk_roles  = WPDKRoles::getInstance();
@@ -1780,6 +1815,11 @@ class WPDKRole extends WP_Role {
       if ( empty( $display_name ) ) {
         $display_name = ucfirst( $role );
       }
+
+      // Sanitize
+      $display_name = str_replace( '-', ' ', $display_name );
+      $display_name = str_replace( '_', ' ', $display_name );
+
       $role_object        = $wpdk_roles->add_role( $role_id, $display_name, $capabilities, $description, $owner );
       $this->displayName  = $display_name;
       $this->capabilities = $role_object->capabilities;
@@ -1856,18 +1896,13 @@ class WPDKRole extends WP_Role {
  * @class              WPDKRoles
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-02
- * @version            1.0.0
+ * @date               2014-05-14
+ * @version            1.0.1
  *
  */
 class WPDKRoles extends WP_Roles {
 
-  /**
-   * The extra data are save in option table with this prefix
-   *
-   * @brief The option key prefix
-   *
-   */
+  // The extra data are save in option table with this prefix
   const OPTION_KEY = '_wpdk_roles_extends';
 
   // since 1.4.16 - WordPress has six pre-defined roles:
@@ -1877,6 +1912,13 @@ class WPDKRoles extends WP_Roles {
   const AUTHOR        = 'author';
   const CONTRIBUTOR   = 'contributor';
   const SUBSCRIBER    = 'subscriber';
+
+  /**
+   * Array with the list of all roles.
+   *
+   * @var array $all_roles
+   */
+  public $all_roles = array();
 
   /**
    * An array with all active roles
@@ -2038,6 +2080,34 @@ class WPDKRoles extends WP_Roles {
       $this->extend_data = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
       update_option( self::OPTION_KEY, $this->extend_data );
     }
+
+    // List of all roles
+    $this->all_roles = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
+
+    /*
+     *     array(13) {
+     *      ["administrator"]=> array(3) {
+     *        [0]=> string(13) "Administrator"
+     *        [1]=> string(58) "Somebody who has access to all the administration features"
+     *        [2]=> string(9) "WordPress"
+     *      }
+     *      ["subscriber"]=> array(3) {
+     *        [0]=> string(10) "Subscriber"
+     *        [1]=> string(42) "Somebody who can only manage their profile"
+     *        [2]=> string(9) "WordPress"
+     *      }
+     *      ...
+     *      ["adv-manager"]=>
+     *      array(3) {
+     *        [0]=>
+     *        string(11) "Adv Manager"
+     *        [1]=>
+     *        string(29) "This role is for adv manager."
+     *        [2]=>
+     *        string(13) "Roles Manager"
+     *      }
+     *    }
+     */
 
   }
 
@@ -2247,9 +2317,9 @@ class WPDKRoles extends WP_Roles {
     return $this->wordPressRoles;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Override
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Updates the list of roles, if the role doesn't already exist.
@@ -2327,18 +2397,17 @@ class WPDKRoles extends WP_Roles {
       $role = $role->name;
     }
 
-    ob_start(); ?>
+    WPDKHTML::startCompress() ?>
 
     <select>
-    <?php foreach ( $this->arrayCapabilitiesByRole[$role] as $cap => $enabled ): ?>
+    <?php foreach ( $this->arrayCapabilitiesByRole[ $role ] as $cap => $enabled ): ?>
       <option><?php echo $cap ?></option>
     <?php endforeach ?>
     </select>
 
     <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    return $content;
+
+    return WPDKHTML::endHTMLCompress();
   }
 
 }

@@ -196,10 +196,7 @@ class WPDKPreferences {
 
           // Reset to default a specified branch
           if ( isset( $_POST['reset-to-default-preferences'] ) ) {
-            add_action( 'wpdk_preferences_feedback-' . $branch, array(
-              $preferences,
-              'wpdk_preferences_feedback_reset'
-            ) );
+            add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
             $preferences->$branch->defaults();
             $preferences->update();
           }
@@ -212,6 +209,14 @@ class WPDKPreferences {
               wp_cache_clear_cache();
             }
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
+
+            /**
+             * Fires when preferences branch update will updated.
+             *
+             * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
+             */
+             //do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
+
             $preferences->$branch->update();
             $preferences->update();
           }
@@ -221,6 +226,11 @@ class WPDKPreferences {
         elseif ( isset( $_POST['wpdk_preferences_reset_all'] ) ) {
           $preferences->defaults();
           $preferences->update();
+        }
+
+        // Repair with delta
+        elseif ( isset( $_POST['wpdk_preferences_repair'] ) ) {
+          $preferences->delta();
         }
 
         // Try for import/export
@@ -507,10 +517,7 @@ class WPDKPreferencesImportExport {
 
       //add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
 
-      add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array(
-        $this,
-        'wpdk_preferences_import_export_feedback'
-      ), 99 );
+      add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
 
       if ( $_FILES['file']['error'] > 0 ) {
         $this->error = self::ERROR_READ_FILE;
@@ -556,7 +563,7 @@ class WPDKPreferencesImportExport {
 
     $this->preferences = $this->import;
 
-    /* Apply. */
+    // Apply
     $this->preferences->update();
   }
 
@@ -574,12 +581,12 @@ class WPDKPreferencesImportExport {
     // GZIP the object
     $buffer = gzdeflate( serialize( $this->preferences ) );
 
-    header( 'Content-Type: application/download' );
-    header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-    header( 'Cache-Control: public' );
-    header( "Content-Length: " . strlen( $buffer ) );
-    header( 'Pragma: no-cache' );
-    header( 'Expires: 0' );
+    @header( 'Content-Type: application/download' );
+    @header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+    @header( 'Cache-Control: public' );
+    @header( "Content-Length: " . strlen( $buffer ) );
+    @header( 'Pragma: no-cache' );
+    @header( 'Expires: 0' );
 
     echo $buffer;
     exit;

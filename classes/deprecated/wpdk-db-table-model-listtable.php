@@ -182,7 +182,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
 
     // Nonce
     if ( !empty( $nonce ) && !empty( $action ) ) {
-      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
+      if ( isset(  $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
         return $action;
       }
     }
@@ -251,6 +251,9 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   //public function insert( $prefix, $values, $format = array() )
   public function insert()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -263,21 +266,33 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     list( $prefix, $values ) = $args;
     $format = isset( $args[2] ) ? $args[2] : array();
 
-    // Filtrable
+    /**
+     * Filter the values array for insert.
+     *
+     * @param array $values Array values for insert.
+     */
     $values = apply_filters( $prefix . '_insert_values', $values );
 
     // Insert
     $result = $wpdb->insert( $this->table_name, $values, $format );
 
-    // Action hook
+    // Get the id
+    $id = $wpdb->insert_id;
+
+    /**
+     * Fires when a record is inserted
+     *
+     * @param bool  $result Result of insert
+     * @param array $values Array with values of insert
+     */
     do_action( $prefix . '_inserted', $result, $values );
 
     if ( false == $result ) {
       return false;
     }
 
-    // Get the id
-    return $wpdb->insert_id;
+    // Return the id
+    return $id;
   }
 
   /**
@@ -295,8 +310,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   /**
    * Update a record by values. Return FALSE if error or the $where condiction if successfully.
    * You can use the $where condiction returned to get again the record ID.
-   *
-   * @brief Update
    *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
@@ -320,13 +333,23 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     list( $prefix, $values, $where ) = $args;
     $format = isset( $args[3] ) ? $args[3] : array();
 
-    // Filtrable
+    /**
+     * Filter the values array for update
+     *
+     * @param array $values Array values for update.
+     */
     $values = apply_filters( $prefix . '_update_values', $values );
 
     // Update
     $result = $wpdb->update( $this->table_name, $values, $where, $format );
 
-    // Action hook
+    /**
+     * Fires when a record is updated
+     *
+     * @param bool|int $result Returns the number of rows updated, or false if there is an error.
+     * @param array    $values Array with values of update.
+     * @param array    $where  Array with values of where condiction.
+     */
     do_action( $prefix . '_updated', $result, $values, $where );
 
     if ( false == $result ) {
@@ -434,7 +457,7 @@ SQL;
 
       $num_rows = $wpdb->query( $sql );
 
-      return $num_rows;
+      return ( $num_rows > 0 );
     }
     return false;
   }

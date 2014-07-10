@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Constant class for alert type
+ * Constant class for alert type.
+ * This constants provides to change the aspect layout of alert (the left border color).
  *
  * @class              WPDKUIAlertType
  * @author             =undo= <info@wpxtre.me>
@@ -61,7 +62,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   const USER_META_KEY_PERMANENT_DISMISS = '_wpdk_alert_dismiss';
 
   /**
-   * Add `alert-dismissable` class
+   * Add `alert-dismissable` class in HTML markup.
    *
    * @brief Dismissable
    * @since 1.3.1
@@ -71,9 +72,9 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public $dismissable = true;
 
   /**
-   * Tooltip on dismiss button
+   * This is the tooltip (for more detail) display on dismiss button.
    *
-   * @brief Tooltip
+   * @brief Tooltip on dismiss button
    * @since 1.4.8
    *
    * @var string $dismissToolTip
@@ -81,7 +82,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public $dismissToolTip = '';
 
   /**
-   * Title
+   * Title of the alter.
    *
    * @brief Title
    *
@@ -90,25 +91,46 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public $title = '';
 
   /**
-   * True to display dismiss [x] button. Default true
+   * Set TRUE to display dismiss [x] button. Default TRUE.
    *
-   * @brief Dismiss button
+   * @brief Display dismiss button
    *
    * @var bool $dismissButton
    */
   public $dismissButton = true;
+  
+  /**
+   * If TRUE this alert is permanent dismiss by a logged in user
+   *
+   * @brief Permanent dismiss
+   * @since 1.5.6
+   *
+   * @var bool $dismissPermanent
+   */
+  public $dismissPermanent = false;
+
+  /**
+   * Used to get/set the glyph icon used like dismiss button.
+   *
+   * @brief Dismiss button glyph icon
+   * @since 1.5.6
+   *
+   * @var string $dismissButtonGlyph
+   */
+  public $dismissButtonGlyph = '×';
 
   /**
    * Glyph used like dismiss button
    *
-   * @brief Dismiss button glyph icon
+   * @brief      Dismiss button glyph icon
+   * @deprecated since 1.5.6 Use $dismissButtonGlyph instead
    *
    * @var string $dismiss_button_glyph
    */
   public $dismiss_button_glyph = '×';
 
   /**
-   * HTML content
+   * The HTML content of alert.
    *
    * @brief Content
    *
@@ -117,7 +139,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public $content = '';
 
   /**
-   * Use const in WPDKUIAlertType
+   * The alert type change the left border color. Use the constants in WPDKUIAlertType class.
    *
    * @brief Alert type
    *
@@ -128,8 +150,9 @@ class WPDKUIAlert extends WPDKHTMLTag {
   /**
    * If TRUE this alert is permanet dismiss by a logged in user
    *
-   * @brief Permanent dismiss
-   * @since 1.4.21
+   * @brief      Permanent dismiss
+   * @since      1.4.21
+   * @deprecated 1.5.6 Use $dismissPermanent
    *
    * @var bool $permanent_dismiss
    */
@@ -143,10 +166,11 @@ class WPDKUIAlert extends WPDKHTMLTag {
    *
    * @var bool $block
    */
-  public $block;
+  public $block = false;
 
   /**
-   * List of permanent dismissed alert id
+   * List of permanent dismissed alert id.
+   * Internal use only.
    *
    * @brief Permanent dismissed
    *
@@ -173,7 +197,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
     $this->type    = $type;
     $this->title   = $title;
 
-    // @since 1.4.21 permanent dismissed
+    // Used for permanent dismiss
     if ( is_user_logged_in() ) {
       $user_id         = get_current_user_id();
       $this->dismissed = get_user_meta( $user_id, self::USER_META_KEY_PERMANENT_DISMISS, true );
@@ -187,7 +211,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
    *
    * @return string
    */
-  private function dismissButton()
+  private function _dismissButton()
   {
     $result = '';
 
@@ -204,7 +228,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
     }
 
     // Permanent dismiss by user logged in
-    if( true === $this->permanent_dismiss ) {
+    if( true === $this->dismissPermanent ) {
       $classes[] = 'wpdk-alert-permanent-dismiss';
     }
 
@@ -214,7 +238,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
         type="button"
         class="<?php echo WPDKHTMLTag::classInline( $classes ) ?>"
         <?php echo $title ?>
-        data-dismiss="wpdkAlert"><?php echo $this->dismiss_button_glyph ?></button>
+        data-dismiss="wpdkAlert"><?php echo $this->dismissButtonGlyph ?></button>
       <?php
       $result = WPDKHTML::endHTMLCompress();
     }
@@ -285,7 +309,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public function html()
   {
     // Permanent dismiss
-    if ( !empty( $this->dismissed ) && in_array( $this->id, $this->dismissed ) ) {
+    if ( !empty( $this->dismissed ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
       return;
     }
 
@@ -301,7 +325,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
         'in',
         'clearfix'
       ) ) ?>">
-      <?php echo $this->dismissButton() ?>
+      <?php echo $this->_dismissButton() ?>
       <?php echo $this->_title() ?>
       <?php echo $this->_content() ?>
     </div>

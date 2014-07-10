@@ -45,13 +45,16 @@
  * @class              WPDKUIModalDialog
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-13
- * @version            1.0.0
+ * @date               2014-06-09
+ * @version            1.0.2
  * @since              1.4.21
  * @note               Updated HTML markup and CSS to Bootstrap v3.1.0
  *
  */
 class WPDKUIModalDialog extends WPDKHTMLTag {
+
+  // Used to store for each user the dismiss alert
+  const USER_META_KEY_PERMANENT_DISMISS = '_wpdk_modal_dismiss';
 
   /**
    * Override version
@@ -165,6 +168,25 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public $dismiss_button_glyph = '×';
 
   /**
+   * If TRUE this modal is permanet dismiss by a logged in user
+   *
+   * @brief Permanent dismiss
+   * @since 1.5.6
+   *
+   * @var bool $permanent_dismiss
+   */
+  public $permanent_dismiss = false;
+
+  /**
+   * List of permanent dismissed dialog id
+   *
+   * @brief Permanent dismissed
+   *
+   * @var array $dismissed
+   */
+  protected $dismissed = array();
+
+  /**
    * Create an instance of WPDKUIModalDialog class
    *
    * @brief Construct
@@ -181,6 +203,27 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     $this->id      = sanitize_title( $id );
     $this->title   = $title;
     $this->content = $content;
+
+    // @since 1.5.6 permanent dismissed
+    if ( is_user_logged_in() ) {
+      $user_id         = get_current_user_id();
+      $this->dismissed = get_user_meta( $user_id, self::USER_META_KEY_PERMANENT_DISMISS, true );
+    }
+  }
+
+  /**
+   * Return TRUE if this modal dialog is dismissed. FALSE otherwise.
+   *
+   * @brief Is dismissed
+   * @return bool
+   */
+  public function is_dismissed()
+  {
+    if ( !empty( $this->dismissed ) ) {
+      return in_array( md5( $this->id ), array_keys( $this->dismissed ) );
+    }
+
+    return false;
   }
 
   /**
@@ -204,9 +247,17 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   private function dismissButton()
   {
+    // Prepare classes
+    $classes = array( 'close' );
+
+    // Permanent dismiss by user logged in
+    if( true === $this->permanent_dismiss ) {
+      $classes[] = 'wpdk-modal-permanent-dismiss';
+    }
+
     $result = '';
     if ( $this->dismissButton  ) {
-      $result = '<button type="button" class="close" data-dismiss="wpdkModal" aria-hidden="true">' . $this->dismiss_button_glyph . '</button>';
+      $result = sprintf( '<button type="button" class="%s" data-dismiss="wpdkModal" aria-hidden="true">%s</button>', WPDKHTMLTag::classInline( $classes ), $this->dismiss_button_glyph );
     }
     return $result;
   }
@@ -258,24 +309,68 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     $buttons = $this->buttons();
 
     if ( !empty( $buttons ) ) {
-      $stack = '';
+
+      // Loop in buttons
       foreach ( $buttons as $key => $value ) {
         $class = isset( $value['class'] ) ? $value['class'] : '';
         $label = isset( $value['label'] ) ? $value['label'] : '';
         $title = isset( $value['title'] ) ? 'title="' . $value['title'] . '"' : '';
+        $href  = isset( $value['href'] ) ? $value['href'] : '';
+
+        // No tooltip
         if ( !empty( $title ) ) {
           $class .= ' wpdk-has-tooltip';
         }
+
         $data_dismiss = ( isset( $value['dismiss'] ) && true == $value['dismiss'] ) ? 'data-dismiss="wpdkModal"' : '';
-        $stack .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
+
+        // Switch between button | a
+        if( empty( $href ) ) {
+          $result .= sprintf( '<button type="button" %s id="%s" class="button %s" %s aria-hidden="true">%s</button>', $title, $key, $class, $data_dismiss, $label );
+        }
+        // Use tag a
+        else {
+          $result .= sprintf( '<a href="%s" %s id="%s" class="button %s" %s aria-hidden="true">%s</a>', $href, $title, $key, $class, $data_dismiss, $label );
+        }
       }
     }
 
-    if ( !empty( $stack ) ) {
-      $result = sprintf( '<div class="modal-footer">%s</div>', $stack );
+    return $result;
+  }
+
+  /**
+   * Return the footer content.
+   *
+   * @brief Footer
+   *
+   * @return string
+   */
+  private function _footer()
+  {
+    $footer = $this->footer();
+
+    if( empty( $footer ) ) {
+      $footer = $this->_buttons();
     }
 
-    return $result;
+    if( empty( $footer ) ) {
+      return $footer;
+    }
+
+    return sprintf( '<div class="modal-footer">%s</div>', $footer );
+
+  }
+
+  /**
+   * Content of the footer of dialog. You can override this method.
+   *
+   * @brief Footer
+   *
+   * @return string
+   */
+  public function footer()
+  {
+    return '';
   }
 
   /**
@@ -326,6 +421,10 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   public function html()
   {
+    // Permanent dismiss
+    if ( !empty( $this->dismissed ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
+      return;
+    }
 
     // Get default data as properties
     $this->data['keyboard'] = $this->keyboard;
@@ -338,7 +437,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
       <?php echo self::dataInline( $this->data ) ?>
          id="<?php echo $this->id ?>"
          tabindex="-1"
-         role="dialog"
+         role="wpdk-dialog"
          aria-labelledby="<?php echo $this->aria_title() ?>"
          aria-hidden="true">
       <div style="<?php echo $this->width() ?>" class="modal-dialog">
@@ -350,7 +449,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
           <div class="modal-body" <?php echo $this->height() ?>>
             <?php echo $this->content() ?>
           </div>
-          <?php echo $this->_buttons() ?>
+          <?php echo $this->_footer() ?>
         </div>
       </div>
     </div>
@@ -440,13 +539,15 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    * @param string $label   Text label
    * @param bool   $dismiss Optional. True for data-dismiss
    * @param string $class   Optional. Addition CSS class
+   * @param string $href    Optional. If set use a TAG A instead BUTTON.
    */
-  public function addButton( $id, $label, $dismiss = true, $class = '' )
+  public function addButton( $id, $label, $dismiss = true, $class = '', $href = '' )
   {
-    $this->buttons[$id] = array(
+    $this->buttons[ $id ] = array(
       'label'   => $label,
+      'dismiss' => $dismiss,
       'class'   => $class,
-      'dismiss' => $dismiss
+      'href'    => $href,
     );
   }
 

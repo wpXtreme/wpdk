@@ -1,0 +1,73 @@
+/**
+ * WPDK Table css styles
+ *
+ * @author 			  =undo= <info@wpxtre.me>
+ * @copyright 		Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date          2014-05-14
+ * @version       1.0.0
+ */
+
+/* =====================================================================================================================
+ * DEFAULT STYLES
+ * =====================================================================================================================
+ */
+
+.wpdk-ui-table-view
+{
+  margin                : 0 8px;
+  border                : 1px solid #ccc;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+}
+
+.wpdk-ui-table-view th,
+.wpdk-ui-table-view td
+{
+  border-bottom : 1px solid #e5e5e5;
+  border-right  : 1px solid #e5e5e5;
+  padding       : 10px;
+}
+
+.wpdk-ui-table-view th
+{
+  text-align    : left;
+  border-right  : 1px solid #ccc;
+  border-bottom : 1px solid #ccc;
+}
+
+.wpdk-ui-table-view th:first-child
+{
+  -moz-border-radius    : 3px 0 0 0;
+  -webkit-border-radius : 3px 0 0 0;
+  border-radius         : 3px 0 0 0;
+}
+
+.wpdk-ui-table-view th:last-child
+{
+  -moz-border-radius    : 0 3px 0 0;
+  -webkit-border-radius : 0 3px 0 0;
+  border-radius         : 0 3px 0 0;
+  border-right          : none;
+}
+
+.wpdk-ui-table-view td:last-child
+{
+  border-right: none;
+}
+
+.wpdk-ui-tabl-view tr:hover th,
+.wpdk-ui-table-view tr:hover td
+{
+  background-color : rgba(0, 0, 0, 0.01);
+}
+
+.wpdk-ui-table-view thead th
+{
+  background-color : #e5e5e5;
+}
+
+.wpdk-ui-table-view tbody tr:last-child td
+{
+  border-bottom: none;
+}

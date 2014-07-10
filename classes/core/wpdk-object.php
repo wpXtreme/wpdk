@@ -8,9 +8,9 @@
  *
  * @class              WPDKObject
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01.08
- * @version            0.5.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-06-10
+ * @version            0.5.1
  *
  */
 class WPDKObject {
@@ -120,16 +120,15 @@ class WPDKObject {
     $last_version_stack = array();
     $old_version_stack  = array();
 
-    /* Creo un elenco di tutte le proprietà della classe $old_version. Questo elenco mi indica il nome della
-     proprietà e il tipo.
-    */
+    // Create a list of all properties of old_version class.
     foreach ( $old_version as $key => $value ) {
       $old_version_stack[$key] = $value;
     }
 
-    /* Ora ciclo nella versione recente */
+    // Loop in the recent version
     foreach ( $last_version as $key => $value ) {
-      /* Se la precedente versione non contiene la proprietà di quella nuova, la imposto con il valore di default. */
+
+      // If the old_version has not this new property then set it to default value
       if ( !isset( $old_version_stack[$key] ) ) {
         $old_version->$key = $value;
       }
@@ -138,37 +137,39 @@ class WPDKObject {
         $old_version->$key = $value;
       }
 
-      /* La proprietà esiste. */
+      // Property exist
       else {
-        /* Se la proprietà c'è potrebbe essere a sua volta un oggeto, quindi controllo ed eventualmente ciclo su
-         questo.
-        */
+
+        // The proprty could be an object, then loop in
         if ( is_object( $value ) ) {
           self::__delta( $value, $old_version->$key );
         }
       }
     }
 
-    /* Precedentemente abbiamo controllato per 'mancanze' nella vecchia classe, ora facciamo un controllo speculare
-    cioè verifichiamo che la nuova struttura non abbia eliminato qualcosa.
-    Come nel caso precedente creo un elenco delle proprietà dell'ultima versione.
-    */
+    // Loop for deleted propertis
     foreach ( $last_version as $key => $value ) {
       $last_version_stack[$key] = $value;
     }
 
-    /* Ora ciclo nella vecchia versione */
+    // Loop in the old version
     foreach ( $old_version as $key => $value ) {
-      /* Se non esiste più questa proprietà... */
+
+      // If the property is no longer implement
       if ( !isset( $last_version_stack[$key] ) ) {
-        /* La elimino */
+
+        // Delete property
         unset( $old_version->$key );
       }
     }
-    /* Ok, $old_version ora è allineata. */
+
+    // Game over
     return $old_version;
   }
 
+  /**
+   * @deprecated since 1.4.8 - use __delta() instead
+   */
   public static function delta( $last_version, $old_version )
   {
     _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.8', '__delta()' );
