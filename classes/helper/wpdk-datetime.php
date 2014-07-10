@@ -71,7 +71,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return int
    */
-  static function expirationDate( $date, $duration, $duration_type )
+  public static function expirationDate( $date, $duration, $duration_type )
   {
     $expiredate = strtotime( "+{$duration} {$duration_type}", strtotime( $date ) );
 
@@ -87,12 +87,38 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return float
    */
-  static function daysToDate( $date )
+  public static function daysToDate( $date )
   {
     $diff = $date - time();
     $days = floatval( round( $diff / ( 60 * 60 * 24 ) ) );
 
     return $days;
+  }
+
+  /**
+   * Description
+   *
+   * @brief Brief
+   *
+   * @param string|int $date String date or timestamp
+   * @param string $format
+   *
+   * @return string
+   */
+  public static function human( $date, $format = 'm/d/Y H:i' )
+  {
+    // Check for timestamp
+    if( is_numeric( $date ) ) {
+      $date = date( $date );
+    }
+
+    $value  = mysql2date( $format, $date );
+    $expiry = strtotime( $date );
+    $ago    = ( time() - $expiry ) <= 0 ? '' : __( 'ago' );
+    $in     = ( time() - $expiry ) <= 0 ? __( 'in' ) : '';
+
+    return sprintf( '%s %s %s<br/><small>%s</small>', $in, human_time_diff( strtotime( $date ) ), $ago, $value );
+
   }
 
   /**
@@ -264,7 +290,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return string Data, tag br e ora
    */
-  static function timeNewLine( $datetime )
+  public static function timeNewLine( $datetime )
   {
     return str_replace( ' ', '<br/>', $datetime );
   }
@@ -278,7 +304,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return bool
    */
-  static function isExpired( $exipration )
+  public static function isExpired( $exipration )
   {
     return ( ( $exipration - time() ) <= 0 );
   }

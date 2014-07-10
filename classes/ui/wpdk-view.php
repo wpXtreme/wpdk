@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The base view class
  *
@@ -54,9 +55,9 @@
  *
  * @class              WPDKView
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.1.2
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-05-08
+ * @version            1.1.3
  *
  */
 
@@ -69,7 +70,7 @@ class WPDKView extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.1.2';
+  public $__version = '1.1.3';
 
   /**
    * The CSS class or list of classes
@@ -133,16 +134,6 @@ class WPDKView extends WPDKObject {
   public $superview;
 
   /**
-   * An array list with views of this view controller
-   *
-   * @brief      List of views
-   * @deprecated Since 1.0.0.b4 - Use subviews instead
-   *
-   * @var array $views;
-   */
-  protected $views;
-
-  /**
    * Create an instance of WPDKView class
    *
    * @brief Construct
@@ -182,7 +173,7 @@ class WPDKView extends WPDKObject {
     return false;
   }
 
-  /* @todo Experimental */
+  // TODO Experimental
   public static function initWithFrame( $id, $rect )
   {
   }
@@ -204,11 +195,9 @@ class WPDKView extends WPDKObject {
   }
 
   /**
-   * Return the HTML markup content for this view
+   * Display the HTML markup content for this view.
    *
-   * @brief    The view content
-   *
-   * @internal WPDKView $view
+   * @brief Display view content
    *
    * @return string
    */
@@ -223,13 +212,25 @@ class WPDKView extends WPDKObject {
          id="<?php echo $this->id ?>"
          class="<?php echo $classes ?>" <?php echo $data ?> >
 
-    <?php do_action( 'wpdk_view_' . $this->id . '_before_draw', $this ) ?>
+    <?php
+    /**
+     * Fires before start drawing content for this {id} view.
+     *
+     * @param WPDKView $view This view
+     */
+    do_action( 'wpdk_view_will_draw_content-' . $this->id, $this );
+    ?>
 
-    <?php do_action( 'wpdk_view_will_draw_content', $this ) ?>
+    <?php
+    /**
+     * Fires before start drawing content for this view.
+     *
+     * @param WPDKView $view This view
+     */
+    do_action( 'wpdk_view_will_draw_content', $this );
+    ?>
+
     <?php $this->draw() ?>
-    <?php do_action( 'wpdk_view_did_draw_content', $this ) ?>
-
-    <?php do_action( 'wpdk_view_' . $this->id . '_after_draw', $this ) ?>
 
     <?php if ( is_array( $this->subviews ) ) : ?>
       <?php
@@ -241,7 +242,23 @@ class WPDKView extends WPDKObject {
       <?php endforeach ?>
     <?php endif ?>
 
-    <?php do_action( 'wpdk_view_' . $this->id . '_before_close', $this ) ?>
+    <?php
+    /**
+     * Fires after drawing content for this view.
+     *
+     * @param WPDKView $view This view
+     */
+    do_action( 'wpdk_view_did_draw_content', $this );
+    ?>
+
+    <?php
+    /**
+     * Fires after drawing content for this {id} view.
+     *
+     * @param WPDKView $view This view
+     */
+    do_action( 'wpdk_view_did_draw_content-' . $this->id, $this );
+    ?>
 
   </div>
 
@@ -256,7 +273,7 @@ class WPDKView extends WPDKObject {
    */
   public function draw()
   {
-    /* This method can be over-ridden in a sub-class. */
+    // This method can be over-ridden in a sub-class
     echo $this->content;
   }
 
@@ -272,10 +289,22 @@ class WPDKView extends WPDKObject {
    */
   public function addSubview( $view )
   {
+    /**
+     * Filter the potential adding of a subview.
+     *
+     * @param bool $continue Default TRUE. Set to FALSE to avoid adding of a subview.
+     *
+     */
     $continue = apply_filters( 'wpdk_view_should_add_subview', true, $view );
     if ( $continue ) {
       $view->superview           = $this;
       $this->subviews[$view->id] = $view;
+
+      /**
+       * Fires when a subview is added
+       *
+       * @param WPDKView $view The added subview
+       */
       do_action( 'wpdk_view_did_add_subview', $view );
     }
     return $view;
@@ -289,7 +318,25 @@ class WPDKView extends WPDKObject {
   public function removeFromSuperview()
   {
     if ( !empty( $this->superview ) ) {
-      unset( $this->superview->subviews[$this->id] );
+
+      /**
+       * Filter the potential removing of this view from superview.
+       *
+       * @param bool $continue Default TRUE. Set to FALSE to avoid removing this view.
+       *
+       */
+      $continue = apply_filters( 'wpdk_view_should_removed_superview', true, $this );
+
+      if( $continue ) {
+        unset( $this->superview->subviews[ $this->id ] );
+
+        /**
+         * Fires when this view is removed froma superview
+         *
+         * @param WPDKView $view This view.
+         */
+        do_action( 'wpdk_view_did_removed_superview', $this );
+      }
     }
   }
 }

@@ -15,6 +15,7 @@
 
 .wpdk-column-2
 {
+  margin: 0 0 0 8px;
   -moz-column-count    : 2;
   -webkit-column-count : 2;
   column-count         : 2;
@@ -57,7 +58,7 @@
   margin              : 0 8px 8px 0 !important;
 
   /* Default - you must override by id if you won't this grey image. */
-  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAB15JREFUeNrUm1tsVEUYx6enF3qnbAmFlgoUqTEpFeiFghpeTHxQo/HBxGj02Qei0fhoYozPRuML4UXj5cXExCjRB9QQA6ZAIC0FEtuUAr1ykS20paU3/H7DTrOenrO7Zy+ns1/yTy+7e/bMb7755ptv5hQ8fPhQoXv37qmlpSVVUFCgkliRqEFUKypRdtiSaFI0JppJ9EbaShvXr1+vHMfRjVHLy8vq/PnzamZmRv/Tw2joc6KXRZ2iRlGlqNASAMuiOdGEqEf0q+iY6F8vAEVFRerQoUOqtLT0EQDzgpHL3hR9KGpVdhudVC1qFr0W84Yjos9FU+52GnMSXBA3/1n0bR403svqRZ+I/hY97fcmPwA0+C/RSyr/rUX0u+h1v4DmNlzotxhB7wEnMcNnuKyJEdSQT/zCSkXfieZFPyYCQGD7wa/xi4uL+ksqKiq0CCZWTAEye83Ozqrp6Wl9j4WFhV6zGXS+FvWL+vwAfCx6yity0uv19fVqx44dasOGDfpLbDLucWpqSl2/fl3LgPDo4KOiZ+lPdwx4UnTY68L0+r59+1RHR4fauHGjdY03w6C6ulq1tLSoAwcOqMrKSu0ZHtYleuN/QTA2hg67Exszxtva2tTWrVvzJurhoV1dXaq8vFx7roe9b7xfA3jw4EG16FX3uIFgc3Ozqqury7vQT+P37NmzKhbw9/z8fOvk5GTHCoBoNNohAOri3ww53Gjnzp15O/8xXDdv3rxqKODZt27den4lCAqANq+pbsuWLSmN94WFBXXz5k11+/ZtnU6b2YJeqK2t1R5E2rkWxtAdGxtb5QV3795t12lxbAg0eQWVSCSS9AuuXLmiBgcH9WJKE5WpEWgAvHHjhhoaGtJT5rZt29SuXbtCnzprampUSUmJ7hTj4fyUTntM7tExd1O1atKUHkzUazKOVE9PjxoeHlbFxcWqsbFRe0xVVZX+G7djXgYCPXD58mXtJQRUhlZYxr0gvNQVD8oJ+gZAQZCLQvPs2bNqfHxcu/ju3bv1eHMb0xK5A3Hk0qVLGkR3d7fav3+/BhXmFOn3kpPOBelNGs/YPnjwoGfj3SBoNEmUjD11+vRpnbTYYIEB3LlzR49rerC9vV2tW7cutS+SIbV3717rIAQGQOMZAgS0srKywK5oG4RAAAh8Mn/qIJZuZmgbhEAAuNG5ubmVqSWToGQLhEAAJF/Q0xsJTjYisw0QAgEwi6MUKsd5AyEQANyeaM4wyOYcvZYQAgEg+DHtyUrKb62dEYSmpqbQIQQCwLTHWpu8nxQ329kaEMgaSaHDghB4ZbJ9+3adBfb39+tMMJPqEDGFFSRTq6nnmaF2//59DSHXaXNgAKyvye9HRkZUb2+vLpWlYwYiLm+2q4wnEGcAGwYEJx1XbW1t1XtrZIWsCIP2el9fnzpz5oxuPA01S2gUX9qOh5Cr4ZDWYog8oLOzU/cKtYAgEPAaPmMancxyDcFJ94N4gHHNVCFQPLl69apenwexXEJwMvlwEAhsXDDm060I5QqCk+kFUoXAZgUJVCZZZC4gONm4SDIIBD7yhmxsqGQbgpMtV0oEgZ6nWpytNUQ2ITjZDCh+EChIpnj8Ji0IJFFWAPCCcPHiRV0iz2bj4yHgWefOnVvJItccgBvCwMCALqLmakOVWSUajervsQZAPAQ2RdgPyObq0QsCswwFG2sAxEMgc8wlAIYXgXZiYsIuAPEQ2GXKJQSMkr11AMKCgBcwK1gJICwIPoch7AAQBoR01hmhAsglBNJtZhzrAeQSQrJNWmsAZBuCOc6zadOm/AGQTQh8lmpyXsQALwgcaUsXAguthoYGfQQnUXxIBmDOy624eBjGAQpzri/Ioob7w+29jsPFe4fPSpRzwwtObFU17EWNHaCwDAicNqFBQOCmvXqO//E6HcROEkMoUY2RegFrBDcAx3EmRIt60NTU1KyqY1GeJrfmIERYhgdwzHV0dFQvbiibcybBgOCe2JrjXBIbNPxMZuw/ACu+3M7fArwXKBpAJBLplgDCszYV8QBYZnIzjLEwje9DFFJZ75seJE4Q7VM9m8Bn2cDxWooLvD908hQjP15WVnZcPvBKPCm+lNNdHIhIJ8nI1NiLDHoMJ76XL1y4oD0oHgDeJABHJWc44Z4FvvQaBiwz2cWx5VRXqsGRKhF1CK/el449Kv+fdgP4U/SLV9mJxp86dUqXuCBqq9HrnEU8efKk/umTF4zQ2SauuN/xrnr0gFHEDYHIS32P3R2O0JoToTYYMwbjnXoAnaWDm39SxGMB0ZUFlOvFIdHbop+U65lAc1ECEoHFRjO7ygns01jblB8A7FgMwleiYq/Cgy3PCgW0z0QfpZoKfy96QXRN5b/Nit4TfRB0LXBcPXq+5ohXqpwnxuN/z4i+8C2imF8IckwfrjFEmfWd2BT5luhF0RMqjZMlIdq12Iz2jehEsoVRgXkAkozP40y9F7DHReTHPEhkw9Pj3DArKErCg6J/VIInyM1TcBz11c8X2vL051rZfwIMADMQ7iVUDcC8AAAAAElFTkSuQmCC);
+  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkI5NURCMzgzRjE2QTExRTNBMDBCRjM4QjU0QjkzRTVCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkI5NURCMzg0RjE2QTExRTNBMDBCRjM4QjU0QjkzRTVCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Qjk1REIzODFGMTZBMTFFM0EwMEJGMzhCNTRCOTNFNUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Qjk1REIzODJGMTZBMTFFM0EwMEJGMzhCNTRCOTNFNUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5I6fwSAAAMWUlEQVR42txb+VPN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);
   background-position : center center !important;
   background-repeat   : no-repeat;
 }
@@ -113,7 +114,8 @@ div.meta-box-sortables div.wpdk-border-container
  * =====================================================================================================================
  */
 
-form#wpdk-preferences input[name=wpdk_preferences_export]
+form#wpdk-preferences input[name=wpdk_preferences_export],
+form#wpdk-preferences input[name=wpdk_preferences_reset_all]
 {
   margin : 0 0 0 8px;
 }
@@ -124,8 +126,10 @@ form#wpdk-preferences input[name=wpdk_preferences_export]
  */
 
 /* since 1.5.0 all controls have the unque class wpdk-ui-control */
-.wpdk-ui-control {}
-
+.wpdk-ui-control
+{
+  -moz-box-sizing : border-box; -webkit-box-sizing : border-box; box-sizing : border-box;
+}
 
 /* =====================================================================================================================
  * INPUT POINTER
@@ -178,7 +182,7 @@ select.wpdk-form-select
   width                 : auto;
   border                : 1px solid #dfdfdf;
   background-color      : #fff;
-  padding               : 4px;
+  padding               : 6px;
   margin                : 0 4px 0 2px;
   color                 : #444;
   outline               : none;
@@ -194,6 +198,12 @@ select.wpdk-form-select
   -ms-transition        : box-shadow linear 0.2s;
   -o-transition         : box-shadow linear 0.2s;
   transition            : box-shadow linear 0.2s;
+}
+
+/* New from 1.5.6 */
+select.wpdk-ui-control
+{
+  padding : 2px;
 }
 
 textarea.wpdk-form-textarea
@@ -272,7 +282,6 @@ input.wpdk-form-capitalize
 
 input.wpdk-form-checkbox
 {
-  margin         : 0 0 0 6px;
   vertical-align : middle !important;
 }
 
@@ -430,9 +439,9 @@ span.wpdk-form-swipe
   *display              : inline;
   position              : relative;
   zoom                  : 1;
-  width                 : 40px;
-  height                : 18px;
-  padding               : 2px 2px 0;
+  width                 : 44px;
+  height                : 20px;
+  padding               : 2px;
   margin                : 0 8px 0 2px;
   vertical-align        : middle;
   background-color      : #ed5a61;
@@ -527,6 +536,14 @@ label.wpdk-form-label
   margin         : 0 6px 0 6px;
 }
 
+label.wpdk-form-label.wpdk-form-label-on-top
+{
+  display    : block;
+  text-align : left;
+  margin     : 0 0 10px 0;
+  min-width  : auto;
+}
+
 label.wpdk-form-label.wpdk-form-label-top
 {
   vertical-align : top;
@@ -578,7 +595,7 @@ label.inline
 }
 
 /* =====================================================================================================================
- * SUBTITLE into fieldset
+ * SUBTITLE INTO FIELDSET
  * =====================================================================================================================
  */
 
@@ -587,15 +604,16 @@ div.wpdk-form-description
   display               : block;
   padding               : 12px;
   margin                : 0 8px 16px;
-  background-color      : rgba(0, 0, 0, 0.05);
+  background-color      : #fff;
   border                : 1px solid rgba(0, 0, 0, 0.05);
-  color                 : #111;
-  font-size             : 13px;
+  color                 : #666;
+  font-size             : 12px;
   line-height           : 150%;
-  text-align            : justify;
-  -moz-border-radius    : 1px;
-  -webkit-border-radius : 1px;
-  border-radius         : 1px;
+  text-align            : left;
+  -moz-border-radius    : 0 0 2px 2px;
+  -webkit-border-radius : 0 0 2px 2px;
+  border-radius         : 0 0 2px 2px;
+  border-top            : 2px solid rgba(0, 100, 200, 0.2);
 }
 
 div.wpdk-form-description code,
@@ -609,6 +627,37 @@ div.wpdk-form-description .code
   -moz-border-radius    : 4px;
   -webkit-border-radius : 4px;
   border-radius         : 4px;
+}
+
+/* =====================================================================================================================
+ * GLYPH ICONS INTO THE CONTROL LAYOUT ARRAY
+ * =====================================================================================================================
+ */
+.wpdk-form-description .wpdk-icon-info-circled
+{
+  font-size      : 24px;
+  color          : #6696e8;
+  vertical-align : middle;
+}
+
+.wpdk-form-description .wpdk-icon-attention
+{
+  font-size      : 24px;
+  color          : #ef5456;
+  vertical-align : middle;
+}
+
+.wpdk-form-description .wpdk-icon-tag
+{
+  font-size      : 24px;
+  color          : #70b46a;
+  vertical-align : middle;
+}
+.wpdk-form-description .wpdk-icon-ok
+{
+  font-size      : 24px;
+  color          : #76a071;
+  vertical-align : middle;
 }
 
 /* =====================================================================================================================

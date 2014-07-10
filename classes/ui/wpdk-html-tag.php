@@ -273,7 +273,7 @@ class WPDKHTMLTag extends WPDKObject {
    */
   protected function beforeContent()
   {
-    /* to override if needed */
+    // to override if needed
   }
 
   /**
@@ -295,7 +295,7 @@ class WPDKHTMLTag extends WPDKObject {
    */
   protected function afterContent()
   {
-    /* to override if needed */
+    // to override if needed
   }
 
   /**
@@ -863,7 +863,7 @@ class WPDKHTMLTagA extends WPDKHTMLTag {
  */
 class WPDKHTMLTagButton extends WPDKHTMLTag {
 
-  /* Interface. */
+  // Interface
 
   /**
    * New in HTML 5. Specifies that an <input> element should automatically get focus when the page loads.

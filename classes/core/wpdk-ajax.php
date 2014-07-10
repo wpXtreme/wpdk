@@ -66,7 +66,10 @@ if ( wpdk_is_ajax() ) {
      */
     public static function add( $method, $callable, $nopriv = false )
     {
+      // Action for admin (logged-in user) only
       add_action( 'wp_ajax_' . $method, $callable );
+
+      // Action for frontend (no logged-in user)
       if ( $nopriv ) {
         add_action( 'wp_ajax_nopriv_' . $method, $callable );
       }
@@ -82,7 +85,7 @@ if ( wpdk_is_ajax() ) {
      */
     protected function actions()
     {
-      /* To override. */
+      // To override
       return array();
     }
 
@@ -94,9 +97,9 @@ if ( wpdk_is_ajax() ) {
    *
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2014-01-08
-   * @version         1.0.3
+   * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date            2014-05-004
+   * @version         1.0.4
    * @since           1.4.0
    *
    */
@@ -109,7 +112,7 @@ if ( wpdk_is_ajax() ) {
      *
      * @var string $__version
      */
-    public $__version = '1.0.3';
+    public $__version = '1.0.4';
 
     /**
      * User define error code or string
@@ -130,7 +133,7 @@ if ( wpdk_is_ajax() ) {
     public $message = '';
 
     /**
-     * Any data
+     * Use this property to set any your own data to return.
      *
      * @brief Data
      *
@@ -145,20 +148,18 @@ if ( wpdk_is_ajax() ) {
      *
      * @return WPDKAjaxResponse
      */
-    public function __construct()
-    {
-    }
+    public function __construct() { }
 
     /**
-     * Send a jSON response
+     * Send a JSON response back to an Ajax request.
      *
-     * @brief jSON
+     * @brief Send a JSON
      */
     public function json()
     {
-      header( 'Cache-Control: no-cache, must-revalidate' );
-      header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
-      header( 'Content-Type: application/json' );
+      @header( 'Cache-Control: no-cache, must-revalidate' );
+      @header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
+      @header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
 
       echo json_encode( $this );
 
@@ -171,6 +172,4 @@ if ( wpdk_is_ajax() ) {
     }
 
   }
-
-
 }

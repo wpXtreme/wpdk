@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An over head class for jQuery HTML element
  *
@@ -10,7 +11,7 @@
  */
 
 class WPDKjQuery {
-  /* Not yet implement */
+  // Not yet implement
 }
 
 /**
@@ -93,7 +94,7 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @var array $tabs
    */
-  public $tabs;
+  public $tabs = array();
 
   /**
    * Set to true to display the border. Default is true
@@ -102,7 +103,7 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @var bool $border
    */
-  public $border;
+  public $border = true;
 
   /**
    * Create an instance of WPDKjQueryTabsView class
@@ -114,10 +115,15 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @return WPDKjQueryTabsView
    */
-  public function __construct( $id, $tabs = array() ) {
+  public function __construct( $id, $tabs = array() )
+  {
     parent::__construct( $id, 'wpdk-jquery-ui' );
+
     $this->tabs = $tabs;
-    $this->border = true;
+
+    // Enqueue components
+    wp_enqueue_script( 'jquery-ui-tabs' );
+    wp_enqueue_style( 'jquery-ui-tabs' );
   }
 
   /**
@@ -128,10 +134,11 @@ class WPDKjQueryTabsView extends WPDKView {
    * @param WPDKjQueryTab $tab An instance of WPDKjQueryTab
    *
    */
-  public function addTab( $tab ) {
+  public function addTab( $tab )
+  {
     if ( is_object( $tab ) && is_a( $tab, 'WPDKjQueryTab' ) ) {
-      $id              = $tab->id;
-      $this->tabs[$id] = $tab;
+      $id                = $tab->id;
+      $this->tabs[ $id ] = $tab;
     }
   }
 
@@ -142,15 +149,16 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @param string|WPDKjQueryTab $tab An instance of WPDkjQueryTab class or its ID
    */
-  public function removeTab( $tab ) {
+  public function removeTab( $tab )
+  {
     if ( is_object( $tab ) && is_a( $tab, 'WPDKjQueryTab' ) ) {
       $id = $tab->id;
     }
     elseif ( is_string( $tab ) ) {
       $id = $tab;
     }
-    if ( !empty( $id ) && isset( $this->tabs[$id] ) ) {
-      unset( $this->tabs[$id] );
+    if ( !empty( $id ) && isset( $this->tabs[ $id ] ) ) {
+      unset( $this->tabs[ $id ] );
     }
   }
 
@@ -161,6 +169,11 @@ class WPDKjQueryTabsView extends WPDKView {
    */
   public function draw()
   {
+    // If no tabs...
+    if( empty( $this->tabs ) ) {
+      return;
+    }
+
     $html_titles  = '';
     $html_content = '';
 

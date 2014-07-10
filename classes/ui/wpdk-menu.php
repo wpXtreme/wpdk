@@ -678,34 +678,50 @@ class WPDKSubMenu {
 
     if ( !empty( $global_key ) ) {
 
-      // Create a global list of my own menu.
-      $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ] = array(
-        'parent'     => $this->parent,
-        'page'       => $this->id,
-        'hook'       => '',
-        'menu_title' => ''
-      );
+      if( !isset( $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ] ) ) {
+
+        // Create a global list of my own menu.
+        $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ] = array(
+          'parent'     => $this->parent,
+          'page'       => $this->id,
+          'hook'       => '',
+          'menu_title' => ''
+        );
+      }
     }
 
-    // Apply filter for change the title
+    /**
+     * Filter the menu title.
+     *
+     * @param string $menu_title The title of menu.
+     * @param string $id         The menu ID.
+     * @param string $parent     The menu parent.
+     */
     $menu_title = apply_filters( 'wpdk_submenu_title', $this->menuTitle, $this->id, $this->parent );
 
     // Create the menu item
     $this->hookName = add_submenu_page( $this->parent, $this->pageTitle, $menu_title, $this->capability, $this->id, $hook );
 
     // Check for query args
-    if ( isset( $this->query_args ) && !empty( $this->query_args ) ) {
+    if ( isset( $this->query_args ) && ! empty( $this->query_args ) ) {
       $stack = array();
       foreach ( $this->query_args as $var => $value ) {
         $stack[] = sprintf( '$_GET["%s"] = $_REQUEST["%s"] = "%s";', $var, $var, $value );
       }
       $func = create_function( '', implode( '', $stack ) );
-      add_action( 'load-' . $this->hookName, $func );
+      add_action( $this->hookName, $func, 0 );
     }
 
     // Execute this action when the page displayed ids for this submenu view
     if( !empty( $plugin_page ) ) {
       if( $this->id === $plugin_page ) {
+
+        /**
+         * Fires when when the page displayed ids for this submenu view.
+         *
+         * @param WPDKSubMenu $submenu     An instance of WPDKSubMenu
+         * @param string      $plugin_page The plugin page, eg: wpx_roles_main
+         */
         do_action( 'wpdk_submenu_page', $this, $plugin_page );
       }
     }
@@ -749,8 +765,10 @@ class WPDKSubMenu {
     }
 
     if ( !empty( $global_key ) ) {
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['hook']       = $this->hookName;
-      $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['menu_title'] = $menu_title;
+      if( !isset( $GLOBALS[WPDKMenu::GLOBAL_MENU][$global_key]['hook'] ) ) {
+        $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ]['hook']       = $this->hookName;
+        $GLOBALS[ WPDKMenu::GLOBAL_MENU ][ $global_key ]['menu_title'] = $menu_title;
+      }
     }
   }
 

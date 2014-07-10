@@ -1,0 +1,88 @@
+/**
+ * WPDK UI Page View
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date	        2014-07-09
+ * @version       1.0.0
+ *
+ */
+
+/* Main Container */
+
+.wpdk-ui-page-view-main-container
+{
+  display  : block;
+  width    : 558px;
+  height   : 400px;
+  overflow : hidden;
+  position : relative;
+}
+
+@media (max-width : 767px)
+{
+  .wpdk-ui-page-view-main-container
+  {
+    width : 720px;
+  }
+}
+
+.wpdk-ui-page-view-mask
+{
+  width              : 99999px;
+  position           : relative;
+  -webkit-transition : all ease 0.3s;
+  -moz-transition    : all ease 0.3s;
+  -ms-transition     : all ease 0.3s;
+  -o-transition      : all ease 0.3s;
+  transition         : all ease 0.3s;
+}
+
+/* Page container */
+
+.wpdk-ui-page-view-container
+{
+  width    : 558px;
+  height   : 400px;
+  float    : left;
+  position : relative;
+}
+
+@media (max-width : 767px)
+{
+  .wpdk-ui-page-view-container
+  {
+    width : 720px;
+  }
+}
+
+/* Navigator */
+
+.wpdk-ui-navigator
+{
+  text-align : center;
+}
+
+.wpdk-ui-navigator .wpdk-ui-navigator-bullet
+{
+  display               : inline-block;
+  width                 : 12px;
+  height                : 12px;
+  margin                : 0 4px;
+  background-color      : #ddd;
+  -moz-border-radius    : 100%;
+  -webkit-border-radius : 100%;
+  border-radius         : 100%;
+  -webkit-transition    : all linear 0.2s;
+  -moz-transition       : all linear 0.2s;
+  -ms-transition        : all linear 0.2s;
+  -o-transition         : all linear 0.2s;
+  transition            : all linear 0.2s;
+}
+
+.wpdk-ui-navigator .wpdk-ui-navigator-bullet.current,
+.wpdk-ui-navigator .wpdk-ui-navigator-bullet:hover,
+.wpdk-ui-navigator .wpdk-ui-navigator-bullet:focus
+{
+  background-color : #09f;
+}

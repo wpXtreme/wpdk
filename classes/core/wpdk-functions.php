@@ -279,13 +279,13 @@ function wpdk_permalink_page_with_slug( $slug, $post_type = 'page' )
 {
   global $wpdb;
 
-  /* Cerco la pagina. */
+  // Get the page
   $page = get_page_by_path( $slug, OBJECT, $post_type );
 
-  /* Se non la trovo, prima di restituire null eseguo un controllo per WPML. */
+  // If no exists che for WPML compatibility (patch)
   if ( is_null( $page ) ) {
 
-    /* WPML? */
+    // WPML exists?
     if ( function_exists( 'icl_object_id' ) ) {
       $sql = <<< SQL
 SELECT ID FROM {$wpdb->posts}
@@ -306,6 +306,7 @@ SQL;
 
   $permalink = get_permalink( $id );
 
+  // Append slash
   return trailingslashit( $permalink );
 }
 

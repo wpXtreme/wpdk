@@ -5,13 +5,13 @@
  *
  * ## Overview
  *
- * You have to subclass this class
+ * Usually you have to subclass this class
  *
  * @class           WPDKScreenHelp
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-03
- * @version         1.1.0
+ * @date            2014-05-02
+ * @version         1.1.1
  *
  */
 class WPDKScreenHelp {
@@ -78,8 +78,11 @@ class WPDKScreenHelp {
 
     // Add the sidebar if exists
     $sidebar = $this->sidebar();
+
     if ( !empty( $sidebar ) ) {
-      $this->currentScreen->set_help_sidebar( $sidebar );
+      $current = $this->currentScreen->get_help_sidebar();
+
+      $this->currentScreen->set_help_sidebar( $current . $sidebar );
     }
   }
 

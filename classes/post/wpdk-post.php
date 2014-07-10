@@ -246,7 +246,7 @@ class WPDKPost extends WPDKObject {
    *
    * @var string $post_type
    */
-  public $post_type;
+  public $post_type = WPDKPostType::POST;
   /**
    * List of urls to ping when post is published (for unpublished posts)
    *
@@ -267,37 +267,54 @@ class WPDKPost extends WPDKObject {
    *
    * @return WPDKPost
    */
-  public function __construct( $record = null, $post_type = 'page' )
+  public function __construct( $record = null, $post_type = WPDKPostType::POST )
   {
 
-    /* Get post by id. */
+    // Get post by id
     if ( !is_null( $record ) && is_numeric( $record ) ) {
       $this->initPostByID( absint( $record ) );
     }
 
-    /* Get post from database record. */
+    // Get post from database record
     elseif ( !is_null( $record ) && is_object( $record ) && isset( $record->ID ) ) {
       $this->initPostByPost( $record );
     }
 
-    /* Get post by name. */
+    // Get post by name
     elseif ( !is_null( $record ) && is_string( $record ) ) {
-      /* @todo Use get by name */
+
+      // Try by path
       $object = get_page_by_path( $record, OBJECT, $post_type );
-      $this->initPostByPost( $object );
+
+      if( is_null( $object ) ) {
+
+        // Try by title
+        $object = get_page_by_title( $record, OBJECT, $post_type );
+      }
+
+      if( !is_null( $object ) ) {
+        $this->initPostByPost( $object );
+      }
     }
 
-    /* Create an empty post. */
+    // Create an empty post
     elseif ( is_null( $record ) ) {
-      /* Create a new onfly post */
+
+      // Save post type
+      $this->post_type = $post_type;
+
+      // Create a new onfly post
       $defaults = $this->postEmpty();
       $this->initPostByArgs( $defaults );
+
+      // Insert
+      $this->ID = wp_insert_post( $defaults );
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Create/Get Post
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Init this instance of WPDKPost as post from Post ID
@@ -327,7 +344,8 @@ class WPDKPost extends WPDKObject {
   private function initPostByPost( $post )
   {
     if ( is_object( $post ) ) {
-      /* Get properties. */
+
+      // Get properties
       foreach ( $post as $property => $value ) {
         $this->$property = $value;
       }
@@ -346,7 +364,7 @@ class WPDKPost extends WPDKObject {
   {
     $args = array(
       'ID'                    => 0,
-      'post_author'           => 0,
+      'post_author'           => get_current_user_id(),
       'post_date'             => '0000-00-00 00:00:00',
       'post_date_gmt'         => '0000-00-00 00:00:00',
       'post_content'          => '',
@@ -365,16 +383,16 @@ class WPDKPost extends WPDKObject {
       'post_parent'           => 0,
       'guid'                  => '',
       'menu_order'            => 0,
-      'post_type'             => WPDKPostType::POST,
+      'post_type'             => $this->post_type,
       'post_mime_type'        => '',
       'comment_count'         => 0
     );
     return $args;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Empty Post
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Init this instance of WPDKPost as a empty Post
@@ -388,9 +406,9 @@ class WPDKPost extends WPDKObject {
     }
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // CRUD
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Delete permately this post from database
@@ -452,7 +470,7 @@ class WPDKPost extends WPDKObject {
    */
   public function update()
   {
-    /* Avoid update when we are in admin backend area. */
+    // Avoid update when we are in admin backend area
     global $pagenow;
 
     if ( 'post.php' != $pagenow ) {
@@ -574,13 +592,13 @@ class WPDKPost extends WPDKObject {
         $thumbnail_id = get_post_thumbnail_id( $post_id );
         $image        = wp_get_attachment_image_src( $thumbnail_id, $size );
 
-        /* Get src attribute */
+        // Get src attribute
         $src = $image[0];
 
-        /* Get the attachment alt text. */
+        // Get the attachment alt text
         $alt = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
 
-        /* Get the attachment caption. */
+        // Get the attachment caption
         $caption = get_post_field( 'post_excerpt', $thumbnail_id );
 
         $img = new WPDKHTMLTagImg( $src, $alt );
@@ -631,7 +649,7 @@ class WPDKPost extends WPDKObject {
    */
   public static function imageAttachmentsWithID( $post_id, $size = 'full', $index = 1 )
   {
-    /* Check for support */
+    // Check for support
     if ( function_exists( 'wp_get_attachment_image' ) ) {
       $args     = array(
         'post_parent'    => $post_id,
@@ -648,10 +666,10 @@ class WPDKPost extends WPDKObject {
         return false;
       }
 
-      /* Get the first */
+      // Get the first
       $item = current( $children );
 
-      /* Try to get the $index element */
+      // Try to get the $index element
       if ( $index > 1 ) {
         $item = current( array_slice( $children, $index - 1, 1 ) );
       }
@@ -662,10 +680,10 @@ class WPDKPost extends WPDKObject {
         $image = wp_get_attachment_image_src( $thumbnail_id, $size );
         $src = $image[0];
 
-        /* Get the attachment alt text. */
+        // Get the attachment alt text
         $alt = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
 
-        /* Get the attachment caption. */
+        // Get the attachment caption
         $caption = get_post_field( 'post_excerpt', $thumbnail_id );
 
         $img = new WPDKHTMLTagImg( $src, $alt );
@@ -707,10 +725,10 @@ class WPDKPost extends WPDKObject {
    */
   public static function imageContentWithID( $post_id )
   {
-    /* Search the post's content for the <img /> tag and get its URL. */
+    // Search the post's content for the <img /> tag and get its URL
     preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $post_id ), $matches );
 
-    /* If there is a match for the image, return its URL. */
+    // If there is a match for the image, return its URL
     if ( isset( $matches ) && is_array( $matches ) && !empty( $matches[1][0] ) ) {
       $src = $matches[1][0];
 
@@ -740,8 +758,9 @@ class WPDKPostStatus {
   const FUTURE     = 'future';
   const INHERIT    = 'inherit';
   const PENDING    = 'pending';
+
   /**
-   * @note Sorry by PRIVATE is a php keyword so I have used PRIVATE_ instead
+   * @note Sorry by PRIVATE  by it is a php keyword so I have used PRIVATE_ instead
    */
   const PRIVATE_ = 'private';
   const PUBLISH  = 'publish';
@@ -778,7 +797,7 @@ class _WPDKPost extends WPDKPost {}
 /// @endcond
 
 /**
- * WordPress standard Post Type at 3.4 release
+ * WordPress standard Post Type at 3.4 release.
  *
  * @class              WPDKPostType
  * @author             =undo= <info@wpxtre.me>
@@ -788,42 +807,13 @@ class _WPDKPost extends WPDKPost {}
  *
  */
 class WPDKPostType {
-  const ATTACHMENT    = 'attachment';
+
+  const ATTACHMENT = 'attachment';
   const NAV_MENU_ITEM = 'nav_menu_item';
-  const PAGE          = 'page';
-  const POST          = 'post';
-  const REVISION      = 'revision';
+  const PAGE = 'page';
+  const POST = 'post';
+  const REVISION = 'revision';
 }
-
-
-/**
- * WordPress Posts model
- *
- * ## Overview
- * Manage posts model
- *
- * @class           WPDKPosts
- * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-03-15
- * @version         1.0.0
- *
- */
-class WPDKPosts {
-
-  /**
-   * Create an instance of WPDKPosts class
-   *
-   * @brief Construct
-   *
-   * @return WPDKPosts
-   */
-  public function __construct()
-  {
-  }
-
-}
-
 
 /**
  * Utility for post meta
@@ -833,7 +823,7 @@ class WPDKPosts {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
- * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metabox.php (WPXSmartShopProductMetaBox)
+ * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metaboxes.php (WPXSmartShopProductMetaBox)
  *
  */
 class WPDKPostMeta {
@@ -873,16 +863,18 @@ class WPDKPostMeta {
   public static function updatePostMetaWithDeleteIfNotSet( $id_post, $meta_key, $meta_value = null )
   {
 
-    /* Sanitize post id. */
+    // Sanitize post id
     $id_post = absint( $id_post );
 
     if ( !empty( $id_post ) ) {
-      /* Se il parametro meta_value è null elimino il post meta. */
+
+      // Use meta_value is null then delete post meta
       if ( is_null( $meta_value ) ) {
         delete_post_meta( $id_post, $meta_key );
       }
       else {
-        /* Sanitizo il nome della meta key che potrebbe arrivara come name di un campo input array. */
+
+        // Sanitize meta_key when arrive as array
         if ( substr( $meta_key, -2 ) == '[]' ) {
           $meta_key = substr( $meta_key, 0, strlen( $meta_key ) - 2 );
         }
@@ -906,9 +898,9 @@ class WPDKPostMeta {
     return null;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Utility
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return ana array of values with a specific meta key

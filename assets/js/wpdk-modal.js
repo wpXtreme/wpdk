@@ -237,7 +237,6 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
     return this
   }
 
-
   // MODAL DATA-API
   // ==============
 
@@ -259,6 +258,31 @@ if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
   $(document)
     .on('show.wpdk.wpdkModal', '.wpdk-modal', function () { $(document.body).addClass('wpdk-modal-open') })
     .on('hidden.wpdk.wpdkModal', '.wpdk-modal', function () { $(document.body).removeClass('wpdk-modal-open') })
+
+    // Extends with Permanent dismiss
+    $( document ).on( 'click', '.wpdk-modal button.close.wpdk-modal-permanent-dismiss', function() {
+      var $this    = $(this);
+      var modal_id = $this.closest( '.wpdk-modal' ).attr( 'id' );
+
+      // Ajax
+      $.post( wpdk_i18n.ajaxURL, {
+          action      : 'wpdk_action_modal_dismiss',
+          modal_id    : modal_id
+        }, function ( data )
+        {
+          var response = new WPDKAjaxResponse( data );
+
+          if ( empty( response.error ) ) {
+            // Process response
+
+          }
+          // An error return
+          else {
+            alert( response.error );
+          }
+        }
+      );
+    } );
 
 }(jQuery);
 
@@ -421,7 +445,7 @@ if ( typeof( window.WPDKUIModalDialog ) === 'undefined' ) {
         _data() +
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
-        'role="dialog"' +
+        'role="wpdk-dialog"' +
         'aria-labelledby="' + _aria_title() + '"' +
         'aria-hidden="true">' +
         '<div ' + _size() + ' class="modal-dialog">' +
@@ -655,7 +679,7 @@ if ( typeof( window.WPDKTwitterBootstrapModal ) === 'undefined' ) {
         data() +
         'id="' + $t.id + '"' +
         'tabindex="-1"' +
-        'role="dialog"' +
+        'role="wpdk-dialog"' +
         'aria-labelledby="' + aria_title() + '"' +
         'aria-hidden="true">' +
         '<div ' + size() + ' class="modal-dialog">' +

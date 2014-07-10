@@ -63,6 +63,7 @@ if ( wpdk_is_ajax() ) {
 
         // since 1.4.21
         'wpdk_action_alert_dismiss'      => false,
+        'wpdk_action_modal_dismiss'      => false,
       );
 
       return $actionsMethods;
@@ -293,13 +294,67 @@ SQL;
       $dismissed = empty( $dismissed ) ? array() : $dismissed;
 
       // Add this alert id and make array unique - avoid duplicate
-      $dismissed = array_unique( array_merge( $dismissed, (array)$alert_id ) );
+      $dismissed[ md5( $alert_id ) ] = time();
       update_user_meta( $user_id, WPDKUIAlert::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
+
+      /**
+       * Fires when an alert is permanent dismiss by a user.
+       *
+       * @param int    $user_id  User that dismiss this alert.
+       * @param string $alert_id The alert id.
+       */
+      do_action( 'wpdk_ui_alert_dismissed', $user_id, $alert_id );
 
       $response->json();
     }
 
 
+    /**
+     * Permanent modal dismiss by user logged in.
+     *
+     * @brief Permanent modal dismiss
+     * @since 1.5.6
+     */
+    public function wpdk_action_modal_dismiss()
+    {
+      $response = new WPDKAjaxResponse();
+
+      // Get the alert id via post
+      $modal_id = isset( $_POST['modal_id'] ) ? $_POST['modal_id'] : '';
+
+      // Stability
+      if( empty( $modal_id ) ) {
+        $response->error = __( 'Malformed data sedning: no alert id found!', WPDK_TEXTDOMAIN );
+        $response->json();
+      }
+
+      // Stability
+      if( !is_user_logged_in() ) {
+        $response->error = __( 'Severe error: no user logged in!', WPDK_TEXTDOMAIN );
+        $response->json();
+      }
+
+      // Get the logged in user
+      $user_id = get_current_user_id();
+
+      // Get the dismissed list
+      $dismissed = get_user_meta( $user_id, WPDKUIModalDialog::USER_META_KEY_PERMANENT_DISMISS, true );
+      $dismissed = empty( $dismissed ) ? array() : $dismissed;
+
+      // Add this alert id and make array unique - avoid duplicate
+      $dismissed[ md5( $modal_id ) ] = time();
+      update_user_meta( $user_id, WPDKUIModalDialog::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
+
+      /**
+       * Fires when an alert is permanent dismiss by a user.
+       *
+       * @param int    $user_id  User that dismiss this alert.
+       * @param string $modal_id The alert id.
+       */
+      do_action( 'wpdk_ui_modal_dismissed', $user_id, $modal_id );
+
+      $response->json();
+    }
 
   } // class WPDKServiceAjax
 

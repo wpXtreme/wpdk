@@ -261,11 +261,26 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     // Logs
     $this->log = new WPDKWatchDog( $this->path );
 
-    // Load specific plugin environment ONLY when I'm sure plugin father is loaded
-    add_action( 'init', array( $this, '_init' ) );
+    // Load text domain
+    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
 
-    // Admin init
-    add_action( 'admin_init', array( $this, 'admin_init' ) );
+    // Preferences
+    add_action( 'init', array( $this, 'preferences' ) );
+
+    // Ajax
+    if( wpdk_is_ajax() ) {
+      add_action( 'init', array( $this, 'ajax' ) );
+    }
+
+    // Admin backend area
+    if( is_admin() ) {
+      add_action( 'init', array( $this, 'admin' ) );
+      add_action( 'admin_init', array( $this, 'admin_init' ) );
+    }
+    // Improve since v1.4.13 - Frontnend
+    elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
+      add_action( 'init', array( $this, 'theme' ) );
+    }
 
     // Activation & Deactivation Hook
     register_activation_hook( $file, array( $this, 'activation' ) );
@@ -430,44 +445,13 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Called by action hook 'init'
-   *
-   * @brief WordPress action when the plugin is loaded
-   */
-  public function _init()
-  {
-
-    // Load the translation of the plugin
-    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
-
-    // Good place for init options
-    $this->preferences();
-
-    // Check Ajax
-    if ( wpdk_is_ajax() ) {
-      $this->ajax();
-      return;
-    }
-
-    // Check admin backend
-    if ( is_admin() ) {
-      $this->admin();
-    }
-
-    // Improve since v1.4.13
-    elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
-      $this->theme();
-    }
-  }
-
-  /**
    * Called by action hook 'admin_init'
    *
    * @brief Admin init
    */
   public function admin_init()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -477,7 +461,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function preferences()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -487,7 +471,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function ajax()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -499,7 +483,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function admin()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -511,7 +495,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function activation()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -523,7 +507,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function deactivation()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -534,7 +518,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function theme()
   {
-    /* To override. */
+    // To override
   }
 
   /**
@@ -546,7 +530,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function widgets()
   {
-    /* To override. */
+    // To override
   }
 
   // -------------------------------------------------------------------------------------------------------------------
