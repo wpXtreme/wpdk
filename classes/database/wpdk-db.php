@@ -113,13 +113,17 @@ class WPDKDBTableModel {
    *
    * @brief Construct
    *
-   * @param string $table_name The name of the database table without WordPress prefix
-   * @param string $sql_file   Optional. The filename of SQL file with the database table structure and init data.
+   * @param string $table_name  The name of the database table without WordPress prefix
+   * @param string $sql_file    Optional. The filename of SQL file with the database table structure and init data.
+   * @param string $primary_key Optional. If FALSE the primary key is get from database.
    *
    * @return WPDKDBTableModel
    */
-  public function __construct( $table_name, $sql_file = '' )
+  public function __construct( $table_name, $sql_file = '', $primary_key = 'id' )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     // Add the WordPres database prefix
@@ -129,7 +133,7 @@ class WPDKDBTableModel {
     $this->sql_filename = $sql_file;
 
     // Try to get the Primary key
-    $this->primary_key = $this->primary_key();
+    $this->primary_key = empty( $primary_key ) ? $this->primaryKey() : $primary_key;
   }
 
   /**
@@ -141,13 +145,16 @@ class WPDKDBTableModel {
    *
    * @return string
    */
-  public function primary_key()
+  public function primaryKey()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     $db = DB_NAME;
 
-    $sql = <<< SQL
+    $sql = <<<SQL
 SELECT COLUMN_NAME
 FROM information_schema.COLUMNS
 WHERE (TABLE_SCHEMA = '{$db}')
@@ -155,7 +162,9 @@ AND (TABLE_NAME = '{$this->table_name}')
 AND (COLUMN_KEY = 'PRI');
 SQL;
 
-    return $wpdb->get_var( $sql );
+    $result = $wpdb->get_var( $sql );
+
+    return $result;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -245,6 +254,9 @@ SQL;
    */
   public function update()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -296,6 +308,9 @@ SQL;
    */
   public function delete( $id )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     // Stability
@@ -357,6 +372,9 @@ SQL;
    */
   public function update_table()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     // Hide database warning and error
@@ -437,6 +455,9 @@ SQL;
    */
   public function group_by( $column, $order = 'ASC' )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     $sql = <<< SQL
@@ -657,6 +678,9 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    */
   public function insert()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -710,6 +734,9 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    */
   public function update()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -761,6 +788,9 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    */
   public function count()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -829,6 +859,9 @@ SQL;
    */
   public function status( $id, $status = WPDKDBTableRowStatuses::PUBLISH )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     // Stability
