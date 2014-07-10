@@ -164,8 +164,6 @@ SQL;
 
     $result = $wpdb->get_var( $sql );
 
-    WPXtreme::log( $result, 'primary_key' );
-
     return $result;
   }
 
