@@ -182,6 +182,7 @@ select.wpdk-form-select
   width                 : auto;
   border                : 1px solid #dfdfdf;
   background-color      : #fff;
+  padding               : 6px;
   margin                : 0 4px 0 2px;
   color                 : #444;
   outline               : none;
