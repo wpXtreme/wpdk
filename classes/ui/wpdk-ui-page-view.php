@@ -10,10 +10,14 @@
  * @version         1.0.0
  *
  */
-class WPDKUIPageView extends WPDKView {
+class WPDKUIPageView extends WPDKView
+{
 
   // ID view
   const ID = 'wpdk-ui-page-view';
+
+  // HTML page seprator. Used in initWithHTML() and in the your HTML markup.
+  const HTML_PAGE_SEPARATOR = '<!-- WPDK Pages -->';
 
   /**
    * Internal static pointer for static method.
@@ -60,6 +64,21 @@ class WPDKUIPageView extends WPDKView {
   {
     // Init
     self::init();
+
+    // Save the views
+    self::$instance->views = $views;
+
+    // Return instance
+    return self::$instance;
+  }
+
+  public static function initWithHTML( $html )
+  {
+    // Init
+    self::init();
+
+    // Explode HTML
+    $views = explode( self::HTML_PAGE_SEPARATOR, $html );
 
     // Save the views
     self::$instance->views = $views;
