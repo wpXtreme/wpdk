@@ -148,16 +148,6 @@ class WPDKMail extends WPDKPost {
     $body = apply_filters( 'wpdk_post_placeholders_content', $this->post_content, $user_id, $placeholders );
 
     try {
-
-      /**
-       * Filter the to.
-       *
-       * @param string $to The to string in 'John Red <jred@gmail.com>' format.
-       */
-      $to = apply_filters( 'wpdk_mail_to', $to );
-
-      WPXtreme::log( $to, 'filter to email' );
-
       $result = wp_mail( $to, $subject, $body, $this->headers() );
     }
     catch ( phpmailerException $e ) {
