@@ -101,7 +101,7 @@ class WPDKMail extends WPDKPost {
   public function send( $to, $subject = false, $from = '', $placeholders = array() )
   {
     // Set user id for replace placeholder - see classes/post/wpdk-post-placeholders.php
-    $user_id = -1;
+    $user_id = - 1;
 
     // Check for to
     if ( is_numeric( $to ) ) {
@@ -123,19 +123,41 @@ class WPDKMail extends WPDKPost {
 
     // Check for from
     elseif ( is_numeric( $this->from ) ) {
-      $user_from = get_user_by( 'id', $from );
+      $user_from  = get_user_by( 'id', $from );
       $this->from = sprintf( '%s <%s>', $user_from->data->display_name, $user_from->data->user_email );
     }
 
     // If subject is empty get the post title
     if ( empty( $subject ) ) {
+
+      /**
+       * Filter the title of mail.
+       *
+       * @param string $title The title of mail.
+       */
       $subject = apply_filters( 'the_title', $this->post_title );
     }
 
-    // Filter the content body
+    /**
+     * Filter the content of mail.
+     *
+     * @param string $content      The content of mail.
+     * @param int    $user_id      The user ID.
+     * @param array  $placeholders The array of placeholders.
+     */
     $body = apply_filters( 'wpdk_post_placeholders_content', $this->post_content, $user_id, $placeholders );
 
     try {
+
+      /**
+       * Filter the to.
+       *
+       * @param string $to The to string in 'John Red <jred@gmail.com>' format.
+       */
+      $to = apply_filters( 'wpdk_mail_to', $to );
+
+      WPXtreme::log( $to, 'filter to email' );
+
       $result = wp_mail( $to, $subject, $body, $this->headers() );
     }
     catch ( phpmailerException $e ) {
