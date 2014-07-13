@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.5.7
-### 2014-07-??
+### 2014-07-13
 
 #### Improvements
 
