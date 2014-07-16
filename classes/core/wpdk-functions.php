@@ -493,27 +493,28 @@ function wpdk_add_page( $page_slug, $page_title, $capability, $function = '', $h
 {
   global $admin_page_hooks, $_registered_pages, $_parent_pages;
 
-  $hookname = '';
+  $hook_name = '';
 
-  if ( !empty( $function ) && current_user_can( $capability ) ) {
-    $page_slug                    = plugin_basename( $page_slug );
-    $admin_page_hooks[$page_slug] = $page_title;
-    $hookname                     = get_plugin_page_hookname( $page_slug, '' );
-    if ( !empty( $hookname ) ) {
-      add_action( $hookname, $function );
-      $_registered_pages[$hookname] = true;
-      $_parent_pages[$page_slug]    = false;
+  if ( ! empty( $function ) && current_user_can( $capability ) ) {
+    $page_slug                      = plugin_basename( $page_slug );
+    $admin_page_hooks[ $page_slug ] = $page_title;
+    $hook_name                       = get_plugin_page_hookname( $page_slug, '' );
+    if ( ! empty( $hook_name ) ) {
+      add_action( $hook_name, $function );
+      $_registered_pages[ $hook_name ] = true;
+      $_parent_pages[ $page_slug ]    = false;
 
-      if ( !empty( $hook_head ) ) {
-        add_action( 'admin_head-' . $hookname, $hook_head );
+      if ( ! empty( $hook_head ) ) {
+        add_action( 'admin_head-' . $hook_name, $hook_head );
       }
 
-      if ( !empty( $hook_load ) ) {
-        add_action( 'load-' . $hookname, $hook_load );
+      if ( ! empty( $hook_load ) ) {
+        add_action( 'load-' . $hook_name, $hook_load );
       }
     }
   }
-  return $hookname;
+
+  return $hook_name;
 }
 
 /**
