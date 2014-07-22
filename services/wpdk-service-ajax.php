@@ -272,11 +272,11 @@ SQL;
       $response = new WPDKAjaxResponse();
 
       // Get the alert id via post
-      $alert_id = isset( $_POST['alert_id'] ) ? $_POST['alert_id'] : '';
+      $alert_id = isset( $_POST['alert_id'] ) ? empty( $_POST['alert_id'] ) ? '' : $_POST['alert_id'] : '';
 
       // Stability
       if( empty( $alert_id ) ) {
-        $response->error = __( 'Malformed data sedning: no alert id found!', WPDK_TEXTDOMAIN );
+        $response->error = __( 'Malformed data sending: no alert id found!', WPDK_TEXTDOMAIN );
         $response->json();
       }
 

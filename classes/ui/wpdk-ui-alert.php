@@ -309,7 +309,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public function html()
   {
     // Permanent dismiss
-    if ( !empty( $this->dismissed ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
+    if ( !empty( $this->dismissed ) && !empty( $this->id ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
       return;
     }
 

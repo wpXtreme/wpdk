@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.8
+### 2014-07-22
+
+#### Bugs
+
+* Fixed potential wrong alert id when empty
+
 ## Version 1.5.7
 ### 2014-07-13
 
