@@ -138,6 +138,9 @@ class WPDKMail extends WPDKPost {
       $subject = apply_filters( 'the_title', $this->post_title );
     }
 
+    // Apply standard filter
+    $placeholders = apply_filters( 'wpdk_post_placeholders_array', $placeholders, $user_id );
+
     /**
      * Filter the content of mail.
      *
