@@ -7,19 +7,19 @@
  * @class           WPDKPostPlaceholders
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-06-04
- * @version         1.0.0
+ * @date            2014-07-22
+ * @version         1.0.1
  * @since           1.5.6
  *
  */
 class WPDKPostPlaceholders {
 
-  const DATE = '${DATE}';
-  const DATE_TIME = '${DATE_TIME}';
+  const DATE              = '${DATE}';
+  const DATE_TIME         = '${DATE_TIME}';
   const USER_DISPLAY_NAME = '${USER_DISPLAY_NAME}';
-  const USER_EMAIL = '${USER_EMAIL}';
-  const USER_FIRST_NAME = '${USER_FIRST_NAME}';
-  const USER_LAST_NAME = '${USER_LAST_NAME}';
+  const USER_EMAIL        = '${USER_EMAIL}';
+  const USER_FIRST_NAME   = '${USER_FIRST_NAME}';
+  const USER_LAST_NAME    = '${USER_LAST_NAME}';
 
   /**
    * Return a singleton instance of WPDKPostPlaceholders class
@@ -55,6 +55,44 @@ class WPDKPostPlaceholders {
 
     // Filter the content with standard placeholder
     add_filter( 'wpdk_post_placeholders_content', array( $this, 'wpdk_post_placeholders_content' ), 10, 4 );
+
+    // Filter the standard WPDK (Core) array
+    add_filter( 'wpdk_post_placeholders_array', array( $this, 'wpdk_post_placeholders_array' ), 10, 2 );
+  }
+
+  /**
+   * Return a standard array with user placeholder and values.
+   *
+   * @since 1.5.8
+   *
+   * @param array $array   Optional. A custom key value array.
+   * @param bool  $user_id Optional. User id or FALSE for current user logged in.
+   *
+   * @return array
+   */
+  public function wpdk_post_placeholders_array( $array = array(), $user_id = false )
+  {
+    // If user id is empty but nobody is logged in exit
+    if( empty( $user_id ) && !is_user_logged_in() ) {
+      return $array;
+    }
+
+    $user = new WPDKUser( $user_id );
+
+    $defaults = array(
+      // TODO Think to add a filter for placeholder
+      self::DATE              => date( 'j M, Y' ),
+      self::DATE_TIME         => date( 'j M, Y H:i:s' ),
+      self::USER_DISPLAY_NAME => $user->display_name,
+      self::USER_FIRST_NAME   => $user->first_name,
+      self::USER_LAST_NAME    => $user->last_name,
+      self::USER_EMAIL        => $user->email
+    );
+
+    //WPXtreme::log( $defaults );
+
+    return array_merge( $array, $defaults );
+
   }
 
   /**
@@ -69,62 +107,8 @@ class WPDKPostPlaceholders {
    */
   public function wpdk_post_placeholders_content( $content, $user_id = false, $replace_pairs = array(), $args = array() )
   {
-
-    // Get current user
-    $user_id = empty( $user_id ) ? get_current_user_id() : $user_id;
-
-    // Default
-    $replaces = array(
-      // TODO Think to add a filter for placeholder
-      WPDKPostPlaceholders::DATE      => date( 'j M, Y' ),
-      WPDKPostPlaceholders::DATE_TIME => date( 'j M, Y H:i:s' ),
-    );
-
-    // Get user
-    $user = get_user_by( 'id', $user_id );
-
-    /*
-     * eg: $user
-     *
-     *     object(WP_User)#2650 (7) {
-     *      ["data"]=> object(stdClass)#2651 (10) {
-     *        ["ID"]=> string(5) "18791"
-     *        ["user_login"]=> string(32) "giovambattista.fazioli@gmail.com"
-     *        ["user_pass"]=> string(34) "$P$BXXPiBIFZq4X4xAoQTpyvW3qoXNueL/"
-     *        ["user_nicename"]=> string(9) "G.Fazioli"
-     *        ["user_email"]=> string(32) "giovambattista.fazioli@gmail.com"
-     *        ["user_url"]=> string(0) ""
-     *        ["user_registered"]=> string(19) "2014-06-10 11:59:38"
-     *        ["user_activation_key"]=> string(0) ""
-     *        ["user_status"]=> string(1) "0"
-     *        ["display_name"]=> string(22) "Giovambattista Fazioli"
-     *      }
-     *      ["ID"]=> int(18791)
-     *      ["caps"]=> array(1) {
-     *        ["plan-user"]=> bool(true)
-     *      }
-     *      ["cap_key"]=> string(15) "wp_capabilities"
-     *      ["roles"]=> array(1) {
-     *        [0]=> string(9) "plan-user"
-     *      }
-     *      ["allcaps"]=> array(1) {
-     *        ["plan-user"]=> bool(true)
-     *      }
-     *      ["filter"]=> NULL
-     *    }
-     *
-     */
-
-    // If user exist
-    if ( !empty( $user ) ) {
-      $replaces[ self::USER_DISPLAY_NAME ] = $user->data->display_name;
-      $replaces[ self::USER_EMAIL ]        = $user->data->user_email;
-      $replaces[ self::USER_FIRST_NAME ]   = $user->get( 'first_name ' );
-      $replaces[ self::USER_LAST_NAME ]    = $user->get( 'last_name ' );
-    }
-
     // Merge
-    $replaces = array_merge( $replaces, $replace_pairs );
+    $replaces = apply_filters( 'wpdk_post_placeholders_array', $replace_pairs, $user_id );
 
     return strtr( $content, $replaces );
   }

@@ -23,6 +23,11 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.8
 ### 2014-07-22
 
+#### Improvements
+
+* Added `wpdk_post_placeholders_array` filter for placeholder
+* Improved `wpdk_post_placeholders_content` filter and implementation
+
 #### Bugs
 
 * Fixed potential wrong alert id when empty
