@@ -637,7 +637,7 @@ if ( !class_exists( 'WPDK' ) ) {
     }
   }
 
-  /* Let's dance */
+  // Let's dance
   $GLOBALS['WPDK'] = WPDK::init();
 }
 

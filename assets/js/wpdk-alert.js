@@ -4,7 +4,7 @@
  * @class           wpdkAlert
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-20
+ * @date            2014-07-22
  * @version         3.1.1
  * @note            Base on bootstrap: alert.js v3.1.0
  *
@@ -120,9 +120,17 @@ if( typeof( jQuery.fn.wpdkAlert ) === 'undefined' ) {
     } );
 
     // Extends with Permanent dismiss
-    $( document ).on( 'click', '.wpdk-alert button.close.wpdk-alert-permanent-dismiss', function() {
+    $( document ).on( 'click', '.wpdk-alert button.close.wpdk-alert-permanent-dismiss', function( e ) {
+
+      e.preventDefault();
+
       var $this    = $(this);
       var alert_id = $this.parent().attr( 'id' );
+
+      // Check for empty id
+      if( empty( alert_id ) ) {
+        return false;
+      }
 
       // Ajax
       $.post( wpdk_i18n.ajaxURL, {

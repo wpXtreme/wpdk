@@ -155,12 +155,12 @@ final class WPDKUI {
       $placement = sprintf( 'data-placement="%s"', empty( $placement ) ? 'bottom' : $placement );
     }
 
-    if ( !empty( $count ) ) {
-      $result = sprintf( '<span title="%s" %s class="wpdk-badge update-plugins count-%s%s"><span class="plugin-count">%s</span></span>', $tooltip, $placement, $count, $classes, number_format_i18n( $count ) );
+    if ( empty( $count ) ) {
+      // Return ever a placeholder in order to modify onfly ( via javascript ) this badge
+      $result = sprintf( ' <span class="%s"></span>', $classes );
     }
     else {
-      /* Restituisco comunque un placeholder comodo per poter inserire onfly via javascript un badge. */
-      $result = sprintf( '<span class="%s"></span>', $classes );
+      $result = sprintf( ' <span title="%s" %s class="wpdk-badge update-plugins count-%s%s"><span class="plugin-count">%s</span></span>', $tooltip, $placement, $count, $classes, number_format_i18n( $count ) );
     }
     return $result;
   }
