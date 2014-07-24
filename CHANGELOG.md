@@ -20,6 +20,19 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.9
+### 2014-07-??
+
+#### Improvements
+
+* Improved CSS base64 img
+
+#### Bugs
+
+* Fixed mail and user id params
+* Fixed mail user id
+* Fixed post placeholders
+
 ## Version 1.5.8
 ### 2014-07-22
 
