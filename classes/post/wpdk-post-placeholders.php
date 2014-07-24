@@ -66,14 +66,15 @@ class WPDKPostPlaceholders {
    * @since 1.5.8
    *
    * @param array $array   Optional. A custom key value array.
-   * @param bool  $user_id Optional. User id or FALSE for current user logged in.
+   * @param bool  $user_id Optional. User id or FALSE for current user logged in. This param could be set to -1, in this
+   *                       case the original to email is an external address: no WordPress user.
    *
    * @return array
    */
   public function wpdk_post_placeholders_array( $array = array(), $user_id = false )
   {
     // If user id is empty but nobody is logged in exit
-    if( empty( $user_id ) && !is_user_logged_in() ) {
+    if ( ( empty( $user_id ) && ! is_user_logged_in() ) || $user_id < 0 ) {
       return $array;
     }
 
