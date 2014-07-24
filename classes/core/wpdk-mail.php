@@ -101,15 +101,30 @@ class WPDKMail extends WPDKPost {
   public function send( $to, $subject = false, $from = '', $placeholders = array() )
   {
     // Set user id for replace placeholder - see classes/post/wpdk-post-placeholders.php
-    $user_id = - 1;
+    // This values is used for external (no WordPress user) addresss
+    $user_id = -1;
 
-    // Check for to
+    // Try to get by ID
     if ( is_numeric( $to ) ) {
       $user_id = $to;
       $user_to = get_user_by( 'id', $user_id );
-      $to      = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
+
     }
-    // TODO recover id from email address
+
+    // Try to get by email
+    if( is_string( $to ) && is_email( $to ) ) {
+      $user_to = get_user_by( 'email', $to );
+
+      // The above email address could be an external (no WordPress user) email
+      if( $user_to ) {
+        $user_id = $user_to->ID;
+      }
+    }
+
+    // If WordPress user
+    if( $user_id > 0 ) {
+      $to = sprintf( '%s <%s>', $user_to->data->display_name, $user_to->data->user_email );
+    }
 
     // Use shared private property
     $this->from = $from;
