@@ -29,6 +29,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Fixed modal dialog width and height
+* Fixed wrong data toggle on modal dialog button
 * Fixed mail and user id params
 * Fixed mail user id
 * Fixed post placeholders

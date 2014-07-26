@@ -274,7 +274,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   {
     $result = '';
     if ( !empty( $this->width ) ) {
-      $result = sprintf( 'width:%spx', rtrim( $this->width, 'px' ) );
+      $result = sprintf( 'width:%s', $this->width );
     }
     return $result;
   }
@@ -291,7 +291,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   {
     $result = '';
     if ( !empty( $this->height ) ) {
-      $result = sprintf( 'style="height:%spx"', rtrim( $this->height, 'px' ) );
+      $result = sprintf( 'style="height:%s"', $this->height );
     }
     return $result;
   }
@@ -526,7 +526,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public function buttonOpenModal( $label, $class = '' )
   {
     $id     = sprintf( '#%s', $this->id );
-    $result = sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', $class, $id, $label );
+    $result = sprintf( '<button class="button %s" type="button" data-toggle="wpdkModal" data-target="%s">%s</button>', $class, $id, $label );
     return $result;
   }
 
