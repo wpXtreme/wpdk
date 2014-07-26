@@ -526,7 +526,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
   public function buttonOpenModal( $label, $class = '' )
   {
     $id     = sprintf( '#%s', $this->id );
-    $result = sprintf( '<button class="button %s" type="button" data-toggle="modal" data-target="%s">%s</button>', $class, $id, $label );
+    $result = sprintf( '<button class="button %s" type="button" data-toggle="wpdkModal" data-target="%s">%s</button>', $class, $id, $label );
     return $result;
   }
 
