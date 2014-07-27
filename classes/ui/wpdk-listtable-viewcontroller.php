@@ -964,10 +964,7 @@ class WPDKListTableViewController extends WP_List_Table {
     $actions  = array();
 
     foreach ( $args['actions'] as $key => $label ) {
-      $args          = array(
-        'action' => $key,
-        $id      => $id_value
-      );
+      $args          = array( 'action' => $key, $id => $id_value );
       $href          = add_query_arg( $args );
       $actions[$key] = sprintf( '<a href="%s">%s</a>', $href, $label );
     }
