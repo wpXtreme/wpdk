@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wpXtreme v1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 11:46+0100\n"
-"PO-Revision-Date: 2014-07-10 11:46+0100\n"
+"POT-Creation-Date: 2014-07-28 11:24+0100\n"
+"PO-Revision-Date: 2014-07-28 11:24+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: FRANS PRONK <beheer@ifra.nl>\n"
 "Language: nl_NL\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.6.6\n"
+"X-Generator: Poedit 1.6.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -83,7 +83,7 @@ msgstr ""
 # @ wpdk
 #: ../classes/database/wpdk-db.php:33
 #: ../classes/deprecated/wpdk-db-table.php:52
-#: ../classes/post/wpdk-post-placeholders.php:264
+#: ../classes/post/wpdk-post-placeholders.php:249
 msgid "All"
 msgstr "Alles"
 
@@ -331,47 +331,47 @@ msgstr "Seconden"
 msgid "Seconds"
 msgstr "Seconden"
 
-#: ../classes/post/wpdk-post-placeholders.php:172
+#: ../classes/post/wpdk-post-placeholders.php:157
 msgid "Date"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:173
+#: ../classes/post/wpdk-post-placeholders.php:158
 msgid "Date & Time"
 msgstr ""
 
 # @ wpdk
-#: ../classes/post/wpdk-post-placeholders.php:174
+#: ../classes/post/wpdk-post-placeholders.php:159
 msgid "User First name"
 msgstr "Voornaam gebruiker"
 
 # @ wpdk
-#: ../classes/post/wpdk-post-placeholders.php:175
+#: ../classes/post/wpdk-post-placeholders.php:160
 msgid "User Last name"
 msgstr "Achternaam gebruiker"
 
 # @ wpdk
-#: ../classes/post/wpdk-post-placeholders.php:176
+#: ../classes/post/wpdk-post-placeholders.php:161
 msgid "User Display name"
 msgstr "Gebruikersnaam"
 
 # @ wpdk
-#: ../classes/post/wpdk-post-placeholders.php:177
+#: ../classes/post/wpdk-post-placeholders.php:162
 msgid "User email"
 msgstr "Email gebruiker"
 
-#: ../classes/post/wpdk-post-placeholders.php:225
+#: ../classes/post/wpdk-post-placeholders.php:210
 msgid "Placeholders"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:249
+#: ../classes/post/wpdk-post-placeholders.php:234
 msgid "No PLaceholders registered/found"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:263
+#: ../classes/post/wpdk-post-placeholders.php:248
 msgid "Filter by Owner"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:363
+#: ../classes/post/wpdk-post-placeholders.php:348
 msgid "New Placeholders Metabox"
 msgstr ""
 
@@ -967,12 +967,16 @@ msgstr ""
 "Biedt toegang tot het Administratiepaneel opties: Media, Media > nieuwe "
 "toevoegen"
 
-#: ../services/wpdk-service-ajax.php:279 ../services/wpdk-service-ajax.php:327
-msgid "Malformed data sedning: no alert id found!"
+#: ../services/wpdk-service-ajax.php:279
+msgid "Malformed data sending: no alert id found!"
 msgstr ""
 
 #: ../services/wpdk-service-ajax.php:285 ../services/wpdk-service-ajax.php:333
 msgid "Severe error: no user logged in!"
+msgstr ""
+
+#: ../services/wpdk-service-ajax.php:327
+msgid "Malformed data sedning: no alert id found!"
 msgstr ""
 
 # @ wpdk

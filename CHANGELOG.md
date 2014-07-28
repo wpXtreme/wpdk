@@ -20,6 +20,21 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.9
+### 2014-07-28
+
+#### Improvements
+
+* Improved CSS base64 img
+
+#### Bugs
+
+* Fixed modal dialog width and height
+* Fixed wrong data toggle on modal dialog button
+* Fixed mail and user id params
+* Fixed mail user id
+* Fixed post placeholders
+
 ## Version 1.5.8
 ### 2014-07-22
 
