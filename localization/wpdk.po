@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 11:46+0100\n"
-"PO-Revision-Date: 2014-07-10 11:46+0100\n"
+"POT-Creation-Date: 2014-07-28 11:24+0100\n"
+"PO-Revision-Date: 2014-07-28 11:24+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: en_US\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.6\n"
+"X-Generator: Poedit 1.6.7\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
@@ -66,7 +66,7 @@ msgstr ""
 
 #: ../classes/database/wpdk-db.php:33
 #: ../classes/deprecated/wpdk-db-table.php:52
-#: ../classes/post/wpdk-post-placeholders.php:264
+#: ../classes/post/wpdk-post-placeholders.php:249
 msgid "All"
 msgstr ""
 
@@ -274,43 +274,43 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:172
+#: ../classes/post/wpdk-post-placeholders.php:157
 msgid "Date"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:173
+#: ../classes/post/wpdk-post-placeholders.php:158
 msgid "Date & Time"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:174
+#: ../classes/post/wpdk-post-placeholders.php:159
 msgid "User First name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:175
+#: ../classes/post/wpdk-post-placeholders.php:160
 msgid "User Last name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:176
+#: ../classes/post/wpdk-post-placeholders.php:161
 msgid "User Display name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:177
+#: ../classes/post/wpdk-post-placeholders.php:162
 msgid "User email"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:225
+#: ../classes/post/wpdk-post-placeholders.php:210
 msgid "Placeholders"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:249
+#: ../classes/post/wpdk-post-placeholders.php:234
 msgid "No PLaceholders registered/found"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:263
+#: ../classes/post/wpdk-post-placeholders.php:248
 msgid "Filter by Owner"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:363
+#: ../classes/post/wpdk-post-placeholders.php:348
 msgid "New Placeholders Metabox"
 msgstr ""
 
@@ -760,12 +760,16 @@ msgstr ""
 msgid "Allows access to Administration Panel options: Media, Media > Add New "
 msgstr ""
 
-#: ../services/wpdk-service-ajax.php:279 ../services/wpdk-service-ajax.php:327
-msgid "Malformed data sedning: no alert id found!"
+#: ../services/wpdk-service-ajax.php:279
+msgid "Malformed data sending: no alert id found!"
 msgstr ""
 
 #: ../services/wpdk-service-ajax.php:285 ../services/wpdk-service-ajax.php:333
 msgid "Severe error: no user logged in!"
+msgstr ""
+
+#: ../services/wpdk-service-ajax.php:327
+msgid "Malformed data sedning: no alert id found!"
 msgstr ""
 
 #: ../wpdk.php:620
