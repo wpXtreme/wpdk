@@ -239,10 +239,11 @@ input.wpdk-ui-control[type=checkbox]
  * =====================================================================================================================
  */
 
-/* @since 1.5.6 */
+/* since 1.5.6 */
 select.wpdk-ui-control
 {
-  padding : 2px;
+  /* TODO the important could be remove when the deprecated below will be remove */
+  padding : 2px !important;
 }
 
 select.wpdk-ui-control.wpdk-form-select-size,
@@ -323,7 +324,7 @@ textarea.wpdk-ui-control
 
 /* ---------------------------------------------------------------------------------------------------------------------
  *
- * @since 1.5.10 all css styles below are deprecated.
+ * since 1.5.10 all css styles below are deprecated.
  *
  * They will be replace with prefix `wpdk-ui-`
  *
@@ -525,7 +526,7 @@ input.wpdk-form-has-button-clear-left
 
 /* =====================================================================================================================
  * SCROLLABLE CONTROL
- * @since 1.4.7
+ * since 1.4.7
  * =====================================================================================================================
  */
 
