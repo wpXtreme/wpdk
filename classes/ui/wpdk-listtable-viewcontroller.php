@@ -824,12 +824,13 @@ class WPDKListTableViewController extends WP_List_Table {
    * @param string $column_name    Optional. The column action id. Default 'description'
    * @param string $item_status    Optional. Overwrite the view status for item in a specific status
    * @param string $custom_content Optional. Useful tuo override `$custom_content`
+   * @param string $action_url     Optional. The name of action used to link the 'description'.
    *
    * @note  You can override this method for your costum view. This method is called only there is a column named "id"
    *
    * @return string
    */
-  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '' )
+  public function actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '', $action_url = WPDKDBListTableModel::ACTION_EDIT )
   {
     // Get the current view status
     $status = $this->_currentViewStatus();
@@ -837,6 +838,9 @@ class WPDKListTableViewController extends WP_List_Table {
     if ( !empty( $item_status ) ) {
       $status = $item_status;
     }
+
+    // Prepare the url for description. See $action param.
+    $url_description = '<strong>%s</strong>';
 
     $stack = array();
     foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
@@ -860,12 +864,45 @@ class WPDKListTableViewController extends WP_List_Table {
         // url
         $url = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
-        $href             = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
+        /**
+         * Filter the url for an action.
+         *
+         * The dynamic portion of the hook name, $action, refers to the action as 'action_edit', 'action_trash', etc...
+         *
+         * @param string $url Current url with action, eg:
+         *
+         *                    /wp-admin/admin.php
+         *                     ?page=wpx_ras_main
+         *                     &status=all
+         *                     &action=action_edit
+         *                     &server_id=2
+         *                     &_wpnonce=f277fbe33d
+         *                     &_wp_http_referer=/wp-admin/admin.php?page=wpx_ras_main&amp;status=all
+         *
+         * @param array $args Array argument
+         *
+         *                    array(6) {
+         *                      ["action"]=> string(11) "action_edit"
+         *                      ["server_id"]=> string(1) "1"
+         *                      ["_wpnonce"]=> string(10) "f277fbe33d"
+         *                      ["_wp_http_referer"]=> string(52) "/wp-admin/admin.php?page=wpx_ras_main&amp;status=all"
+         *                      ["_action"]=> bool(false)
+         *                      ["_action_result"]=> bool(false)
+         *                    }
+         *
+         */
+
+        $href = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
+
+        if( ! empty( $action ) && $action_url == $action ) {
+          $url_description = sprintf( '<a href="%s"><strong>%s</strong></a>', $href, '%s' );
+        }
+
         $stack[ $action ] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
 
-    $description = empty( $custom_content ) ? sprintf( '<strong>%s</strong>', $item[ $column_name ] ) : $custom_content;
+    $description = empty( $custom_content ) ? sprintf( $url_description, $item[ $column_name ] ) : $custom_content;
 
     return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }

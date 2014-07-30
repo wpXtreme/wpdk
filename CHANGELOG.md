@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.10
+### 2014-07-??
+
+* Introducing the `WPDKUIModalDialogTour` class
+* Added Tour for new Placeholders
+* Minor fixes stability
+
 ## Version 1.5.9
 ### 2014-07-28
 
