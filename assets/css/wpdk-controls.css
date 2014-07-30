@@ -110,7 +110,7 @@ div.meta-box-sortables div.wpdk-border-container
 
 /* =====================================================================================================================
  * PREFERENCES
- * @todo This declaration could be insert in missing `wpdk-preferences.css` file
+ * TODO This declaration could be insert in missing `wpdk-preferences.css` file
  * =====================================================================================================================
  */
 
@@ -128,11 +128,13 @@ form#wpdk-preferences input[name=wpdk_preferences_reset_all]
 /* since 1.5.0 all controls have the unque class wpdk-ui-control */
 .wpdk-ui-control
 {
-  -moz-box-sizing : border-box; -webkit-box-sizing : border-box; box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  -webkit-box-sizing : border-box;
+  box-sizing         : border-box;
 }
 
 /* =====================================================================================================================
- * INPUT POINTER
+ * INPUT POINTER WPDK UI CONTROL
  * =====================================================================================================================
  */
 
@@ -146,7 +148,7 @@ input.wpdk-ui-control[type="submit"]
 }
 
 /* =====================================================================================================================
- * DISABLED
+ * DISABLED WPDK UI CONTROL
  * =====================================================================================================================
  */
 
@@ -171,7 +173,166 @@ input.wpdk-ui-control[type="checkbox"][readonly]
 }
 
 /* =====================================================================================================================
+ * FOCUS, ACTIVE, HOVER, ... WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+input.wpdk-form-input:focus,
+textarea.wpdk-form-textarea:focus
+{
+  border-color       : rgba(82, 168, 236, 0.8);
+  outline            : 0;
+  outline            : thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+}
+
+/* =====================================================================================================================
+ * COMMON WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+input.wpdk-ui-control[type=text],
+select.wpdk-ui-control,
+textarea.wpdk-ui-control
+{
+  width                 : auto;
+  border                : 1px solid #dfdfdf;
+  background-color      : #fff;
+  padding               : 6px;
+  margin                : 0 4px 0 2px;
+  color                 : #444;
+  outline               : none;
+  vertical-align        : middle;
+  -moz-box-shadow       : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  -webkit-box-shadow    : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  box-shadow            : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+  -webkit-transition    : box-shadow linear 0.2s;
+  -moz-transition       : box-shadow linear 0.2s;
+  -ms-transition        : box-shadow linear 0.2s;
+  -o-transition         : box-shadow linear 0.2s;
+  transition            : box-shadow linear 0.2s;
+}
+
+/* =====================================================================================================================
+ * INPUT WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+input.wpdk-ui-control[readonly]
+{
+  background-color : #f1f1fa;
+}
+
+input.wpdk-ui-control[type=checkbox]
+{
+  vertical-align : middle !important;
+}
+
+/* =====================================================================================================================
+ * SELECT WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+/* @since 1.5.6 */
+select.wpdk-ui-control
+{
+  padding : 2px;
+}
+
+select.wpdk-ui-control.wpdk-form-select-size,
+select.wpdk-ui-control[size]
+{
+  height                : auto !important;
+  min-width             : 200px !important;
+  -moz-border-radius    : 4px !important;
+  -webkit-border-radius : 4px !important;
+  border-radius         : 4px !important;
+}
+
+select.wpdk-ui-control + .wpdk-form-append
+{
+  vertical-align : middle;
+}
+
+.wpdk-ui-control option
+{
+  padding : 2px;
+  margin  : 2px 0;
+}
+
+.wpdk-ui-control option:hover,
+.wpdk-ui-control option:focus,
+.wpdk-ui-control option:active,
+.wpdk-ui-control option:selection,
+.wpdk-ui-control option:checked
+{
+  background-color : #a1bc35 !important;
+}
+
+[selected],
+.wpdk-ui-control option[selected]
+{
+  background-color : #dedede !important;
+}
+
+/* =====================================================================================================================
+ * TEXTAREA WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+textarea.wpdk-ui-control
+{
+  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition : border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition    : border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition     : border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition      : border linear 0.2s, box-shadow linear 0.2s;
+  transition         : border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  box-sizing         : border-box;
+}
+
+/* =====================================================================================================================
+ * UTILITIES WPDK UI CONTROL
+ * =====================================================================================================================
+ */
+
+.wpdk-ui-uppercase
+{
+  text-transform : uppercase;
+}
+
+.wpdk-ui-lowercase
+{
+  text-transform : lowercase;
+}
+
+.wpdk-ui-capitalize
+{
+  text-transform : capitalize;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+ *
+ * @since 1.5.10 all css styles below are deprecated.
+ *
+ * They will be replace with prefix `wpdk-ui-`
+ *
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
+
+/* =====================================================================================================================
  * INPUT
+ * @deprecated since 1.5.10
  * =====================================================================================================================
  */
 
@@ -200,11 +361,7 @@ select.wpdk-form-select
   transition            : box-shadow linear 0.2s;
 }
 
-/* New from 1.5.6 */
-select.wpdk-ui-control
-{
-  padding : 2px;
-}
+
 
 textarea.wpdk-form-textarea
 {
@@ -254,6 +411,7 @@ select.wpdk-form-select + .wpdk-form-append
 
 /* =====================================================================================================================
  * INPUT TYPE
+ * @deprecated since 1.5.10
  * =====================================================================================================================
  */
 
@@ -341,7 +499,7 @@ input.wpdk-form-has-button-clear-left
 
 /* =====================================================================================================================
  * LOCKED FIELD
- * @todo Replace locked image with glyph
+ * TODO Replace locked image with glyph
  * =====================================================================================================================
  */
 .wpdk-form-locked,
@@ -568,7 +726,7 @@ div.wpdk-form-row .alignleft
   margin-left : 10px;
 }
 
-/* @todo Rename in wpdk-inline */
+/* TODO Rename in wpdk-inline */
 
 label.inline
 {
@@ -687,7 +845,7 @@ p.wpdk-form-paragraph
 
 /* =====================================================================================================================
  * FIELDSET ACCORDION
- * @todo Experimental
+ * TODO Experimental
  * =====================================================================================================================
  */
 i.wpdk-openclose-accordion
@@ -725,7 +883,7 @@ div.wpdk-accordion.wpdk-accordion-open
 
 /* =====================================================================================================================
  * SWITCH CONTROL
- * @todo Experimental
+ * TODO Experimental
  * =====================================================================================================================
  */
 
@@ -815,7 +973,7 @@ input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
 
 /* =====================================================================================================================
  * CHOOSE CONTROL
- * @todo Experimental
+ * TODO Experimental
  * =====================================================================================================================
  */
 
