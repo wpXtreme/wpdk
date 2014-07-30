@@ -308,16 +308,7 @@ class WPDKPostPlaceholdersMetaBoxView extends WPDKMetaBoxView {
  * @version         1.0.0
  *
  */
-class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
-
-  /**
-   * An instance of WPDKUIPageView class
-   *
-   * @brief Page view
-   *
-   * @var WPDKUIPageView $page_view
-   */
-  private $page_view;
+class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialogTour {
 
   /**
    * Return a singleton instance of WPDKPostPlaceholdersTourModalDialog class
@@ -348,18 +339,6 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
     // Remember, change the id to reopen this dialog tour
     parent::__construct( 'wpdk-post-placeholder-welcome-tour', __( 'New Placeholders Metabox' ) );
 
-    // Check if dismissed
-    if( false === $this->is_dismissed() ) {
-
-      // Permanent dismiss
-      $this->permanent_dismiss = true;
-
-      // Enqueue page view
-      WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
-
-      // Display the page view
-      $this->page_view = WPDKUIPageView::initWithHTML( $this->pages() );
-    }
   }
 
   /**
@@ -369,7 +348,7 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
    *
    * @return string
    */
-  private function pages()
+  public function pages()
   {
     WPDKHTML::startCompress();
     ?>
@@ -386,7 +365,7 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
 
     <div>
       <p style="margin-top:48px" class="text-center">
-        <img class="aligncenter" src="data:image/png;base64,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" />
+        <img class="aligncenter" src="<?php echo LOGO_128 ?>" />
       </p>
       <h1 style="font-size:60px;color:#666" class="text-center">Thank You</h1>
       <p class="text-center">By clicking on the close button this dialog will no longer open in future.</p>
@@ -395,28 +374,6 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialog {
     <?php
 
     return WPDKHTML::endCompress();
-  }
-
-  /**
-   * Content
-   *
-   * @brief Content
-   * @return string
-   */
-  public function content()
-  {
-    return $this->page_view->html();
-  }
-
-  /**
-   * Footer
-   *
-   * @brief Footer
-   * @return string
-   */
-  public function footer()
-  {
-    return $this->page_view->navigator();
   }
 
 }
