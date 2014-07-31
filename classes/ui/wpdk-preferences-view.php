@@ -139,7 +139,9 @@ class WPDKPreferencesView extends WPDKView {
     /**
      * Filter the HTML markup for update button.
      *
-     * @param string $button_update The HTML markup for button update.
+     * The dynamic portion of the hook name, $branch, refers to the branch property name.
+     *
+     * @param string $branch The HTML markup for button update.
      */
     $button_update = apply_filters( 'wpdk_preferences_button_update-' . $this->branch_property, $button_update );
 
@@ -163,7 +165,9 @@ class WPDKPreferencesView extends WPDKView {
     /**
      * Filter the HTML markup for reset button.
      *
-     * @param string $button_update The HTML markup for button reset.
+     * The dynamic portion of the hook name, $branch, refers to the branch property name.
+     *
+     * @param string $branch The HTML markup for button reset.
      */
     $button_reset = apply_filters( 'wpdk_preferences_button_reset-' . $this->branch_property, $button_reset );
 
