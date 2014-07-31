@@ -21,8 +21,12 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.5.10
-### 2014-07-??
+### 2014-07-31
 
+#### Improvements
+
+* Added a tooltip when an alert is in permanent dismiss mode
+* Added a tooltip when a dialog is in permanent dismiss mode
 * Introducing the `WPDKUIModalDialogTour` class
 * Added Tour for new Placeholders
 * Minor fixes stability
