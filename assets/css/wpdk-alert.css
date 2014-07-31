@@ -146,9 +146,11 @@
 
 /*
  * When use an alert info control layout
+ * TODO remove the `wpdk-form-fieldset` selector in next future
  */
 
-fieldset.wpdk-form-fieldset .wpdk-alert
+fieldset.wpdk-form-fieldset .wpdk-alert,
+fieldset.wpdk-ui-control .wpdk-alert
 {
   margin : 2px 8px 16px !important;
 }

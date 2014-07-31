@@ -250,14 +250,18 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
     // Prepare classes
     $classes = array( 'close' );
 
+    // Title
+    $title = '';
+
     // Permanent dismiss by user logged in
     if( true === $this->permanent_dismiss ) {
       $classes[] = 'wpdk-modal-permanent-dismiss';
+      $title     = sprintf( 'title="%s"', __( 'By clicking on the X button, this dialog won\'t appear' ) );
     }
 
     $result = '';
     if ( $this->dismissButton  ) {
-      $result = sprintf( '<button type="button" class="%s" data-dismiss="wpdkModal" aria-hidden="true">%s</button>', WPDKHTMLTag::classInline( $classes ), $this->dismiss_button_glyph );
+      $result = sprintf( '<button %s type="button" class="%s" data-dismiss="wpdkModal" aria-hidden="true">%s</button>', $title, WPDKHTMLTag::classInline( $classes ), $this->dismiss_button_glyph );
     }
     return $result;
   }

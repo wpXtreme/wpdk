@@ -430,6 +430,7 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog.php'            => 'WPDKUIModalDialog',
+        $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog-tour.php'            => 'WPDKUIModalDialogTour',
 
         $sPathPrefix . 'classes/ui/wpdk-ui-page-view.php'               => 'WPDKUIPageView',
 

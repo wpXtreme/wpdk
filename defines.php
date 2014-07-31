@@ -4,13 +4,13 @@
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-07-12
+ * @date               2014-07-29
  * @version            1.0.3
  *
  */
 
 // WPDK version
-define( 'WPDK_VERSION', '1.5.9' );
+define( 'WPDK_VERSION', '1.5.10' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Path unix: /var/
@@ -39,6 +39,15 @@ define( 'WPDK_URI_JAVASCRIPT', WPDK_URI_ASSETS . 'js/' );
 // ---------------------------------------------------------------------------------------------------------------------
 
 define( 'WPDK_WPXTREME_PATH_CLASSES', trailingslashit( dirname( __FILE__ ) ) . '../classes/' );
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Useful images
+// ---------------------------------------------------------------------------------------------------------------------
+
+define( 'LOGO_48', WPDK_URI_CSS . 'images/logo-48x48.png' );
+define( 'LOGO_64', WPDK_URI_CSS . 'images/logo-64x64.png' );
+define( 'LOGO_64_GREY', WPDK_URI_CSS . 'images/logo-64x64-grey.png' );
+define( 'LOGO_128', WPDK_URI_CSS . 'images/logo-128x128.png' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Localization
