@@ -194,7 +194,7 @@ textarea.wpdk-form-textarea:focus
  * =====================================================================================================================
  */
 
-input.wpdk-ui-control[type=text],
+input.wpdk-ui-control[type="text"],
 select.wpdk-ui-control,
 textarea.wpdk-ui-control
 {
@@ -204,6 +204,7 @@ textarea.wpdk-ui-control
   padding               : 6px;
   margin                : 0 4px 0 2px;
   color                 : #444;
+  line-height           : 18px;
   outline               : none;
   vertical-align        : middle;
   -moz-box-shadow       : inset 0 2px 3px #eee, 0 1px 0 #fff;
@@ -217,6 +218,16 @@ textarea.wpdk-ui-control
   -ms-transition        : box-shadow linear 0.2s;
   -o-transition         : box-shadow linear 0.2s;
   transition            : box-shadow linear 0.2s;
+}
+
+@media (max-width : 780px )
+{
+  input.wpdk-ui-control[type="text"],
+  select.wpdk-ui-control,
+  textarea.wpdk-ui-contr
+  {
+    line-height : 22px;
+  }
 }
 
 /* =====================================================================================================================
