@@ -230,6 +230,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
     // Permanent dismiss by user logged in
     if( true === $this->dismissPermanent ) {
       $classes[] = 'wpdk-alert-permanent-dismiss';
+      $title     = sprintf( 'title="%s"', __( 'By clicking on the X button, this dialog won\'t appear' ) );
     }
 
     if ( $this->dismissButton ) {
