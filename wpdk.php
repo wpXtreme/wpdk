@@ -92,14 +92,17 @@ if ( !class_exists( 'WPDK' ) ) {
         add_action( 'wp_loaded', array( 'WPDKServiceAjax', 'init' ) );
       }
 
-      // Loading Script & style for backend
-      add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ), 1 );
+      // Enqueue scripts for all admin pages.
+      add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 1 );
 
-      // Loading script & style for frontend
-      add_action( 'wp_head', array( $this, 'enqueue_scripts_styles' ) );
+      // Fires when scripts and styles are enqueued.
+      add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-      // Add some special WPDK class to body
+      // Filter the admin <body> CSS classes.
       add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+
+      // Filter the list of CSS body classes for the current post or page.
+      add_filter( 'body_class', array( $this, 'body_class' ), 10, 2 );
 
       /**
        * Fires when WPDK is loaded.
@@ -153,7 +156,6 @@ if ( !class_exists( 'WPDK' ) ) {
         }
       }
     }
-
 
     /**
      * This function performs runtime autoloading of all WPDK classes, based on previous class registering executed
@@ -531,54 +533,21 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * WPDK scripts and styles. These client file are always loaded.
+     * Enqueue scripts for all admin pages.
      *
-     * @brief WPDK Scripts and styles
+     * @since WP 2.8.0
+     *
+     * @param string $hook_suffix The current admin page.
      */
-    public function enqueue_scripts_styles()
+    public function admin_enqueue_scripts( $hook_suffix )
     {
-      // WPDK CSS styles
-      $this->admin_styles();
-
-      // WPDK Javascript framework engine
-      $this->admin_scripts();
-    }
-
-    /**
-     * Append some special WPDK class to body
-     *
-     * @brief Class body
-     *
-     * @param string $classes Class body
-     *
-     * @return string
-     */
-    public function admin_body_class( $classes )
-    {
-      return $classes . ' wpdk-jquery-ui';
-    }
-
-    /**
-     * Load all backend admin Styles. These client file are always loaded.
-     *
-     * @brief Admin styles
-     */
-    private function admin_styles()
-    {
+      // Styles
       $deps = array( 'thickbox' );
 
       wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
       wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
-    }
 
-    /**
-     * Load all admin backend script.
-     *
-     * @brief Admin scripts
-     */
-    private function admin_scripts()
-    {
-      /* Registro tutte le chiavi/percorso degli script che andrò ad utilizzare */
+      // Scripts
       $deps = array(
         'jquery',
         'jquery-ui-core',
@@ -604,6 +573,78 @@ if ( !class_exists( 'WPDK' ) ) {
 
       // Localize wpdk_i18n
       wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+    }
+
+    /**
+   	 * Fires when scripts and styles are enqueued.
+   	 *
+   	 * @since WP 2.8.0
+   	 */
+    public function wp_enqueue_scripts()
+    {
+      // Styles
+      $deps = array( 'thickbox' );
+
+      wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
+      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
+
+      // Scripts
+      $deps = array(
+        'jquery',
+        'jquery-ui-core',
+        'jquery-ui-tabs',
+        'jquery-ui-dialog',
+        'jquery-ui-datepicker',
+        'jquery-ui-autocomplete',
+        'jquery-ui-slider',
+        'jquery-ui-sortable',
+        'jquery-ui-draggable',
+        'jquery-ui-droppable',
+        'jquery-ui-resizable',
+        'thickbox'
+      );
+
+      // Own
+      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
+      //wp_enqueue_script( 'wpdk-jquery-validation', WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
+      //wp_enqueue_script( 'wpdk-jquery-validation-additional-method', WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
+
+      // Main wpdk
+      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
+
+      // Localize wpdk_i18n
+      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+    }
+
+    /**
+     * Filter the admin <body> CSS classes.
+     *
+     * This filter differs from the post_class or body_class filters in two important ways:
+     * 1. $classes is a space-separated string of class names instead of an array.
+     * 2. Not all core admin classes are filterable, notably: wp-admin, wp-core-ui, and no-js cannot be removed.
+     *
+     * @since WP 2.3.0
+     *
+     * @param string $classes Space-separated string of CSS classes.
+     */
+    public function admin_body_class( $classes )
+    {
+      return $classes . ' wpdk-jquery-ui';
+    }
+
+    /**
+     * Filter the list of CSS body classes for the current post or page.
+     *
+     * @since WP 2.8.0
+     *
+     * @param array  $classes An array of body classes.
+     * @param string $class   A comma-separated list of additional classes added to the body.
+     */
+    public function body_class( $classes, $class )
+    {
+      $classes[] = 'wpdk-jquery-ui';
+
+      return $classes;
     }
 
     /**
