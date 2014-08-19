@@ -34,8 +34,10 @@
  * @class              WPDKWordPressPlugin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-06
- * @version            0.10.0
+ * @date               2013-08-19
+ * @version            0.10.1
+ *
+ * @history            0.10.1 - Improved stability
  *
  */
 
@@ -278,7 +280,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
       add_action( 'admin_init', array( $this, 'admin_init' ) );
     }
     // Improve since v1.4.13 - Frontnend
-    elseif( !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
+    elseif( isset( $GLOBALS['pagenow'] ) && !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
       add_action( 'init', array( $this, 'theme' ) );
     }
 
