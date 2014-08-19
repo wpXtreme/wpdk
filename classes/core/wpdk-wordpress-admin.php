@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manage and init WordPress backend admin area
  *
@@ -12,8 +13,10 @@
  * @class              WPDKWordPressAdmin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            0.9.0
+ * @date               2014-08-19
+ * @version            0.9.1
+ *
+ * @history            0.9.1 - Fixed multisite menu
  *
  */
 class WPDKWordPressAdmin extends WPDKObject {
@@ -25,7 +28,7 @@ class WPDKWordPressAdmin extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '0.9.0';
+  public $__version = '0.9.1';
 
   /**
    * List of CSS class to add to body
@@ -59,14 +62,15 @@ class WPDKWordPressAdmin extends WPDKObject {
     // Save plugin
     $this->plugin = $plugin;
 
-    // Admin page is loaded
-    if ( is_multisite() ) {
-      add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
-    }
-    else {
-      // Let's add menu at last
-      add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
-    }
+    // Fires before the administration menu loads in the Network Admin.
+    //add_action( 'network_admin_menu', array( $this, 'admin_menu' ), 99 );
+
+    // Fires before the administration menu loads in the User Admin.
+    //add_action( 'user_admin_menu', array( $this, 'admin_menu' ), 99 );
+
+    // Fires before the administration menu loads in the admin.
+    add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
+
 
     // Register this plugin in body.
     add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
@@ -74,7 +78,6 @@ class WPDKWordPressAdmin extends WPDKObject {
     // Loading Script & style for backend
     add_action( 'admin_enqueue_scripts', array( $this, 'wp_pointer' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-
   }
 
   /**
@@ -123,7 +126,7 @@ class WPDKWordPressAdmin extends WPDKObject {
    */
   public function admin_menu()
   {
-    /* Override. */
+    // Override
   }
 
   /**
@@ -135,7 +138,7 @@ class WPDKWordPressAdmin extends WPDKObject {
    */
   public function admin_enqueue_scripts( $hook_suffix )
   {
-    /* Override */
+    // Override
   }
 
 }
