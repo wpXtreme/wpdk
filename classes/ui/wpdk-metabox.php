@@ -28,8 +28,10 @@ class WPDKMetaBoxView extends WPDKView {
    */
   public function __construct( $id, $title, $screen = null, $context = WPDKMetaBoxContext::ADVANCED, $priority = WPDKMetaBoxPriority::NORMAL, $callback_args = null )
   {
+    // TODO The view id must be different from WordPress postbox id, see HTML generate for detail.
     parent::__construct( $id );
 
+    // TODO The view id must be different from WordPress postbox id, see HTML generate for detail.
     add_meta_box( $id, $title, array( $this, 'display' ), $screen, $context, $priority, $callback_args );
   }
 

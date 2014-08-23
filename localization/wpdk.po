@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-28 11:24+0100\n"
-"PO-Revision-Date: 2014-07-28 11:24+0100\n"
+"POT-Creation-Date: 2014-08-23 14:21+0100\n"
+"PO-Revision-Date: 2014-08-23 14:21+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: en_US\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.7\n"
+"X-Generator: Poedit 1.6.8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
@@ -66,7 +66,7 @@ msgstr ""
 
 #: ../classes/database/wpdk-db.php:33
 #: ../classes/deprecated/wpdk-db-table.php:52
-#: ../classes/post/wpdk-post-placeholders.php:249
+#: ../classes/post/wpdk-post-placeholders.php:248
 msgid "All"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:158 ../wpdk.php:624
+#: ../classes/helper/wpdk-datetime.php:158 ../wpdk.php:629
 msgid "Hour"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:162 ../wpdk.php:625
+#: ../classes/helper/wpdk-datetime.php:162 ../wpdk.php:630
 msgid "Minute"
 msgstr ""
 
@@ -270,47 +270,47 @@ msgstr ""
 msgid "Second"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:167 ../wpdk.php:626
+#: ../classes/helper/wpdk-datetime.php:167 ../wpdk.php:631
 msgid "Seconds"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:157
+#: ../classes/post/wpdk-post-placeholders.php:156
 msgid "Date"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:158
+#: ../classes/post/wpdk-post-placeholders.php:157
 msgid "Date & Time"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:159
+#: ../classes/post/wpdk-post-placeholders.php:158
 msgid "User First name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:160
+#: ../classes/post/wpdk-post-placeholders.php:159
 msgid "User Last name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:161
+#: ../classes/post/wpdk-post-placeholders.php:160
 msgid "User Display name"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:162
+#: ../classes/post/wpdk-post-placeholders.php:161
 msgid "User email"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:210
+#: ../classes/post/wpdk-post-placeholders.php:209
 msgid "Placeholders"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:234
+#: ../classes/post/wpdk-post-placeholders.php:233
 msgid "No PLaceholders registered/found"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:248
+#: ../classes/post/wpdk-post-placeholders.php:247
 msgid "Filter by Owner"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:348
+#: ../classes/post/wpdk-post-placeholders.php:340
 msgid "New Placeholders Metabox"
 msgstr ""
 
@@ -388,14 +388,14 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-view.php:147
+#: ../classes/ui/wpdk-preferences-view.php:149
 msgid ""
 "Are you sure to reset this preferences to default values?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-view.php:161 ../classes/ui/wpdk-ui.php:30
+#: ../classes/ui/wpdk-preferences-view.php:163 ../classes/ui/wpdk-ui.php:30
 msgid "Reset to default"
 msgstr ""
 
@@ -422,6 +422,10 @@ msgstr ""
 msgid "Repair"
 msgstr ""
 
+#: ../classes/ui/wpdk-ui-alert.php:233
+msgid "By clicking on the X button, this alert won't appear"
+msgstr ""
+
 #: ../classes/ui/wpdk-ui-controls.php:339
 msgid "Remove"
 msgstr ""
@@ -439,6 +443,10 @@ msgstr ""
 
 #: ../classes/ui/wpdk-ui-controls.php:569
 msgid "Open the guide"
+msgstr ""
+
+#: ../classes/ui/wpdk-ui-modal-dialog.php:259
+msgid "By clicking on the X button, this dialog won't appear"
 msgstr ""
 
 #: ../classes/ui/wpdk-ui.php:51
@@ -772,47 +780,47 @@ msgstr ""
 msgid "Malformed data sedning: no alert id found!"
 msgstr ""
 
-#: ../wpdk.php:620
+#: ../wpdk.php:625
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
 msgstr ""
 
-#: ../wpdk.php:622
+#: ../wpdk.php:627
 msgid "Choose Time"
 msgstr ""
 
-#: ../wpdk.php:623
+#: ../wpdk.php:628
 msgid "Time"
 msgstr ""
 
-#: ../wpdk.php:627
+#: ../wpdk.php:632
 msgid "Now"
 msgstr ""
 
-#: ../wpdk.php:628
+#: ../wpdk.php:633
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr ""
 
-#: ../wpdk.php:629
+#: ../wpdk.php:634
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
 msgstr ""
 
-#: ../wpdk.php:630
+#: ../wpdk.php:635
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr ""
 
-#: ../wpdk.php:631
+#: ../wpdk.php:636
 msgid "Close"
 msgstr ""
 
-#: ../wpdk.php:632
+#: ../wpdk.php:637
 msgid "mm/dd/yy"
 msgstr ""
 
-#: ../wpdk.php:633
+#: ../wpdk.php:638
 msgid "HH:mm"
 msgstr ""
 
