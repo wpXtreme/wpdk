@@ -98,12 +98,6 @@ if ( !class_exists( 'WPDK' ) ) {
       // Fires when scripts and styles are enqueued.
       add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-      // Filter the admin <body> CSS classes.
-      add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
-
-      // Filter the list of CSS body classes for the current post or page.
-      add_filter( 'body_class', array( $this, 'body_class' ), 10, 2 );
-
       /**
        * Fires when WPDK is loaded.
        */
@@ -614,37 +608,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
       // Localize wpdk_i18n
       wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
-    }
-
-    /**
-     * Filter the admin <body> CSS classes.
-     *
-     * This filter differs from the post_class or body_class filters in two important ways:
-     * 1. $classes is a space-separated string of class names instead of an array.
-     * 2. Not all core admin classes are filterable, notably: wp-admin, wp-core-ui, and no-js cannot be removed.
-     *
-     * @since WP 2.3.0
-     *
-     * @param string $classes Space-separated string of CSS classes.
-     */
-    public function admin_body_class( $classes )
-    {
-      return $classes . ' wpdk-jquery-ui';
-    }
-
-    /**
-     * Filter the list of CSS body classes for the current post or page.
-     *
-     * @since WP 2.8.0
-     *
-     * @param array  $classes An array of body classes.
-     * @param string $class   A comma-separated list of additional classes added to the body.
-     */
-    public function body_class( $classes, $class )
-    {
-      $classes[] = 'wpdk-jquery-ui';
-
-      return $classes;
     }
 
     /**

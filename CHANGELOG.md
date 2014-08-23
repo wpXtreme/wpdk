@@ -20,6 +20,18 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.12
+### 2014-08-23
+
+#### Improvements
+
+* Updated localization
+* Updated jQuery Cookie Plugin to v1.4.1 (https://github.com/carhartl/jquery-cookie)
+
+#### Bugs
+
+* Fixed jQuery UI CSS conflict
+
 ## Version 1.5.11
 ### 2014-08-20
 
