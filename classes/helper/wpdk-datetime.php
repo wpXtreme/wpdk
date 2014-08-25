@@ -7,8 +7,10 @@
  * @class              WPDKDateTime
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-31
- * @version            1.1.1
+ * @date               2014-08-25
+ * @version            1.1.2
+ *
+ * @history            1.1.2 - Improved timeNewLine() method.
  *
  */
 class WPDKDateTime extends WPDKObject {
@@ -284,19 +286,33 @@ class WPDKDateTime extends WPDKObject {
   }
 
   /**
-   * Utility per porre l'orario su una nuova riga. Aggiunge un tag br nello spazio tra la data e l'ora
+   * Put a new line before time.
    *
-   * @param string $datetime Data e ora formattati in modo che lo spazio delimiti data e ora
+   * @param string $datetime Date with time.
    *
-   * @return string Data, tag br e ora
+   * @return string
    */
   public static function timeNewLine( $datetime )
   {
-    return str_replace( ' ', '<br/>', $datetime );
+    // Get the first ':'
+    $pos = strpos( $datetime, ':' );
+
+    // No time?
+    if( false === $pos ) {
+      return $datetime;
+    }
+
+    // Hour start
+    $pos = $pos - 2;
+
+    $date = substr( $datetime, 0, $pos );
+    $time = substr( $datetime, $pos );
+
+    return sprintf( '%s<br/>%s', $date, $time );
   }
 
   /**
-   * Return TRUE if $expiration date is past
+   * Return TRUE if $expiration date is past.
    *
    * @brief Check if a date is expired
    *
