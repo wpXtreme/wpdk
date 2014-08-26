@@ -816,26 +816,34 @@ class WPDKPostType {
 }
 
 /**
- * Utility for post meta
+ * Utility class for post meta. You usually extends this class in your custom post type meta definition.
  *
  * @class              WPDKPostMeta
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
- * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metaboxes.php (WPXSmartShopProductMetaBox)
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-08-25
+ * @version            1.0.0
+ *
+ * @since              1.5.13
  *
  */
 class WPDKPostMeta {
 
   /**
-   * Pointer to WPDKPost object
+   * Pointer to post object.
    *
-   * @brief An instance of WPDKPost class
-   *
-   * @var WPDKPost $_post
+   * @var object|WP_Post|WPDKPost $_post
    */
-  private $_post;
+  protected $object;
+
+  /**
+   * List of meta key with property and label info.
+   *
+   * @brief Meta keys
+   *
+   * @var array $meta
+   */
+  public $meta = array();
 
   /**
    * Create aninstance of WPDKPostMeta class
@@ -846,74 +854,190 @@ class WPDKPostMeta {
    *
    * @return WPDKPostMeta
    */
-  public function __construct( $post )
+  public function __construct( $object )
   {
-    $this->_post = new WPDKPost( $post );
+    $this->object = $object;
+    $this->meta();
   }
 
   /**
-   * @brief Upd ate or delete a post meta
+   * Register meta keys. Use
    *
-   * Update a post meta with key `$meta_key` for post `$id_post`. If value is NULL the post meta is deleted.
+   *     $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL', WPXBANNERIZE_TEXTDOMAIN ) );
    *
-   * @param int         $id_post    Post ID
-   * @param string      $meta_key   Meta key
-   * @param string|null $meta_value Meta value. If NULL the post meta is deleted.
+   * @brief Register
+   *
+   * @return array
    */
-  public static function updatePostMetaWithDeleteIfNotSet( $id_post, $meta_key, $meta_value = null )
+  public function meta()
   {
 
-    // Sanitize post id
-    $id_post = absint( $id_post );
+    // $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL', WPXBANNERIZE_TEXTDOMAIN ) );
 
-    if ( !empty( $id_post ) ) {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
 
-      // Use meta_value is null then delete post meta
-      if ( is_null( $meta_value ) ) {
-        delete_post_meta( $id_post, $meta_key );
-      }
-      else {
+  /**
+   * Add a meta key.
+   *
+   * @brief Add
+   *
+   * @param string $meta_key Meta key.
+   * @param string $property Optional. Object proprty name.
+   * @param string $label    Optional. Label definition.
+   *
+   * @return array
+   */
+  public function add( $meta_key, $property = '', $default = false, $label = '' )
+  {
+    $this->meta[ $meta_key ] = array(
+      'property' => $property,
+      'label'    => $label,
+      'default'  => $default,
+    );
 
-        // Sanitize meta_key when arrive as array
-        if ( substr( $meta_key, -2 ) == '[]' ) {
-          $meta_key = substr( $meta_key, 0, strlen( $meta_key ) - 2 );
+    return $this->meta;
+  }
+
+  /**
+   * Map the post meta keys to object.
+   *
+   * @brief Map
+   *
+   * @return object|WP_Post|WPDKPost|bool
+   */
+  public function mapToObject()
+  {
+
+    // Stability
+    if ( ! is_object( $this->object ) || ! isset( $this->object->ID ) ) {
+      return false;
+    }
+
+    // Get post id
+    $post_id = absint( $this->object->ID );
+
+    // Get all post meta for this post id
+    $meta = get_post_meta( $post_id );
+
+    /*
+     *    array(14) {
+     *      ["_edit_lock"]=> array(1) {
+     *        [0]=> string(12) "1408973442:1"
+     *      }
+     *      ["_edit_last"]=> array(1) {
+     *        [0]=> string(1) "1"
+     *      }
+     *      ["wpx_bannerize_banner_type"]=> array(1) {
+     *        [0]=> string(5) "local"
+     *      }
+     *      ["wpx_bannerize_banner_url"]=> array(1) {
+     *        [0]=> string(89) "http://sp-museo-maranello.s3.amazonaws.com/wp-content/uploads/2014/07/599xx-1140x4371.jpg"
+     *      }
+     *      ["wpx_bannerize_banner_external_url"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_link"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_target"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_width"]=> array(1) {
+     *        [0]=> string(4) "1140"
+     *      }
+     *      ["wpx_bannerize_banner_height"]=> array(1) {
+     *        [0]=> string(3) "437"
+     *      }
+     *      ["wpx_bannerize_banner_no_follow"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_impressions_enabled"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_clicks_enabled"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_date_from"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_date_expiry"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *    }
+     */
+
+    if( empty( $meta ) ) {
+      return;
+    }
+
+    // Loop in the all meta
+    foreach( $meta as $meta_key => $array ) {
+
+      // Check if meta key exists
+      if( isset( $this->meta[ $meta_key ] ) ) {
+
+        // Get the relative property
+        $property = $this->meta[ $meta_key ]['property'];
+
+        // If property not set continue
+        if( empty( $property ) ) {
+          continue;
         }
-        update_post_meta( $id_post, $meta_key, $meta_value );
+
+        // Stability, check if the target object has the property
+        if( property_exists( $this->object, $property ) ) {
+
+          // Get single value
+          $this->object->$property = $array[0];
+        }
       }
     }
+
+    return $this->object;
   }
 
   /**
-   * Return a single value with a specific meta key
+   * Update post meta
    *
-   * @param string $key A meta key
-   *
-   * @return mixed|null
+   * @brief Update
    */
-  public function value( $key )
+  public function update()
   {
-    if ( !empty( $key ) && !empty( $this->_post ) ) {
-      return get_post_meta( $this->_post->ID, $key, true );
+    // Stability
+    if ( ! is_object( $this->object ) || ! isset( $this->object->ID ) ) {
+      return false;
     }
-    return null;
+
+    // Get post id
+    $post_id = absint( $this->object->ID );
+
+    // Get meta
+    $meta = $this->meta();
+
+    if( empty( $meta ) ) {
+      return false;
+    }
+
+    // Loop into the registered meta
+    foreach( $meta as $meta_key => $array ) {
+
+      // Get relative property
+      $property = $array['property'];
+
+      if( empty( $array['property'] ) ) {
+        continue;
+      }
+
+      // Stability, check if the target object has the property
+      if( property_exists( $this->object, $property ) ) {
+
+        // Update
+        update_post_meta( $post_id, $meta_key, $this->object->$property );
+      }
+    }
+
   }
 
-  // -------------------------------------------------------------------------------------------------------------------
-  // Utility
-  // -------------------------------------------------------------------------------------------------------------------
 
-  /**
-   * Return ana array of values with a specific meta key
-   *
-   * @param string $key A meta key
-   *
-   * @return array|null
-   */
-  public function values( $key )
-  {
-    if ( !empty( $key ) && !empty( $this->_post ) ) {
-      return get_post_meta( $this->_post->ID, $key, false );
-    }
-    return null;
-  }
 }
