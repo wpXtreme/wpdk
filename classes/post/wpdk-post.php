@@ -17,9 +17,11 @@
  *
  * @class              WPDKPost
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.0.2
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-08-26
+ * @version            1.0.3
+ *
+ * @history            1.0.3 - Added post_meta property to manage the post meta
  *
  */
 class WPDKPost extends WPDKObject {
@@ -55,7 +57,7 @@ class WPDKPost extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.2';
+  public $__version = '1.0.3';
 
   /**
    * The post ID
@@ -65,6 +67,7 @@ class WPDKPost extends WPDKObject {
    * @var int $ID
    */
   public $ID;
+
   /**
    * Number of comments, pings, and trackbacks combined
    *
@@ -73,6 +76,7 @@ class WPDKPost extends WPDKObject {
    * @var int $comment_count
    */
   public $comment_count;
+
   /**
    * The comment status, ie. open. Max 20 char
    *
@@ -81,6 +85,7 @@ class WPDKPost extends WPDKObject {
    * @var string $comment_status
    */
   public $comment_status;
+
   /**
    * The guid. Global Unique Identifier. The “real” URL to the post, not the permalink version. For pages, this is the
    * actual URL. In the case of files (attachments), this holds the URL to the file.
@@ -90,6 +95,7 @@ class WPDKPost extends WPDKObject {
    * @var string $guid
    */
   public $guid;
+
   /**
    * Holds values for display order of pages. Only works with pages, not posts.
    *
@@ -98,6 +104,7 @@ class WPDKPost extends WPDKObject {
    * @var int $menu_order
    */
   public $menu_order;
+
   /**
    * The ping status, ie. open. Max 20 char
    *
@@ -106,6 +113,7 @@ class WPDKPost extends WPDKObject {
    * @var string $ping_status
    */
   public $ping_status;
+
   /**
    * List of urls that have been pinged (for published posts)
    *
@@ -114,6 +122,7 @@ class WPDKPost extends WPDKObject {
    * @var array $pinged
    */
   public $pinged;
+
   /**
    * The post author ID
    *
@@ -122,6 +131,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_author
    */
   public $post_author;
+
   /**
    * Number representing post category ID#. This property is not present on databse record.
    *
@@ -130,6 +140,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_category
    */
   public $post_category;
+
   /**
    * The post content
    *
@@ -138,6 +149,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_content
    */
   public $post_content;
+
   /**
    * Exists to store a cached version of post content (most likely with all the the_content filters already applied).
    * If you’ve got a plugin that runs a very resource heavy filter on content, you might consider caching the results
@@ -148,6 +160,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_content_filtered
    */
   public $post_content_filtered;
+
   /**
    * The Post date
    *
@@ -156,6 +169,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_date
    */
   public $post_date;
+
   /**
    * The post date in GMT
    *
@@ -164,6 +178,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_date_gmt
    */
   public $post_date_gmt;
+
   /**
    * The post excerpt
    *
@@ -172,6 +187,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_excerpt
    */
   public $post_excerpt;
+
   /**
    * The post mime type. Only used for files (attachments). Contains the MIME type of the uploaded file.
    * Typical values are: text/html, image/png, image/jpg
@@ -182,6 +198,7 @@ class WPDKPost extends WPDKObject {
    *
    */
   public $post_mime_type;
+
   /**
    * Modified date
    *
@@ -190,6 +207,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_modified
    */
   public $post_modified;
+
   /**
    * Modifed date in GMT
    *
@@ -198,6 +216,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_modified_gmt
    */
   public $post_modified_gmt;
+
   /**
    * The post name. Same as post slug. Max 200 char
    *
@@ -206,6 +225,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_name
    */
   public $post_name;
+
   /**
    * Parent Post ID
    *
@@ -214,6 +234,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_parent
    */
   public $post_parent;
+
   /**
    * Protect post password. Will be empty if no password. Max 20 char
    *
@@ -222,6 +243,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_password
    */
   public $post_password;
+
   /**
    * Post status, ie. publish, draft. Max 20 char
    *
@@ -230,6 +252,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_status
    */
   public $post_status;
+
   /**
    * The post title
    *
@@ -238,6 +261,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_title
    */
   public $post_title;
+
   /**
    * The post type. Used by Custom Post. Default 'post'. Self-explanatory for pages and posts. Any files uploaded are
    * attachments and post revisions saved as revision
@@ -247,6 +271,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_type
    */
   public $post_type = WPDKPostType::POST;
+
   /**
    * List of urls to ping when post is published (for unpublished posts)
    *
@@ -255,6 +280,16 @@ class WPDKPost extends WPDKObject {
    * @var array $to_ping
    */
   public $to_ping;
+
+  /**
+   * A key values pair array with the list of post meta for this post.
+   *
+   * @brief Post meta
+   * @since 1.5.13
+   *
+   * @var array $post_meta
+   */
+  public $post_meta;
 
   /**
    * Create an instance of WPDKPost class
@@ -310,6 +345,12 @@ class WPDKPost extends WPDKObject {
       // Insert
       $this->ID = wp_insert_post( $defaults );
     }
+
+    // Get the post meta
+    if( isset( $this->ID ) && !empty( $this->ID ) ) {
+      $this->post_meta = get_post_meta( $this->ID );
+    }
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -830,11 +871,13 @@ class WPDKPostType {
 class WPDKPostMeta {
 
   /**
-   * Pointer to post object.
+   * An instance of WPDKPost class.
    *
-   * @var object|WP_Post|WPDKPost $_post
+   * @brief Post
+   *
+   * @var WPDKPost $post
    */
-  protected $object;
+  public $post;
 
   /**
    * List of meta key with property and label info.
@@ -850,13 +893,13 @@ class WPDKPostMeta {
    *
    * @brief Construct
    *
-   * @param int|object $post Post ID, Post object
+   * @param WPDKPost $post Optional. An instance of WPDKPost class.
    *
    * @return WPDKPostMeta
    */
-  public function __construct( $object )
+  public function __construct( $post = null )
   {
-    $this->object = $object;
+    $this->post = $post;
     $this->meta();
   }
 
@@ -900,25 +943,19 @@ class WPDKPostMeta {
   }
 
   /**
-   * Map the post meta keys to object.
+   * Map the post meta property (if defined) to post.
    *
    * @brief Map
    *
-   * @return object|WP_Post|WPDKPost|bool
+   * @param bool $create_property Optional. Default TRUE when in the target object the property doesn't exists then it
+   *                              is create dynamically. Set FALSE to map only the exists properties.
+   *
+   * @return WPDKPost|bool
    */
-  public function mapToObject()
+  public function mapToPost( $create_property = true )
   {
-
-    // Stability
-    if ( ! is_object( $this->object ) || ! isset( $this->object->ID ) ) {
-      return false;
-    }
-
-    // Get post id
-    $post_id = absint( $this->object->ID );
-
     // Get all post meta for this post id
-    $meta = get_post_meta( $post_id );
+    $meta = $this->post->post_meta;
 
     /*
      *    array(14) {
@@ -986,31 +1023,26 @@ class WPDKPostMeta {
         }
 
         // Stability, check if the target object has the property
-        if( property_exists( $this->object, $property ) ) {
+        if( property_exists( $this->post, $property ) || $create_property ) {
 
           // Get single value
-          $this->object->$property = $array[0];
+          $this->post->$property = $array[0];
         }
       }
     }
 
-    return $this->object;
+    return $this->post;
   }
 
   /**
-   * Update post meta
+   * Update post meta by using WPDKPost object properties.
    *
    * @brief Update
    */
   public function update()
   {
-    // Stability
-    if ( ! is_object( $this->object ) || ! isset( $this->object->ID ) ) {
-      return false;
-    }
-
     // Get post id
-    $post_id = absint( $this->object->ID );
+    $post_id = $this->post->ID;
 
     // Get meta
     $meta = $this->meta();
@@ -1030,11 +1062,31 @@ class WPDKPostMeta {
       }
 
       // Stability, check if the target object has the property
-      if( property_exists( $this->object, $property ) ) {
+      if( property_exists( $this->post, $property ) ) {
 
         // Update
-        update_post_meta( $post_id, $meta_key, $this->object->$property );
+        update_post_meta( $post_id, $meta_key, $this->post->$property );
       }
+    }
+
+  }
+
+  /**
+   * Update post meta by using an array.
+   *
+   * @brief Update
+   *
+   * @param int   $post_id The post ID.
+   * @param array $values  A key value pairs array with key as post meta key and value as post meta value.
+   */
+  public static function updateWithArray( $post_id, $values )
+  {
+
+    // Loop into the registered meta
+    foreach ( $values as $meta_key => $value ) {
+
+      // Update
+      update_post_meta( $post_id, $meta_key, $value );
     }
 
   }
