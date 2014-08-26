@@ -23,10 +23,16 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.13
 ### 2014-08-??
 
+#### Improvements
+
+* Updated `WPDKPostMeta`
 * Improved date format in user profile
 * Improved timeNewLine() method
 * Updated filter docs and cosmetic code
 
+#### Bugs
+
+* Minor fixes for WP multisite
 
 ## Version 1.5.12
 ### 2014-08-23
