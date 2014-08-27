@@ -439,6 +439,8 @@ class WPDKPost extends WPDKObject {
    * Init this instance of WPDKPost as a empty Post
    *
    * @brief Init by array arguments
+   *
+   * @param array|object $args An array with key values or and object.
    */
   private function initPostByArgs( $args )
   {
@@ -927,6 +929,7 @@ class WPDKPostMeta {
    *
    * @param string $meta_key Meta key.
    * @param string $property Optional. Object proprty name.
+   * @param mixed  $default  Optional. Default value.
    * @param string $label    Optional. Label definition.
    *
    * @return array
@@ -950,7 +953,7 @@ class WPDKPostMeta {
    * @param bool $create_property Optional. Default TRUE when in the target object the property doesn't exists then it
    *                              is create dynamically. Set FALSE to map only the exists properties.
    *
-   * @return WPDKPost|bool
+   * @return WPDKPost
    */
   public function mapToPost( $create_property = true )
   {
@@ -1005,7 +1008,7 @@ class WPDKPostMeta {
      */
 
     if( empty( $meta ) ) {
-      return;
+      return $this->post;
     }
 
     // Loop in the all meta
