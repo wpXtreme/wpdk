@@ -23,6 +23,10 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.13
 ### 2014-08-??
 
+#### Enhancements
+
+* Renamed elapsed_string() with elapsedString(), added params and deprecated.
+
 #### Improvements
 
 * Updated `WPDKPostMeta`
