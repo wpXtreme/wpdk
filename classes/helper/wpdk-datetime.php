@@ -107,7 +107,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return string
    */
-  public static function human( $date, $format = 'm/d/Y H:i' )
+  public static function human( $date, $format = 'j M, Y H:i' )
   {
     // Check for timestamp
     if( is_numeric( $date ) ) {
