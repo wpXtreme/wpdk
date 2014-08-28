@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Removed (obsolete) jquery validate plugin
 * Renamed elapsed_string() with elapsedString(), added params and deprecated.
 
 #### Improvements
