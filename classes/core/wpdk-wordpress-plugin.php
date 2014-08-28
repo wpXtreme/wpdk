@@ -280,7 +280,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
       add_action( 'admin_init', array( $this, 'admin_init' ) );
     }
     // Improve since v1.4.13 - Frontnend
-    elseif( isset( $GLOBALS['pagenow'] ) && !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
+    elseif( !isset( $GLOBALS['pagenow'] ) || isset( $GLOBALS['pagenow'] ) && !in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
       add_action( 'init', array( $this, 'theme' ) );
     }
 

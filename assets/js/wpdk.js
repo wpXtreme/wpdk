@@ -596,7 +596,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
         REFRESH_SWIPE               : 'refresh.wpdk.swipe',
         REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
-        REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery,autocomplete',
+        REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
         REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
 
@@ -618,7 +618,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
       REFRESH_SWIPE               : 'refresh.wpdk.swipe',
       REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
-      REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery,autocomplete',
+      REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
       REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
     };
 
@@ -980,9 +980,34 @@ jQuery( function ( $ )
             }
             else {
               var target = $( element ).data( 'target' );
+              var as_text = $( element ).data( 'as_text' );
+              var as_value = $( element ).data( 'as_value' );
+
               if ( !empty( target ) ) {
                 $( target  ).val( ui.item.id );
               }
+
+              if ( !empty( as_value ) ) {
+                $( element ).data( 'value', ui.item[as_value] );
+              }
+
+              if ( !empty( as_text ) ) {
+                if( $.isPlainObject( as_text ) ) {
+
+                  var stack = [];
+
+                  for( var property in as_text ) {
+                    var str = sprintf( as_text[property], ui.item[property] );
+                    stack.push( str );
+                  }
+
+                  $( element ).data( 'text', implode( '', stack  ) );
+                }
+                else {
+                  $( element ).data( 'text', ui.item[as_text] )
+                }
+              }
+
             }
           },
 
@@ -1149,8 +1174,8 @@ jQuery( function ( $ )
 
             // INPUT
             case 'input':
-              value = copy.val();
-              text = value;
+              value = copy.data( 'value' ) || copy.val();
+              text  = copy.data( 'text' ) || copy.val();
               if ( $.inArray( 'clear_after_copy', options ) !== false ) {
                 copy.val( '' );
               }

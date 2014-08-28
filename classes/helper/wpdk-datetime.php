@@ -7,8 +7,11 @@
  * @class              WPDKDateTime
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-31
- * @version            1.1.1
+ * @date               2014-08-27
+ * @version            1.1.3
+ *
+ * @history            1.1.2 - Improved timeNewLine() method.
+ * @history            1.1.3 - Renamed elapsed_string() with elapsedString(), added params and deprecated.
  *
  */
 class WPDKDateTime extends WPDKObject {
@@ -105,7 +108,7 @@ class WPDKDateTime extends WPDKObject {
    *
    * @return string
    */
-  public static function human( $date, $format = 'm/d/Y H:i' )
+  public static function human( $date, $format = 'j M, Y H:i' )
   {
     // Check for timestamp
     if( is_numeric( $date ) ) {
@@ -122,18 +125,30 @@ class WPDKDateTime extends WPDKObject {
   }
 
   /**
+   * @deprecated since 1.5.13 - Use elapsedString() instead
+   */
+  public static function elapsed_string( $timestamp, $hide_empty = true, $to = 0, $separator = ' ' )
+  {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.13', 'elapsedString()' );
+
+    return self::elapsedString( $timestamp, $hide_empty, $to, $separator );
+  }
+
+  /**
    * This method is similar to WordPress human_time_diff(), with the different that every amount is display.
    * For example if WordPress human_time_diff() display '10 hours', this method display '9 Hours 47 Minutes 56 Seconds'.
    *
    * @brief More readable time elapsed
    *
-   * @param int  $timestamp  Date from elapsed
-   * @param bool $hide_empty Optional. If TRUE '0 Year' will not return. Default TRUE.
-   * @param int  $to         Optional. Date to elapsed. If empty time() is used
+   * @param int    $timestamp  Date from elapsed
+   * @param bool   $hide_empty Optional. If TRUE '0 Year' will not return. Default TRUE.
+   * @param int    $to         Optional. Date to elapsed. If empty time() is used
+   * @param string $separator  Optional. Separator, default ', '.
    *
    * @return string
    */
-  public static function elapsed_string( $timestamp, $hide_empty = true, $to = 0 )
+
+  public static function elapsedString( $timestamp, $hide_empty = true, $to = 0, $separator = ', ' )
   {
     // If no $to then now
     if ( empty( $to ) ) {
@@ -141,58 +156,21 @@ class WPDKDateTime extends WPDKObject {
     }
 
     // Key and string output
-    $useful = array(
-      'y' => array(
-        __( 'Year' ),
-        __( 'Years' )
-      ),
-      'm' => array(
-        __( 'Month' ),
-        __( 'Months' )
-      ),
-      'd' => array(
-        __( 'Day' ),
-        __( 'Days' )
-      ),
-      'h' => array(
-        __( 'Hour' ),
-        __( 'Hours' )
-      ),
-      'i' => array(
-        __( 'Minute' ),
-        __( 'Minutes' )
-      ),
-      's' => array(
-        __( 'Second' ),
-        __( 'Seconds' )
-      ),
+    $useful = array( 'y' => array( __( 'Year' ), __( 'Years' ) ),
+                     'm' => array( __( 'Month' ), __( 'Months' ) ),
+                     'd' => array( __( 'Day' ), __( 'Days' ) ),
+                     'h' => array( __( 'Hour' ), __( 'Hours' ) ),
+                     'i' => array( __( 'Minute' ), __( 'Minutes' ) ),
+                     's' => array( __( 'Second' ), __( 'Seconds' ) ),
     );
 
     $matrix = array(
-      'y' => array(
-        12 * 30 * 24 * 60 * 60,
-        12
-      ),
-      'm' => array(
-        30 * 24 * 60 * 60,
-        30
-      ),
-      'd' => array(
-        24 * 60 * 60,
-        24
-      ),
-      'h' => array(
-        60 * 60,
-        60
-      ),
-      'i' => array(
-        60,
-        60
-      ),
-      's' => array(
-        1,
-        60
-      ),
+      'y' => array( 12 * 30 * 24 * 60 * 60, 12 ),
+      'm' => array( 30 * 24 * 60 * 60, 30 ),
+      'd' => array( 24 * 60 * 60, 24 ),
+      'h' => array( 60 * 60, 60 ),
+      'i' => array( 60, 60 ),
+      's' => array( 1, 60 ),
     );
 
     $diff = $timestamp - $to;
@@ -212,7 +190,7 @@ class WPDKDateTime extends WPDKObject {
       $stack[] = sprintf( '%s %s', $value, _n( $strings[0], $strings[1], $value ) );
     }
 
-    return implode( ' ', $stack );
+    return implode( $separator, $stack );
 
   }
 
@@ -284,19 +262,33 @@ class WPDKDateTime extends WPDKObject {
   }
 
   /**
-   * Utility per porre l'orario su una nuova riga. Aggiunge un tag br nello spazio tra la data e l'ora
+   * Put a new line before time.
    *
-   * @param string $datetime Data e ora formattati in modo che lo spazio delimiti data e ora
+   * @param string $datetime Date with time.
    *
-   * @return string Data, tag br e ora
+   * @return string
    */
   public static function timeNewLine( $datetime )
   {
-    return str_replace( ' ', '<br/>', $datetime );
+    // Get the first ':'
+    $pos = strpos( $datetime, ':' );
+
+    // No time?
+    if( false === $pos ) {
+      return $datetime;
+    }
+
+    // Hour start
+    $pos = $pos - 2;
+
+    $date = substr( $datetime, 0, $pos );
+    $time = substr( $datetime, $pos );
+
+    return sprintf( '%s<br/>%s', $date, $time );
   }
 
   /**
-   * Return TRUE if $expiration date is past
+   * Return TRUE if $expiration date is past.
    *
    * @brief Check if a date is expired
    *

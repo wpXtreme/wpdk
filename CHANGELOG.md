@@ -20,6 +20,25 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.13
+### 2014-08-??
+
+#### Enhancements
+
+* Removed (obsolete) jquery validate plugin
+* Renamed elapsed_string() with elapsedString(), added params and deprecated.
+
+#### Improvements
+
+* Updated `WPDKPostMeta`
+* Improved date format in user profile
+* Improved timeNewLine() method
+* Updated filter docs and cosmetic code
+
+#### Bugs
+
+* Minor fixes for WP multisite
+
 ## Version 1.5.12
 ### 2014-08-23
 
