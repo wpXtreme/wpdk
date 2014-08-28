@@ -559,8 +559,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
       // Own
       wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-      wp_enqueue_script( 'wpdk-jquery-validation', WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
-      wp_enqueue_script( 'wpdk-jquery-validation-additional-method', WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
 
       // Main wpdk
       wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
@@ -600,8 +598,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
       // Own
       wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-      //wp_enqueue_script( 'wpdk-jquery-validation', WPDK_URI_JAVASCRIPT . 'validate/jquery.validate.js', array( 'jquery' ), WPDK_VERSION, true );
-      //wp_enqueue_script( 'wpdk-jquery-validation-additional-method', WPDK_URI_JAVASCRIPT . 'validate/additional-methods.js', array( 'jquery-validation' ), WPDK_VERSION, true );
 
       // Main wpdk
       wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
