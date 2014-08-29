@@ -122,9 +122,11 @@ if ( wpdk_is_ajax() ) {
 
         // Return
         $return[] = array(
-          'value' => $user->user_email,
-          'label' => sprintf( '%s %s %s (%s)', $img_avatar, $user->user_firstname, $user->user_lastname, $user->user_email ),
-          'id'    => $user->ID
+          'value'        => $user->user_email,
+          'label'        => sprintf( '%s %s %s (%s)', $img_avatar, $user->user_firstname, $user->user_lastname, $user->user_email ),
+          'id'           => $user->ID,
+          'email'        => $user->data->user_email,
+          'display_name' => $user->data->display_name
         );
       }
 

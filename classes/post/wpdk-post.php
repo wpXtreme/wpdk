@@ -17,9 +17,11 @@
  *
  * @class              WPDKPost
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
- * @version            1.0.2
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-08-26
+ * @version            1.0.3
+ *
+ * @history            1.0.3 - Added post_meta property to manage the post meta
  *
  */
 class WPDKPost extends WPDKObject {
@@ -55,7 +57,7 @@ class WPDKPost extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.2';
+  public $__version = '1.0.3';
 
   /**
    * The post ID
@@ -65,6 +67,7 @@ class WPDKPost extends WPDKObject {
    * @var int $ID
    */
   public $ID;
+
   /**
    * Number of comments, pings, and trackbacks combined
    *
@@ -73,6 +76,7 @@ class WPDKPost extends WPDKObject {
    * @var int $comment_count
    */
   public $comment_count;
+
   /**
    * The comment status, ie. open. Max 20 char
    *
@@ -81,6 +85,7 @@ class WPDKPost extends WPDKObject {
    * @var string $comment_status
    */
   public $comment_status;
+
   /**
    * The guid. Global Unique Identifier. The “real” URL to the post, not the permalink version. For pages, this is the
    * actual URL. In the case of files (attachments), this holds the URL to the file.
@@ -90,6 +95,7 @@ class WPDKPost extends WPDKObject {
    * @var string $guid
    */
   public $guid;
+
   /**
    * Holds values for display order of pages. Only works with pages, not posts.
    *
@@ -98,6 +104,7 @@ class WPDKPost extends WPDKObject {
    * @var int $menu_order
    */
   public $menu_order;
+
   /**
    * The ping status, ie. open. Max 20 char
    *
@@ -106,6 +113,7 @@ class WPDKPost extends WPDKObject {
    * @var string $ping_status
    */
   public $ping_status;
+
   /**
    * List of urls that have been pinged (for published posts)
    *
@@ -114,6 +122,7 @@ class WPDKPost extends WPDKObject {
    * @var array $pinged
    */
   public $pinged;
+
   /**
    * The post author ID
    *
@@ -122,6 +131,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_author
    */
   public $post_author;
+
   /**
    * Number representing post category ID#. This property is not present on databse record.
    *
@@ -130,6 +140,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_category
    */
   public $post_category;
+
   /**
    * The post content
    *
@@ -138,6 +149,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_content
    */
   public $post_content;
+
   /**
    * Exists to store a cached version of post content (most likely with all the the_content filters already applied).
    * If you’ve got a plugin that runs a very resource heavy filter on content, you might consider caching the results
@@ -148,6 +160,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_content_filtered
    */
   public $post_content_filtered;
+
   /**
    * The Post date
    *
@@ -156,6 +169,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_date
    */
   public $post_date;
+
   /**
    * The post date in GMT
    *
@@ -164,6 +178,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_date_gmt
    */
   public $post_date_gmt;
+
   /**
    * The post excerpt
    *
@@ -172,6 +187,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_excerpt
    */
   public $post_excerpt;
+
   /**
    * The post mime type. Only used for files (attachments). Contains the MIME type of the uploaded file.
    * Typical values are: text/html, image/png, image/jpg
@@ -182,6 +198,7 @@ class WPDKPost extends WPDKObject {
    *
    */
   public $post_mime_type;
+
   /**
    * Modified date
    *
@@ -190,6 +207,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_modified
    */
   public $post_modified;
+
   /**
    * Modifed date in GMT
    *
@@ -198,6 +216,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_modified_gmt
    */
   public $post_modified_gmt;
+
   /**
    * The post name. Same as post slug. Max 200 char
    *
@@ -206,6 +225,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_name
    */
   public $post_name;
+
   /**
    * Parent Post ID
    *
@@ -214,6 +234,7 @@ class WPDKPost extends WPDKObject {
    * @var int $post_parent
    */
   public $post_parent;
+
   /**
    * Protect post password. Will be empty if no password. Max 20 char
    *
@@ -222,6 +243,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_password
    */
   public $post_password;
+
   /**
    * Post status, ie. publish, draft. Max 20 char
    *
@@ -230,6 +252,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_status
    */
   public $post_status;
+
   /**
    * The post title
    *
@@ -238,6 +261,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_title
    */
   public $post_title;
+
   /**
    * The post type. Used by Custom Post. Default 'post'. Self-explanatory for pages and posts. Any files uploaded are
    * attachments and post revisions saved as revision
@@ -247,6 +271,7 @@ class WPDKPost extends WPDKObject {
    * @var string $post_type
    */
   public $post_type = WPDKPostType::POST;
+
   /**
    * List of urls to ping when post is published (for unpublished posts)
    *
@@ -255,6 +280,16 @@ class WPDKPost extends WPDKObject {
    * @var array $to_ping
    */
   public $to_ping;
+
+  /**
+   * A key values pair array with the list of post meta for this post.
+   *
+   * @brief Post meta
+   * @since 1.5.13
+   *
+   * @var array $post_meta
+   */
+  public $post_meta;
 
   /**
    * Create an instance of WPDKPost class
@@ -310,6 +345,12 @@ class WPDKPost extends WPDKObject {
       // Insert
       $this->ID = wp_insert_post( $defaults );
     }
+
+    // Get the post meta
+    if( isset( $this->ID ) && !empty( $this->ID ) ) {
+      $this->post_meta = get_post_meta( $this->ID );
+    }
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -398,6 +439,8 @@ class WPDKPost extends WPDKObject {
    * Init this instance of WPDKPost as a empty Post
    *
    * @brief Init by array arguments
+   *
+   * @param array|object $args An array with key values or and object.
    */
   private function initPostByArgs( $args )
   {
@@ -816,104 +859,240 @@ class WPDKPostType {
 }
 
 /**
- * Utility for post meta
+ * Utility class for post meta. You usually extends this class in your custom post type meta definition.
  *
  * @class              WPDKPostMeta
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
- * @deprecated         Since 0.9 - Not useful - Used by wpxss-product-metaboxes.php (WPXSmartShopProductMetaBox)
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-08-25
+ * @version            1.0.0
+ *
+ * @since              1.5.13
  *
  */
 class WPDKPostMeta {
 
   /**
-   * Pointer to WPDKPost object
+   * An instance of WPDKPost class.
    *
-   * @brief An instance of WPDKPost class
+   * @brief Post
    *
-   * @var WPDKPost $_post
+   * @var WPDKPost $post
    */
-  private $_post;
+  public $post;
+
+  /**
+   * List of meta key with property and label info.
+   *
+   * @brief Meta keys
+   *
+   * @var array $meta
+   */
+  public $meta = array();
 
   /**
    * Create aninstance of WPDKPostMeta class
    *
    * @brief Construct
    *
-   * @param int|object $post Post ID, Post object
+   * @param WPDKPost $post Optional. An instance of WPDKPost class.
    *
    * @return WPDKPostMeta
    */
-  public function __construct( $post )
+  public function __construct( $post = null )
   {
-    $this->_post = new WPDKPost( $post );
+    $this->post = $post;
+    $this->meta();
   }
 
   /**
-   * @brief Upd ate or delete a post meta
+   * Register meta keys. Use
    *
-   * Update a post meta with key `$meta_key` for post `$id_post`. If value is NULL the post meta is deleted.
+   *     $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL', WPXBANNERIZE_TEXTDOMAIN ) );
    *
-   * @param int         $id_post    Post ID
-   * @param string      $meta_key   Meta key
-   * @param string|null $meta_value Meta value. If NULL the post meta is deleted.
+   * @brief Register
+   *
+   * @return array
    */
-  public static function updatePostMetaWithDeleteIfNotSet( $id_post, $meta_key, $meta_value = null )
+  public function meta()
   {
 
-    // Sanitize post id
-    $id_post = absint( $id_post );
+    // $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL', WPXBANNERIZE_TEXTDOMAIN ) );
 
-    if ( !empty( $id_post ) ) {
+    die( __METHOD__ . ' must be override in your subclass' );
+  }
 
-      // Use meta_value is null then delete post meta
-      if ( is_null( $meta_value ) ) {
-        delete_post_meta( $id_post, $meta_key );
-      }
-      else {
+  /**
+   * Add a meta key.
+   *
+   * @brief Add
+   *
+   * @param string $meta_key Meta key.
+   * @param string $property Optional. Object proprty name.
+   * @param mixed  $default  Optional. Default value.
+   * @param string $label    Optional. Label definition.
+   *
+   * @return array
+   */
+  public function add( $meta_key, $property = '', $default = false, $label = '' )
+  {
+    $this->meta[ $meta_key ] = array(
+      'property' => $property,
+      'label'    => $label,
+      'default'  => $default,
+    );
 
-        // Sanitize meta_key when arrive as array
-        if ( substr( $meta_key, -2 ) == '[]' ) {
-          $meta_key = substr( $meta_key, 0, strlen( $meta_key ) - 2 );
+    return $this->meta;
+  }
+
+  /**
+   * Map the post meta property (if defined) to post.
+   *
+   * @brief Map
+   *
+   * @param bool $create_property Optional. Default TRUE when in the target object the property doesn't exists then it
+   *                              is create dynamically. Set FALSE to map only the exists properties.
+   *
+   * @return WPDKPost
+   */
+  public function mapToPost( $create_property = true )
+  {
+    // Get all post meta for this post id
+    $meta = $this->post->post_meta;
+
+    /*
+     *    array(14) {
+     *      ["_edit_lock"]=> array(1) {
+     *        [0]=> string(12) "1408973442:1"
+     *      }
+     *      ["_edit_last"]=> array(1) {
+     *        [0]=> string(1) "1"
+     *      }
+     *      ["wpx_bannerize_banner_type"]=> array(1) {
+     *        [0]=> string(5) "local"
+     *      }
+     *      ["wpx_bannerize_banner_url"]=> array(1) {
+     *        [0]=> string(89) "http://sp-museo-maranello.s3.amazonaws.com/wp-content/uploads/2014/07/599xx-1140x4371.jpg"
+     *      }
+     *      ["wpx_bannerize_banner_external_url"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_link"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_target"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_width"]=> array(1) {
+     *        [0]=> string(4) "1140"
+     *      }
+     *      ["wpx_bannerize_banner_height"]=> array(1) {
+     *        [0]=> string(3) "437"
+     *      }
+     *      ["wpx_bannerize_banner_no_follow"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_impressions_enabled"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_clicks_enabled"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_date_from"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *      ["wpx_bannerize_banner_date_expiry"]=> array(1) {
+     *        [0]=> string(0) ""
+     *      }
+     *    }
+     */
+
+    if( empty( $meta ) ) {
+      return $this->post;
+    }
+
+    // Loop in the all meta
+    foreach( $meta as $meta_key => $array ) {
+
+      // Check if meta key exists
+      if( isset( $this->meta[ $meta_key ] ) ) {
+
+        // Get the relative property
+        $property = $this->meta[ $meta_key ]['property'];
+
+        // If property not set continue
+        if( empty( $property ) ) {
+          continue;
         }
-        update_post_meta( $id_post, $meta_key, $meta_value );
+
+        // Stability, check if the target object has the property
+        if( property_exists( $this->post, $property ) || $create_property ) {
+
+          // Get single value
+          $this->post->$property = $array[0];
+        }
       }
     }
+
+    return $this->post;
   }
 
   /**
-   * Return a single value with a specific meta key
+   * Update post meta by using WPDKPost object properties.
    *
-   * @param string $key A meta key
-   *
-   * @return mixed|null
+   * @brief Update
    */
-  public function value( $key )
+  public function update()
   {
-    if ( !empty( $key ) && !empty( $this->_post ) ) {
-      return get_post_meta( $this->_post->ID, $key, true );
-    }
-    return null;
-  }
+    // Get post id
+    $post_id = $this->post->ID;
 
-  // -------------------------------------------------------------------------------------------------------------------
-  // Utility
-  // -------------------------------------------------------------------------------------------------------------------
+    // Get meta
+    $meta = $this->meta();
+
+    if( empty( $meta ) ) {
+      return false;
+    }
+
+    // Loop into the registered meta
+    foreach( $meta as $meta_key => $array ) {
+
+      // Get relative property
+      $property = $array['property'];
+
+      if( empty( $array['property'] ) ) {
+        continue;
+      }
+
+      // Stability, check if the target object has the property
+      if( property_exists( $this->post, $property ) ) {
+
+        // Update
+        update_post_meta( $post_id, $meta_key, $this->post->$property );
+      }
+    }
+
+  }
 
   /**
-   * Return ana array of values with a specific meta key
+   * Update post meta by using an array.
    *
-   * @param string $key A meta key
+   * @brief Update
    *
-   * @return array|null
+   * @param int   $post_id The post ID.
+   * @param array $values  A key value pairs array with key as post meta key and value as post meta value.
    */
-  public function values( $key )
+  public static function updateWithArray( $post_id, $values )
   {
-    if ( !empty( $key ) && !empty( $this->_post ) ) {
-      return get_post_meta( $this->_post->ID, $key, false );
+
+    // Loop into the registered meta
+    foreach ( $values as $meta_key => $value ) {
+
+      // Update
+      update_post_meta( $post_id, $meta_key, $value );
     }
-    return null;
+
   }
+
+
 }

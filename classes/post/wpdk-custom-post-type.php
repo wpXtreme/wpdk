@@ -428,7 +428,9 @@ class WPDKCustomPostType extends WPDKObject {
       if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
 
         /**
-         * Fires when this custom post type is edit
+         * Fires when this custom post type is edit.
+         *
+         * The dynamic portion of the hook name, $d, refers to the custom post type id.
          */
         do_action( 'admin_head_post_edit-' . $this->id );
 
@@ -436,7 +438,9 @@ class WPDKCustomPostType extends WPDKObject {
       } else {
 
         /**
-         * Fires when this custom post type is listed
+         * Fires when this custom post type is listed.
+         *
+         * The dynamic portion of the hook name, $d, refers to the custom post type id.
          */
         do_action( 'admin_head_post_list-' . $this->id );
 
@@ -480,7 +484,9 @@ class WPDKCustomPostType extends WPDKObject {
     if ( $this->id == $post_type ) {
 
       /**
-       * Fires when this custom post type is new
+       * Fires when this custom post type is new.
+       *
+       * The dynamic portion of the hook name, $d, refers to the custom post type id.
        */
       do_action( 'admin_head_post_new-' . $this->id );
 

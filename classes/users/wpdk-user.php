@@ -5,9 +5,9 @@
  *
  * @class           WPDKUserMeta
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2013-02-26
- * @version         1.0.0
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-08-25
+ * @version         1.0.1
  *
  */
 class WPDKUserMeta {
@@ -1340,7 +1340,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN,
             'label'    => __( 'Last success login', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_success_login ) ? '' : date( __( 'm/d/Y H:i', WPDK_TEXTDOMAIN ), $last_time_success_login ),
+            'value'    => empty( $last_time_success_login ) ? '' : date( 'j M, Y H:i', $last_time_success_login ),
             'disabled' => $disabled
           ),
           array(
@@ -1356,7 +1356,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_WRONG_LOGIN,
             'label'    => __( 'Last wrong login', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_wrong_login ) ? '' : date( __( 'm/d/Y H:i', WPDK_TEXTDOMAIN ), $last_time_wrong_login ),
+            'value'    => empty( $last_time_wrong_login ) ? '' : date( 'j M, Y H:i', $last_time_wrong_login ),
             'disabled' => $disabled
           ),
           array(
@@ -1375,7 +1375,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_LOGOUT,
             'label'    => __( 'Last logout', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_logout ) ? '' : date( __( 'm/d/Y H:i', WPDK_TEXTDOMAIN ), $last_time_logout ),
+            'value'    => empty( $last_time_logout ) ? '' : date( 'j M, Y H:i', $last_time_logout ),
             'disabled' => $disabled
           ),
         ),
@@ -1581,6 +1581,9 @@ class WPDKUsers {
    */
   public static function userWithMetaAndValue( $meta_key, $meta_value )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     $sql    = <<< SQL
@@ -1667,6 +1670,11 @@ SQL;
     if ( $user ) {
       $alt = empty( $alt ) ? $user->display_name : $alt;
 
+      /**
+       * Filter the default gravatar string.
+       *
+       * @param string $default Gravater default id string.
+       */
       $default = apply_filters( 'wpdk_default_avatar', 'wavatar' );
 
       // Use SSL
@@ -2780,6 +2788,9 @@ class WPDKCapabilities {
    */
   public function userCapabilities()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     //$capabilities = get_transient( '_wpdk_users_caps' );
@@ -2892,6 +2903,9 @@ class WPDKCapabilities {
    */
   public function usersCapability()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     //$user_caps = get_transient( '_wpdk_users_caps' );
@@ -2973,6 +2987,9 @@ class WPDKCapabilities {
    */
   public function usersWithCaps( $caps )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     // Makes array

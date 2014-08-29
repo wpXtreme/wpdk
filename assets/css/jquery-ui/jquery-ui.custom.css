@@ -525,6 +525,7 @@
  *
  * http://docs.jquery.com/UI/Tabs#theming
  */
+.wpdk-jquery-ui .ui-tabs a:focus { -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none;}
 .wpdk-jquery-ui .ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 .wpdk-jquery-ui .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
 .wpdk-jquery-ui .ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
