@@ -2,6 +2,8 @@
 
 ---
 
+---
+
 ## Versioning
 
 For transparency and insight into our release cycle, and for striving to maintain backward compatibility, this code will be maintained under the Semantic Versioning guidelines as much as possible.
@@ -17,6 +19,16 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit http://semver.org/.
+
+---
+
+## Version 1.5.14
+### 2014-09-01
+
+#### Bugs
+
+* Fixed potential conflict with $.fn.swipe jQuery extension
+* Fixed potential conflict with 'event', 'change', 'changed' internal Javascript events
 
 ---
 
@@ -40,6 +52,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Minor fixes for WP multisite
 
+---
+
 ## Version 1.5.12
 ### 2014-08-23
 
@@ -52,6 +66,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed jQuery UI CSS conflict
 
+---
+
 ## Version 1.5.11
 ### 2014-08-20
 
@@ -63,6 +79,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential incompatibility with WordPress Multisite menu
 
+---
+
 ## Version 1.5.10
 ### 2014-07-31
 
@@ -73,6 +91,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Introducing the `WPDKUIModalDialogTour` class
 * Added Tour for new Placeholders
 * Minor fixes stability
+
+---
 
 ## Version 1.5.9
 ### 2014-07-28
@@ -89,6 +109,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed mail user id
 * Fixed post placeholders
 
+---
+
 ## Version 1.5.8
 ### 2014-07-22
 
@@ -101,12 +123,16 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential wrong alert id when empty
 
+---
+
 ## Version 1.5.7
 ### 2014-07-13
 
 #### Improvements
 
 * Docs
+
+---
 
 ## Version 1.5.6
 ### 2014-07-10
@@ -120,6 +146,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential overwrite sidebar in `WPDKScreenHelp`
 
+---
+
 ## Version 1.5.5
 ### 2014-04-30
 
@@ -127,6 +155,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added `canceled` status in user
 * Added `column_checkbox` method to display/hide the checkbox in list table view controller
+
+---
 
 ## Version 1.5.4
 ### 2014-04-28
@@ -149,6 +179,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed `WPDKRoles`
 * Fixed potential bugs on filter `post_updated_messages` (for missing params) in Custom Post Type
 
+---
+
 ## Version 1.5.3
 ### 2014-04-08
 
@@ -162,6 +194,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Cosmetic
 
 
+---
+
 ## Version 1.5.2
 ### 2014-03-28
 
@@ -174,6 +208,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed potential bugs with WP Super Cache when preferences saved
 * Fixed potential wrong data-api on ui components
 * Fixed potential wrong trigger on swipe control
+
+---
 
 ## Version 1.5.1
 ### 2014-03-18
@@ -200,6 +236,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Try to avoid 'PHP Strict Standards: Declaration of ... should be con...' Thanks to [Mte90](https://github.com/Mte90)
 
 
+---
+
 ## Version 1.5.0
 ### 2014-02-26
 
@@ -212,6 +250,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Improved `WPDKGlyphIcons` Javascript loading
 * Updated Glyphs
 
+
+---
 
 ## Version 1.4.23
 ### 2014-02-19
@@ -226,6 +266,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed potential override WPDK alias WPDKUIPopover
 
 
+---
+
 ## Version 1.4.22
 ### 2014-02-18
 
@@ -238,6 +280,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed dynamic table view controller components
 * Fixed gravatar ssl url
 
+
+---
 
 ## Version 1.4.21
 ### 2014-02-17
@@ -260,6 +304,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixes and stabilty
 
 
+---
+
 ## Version 1.4.20
 ### 2014-02-06
 
@@ -274,6 +320,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Stability refactor
 * Improved `WPDKScreenHelp`
 
+---
+
 ## Version 1.4.16
 ### 2014-02-03
 
@@ -281,6 +329,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential css conflict
 * Fixed potential title output in `WPDKTwitterBootstrapAlert` when title property is empty
+
+---
 
 ## Version 1.4.15
 ### 2014-01-31
@@ -293,6 +343,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added `WPDKScripts` class
 
+---
+
 ## Version 1.4.14
 ### 2014-01-29
 
@@ -300,6 +352,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential HTML strip in textarea
 
+
+---
 
 ## Version 1.4.13
 ### 2014-01-29
@@ -313,6 +367,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed missing style attribute in input type tag and control
 * Minor stability fixes in css
 
+---
+
 ## Version 1.4.12
 ### 2014-01-24
 
@@ -322,6 +378,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Minor stable improvements on WordPress dbDelta() procedure
 
 
+---
+
 ## Version 1.4.11
 ### 2014-01-23
 
@@ -330,6 +388,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed wrong include `WPDKHTMLTagImg`
 * Fixed `WPDKDynamicTableView` output
 
+
+---
 
 ## Version 1.4.10
 ### 2014-01-23
@@ -345,6 +405,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Added column styles
 
 
+---
+
 ## Version 1.4.9
 ### 2014-01-17
 
@@ -358,6 +420,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Introducing a new behaviour in `WPDKTwitterBootstrapAlert` for subclassing
 * Revision some filesystem file
 
+
+---
 
 ## Version 1.4.8
 ### 2014-01-09
@@ -386,6 +450,8 @@ For more information on SemVer, please visit http://semver.org/.
 * `wpdk_get_user_transient()` use WPDKUser::getTransientWithUser()` instead
 
 
+---
+
 ## Version 1.4.7
 ### 2013-12-17
 
@@ -406,6 +472,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Extends WPDKTheme with new WPDKThemeSetup
 * Minor filesystem optimizations
 
+---
+
 ## Version 1.4.6
 ### 2013-12-02
 
@@ -418,6 +486,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Added remote address ip in user information
 
+
+---
 
 ## Version 1.4.5
 ### 2013-11-28
@@ -436,6 +506,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKHTML::endJavascriptCompress()`
 
 
+---
+
 ## Version 1.4.4
 ### 2013-11-22
 
@@ -443,6 +515,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed potential conflict in Javascript
 
+
+---
 
 ## Version 1.4.3
 ### 2013-11-21
@@ -457,6 +531,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed potential unload sequence in Javascript
 
 
+---
+
 ## Version 1.4.2
 ### 2013-11-19
 
@@ -469,6 +545,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed potential fatal error on removed `_WPDKPost` class
 * Several fixes for docs
 
+
+---
 
 ## Version 1.4.1
 ### 2013-11-18
@@ -486,6 +564,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Removed unused and deprecated files
 * Removed undocument docs
 
+
+---
 
 ## Version 1.4.0
 ### 2013-11-14
@@ -505,6 +585,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `WPDKUIControlCheckboxes`
 * Added `WPDKAjaxResponse` php/javascript
 
+---
+
 ## Version 1.3.2
 ### 2013-11-07
 
@@ -516,6 +598,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed Warning: trim() on /wpdk-ui.php on line 342
 * Minor docs fixes
 
+
+---
 
 ## Version 1.3.1
 ### 2013-11-04
@@ -533,6 +617,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Improved `wpdk_is_user_logged_in` shortcode with roles, caps, emails and ids attributes
 * Minor stable enhancements
 
+
+---
 
 ## Version 1.3.0
 ### 2013-10-05
@@ -557,6 +643,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Removed some javascript conflict
 * Minor stable fixes
 
+
+---
 
 ## Version 1.2.0
 ### 2013-09-12
@@ -595,6 +683,8 @@ For more information on SemVer, please visit http://semver.org/.
 * `WPDKConfigurationView` use new `WPDKPreferencesViewController` and `WPDKPreferencesView`
 
 
+---
+
 ## Version 1.1.2
 ### 2013-07-09
 
@@ -614,6 +704,8 @@ For more information on SemVer, please visit http://semver.org/.
 * Fixed notice/warning on shortcode `wpdk_gist` when missing attribute `file`
 
 
+---
+
 ## Version 1.1.1
 ### 2013-06-18
 
@@ -626,6 +718,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed and improve menu uri
 
+
+---
 
 ## Version 1.1.0
 ### 2013-06-11
@@ -650,11 +744,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 
 
+---
+
 ## Version 1.0.1
 ### 2013-05-23
 
 * Minor fixes and improvements
 
+
+---
 
 ## Version 1.0.0
 ### 2013-04-23

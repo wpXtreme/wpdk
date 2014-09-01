@@ -619,7 +619,18 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       REFRESH_SWIPE               : 'refresh.wpdk.swipe',
       REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
       REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
-      REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
+      REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs',
+
+      // Swipe
+      SWIPE                       : 'swipe.wpdk',
+      SWIPE_CHANGE                : 'change.wpdk.swipe',
+      SWIPE_CHANGED               : 'changed.wpdk.swipe',
+
+      // INPUT CLEAR
+      CLEAR_INPUT                 : 'clear.wpdk.input',
+
+      // Popover
+      SHOW_POPOVER                : 'show.wpdk.wpdkPopover'
     };
 
   }
