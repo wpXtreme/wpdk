@@ -7,13 +7,13 @@
  *
  * @returns {string} Return the current state
  */
-if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
+if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
 
   +function ( $ )
   {
     'use strict';
 
-    $.fn.swipe = function ()
+    $.fn.wpdkSwipe = function ()
     {
 
       var v = ( arguments.length > 0 ) ? arguments[0] : null;
@@ -34,7 +34,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
           var knob = $control.children( 'span' ).eq( 0 );
           var input = $control.children( 'input[type=hidden]' ).eq( 0 );
 
-          if ( false === $control.triggerHandler( 'change', [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
+          if ( false === $control.triggerHandler( WPDKUIComponentEvents.SWIPE_CHANGE, [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
             return input.val();
           }
 
@@ -46,7 +46,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
             {
               $control.addClass( 'wpdk-form-swipe-on' );
             } );
-            $control.trigger( 'changed', [ $control, 'on'] );
+            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'on'] );
           }
 
           // Off
@@ -57,7 +57,7 @@ if ( typeof( jQuery.fn.swipe ) === 'undefined' ) {
             {
               $control.removeClass( 'wpdk-form-swipe-on' );
             } );
-            $control.trigger( 'changed', [ $control, 'off'] );
+            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'off'] );
           }
         } );
       }
@@ -109,9 +109,11 @@ if ( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
  *
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-20
- * @version         1.1.1
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-09-01
+ * @version         1.1.2
+ * 
+ * @history         1.1.2 - Renamed internal _WPDKControls in in _WPDKControls
  *
  */
 
@@ -127,8 +129,8 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
     {
 
       // This object
-      var $t = {
-        version : '1.1.0',
+      var _WPDKControls = {
+        version : '1.1.2',
         init    : _init,
 
         preferencesForm : _preferencesForm
@@ -150,7 +152,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         _initAccordion();
         _initGuide();
 
-        return $t;
+        return _WPDKControls;
       }
 
       /**
@@ -167,7 +169,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         // Init with clear
         $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
         {
-          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( 'clear.wpdk.input');
+          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
         } );
 
         // Init with disable after click
@@ -198,7 +200,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
        * Initialize the WPDK custom Swipe Control.
        * When a Swipe Control is clicked (or swipe) an event `swipe` is trigged:
        *
-       *     $('.wpdk-form-swipe').on('swipe', function(a, swipeButton, status ) {});
+       *     $('.wpdk-form-swipe').on( WPDKUIComponentEvents.SWIPE, function(a, swipeButton, status ) {});
        *
        * @private
        */
@@ -211,10 +213,10 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function ()
         {
           var control = $( this ).parent();
-          var status = wpdk_is_bool( control.swipe() );
+          var status = wpdk_is_bool( control.wpdkSwipe() );
           var enabled = status ? 'off' : 'on';
-          control.trigger( 'swipe', [ control, enabled] );
-          control.swipe( enabled );
+          control.trigger( WPDKUIComponentEvents.SWIPE, [ control, enabled ] );
+          control.wpdkSwipe( enabled );
         } );
 
         // Refreshing
