@@ -2,8 +2,6 @@
 
 ---
 
----
-
 ## Versioning
 
 For transparency and insight into our release cycle, and for striving to maintain backward compatibility, this code will be maintained under the Semantic Versioning guidelines as much as possible.
