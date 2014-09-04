@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.15
+### 2014-09-??
+
+#### Bugs
+
+* Fixed potential warning in `WPDKListTableViewController` while build the url
+
 ## Version 1.5.14
 ### 2014-09-02
 
