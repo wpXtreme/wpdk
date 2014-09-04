@@ -840,7 +840,7 @@ class WPDKListTableViewController extends WP_List_Table {
     }
 
     // Prepare the url for description. See $action param.
-    $url_description = '<strong>%s</strong>';
+    $url_description = sprintf( '<strong>%s</strong>', $item[ $column_name ] );
 
     $stack = array();
     foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
@@ -895,14 +895,14 @@ class WPDKListTableViewController extends WP_List_Table {
         $href = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
 
         if( ! empty( $action ) && $action_url == $action ) {
-          $url_description = sprintf( '<a href="%s"><strong>%s</strong></a>', $href, '%s' );
+          $url_description = sprintf( '<a href="%s"><strong>%s</strong></a>', $href, $item[ $column_name ] );
         }
 
         $stack[ $action ] = sprintf( '<a href="%s">%s</a>', $href, $label );
       }
     }
 
-    $description = empty( $custom_content ) ? sprintf( $url_description, $item[ $column_name ] ) : $custom_content;
+    $description = empty( $custom_content ) ? $url_description : $custom_content;
 
     return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }
