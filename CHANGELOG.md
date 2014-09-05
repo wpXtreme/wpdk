@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.5.15
-### 2014-09-??
+### 2014-09-05
 
 #### Bugs
 
