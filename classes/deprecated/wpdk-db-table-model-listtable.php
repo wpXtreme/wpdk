@@ -170,6 +170,11 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    */
   public function current_action( $nonce = '' )
   {
+    // Ajax
+    if ( wpdk_is_ajax() ) {
+      return false;
+    }
+
     // Action
     $action = false;
 
@@ -181,8 +186,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     }
 
     // Nonce
-    if ( !empty( $nonce ) && !empty( $action ) ) {
-      if ( isset(  $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
+    if ( !empty( $nonce ) && !empty( $action ) && isset( $_REQUEST['_wpnonce'] ) ) {
+      if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-' . $nonce ) ) {
         return $action;
       }
     }
