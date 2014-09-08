@@ -18,19 +18,24 @@
 {
   padding               : 15px;
   margin                : 0 0 20px 0 !important;
-  border-width          : 1px 1px 1px 4px;
-  border-style          : solid;
-  border-top-color      : #e5e5e5 !important;
-  border-right-color    : #e5e5e5 !important;
-  border-bottom-color   : #e5e5e5 !important;
+  border                : 1px solid #e5e5e5;
+  border-left           : none;
   position              : relative;
   background-color      : #fff;
   -moz-border-radius    : 0 2px 2px 0;
   -webkit-border-radius : 0 2px 2px 0;
   border-radius         : 0 2px 2px 0;
-  /*-moz-box-shadow       : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
-  /*-webkit-box-shadow    : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
-  /*box-shadow            : 0 1px 1px 1px rgba(0, 0, 0, 0.1), inset 0 8px 24px rgba(0, 0, 100, 0.04);*/
+}
+
+.wpdk-alert:before
+{
+  content          : "";
+  display          : block !important;
+  height           : 100%;
+  width            : 4px;
+  position         : absolute;
+  top              : 0;
+  left             : 0;
 }
 
 .wpdk-alert h4
@@ -72,10 +77,16 @@
   color    : inherit;
 }
 
+/* SUCCESS */
 .wpdk-alert.alert-success
 {
-  color        : #264610;
-  border-color : #7ad03a;
+  color : #264610;
+  /*border-color : #7ad03a;*/
+}
+
+.wpdk-alert.alert-success:before
+{
+  background-color : #7ad03a;
 }
 
 .wpdk-alert.alert-success hr
@@ -88,10 +99,16 @@
   color : #264610;
 }
 
+/* INFO */
 .wpdk-alert.alert-info
 {
   color        : #12384c;
-  border-color : #2ea2cc;
+  /*border-color : #2ea2cc;*/
+}
+
+.wpdk-alert.alert-info:before
+{
+  background-color : #2ea2cc;
 }
 
 .wpdk-alert.alert-info hr
@@ -104,10 +121,16 @@
   color : #12384c;
 }
 
+/* WARNING */
 .wpdk-alert.alert-warning
 {
   color        : #311e00;
-  border-color : #f90;
+  /*border-color : #f90;*/
+}
+
+.wpdk-alert.alert-warning:before
+{
+  background-color : #f90;
 }
 
 .wpdk-alert.alert-warning hr
@@ -120,10 +143,16 @@
   color : #311e00;
 }
 
+/* DANGER */
 .wpdk-alert.alert-danger
 {
   color        : #35150a;
-  border-color : #d54e21;
+  /*border-color : #d54e21;*/
+}
+
+.wpdk-alert.alert-danger:before
+{
+  background-color : #d54e21;
 }
 
 .wpdk-alert.alert-danger hr
@@ -136,12 +165,17 @@
   color : #35150a;
 }
 
-/* Extra */
+/* WHITE */
 
 .wpdk-alert.alert-white
 {
   color        : #666;
-  border-color : #bbb;
+  /*border-color : #bbb;*/
+}
+
+.wpdk-alert.alert-white:before
+{
+  background-color : #bbb;
 }
 
 /*
