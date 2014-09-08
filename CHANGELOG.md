@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.16
+### 2014-09-??
+
+#### Improvements
+
+* Added W3 total cache plugin flush
+
 ## Version 1.5.15
 ### 2014-09-05
 

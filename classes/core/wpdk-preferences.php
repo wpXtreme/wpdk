@@ -204,10 +204,16 @@ class WPDKPreferences {
           // Update a specified branch
           elseif ( isset( $_POST['update-preferences'] ) ) {
 
-            // since 1.5.2 - WP SuperCache patch
+            // Since 1.5.2 - WP SuperCache patch
             if ( function_exists( 'wp_cache_clear_cache' ) ) {
               wp_cache_clear_cache();
             }
+
+            // Since 1.5.16 - W3 Total Cache Plugin
+            if ( function_exists( 'w3tc_pgcache_flush' ) ) {
+              w3tc_pgcache_flush();
+            }
+
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
 
             /**
