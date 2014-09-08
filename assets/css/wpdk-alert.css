@@ -16,7 +16,7 @@
 
 .wpdk-alert
 {
-  padding               : 15px;
+  padding               : 16px 16px 16px 24px;
   margin                : 0 0 20px 0 !important;
   border                : 1px solid #e5e5e5;
   border-left           : none;
