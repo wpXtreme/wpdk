@@ -1330,6 +1330,19 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
+   * Return a key value pairs array with statuses icons glyph
+   *
+   * @brief Icons
+   *
+   * @return array
+   */
+  public function get_icon_statuses()
+  {
+    // Default return the common statuses
+    return WPDKDBTableRowStatuses::icon_statuses();
+  }
+
+  /**
    * Return the count of specific status
    *
    * @brief Count status
