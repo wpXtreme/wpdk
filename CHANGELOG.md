@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Refresh `WPDKDBListTableModel` class
 * Improved CSS style for alert and form rows
 * Added W3 total cache plugin flush
 
