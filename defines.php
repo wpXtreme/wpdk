@@ -63,3 +63,6 @@ define( 'WPDK_TEXTDOMAIN_PATH', 'wpxtreme/' . trailingslashit( basename( dirname
 define( 'WPDK_CR', "\r" );
 define( 'WPDK_LF', "\n" );
 define( 'WPDK_CRLF', WPDK_CR . WPDK_LF );
+
+// @since 1.5.6 - Disable LOG
+define( 'WPDK_WATCHDOG_LOG', true );

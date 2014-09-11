@@ -27,11 +27,12 @@
  * @class              WPDKWatchDog
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-06-06
- * @version            1.0.2
+ * @date               2014-09-11
+ * @version            1.0.3
+ *
+ * @history            1.0.3 - Added enable/disable log via WPDK_WATCHDOG_LOG define
  *
  */
-
 class WPDKWatchDog {
 
   /**
@@ -48,7 +49,7 @@ class WPDKWatchDog {
    *
    * @var bool $enabled
    */
-  public $enabled;
+  public $enabled = true;
 
   /**
    * Get/Set Enabled trigger error. Default FALSE
@@ -57,7 +58,7 @@ class WPDKWatchDog {
    *
    * @var bool $triggerError
    */
-  public $triggerError;
+  public $triggerError = false;
 
   /**
    * Get/Set the line separator gap in log events
@@ -66,7 +67,7 @@ class WPDKWatchDog {
    *
    * @var string $separator
    */
-  public $separator;
+  public $separator = self::LOG_SEPARATOR;
 
   /**
    * Get the complete path of log
@@ -75,7 +76,7 @@ class WPDKWatchDog {
    *
    * @var string $path
    */
-  public $path;
+  public $path = '';
 
   /**
    * Get the generate log filename: YYYY-MM-DD.php
@@ -84,7 +85,7 @@ class WPDKWatchDog {
    *
    * @var string $logname
    */
-  public $logname;
+  public $logname = '';
 
   /**
    * Get TRUE if log is available. Could be FALSE if file is not writeable
@@ -93,7 +94,7 @@ class WPDKWatchDog {
    *
    * @var bool $available
    */
-  public $available;
+  public $available = false;
 
   /**
    * Return the Log filename extension. Default 'php'
@@ -102,16 +103,16 @@ class WPDKWatchDog {
    *
    * @var string $extensionFilename
    */
-  public $extensionFilename;
+  public $extensionFilename = 'php';
 
   /**
-   * Return prefix to add date filename. Eg wpxss-20120912.php. Default empty
+   * Return prefix to add date filename. Eg wpxss-20120912.php. Default empty.
    *
    * @brief Log filename prefix
    *
    * @var string $prefix
    */
-  public $prefix;
+  public $prefix = '';
 
   /**
    * Create an instance of WPDKWatchDog class
@@ -127,6 +128,16 @@ class WPDKWatchDog {
    */
   public function __construct( $path, $folder = 'logs', $extension = 'php' )
   {
+    // Enable/disable
+    if ( ! defined( 'WPDK_WATCHDOG_LOG' ) || true !== WPDK_WATCHDOG_LOG ) {
+
+      // Set properties
+      $this->enabled = $this->available = false;
+
+      return;
+    }
+
+    // Populate propertyes
     $this->path              = trailingslashit( trailingslashit( $path ) . $folder );
     $this->enabled           = true;
     $this->triggerError      = false;
@@ -134,7 +145,7 @@ class WPDKWatchDog {
     $this->extensionFilename = $extension;
 
     // Under the plugin path ($path) create a log/ folder
-    if ( !file_exists( $this->path ) ) {
+    if ( ! file_exists( $this->path ) ) {
       @wp_mkdir_p( $this->path );
     }
 
@@ -159,11 +170,11 @@ class WPDKWatchDog {
    *
    * @brief Do log
    *
-   * @param mixed  $txt    Content to log. Usually this is a string or number. However you can set this param direcly to
+   * @param mixed $txt     Content to log. Usually this is a string or number. However you can set this param direcly to
    *                       object or array. In this case the log method recognize the not string param and do
    *                       a `var_dump`.
    *
-   * @param mixed $args  Optional. ...
+   * @param mixed $args    Optional. ...
    *
    * @return bool
    */
@@ -205,7 +216,7 @@ class WPDKWatchDog {
       }
 
       // If not a pre-formatted string, grab the var dump object, array or mixed for output
-      if ( !is_string( $txt ) && !is_numeric( $txt ) ) {
+      if ( ! is_string( $txt ) && ! is_numeric( $txt ) ) {
         ob_start();
         var_dump( $txt );
         $txt = ob_get_contents();
@@ -238,6 +249,7 @@ class WPDKWatchDog {
         trigger_error( $output );
       }
     }
+
     return $this->available;
   }
 }
