@@ -4,8 +4,8 @@
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-07-29
- * @version            1.0.3
+ * @date               2014-09-11
+ * @version            1.0.4
  *
  */
 
