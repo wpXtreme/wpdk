@@ -821,6 +821,8 @@ SELECT COUNT(*) AS count
   {$where}
 SQL;
 
+      //WPXtreme::log( $sql );
+
       return absint( $wpdb->get_var( $sql ) );
     }
     else {
@@ -834,10 +836,20 @@ SELECT DISTINCT( {$distinct} ),
   GROUP BY {$distinct}
 SQL;
 
+      //WPXtreme::log( $sql );
+
       $results = $wpdb->get_results( $sql, ARRAY_A );
+
+      // Prepare result array
       $result  = array();
+
+      // Prepare all
+      $result[ WPDKDBTableRowStatuses::ALL ] = 0;
+
+      // Loop into results
       foreach ( $results as $res ) {
         $result[ $res[ $distinct ] ] = $res['count'];
+        $result[ WPDKDBTableRowStatuses::ALL ] += $res['count'];
       }
 
       return $result;
@@ -849,7 +861,7 @@ SQL;
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Set one or more record wit a status
+   * Set one or more record with a status.
    *
    * @brief Set a status
    *
