@@ -596,7 +596,7 @@ class WPDKListTableViewController extends WP_List_Table {
       }
       else {
         // @since 1.5.16
-        $count = $counts[ $key ];
+        $count = isset( $counts[ $key ] ) ? $counts[ $key ] : 0;
       }
 
       if ( ! empty( $count ) ) {
