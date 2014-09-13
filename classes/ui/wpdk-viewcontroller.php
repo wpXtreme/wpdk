@@ -259,9 +259,30 @@ class WPDKHeaderView extends WPDKView {
       /**
        * Fires into the the title TAG.
        *
+       * @since 1.5.16
+       *
        * @param WPDKHeaderView $header_view An instance of WPDKHeaderView class.
        */
       do_action( 'wpdk_header_view_inner_title', $this );
+
+      /**
+       * Fires into the the title TAG.
+       *
+       * The dynamic portion of the hook name, $id, refers to the header view id.
+       *
+       * @since 1.5.16
+       *
+       * @param WPDKHeaderView $header_view An instance of WPDKHeaderView class.
+       */
+      do_action( 'wpdk_header_view_inner_title-' . $this->id, $this );
+
+      /**
+       * Fires into the the title TAG.
+       *
+       * @deprecated since 1.5.16
+       * @param WPDKHeaderView $header_view An instance of WPDKHeaderView class.
+       */
+      do_action( 'wpdk_header_view_' . $this->id . '_title_did_appear', $this );
 
       // @deprecated
       //do_action( 'wpdk_header_view_title_did_appear', $this );
@@ -274,6 +295,20 @@ class WPDKHeaderView extends WPDKView {
      * @param WPDKHeaderView $header_view An instance of WPDKHeaderView class.
      */
     do_action( 'wpdk_header_view_after_title', $this );
+
+    /**
+     * Fires after the the title.
+     *
+     * The dynamic portion of the hook name, $id, refers to the header view id.
+     *
+     * @since 1.5.16
+     *
+     * @param WPDKHeaderView $header_view An instance of WPDKHeaderView class.
+     */
+    do_action( 'wpdk_header_view_after_title-' . $this->id, $this );
+
+    // @deprecated
+    do_action( 'wpdk_header_view_' . $this->id . '_after_title', $this );
 
     // @deprecated
     //do_action( 'wpdk_header_view_after_title', $this );

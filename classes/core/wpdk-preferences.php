@@ -524,7 +524,8 @@ class WPDKPreferencesImportExport {
       //add_filter( 'wpdk_preferences_import_export_feedback', array( $this, 'wpdk_preferences_import_export_feedback' ) );
 
       // Fires after the the title.
-      add_action( 'wpdk_header_view_after_title', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
+      add_action( 'wpdk_header_view_after_title-' . $preferences->name . '-header-view', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
+      //add_action( 'wpdk_header_view_' . $preferences->name . '-header-view_after_title', array( $this, 'wpdk_preferences_import_export_feedback' ), 99 );
 
       if ( $_FILES['file']['error'] > 0 ) {
         $this->error = self::ERROR_READ_FILE;
