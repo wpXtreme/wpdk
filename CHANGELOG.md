@@ -29,6 +29,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Improved CSS style for alert and form rows
 * Added W3 total cache plugin flush
 
+#### Bugs
+
+* Fixed 'Add New' url in `WPDKListTableViewController`
+
 ## Version 1.5.15
 ### 2014-09-05
 
