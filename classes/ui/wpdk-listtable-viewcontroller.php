@@ -1152,8 +1152,11 @@ class WPDKListTableViewController extends WP_List_Table {
   public function urlAddNew()
   {
     $add = array(
-      'action' => 'new',
-      'page'   => $_REQUEST['page']
+      'action'   => 'new',
+      'page'     => $_REQUEST['page'],
+      '_action'  => false,
+      '_action2' => false,
+
     );
     $url = add_query_arg( $add, $this->urlRemoveNonce() );
 
