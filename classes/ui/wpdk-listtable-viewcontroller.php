@@ -1228,7 +1228,7 @@ interface IWPDKListTableModel {
   public function get_status( $status );
 
   /**
-   * Return a key value pairs array with status key 0> count.
+   * Return a key value pairs array with status key => count.
    *
    * @brief Counts
    * @since 1.5.16
@@ -1409,7 +1409,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
-   * Return a key value pairs array with status key 0> count.
+   * Return a key value pairs array with status key => count.
    *
    * @brief Counts
    * @since 1.5.16
