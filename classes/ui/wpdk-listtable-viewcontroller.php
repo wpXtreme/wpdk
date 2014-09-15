@@ -742,6 +742,7 @@ class WPDKListTableViewController extends WP_List_Table {
   public function data()
   {
     if ( ! empty( $this->model ) && method_exists( $this->model, 'select' ) ) {
+      // TODO Replave $_REQUEST with $_GET ?
       return $this->model->select( $_REQUEST );
     }
 
@@ -1090,10 +1091,10 @@ class WPDKListTableViewController extends WP_List_Table {
     if ( isset( $_REQUEST['_action'] ) ) {
       $action = $_REQUEST['_action'];
     }
-    elseif ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
+    elseif ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
       $action = $_REQUEST['action'];
     }
-    elseif ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
+    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
       $action = $_REQUEST['action2'];
     }
 
@@ -1470,10 +1471,10 @@ class WPDKListTableModel implements IWPDKListTableModel {
     // Action
     $action = false;
 
-    if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
+    if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
       $action = $_REQUEST['action'];
     }
-    elseif ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
+    elseif ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
       $action = $_REQUEST['action2'];
     }
 
