@@ -320,7 +320,12 @@ SQL;
       return false;
     }
 
-    $ids = implode( ',', (array) $id );
+    $ids = trim( implode( ',', (array) $id ) );
+
+    // Stability
+    if ( empty( $ids ) ) {
+      return false;
+    }
 
     /**
      * Fires before delete records from table.
