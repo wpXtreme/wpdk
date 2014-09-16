@@ -1242,9 +1242,9 @@ interface IWPDKListTableModel {
   public function get_count_statuses();
 
   /**
-   * Return tha array with the action for the current status
+   * Return tha array with the row actions for the current status.
    *
-   * @brief Action with status
+   * @brief Row actions with status
    *
    * @param array $item   The item
    * @param array $status Describe one or more status of single item
@@ -1426,9 +1426,9 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
-   * Return tha array with the action for the current status
+   * Return tha array with the row actions for the current status.
    *
-   * @brief Action with status
+   * @brief Row action with status
    *
    * @param array $item   The item
    * @param array $status Describe one or more status of single item
