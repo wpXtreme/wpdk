@@ -25,6 +25,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Added site option `wpdk_watchdog_log` to enable/disable watchdog log
+* Added `WPDK_WATCHDOG_LOG` constant to enable/disable watchdog log
 * Added `WPDKUsers::deleteUsersMetaWithKey()`
 * Refresh `WPDKDBListTableModel` class
 * Improved CSS style for alert and form rows

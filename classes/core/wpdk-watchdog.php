@@ -128,8 +128,12 @@ class WPDKWatchDog {
    */
   public function __construct( $path, $folder = 'logs', $extension = 'php' )
   {
+    // Get WPDK_WATCHDOG_LOG via option
+    // NOTE: you can use this option to enable/disable watchdog by UI
+    $wpdk_watchdog_log = get_site_option( 'wpdk_watchdog_log', false );
+
     // Enable/disable
-    if ( ! defined( 'WPDK_WATCHDOG_LOG' ) || true !== WPDK_WATCHDOG_LOG ) {
+    if ( ( ! defined( 'WPDK_WATCHDOG_LOG' ) || true !== WPDK_WATCHDOG_LOG ) || empty( $wpdk_watchdog_log ) ) {
 
       // Set properties
       $this->enabled = $this->available = false;
