@@ -1220,18 +1220,6 @@ interface IWPDKListTableModel {
   public function get_statuses();
 
   /**
-   * Return the count of specific status
-   *
-   * @brief      Count status
-   * @deprecated since 1.5.16 - Use `get_count_statuses()` instead
-   *
-   * @param string $status
-   *
-   * @return int
-   */
-  public function get_status( $status );
-
-  /**
    * Return a key value pairs array with status key => count.
    *
    * @brief Counts
@@ -1395,21 +1383,6 @@ class WPDKListTableModel implements IWPDKListTableModel {
   {
     // Default return the common statuses
     return WPDKDBTableRowStatuses::icon_statuses();
-  }
-
-  /**
-   * Return the count of specific status
-   *
-   * @brief      Count status
-   * @deprecated since 1.5.16 - Use `get_count_statuses()` instead
-   *
-   * @param string $status
-   *
-   * @return int
-   */
-  public function get_status( $status )
-  {
-    return 0;
   }
 
   /**
