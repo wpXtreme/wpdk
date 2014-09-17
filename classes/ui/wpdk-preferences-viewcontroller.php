@@ -38,8 +38,9 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
     $view = new WPDKjQueryTabsView( $preferences->name, $tabs );
     parent::__construct( $preferences->name, $title, $view );
 
-    // Provide a reset all button
-    add_action( 'wpdk_header_view_' . $this->id . '-header-view_after_title', array( $this, 'display_toolbar' ) );
+    // Fires after the the title.
+    //add_action( 'wpdk_header_view_' . $this->id . '-header-view_after_title', array( $this, 'display_toolbar' ) );
+    add_action( 'wpdk_header_view_after_title-' . $this->id . '-header-view', array( $this, 'display_toolbar' ) );
   }
 
   /**

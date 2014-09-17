@@ -4,8 +4,8 @@
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-07-29
- * @version            1.0.3
+ * @date               2014-09-11
+ * @version            1.0.4
  *
  */
 
@@ -63,3 +63,6 @@ define( 'WPDK_TEXTDOMAIN_PATH', 'wpxtreme/' . trailingslashit( basename( dirname
 define( 'WPDK_CR', "\r" );
 define( 'WPDK_LF', "\n" );
 define( 'WPDK_CRLF', WPDK_CR . WPDK_LF );
+
+// @since 1.5.6 - Disable LOG
+define( 'WPDK_WATCHDOG_LOG', true );

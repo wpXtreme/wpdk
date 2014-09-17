@@ -421,9 +421,17 @@ SELECT DISTINCT( {$distinct} ),
 SQL;
 
       $results = $wpdb->get_results( $sql, ARRAY_A );
-      $result  = array();
+
+      // Prepare result array
+      $result = array();
+
+      // Prepare all
+      $result[ WPDKDBTableRowStatuses::ALL ] = 0;
+
+      // Loop into results
       foreach ( $results as $res ) {
         $result[ $res[ $distinct ] ] = $res['count'];
+        $result[ WPDKDBTableRowStatuses::ALL ] += $res['count'];
       }
 
       return $result;

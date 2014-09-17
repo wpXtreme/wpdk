@@ -54,7 +54,7 @@ class WPDKDateTime extends WPDKObject {
   {
     $result = $date;
     if ( !empty( $date ) ) {
-      $timestamp = strtotime( $date );
+      $timestamp = is_numeric( $date ) ? $date : strtotime( $date );
       $result    = date( $to, $timestamp );
     }
 

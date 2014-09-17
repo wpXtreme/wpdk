@@ -89,40 +89,40 @@ class WPDKUserMeta {
   {
 
     // LAST_TIME_SUCCESS_LOGIN
-    $value = isset( $post_data[self::LAST_TIME_SUCCESS_LOGIN] ) ? $post_data[self::LAST_TIME_SUCCESS_LOGIN] : '';
-    if ( !empty( $value ) ) {
+    $value = isset( $post_data[ self::LAST_TIME_SUCCESS_LOGIN ] ) ? $post_data[ self::LAST_TIME_SUCCESS_LOGIN ] : '';
+    if ( ! empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_SUCCESS_LOGIN, $value );
     }
 
     // COUNT_SUCCESS_LOGIN
-    $value = isset( $post_data[self::COUNT_SUCCESS_LOGIN] ) ? $post_data[self::COUNT_SUCCESS_LOGIN] : '';
+    $value = isset( $post_data[ self::COUNT_SUCCESS_LOGIN ] ) ? $post_data[ self::COUNT_SUCCESS_LOGIN ] : '';
     update_user_meta( $user_id, self::COUNT_SUCCESS_LOGIN, $value );
 
     // LAST_TIME_WRONG_LOGIN
-    $value = isset( $post_data[self::LAST_TIME_WRONG_LOGIN] ) ? $post_data[self::LAST_TIME_WRONG_LOGIN] : '';
-    if ( !empty( $value ) ) {
+    $value = isset( $post_data[ self::LAST_TIME_WRONG_LOGIN ] ) ? $post_data[ self::LAST_TIME_WRONG_LOGIN ] : '';
+    if ( ! empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_WRONG_LOGIN, $value );
     }
 
     // COUNT_WRONG_LOGIN
-    $value = isset( $post_data[self::COUNT_WRONG_LOGIN] ) ? $post_data[self::COUNT_WRONG_LOGIN] : '';
+    $value = isset( $post_data[ self::COUNT_WRONG_LOGIN ] ) ? $post_data[ self::COUNT_WRONG_LOGIN ] : '';
     update_user_meta( $user_id, self::COUNT_WRONG_LOGIN, $value );
 
     // LAST_TIME_LOGOUT
-    $value = isset( $post_data[self::LAST_TIME_LOGOUT] ) ? $post_data[self::LAST_TIME_LOGOUT] : '';
-    if ( !empty( $value ) ) {
+    $value = isset( $post_data[ self::LAST_TIME_LOGOUT ] ) ? $post_data[ self::LAST_TIME_LOGOUT ] : '';
+    if ( ! empty( $value ) ) {
       $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_LOGOUT, $value );
     }
 
     // STATUS
-    $value = isset( $post_data[self::STATUS] ) ? $post_data[self::STATUS] : '';
+    $value = isset( $post_data[ self::STATUS ] ) ? $post_data[ self::STATUS ] : '';
     update_user_meta( $user_id, self::STATUS, $value );
 
     // STATUS_DESCRIPTION
-    $value = isset( $post_data[self::STATUS_DESCRIPTION] ) ? $post_data[self::STATUS_DESCRIPTION] : '';
+    $value = isset( $post_data[ self::STATUS_DESCRIPTION ] ) ? $post_data[ self::STATUS_DESCRIPTION ] : '';
     update_user_meta( $user_id, self::STATUS_DESCRIPTION, $value );
 
   }
@@ -276,9 +276,10 @@ class WPDKUser extends WP_User {
   public static function current_user()
   {
     // Check for user logged in
-    if( !is_user_logged_in() ) {
+    if ( ! is_user_logged_in() ) {
       return null;
     }
+
     return new self;
   }
 
@@ -324,7 +325,7 @@ class WPDKUser extends WP_User {
     parent::__construct( $id_user, $name, $blog_id );
 
     // Set the extended property when an user is set
-    if ( !empty( $id_user ) ) {
+    if ( ! empty( $id_user ) ) {
       $this->first_name        = $this->get( 'first_name' );
       $this->last_name         = $this->get( 'last_name' );
       $this->nice_name         = $this->data->user_nicename;
@@ -353,6 +354,7 @@ class WPDKUser extends WP_User {
   public static function nice_name( $firstName, $lastName )
   {
     $result = sprintf( '%s.%s', strtoupper( substr( $firstName, 0, 1 ) ), ucfirst( $lastName ) );
+
     return $result;
   }
 
@@ -375,6 +377,7 @@ class WPDKUser extends WP_User {
     else {
       $result = sprintf( '%s %s', $lastName, $firstName );
     }
+
     return $result;
   }
 
@@ -431,6 +434,7 @@ class WPDKUser extends WP_User {
     if ( get_user_meta( $user_id, $transient_timeout, true ) < time() ) {
       delete_user_meta( $user_id, $transient );
       delete_user_meta( $user_id, $transient_timeout );
+
       return false;
     }
 
@@ -456,7 +460,7 @@ class WPDKUser extends WP_User {
    */
   public function getTransient( $transient )
   {
-    if( !empty( $this->ID ) ) {
+    if ( ! empty( $this->ID ) ) {
       return self::getTransientWithUser( $transient, $this->ID );
     }
   }
@@ -476,6 +480,7 @@ class WPDKUser extends WP_User {
   {
     $user_id           = is_null( $user_id ) ? get_current_user_id() : $user_id;
     $transient_timeout = '_transient_timeout_' . $transient;
+
     return get_user_meta( $user_id, $transient_timeout, true );
   }
 
@@ -491,7 +496,7 @@ class WPDKUser extends WP_User {
    */
   public function getTransientTime( $transient )
   {
-    if ( !empty( $this->ID ) ) {
+    if ( ! empty( $this->ID ) ) {
       return self::getTransientTimeWithUser( $transient, $this->ID );
     }
   }
@@ -540,6 +545,7 @@ class WPDKUser extends WP_User {
       do_action( 'set_user_transient_' . $transient );
       do_action( 'setted_user_transient', $transient, $user_id );
     }
+
     return $result;
   }
 
@@ -561,7 +567,7 @@ class WPDKUser extends WP_User {
    */
   public function setTransient( $transient, $value, $expiration = 0 )
   {
-    if ( !empty( $this->ID ) ) {
+    if ( ! empty( $this->ID ) ) {
       self::setTransientWithUser( $transient, $value, $expiration, $this->ID );
     }
   }
@@ -613,7 +619,7 @@ class WPDKUser extends WP_User {
    */
   public function deleteTransient( $transient )
   {
-    if ( !empty( $this->ID ) ) {
+    if ( ! empty( $this->ID ) ) {
       self::deleteTransientWithUser( $transient, $this->ID );
     }
   }
@@ -656,7 +662,6 @@ class WPDKUser extends WP_User {
   }
 
 
-
   /**
    * Return the age (in year) from a date in format YYYY-MM-DD or DD/MM/YYYY
    *
@@ -672,7 +677,7 @@ class WPDKUser extends WP_User {
   {
     $year_diff = 0;
 
-    if ( !empty( $birthday ) ) {
+    if ( ! empty( $birthday ) ) {
       if ( false !== strpos( $birthday, '-' ) ) {
         list( $year, $month, $day ) = explode( '-', $birthday );
       }
@@ -686,6 +691,7 @@ class WPDKUser extends WP_User {
         $year_diff--;
       }
     }
+
     return intval( $year_diff );
   }
 
@@ -706,7 +712,7 @@ class WPDKUser extends WP_User {
   {
     global $wp_roles;
 
-    if ( !isset( $wp_roles ) ) {
+    if ( ! isset( $wp_roles ) ) {
       $wp_roles = new WP_Roles();
     }
 
@@ -717,6 +723,7 @@ class WPDKUser extends WP_User {
           return true;
         }
       }
+
       return false;
     }
     else {
@@ -737,12 +744,13 @@ class WPDKUser extends WP_User {
 
     $id_user = absint( $id_user );
     $user    = new WP_User( $id_user );
-    if ( !empty( $user ) ) {
-      $role_key = $user->roles[key( $user->roles )];
-      if ( !empty( $role_key ) ) {
-        return $wp_roles->roles[$role_key]['name'];
+    if ( ! empty( $user ) ) {
+      $role_key = $user->roles[ key( $user->roles ) ];
+      if ( ! empty( $role_key ) ) {
+        return $wp_roles->roles[ $role_key ]['name'];
       }
     }
+
     return false;
   }
 
@@ -796,6 +804,7 @@ class WPDKUser extends WP_User {
     if ( $user ) {
       return $user->has_cap( $cap );
     }
+
     return false;
   }
 
@@ -814,7 +823,7 @@ class WPDKUser extends WP_User {
     $all_caps = $this->allcaps;
     if ( is_array( $caps ) ) {
       foreach ( $caps as $cap ) {
-        if ( isset( $all_caps[$cap] ) ) {
+        if ( isset( $all_caps[ $cap ] ) ) {
           return true;
         }
       }
@@ -822,6 +831,7 @@ class WPDKUser extends WP_User {
     else {
       return in_array( $all_caps, $caps );
     }
+
     return false;
   }
 
@@ -895,9 +905,11 @@ class WPDKUser extends WP_User {
  *
  * @class              WPDKUsers
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-02-26
- * @version            1.2.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-09-16
+ * @version            1.2.1
+ *
+ * @history            1.2.1 - Added `deleteUsersMetaWithKey()` static method
  *
  */
 class WPDKUsers {
@@ -913,8 +925,9 @@ class WPDKUsers {
   {
     static $instance = null;
     if ( is_null( $instance ) ) {
-      $instance = new WPDKUsers();
+      $instance = new self();
     }
+
     return $instance;
   }
 
@@ -980,7 +993,7 @@ class WPDKUsers {
       $logout  = false;
 
       // Logout for disabled User
-      if ( !empty( $status ) && in_array( $status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
+      if ( ! empty( $status ) && in_array( $status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
         $logout = true;
       }
 
@@ -1021,12 +1034,28 @@ class WPDKUsers {
 
     if ( in_array( $status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
 
-      // Ask for continue
+      /**
+       * Filter the DENIED procedure when a user can't login.
+       *
+       * @param bool   $continue Default TRUE. Set to FALSE to bypass the ACCESS DENIED.
+       * @param int    $user_id  The user id.
+       * @param string $status   The current user status.
+       */
       $continue = apply_filters( 'wpdk_users_should_denied_signin', true, $user->ID, $status );
 
       if ( $continue ) {
+        // Get the status description
         $message = $user->get( WPDKUserMeta::STATUS_DESCRIPTION );
+
+        /**
+         * Filter the status description; because the user can't login.
+         *
+         * @param string $message The description of ACCESS DENIED.
+         * @param int    $user_id The user id.
+         * @param string $status  The current user status.
+         */
         $message = apply_filters( 'wpdk_users_access_denied_status_description', $message, $user->ID, $status );
+
         return new WP_Error( 'wpdk_users_access_denied', $message, array( $user, $status ) );
       }
     }
@@ -1080,7 +1109,7 @@ class WPDKUsers {
 
     $user = get_user_by( 'login', $user_login );
 
-    /* Check if the user exists. */
+    // Check if the user exists.
     if ( false === $user ) {
       return false;
     }
@@ -1094,7 +1123,12 @@ class WPDKUsers {
     // Update the wrong login count
     update_user_meta( $user->ID, WPDKUserMeta::COUNT_WRONG_LOGIN, $count );
 
-    // Notified the wrong user login count
+    /**
+     * Fires when an user wrong login. This action is used to increment wrong login count.
+     *
+     * @param int $user_id The user id.
+     * @param int $count   Current count of wrong login.
+     */
     do_action( 'wpdk_user_wrong_login_count', $user->ID, $count );
 
     return true;
@@ -1147,12 +1181,13 @@ class WPDKUsers {
 
     if ( false !== $user_id ) {
       $user = new WPDKUser( $user_id );
-      if ( $user->exists() && !in_array( $user->status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) ) ) {
+      if ( $user->exists() && ! in_array( $user->status, array( WPDKUserStatus::DISABLED, WPDKUserStatus::CANCELED ) )
+      ) {
 
         // Check access
         $result = wp_authenticate( $user->user_login, $password );
 
-        if ( !is_wp_error( $result ) ) {
+        if ( ! is_wp_error( $result ) ) {
 
           // Clear the cookie
           wp_clear_auth_cookie();
@@ -1166,11 +1201,18 @@ class WPDKUsers {
 
           // Authenticate! You are
           wp_set_current_user( $user->ID );
+
           return true;
         }
       }
     }
 
+    /**
+     * Fires when a signin failure.
+     *
+     * @param int|string User      email OR user id.
+     * @param string     $password Password.
+     */
     do_action( 'wpdk_singin_wrong', empty( $email ) ? $user_id : $email, $password );
 
     return false;
@@ -1194,13 +1236,14 @@ class WPDKUsers {
     }
 
     $id_user = email_exists( $email );
-    if ( !empty( $id_user ) ) {
+    if ( ! empty( $id_user ) ) {
       $user   = new WPDKUser( $id_user );
       $access = wp_authenticate( $user->data->user_login, $password );
-      if ( !is_wp_error( $access ) ) {
+      if ( ! is_wp_error( $access ) ) {
         return $id_user;
       }
     }
+
     return false;
   }
 
@@ -1216,7 +1259,7 @@ class WPDKUsers {
   public function wp_logout()
   {
     $user_id = get_current_user_id();
-    if ( !empty( $user_id ) ) {
+    if ( ! empty( $user_id ) ) {
       update_user_meta( $user_id, WPDKUserMeta::LAST_TIME_LOGOUT, time() );
     }
   }
@@ -1259,7 +1302,11 @@ class WPDKUsers {
     if ( false === $password ) {
       $password = WPDKCrypt::randomAlphaNumber();
 
-      // @todo Notify to user the password
+      /**
+       * Fires when a random password is generated.
+       *
+       * @param string $password Random Password.
+       */
       do_action( 'wpdk_users_random_password', $password );
     }
 
@@ -1285,7 +1332,7 @@ class WPDKUsers {
     }
 
     // Store IP Address
-    if ( isset( $_SERVER['REMOTE_ADDR'] ) && !empty( $_SERVER['REMOTE_ADDR'] ) ) {
+    if ( isset( $_SERVER['REMOTE_ADDR'] ) && ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
       update_user_meta( $user_id, WPDKUserMeta::REMOTE_ADDR, $_SERVER['REMOTE_ADDR'] );
     }
 
@@ -1325,7 +1372,7 @@ class WPDKUsers {
     $alert->display();
 
     // Only the administrator can edit this extra information
-    $disabled = !current_user_can( 'manage_options' );
+    $disabled = ! current_user_can( 'manage_options' );
 
     // Sanitize values
     $last_time_success_login = $user->get( WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN );
@@ -1368,7 +1415,6 @@ class WPDKUsers {
           ),
         ),
       ),
-
       __( 'Logout information', WPDK_TEXTDOMAIN ) => array(
         array(
           array(
@@ -1380,7 +1426,6 @@ class WPDKUsers {
           ),
         ),
       ),
-
       __( 'Status', WPDK_TEXTDOMAIN )             => array(
         array(
           array(
@@ -1440,9 +1485,9 @@ class WPDKUsers {
    */
   public function personal_options( $user )
   {
-    $message = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
-    $alert   = new WPDKUIAlert( 'wpdk-alert-personal_options', $message, WPDKUIAlertType::INFORMATION );
-    $alert->permanent_dismiss = true;
+    $message                 = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
+    $alert                   = new WPDKUIAlert( 'wpdk-alert-personal_options', $message, WPDKUIAlertType::INFORMATION );
+    $alert->dismissPermanent = true;
     $alert->display();
   }
 
@@ -1493,7 +1538,7 @@ class WPDKUsers {
    */
   public function edit_user_profile_update( $id_user )
   {
-    if ( !current_user_can( 'edit_user' ) ) {
+    if ( ! current_user_can( 'edit_user' ) ) {
       return false;
     }
 
@@ -1501,6 +1546,7 @@ class WPDKUsers {
     if ( current_user_can( 'manage_options' ) ) {
       WPDKUserMeta::update( $id_user, $_POST );
     }
+
     return true;
   }
 
@@ -1615,6 +1661,7 @@ SQL;
         $users[] = $user_id;
       }
     }
+
     return $users;
   }
 
@@ -1643,10 +1690,11 @@ SQL;
     if ( $user ) {
 
       // Alt image
-      $alt  = empty( $alt ) ? $user->display_name : $alt;
+      $alt = empty( $alt ) ? $user->display_name : $alt;
 
       return get_avatar( $user->ID, $size, $default, $alt );
     }
+
     return false;
   }
 
@@ -1682,9 +1730,43 @@ SQL;
 
       $src = sprintf( '%s%s?s=%s&d=%s', $gravatar, md5( $user->email ), $size, $default );
       $img = new WPDKHTMLTagImg( $src, $alt, $size, $size );
+
       return $img;
     }
+
     return false;
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Users Meta
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Delete the user meta with $key from all users.
+   *
+   * @brief Delete meta users
+   * @since 1.5.16
+   *
+   * @param string $key Meta key to delete.
+   */
+  public static function deleteUsersMetaWithKey( $key )
+  {
+    /**
+     * @var wpdb $wpdb
+     */
+    global $wpdb;
+
+    // Stability
+    if ( empty( $key ) || ! is_string( $key ) ) {
+      return false;
+    }
+
+    $sql    = <<<SQL
+DELETE FROM {$wpdb->usermeta}
+WHERE meta_key = '{$key}'
+SQL;
+    $result = $wpdb->query( $sql );
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -1692,9 +1774,10 @@ SQL;
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Restituisce un array in formato SDF con la lista degli utenti, formattata con 'display name (email)'
+   * Return an array layout format with user id => user display name. This method is useful when you use the WPDK
+   * control layout array.
    *
-   * @todo       Sicuramente da migliorare in quanto poco flessibile
+   * @todo       To improve
    *
    * @deprecated Since 1.0.0.b4
    *
@@ -1706,10 +1789,11 @@ SQL;
     $users_list = get_users();
     if ( $users_list ) {
       foreach ( $users_list as $user ) {
-        $user_id         = '' . $user->ID;
-        $users[$user_id] = sprintf( '%s (%s)', $user->display_name, $user->user_email );
+        $user_id           = '' . $user->ID;
+        $users[ $user_id ] = sprintf( '%s (%s)', $user->display_name, $user->user_email );
       }
     }
+
     return $users;
   }
 
@@ -1731,7 +1815,7 @@ SQL;
   {
     global $wp_roles;
 
-    if ( !isset( $wp_roles ) ) {
+    if ( ! isset( $wp_roles ) ) {
       $wp_roles = new WP_Roles();
     }
 
@@ -1739,8 +1823,9 @@ SQL;
 
     $roles = $wp_roles->get_names();
     foreach ( $roles as $key => $role ) {
-      $result[$key] = $role;
+      $result[ $key ] = $role;
     }
+
     return $result;
   }
 }
@@ -1846,7 +1931,7 @@ class WPDKRole extends WP_Role {
       // Extends
       $extra = get_option( WPDKRoles::OPTION_KEY );
 
-      if ( !empty( $extra ) && isset( $extra[ $role_id ] ) ) {
+      if ( ! empty( $extra ) && isset( $extra[ $role_id ] ) ) {
         $this->description = $extra[ $role ][1];
         $this->owner       = $extra[ $role ][2];
       }
@@ -1874,16 +1959,16 @@ class WPDKRole extends WP_Role {
       }
 
       // Updated
-      if( WPDKRoles::getInstance()->use_db ) {
-        update_option(  WPDKRoles::getInstance()->role_key, WPDKRoles::getInstance()->roles );
+      if ( WPDKRoles::getInstance()->use_db ) {
+        update_option( WPDKRoles::getInstance()->role_key, WPDKRoles::getInstance()->roles );
         WPDKRoles::invalidate();
       }
 
     }
 
     $extra = get_option( WPDKRoles::OPTION_KEY );
-    if ( !empty( $extra ) ) {
-      $extra[$this->name] = array(
+    if ( ! empty( $extra ) ) {
+      $extra[ $this->name ] = array(
         $this->displayName,
         $this->description,
         $this->owner
@@ -1892,6 +1977,7 @@ class WPDKRole extends WP_Role {
     else {
       $extra = WPDKRoles::init()->activeRoles;
     }
+
     return update_option( WPDKRoles::OPTION_KEY, $extra );
   }
 
@@ -2013,6 +2099,7 @@ class WPDKRoles extends WP_Roles {
     if ( is_null( self::$instance ) ) {
       self::$instance = new self();
     }
+
     return self::$instance;
   }
 
@@ -2050,6 +2137,7 @@ class WPDKRoles extends WP_Roles {
   public static function invalidate()
   {
     self::$instance = null;
+
     return self::get_instance();
   }
 
@@ -2071,7 +2159,7 @@ class WPDKRoles extends WP_Roles {
     // Get the extended data
     $this->extend_data = get_option( self::OPTION_KEY );
 
-    if ( !empty( $this->role_names ) ) {
+    if ( ! empty( $this->role_names ) ) {
       $this->count = count( $this->role_names );
     }
 
@@ -2134,17 +2222,22 @@ class WPDKRoles extends WP_Roles {
   {
 
     // Calculate only if the property if note set
-    if ( !isset( $this->activeRoles ) ) {
+    if ( ! isset( $this->activeRoles ) ) {
 
       $this->activeRoles = array();
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
-        if ( !empty( $count ) ) {
-          $this->activeRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
+        if ( ! empty( $count ) ) {
+          $this->activeRoles[ $role ] = isset( $this->extend_data[ $role ] ) ? $this->extend_data[ $role ] : array(
+            $name,
+            '',
+            ''
+          );
         }
       }
     }
     $this->activeRoles = apply_filters( 'wpdk_roles_active', $this->activeRoles );
+
     return $this->activeRoles;
   }
 
@@ -2159,18 +2252,23 @@ class WPDKRoles extends WP_Roles {
   {
 
     // Calculate only if the property if note set
-    if ( !isset( $this->inactiveRoles ) ) {
+    if ( ! isset( $this->inactiveRoles ) ) {
 
       $this->inactiveRoles = array();
       foreach ( $this->role_names as $role => $name ) {
         $count = $this->countUsersByRole( $role );
         if ( empty( $count ) ) {
-          $this->inactiveRoles[$role] = isset( $this->extend_data[$role] ) ? $this->extend_data[$role] : array( $name, '', '' );
+          $this->inactiveRoles[ $role ] = isset( $this->extend_data[ $role ] ) ? $this->extend_data[ $role ] : array(
+            $name,
+            '',
+            ''
+          );
         }
       }
     }
 
     $this->inactiveRoles = apply_filters( 'wpdk_roles_inactive', $this->inactiveRoles );
+
     return $this->inactiveRoles;
   }
 
@@ -2189,7 +2287,7 @@ class WPDKRoles extends WP_Roles {
   {
 
     // If the count is not already set for all roles, let's get it
-    if ( !isset( $this->arrayCountUsersByRole ) ) {
+    if ( ! isset( $this->arrayCountUsersByRole ) ) {
 
       $this->arrayCountUsersByRole = array();
 
@@ -2210,7 +2308,7 @@ class WPDKRoles extends WP_Roles {
 
       // Loop through the user count by role to get a count of the users with each role
       foreach ( $user_count['avail_roles'] as $role => $count ) {
-        $this->arrayCountUsersByRole[$role] = $count;
+        $this->arrayCountUsersByRole[ $role ] = $count;
       }
     }
 
@@ -2220,12 +2318,12 @@ class WPDKRoles extends WP_Roles {
     }
 
     // If the role has no users, we need to set it to '0'
-    if ( !isset( $this->arrayCountUsersByRole[$user_role] ) ) {
-      $this->arrayCountUsersByRole[$user_role] = 0;
+    if ( ! isset( $this->arrayCountUsersByRole[ $user_role ] ) ) {
+      $this->arrayCountUsersByRole[ $user_role ] = 0;
     }
 
     // Return the user count for the given role
-    return $this->arrayCountUsersByRole[$user_role];
+    return $this->arrayCountUsersByRole[ $user_role ];
   }
 
   /**
@@ -2239,23 +2337,24 @@ class WPDKRoles extends WP_Roles {
   {
 
     // If the count is not already set for all roles, let's get it
-    if ( !isset( $this->arrayCapabilitiesByRole ) ) {
+    if ( ! isset( $this->arrayCapabilitiesByRole ) ) {
 
       foreach ( $this->get_names() as $role => $name ) {
 
         // Count capabilities for role too
         $wp_role = $this->get_role( $role );
         ksort( $wp_role->capabilities );
-        $this->arrayCapabilitiesByRole[$role] = $wp_role->capabilities;
+        $this->arrayCapabilitiesByRole[ $role ] = $wp_role->capabilities;
       }
     }
+
     return $this->arrayCapabilitiesByRole;
   }
 
   /**
    * Return the roles id list with one or more caps
    *
-   * @brief Roles with cap
+   * @brief  Roles with cap
    * @since  1.5.4
    *
    * @param WPDKCapability|string|array $caps Any instance of WPDKCapability class, capability name or array of
@@ -2266,7 +2365,7 @@ class WPDKRoles extends WP_Roles {
   public function rolesWithCaps( $caps )
   {
     // Makes array
-    $caps = (array)$caps;
+    $caps = (array) $caps;
 
     // Normalize caps
     $normalize_caps = array();
@@ -2314,14 +2413,35 @@ class WPDKRoles extends WP_Roles {
   public function wordPressRoles()
   {
     $this->wordPressRoles = array(
-      'administrator' => array( 'Administrator', __( 'Somebody who has access to all the administration features', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'editor'        => array( 'Editor', __( 'Somebody who can publish and manage posts and pages as well as manage other users posts, etc.', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'author'        => array( 'Author', __( 'Somebody who can publish and manage their own posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'contributor'   => array( 'Contributor', __( 'Somebody who can write and manage their posts but not publish them', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'subscriber'    => array( 'Subscriber', __( 'Somebody who can only manage their profile', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'administrator' => array(
+        'Administrator',
+        __( 'Somebody who has access to all the administration features', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'editor'        => array(
+        'Editor',
+        __( 'Somebody who can publish and manage posts and pages as well as manage other users posts, etc.', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'author'        => array(
+        'Author',
+        __( 'Somebody who can publish and manage their own posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'contributor'   => array(
+        'Contributor',
+        __( 'Somebody who can write and manage their posts but not publish them', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'subscriber'    => array(
+        'Subscriber',
+        __( 'Somebody who can only manage their profile', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
     );
 
     $this->wordPressRoles = apply_filters( 'wpdk_roles_defaults', $this->wordPressRoles );
+
     return $this->wordPressRoles;
   }
 
@@ -2355,13 +2475,13 @@ class WPDKRoles extends WP_Roles {
     // Normalize caps
     $caps = array();
     foreach ( $capabilities as $cap ) {
-      $caps[$cap] = true;
+      $caps[ $cap ] = true;
     }
 
     $role_object = parent::add_role( $role, $display_name, $caps );
-    if ( !is_null( $role_object ) ) {
-      if ( !isset( $this->extend_data[$role] ) ) {
-        $this->extend_data[$role] = array(
+    if ( ! is_null( $role_object ) ) {
+      if ( ! isset( $this->extend_data[ $role ] ) ) {
+        $this->extend_data[ $role ] = array(
           $display_name,
           $description,
           $owner
@@ -2369,6 +2489,7 @@ class WPDKRoles extends WP_Roles {
       }
       update_option( self::OPTION_KEY, $this->extend_data );
     }
+
     return $role_object;
   }
 
@@ -2382,7 +2503,7 @@ class WPDKRoles extends WP_Roles {
   public function remove_role( $role )
   {
     parent::remove_role( $role );
-    unset( $this->extend_data[$role] );
+    unset( $this->extend_data[ $role ] );
     update_option( self::OPTION_KEY, $this->extend_data );
   }
 
@@ -2587,6 +2708,7 @@ class WPDKCapabilities {
     if ( is_null( $instance ) ) {
       $instance = new WPDKCapabilities();
     }
+
     return $instance;
   }
 
@@ -2644,18 +2766,46 @@ class WPDKCapabilities {
 
     // Create an array of all the default WordPress capabilities so the user doesn't accidentally get rid of them
     $defaults = array(
-      'activate_plugins'       => array( 'activate_plugins', __( 'Allows access to Administration Panel options: Plugins', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'activate_plugins'       => array(
+        'activate_plugins',
+        __( 'Allows access to Administration Panel options: Plugins', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'add_users'              => array( 'add_users', __( 'add_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'create_users'           => array( 'create_users', __( 'create_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_others_pages'    => array( 'delete_others_pages', __( 'delete_others_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_others_posts'    => array( 'delete_others_posts', __( 'delete_others_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'delete_others_pages'    => array(
+        'delete_others_pages',
+        __( 'delete_others_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'delete_others_posts'    => array(
+        'delete_others_posts',
+        __( 'delete_others_posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'delete_pages'           => array( 'delete_pages', __( 'delete_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'delete_plugins'         => array( 'delete_plugins', __( 'delete_plugins', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'delete_posts'           => array( 'delete_posts', __( 'delete_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_private_pages'   => array( 'delete_private_pages', __( 'delete_private_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_private_posts'   => array( 'delete_private_posts', __( 'delete_private_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_published_pages' => array( 'delete_published_pages', __( 'delete_published_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'delete_published_posts' => array( 'delete_published_posts', __( 'delete_published_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'delete_private_pages'   => array(
+        'delete_private_pages',
+        __( 'delete_private_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'delete_private_posts'   => array(
+        'delete_private_posts',
+        __( 'delete_private_posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'delete_published_pages' => array(
+        'delete_published_pages',
+        __( 'delete_published_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'delete_published_posts' => array(
+        'delete_published_posts',
+        __( 'delete_published_posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'delete_users'           => array( 'delete_users', __( 'delete_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'edit_dashboard'         => array( 'edit_dashboard', __( 'edit_dashboard', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'edit_files'             => array( 'edit_files', __( 'No longer used.', WPDK_TEXTDOMAIN ), 'WordPress' ),
@@ -2663,36 +2813,116 @@ class WPDKCapabilities {
       'edit_others_posts'      => array( 'edit_others_posts', __( 'edit_others_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'edit_pages'             => array( 'edit_pages', __( 'edit_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'edit_plugins'           => array( 'edit_plugins', __( 'edit_plugins', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_posts'             => array( 'edit_posts', __( 'Allows access to Administration Panel options: Posts, Posts > Add New, Comments, Comments > Awaiting Moderation', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_private_pages'     => array( 'edit_private_pages', __( 'edit_private_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_private_posts'     => array( 'edit_private_posts', __( 'edit_private_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_published_pages'   => array( 'edit_published_pages', __( 'edit_published_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_published_posts'   => array( 'edit_published_posts', __( 'User can edit their published posts. This capability is off by default. The core checks the capability edit_posts, but on demand this check is changed to edit_published_posts. If you don\'t want a user to be able edit his published posts, remove this capability.', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_theme_options'     => array( 'edit_theme_options', __( 'Allows access to Administration Panel options: Appearance > Widgets, Appearance > Menus, Appearance > Theme Options if they are supported by the current theme, Appearance > Background, Appearance > Header ', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'edit_posts'             => array(
+        'edit_posts',
+        __( 'Allows access to Administration Panel options: Posts, Posts > Add New, Comments, Comments > Awaiting Moderation', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'edit_private_pages'     => array(
+        'edit_private_pages',
+        __( 'edit_private_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'edit_private_posts'     => array(
+        'edit_private_posts',
+        __( 'edit_private_posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'edit_published_pages'   => array(
+        'edit_published_pages',
+        __( 'edit_published_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'edit_published_posts'   => array(
+        'edit_published_posts',
+        __( 'User can edit their published posts. This capability is off by default. The core checks the capability edit_posts, but on demand this check is changed to edit_published_posts. If you don\'t want a user to be able edit his published posts, remove this capability.', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'edit_theme_options'     => array(
+        'edit_theme_options',
+        __( 'Allows access to Administration Panel options: Appearance > Widgets, Appearance > Menus, Appearance > Theme Options if they are supported by the current theme, Appearance > Background, Appearance > Header ', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'edit_themes'            => array( 'edit_themes', __( 'edit_themes', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'edit_users'             => array( 'edit_users', __( 'Allows access to Administration Panel options: Users', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'edit_users'             => array(
+        'edit_users',
+        __( 'Allows access to Administration Panel options: Users', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'import'                 => array( 'import', __( 'import', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'install_plugins'        => array( 'install_plugins', __( 'Allows access to Administration Panel options: Plugins > Add New ', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'install_themes'         => array( 'install_themes', __( 'Allows access to Administration Panel options: Appearance > Add New Themes', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'install_plugins'        => array(
+        'install_plugins',
+        __( 'Allows access to Administration Panel options: Plugins > Add New ', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'install_themes'         => array(
+        'install_themes',
+        __( 'Allows access to Administration Panel options: Appearance > Add New Themes', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'list_users'             => array( 'list_users', __( 'list_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'manage_categories'      => array( 'manage_categories', __( 'Allows access to Administration Panel options: Posts > Categories, Links > Categories', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'manage_links'           => array( 'manage_links', __( 'Allows access to Administration Panel options: Links Links > Add New', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'manage_options'         => array( 'manage_options', __( 'Allows access to Administration Panel options: Settings > General, Settings > Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, Settings > Miscellaneous', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'moderate_comments'      => array( 'moderate_comments', __( 'Allows users to moderate comments from the Comments SubPanel (although a user needs the edit_posts Capability in order to access this)', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'manage_categories'      => array(
+        'manage_categories',
+        __( 'Allows access to Administration Panel options: Posts > Categories, Links > Categories', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'manage_links'           => array(
+        'manage_links',
+        __( 'Allows access to Administration Panel options: Links Links > Add New', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'manage_options'         => array(
+        'manage_options',
+        __( 'Allows access to Administration Panel options: Settings > General, Settings > Writing, Settings > Reading, Settings > Discussion, Settings > Permalinks, Settings > Miscellaneous', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'moderate_comments'      => array(
+        'moderate_comments',
+        __( 'Allows users to moderate comments from the Comments SubPanel (although a user needs the edit_posts Capability in order to access this)', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'promote_users'          => array( 'promote_users', __( 'promote_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'publish_pages'          => array( 'publish_pages', __( 'publish_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'publish_posts'          => array( 'publish_posts', __( 'See and use the "publish" button when editing their post (otherwise they can only save drafts). Can use XML-RPC to publish (otherwise they get a "Sorry, you can not post on this weblog or category.")', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'read'                   => array( 'read', __( 'Allows access to Administration Panel options: Dashboard, Users > Your Profile. Used nowhere in the core code except the menu.php', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'read_private_pages'     => array( 'read_private_pages', __( 'read_private_pages', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'read_private_posts'     => array( 'read_private_posts', __( 'read_private_posts', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'publish_posts'          => array(
+        'publish_posts',
+        __( 'See and use the "publish" button when editing their post (otherwise they can only save drafts). Can use XML-RPC to publish (otherwise they get a "Sorry, you can not post on this weblog or category.")', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'read'                   => array(
+        'read',
+        __( 'Allows access to Administration Panel options: Dashboard, Users > Your Profile. Used nowhere in the core code except the menu.php', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'read_private_pages'     => array(
+        'read_private_pages',
+        __( 'read_private_pages', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'read_private_posts'     => array(
+        'read_private_posts',
+        __( 'read_private_posts', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'remove_users'           => array( 'remove_users', __( 'remove_users', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'switch_themes'          => array( 'switch_themes', __( 'Allows access to Administration Panel options: Appearance, Appearance > Themes ', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'unfiltered_html'        => array( 'unfiltered_html', __( 'Allows user to post HTML markup or even JavaScript code in pages, posts, and comments. Note: Enabling this option for untrusted users may result in their posting malicious or poorly formatted code. ', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'switch_themes'          => array(
+        'switch_themes',
+        __( 'Allows access to Administration Panel options: Appearance, Appearance > Themes ', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
+      'unfiltered_html'        => array(
+        'unfiltered_html',
+        __( 'Allows user to post HTML markup or even JavaScript code in pages, posts, and comments. Note: Enabling this option for untrusted users may result in their posting malicious or poorly formatted code. ', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
       'unfiltered_upload'      => array( 'unfiltered_upload', __( 'unfiltered_upload', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'update_core'            => array( 'update_core', __( 'update_core', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'update_plugins'         => array( 'update_plugins', __( 'update_plugins', WPDK_TEXTDOMAIN ), 'WordPress' ),
       'update_themes'          => array( 'update_themes', __( 'update_themes', WPDK_TEXTDOMAIN ), 'WordPress' ),
-      'upload_files'           => array( 'upload_files', __( 'Allows access to Administration Panel options: Media, Media > Add New ', WPDK_TEXTDOMAIN ), 'WordPress' ),
+      'upload_files'           => array(
+        'upload_files',
+        __( 'Allows access to Administration Panel options: Media, Media > Add New ', WPDK_TEXTDOMAIN ),
+        'WordPress'
+      ),
     );
 
     // Sorting
@@ -2727,6 +2957,7 @@ class WPDKCapabilities {
       'level_9'  => array( 'level_9', '', 'WordPress' ),
       'level_10' => array( 'level_10', '', 'WordPress' )
     );
+
     return apply_filters( 'wpdk_capabilities_old_levels', $old_levels );
   }
 
@@ -2762,8 +2993,12 @@ class WPDKCapabilities {
         // Loop through the role's capabilities and add them to the $capabilities array
         $exclude = self::oldLevels();
         foreach ( $role->capabilities as $cap => $grant ) {
-          if ( !isset( $exclude[$cap] ) ) {
-            $capabilities[$cap] = isset( $this->_extendedData[$cap] ) ? $this->_extendedData[$cap] : array( $cap, '', '' );
+          if ( ! isset( $exclude[ $cap ] ) ) {
+            $capabilities[ $cap ] = isset( $this->_extendedData[ $cap ] ) ? $this->_extendedData[ $cap ] : array(
+              $cap,
+              '',
+              ''
+            );
           }
         }
       }
@@ -2805,7 +3040,11 @@ class WPDKCapabilities {
         // A cap is store with a bolean flag that here is ignored
         $temp = array_keys( unserialize( $user_cap['meta_value'] ) );
         foreach ( $temp as $key ) {
-          $capabilities[$key] = isset( $this->_extendedData[$key] ) ? $this->_extendedData[$key] : array( $key, '', '' );
+          $capabilities[ $key ] = isset( $this->_extendedData[ $key ] ) ? $this->_extendedData[ $key ] : array(
+            $key,
+            '',
+            ''
+          );
         }
       }
       //set_transient( '_wpdk_users_caps', $capabilities, 120 );
@@ -2871,14 +3110,14 @@ class WPDKCapabilities {
   public function add_cap( $cap, $roles = array(), $users = array() )
   {
     // Add this cap to roles?
-    if ( !empty( $roles ) ) {
+    if ( ! empty( $roles ) ) {
       foreach ( $roles as $role ) {
         WPDKRoles::init()->add_cap( $role, $cap->id );
       }
     }
 
     // Add this cap to users?
-    if ( !empty( $users ) ) {
+    if ( ! empty( $users ) ) {
       foreach ( $users as $user_id ) {
         $user = new WP_User( $user_id );
         $user->add_cap( $cap->id );
@@ -2937,13 +3176,13 @@ class WPDKCapabilities {
   public function delete( $id )
   {
     // Makes array
-    $id = (array)$id;
+    $id = (array) $id;
 
     // Get extra info
     $extra = get_option( self::OPTION_KEY );
 
     // Loop
-    foreach( $id as $cap ) {
+    foreach ( $id as $cap ) {
 
       // Destroy extra info
       unset( $extra[ $cap ] );
@@ -2955,7 +3194,7 @@ class WPDKCapabilities {
       // Gets users
       $users = $this->usersWithCaps( $cap );
 
-      foreach( $users as $user_id ) {
+      foreach ( $users as $user_id ) {
         $user = new WP_User( $user_id );
         $user->remove_cap( $cap );
       }
@@ -2965,8 +3204,8 @@ class WPDKCapabilities {
        */
 
       // Loop in roles
-      foreach( WPDKRoles::init()->arrayCapabilitiesByRole as $role => $caps ) {
-        if( in_array( $cap, array_keys( $caps ) ) ) {
+      foreach ( WPDKRoles::init()->arrayCapabilitiesByRole as $role => $caps ) {
+        if ( in_array( $cap, array_keys( $caps ) ) ) {
           WPDKRoles::init()->remove_cap( $role, $cap );
         }
       }
@@ -2993,13 +3232,13 @@ class WPDKCapabilities {
     global $wpdb;
 
     // Makes array
-    $caps = (array)$caps;
+    $caps = (array) $caps;
 
     // Likes
     $likes = array();
 
     // Loop
-    foreach( $caps as $cap ) {
+    foreach ( $caps as $cap ) {
       $likes[] = "meta_value LIKE '%\"$cap\"%'";
     }
 
@@ -3097,7 +3336,7 @@ class WPDKCapability {
       // Get extends data
       $extend_data = WPDKCapabilities::init()->get_extended_data( $id );
 
-      if ( !empty( $extend_data ) ) {
+      if ( ! empty( $extend_data ) ) {
 
         list( $id, $description, $owner ) = $extend_data;
 
