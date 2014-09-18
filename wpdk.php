@@ -630,8 +630,9 @@ if ( !class_exists( 'WPDK' ) ) {
         'monthNames'         => __( 'January,February,March,April,May,June,July,August,September,October,November,December', WPDK_TEXTDOMAIN ),
         'monthNamesShort'    => __( 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec', WPDK_TEXTDOMAIN ),
         'closeText'          => __( 'Close', WPDK_TEXTDOMAIN ),
-        'dateFormat'         => __( 'mm/dd/yy', WPDK_TEXTDOMAIN ),
-        'timeFormat'         => __( 'HH:mm', WPDK_TEXTDOMAIN ),
+        //'dateFormat'         => __( 'mm/dd/yy', WPDK_TEXTDOMAIN ),
+        'dateFormat'         => WPDKDateTime::DATE_FORMAT_JS,
+        'timeFormat'         => WPDKDateTime::TIME_FORMAT_JS,
       );
 
       return $result;

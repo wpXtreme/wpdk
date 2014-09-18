@@ -12,6 +12,7 @@
  *
  * @history            1.1.2 - Improved timeNewLine() method.
  * @history            1.1.3 - Renamed elapsed_string() with elapsedString(), added params and deprecated.
+ * @history            1.1.4 - Removed deprecated and fixed data/time conversion.
  *
  */
 class WPDKDateTime extends WPDKObject {
@@ -31,13 +32,25 @@ class WPDKDateTime extends WPDKObject {
   const MYSQL_DATE_TIME = 'Y-m-d H:i:s';
 
   /**
+   * Constact for date/time conversion.
+   * Adopt RFC_822 - 'D, d M y' (See RFC 822).
+   *
+   * @since 1.5.16
+   */
+  const DATE_FORMAT_JS      = 'd M yy';
+  const TIME_FORMAT_JS      = 'HH:mm';
+  const DATE_FORMAT_PHP     = 'j M Y';
+  const TIME_FORMAT_PHP     = 'H:i';
+  const DATETIME_FORMAT_PHP = 'j M Y H:i';
+
+  /**
    * Override version
    *
    * @brief Version
    *
    * @var string $__version
    */
-  public $__version = '1.1.1';
+  public $__version = '1.1.4';
 
   /**
    * Format a date time in your custom own format. The source format is auto-detect.
@@ -46,14 +59,14 @@ class WPDKDateTime extends WPDKObject {
    * @since 1.0.0
    *
    * @param string $date Source date string format
-   * @param string $to   Optional. Destination/outout format, default `m/d/Y H:i`
+   * @param string $to   Optional. Output format. Default `Welf::DATETIME_FORMAT_PHP`
    *
    * @return string
    */
-  public static function format( $date, $to = 'm/d/Y H:i' )
+  public static function format( $date, $to = self::DATETIME_FORMAT_PHP )
   {
     $result = $date;
-    if ( !empty( $date ) ) {
+    if ( ! empty( $date ) ) {
       $timestamp = is_numeric( $date ) ? $date : strtotime( $date );
       $result    = date( $to, $timestamp );
     }
@@ -99,21 +112,23 @@ class WPDKDateTime extends WPDKObject {
   }
 
   /**
-   * Description
+   * Return an more readable human date format.
    *
-   * @brief Brief
+   * @brief Human readable
    *
-   * @param string|int $date String date or timestamp
-   * @param string $format
+   * @param string|int $date   String date or timestamp
+   * @param string     $format Optional. Default `get_option('date_format')`.
    *
    * @return string
    */
-  public static function human( $date, $format = 'j M, Y H:i' )
+  public static function human( $date, $format = false )
   {
     // Check for timestamp
-    if( is_numeric( $date ) ) {
+    if ( is_numeric( $date ) ) {
       $date = date( $date );
     }
+
+    $format = empty( $format ) ? get_option( 'date_format' ) : '';
 
     $value  = mysql2date( $format, $date );
     $expiry = strtotime( $date );
@@ -156,12 +171,13 @@ class WPDKDateTime extends WPDKObject {
     }
 
     // Key and string output
-    $useful = array( 'y' => array( __( 'Year' ), __( 'Years' ) ),
-                     'm' => array( __( 'Month' ), __( 'Months' ) ),
-                     'd' => array( __( 'Day' ), __( 'Days' ) ),
-                     'h' => array( __( 'Hour' ), __( 'Hours' ) ),
-                     'i' => array( __( 'Minute' ), __( 'Minutes' ) ),
-                     's' => array( __( 'Second' ), __( 'Seconds' ) ),
+    $useful = array(
+      'y' => array( __( 'Year' ), __( 'Years' ) ),
+      'm' => array( __( 'Month' ), __( 'Months' ) ),
+      'd' => array( __( 'Day' ), __( 'Days' ) ),
+      'h' => array( __( 'Hour' ), __( 'Hours' ) ),
+      'i' => array( __( 'Minute' ), __( 'Minutes' ) ),
+      's' => array( __( 'Second' ), __( 'Seconds' ) ),
     );
 
     $matrix = array(
@@ -274,7 +290,7 @@ class WPDKDateTime extends WPDKObject {
     $pos = strpos( $datetime, ':' );
 
     // No time?
-    if( false === $pos ) {
+    if ( false === $pos ) {
       return $datetime;
     }
 
@@ -304,7 +320,8 @@ class WPDKDateTime extends WPDKObject {
   /**
    * Return TRUE if now (today) is between from two date.
    *
-   * @brief Check for date range
+   * @brief      Check for date range
+   * @deprecated since 1.5.16
    *
    * @param string|int $date_start  Start date in string or timestamp.
    * @param string|int $date_expire Expire date in string or timestamp.
@@ -315,20 +332,23 @@ class WPDKDateTime extends WPDKObject {
    */
   public static function isInRangeDatetime( $date_start, $date_expire, $format = 'YmdHis', $timestamp = false )
   {
-    if ( !empty( $date_start ) || !empty( $date_expire ) ) {
+
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.16', '' );
+
+    if ( ! empty( $date_start ) || ! empty( $date_expire ) ) {
 
       /* Get now in timestamp */
       $now = mktime();
 
       /* Le date sono in chiaro o anch'esse in timestamp? */
       /* @todo qui si potrebbe provare a capire in automatico se la data è in timestamp o stringa, ad esempio usando is_numeric() */
-      if ( !$timestamp ) {
-        $date_start  = !empty( $date_start ) ? strtotime( $date_start ) : $now;
-        $date_expire = !empty( $date_expire ) ? strtotime( $$date_expire ) : $now;
+      if ( ! $timestamp ) {
+        $date_start  = ! empty( $date_start ) ? strtotime( $date_start ) : $now;
+        $date_expire = ! empty( $date_expire ) ? strtotime( $$date_expire ) : $now;
       }
       else {
-        $date_start  = !empty( $date_start ) ? $date_start : $now;
-        $date_expire = !empty( $date_expire ) ? $date_expire : $now;
+        $date_start  = ! empty( $date_start ) ? $date_start : $now;
+        $date_expire = ! empty( $date_expire ) ? $date_expire : $now;
       }
 
       /* Verifico il range. */
@@ -338,6 +358,41 @@ class WPDKDateTime extends WPDKObject {
     }
 
     return false;
+  }
+
+  /**
+   * Return TRUE if now `time()` is between `$start` and `$expry`.
+   *
+   * @brief Check range
+   * @since 1.5.16
+   *
+   * @param int $start  Start date.
+   * @param int $expiry Expiry date.
+   *
+   * @return bool
+   */
+  public static function timeInRange( $start, $expiry )
+  {
+
+    // Get now
+    $now = time();
+
+    // Default
+    $start  = empty( $start ) ? $now : $start;
+    $expiry = empty( $expiry ) ? $now : $expiry;
+
+    // Stability
+    if ( ! is_numeric( $start ) || ! is_numeric( $expiry ) ) {
+      return false;
+    }
+
+    // Wrong range
+    if ( $start > $expiry ) {
+      return false;
+    }
+
+    return ( $start <= $now && $expiry >= $now );
+
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -485,106 +540,5 @@ class WPDKDateTime extends WPDKObject {
   public static function compareDatetime()
   {
   }
-
-
-  // -------------------------------------------------------------------------------------------------------------------
-  // DEPRECATED
-  // -------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Format a date time. You can select a source format and destination format in order to return the right output
-   * for you.
-   *
-   * @brief      Format a date time
-   * @since      1.0.0.b2 Deprecated argument
-   *
-   * @param string $date       Source date string format
-   * @param string $deprecated Optional. Not used.
-   * @param string $to         Destination/outout format, default `m/d/Y H:i`
-   *
-   * @deprecated Use format() instead
-   *
-   * @return string
-   */
-  public static function formatFromFormat( $date, $deprecated = '', $to = 'm/d/Y H:i' )
-  {
-    if ( !empty( $deprecated ) && func_num_args() > 2 ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-
-    _deprecated_function( __METHOD__, '1.0.0', 'format()' );
-
-    return self::format( $date, $to );
-  }
-
-  /**
-   * Return a timestamp from a specific format of date
-   *
-   * @brief      Timestamp from format
-   * @deprecated Since 1.0.0.b2 - Use strtotime() PHP function instead
-   *
-   * @param string $format Format
-   * @param string $date   Date and time
-   *
-   * @return int Timestamp
-   */
-  public static function makeTimeFrom( $format, $date )
-  {
-
-    _deprecated_function( __METHOD__, '1.0.0.b2', 'strtotime() PHP function' );
-
-    /* Get date in m/d/Y H:i */
-    $sanitize_date = self::formatFromFormat( $date, $format );
-    $split         = explode( ' ', $sanitize_date );
-    $date_part     = explode( '/', $split[0] );
-    $time_part     = explode( ':', $split[1] );
-    $time          = mktime( $time_part[0], $time_part[1], 0, $date_part[0], $date_part[1], $date_part[2] );
-
-    return $time;
-  }
-
-  /**
-   * Return any date/time in simple mySQL date format: `YYYY-MM-DD`
-   *
-   * @brief      Date for mySQL
-   * @deprecated since 1.3.0 use mySQLDate() instead
-   *
-   * @param string $date       Date
-   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
-   *
-   * @return string Data nel formato YYYY-MM-DD
-   */
-  public static function date2MySql( $date, $deprecated = '' )
-  {
-    if ( !empty( $deprecated ) ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDate()' );
-
-    return self::mySQLDate( $date );
-  }
-
-  /**
-   * Formatta una data e ora per essere inserita in mySQL, quindi in formato YYYY-MM-DD HH:MM:SS
-   * Return any date/time in simple mySQL date format: `YYYY-MM-DD HH:MM:SS`
-   *
-   * @brief      Date and time for mySQL
-   * @deprecated since 1.3.0 use mySQLDateTime() instead
-   *
-   * @param string $datetime   Date
-   * @param string $deprecated Optional. Deprecated and not used since 1.0.0.b2
-   *
-   * @return string
-   */
-  public static function dateTime2MySql( $datetime, $deprecated = '' )
-  {
-    if ( !empty( $deprecated ) ) {
-      _deprecated_argument( __METHOD__, '1.0.0.b2' );
-    }
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.0', 'mySQLDateTime()' );
-
-    return self::mySQLDateTime( $datetime );
-  }
-
 
 }
