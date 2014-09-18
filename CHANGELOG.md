@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Updated jQuery timepicker addon
 * Added `WPDKPost::publish()`
 * Added `WPDKPost::insert()`
 * Added `WPDKPost::duplicate()`
