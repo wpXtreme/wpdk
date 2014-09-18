@@ -37,11 +37,12 @@ class WPDKDateTime extends WPDKObject {
    *
    * @since 1.5.16
    */
-  const DATE_FORMAT_JS      = 'd M yy';
-  const TIME_FORMAT_JS      = 'HH:mm';
-  const DATE_FORMAT_PHP     = 'j M Y';
-  const TIME_FORMAT_PHP     = 'H:i';
-  const DATETIME_FORMAT_PHP = 'j M Y H:i';
+  const DATE_FORMAT_JS                   = 'd M yy';
+  const TIME_FORMAT_JS                   = 'HH:mm';
+  const DATE_FORMAT_PHP                  = 'j M Y';
+  const TIME_FORMAT_PHP                  = 'H:i';
+  const DATETIME_FORMAT_PHP              = 'j M Y H:i:s';
+  const DATETIME_SECONDS_LESS_FORMAT_PHP = 'j M Y H:i';
 
   /**
    * Override version
