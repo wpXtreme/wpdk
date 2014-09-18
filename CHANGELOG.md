@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Improvements
 
+* Updated jQuery timepicker addon
 * Added `WPDKPost::publish()`
 * Added `WPDKPost::insert()`
 * Added `WPDKPost::duplicate()`
@@ -37,6 +38,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Fixed date format
 * Fixed 'Add New' url in `WPDKListTableViewController`
 
 ## Version 1.5.15

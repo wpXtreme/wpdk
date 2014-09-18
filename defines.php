@@ -54,7 +54,7 @@ define( 'LOGO_128', WPDK_URI_CSS . 'images/logo-128x128.png' );
 // ---------------------------------------------------------------------------------------------------------------------
 
 define( 'WPDK_TEXTDOMAIN', 'wpdk' );
-define( 'WPDK_TEXTDOMAIN_PATH', 'wpxtreme/' . trailingslashit( basename( dirname( __FILE__ ) )) . 'localization' );
+define( 'WPDK_TEXTDOMAIN_PATH', 'wpxtreme/' . trailingslashit( basename( dirname( __FILE__ ) ) ) . 'localization' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Utilities
