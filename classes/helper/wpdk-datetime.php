@@ -374,6 +374,10 @@ class WPDKDateTime extends WPDKObject {
    */
   public static function timeInRange( $start, $expiry )
   {
+    // Check empty
+    if( empty( $start ) && empty( $expiry ) ) {
+      return false;
+    }
 
     // Get now
     $now = time();
