@@ -297,8 +297,8 @@ class WPDKView extends WPDKObject {
      */
     $continue = apply_filters( 'wpdk_view_should_add_subview', true, $view );
     if ( $continue ) {
-      $view->superview           = $this;
-      $this->subviews[$view->id] = $view;
+      $view->superview             = $this;
+      $this->subviews[ $view->id ] = $view;
 
       /**
        * Fires when a subview is added
@@ -307,6 +307,7 @@ class WPDKView extends WPDKObject {
        */
       do_action( 'wpdk_view_did_add_subview', $view );
     }
+
     return $view;
   }
 

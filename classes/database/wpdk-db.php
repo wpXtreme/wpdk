@@ -35,6 +35,7 @@ class WPDKDBTableRowStatuses {
       self::PUBLISH => __( 'Publish', WPDK_TEXTDOMAIN ),
       self::TRASH   => __( 'Trash', WPDK_TEXTDOMAIN ),
     );
+
     return $statuses;
   }
 
@@ -52,6 +53,7 @@ class WPDKDBTableRowStatuses {
       self::PUBLISH => WPDKGlyphIcons::html( WPDKGlyphIcons::OK ),
       self::TRASH   => WPDKGlyphIcons::html( WPDKGlyphIcons::TRASH ),
     );
+
     return $statuses;
   }
 
@@ -174,7 +176,7 @@ SQL;
   /**
    * Insert a record by values. Return FALSE if error or id of record if successfully.
    *
-   * @brief Insert
+   * @brief    Insert
    *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
@@ -232,7 +234,7 @@ SQL;
    * Select data
    *
    * @brief Select
-   * @note Override this method with your own select
+   * @note  Override this method with your own select
    */
   public function select()
   {
@@ -243,7 +245,7 @@ SQL;
    * Update a record by values. Return FALSE if error or the $where condiction if successfully.
    * You can use the $where condiction returned to get again the record ID.
    *
-   * @brief Update
+   * @brief    Update
    *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
@@ -318,7 +320,12 @@ SQL;
       return false;
     }
 
-    $ids = implode( ',', (array)$id );
+    $ids = trim( implode( ',', (array) $id ) );
+
+    // Stability
+    if ( empty( $ids ) ) {
+      return false;
+    }
 
     /**
      * Fires before delete records from table.
@@ -327,7 +334,7 @@ SQL;
      */
     do_action( 'wpdk_db_table_model_will_delete-' . $this->table_name, $ids );
 
-    $sql    = <<< SQL
+    $sql = <<< SQL
 DELETE FROM {$this->table_name}
 WHERE {$this->primary_key} IN( {$ids} )
 SQL;
@@ -357,8 +364,10 @@ SQL;
           call_user_func( array( $destination_object, 'column_' . $field ), $value );
         }
       }
+
       return $destination_object;
     }
+
     return false;
   }
 
@@ -384,13 +393,14 @@ SQL;
     // Buffering
     ob_start();
 
-    if ( !empty( $this->sql_filename ) && !empty( $this->table_name ) ) {
-      if ( !function_exists( 'dbDelta' ) ) {
+    if ( ! empty( $this->sql_filename ) && ! empty( $this->table_name ) ) {
+      if ( ! function_exists( 'dbDelta' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       }
       $content = file_get_contents( $this->sql_filename );
       if ( empty( $content ) ) {
         ob_end_clean();
+
         return false;
       }
 
@@ -433,6 +443,7 @@ SQL;
       $EZSQL_ERROR = array();
     }
     ob_end_clean();
+
     return true;
   }
 
@@ -499,19 +510,21 @@ SQL;
    */
   public static function where( $args, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
   {
-    if ( isset( $args[$key] ) && !empty( $args[$key] ) && !in_array( $args[$key], (array)$not_in ) ) {
+    if ( isset( $args[ $key ] ) && ! empty( $args[ $key ] ) && ! in_array( $args[ $key ], (array) $not_in ) ) {
 
       // Append dot to table if exists
       $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
 
       // Every array
-      $array = (array)$args[$key];
+      $array = (array) $args[ $key ];
       $stack = array();
       foreach ( $array as $value ) {
         $stack[] = sprintf( "%s%s %s '%s'", $table_prefix, $key, $cond, $value );
       }
+
       return sprintf( "( %s )", implode( ' OR ', $stack ) );
     }
+
     return false;
   }
 
@@ -541,31 +554,32 @@ SQL;
    */
   public static function where_date( $args, $column_key, $table_prefix = '', $accuracy = '%Y-%m-%d %H:%i:%s' )
   {
-    if ( isset( $args[$column_key] ) && !empty( $args[$column_key] ) ) {
+    if ( isset( $args[ $column_key ] ) && ! empty( $args[ $column_key ] ) ) {
 
       // Append dot to table if exists
       $table_prefix = empty( $table_prefix ) ? '' : $table_prefix . '.';
 
       // If $args[$column_key] is a string as '2014-01-01'
-      if( is_string( $args[$column_key] ) ) {
-        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) %s '%s'", $table_prefix, $column_key, $accuracy, '=', $args[$column_key] );
+      if ( is_string( $args[ $column_key ] ) ) {
+        $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) %s '%s'", $table_prefix, $column_key, $accuracy, '=', $args[ $column_key ] );
       }
       // Handle if $args[$column_key] is an array as array( '2014-01-01', '2014-02-01' )
-      elseif( is_array( $args[$column_key] ) ) {
+      elseif ( is_array( $args[ $column_key ] ) ) {
 
         // Handle if $args[$column_key] is an array as array( false, '2014-02-01' )
-        if( !empty( $args[$column_key][0] ) ) {
-          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) >= '%s'", $table_prefix, $column_key, $accuracy, $args[$column_key][0] );
+        if ( ! empty( $args[ $column_key ][0] ) ) {
+          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) >= '%s'", $table_prefix, $column_key, $accuracy, $args[ $column_key ][0] );
         }
 
         // Handle if $args[$column_key] is an array as array( '2014-02-01' ) or array( '2014-02-01', false )
-        if( isset( $args[$column_key][1] ) && !empty( $args[$column_key][1] ) ) {
-          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) <= '%s'", $table_prefix, $column_key, $accuracy, $args[$column_key][1] );
+        if ( isset( $args[ $column_key ][1] ) && ! empty( $args[ $column_key ][1] ) ) {
+          $stack[] = sprintf( "DATE_FORMAT( %s%s, '%s' ) <= '%s'", $table_prefix, $column_key, $accuracy, $args[ $column_key ][1] );
         }
       }
 
       return sprintf( "( %s )", implode( ' OR ', $stack ) );
     }
+
     return false;
   }
 
@@ -589,11 +603,12 @@ SQL;
    */
   public static function where_filter( $args, $filter, $key, $table_prefix = '', $not_in = array(), $cond = '=' )
   {
-    if ( isset( $args[$filter] ) && !empty( $args[$filter] ) && !in_array( $args[$filter], (array)$not_in ) ) {
-      $args[$key] = $args[$filter];
+    if ( isset( $args[ $filter ] ) && ! empty( $args[ $filter ] ) && ! in_array( $args[ $filter ], (array) $not_in ) ) {
+      $args[ $key ] = $args[ $filter ];
 
       return self::where( $args, $key, $table_prefix, array(), $cond );
     }
+
     return false;
   }
 
@@ -614,8 +629,10 @@ SQL;
  * @class           WPDKDBListTableModel
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-03-26
- * @version         1.0.0
+ * @date            2014-09-09
+ * @version         1.0.1
+ *
+ * @history         1.0.1 - Refresh methods insert(), update() and delete()
  *
  */
 class WPDKDBListTableModel extends WPDKListTableModel {
@@ -656,7 +673,7 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     parent::__construct();
 
     // Init the table model
-    if( !empty( $table_name ) ) {
+    if ( ! empty( $table_name ) ) {
       $this->table = new WPDKDBTableModel( $table_name, $sql_file );
     }
   }
@@ -668,20 +685,25 @@ class WPDKDBListTableModel extends WPDKListTableModel {
   /**
    * Insert a record by values. Return FALSE if error or id of record if successfully.
    *
-   * @brief Insert
+   * You can override this method in your subclass.
+   *
+   * @brief    Insert
    *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
    * @internal array  $format Optional. Array keys values for format null values
    *
+   * @sa       WPDKDBTableModel::insert()
+   *
    * @return int|bool
    */
   public function insert()
   {
-    /**
-     * @var wpdb $wpdb
-     */
-    global $wpdb;
+
+    // Stability warning
+    if ( is_null( $this->table ) ) {
+      die( __METHOD__ . ' must be override in your subclass' );
+    }
 
     /*
      * since 1.5.1
@@ -693,51 +715,33 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     list( $prefix, $values ) = $args;
     $format = isset( $args[2] ) ? $args[2] : array();
 
-    /**
-     * Filter the values array for insert.
-     *
-     * @param array $values Array values for insert.
-     */
-    $values = apply_filters( $prefix . '_insert_values', $values );
-
-    // Insert
-    $result = $wpdb->insert( $this->table->table_name, $values, $format );
-
-    /**
-     * Fires when a record is inserted.
-     *
-     * @param bool  $result Result of insert.
-     * @param array $values Array with values of insert.
-     */
-    do_action( $prefix . '_inserted', $result, $values );
-
-    if ( false == $result ) {
-      return false;
-    }
-
     // Get the id
-    return $wpdb->insert_id;
+    return $this->table->insert( $prefix, $values, $format );
   }
 
   /**
    * Update a record by values. Return FALSE if error or the $where condiction if successfully.
    * You can use the $where condiction returned to get again the record ID.
    *
-   * @brief Update
+   * You can override this method in your subclass.
+   *
+   * @brief    Update
    *
    * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @internal array  $values Array keys values
    * @internal array  $where  Array keys values for where update
    * @internal array  $format Optional. Array keys values for format null values
    *
+   * @sa       WPDKDBTableModel::update()
+   *
    * @return array|bool
    */
   public function update()
   {
-    /**
-     * @var wpdb $wpdb
-     */
-    global $wpdb;
+    // Stability warning
+    if ( is_null( $this->table ) ) {
+      die( __METHOD__ . ' must be override in your subclass' );
+    }
 
     /*
      * since 1.5.1
@@ -749,31 +753,33 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     list( $prefix, $values, $where ) = $args;
     $format = isset( $args[3] ) ? $args[3] : array();
 
-    /**
-     * Filter the values array for update.
-     *
-     * @param array $values Array values for update.
-     */
-    $values = apply_filters( $prefix . '_update_values', $values );
+    // Get the id
+    return $this->table->update( $prefix, $values, $where, $format );
+  }
 
-    // Update
-    $result = $wpdb->update( $this->table->table_name, $values, $where, $format );
-
-    /**
-     * Fires when a record is updated.
-     *
-     * @param bool|int $result Returns the number of rows updated, or false if there is an error.
-     * @param array    $values Array with values of update.
-     * @param array    $where  Array with values of where condiction.
-     */
-    do_action( $prefix . '_updated', $result, $values, $where );
-
-    if ( false == $result ) {
-      return false;
+  /**
+   * Delete one or more record from table. Return the number of rows affected/selected or false on error.
+   * Use the primaryKey.
+   *
+   * You can override this method in your subclass.
+   *
+   * @brief Delete
+   * @since 1.5.16
+   *
+   * @param int|array $id Any single int or array list of primary keys
+   *
+   * @sa    WPDKDBTableModel::delete()
+   *
+   * @return int|bool
+   */
+  public function delete( $id )
+  {
+    // Stability warning
+    if ( is_null( $this->table ) ) {
+      die( __METHOD__ . ' must be override in your subclass' );
     }
 
-    // Get the id
-    return $where;
+    return $this->table->delete( $id );
   }
 
   /**
@@ -804,7 +810,7 @@ class WPDKDBListTableModel extends WPDKListTableModel {
     $status   = isset( $args[1] ) ? $args[1] : '';
 
     $where = '';
-    if ( !empty( $status ) && is_array( $status ) ) {
+    if ( ! empty( $status ) && is_array( $status ) ) {
       if ( is_numeric( $status[ key( $status ) ] ) ) {
         $where = sprintf( 'WHERE %s = %s', key( $status ), $status[ key( $status ) ] );
       }
@@ -820,6 +826,8 @@ SELECT COUNT(*) AS count
   {$where}
 SQL;
 
+      //WPXtreme::log( $sql );
+
       return absint( $wpdb->get_var( $sql ) );
     }
     else {
@@ -833,10 +841,20 @@ SELECT DISTINCT( {$distinct} ),
   GROUP BY {$distinct}
 SQL;
 
+      //WPXtreme::log( $sql );
+
       $results = $wpdb->get_results( $sql, ARRAY_A );
+
+      // Prepare result array
       $result  = array();
+
+      // Prepare all
+      $result[ WPDKDBTableRowStatuses::ALL ] = 0;
+
+      // Loop into results
       foreach ( $results as $res ) {
         $result[ $res[ $distinct ] ] = $res['count'];
+        $result[ WPDKDBTableRowStatuses::ALL ] += $res['count'];
       }
 
       return $result;
@@ -848,7 +866,7 @@ SQL;
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Set one or more record wit a status
+   * Set one or more record with a status.
    *
    * @brief Set a status
    *
@@ -865,10 +883,10 @@ SQL;
     global $wpdb;
 
     // Stability
-    if ( !empty( $id ) && !empty( $status ) ) {
+    if ( ! empty( $id ) && ! empty( $status ) ) {
 
       // Get the ID
-      $id = implode( ',', (array)$id );
+      $id = implode( ',', (array) $id );
 
       $sql = <<< SQL
 UPDATE {$this->table->table_name}
@@ -880,6 +898,7 @@ SQL;
 
       return $num_rows;
     }
+
     return false;
   }
 

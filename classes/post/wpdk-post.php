@@ -297,8 +297,8 @@ class WPDKPost extends WPDKObject {
    * @brief Construct
    *
    * @param string|int|object|null $record    Optional. Post ID, post object, post slug or null
-   * @param string                 $post_type Optional. If $record is a string (slug) then this is the post type where search.
-   *                                          Default is 'page'
+   * @param string                 $post_type Optional. If $record is a string (slug) then this is the post type where
+   *                                          search. Default is 'page'
    *
    * @return WPDKPost
    */
@@ -306,28 +306,28 @@ class WPDKPost extends WPDKObject {
   {
 
     // Get post by id
-    if ( !is_null( $record ) && is_numeric( $record ) ) {
+    if ( ! is_null( $record ) && is_numeric( $record ) ) {
       $this->initPostByID( absint( $record ) );
     }
 
     // Get post from database record
-    elseif ( !is_null( $record ) && is_object( $record ) && isset( $record->ID ) ) {
+    elseif ( ! is_null( $record ) && is_object( $record ) && isset( $record->ID ) ) {
       $this->initPostByPost( $record );
     }
 
     // Get post by name
-    elseif ( !is_null( $record ) && is_string( $record ) ) {
+    elseif ( ! is_null( $record ) && is_string( $record ) ) {
 
       // Try by path
       $object = get_page_by_path( $record, OBJECT, $post_type );
 
-      if( is_null( $object ) ) {
+      if ( is_null( $object ) ) {
 
         // Try by title
         $object = get_page_by_title( $record, OBJECT, $post_type );
       }
 
-      if( !is_null( $object ) ) {
+      if ( ! is_null( $object ) ) {
         $this->initPostByPost( $object );
       }
     }
@@ -341,17 +341,167 @@ class WPDKPost extends WPDKObject {
       // Create a new onfly post
       $defaults = $this->postEmpty();
       $this->initPostByArgs( $defaults );
-
-      // Insert
-      $this->ID = wp_insert_post( $defaults );
     }
 
     // Get the post meta
-    if( isset( $this->ID ) && !empty( $this->ID ) ) {
+    if ( isset( $this->ID ) && ! empty( $this->ID ) ) {
       $this->post_meta = get_post_meta( $this->ID );
     }
 
   }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Clone
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return an instance of WPDKPost as clone of input post. The new 'duplicate' post is stored on db.
+   *
+   * @brief Dusplicate
+   * @since 1.5.16
+   *
+   * @param string|int|object $post       Post ID, post object, post slug.
+   * @param array             $args       {
+   *                                      Optional. Additional args.
+   *
+   * @type string             $status     The post status. Default 'draft'.
+   * @type bool               $taxonomies Whether to duplicate taxonomies. Default TRUE.
+   * @type bool               $post_meta  Whether to duplicate post meta. Default TRUE.
+   *
+   * }
+   *
+   * @return WPDKPost
+   */
+  public static function duplicate( $post, $args = array() )
+  {
+    // Defaults args
+    $defaults = array(
+      'status'     => WPDKPostStatus::DRAFT,
+      'taxonomies' => true,
+      'post_meta'  => true,
+    );
+
+    $args = wp_parse_args( $args, $defaults );
+
+    // Get original post
+    $original = new self( $post );
+
+    // Create an empty post
+    $duplicate = new self;
+
+    // Loop in properties
+    foreach ( $original as $property => $value ) {
+
+      // Preserve some properties
+      if ( ! in_array( $property, array( 'ID' ) ) ) {
+        $duplicate->$property = $value;
+      }
+    }
+
+    // Update the date
+    $duplicate->post_date         = date( WPDKDateTime::MYSQL_DATE_TIME );
+    $duplicate->post_date_gmt     = $duplicate->post_date;
+    $duplicate->post_modified     = $duplicate->post_date;
+    $duplicate->post_modified_gmt = $duplicate->post_date;
+
+    // Status
+    $duplicate->post_status = $args['status'];
+
+    /**
+     * Filter the WPDKPost object before insert.
+     *
+     * @param WPDKPost $duplicate An instance of WPDKPost class.
+     */
+    $duplicate = apply_filters( 'wpdk_post_before_insert_duplicate', $duplicate );
+
+    // Insert
+    $duplicate->insert();
+
+    // Duplicate taxonomies
+    if ( true === $args['taxonomies'] ) {
+
+      // Clear default category (added by wp_insert_post)
+      wp_set_object_terms( $duplicate->ID, null, 'category' );
+
+      // Get taxonomy ID for this post
+      $taxonomies = get_object_taxonomies( $original->post_type );
+
+      //WPXtreme::log( $taxonomies );
+
+      foreach ( $taxonomies as $taxonomy_id ) {
+        // Get template categories
+        $terms = wp_get_post_terms( $original->ID, $taxonomy_id );
+
+        //WPXtreme::log( $terms );
+
+        /*
+         *    array(2) {
+         *      [0]=> object(stdClass)#2746 (10) {
+         *        ["term_id"]=> int(396)
+         *        ["name"]=> string(8) "Template"
+         *        ["slug"]=> string(8) "template"
+         *        ["term_group"]=> int(0)
+         *        ["term_taxonomy_id"]=> int(401)
+         *        ["taxonomy"]=> string(14) "wpx_notify_tax"
+         *        ["description"]=> string(17) "Used for template"
+         *        ["parent"]=> int(0)
+         *        ["count"]=> int(3)
+         *        ["filter"]=> string(3) "raw"
+         *      }
+         *     [1]=>
+         *      object(stdClass)#2745 (10) {
+         *       ["term_id"]=> int(397)
+         *        ["name"]=> string(8) "Warnings"
+         *        ["slug"]=> string(8) "warnings"
+         *        ["term_group"]=> int(0)
+         *        ["term_taxonomy_id"]=> int(402)
+         *        ["taxonomy"]=> string(14) "wpx_notify_tax"
+         *        ["description"]=> string(0) ""
+         *        ["parent"]=> int(0)
+         *        ["count"]=> int(2)
+         *        ["filter"]=> string(3) "raw"
+         *      }
+         *    }
+         */
+
+        $set_terms = array();
+        foreach ( $terms as $term ) {
+          $set_terms[] = $term->term_id;
+        }
+
+        if ( ! empty( $set_terms ) ) {
+          wp_set_object_terms( $duplicate->ID, $set_terms, $taxonomy_id );
+        }
+      }
+    }
+
+    // Duplicate post meta
+    if ( true == $args['post_meta'] ) {
+
+      // Get post meta keys
+      $post_meta_keys = get_post_custom_keys( $original->ID );
+
+      //WPXtreme::log( $post_meta_keys, '$post_meta_keys' );
+
+      // Loop into the meta key
+      foreach ( $post_meta_keys as $meta_key ) {
+
+        // Get the meta values - could br more that one
+        $meta_values = get_post_custom_values( $meta_key, $original->ID );
+
+        // Loop into meta values
+        foreach ( $meta_values as $meta_value ) {
+          $meta_value = maybe_unserialize( $meta_value );
+          add_post_meta( $duplicate->ID, $meta_key, $meta_value );
+        }
+      }
+
+    }
+
+    return $duplicate;
+
+  }
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // Create/Get Post
@@ -366,11 +516,11 @@ class WPDKPost extends WPDKObject {
    */
   private function initPostByID( $id_post )
   {
-    if ( isset( $GLOBALS[__CLASS__][$id_post] ) ) {
-      $post = $GLOBALS[__CLASS__][$id_post];
+    if ( isset( $GLOBALS[ __CLASS__ ][ $id_post ] ) ) {
+      $post = $GLOBALS[ __CLASS__ ][ $id_post ];
     }
     else {
-      $GLOBALS[__CLASS__][$id_post] = $post = get_post( $id_post );
+      $GLOBALS[ __CLASS__ ][ $id_post ] = $post = get_post( $id_post );
     }
     $this->initPostByPost( $post );
   }
@@ -428,6 +578,7 @@ class WPDKPost extends WPDKObject {
       'post_mime_type'        => '',
       'comment_count'         => 0
     );
+
     return $args;
   }
 
@@ -452,6 +603,38 @@ class WPDKPost extends WPDKObject {
   // -------------------------------------------------------------------------------------------------------------------
   // CRUD
   // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Publish a post.
+   *
+   * @since 1.5.16
+   *
+   * @return int|WP_Error
+   */
+  public function publish()
+  {
+    $this->post_status = WPDKPostStatus::PUBLISH;
+
+    return $this->insert();
+  }
+
+
+  /**
+   * Insert or update a post.
+   *
+   * @since 1.5.16
+   *
+   * @return int|WP_Error
+   */
+  public function insert()
+  {
+    $result = wp_insert_post( $this );
+
+    $this->ID = empty( $result ) ? 0 : $result;
+
+    return $this->ID;
+
+  }
 
   /**
    * Delete permately this post from database
@@ -543,7 +726,7 @@ class WPDKPost extends WPDKObject {
    */
   public static function updateMetaWithID( $post_id, $args = array() )
   {
-    if ( !empty( $post_id ) && !empty( $args ) ) {
+    if ( ! empty( $post_id ) && ! empty( $args ) ) {
       foreach ( $args as $meta_key => $meta_value ) {
         update_post_meta( $post_id, $meta_key, $meta_value );
       }
@@ -553,10 +736,11 @@ class WPDKPost extends WPDKObject {
   /**
    * Return or set a single post meta value
    *
-   * @brief Meta value
-   * @since 1.3.1
+   * @brief    Meta value
+   * @since    1.3.1
    *
    * @param string $meta_key Meta key
+   *
    * @internal mixed $value Optional. If set is the value to store
    *
    * @return bool|mixed
@@ -568,18 +752,21 @@ class WPDKPost extends WPDKObject {
     }
     if ( func_num_args() > 1 ) {
       $value = func_get_arg( 1 );
+
       return update_post_meta( $this->ID, $meta_key, $value );
     }
+
     return get_post_meta( $this->ID, $meta_key, true );
   }
 
   /**
    * Return o set post meta values
    *
-   * @brief Meta values
-   * @since 1.3.1
+   * @brief    Meta values
+   * @since    1.3.1
    *
    * @param string $meta_key Meta key
+   *
    * @internal mixed $value Optional. If set is the value to store
    *
    * @return bool|mixed
@@ -591,8 +778,10 @@ class WPDKPost extends WPDKObject {
     }
     if ( func_num_args() > 1 ) {
       $value = func_get_arg( 1 );
+
       return update_post_meta( $this->ID, $meta_key, $value );
     }
+
     return get_post_meta( $this->ID, $meta_key );
   }
 
@@ -645,7 +834,7 @@ class WPDKPost extends WPDKObject {
         $caption = get_post_field( 'post_excerpt', $thumbnail_id );
 
         $img = new WPDKHTMLTagImg( $src, $alt );
-        if ( !empty( $caption ) ) {
+        if ( ! empty( $caption ) ) {
           $img->addData( 'caption', $caption );
         }
         $img->addData( 'thumbnail_id', $thumbnail_id );
@@ -655,6 +844,7 @@ class WPDKPost extends WPDKObject {
         return $img;
       }
     }
+
     return false;
   }
 
@@ -666,8 +856,8 @@ class WPDKPost extends WPDKObject {
    * @brief Attachment image
    * @since 1.3.1
    *
-   * @param string $size    Optional. Size of attachment image
-   * @param int    $index   Optional. Index of image. Default first attach image is returned
+   * @param string $size  Optional. Size of attachment image
+   * @param int    $index Optional. Index of image. Default first attach image is returned
    *
    * @return bool|WPDKHTMLTagImg
    */
@@ -705,7 +895,7 @@ class WPDKPost extends WPDKObject {
       );
       $children = get_children( $args );
 
-      if ( empty( $children ) || !is_array( $children ) ) {
+      if ( empty( $children ) || ! is_array( $children ) ) {
         return false;
       }
 
@@ -721,7 +911,7 @@ class WPDKPost extends WPDKObject {
         $thumbnail_id = $item->ID;
 
         $image = wp_get_attachment_image_src( $thumbnail_id, $size );
-        $src = $image[0];
+        $src   = $image[0];
 
         // Get the attachment alt text
         $alt = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
@@ -730,7 +920,7 @@ class WPDKPost extends WPDKObject {
         $caption = get_post_field( 'post_excerpt', $thumbnail_id );
 
         $img = new WPDKHTMLTagImg( $src, $alt );
-        if ( !empty( $caption ) ) {
+        if ( ! empty( $caption ) ) {
           $img->addData( 'caption', $caption );
         }
         $img->addData( 'thumbnail_id', $thumbnail_id );
@@ -740,6 +930,7 @@ class WPDKPost extends WPDKObject {
         return $img;
       }
     }
+
     return false;
   }
 
@@ -772,7 +963,7 @@ class WPDKPost extends WPDKObject {
     preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post_field( 'post_content', $post_id ), $matches );
 
     // If there is a match for the image, return its URL
-    if ( isset( $matches ) && is_array( $matches ) && !empty( $matches[1][0] ) ) {
+    if ( isset( $matches ) && is_array( $matches ) && ! empty( $matches[1][0] ) ) {
       $src = $matches[1][0];
 
       $img = new WPDKHTMLTagImg( $src, '' );
@@ -780,6 +971,7 @@ class WPDKPost extends WPDKObject {
 
       return $img;
     }
+
     return false;
   }
 
@@ -796,6 +988,7 @@ class WPDKPost extends WPDKObject {
  *
  */
 class WPDKPostStatus {
+
   const AUTO_DRAFT = 'auto-draft';
   const DRAFT      = 'draft';
   const FUTURE     = 'future';
@@ -836,7 +1029,11 @@ class WPDKPostStatus {
 
 /// @cond private
 /* Backward copatibility */
-class _WPDKPost extends WPDKPost {}
+
+class _WPDKPost extends WPDKPost {
+
+}
+
 /// @endcond
 
 /**
@@ -851,11 +1048,11 @@ class _WPDKPost extends WPDKPost {}
  */
 class WPDKPostType {
 
-  const ATTACHMENT = 'attachment';
+  const ATTACHMENT    = 'attachment';
   const NAV_MENU_ITEM = 'nav_menu_item';
-  const PAGE = 'page';
-  const POST = 'post';
-  const REVISION = 'revision';
+  const PAGE          = 'page';
+  const POST          = 'post';
+  const REVISION      = 'revision';
 }
 
 /**
@@ -908,7 +1105,8 @@ class WPDKPostMeta {
   /**
    * Register meta keys. Use
    *
-   *     $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL', WPXBANNERIZE_TEXTDOMAIN ) );
+   *     $this->add( self::META_KEY_BANNER_EXTERNAL_URL, 'banner_external_url', '', __( 'External URL',
+   *     WPXBANNERIZE_TEXTDOMAIN ) );
    *
    * @brief Register
    *
@@ -1007,26 +1205,26 @@ class WPDKPostMeta {
      *    }
      */
 
-    if( empty( $meta ) ) {
+    if ( empty( $meta ) ) {
       return $this->post;
     }
 
     // Loop in the all meta
-    foreach( $meta as $meta_key => $array ) {
+    foreach ( $meta as $meta_key => $array ) {
 
       // Check if meta key exists
-      if( isset( $this->meta[ $meta_key ] ) ) {
+      if ( isset( $this->meta[ $meta_key ] ) ) {
 
         // Get the relative property
         $property = $this->meta[ $meta_key ]['property'];
 
         // If property not set continue
-        if( empty( $property ) ) {
+        if ( empty( $property ) ) {
           continue;
         }
 
         // Stability, check if the target object has the property
-        if( property_exists( $this->post, $property ) || $create_property ) {
+        if ( property_exists( $this->post, $property ) || $create_property ) {
 
           // Get single value
           $this->post->$property = $array[0];
@@ -1050,22 +1248,22 @@ class WPDKPostMeta {
     // Get meta
     $meta = $this->meta();
 
-    if( empty( $meta ) ) {
+    if ( empty( $meta ) ) {
       return false;
     }
 
     // Loop into the registered meta
-    foreach( $meta as $meta_key => $array ) {
+    foreach ( $meta as $meta_key => $array ) {
 
       // Get relative property
       $property = $array['property'];
 
-      if( empty( $array['property'] ) ) {
+      if ( empty( $array['property'] ) ) {
         continue;
       }
 
       // Stability, check if the target object has the property
-      if( property_exists( $this->post, $property ) ) {
+      if ( property_exists( $this->post, $property ) ) {
 
         // Update
         update_post_meta( $post_id, $meta_key, $this->post->$property );

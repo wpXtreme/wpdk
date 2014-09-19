@@ -160,8 +160,8 @@ class WPDKCronController {
  */
 class WPDKCron {
 
-  public $name = '';
-  public $timestamp = 0;
+  public $name       = '';
+  public $timestamp  = 0;
   public $recurrence = 0;
 
   /**

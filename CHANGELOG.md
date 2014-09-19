@@ -20,6 +20,27 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.16
+### 2014-09-19
+
+#### Improvements
+
+* Updated jQuery timepicker addon
+* Added `WPDKPost::publish()`
+* Added `WPDKPost::insert()`
+* Added `WPDKPost::duplicate()`
+* Added site option `wpdk_watchdog_log` to enable/disable watchdog log
+* Added `WPDK_WATCHDOG_LOG` constant to enable/disable watchdog log
+* Added `WPDKUsers::deleteUsersMetaWithKey()`
+* Refresh `WPDKDBListTableModel` class
+* Improved CSS style for alert and form rows
+* Added W3 total cache plugin flush
+
+#### Bugs
+
+* Fixed date format
+* Fixed 'Add New' url in `WPDKListTableViewController`
+
 ## Version 1.5.15
 ### 2014-09-05
 

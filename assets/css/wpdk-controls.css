@@ -15,7 +15,7 @@
 
 .wpdk-column-2
 {
-  margin: 0 0 0 8px;
+  margin               : 0 0 0 8px;
   -moz-column-count    : 2;
   -webkit-column-count : 2;
   column-count         : 2;
@@ -201,7 +201,7 @@ textarea.wpdk-ui-control
   width                 : auto;
   border                : 1px solid #dfdfdf;
   background-color      : #fff;
-  padding               : 6px;
+  padding               : 4px;
   margin                : 0 4px 0 2px;
   color                 : #444;
   line-height           : 18px;
@@ -372,8 +372,6 @@ select.wpdk-form-select
   -o-transition         : box-shadow linear 0.2s;
   transition            : box-shadow linear 0.2s;
 }
-
-
 
 textarea.wpdk-form-textarea
 {
@@ -775,7 +773,8 @@ div.wpdk-form-description
   padding               : 12px;
   margin                : 0 8px 16px;
   background-color      : #fff;
-  border                : 1px solid rgba(0, 0, 0, 0.05);
+  border                : 1px solid rgba(0, 0, 0, 0.08);
+  border-top            : none;
   color                 : #666;
   font-size             : 12px;
   line-height           : 150%;
@@ -783,7 +782,15 @@ div.wpdk-form-description
   -moz-border-radius    : 0 0 2px 2px;
   -webkit-border-radius : 0 0 2px 2px;
   border-radius         : 0 0 2px 2px;
-  border-top            : 2px solid rgba(0, 100, 200, 0.2);
+}
+
+div.wpdk-form-description:before
+{
+  content          : "";
+  display          : block;
+  height           : 3px;
+  margin           : -12px -12px 12px -12px;
+  background-color : rgba(0, 100, 200, 0.3);
 }
 
 div.wpdk-form-description code,
@@ -823,6 +830,7 @@ div.wpdk-form-description .code
   color          : #70b46a;
   vertical-align : middle;
 }
+
 .wpdk-form-description .wpdk-icon-ok
 {
   font-size      : 24px;

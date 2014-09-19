@@ -846,6 +846,17 @@ jQuery( function ( $ )
             timeFormat    : wpdk_i18n.timeFormat,
             dateFormat    : wpdk_i18n.dateFormat
           } );
+
+          // TODO - Check for minimal date #not used becaues doesn't work
+          //$( 'input.wpdk-form-date[data-date_type="start"], input.wpdk-form-datetime[data-date_type="start"]' ).each( function ()
+          //{
+          //  $( this ).datetimepicker( {
+          //    minDate : new Date( 2010, 11, 20, 8, 30 ),
+          //    maxDate : new Date( 2010, 11, 31, 17, 30 )
+          //  } ).datetimepicker( 'refresh' );
+          //
+          //} );
+
         }
         else {
           if ( typeof window.console !== 'undefined' ) {
@@ -862,6 +873,7 @@ jQuery( function ( $ )
           monthNamesShort : (wpdk_i18n.monthNamesShort).split( ',' ),
           dateFormat      : wpdk_i18n.dateFormat
         } );
+
       }
 
       /**
