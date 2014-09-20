@@ -849,11 +849,15 @@ jQuery( function ( $ )
             dateFormat    : wpdk_i18n.dateFormat
           } );
 
-          // Init surrogate
-          $( 'input.wpdk-form-datetime' ).on( 'change', function ()
+          // Init surrogate for Date and Datetime controls.
+          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( 'change', function ()
           {
 
             var timestamp = $( this ).datepicker( 'getDate' );
+
+            if( typeof timestamp === 'undefined' || timestamp === null ) {
+              return;
+            }
 
             // Fix the GMT
             timestamp.setMinutes( timestamp.getMinutes() - timestamp.getTimezoneOffset() );
@@ -863,6 +867,49 @@ jQuery( function ( $ )
             $( 'input[name="' + name + '"]' ).val( ( timestamp / 1000 ) );
 
           } );
+
+          // TODO Prototype
+          window.WPDKUIControlDateTime = {
+            // TODO
+            mySQLDateTime : function ( $e ) {},
+
+            // TODO
+            mySQLDate : function ( $e )
+            {
+              var d = $e.val();
+              var date = new Date( d );
+
+              var result = date.getFullYear() + '-' +
+                date.getMonth() + '-' +
+                date.getDate();
+
+              return result;
+
+            },
+
+            /**
+             * Set the right date and time in input hidden field and surrogate.
+             *
+             * @param object $e Element.
+             * @param int    d  Date in timestamp: PHP time().
+             */
+            setDate : function ( $e, d )
+            {
+
+              // Get the surrogate
+              var $surrogate = $( 'input[name="' + $e.attr( 'name' ) + '-surrogate' + '"]' );
+
+              if ( empty( d ) ) {
+                $surrogate.val( '' );
+                $e.val( '' );
+              }
+              else {
+                var date = new Date( ( d * 1000 ) );
+                $surrogate.datepicker( 'setDate', date );
+                $e.val( d );
+              }
+            }
+          };
 
           // TODO - Check for minimal date #not used becaues doesn't work
           //$( 'input.wpdk-form-date[data-date_type="start"], input.wpdk-form-datetime[data-date_type="start"]' ).each( function ()
