@@ -833,6 +833,8 @@ jQuery( function ( $ )
 
         // Locale
         if ( $().datetimepicker ) {
+
+          // Init the datetime picker addon
           $( 'input.wpdk-form-datetime:visible' ).datetimepicker( {
             timeOnlyTitle : wpdk_i18n.timeOnlyTitle,
             timeText      : wpdk_i18n.timeText,
@@ -845,6 +847,17 @@ jQuery( function ( $ )
             closeText     : wpdk_i18n.closeText,
             timeFormat    : wpdk_i18n.timeFormat,
             dateFormat    : wpdk_i18n.dateFormat
+          } );
+
+          // Init surrogate
+          $( 'input.wpdk-form-datetime' ).on( 'change', function() {
+
+            var timestamp = $( this ).datepicker('getDate') / 1000;
+
+            var name = $( this ).data( 'surrogate_name' );
+
+            $( 'input[name="' + name + '"]' ).val( timestamp );
+
           } );
 
           // TODO - Check for minimal date #not used becaues doesn't work
