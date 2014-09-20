@@ -52,18 +52,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     add_action( $action, array( $this, 'process_bulk_action' ) );
   }
 
-  /**
-   * Return a key values array with registered filters
-   *
-   * @brief Filters
-   * @since 1.5.2
-   *
-   * @return array
-   */
-  public function get_filters()
-  {
-    return array();
-  }
 
   /**
    * Return a key value pairs array with the list of columns
@@ -204,38 +192,69 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    */
   public function process_bulk_action()
   {
-    // Override when you need to process actions before wp is loaded
-
+    // Get current action.
     $action = $this->current_action();
 
-    if ( $action ) {
-      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-        $args = array(
-          '_action_result' => $this->action_result,
-          '_action'        => $action,
-          'action'         => false,
-          'action2'        => false,
-          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-        );
+    // Avoid redirect for these actions
+    $actions = array( WPDKDBListTableModel::ACTION_NEW );
 
-        // Previous selected filters
-        $filters = $this->get_filters();
-        $filter_args = array();
-        foreach ( $filters as $key => $value ) {
-          if ( isset( $_REQUEST[ $key ] ) && !empty( $_REQUEST[ $key ] )) {
-            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-          }
-        }
+    // TODO think to filter
 
-        //  merge standard args with filters args
-        $args = array_merge( $args, $filter_args );
-
-        // New referrer
-        $uri  = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-
-        wp_safe_redirect( $uri );
-      }
+    if( $action && in_array( $action, $actions ) ) {
+      return;
     }
+
+    /**
+     * Filter the query args for redirect after an actions.
+     *
+     * @since 1.5.17
+     *
+     * @param array $args Optional. Default query args to remove. Default `array()`
+     */
+    $args     = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+    $reditect = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
+
+    if ( $action ) {
+      wp_safe_redirect( $reditect );
+    }
+
+    // http://beta.wpxtre.me/wp-admin/admin.php
+    // ?listtable_client_id=fd6f996c8e56b127b06851f48ddc3b4e
+    // &listtable_list_id=adaead0c9fa84c293f161b2d54acc622
+    // &segment_id=
+    // &_wpnonce=e489cbe211
+    // &_wp_http_referer=%2Fwp-admin%2Fadmin.php%3Fpage%3Dwpxcm_main-submenu-2%26listtable_list_id%3D9d2553e9b671dd8044a17efca324adf6&paged=1
+
+//    if ( $action ) {
+//      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
+//        $args = array(
+//          '_action_result' => $this->action_result,
+//          '_action'        => $action,
+//          'action'         => false,
+//          'action2'        => false,
+//          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
+//        );
+//
+//        // Previous selected filters
+//        $filters     = $this->get_filters();
+//        $filter_args = array();
+//        foreach ( $filters as $key => $value ) {
+//          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
+//            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+//          }
+//        }
+//
+//        //  merge standard args with filters args
+//        $args = array_merge( $args, $filter_args );
+//
+//        // New referrer
+//        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+//
+//        //WPXtreme::log( $uri, "redirect" );
+//
+//        wp_safe_redirect( $uri );
+//      }
+//    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------

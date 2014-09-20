@@ -59,8 +59,8 @@ class WPDKDateTime extends WPDKObject {
    * @brief Format a date time
    * @since 1.0.0
    *
-   * @param string $date Source date string format
-   * @param string $to   Optional. Output format. Default `Welf::DATETIME_FORMAT_PHP`
+   * @param string|int $date Source date string format. You can use a timestamp too.
+   * @param string     $to   Optional. Output format. Default `Welf::DATETIME_FORMAT_PHP`
    *
    * @return string
    */
@@ -444,7 +444,7 @@ class WPDKDateTime extends WPDKObject {
    * @brief MySQL Date
    * @since 1.3.0
    *
-   * @param string $date A string date
+   * @param string|int $date A string date or timestamp.
    *
    * @return string
    */
@@ -459,7 +459,7 @@ class WPDKDateTime extends WPDKObject {
    * @brief MySQL Date
    * @since 1.3.0
    *
-   * @param string $datetime A string date
+   * @param string|int $datetime A string date or timestamp.
    *
    * @return string
    */
