@@ -91,7 +91,6 @@ class WPDKUserMeta {
     // LAST_TIME_SUCCESS_LOGIN
     $value = isset( $post_data[ self::LAST_TIME_SUCCESS_LOGIN ] ) ? $post_data[ self::LAST_TIME_SUCCESS_LOGIN ] : '';
     if ( ! empty( $value ) ) {
-      $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_SUCCESS_LOGIN, $value );
     }
 
@@ -102,7 +101,6 @@ class WPDKUserMeta {
     // LAST_TIME_WRONG_LOGIN
     $value = isset( $post_data[ self::LAST_TIME_WRONG_LOGIN ] ) ? $post_data[ self::LAST_TIME_WRONG_LOGIN ] : '';
     if ( ! empty( $value ) ) {
-      $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_WRONG_LOGIN, $value );
     }
 
@@ -113,7 +111,6 @@ class WPDKUserMeta {
     // LAST_TIME_LOGOUT
     $value = isset( $post_data[ self::LAST_TIME_LOGOUT ] ) ? $post_data[ self::LAST_TIME_LOGOUT ] : '';
     if ( ! empty( $value ) ) {
-      $value = strtotime( $value );
       update_user_meta( $user_id, self::LAST_TIME_LOGOUT, $value );
     }
 
@@ -1368,7 +1365,7 @@ class WPDKUsers {
 
     $message                  = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, have a look below for additional information.', WPDK_TEXTDOMAIN );
     $alert                    = new WPDKUIAlert( 'wpdk-alert-show_user_profile', $message, WPDKUIAlertType::INFORMATION );
-    $alert->permanent_dismiss = true;
+    $alert->dismissPermanent  = true;
     $alert->display();
 
     // Only the administrator can edit this extra information
@@ -1387,7 +1384,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN,
             'label'    => __( 'Last success login', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_success_login ) ? '' : date( 'j M, Y H:i', $last_time_success_login ),
+            'value'    => empty( $last_time_success_login ) ? '' : WPDKDateTime::format( $last_time_success_login, WPDKDateTime::DATETIME_SECONDS_LESS_FORMAT_PHP ),
             'disabled' => $disabled
           ),
           array(
@@ -1403,7 +1400,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_WRONG_LOGIN,
             'label'    => __( 'Last wrong login', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_wrong_login ) ? '' : date( 'j M, Y H:i', $last_time_wrong_login ),
+            'value'    => empty( $last_time_wrong_login ) ? '' : WPDKDateTime::format( $last_time_wrong_login, WPDKDateTime::DATETIME_SECONDS_LESS_FORMAT_PHP ),
             'disabled' => $disabled
           ),
           array(
@@ -1421,7 +1418,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::DATETIME,
             'name'     => WPDKUserMeta::LAST_TIME_LOGOUT,
             'label'    => __( 'Last logout', WPDK_TEXTDOMAIN ),
-            'value'    => empty( $last_time_logout ) ? '' : date( 'j M, Y H:i', $last_time_logout ),
+            'value'    => empty( $last_time_logout ) ? '' : WPDKDateTime::format( $last_time_logout, WPDKDateTime::DATETIME_SECONDS_LESS_FORMAT_PHP ),
             'disabled' => $disabled
           ),
         ),
