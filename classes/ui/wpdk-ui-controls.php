@@ -1134,9 +1134,11 @@ class WPDKUIControlDate extends WPDKUIControl {
  *
  * @class              WPDKUIControlDateTime
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-09-19
+ * @version            0.9.0
+ *
+ * @history            0.9.0 - Create surrogate to fix date time string in timestamp
  *
  */
 class WPDKUIControlDateTime extends WPDKUIControl {
@@ -1163,7 +1165,28 @@ class WPDKUIControlDateTime extends WPDKUIControl {
    */
   public function draw()
   {
+    // Create surrogate - get original id and name
+    $original_id   = $this->id;
+    $original_name = $this->name;
+
+    // Build surrogate
+    $this->id   = sprintf( '%s-surrogate', $original_id );
+    $this->name = sprintf( '%s-surrogate', $original_name );
+
+    // Sanitize data
+    $this->item['data'] = isset( $this->item['data'] ) ? $this->item['data'] : array();
+
+    // Added reference
+    $this->item['data']['surrogate_name'] = $original_name;
+
     $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-datetime wpdk-form-has-button-clear-left ' );
+
+    // Create the input hidden
+    ?>
+    <input type="hidden"
+           id="<?php echo $original_id ?>"
+           name="<?php echo $original_name ?>" />
+    <?php
   }
 
 }
