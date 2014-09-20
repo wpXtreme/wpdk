@@ -850,13 +850,17 @@ jQuery( function ( $ )
           } );
 
           // Init surrogate
-          $( 'input.wpdk-form-datetime' ).on( 'change', function() {
+          $( 'input.wpdk-form-datetime' ).on( 'change', function ()
+          {
 
-            var timestamp = $( this ).datepicker('getDate') / 1000;
+            var timestamp = $( this ).datepicker( 'getDate' );
+
+            // Fix the GMT
+            timestamp.setMinutes( timestamp.getMinutes() - timestamp.getTimezoneOffset() );
 
             var name = $( this ).data( 'surrogate_name' );
 
-            $( 'input[name="' + name + '"]' ).val( timestamp );
+            $( 'input[name="' + name + '"]' ).val( ( timestamp / 1000 ) );
 
           } );
 
