@@ -868,6 +868,13 @@ jQuery( function ( $ )
 
           } );
 
+          // Init surrogate clear
+          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( WPDKUIComponentEvents.CLEAR_INPUT, function ()
+          {
+            var name = $( this ).data( 'surrogate_name' );
+            $( 'input[name="' + name + '"]' ).val( '' );
+          } );
+
           // TODO Prototype
           window.WPDKUIControlDateTime = {
             // TODO
