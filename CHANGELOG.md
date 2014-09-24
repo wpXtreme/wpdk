@@ -24,8 +24,7 @@ For more information on SemVer, please visit http://semver.org/.
 ### 2014-09-??
 
 * Removed deprecated
-
-
+* Improvements users class/filename organization
 
 ## Version 1.5.17
 ### 2014-09-24

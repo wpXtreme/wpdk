@@ -449,18 +449,28 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         // -------------------------------------------------------------------------------------------------------------
-        // USERS
+        // USERS, ROLES & CAPABILITIES
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/users/wpdk-user.php'                    => array(
-          'WPDKCapabilities',
-          'WPDKCapability',
-          'WPDKRole',
-          'WPDKRoles',
+        $sPathPrefix . 'classes/users/wpdk-users.php'                    => array(
           'WPDKUser',
           'WPDKUserMeta',
           'WPDKUsers',
           'WPDKUserStatus',
+        ),
+
+        $sPathPrefix . 'classes/users/wpdk-user-capabilities.php'                    => array(
+          'WPDKUserCapabilities',
+          'WPDKUserCapability',
+          'WPDKCapabilities',
+          'WPDKCapability',
+        ),
+
+        $sPathPrefix . 'classes/users/wpdk-user-roles.php'                    => array(
+          'WPDKUserRole',
+          'WPDKUserRoles',
+          'WPDKRole',
+          'WPDKRoles',
         ),
 
         // -------------------------------------------------------------------------------------------------------------
