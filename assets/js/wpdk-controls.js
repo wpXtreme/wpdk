@@ -167,9 +167,9 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
       function _initInput()
       {
         // Init with clear
-        $( document ).on( 'click', 'span.wpdk-form-clear-left', false, function ()
+        $( document ).on( 'click', 'span.wpdk-form-clear-left i', false, function ()
         {
-          $( this ).find( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          $( this ).prev( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
         } );
 
         // Init with disable after click

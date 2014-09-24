@@ -833,6 +833,8 @@ jQuery( function ( $ )
 
         // Locale
         if ( $().datetimepicker ) {
+
+          // Init the datetime picker addon
           $( 'input.wpdk-form-datetime:visible' ).datetimepicker( {
             timeOnlyTitle : wpdk_i18n.timeOnlyTitle,
             timeText      : wpdk_i18n.timeText,
@@ -846,6 +848,75 @@ jQuery( function ( $ )
             timeFormat    : wpdk_i18n.timeFormat,
             dateFormat    : wpdk_i18n.dateFormat
           } );
+
+          // Init surrogate for Date and Datetime controls.
+          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( 'change', function ()
+          {
+
+            var timestamp = $( this ).datepicker( 'getDate' );
+
+            if( typeof timestamp === 'undefined' || timestamp === null ) {
+              return;
+            }
+
+            // Fix the GMT
+            timestamp.setMinutes( timestamp.getMinutes() - timestamp.getTimezoneOffset() );
+
+            var name = $( this ).data( 'surrogate_name' );
+
+            $( 'input[name="' + name + '"]' ).val( ( timestamp / 1000 ) );
+
+          } );
+
+          // Init surrogate clear
+          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( WPDKUIComponentEvents.CLEAR_INPUT, function ()
+          {
+            var name = $( this ).data( 'surrogate_name' );
+            $( 'input[name="' + name + '"]' ).val( '' );
+          } );
+
+          // TODO Prototype
+          window.WPDKUIControlDateTime = {
+            // TODO
+            mySQLDateTime : function ( $e ) {},
+
+            // TODO
+            mySQLDate : function ( $e )
+            {
+              var d = $e.val();
+              var date = new Date( d );
+
+              var result = date.getFullYear() + '-' +
+                date.getMonth() + '-' +
+                date.getDate();
+
+              return result;
+
+            },
+
+            /**
+             * Set the right date and time in input hidden field and surrogate.
+             *
+             * @param object $e Element.
+             * @param int    d  Date in timestamp: PHP time().
+             */
+            setDate : function ( $e, d )
+            {
+
+              // Get the surrogate
+              var $surrogate = $( 'input[name="' + $e.attr( 'name' ) + '-surrogate' + '"]' );
+
+              if ( empty( d ) ) {
+                $surrogate.val( '' );
+                $e.val( '' );
+              }
+              else {
+                var date = new Date( ( d * 1000 ) );
+                $surrogate.datepicker( 'setDate', date );
+                $e.val( d );
+              }
+            }
+          };
 
           // TODO - Check for minimal date #not used becaues doesn't work
           //$( 'input.wpdk-form-date[data-date_type="start"], input.wpdk-form-datetime[data-date_type="start"]' ).each( function ()

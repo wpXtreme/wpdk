@@ -98,13 +98,19 @@ if ( wpdk_is_ajax() ) {
       $include_blog_users = get_users( array( 'blog_id' => $site_id, 'fields'  => 'ID' ) );
       $exclude_blog_users = get_users( array( 'blog_id' => $site_id, 'fields'  => 'ID' ) );
 
-      $users = get_users( array(
-          'blog_id'        => false,
-          'search'         => '*' . $term . '*',
-          'include'        => $include_blog_users,
-          'exclude'        => $exclude_blog_users,
-          'search_columns' => $query,
-      ) );
+      $args = array(
+        'blog_id'        => false,
+        'search'         => '*' . $term . '*',
+        'include'        => $include_blog_users,
+        'exclude'        => $exclude_blog_users,
+        'search_columns' => $query,
+
+        // @since 1.5.17 - avoid disabled users
+        'meta_key'       => WPDKUserMeta::STATUS,
+        'meta_compare'   => 'NOT EXISTS'
+      );
+
+      $users = get_users( $args );
 
       // Prepare array response
       $return = array();
@@ -205,7 +211,7 @@ if ( wpdk_is_ajax() ) {
       $orderby     = esc_attr( isset( $_POST['orderby'] ) ? $_POST['orderby'] : 'post_title' );
       $term        = esc_attr( isset( $_POST['term'] ) ? $_POST['term'] : '' );
 
-      /* Prepare response. */
+      // Prepare response
       $response = array();
 
       $table_posts = $wpdb->posts;
@@ -243,8 +249,7 @@ SQL;
         }
       }
 
-      echo json_encode( $response );
-      die();
+      wp_send_json( $response );
     }
 
 

@@ -20,6 +20,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.5.17
+### 2014-09-24
+
+* Several improved and fixed on list table view controller
+* Improved action filter and post data processing in list table model and view controller
+
 ## Version 1.5.16
 ### 2014-09-19
 

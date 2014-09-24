@@ -7,15 +7,16 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * An extension of WordPress WP_List_Table class.
  *
  * ## Overview
- * The WPDKListTableViewController class extends the WordPress WP_List_Table class. It add some useful methods to semplify
- * the common procedure.
- * This class is not a true view controller (WPDKViewController) but it is very similar.
+ * The WPDKListTableViewController class extends the WordPress WP_List_Table class. It add some useful methods to
+ * semplify the common procedure. This class is not a true view controller (WPDKViewController) but it is very similar.
  *
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-04-24
- * @version            1.2.0
+ * @date               2014-09-19
+ * @version            1.2.1
+ *
+ * @history            1.2.1 - Several refactor, improvements and removed old and deprecated methods
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -122,14 +123,51 @@ class WPDKListTableViewController extends WP_List_Table {
     // Do an action used to get the post data from model
     $action = get_class( $this->model ) . '-listtable-viewcontroller';
 
+    // Filter the query args for redirect after an actions.
+    add_filter( 'wpdk_list_table_remove_query_args_redirect', array( $this, 'wpdk_list_table_remove_query_args_redirect' ) );
+
     // This action must be call one time only
     if ( ! did_action( $action ) ) {
+
+      /**
+       * Fires when this view controller is loaded.
+       *
+       * This action is compose in '{view controller clss name}-listtable-viewcontroller'.
+       *
+       */
       do_action( $action );
     }
 
     // Enqueue components
     WPDKUIComponents::init()->enqueue( WPDKUIComponents::LIST_TABLE );
 
+  }
+
+  /**
+   * Filter the query args for redirect after an actions.
+   *
+   * @since 1.5.17
+   *
+   * @param array $args Optional. Default query args to remove. Default `array()`
+   */
+  public function wpdk_list_table_remove_query_args_redirect( $args = array() )
+  {
+    // Sanitize redirect
+    $remove = array(
+      '_wp_http_referer'      => false,
+      'action'                => false,
+      'action2'               => false,
+      '_wpnonce'              => false,
+      $this->args['singular'] => false,
+      $this->args['plural']   => false,
+      'paged'                 => false,
+    );
+
+    $args = array_merge( $args, $remove );
+
+    //WPXtreme::log( $args, '$args filter' );
+
+    return $args;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -430,23 +468,19 @@ class WPDKListTableViewController extends WP_List_Table {
 
       <?php $this->search_box_field() ?>
 
-      <?php echo $this->html_filters() ?>
-
-      <?php do_action( 'wpdk_list_table_form', $this ); // @deprecated action since 1.5.1 - use 'before_display()' instead ?>
-
-      <?php unset( $_REQUEST['action'] ); ?>
-      <?php $_SERVER['REQUEST_URI'] = isset( $_REQUEST['_wp_http_referer'] ) ? $_REQUEST['_wp_http_referer'] : $_SERVER['REQUEST_URI'] ?>
-
       <?php
-      $filters     = $this->get_filters();
-      $filter_args = array();
-      foreach ( $filters as $key => $value ) {
-        if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
-          $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-        }
-      }
-      $_SERVER['REQUEST_URI'] = add_query_arg( $filter_args, $_SERVER['REQUEST_URI'] );
-      ?>
+      // Standard input hidden
+      $input_hidden = array( 'page', 'post_type', 'orderby', 'order', );
+
+      // TODO think to a filter
+
+      foreach( $input_hidden as $name ) :
+        if( isset( $_REQUEST[ $name ] ) ) :
+
+          // TODO Warning!
+          $value = is_array( $_REQUEST[ $name ] ) ? esc_attr( $_REQUEST[ $name ][0] ) : esc_attr( $_REQUEST[ $name ] ); ?>
+          <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>"/>
+        <?php endif; endforeach; ?>
 
       <?php $this->before_display(); // since 1.5.1 ?>
 
@@ -467,48 +501,6 @@ class WPDKListTableViewController extends WP_List_Table {
     return $this->viewController->html();
   }
 
-  /**
-   * Return a set of registered filters
-   *
-   * @brief Brief
-   */
-  protected function get_filters()
-  {
-    $standard_filters = array(
-      'page'      => array(),
-      'post_type' => array(),
-      'orderby'   => array(),
-      'order'     => array(),
-    );
-
-    if ( ! empty( $this->model ) && method_exists( $this->model, 'get_filters' ) ) {
-      $standard_filters = array_merge( $standard_filters, (array) $this->model->get_filters() );
-    }
-
-    return $standard_filters;
-  }
-
-  /**
-   * Return a set of input hidden fields for registered filters
-   *
-   * @brief Brief
-   *
-   * @return string
-   */
-  protected function html_filters()
-  {
-    WPDKHTML::startCompress();
-    foreach ( $this->get_filters() as $request => $value ) {
-      if ( isset( $_REQUEST[ $request ] ) && ! empty( $_REQUEST[ $request ] ) ) :
-        ?><input type="hidden"
-                 name="<?php echo $request ?>"
-                 value="<?php echo urlencode( $_REQUEST[ $request ] ) ?>" /><?php
-      endif;
-    }
-
-    return WPDKHTML::endCompress();
-  }
-
 
   /**
    * Fires into the the title TAG.
@@ -518,7 +510,14 @@ class WPDKListTableViewController extends WP_List_Table {
   public function wpdk_header_view_inner_title( $header_view )
   {
     if ( WPDKDBListTableModel::ACTION_NEW != $this->current_action() ) {
-      $add_new = sprintf( '<a class="wpdk-add-new button button-primary" href="%s">%s</a>', $this->urlAddNew(), __( 'Add New', WPDK_TEXTDOMAIN ) );
+
+      $args = array(
+        'action' => WPDKDBListTableModel::ACTION_NEW,
+        'page'   => $_REQUEST['page'],
+      );
+      $href = add_query_arg( $args, self_admin_url( 'admin.php' ) );
+
+      $add_new = sprintf( '<a class="wpdk-add-new button button-primary" href="%s">%s</a>', $href, __( 'Add New', WPDK_TEXTDOMAIN ) );
 
       /**
        * Filter the HTML markup for button 'Add New'
@@ -603,22 +602,32 @@ class WPDKListTableViewController extends WP_List_Table {
 
         $current = ( $current_status == $key ) ? 'class="current"' : '';
 
-        // Clear URI
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
-          '_action',
-          '_action_result'
-        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
+//        // Clear URI
+//        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
+//          '_action',
+//          '_action_result'
+//        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
+//
+//        $args = array(
+//          $this->args['wpdk_request_status'] => $key,
+//          'paged'                            => false,
+//          'action'                           => false,
+//          '_action'                          => false,
+//          '_action_result'                   => false,
+//          $this->_args['singular']           => false
+//        );
+//
+//        $href = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
-        $args = array(
-          $this->args['wpdk_request_status'] => $key,
-          'paged'                            => false,
-          'action'                           => false,
-          '_action'                          => false,
-          '_action_result'                   => false,
-          $this->_args['singular']           => false
-        );
+        // Get referer
+        $referer = wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'];
 
-        $href = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
+        // NO filter
+        $args = $this->wpdk_list_table_remove_query_args_redirect( array( $this->args['wpdk_request_status'] => $key ) );
+
+        // href
+        $href = add_query_arg( $args, $referer );
+
 
         $views[ $key ] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
@@ -784,11 +793,6 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function actions_column( $item, $content, $item_status = '', $description = '' )
   {
-    // TODO Backward compatibility - will removed in next future
-    if ( isset( $item[ $content ] ) ) {
-      return $this->_actions_column( $item, $content, $item_status, $description );
-    }
-
     // Get the current view status
     $current_status = empty( $item_status ) ? $this->current_status() : $item_status;
 
@@ -802,49 +806,26 @@ class WPDKListTableViewController extends WP_List_Table {
     foreach ( $this->get_actions_with_status( $item, $current_status ) as $action => $label ) {
       if ( ! empty( $action ) ) {
 
-        // Clear URI
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
-          '_action',
-          '_action_result'
-        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
+        // Get referer
+        $referer = wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'];
 
         $args = array(
           'action'                => $action,
           $this->args['singular'] => $item[ $this->args['singular'] ],
           '_wpnonce'              => wp_create_nonce( 'bulk-' . $this->args['plural'] ),
-          '_wp_http_referer'      => esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ),
-          '_action'               => false,
-          '_action_result'        => false,
+          '_wp_http_referer'      => urlencode( wp_unslash( $referer ) ),
         );
 
         // href
-        $href = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
+        $href = add_query_arg( $args, $referer );
 
         /**
          * Filter the url for an action.
          *
          * The dynamic portion of the hook name, $action, refers to the action as 'action_edit', 'action_trash', etc...
          *
-         * @param string $href Current url with action, eg:
-         *
-         *                    /wp-admin/admin.php
-         *                     ?page=wpx_ras_main
-         *                     &status=all
-         *                     &action=action_edit
-         *                     &server_id=2
-         *                     &_wpnonce=f277fbe33d
-         *                     &_wp_http_referer=/wp-admin/admin.php?page=wpx_ras_main&amp;status=all
-         *
+         * @param string $href Current url with action.
          * @param array  $args Array argument
-         *
-         *                    array(6) {
-         *                      ["action"]=> string(11) "action_edit"
-         *                      ["server_id"]=> string(1) "1"
-         *                      ["_wpnonce"]=> string(10) "f277fbe33d"
-         *                      ["_wp_http_referer"]=> string(52) "/wp-admin/admin.php?page=wpx_ras_main&amp;status=all"
-         *                      ["_action"]=> bool(false)
-         *                      ["_action_result"]=> bool(false)
-         *                    }
          *
          */
 
@@ -859,87 +840,6 @@ class WPDKListTableViewController extends WP_List_Table {
     }
 
     return sprintf( '%s %s', $url_description, $this->row_actions( $stack ) );
-  }
-
-  // @deprecated since 1.5.16
-  public function _actions_column( $item, $column_name = 'description', $item_status = '', $custom_content = '', $action_url = WPDKDBListTableModel::ACTION_EDIT )
-  {
-
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '', '' );
-
-    // Get the current view status
-    $status = $this->current_status();
-
-    if ( ! empty( $item_status ) ) {
-      $status = $item_status;
-    }
-
-    // Prepare the url for description. See $action param.
-    $url_description = sprintf( '<strong>%s</strong>', $item[ $column_name ] );
-
-    $stack = array();
-    foreach ( $this->get_actions_with_status( $item, $status ) as $action => $label ) {
-      if ( ! empty( $action ) ) {
-
-        // Clear URI
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
-          '_action',
-          '_action_result'
-        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
-
-        $args = array(
-          'action'                => $action,
-          $this->args['singular'] => $item[ $this->args['singular'] ],
-          '_wpnonce'              => wp_create_nonce( 'bulk-' . $this->args['plural'] ),
-          '_wp_http_referer'      => esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ),
-          '_action'               => false,
-          '_action_result'        => false,
-        );
-
-        // url
-        $url = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
-
-        /**
-         * Filter the url for an action.
-         *
-         * The dynamic portion of the hook name, $action, refers to the action as 'action_edit', 'action_trash', etc...
-         *
-         * @param string $url  Current url with action, eg:
-         *
-         *                    /wp-admin/admin.php
-         *                     ?page=wpx_ras_main
-         *                     &status=all
-         *                     &action=action_edit
-         *                     &server_id=2
-         *                     &_wpnonce=f277fbe33d
-         *                     &_wp_http_referer=/wp-admin/admin.php?page=wpx_ras_main&amp;status=all
-         *
-         * @param array  $args Array argument
-         *
-         *                    array(6) {
-         *                      ["action"]=> string(11) "action_edit"
-         *                      ["server_id"]=> string(1) "1"
-         *                      ["_wpnonce"]=> string(10) "f277fbe33d"
-         *                      ["_wp_http_referer"]=> string(52) "/wp-admin/admin.php?page=wpx_ras_main&amp;status=all"
-         *                      ["_action"]=> bool(false)
-         *                      ["_action_result"]=> bool(false)
-         *                    }
-         *
-         */
-
-        $href = apply_filters( 'wpdk_listtable_action_' . $action, $url, $args );
-
-        if ( ! empty( $action ) && $action_url == $action ) {
-          $url_description = sprintf( '<a href="%s"><strong>%s</strong></a>', $href, $item[ $column_name ] );
-        }
-
-        $stack[ $action ] = sprintf( '<a href="%s">%s</a>', $href, $label );
-      }
-    }
-
-    $description = empty( $custom_content ) ? $url_description : $custom_content;
-
-    return sprintf( '%s %s', $description, $this->row_actions( $stack ) );
   }
 
   /**
@@ -1100,82 +1000,6 @@ class WPDKListTableViewController extends WP_List_Table {
 
     return $action;
   }
-
-  // -------------------------------------------------------------------------------------------------------------------
-  // Utility for build URL
-  // TODO refator naming below
-  // -------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Return the current URL without: `action` and singular id
-   *
-   * @brief URL
-   *
-   * @return string
-   */
-  public function urlRemveAction()
-  {
-    $remove = array(
-      'action',
-      $this->_args['singular']
-    );
-    $url    = remove_query_arg( $remove, stripslashes( $_SERVER['REQUEST_URI'] ) );
-
-    return $url;
-  }
-
-  /**
-   * Return the current URL without: `_wp_http_referer`, `_wpnonce` and singular id
-   *
-   * @brief URL
-   *
-   * @return string
-   */
-  public function urlRemoveNonce()
-  {
-    $remove = array(
-      '_wp_http_referer',
-      '_wpnonce',
-      $this->_args['singular']
-    );
-    $url    = remove_query_arg( $remove, stripslashes( $_SERVER['REQUEST_URI'] ) );
-
-    return $url;
-  }
-
-  /**
-   * Return the URL to Add New item
-   *
-   * @brief URL
-   *
-   * @return string
-   */
-  public function urlAddNew()
-  {
-    $add = array(
-      'action'   => 'new',
-      'page'     => $_REQUEST['page'],
-      '_action'  => false,
-      '_action2' => false,
-
-    );
-    $url = add_query_arg( $add, $this->urlRemoveNonce() );
-
-    return $url;
-  }
-
-  /**
-   * Redirect
-   *
-   * @brief Redirect
-   */
-  public function redirect()
-  {
-    $url = $this->urlRemveAction();
-    wp_redirect( $url );
-    exit;
-  }
-
 }
 
 /**
@@ -1323,19 +1147,6 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
-   * Return a key values array with registered filters
-   *
-   * @brief Filters
-   * @since 1.5.2
-   *
-   * @return array
-   */
-  public function get_filters()
-  {
-    return array();
-  }
-
-  /**
    * Return a key value pairs array with the list of columns
    *
    * @brief Return the list of columns
@@ -1462,7 +1273,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
-   * Process actions
+   * Process actions. Override when you need to process actions before wp is loaded.
    *
    * @brief Process actions
    * @since 1.4.21
@@ -1470,40 +1281,63 @@ class WPDKListTableModel implements IWPDKListTableModel {
    */
   public function process_bulk_action()
   {
-    // Override when you need to process actions before wp is loaded
-
+    // Get current action.
     $action = $this->current_action();
 
-    if ( $action ) {
-      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-        $args = array(
-          '_action_result' => $this->action_result,
-          '_action'        => $action,
-          'action'         => false,
-          'action2'        => false,
-          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-        );
+    // Avoid redirect for these actions
+    $actions = array( WPDKDBListTableModel::ACTION_NEW );
 
-        // Previous selected filters
-        $filters     = $this->get_filters();
-        $filter_args = array();
-        foreach ( $filters as $key => $value ) {
-          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
-            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-          }
-        }
+    // TODO think to filter
 
-        //  merge standard args with filters args
-        $args = array_merge( $args, $filter_args );
-
-        // New referrer
-        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-
-        //WPXtreme::log( $uri, "redirect" );
-
-        wp_safe_redirect( $uri );
-      }
+    if( $action && in_array( $action, $actions ) ) {
+      return;
     }
+
+    /**
+     * Filter the query args for redirect after an actions.
+     *
+     * @since 1.5.17
+     *
+     * @param array $args Optional. Default query args to remove. Default `array()`
+     */
+    $args     = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+    $reditect = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
+
+    if ( $action ) {
+      wp_safe_redirect( $reditect );
+    }
+
+
+//    if ( $action ) {
+//      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
+//        $args = array(
+//          '_action_result' => $this->action_result,
+//          '_action'        => $action,
+//          'action'         => false,
+//          'action2'        => false,
+//          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
+//        );
+//
+//        // Previous selected filters
+//        $filters     = $this->get_filters();
+//        $filter_args = array();
+//        foreach ( $filters as $key => $value ) {
+//          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
+//            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
+//          }
+//        }
+//
+//        //  merge standard args with filters args
+//        $args = array_merge( $args, $filter_args );
+//
+//        // New referrer
+//        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
+//
+//        //WPXtreme::log( $uri, "redirect" );
+//
+//        wp_safe_redirect( $uri );
+//      }
+//    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------
