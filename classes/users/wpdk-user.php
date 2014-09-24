@@ -116,7 +116,14 @@ class WPDKUserMeta {
 
     // STATUS
     $value = isset( $post_data[ self::STATUS ] ) ? $post_data[ self::STATUS ] : '';
-    update_user_meta( $user_id, self::STATUS, $value );
+
+    // @since 1.5.17 - fixed status empty with delete
+    if ( empty( $value ) ) {
+      delete_user_meta( $user_id, self::STATUS );
+    }
+    else {
+      update_user_meta( $user_id, self::STATUS, $value );
+    }
 
     // STATUS_DESCRIPTION
     $value = isset( $post_data[ self::STATUS_DESCRIPTION ] ) ? $post_data[ self::STATUS_DESCRIPTION ] : '';
@@ -169,6 +176,11 @@ class WPDKUserStatus {
       self::CANCELED => __( 'Canceled', WPDK_TEXTDOMAIN ),
     );
 
+    /**
+     * Filter the default WPDK user status list.
+     *
+     * @param array $statuses The key value pairs with status id => label.
+     */
     return apply_filters( 'wpdk_user_status_statuses', $statuses );
   }
 }
@@ -939,45 +951,60 @@ class WPDKUsers {
   private function __construct()
   {
 
-    //$this->logout();
+    // Force an user logout when disabled or if in GET you pass wpdk_logout
     add_action( 'init', array( $this, 'logout' ) );
 
     // Main hook for common check in front end
     //add_action( 'wp_head', array( $this, 'wp_head_signin' ) );
     //add_action( 'wp_head', array( $this, 'wp_head_signout' ) );
 
-    // Hook on Login
+    // Fires after the user has successfully logged in.
     add_action( 'wp_login', array( $this, 'wp_login' ) );
+
+    // Fires after a user is logged-out.
     add_action( 'wp_logout', array( $this, 'wp_logout' ) );
+
+    // Fires after a user login has failed.
     add_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 
-    // includes/wp_insert_user() Nuovo Utente registrato
+    // Fires immediately after a new user is registered.
     //add_action( 'user_register', array( $this, 'user_register' ) );
 
-    // includes/wp_insert_user() Utente già registrato quindi aggiornamento dati
-    add_action( 'delete_user', array( $this, 'delete_user' ) );
-    add_action( 'deleted_user', array( $this, 'deleted_user' ) );
+    // Fires immediately before a user is deleted from the database.
+    //add_action( 'delete_user', array( $this, 'delete_user' ) );
 
-    // Backend user profile (own)
+    // Fires immediately after a user is deleted from the database.
+    //add_action( 'deleted_user', array( $this, 'deleted_user' ) );
+
+    // Fires after the 'About Yourself' settings table on the 'Your Profile' editing screen.
     add_action( 'show_user_profile', array( $this, 'show_user_profile' ) );
-    add_action( 'personal_options_update', array( $this, 'personal_options_update' ) );
-    add_action( 'personal_options', array( $this, 'personal_options' ) );
-    add_action( 'profile_personal_options', array( $this, 'profile_personal_options' ) );
 
-    // Backend user profile (other)
+    // Fires before the page loads on the 'Your Profile' editing screen.
+    add_action( 'personal_options_update', array( $this, 'personal_options_update' ) );
+
+    // Fires at the end of the 'Personal Options' settings table on the user editing screen.
+    add_action( 'personal_options', array( $this, 'personal_options' ) );
+
+    // Fires after the 'Personal Options' settings table on the 'Your Profile' editing screen.
+    //add_action( 'profile_personal_options', array( $this, 'profile_personal_options' ) );
+
+    // Fires after the 'About the User' settings table on the 'Edit User' screen.
     add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ) );
+
+    // Fires before the page loads on the 'Edit User' screen.
     add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ) );
 
     // Extends User edit profile
 
-    // Disable and locking featured
+    // Filter whether the given user can be authenticated with the provided $password.
     add_filter( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 1 );
 
-    add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
+    // Filter the user contact methods.
+    //add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
   }
 
   /**
-   * Force an user logout when disabled or if in GET you pass wpdk_logout
+   * Force an user logout when disabled or if in GET you pass wpdk_logout.
    *
    * @brief Logout an user
    */
@@ -1012,13 +1039,13 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Called when an user is authenticate.
+   * Filter whether the given user can be authenticated with the provided $password.
    *
-   * @brief WP authenticate hook
+   * @since WP 2.5.0
    *
-   * @param WP_User $user WP_User object
-   *
-   * @return WP_Error|WP_User
+   * @param WP_User|WP_Error $user     WP_User or WP_Error object if a previous
+   *                                   callback failed authentication.
+   * @param string           $password Password to check against the user.
    */
   public function wp_authenticate_user( $user )
   {
@@ -1061,13 +1088,13 @@ class WPDKUsers {
   }
 
   /**
-   * This method is called when an user signin with homonymous WordPress action `wp_login`.
-   *
-   * @brief WP Login hook
-   *
-   * @param string  $user_login User login
-   * @param WP_User $user       Optional.
-   */
+ 	 * Fires after the user has successfully logged in.
+ 	 *
+ 	 * @since WP 1.5.0
+ 	 *
+ 	 * @param string  $user_login Username.
+ 	 * @param WP_User $user       WP_User object of the logged-in user.
+ 	 */
   public function wp_login( $user_login, $user = null )
   {
 
@@ -1089,22 +1116,20 @@ class WPDKUsers {
   }
 
   /**
-   * This method is called when an user wrong signin with homonymous WordPress action `wp_login_failed`.
+   * Fires after a user login has failed.
    *
-   * @brief WP Login failed hook
+   * @since WP 2.5.0
    *
-   * @param string $user_login User login
-   *
-   * @return bool
+   * @param string $username User login.
    */
-  public function wp_login_failed( $user_login )
+  public function wp_login_failed( $username )
   {
 
-    if ( empty( $user_login ) ) {
+    if ( empty( $username ) ) {
       return false;
     }
 
-    $user = get_user_by( 'login', $user_login );
+    $user = get_user_by( 'login', $username );
 
     // Check if the user exists.
     if ( false === $user ) {
@@ -1249,10 +1274,10 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This method is called when an user signout with homonymous WordPress action `wp_logout`.
-   *
-   * @brief WP Logout hook
-   */
+ 	 * Fires after a user is logged-out.
+ 	 *
+ 	 * @since WP 1.5.0
+ 	 */
   public function wp_logout()
   {
     $user_id = get_current_user_id();
@@ -1335,6 +1360,13 @@ class WPDKUsers {
 
     // Disable user if required
     if ( false === $enabled ) {
+
+      /**
+       * Filter the user status before update.
+       *
+       * @param string $status  The status id. Default `WPDKUserStatus::DISABLED`.
+       * @param int    $user_id The user id.
+       */
       $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
 
@@ -1351,14 +1383,15 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This hook only triggers when a user is viewing their own profile page. If you want to apply your hook to ALL
-   * profile pages (not just the current user) then you also need to use the edit_user_profile hook.
+   * Fires after the 'About Yourself' settings table on the 'Your Profile' editing screen.
    *
-   * @brief WP Show user profile hook
+   * The action only fires if the current user is editing their own profile.
    *
-   * @param WP_User $user WordPress user object
+   * @since WP 2.0.0
+   *
+   * @param WP_User $profileuser The current WP_User object.
    */
-  public function show_user_profile( $user )
+  public function show_user_profile( $profileuser )
   {
 
     echo '<br clear="all" /><a name="wpdk"></a>';
@@ -1372,10 +1405,10 @@ class WPDKUsers {
     $disabled = ! current_user_can( 'manage_options' );
 
     // Sanitize values
-    $last_time_success_login = $user->get( WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN );
-    $last_time_wrong_login   = $user->get( WPDKUserMeta::LAST_TIME_WRONG_LOGIN );
-    $last_time_logout        = $user->get( WPDKUserMeta::LAST_TIME_LOGOUT );
-    $status_description      = $user->get( WPDKUserMeta::STATUS_DESCRIPTION );
+    $last_time_success_login = $profileuser->get( WPDKUserMeta::LAST_TIME_SUCCESS_LOGIN );
+    $last_time_wrong_login   = $profileuser->get( WPDKUserMeta::LAST_TIME_WRONG_LOGIN );
+    $last_time_logout        = $profileuser->get( WPDKUserMeta::LAST_TIME_LOGOUT );
+    $status_description      = $profileuser->get( WPDKUserMeta::STATUS_DESCRIPTION );
 
     $fields = array(
       __( 'Login information', WPDK_TEXTDOMAIN )  => array(
@@ -1391,7 +1424,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::NUMBER,
             'name'     => WPDKUserMeta::COUNT_SUCCESS_LOGIN,
             'label'    => __( '# success login', WPDK_TEXTDOMAIN ),
-            'value'    => $user->get( WPDKUserMeta::COUNT_SUCCESS_LOGIN ),
+            'value'    => $profileuser->get( WPDKUserMeta::COUNT_SUCCESS_LOGIN ),
             'disabled' => true
           ),
         ),
@@ -1407,7 +1440,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::NUMBER,
             'name'     => WPDKUserMeta::COUNT_WRONG_LOGIN,
             'label'    => __( '# wrong login', WPDK_TEXTDOMAIN ),
-            'value'    => $user->get( WPDKUserMeta::COUNT_WRONG_LOGIN ),
+            'value'    => $profileuser->get( WPDKUserMeta::COUNT_WRONG_LOGIN ),
             'disabled' => $disabled
           ),
         ),
@@ -1429,7 +1462,7 @@ class WPDKUsers {
             'type'     => WPDKUIControlType::SELECT,
             'name'     => WPDKUserMeta::STATUS,
             'label'    => __( 'Status', WPDK_TEXTDOMAIN ),
-            'value'    => $user->get( WPDKUserMeta::STATUS ),
+            'value'    => $profileuser->get( WPDKUserMeta::STATUS ),
             'options'  => WPDKUserStatus::statuses(),
             'disabled' => $disabled
           ),
@@ -1449,38 +1482,52 @@ class WPDKUsers {
       ),
     );
 
-    $fields = apply_filters( 'wpdk_users_fields_profile', $fields, $user );
+    /**
+     * Filter the layout control array with the extra WPDK fields.
+     *
+     * You can use this filter or `wpdk_users_show_user_profile` action to modify the default layout control array.
+     *
+     * @param array   $fields      Layout array fields.
+     * @param WP_User $profileuser The current WP_User object.
+     */
+    $fields = apply_filters( 'wpdk_users_fields_profile', $fields, $profileuser );
 
     $layout = new WPDKUIControlsLayout( $fields );
     $layout->display();
 
-    do_action( 'wpdk_users_show_user_profile', $user );
+    /**
+     * Fires after display the layout controls.
+     *
+     * You can use this action or `wpdk_users_fields_profile` filter to modify the default layout control array.
+     *
+     * @param WP_User $profileuser The current WP_User object.
+     */
+    do_action( 'wpdk_users_show_user_profile', $profileuser );
   }
 
   /**
-   * This hook only triggers when a user is viewing their own profile page (not others).
-   * If you want to apply your hook to ALL profile pages (including users other than the current one) then you also
-   * need to use the edit_user_profile_update hook.
-   *
-   * @brief Personal options update hook
-   *
-   * @param int $id_user User id
-   */
-  public function personal_options_update( $id_user )
+ 	 * Fires before the page loads on the 'Your Profile' editing screen.
+ 	 *
+ 	 * The action only fires if the current user is editing their own profile.
+ 	 *
+ 	 * @since WP 2.0.0
+ 	 *
+ 	 * @param int $user_id The user ID.
+ 	 */
+  public function personal_options_update( $user_id )
   {
     // Same for other users, see below
-    $this->edit_user_profile_update( $id_user );
+    $this->edit_user_profile_update( $user_id );
   }
 
   /**
-   * Hooks immediately after the "Show toolbar..." option on profile page (if current user).
-   * Any HTML output should take into account that this hook occurs within the "Personal Options" table element.
+   * Fires at the end of the 'Personal Options' settings table on the user editing screen.
    *
-   * @brief Personal options
+   * @since WP 2.7.0
    *
-   * @param WP_User $user WordPress user object
+   * @param WP_User $profileuser The current WP_User object.
    */
-  public function personal_options( $user )
+  public function personal_options( $profileuser )
   {
     $message                 = __( 'This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. Please, <strong><a href="#wpdk">have a look below</a></strong> for additional information.', WPDK_TEXTDOMAIN );
     $alert                   = new WPDKUIAlert( 'wpdk-alert-personal_options', $message, WPDKUIAlertType::INFORMATION );
@@ -1489,51 +1536,44 @@ class WPDKUsers {
   }
 
   /**
-   * Hooks above the "Name" section of profile page. This is typically used for adding new fields to WordPress profile
-   * pages.
-   * This hook only triggers if a user is viewing their own profile page. There is no equivalent hook at this point for
-   * injecting content onto the profile pages of non-current users.
+   * Fires after the 'Personal Options' settings table on the 'Your Profile' editing screen.
    *
-   * @brief Profile personal options
+   * The action only fires if the current user is editing their own profile.
    *
-   * @param WP_User $user WordPress user object
+   * @since 2.0.0
+   *
+   * @param WP_User $profileuser The current WP_User object.
    */
-  public function profile_personal_options( $user )
+  public function profile_personal_options( $profileuser )
   {
     // Nothing to do... for now
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // User profile (other)
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This hook only triggers when a user is viewing another users profile page (not their own).
-   * If you want to apply your hook to ALL profile pages (including the current user) then you also need to use the
-   * show_user_profile hook.
+   * Fires after the 'About the User' settings table on the 'Edit User' screen.
    *
-   * @brief WP User Profile hook
+   * @since WP 2.0.0
    *
-   * @param WP_User $user WordPress user object
+   * @param WP_User $profileuser The current WP_User object.
    */
-  public function edit_user_profile( $user )
+  public function edit_user_profile( $profileuser )
   {
     // At this moment display the same informations
-    $this->show_user_profile( $user );
+    $this->show_user_profile( $profileuser );
   }
 
   /**
-   * This hook only triggers when a user is viewing another user's profile page (not their own).
-   * If you want to apply your hook to ALL profile pages (including the current user) then you also need to use
-   * the personal_options_update hook.
-   *
-   * @brief WP Edit user profile update hook
-   *
-   * @param int $id_user User ID
-   *
-   * @return bool
-   */
-  public function edit_user_profile_update( $id_user )
+ 	 * Fires before the page loads on the 'Edit User' screen.
+ 	 *
+ 	 * @since WP 2.7.0
+ 	 *
+ 	 * @param int $user_id The user ID.
+ 	 */
+  public function edit_user_profile_update( $user_id )
   {
     if ( ! current_user_can( 'edit_user' ) ) {
       return false;
@@ -1541,7 +1581,7 @@ class WPDKUsers {
 
     // Update the WPDK extra information
     if ( current_user_can( 'manage_options' ) ) {
-      WPDKUserMeta::update( $id_user, $_POST );
+      WPDKUserMeta::update( $user_id, $_POST );
     }
 
     return true;
@@ -1595,16 +1635,12 @@ class WPDKUsers {
   }
 
   /**
-   * Not used yet because can't get a clean list of $contancts. Then is not possible to display a series of checkboxes
-   * that indicate the fields not to show. For it, in fact, should I use just this filter or private
-   * function / internal _wp_get_user_contactmethods ().
+   * Filter the user contact methods.
    *
-   * @brief WP User contact methods hook
-   * @todo  Not used yet
+   * @since WP 2.9.0
    *
-   * @param array $contacts
-   *
-   * @return mixed
+   * @param array   $methods Array of contact methods and their labels.
+   * @param WP_User $user    WP_User object.
    */
   public function user_contactmethods( $contacts )
   {
@@ -1795,9 +1831,9 @@ SQL;
   }
 
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // DEPRECATED
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Return a key value pairs array with ID => Description of role
