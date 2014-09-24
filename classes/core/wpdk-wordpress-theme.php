@@ -691,12 +691,16 @@ class WPDKTheme extends WPDKObject {
    * @param string $sClassName - The class that has to be loaded right now
    *
    */
-  public function autoloadEnvironment( $sClassName ) {
+  public function autoloadEnvironment( $sClassName )
+  {
+    if ( class_exists( $sClassName, false ) ) {
+      return;
+    }
 
     // For backward compatibility and for better matching
     $sClassNameLowerCased = strtolower( $sClassName );
-    if ( isset( $this->_wpxThemeClassLoadingPath[$sClassNameLowerCased] ) ) {
-      require_once( $this->_wpxThemeClassLoadingPath[$sClassNameLowerCased] );
+    if ( isset( $this->_wpxThemeClassLoadingPath[ $sClassNameLowerCased ] ) ) {
+      require_once( $this->_wpxThemeClassLoadingPath[ $sClassNameLowerCased ] );
     }
 
   }

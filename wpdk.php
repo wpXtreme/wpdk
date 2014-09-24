@@ -164,6 +164,10 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function autoloadWPDKEnvironment( $sClassName )
     {
+      if( class_exists( $sClassName, false ) ) {
+        return;
+      }
+
       // For backward compatibility and for better matching
       $sClassNameLowerCased = strtolower( $sClassName );
       if ( isset( $this->_wpdkClassLoadingPath[$sClassNameLowerCased] ) ) {
