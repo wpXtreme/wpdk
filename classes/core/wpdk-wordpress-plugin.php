@@ -108,15 +108,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   public $javascriptURL;
 
   /**
-   * A WPDKWatchDog pointer
-   *
-   * @brief Log
-   *
-   * @var WPDKWatchDog $log
-   */
-  public $log;
-
-  /**
    * Filesystem plugin path
    *
    * @brief Filesystem plugin path
@@ -236,7 +227,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     spl_autoload_register( array( $this, 'autoloadEnvironment' ) );
 
     // Path unix
-    $this->path         = trailingslashit( plugin_dir_path( $file ) );
+    $this->path         = trailingslashit( dirname( $file ) );
     $this->classesPath  = $this->path . 'classes/';
     $this->databasePath = $this->path . 'database/';
 
@@ -259,9 +250,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     // Useful property
     $this->protocol = self::protocol();
     $this->urlAjax  = self::urlAjax();
-
-    // Logs
-    $this->log = new WPDKWatchDog( $this->path );
 
     // Load text domain
     load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
@@ -424,8 +412,13 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function autoloadEnvironment( $sClassName )
   {
+    if( class_exists( $sClassName, false ) ) {
+      return;
+    }
+
     // For backward compatibility and for better matching
     $sClassNameLowerCased = strtolower( $sClassName );
+
     if ( isset( $this->_wpxPluginClassLoadingPath[$sClassNameLowerCased] ) ) {
       require_once( $this->_wpxPluginClassLoadingPath[$sClassNameLowerCased] );
     }
@@ -535,30 +528,6 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     // To override
   }
 
-  // -------------------------------------------------------------------------------------------------------------------
-  // DEPRECATED
-  // -------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Called after `loaded()` method. Use this for init your own configuration.
-   *
-   * @brief      Action for init configuration
-   *
-   * @deprecated since 1.2.0 use preferences() instead
-   */
-  public function configuration()
-  {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.2.0', 'preferences()' );
-  }
-
-  /**
-   * @deprecated since 1.4.20
-   */
-  public function loaded()
-  {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.4.20' );
-  }
-
 }
 
 
@@ -569,9 +538,11 @@ class WPDKWordPressPlugin extends WPDKPlugin {
  *
  * @class              WPDKPlugin
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-15
- * @version            1.0.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-09-24
+ * @version            1.0.1
+ *
+ * @history            1.0.1 - Removed deprecated
  *
  */
 
@@ -729,7 +700,7 @@ class WPDKPlugin {
 
     if ( !is_null( $this->file ) ) {
 
-      /* Use WordPress get_plugin_data() function for auto retrive plugin information. */
+      // Use WordPress get_plugin_data() function for auto retrive plugin information.
       if ( !function_exists( 'get_plugin_data' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
       }
@@ -752,67 +723,6 @@ class WPDKPlugin {
 
     }
   }
-
-  /* @todo Active plugin */
-  public function active() {}
-
-  /* @todo Deactive plugin */
-  public function deactive() {}
-
-  /* @todo Unistall plugin */
-  public function uninstall() {}
-
-  /**
-   * Retrieve metadata from the main file of plugin.
-   *
-   * Searches for metadata in the first 8kiB of a file, such as a plugin or theme.
-   * Each piece of metadata must be on its own line. Fields can not span multiple lines, the value will get cut at the
-   * end of the first line.
-   *
-   * If the file data is not within that first 8kiB, then the author should correct their plugin file and move the data
-   * headers to the top.
-   *
-   * @since 1.0.0.b4
-   * @deprecated since 1.1.4 - Use get_file_data()
-   *
-   * @param array $aWPXHeaders List of metadata to get, in the format `array( 'Header Name' ==> '', ... )`
-   *
-   * @return array|boolean The array with all metadata got from main file of plugin, or FALSE in case of an error.
-   *
-   */
-  public function readMetadata( $aWPXHeaders )
-  {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.1.4', 'get_file_data()' );
-
-    // Check input param
-    if( empty( $aWPXHeaders )) {
-      return FALSE;
-    }
-
-    // Get first 8K of file
-    $sContent = file_get_contents( $this->file, FALSE, NULL, 0, 8192);
-    if( FALSE === $sContent ) {
-      return FALSE;
-    }
-
-    // Make sure we catch CR-only line endings.
-    $sContent = str_replace( "\r", "\n", $sContent );
-
-    // Get WPX metadata from header
-    foreach ( $aWPXHeaders as $sKey => $sValue  ) {
-      if ( preg_match( '/^[ \t\/*#@]*' . preg_quote( $sKey, '/' ) . ':(.*)$/mi', $sContent, $aMatch ) && $aMatch[1] ) {
-        $aWPXHeaders[ $sKey ] = _cleanup_header_comment( $aMatch[1] );
-      }
-      else {
-        $aWPXHeaders[ $sKey ] = '';
-      }
-    }
-
-    // Return WPX metadata
-    return $aWPXHeaders;
-
-  }
-
 }
 
 /**
@@ -823,6 +733,8 @@ class WPDKPlugin {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2012-11-28
  * @version            0.8.1
+ *
+ * @deprecated         since 1.5.18 - Not more used
  *
  */
 class WPDKPlugins {
