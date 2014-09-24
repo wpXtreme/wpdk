@@ -10,14 +10,14 @@
  */
 
 // WPDK version
-define( 'WPDK_VERSION', '1.5.17' );
+define( 'WPDK_VERSION', '1.5.18' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Path unix: /var/
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Path unix wpdk forlder
-define( 'WPDK_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'WPDK_DIR', trailingslashit( dirname( __FILE__ ) ) );
 
 // Path unix wpdk classes folder
 define( 'WPDK_DIR_CLASS', WPDK_DIR . 'classes/' );
