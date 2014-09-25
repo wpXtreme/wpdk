@@ -23,6 +23,7 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.5.18
 ### 2014-09-??
 
+* Improved performance
 * Removed deprecated
 * Improvements users class/filename organization
 

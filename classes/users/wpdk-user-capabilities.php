@@ -830,12 +830,10 @@ class WPDKUserCapability {
 }
 
 
-/* Deprecated */
+/* @deprecated since 1.5.18 */
+class WPDKCapabilities extends WPDKUserCapabilities {}
 
-class WPDKCapabilities extends WPDKUserCapabilities {
-
-}
-
+/* @deprecated since 1.5.18 */
 class WPDKCapability extends WPDKUserCapability {
 
 }

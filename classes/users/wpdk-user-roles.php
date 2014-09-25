@@ -119,38 +119,59 @@ class WPDKUserRole extends WP_Role {
    */
   public function update()
   {
+    // WPDKUserRoles
+    $wpdk_roles = WPDKUserRoles::getInstance();
+
     // Roles
-    if ( isset( WPDKUserRoles::getInstance()->roles[ $this->name ] ) ) {
+    if ( isset( $wpdk_roles->roles[ $this->name ] ) ) {
 
       // Reset all capabilities
-      WPDKUserRoles::getInstance()->roles[ $this->name ]['capabilities'] = array();
+      $wpdk_roles->roles[ $this->name ]['capabilities'] = array();
 
       // Set new capabilities
       foreach ( $this->capabilities as $cap ) {
-        WPDKUserRoles::getInstance()->roles[ $this->name ]['capabilities'][ $cap ] = true;
+        $wpdk_roles->roles[ $this->name ]['capabilities'][ $cap ] = true;
       }
 
       // Updated
-      if ( WPDKUserRoles::getInstance()->use_db ) {
-        update_option( WPDKUserRoles::getInstance()->role_key, WPDKUserRoles::getInstance()->roles );
-        WPDKUserRoles::invalidate();
+      if ( $wpdk_roles->use_db ) {
+
+        update_option( $wpdk_roles->role_key, $wpdk_roles->roles );
+
+        /**
+         * Fires when the role is updated.
+         *
+         * @param string $role_key The role key.
+         * @param array  $roles    The role capabilities array.
+         */
+        do_action( 'wpdk_user_role_update', $wpdk_roles->role_key, $wpdk_roles->roles );
       }
 
     }
 
-    $extra = get_option( WPDKUserRoles::OPTION_KEY );
-    if ( ! empty( $extra ) ) {
-      $extra[ $this->name ] = array(
-        $this->displayName,
-        $this->description,
-        $this->owner
-      );
-    }
-    else {
-      $extra = WPDKUserRoles::init()->activeRoles;
-    }
+    $extend = get_option( WPDKUserRoles::OPTION_KEY );
 
-    return update_option( WPDKUserRoles::OPTION_KEY, $extra );
+    // Stability - however $extend is never empty - see WPDKUserRoles constructor in /classes/users/wpdk-user-roles.php
+    $extend = empty( $extend ) ? array() : $extend;
+
+    $extend[ $this->name ] = array(
+      $this->displayName,
+      $this->description,
+      $this->owner
+    );
+
+    $result = update_option( WPDKUserRoles::OPTION_KEY, $extend );
+
+    /**
+     * Fires when the role is updated.
+     *
+     * @param string $role_key The role key.
+     * @param array  $roles    The role capabilities array.
+     * @param array  $extend    The array extra (extends) data.
+     */
+    do_action( 'wpdk_user_role_extend_update', $wpdk_roles->role_key, $wpdk_roles->roles, $extend );
+
+    return $result;
   }
 
 }
@@ -195,7 +216,7 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $activeRoles
    */
-  public $activeRoles;
+  public $activeRoles = array();
 
   /**
    * An array with all inactive roles
@@ -204,7 +225,7 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $inactiveRoles
    */
-  public $inactiveRoles;
+  public $inactiveRoles = array();
 
   /**
    * Default WordPress roles
@@ -213,16 +234,16 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $wordPressRoles
    */
-  public $wordPressRoles;
+  public $wordPressRoles = array();
 
   /**
    * Number of roles
    *
    * @brief Counts of roles
    *
-   * @var int $count ;
+   * @var int $count
    */
-  public $count;
+  public $count = 0;
 
   /**
    * List with count role group by user
@@ -231,7 +252,7 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $arrayCountUsersByRole ;
    */
-  public $arrayCountUsersByRole;
+  public $arrayCountUsersByRole = array();
 
   /**
    * An key value pairs array with key = role and value = list of capabilities.
@@ -240,7 +261,7 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $arrayCapabilitiesByRole
    */
-  public $arrayCapabilitiesByRole;
+  public $arrayCapabilitiesByRole = array();
 
   /**
    * A key value pairs array with role id for key and a key value pairs array for value.
@@ -249,7 +270,7 @@ class WPDKUserRoles extends WP_Roles {
    *
    * @var array $extend_data
    */
-  private $extend_data;
+  private $extend_data = array();
 
   /**
    * Singleton instance
@@ -310,6 +331,7 @@ class WPDKUserRoles extends WP_Roles {
    */
   public static function invalidate()
   {
+
     self::$instance = null;
 
     return self::get_instance();
@@ -330,6 +352,8 @@ class WPDKUserRoles extends WP_Roles {
   {
     parent::__construct();
 
+    // WPXtreme::caller();
+
     // Get the extended data
     $this->extend_data = get_option( self::OPTION_KEY );
 
@@ -337,24 +361,24 @@ class WPDKUserRoles extends WP_Roles {
       $this->count = count( $this->role_names );
     }
 
-    // Init properties
+    // Init the `wordPressRoles` property with the list of WordPress default roles
     $this->wordPressRoles();
-    $this->activeRoles();
-    $this->inactiveRoles();
+
+    // Init the `arrayCountUsersByRole` property with the count user by role
     $this->countUsersByRole();
 
-    // Create An key value pairs array with key = role and value = list of capabilities
+    // Init the `activeRoles` and `inactiveRoles` properties with the list of used and unused role
+    $this->statusRoles();
+
+    // Init the `arrayCapabilitiesByRole` property with key = role and value = list of capabilities
     $this->arrayCapabilitiesByRole();
 
-    if ( empty( $this->extend_data ) ) {
-      $this->extend_data = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
-      update_option( self::OPTION_KEY, $this->extend_data );
-    }
-
-    // List of all roles
+    // Init `all_roles` property with the list of all roles
     $this->all_roles = array_merge( $this->activeRoles, $this->inactiveRoles, $this->wordPressRoles );
 
     /*
+     * $this->all_roles
+     *
      *     array(13) {
      *      ["administrator"]=> array(3) {
      *        [0]=> string(13) "Administrator"
@@ -369,15 +393,25 @@ class WPDKUserRoles extends WP_Roles {
      *      ...
      *      ["adv-manager"]=>
      *      array(3) {
-     *        [0]=>
-     *        string(11) "Adv Manager"
-     *        [1]=>
-     *        string(29) "This role is for adv manager."
-     *        [2]=>
-     *        string(13) "Roles Manager"
+     *        [0]=> string(11) "Adv Manager"
+     *        [1]=> string(29) "This role is for adv manager."
+     *        [2]=> string(13) "Roles Manager"
      *      }
      *    }
      */
+
+    if ( empty( $this->extend_data ) ) {
+      $this->extend_data = $this->all_roles;
+
+      update_option( self::OPTION_KEY, $this->extend_data );
+
+      /**
+       * Fires when the role is updated.
+       *
+       * @param array $extend The array extra (extends) data.
+       */
+      do_action( 'wpdk_user_roles_extend_update', $this->extend_data );
+    }
 
   }
 
@@ -386,118 +420,118 @@ class WPDKUserRoles extends WP_Roles {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Gets all the roles that have users for the site.
+   * Set the `activeRoles` and `inactiveRoles` properties array.
    *
-   * @brief Active roles
+   * @brief Get active and inactive roles list
+   * @since 1.5.18
+   */
+  public function statusRoles()
+  {
+    // Reset properties
+    $this->activeRoles   = array();
+    $this->inactiveRoles = array();
+
+    // Loop into the roles
+    foreach ( $this->role_names as $role => $name ) {
+
+      // Get count
+      $count = $this->arrayCountUsersByRole[ $role ];
+
+      // Default empty extends
+      $extend = array( $name, '', '' );
+
+      // Get the extend data
+      $extend = isset( $this->extend_data[ $role ] ) ? $this->extend_data[ $role ] : $extend;
+
+      if ( empty( $count ) ) {
+        $this->inactiveRoles[ $role ] = $extend;
+      }
+      else {
+        $this->activeRoles[ $role ] = $extend;
+      }
+    }
+  }
+
+  /**
+   * @brief      Active roles
+   * @deprecated since 1.5.18 - Use statusRoles() instead
    *
    * @return array
    */
   public function activeRoles()
   {
 
-    // Calculate only if the property if note set
-    if ( ! isset( $this->activeRoles ) ) {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.18', 'statusRoles()' );
 
-      $this->activeRoles = array();
-      foreach ( $this->role_names as $role => $name ) {
-        $count = $this->countUsersByRole( $role );
-        if ( ! empty( $count ) ) {
-          $this->activeRoles[ $role ] = isset( $this->extend_data[ $role ] ) ? $this->extend_data[ $role ] : array(
-            $name,
-            '',
-            ''
-          );
-        }
-      }
+    // Calculate only if the property if note set
+    if ( empty( $this->activeRoles ) ) {
+      $this->statusRoles();
     }
-    $this->activeRoles = apply_filters( 'wpdk_roles_active', $this->activeRoles );
 
     return $this->activeRoles;
   }
 
   /**
-   * Gets all the roles that do not have users for the site.
-   *
-   * @brief Inactive roles
+   * @brief      Inactive roles
+   * @deprecated since 1.5.18 - Use statusRoles() instead
    *
    * @return array
    */
   public function inactiveRoles()
   {
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.18', 'statusRoles()' );
 
     // Calculate only if the property if note set
-    if ( ! isset( $this->inactiveRoles ) ) {
+    if ( empty( $this->inactiveRoles ) ) {
 
-      $this->inactiveRoles = array();
-      foreach ( $this->role_names as $role => $name ) {
-        $count = $this->countUsersByRole( $role );
-        if ( empty( $count ) ) {
-          $this->inactiveRoles[ $role ] = isset( $this->extend_data[ $role ] ) ? $this->extend_data[ $role ] : array(
-            $name,
-            '',
-            ''
-          );
-        }
-      }
+      $this->statusRoles();
     }
-
-    $this->inactiveRoles = apply_filters( 'wpdk_roles_inactive', $this->inactiveRoles );
 
     return $this->inactiveRoles;
   }
 
   /**
-   * Return the global or singular count for role.
-   * Counts the number of users for all roles on the site and returns this as an array. If the $user_role is input,
-   * the return value will be the count just for that particular role.
+   * Set the `arrayCountUsersByRole` property with the list of user count by role.
+   *
+   * Counts the number of users for all roles on the site and returns this as an array.
    *
    * @brief Counts the number of users for roles
    *
-   * @param string $user_role Optional. The role to get the user count for.
-   *
-   * @return int
+   * @return array
    */
-  public function countUsersByRole( $user_role = '' )
+  public function countUsersByRole()
   {
+    // Reset property
+    $this->arrayCountUsersByRole = array();
 
-    // If the count is not already set for all roles, let's get it
-    if ( ! isset( $this->arrayCountUsersByRole ) ) {
+    $user_count = count_users();
 
-      $this->arrayCountUsersByRole = array();
+    /*
+     * $user_count
+     *
+     *   array(2) {
+     *      ["total_users"]=> int(6833)
+     *      ["avail_roles"]=> array(9) {
+     *        ["administrator"]=> int(6)
+     *        ["subscriber"]=> int(6604)
+     *        ["bbp_keymaster"]=> int(3)
+     *        ["bbp_participant"]=> int(177)
+     *        ["pending"]=> int(2)
+     *        ["member"]=> int(181)
+     *        ["trial"]=> int(36)
+     *        ["plan_user_1_month"]=> int(2)
+     *        ["ex_plan_user_1_month"]=> int(2)
+     *      }
+     *    }
+     *
+     */
 
-      /*
-       * Count users
-       *
-       * array(2) {
-       *   ["total_users"]=> int(9)
-       *   ["avail_roles"]=> array(4) {
-       *     ["administrator"]=> int(6)
-       *     ["author"]=> int(1)
-       *     ["contributor"]=> int(1)
-       *     ["subscriber"]=> int(1)
-       *   }
-       * }
-       */
-      $user_count = count_users();
-
-      // Loop through the user count by role to get a count of the users with each role
-      foreach ( $user_count['avail_roles'] as $role => $count ) {
-        $this->arrayCountUsersByRole[ $role ] = $count;
-      }
+    // Loop into all role
+    foreach ( $this->role_names as $role => $name ) {
+      $this->arrayCountUsersByRole[ $role ] = isset( $user_count['avail_roles'][ $role ] ) ? absint( $user_count['avail_roles'][ $role ] ) : 0;
     }
 
-    // If the $user_role parameter wasn't passed into this function, return the array of user counts
-    if ( empty( $user_role ) ) {
-      return $this->arrayCountUsersByRole;
-    }
-
-    // If the role has no users, we need to set it to '0'
-    if ( ! isset( $this->arrayCountUsersByRole[ $user_role ] ) ) {
-      $this->arrayCountUsersByRole[ $user_role ] = 0;
-    }
-
-    // Return the user count for the given role
-    return $this->arrayCountUsersByRole[ $user_role ];
+    return $this->arrayCountUsersByRole;
   }
 
   /**
@@ -509,14 +543,17 @@ class WPDKUserRoles extends WP_Roles {
    */
   public function arrayCapabilitiesByRole()
   {
+    // Reset property
+    $this->arrayCapabilitiesByRole = array();
 
-    // If the count is not already set for all roles, let's get it
-    if ( ! isset( $this->arrayCapabilitiesByRole ) ) {
+    // Loop into the
+    foreach ( $this->get_names() as $role => $name ) {
 
-      foreach ( $this->get_names() as $role => $name ) {
+      // Count capabilities for role too
+      $wp_role = $this->get_role( $role );
 
-        // Count capabilities for role too
-        $wp_role = $this->get_role( $role );
+      // Stability
+      if ( ! is_null( $wp_role ) ) {
         ksort( $wp_role->capabilities );
         $this->arrayCapabilitiesByRole[ $role ] = $wp_role->capabilities;
       }
@@ -578,7 +615,7 @@ class WPDKUserRoles extends WP_Roles {
   }
 
   /**
-   * Return a key value pairs array with name of role and extra info.
+   * Return a key value pairs array with name of role and extends info.
    *
    * @brief WordPress default roles
    *
@@ -586,7 +623,8 @@ class WPDKUserRoles extends WP_Roles {
    */
   public function wordPressRoles()
   {
-    $this->wordPressRoles = array(
+    // Default WordPress roles
+    $roles = array(
       'administrator' => array(
         'Administrator',
         __( 'Somebody who has access to all the administration features', WPDK_TEXTDOMAIN ),
@@ -614,7 +652,12 @@ class WPDKUserRoles extends WP_Roles {
       ),
     );
 
-    $this->wordPressRoles = apply_filters( 'wpdk_roles_defaults', $this->wordPressRoles );
+    /**
+     * Filter the default WordPress roles array.
+     *
+     * @param array $wordpress_roles The default WordPress roles array.
+     */
+    $this->wordPressRoles = apply_filters( 'wpdk_user_roles_wordpress_defaults', $roles );
 
     return $this->wordPressRoles;
   }
@@ -652,7 +695,10 @@ class WPDKUserRoles extends WP_Roles {
       $caps[ $cap ] = true;
     }
 
+    // Ask to parent
     $role_object = parent::add_role( $role, $display_name, $caps );
+
+    // Stability
     if ( ! is_null( $role_object ) ) {
       if ( ! isset( $this->extend_data[ $role ] ) ) {
         $this->extend_data[ $role ] = array(
@@ -662,6 +708,17 @@ class WPDKUserRoles extends WP_Roles {
         );
       }
       update_option( self::OPTION_KEY, $this->extend_data );
+
+      /**
+       * Fires when a role is added.
+       *
+       * @since 1.5.18
+       *
+       * @param string $role   The role key.
+       * @param array  $extend The array with extend data for this role
+       */
+      do_action( 'wpdk_user_roles_added_role', $role, $this->extend_data[ $role ] );
+
     }
 
     return $role_object;
@@ -679,38 +736,15 @@ class WPDKUserRoles extends WP_Roles {
     parent::remove_role( $role );
     unset( $this->extend_data[ $role ] );
     update_option( self::OPTION_KEY, $this->extend_data );
-  }
 
-
-  // -------------------------------------------------------------------------------------------------------------------
-  // UI
-  // -------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Return the HTML markup for a combo select
-   *
-   * @param string|WPDKUserRole $role Role
-   *
-   * @return string
-   */
-  public function selectCapabilitiesWithRole( $role )
-  {
-
-    if ( is_object( $role ) && is_a( $role, 'WPDKUserRole' ) ) {
-      $role = $role->name;
-    }
-
-    WPDKHTML::startCompress() ?>
-
-    <select>
-    <?php foreach ( $this->arrayCapabilitiesByRole[ $role ] as $cap => $enabled ): ?>
-      <option><?php echo $cap ?></option>
-    <?php endforeach ?>
-    </select>
-
-    <?php
-
-    return WPDKHTML::endHTMLCompress();
+    /**
+     * Fires when a role is removed.
+     *
+     * @since 1.5.18
+     *
+     * @param string $role The role key.
+     */
+    do_action( 'wpdk_user_roles_removed_role', $role );
   }
 
 }
