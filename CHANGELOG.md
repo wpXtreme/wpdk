@@ -24,6 +24,7 @@ For more information on SemVer, please visit http://semver.org/.
 ### 2014-09-??
 
 * Fixed potential `__PHP_Incomplete_Class` in object delta
+* Added `WPDKGeo` class
 * Added `WPDKUserAgents` class
 * Improved performance
 * Removed deprecated
