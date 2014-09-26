@@ -287,9 +287,11 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/helper/wpdk-crypt.php'                     => 'WPDKCrypt',
         $sPathPrefix . 'classes/helper/wpdk-datetime.php'                  => 'WPDKDateTime',
         $sPathPrefix . 'classes/helper/wpdk-filesystem.php'                => 'WPDKFilesystem',
+        $sPathPrefix . 'classes/helper/wpdk-geo.php'                       => 'WPDKGeo',
         $sPathPrefix . 'classes/helper/wpdk-http.php'                      => array(
           'WPDKHTTPRequest',
-          'WPDKHTTPVerbs'
+          'WPDKHTTPVerbs',
+          'WPDKUserAgents',
         ),
         $sPathPrefix . 'classes/helper/wpdk-math.php'                      => 'WPDKMath',
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php'               => 'WPDKScreenHelp',
