@@ -14,10 +14,15 @@
 class WPDKGeo {
 
   /**
-   * TELIZE end point api
-   * http://www.telize.com/
+   * TELIZE end point api http://www.telize.com/
+   * Used to get geocoding information by IP address
    */
   const TELIZE_END_POINT = 'http://www.telize.com/geoip/';
+
+  /**
+   * Google Maps - used for reverse geocoding
+   */
+  const GOOGLE_REVERSE_GEOCODIND = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=';
 
   /**
    * Return a singleton instance of WPDKGeo class
@@ -81,7 +86,10 @@ class WPDKGeo {
     // Get current ip
     $ip = empty( $ip ) ? $_SERVER['REMOTE_ADDR'] : $ip;
 
-    $response = wp_remote_get( self::TELIZE_END_POINT . $ip );
+    // Build endpoint API
+    $endpoint = self::TELIZE_END_POINT . $ip;
+
+    $response = wp_remote_get( $endpoint );
 
     // Dead connection
     if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
@@ -90,8 +98,86 @@ class WPDKGeo {
 
     $body = wp_remote_retrieve_body( $response );
 
-    return json_decode( $body );
+    return (array) json_decode( $body );
 
+  }
+
+  /**
+   * Return an array with reverse geocoding information.
+   *
+   * @param float $lat Latitude value.
+   * @param float $lng Longitude value.
+   *
+   * @return array
+   */
+  public function reverseGeocodingWithLatLng( $lat, $lng )
+  {
+
+    // Build the endpoit
+    $endpoint = sprintf( '%s%s,%s', self::GOOGLE_REVERSE_GEOCODIND, $lat, $lng );
+
+    $response = wp_remote_get( $endpoint );
+
+    // Dead connection
+    if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+      return false;
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+
+    $result = (array) json_decode( $body );
+
+    return $result['results'];
+  }
+
+  /**
+   * Return a single property/type.
+   *
+   * @param array  $reverse_geocoding The array with reverse geocoding information retuned by
+   *                                  `reverseGeocodingWithLatLng()`
+   * @param string $type              The type.
+   * @param string $property          Optional. Default 'long_name'
+   *
+   * @return mixed
+   */
+  private function getWithType( $reverse_geocoding, $type, $property = 'long_name' )
+  {
+    foreach ( $reverse_geocoding as $object ) {
+
+      //WPXtreme::log( $object );
+
+      foreach ( $object->address_components as $address_components ) {
+        if ( in_array( $type, $address_components->types ) ) {
+          return $address_components->$property;
+        }
+      }
+    }
+  }
+
+  /**
+   * Return the route.
+   *
+   * @param array $reverse_geocoding The array with reverse geocoding information retuned by
+   *                                 `reverseGeocodingWithLatLng()`
+   *
+   * @return string
+   */
+  public function route( $reverse_geocoding )
+  {
+    return $this->getWithType( $reverse_geocoding, 'route' );
+  }
+
+  /**
+   * Return the street number.
+   *
+   * @param array $reverse_geocoding The array with reverse geocoding information retuned by
+   *                                 `reverseGeocodingWithLatLng()`
+   *
+   * @return string
+   */
+  public function street_number( $reverse_geocoding )
+  {
+    return $this->getWithType( $reverse_geocoding, 'street_number' );
   }
 
 }
