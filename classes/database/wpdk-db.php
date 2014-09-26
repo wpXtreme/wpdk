@@ -408,32 +408,11 @@ SQL;
       $sql = str_replace( '%s', $this->table_name, $content );
 
       // Remove comments
-      $pattern = '@(([\'"]).*?[^\\\]\2)|((?:\#|--).*?$|/\*(?:[^/*]|/(?!\*)|\*(?!/)|(?R))*\*\/)\s*|(?<=;)\s+@ms';
-      /*
-       * Commented version
-       *
-       * $sqlComments = '@
-       *     (([\'"]).*?[^\\\]\2) # $1 : Skip single & double quoted expressions
-       *     |(                   # $3 : Match comments
-       *         (?:\#|--).*?$    # - Single line comments
-       *         |                # - Multi line (nested) comments
-       *          /\*             #   . comment open marker
-       *             (?: [^/*]    #   . non comment-marker characters
-       *                 |/(?!\*) #   . ! not a comment open
-       *                 |\*(?!/) #   . ! not a comment close
-       *                 |(?R)    #   . recursive case
-       *             )*           #   . repeat eventually
-       *         \*\/             #   . comment close marker
-       *     )\s*                 # Trim after comments
-       *     |(?<=;)\s+           # Trim after semi-colon
-       *     @msx';
-       *
-       */
-      $sql_sanitize = trim( preg_replace( $pattern, '$1', $sql ) );
-      preg_match_all( $pattern, $sql, $comments );
+      $pattern = '/-{2,}.*/';
 
-      // Only commnets
-      //$extractedComments = array_filter( $comments[ 3 ] );
+      $sql_sanitize = trim( preg_replace( $pattern, '', $sql ) );
+
+      //WPXtreme::log( $sql_sanitize );
 
       // Execute delta
       @dbDelta( $sql_sanitize );
