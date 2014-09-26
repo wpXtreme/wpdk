@@ -142,7 +142,13 @@ class WPDKObject {
 
         // The proprty could be an object, then loop in
         if ( is_object( $value ) ) {
-          self::__delta( $value, $old_version->$key );
+          // @since 1.5.18 - fix `__PHP_Incomplete_Class`
+          if ( class_exists( get_class( $value ) ) ) {
+            self::__delta( $value, $old_version->$key );
+          }
+          else {
+            unset( $old_version->$key );
+          }
         }
       }
     }
@@ -159,7 +165,9 @@ class WPDKObject {
       if ( !isset( $last_version_stack[$key] ) ) {
 
         // Delete property
-        unset( $old_version->$key );
+        if( isset( $old_version->$key ) ) {
+          unset( $old_version->$key );
+        }
       }
     }
 
