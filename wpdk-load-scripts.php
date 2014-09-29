@@ -15,7 +15,7 @@
  *
  * Set this to error_reporting( -1 ) for debugging.
  */
-error_reporting( E_ALL );
+error_reporting( 0 );
 
 /**
  * @ignore
@@ -100,7 +100,6 @@ $out            = '';
 
 // Registered components
 require_once( WPDK_PATH_CLASS .'ui/wpdk-ui-components.php' );
-
 
 // Keep WordPress variable name
 $components = new WPDKUIComponents;
