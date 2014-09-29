@@ -111,6 +111,16 @@ class WPDKViewController extends WPDKObject {
   }
 
   /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @since WP 2.6.0
+   */
+  public function print_styles()
+  {
+    // To override
+  }
+
+  /**
    * This method is called when the head of this view controller is loaded by WordPress.
    * It is used by WPDKMenu for example, as 'admin_head-' action.
    *
