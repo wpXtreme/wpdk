@@ -6,7 +6,7 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-09-28
  * @version         1.0.0
- * @since           1.5.18
+ * @since           1.6.0
  *
  */
 

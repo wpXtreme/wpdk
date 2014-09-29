@@ -41,7 +41,7 @@ class WPDKUIComponents {
   /**
    * List of components
    *
-   * @since 1.5.18
+   * @since 1.6.0
    *
    * @var array $components
    */
@@ -74,7 +74,7 @@ class WPDKUIComponents {
     if ( is_null( $instance ) ) {
       $instance = new self;
 
-      // @since 1.5.18 - You can now access to this singleton class by global
+      // @since 1.6.0 - You can now access to this singleton class by global
       $GLOBALS[ __CLASS__ ] = $instance;
     }
     return $instance;
@@ -305,7 +305,7 @@ class WPDKUIComponents {
   /**
    * Register a new component that will be load by `wpdk-load-scripts.php` and `wpdk-load-styles.php`.
    *
-   * @since 1.5.18
+   * @since 1.6.0
    *
    * @param string $handle  A unique handle id for this component.
    * @param string $js_src  Optional. Complete URI path for script Javascript.

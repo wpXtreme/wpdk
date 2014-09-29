@@ -142,7 +142,7 @@ class WPDKObject {
 
         // The proprty could be an object, then loop in
         if ( is_object( $value ) ) {
-          // @since 1.5.18 - fix `__PHP_Incomplete_Class`
+          // @since 1.6.0 - fix `__PHP_Incomplete_Class`
           if ( class_exists( get_class( $value ) ) ) {
             self::__delta( $value, $old_version->$key );
           }

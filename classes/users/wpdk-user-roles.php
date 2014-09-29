@@ -13,7 +13,7 @@
  * @date               2014-09-24
  * @version            1.0.0
  *
- * @since              1.5.18
+ * @since              1.6.0
  *
  */
 class WPDKUserRole extends WP_Role {
@@ -186,7 +186,7 @@ class WPDKUserRole extends WP_Role {
  * @date               2014-09-24
  * @version            1.0.0
  *
- * @since              1.5.18
+ * @since              1.6.0
  *
  */
 class WPDKUserRoles extends WP_Roles {
@@ -423,7 +423,7 @@ class WPDKUserRoles extends WP_Roles {
    * Set the `activeRoles` and `inactiveRoles` properties array.
    *
    * @brief Get active and inactive roles list
-   * @since 1.5.18
+   * @since 1.6.0
    */
   public function statusRoles()
   {
@@ -454,14 +454,14 @@ class WPDKUserRoles extends WP_Roles {
 
   /**
    * @brief      Active roles
-   * @deprecated since 1.5.18 - Use statusRoles() instead
+   * @deprecated since 1.6.0 - Use statusRoles() instead
    *
    * @return array
    */
   public function activeRoles()
   {
 
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.18', 'statusRoles()' );
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.6.0', 'statusRoles()' );
 
     // Calculate only if the property if note set
     if ( empty( $this->activeRoles ) ) {
@@ -473,13 +473,13 @@ class WPDKUserRoles extends WP_Roles {
 
   /**
    * @brief      Inactive roles
-   * @deprecated since 1.5.18 - Use statusRoles() instead
+   * @deprecated since 1.6.0 - Use statusRoles() instead
    *
    * @return array
    */
   public function inactiveRoles()
   {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.5.18', 'statusRoles()' );
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.6.0', 'statusRoles()' );
 
     // Calculate only if the property if note set
     if ( empty( $this->inactiveRoles ) ) {
@@ -712,7 +712,7 @@ class WPDKUserRoles extends WP_Roles {
       /**
        * Fires when a role is added.
        *
-       * @since 1.5.18
+       * @since 1.6.0
        *
        * @param string $role   The role key.
        * @param array  $extend The array with extend data for this role
@@ -740,7 +740,7 @@ class WPDKUserRoles extends WP_Roles {
     /**
      * Fires when a role is removed.
      *
-     * @since 1.5.18
+     * @since 1.6.0
      *
      * @param string $role The role key.
      */
@@ -749,12 +749,12 @@ class WPDKUserRoles extends WP_Roles {
 
 }
 
-/* @deprecated since 1.5.18 */
+/* @deprecated since 1.6.0 */
 class WPDKRoles extends WPDKUserRoles {
 
 }
 
-/* @deprecated since 1.5.18 */
+/* @deprecated since 1.6.0 */
 class WPDKRole extends WPDKUserRole {
 
 }

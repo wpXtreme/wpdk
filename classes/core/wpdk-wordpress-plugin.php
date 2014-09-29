@@ -734,7 +734,7 @@ class WPDKPlugin {
  * @date               2012-11-28
  * @version            0.8.1
  *
- * @deprecated         since 1.5.18 - Not more used
+ * @deprecated         since 1.6.0 - Not more used
  *
  */
 class WPDKPlugins {

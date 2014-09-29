@@ -17,7 +17,7 @@
  * @date               2014-09-24
  * @version            1.0.0
  *
- * @since              1.5.18
+ * @since              1.6.0
  */
 class WPDKUserCapabilities {
 
@@ -725,7 +725,7 @@ class WPDKUserCapabilities {
  * @date            2014-09-24
  * @version         1.0.0
  *
- * @since           1.5.18
+ * @since           1.6.0
  *
  */
 class WPDKUserCapability {
@@ -830,10 +830,10 @@ class WPDKUserCapability {
 }
 
 
-/* @deprecated since 1.5.18 */
+/* @deprecated since 1.6.0 */
 class WPDKCapabilities extends WPDKUserCapabilities {}
 
-/* @deprecated since 1.5.18 */
+/* @deprecated since 1.6.0 */
 class WPDKCapability extends WPDKUserCapability {
 
 }
