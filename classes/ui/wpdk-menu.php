@@ -733,6 +733,10 @@ class WPDKSubMenu {
         $load = create_function( '', sprintf( '%s::init()->load();', $this->viewController ) );
         add_action( 'load-' . $this->hookName, $load );
 
+        // @since 1.6.0
+        $print_styles = create_function( '', sprintf( '%s::init()->print_styles();', $this->viewController ) );
+        add_action( 'admin_print_styles-' . $this->hookName, $print_styles );
+
         $admin_head = create_function( '', sprintf( '$v=%s::init();$v->admin_head();$v->_admin_head();', $this->viewController ) );
         add_action( 'admin_head-' . $this->hookName, $admin_head );
       }
