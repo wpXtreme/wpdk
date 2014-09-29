@@ -4,40 +4,20 @@
  * Manage the Javascript/css components under the WPDK assets folder.
  * You can override this class for register and manage your own components
  *
- *     class MyComponents extends WPDKUIComponents {
- *
- *         const MY_COMPONENT_ID = 'my-component-id';
- *
- *         public function components()
- *        {
- *           $components = array(
- *             'url_js'        => 'your url javascript',
- *             'url_css'       => 'your url css',
- *             'version'       => 'your plugin version',
-
- *             'components'    => array(
- *                self::MY_COMPONENT_ID => array(
- *                  'has_js'  => array( // deps ),
- *                  'has_css' => array( // deps ),
- *                ),
- *                // Other components
- *              ),
- *           );
- *        }
- *     }
- *
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-05-14
- * @version         1.0.4
+ * @date            2014-09-29
+ * @version         1.0.5
  *
  */
 class WPDKUIComponents {
 
+  // Main core
+  const WPDK = 'wpdk';
+
   /*
-   * The unique scritpt and style id (id `wpdk-my-componenent` you have to any
-   * `wpdk-my-componenent.js` or `wpdk-my-componenent.css`
+   * The unique scritpt and style id (eg: `{id-handle}.js` or `{id-handle}.css`
    */
   const ALERT         = 'wpdk-alert';
   const BUTTON        = 'wpdk-button';
@@ -54,6 +34,33 @@ class WPDKUIComponents {
   const TABLE         = 'wpdk-table';
   const PAGE          = 'wpdk-page';
 
+  // jQuery
+  const JQUERY_TIMEPICKER = 'jquery.timepicker';
+  const JQUERY_UI_CUSTOM  = 'jquery-ui.custom';
+
+  /**
+   * List of components
+   *
+   * @since 1.5.18
+   *
+   * @var array $components
+   */
+  public $components = array();
+
+  /**
+   * List of scripts handle to load and concat with new WPDK `wpdk-load-scripts-php`
+   *
+   * @var array $enqueue_scripts
+   */
+  public $enqueue_scripts = array();
+
+  /**
+   * List of styles handle to load and concat with new WPDK `wpdk-load-styles-php`
+   *
+   * @var array $enqueue_styles
+   */
+  public $enqueue_styles = array();
+
   /**
    * Return a singleton instance of WPDKUIComponents class
    *
@@ -66,6 +73,9 @@ class WPDKUIComponents {
     static $instance = null;
     if ( is_null( $instance ) ) {
       $instance = new self;
+
+      // @since 1.5.18 - You can now access to this singleton class by global
+      $GLOBALS[ __CLASS__ ] = $instance;
     }
     return $instance;
   }
@@ -73,136 +83,254 @@ class WPDKUIComponents {
   /**
    * Create an instance of WPDKUIComponents class
    *
-   * @brief Construct
-   *
-   * @param string $url_js  Optional. URL Javascript
-   * @param string $url_css Optional. URL CSS styles
-   * @param string $version Optional. Your version
-   *
    * @return WPDKUIComponents
    */
   public function __construct()
   {
-    $this->register();
+    // Store the components
+    $this->components = $this->components();
+
+    // Prints any scripts and data queued for the footer admin and frontned.
+    add_filter( 'print_footer_scripts', array( $this, 'load_scripts') );
+
+    // Fires in <head> for all admin pages.
+    add_action( 'admin_head', array( $this, 'load_styles' ) );
+    add_action( 'wp_head', array( $this, 'load_styles' ), 100 );
+
   }
 
   /**
-   * Register the components
-   *
-   * @brief Brief
-   */
-  protected function register()
-  {
-    // Get components info
-    $component_info = $this->components();
+ 	 * Filter whether to print the footer scripts.
+ 	 *
+ 	 * @since WP 2.8.0
+ 	 *
+ 	 * @param bool $print Whether to print the footer scripts. Default true.
+ 	 */
+  public function load_scripts( $true ) {
 
-    // Get urls
-    $url_js   = $component_info['url_js'];
-    $url_jcss = $component_info['url_css'];
-    $version  = $component_info['version'];
+    global $wp_scripts, $compress_scripts;
 
-    // Get components list
-    $components = $component_info['components'];
-
-    // Register WPDK Javascript components
-    foreach ( $components as $handle => $libs ) {
-      foreach ( $libs as $extension => $deps ) {
-
-        // Always deps from WPDK
-        $deps[] = 'wpdk';
-
-        // Script
-        if ( 'has_js' == $extension ) {
-
-          $filename = sprintf( '%s%s.js', $url_js, $handle );
-          wp_register_script( $handle, $filename, $deps, $version, true );
-        }
-
-        // Styles
-        elseif ( 'has_css' == $extension ) {
-          $filename = sprintf( '%s%s.css', $url_jcss, $handle );
-          wp_register_style( $handle, $filename, $deps, $version );
-        }
-
-      }
+        // If no scripts exit
+    if ( empty( $this->enqueue_scripts ) ) {
+      return $true;
     }
+
+    $zip = $compress_scripts ? 1 : 0;
+    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
+      $zip = 'gzip';
+    }
+
+    $concat = implode( ',', $this->enqueue_scripts );
+    $concat = str_split( $concat, 128 );
+    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
+
+    $src = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    $wp_scripts->print_html = "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n" . $wp_scripts->print_html;
+
+    return $true;
   }
 
   /**
-   * Return the WPDK components list
+   * Fires in <head> for all admin pages.
    *
-   * @brief Components
+   * @since WP 2.1.0
+   */
+  public function load_styles()
+  {
+    global $compress_css;
+
+    // If no scripts exit
+    if ( empty( $this->enqueue_styles ) ) {
+      return;
+    }
+
+    $zip = $compress_css ? 1 : 0;
+    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
+      $zip = 'gzip';
+    }
+
+    $concat = implode( ',', $this->enqueue_styles );
+    $concat = str_split( $concat, 128 );
+    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
+
+    $src = WPDK_URI . "wpdk-load-styles.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    echo "<link rel='stylesheet' type='text/css' href='" . esc_attr( $src ) . "'/>\n";
+  }
+
+  /**
+ 	 * Fires when footer scripts are printed.
+ 	 *
+ 	 * @since WP 2.8.0
+ 	 */
+  public function wp_print_footer_scripts()
+  {
+    global $compress_scripts;
+
+    // If no scripts exit
+    if ( empty( $this->enqueue_scripts ) ) {
+      return;
+    }
+
+    $zip = $compress_scripts ? 1 : 0;
+    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
+      $zip = 'gzip';
+    }
+
+    $concat = implode( ',', $this->enqueue_scripts );
+    $concat = str_split( $concat, 128 );
+    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
+
+    $src = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    echo "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n";
+  }
+
+  /**
+   * List of registered WPDK components
    *
    * @return array
    */
-  public function components()
+  private function components()
   {
     $components = array(
 
-      // Components info
-      'url_js'     => WPDK_URI_JAVASCRIPT,
-      'url_css'    => WPDK_URI_CSS,
-      'version'    => WPDK_VERSION,
+      self::JQUERY_TIMEPICKER => array(
+        'js' => self::JQUERY_TIMEPICKER
+      ),
+      self::JQUERY_UI_CUSTOM => array(
+        'css' => self::JQUERY_UI_CUSTOM
+      ),
 
-      // Components list
-      'components' => array(
+      // WPDK base core
+      self::WPDK => array(
+        'js'   => self::WPDK,
+        'css'  => self::WPDK,
+        'deps' => array(
+          'jquery',
+          'jquery-ui-core',
+          'jquery-ui-tabs',
+          'jquery-ui-dialog',
+          'jquery-ui-datepicker',
+          'jquery-ui-autocomplete',
+          'jquery-ui-slider',
+          'jquery-ui-sortable',
+          'jquery-ui-draggable',
+          'jquery-ui-droppable',
+          'jquery-ui-resizable',
+          self::JQUERY_TIMEPICKER,
+          self::JQUERY_UI_CUSTOM,
+          'thickbox'
+        )
+      ),
+      // WPDK controls
+      self::CONTROLS      => array(
+        'js'   => self::CONTROLS,
+        'css'  => self::CONTROLS,
+        'deps' => array( self::WPDK )
+      ),
+      // WPDK Alert
+      self::ALERT         => array(
+        'js'   => self::ALERT,
+        'css'  => self::ALERT,
+        'deps' => array( self::CONTROLS, self::TRANSITION )
+      ),
+      // WPDK Dynamic table
+      self::DYNAMIC_TABLE => array(
+        'js'   => self::DYNAMIC_TABLE,
+        'css'  => self::DYNAMIC_TABLE,
+        'deps' => array( self::CONTROLS, self::TOOLTIP )
+      ),
+      // WPDK List table
+      self::LIST_TABLE    => array(
+        'js'   => self::LIST_TABLE,
+        'deps' => array( self::CONTROLS, self::TOOLTIP )
+      ),
+      // WPDK TABLE
+      self::TABLE         => array(
+        'css'  => self::TABLE,
+        'deps' => array( self::CONTROLS, self::TOOLTIP )
+      ),
+      // WPDK Tooltip
+      self::TOOLTIP => array(
+        'js'   => self::TOOLTIP,
+        'css'  => self::TOOLTIP,
+        'deps' => array( self::TRANSITION )
+      ),
+      // WPDK Transitions
+      self::TRANSITION    => array(
+        'js' => self::TRANSITION,
+      ),
+      // WPDK Buttons
+      self::BUTTON        => array(
+        'js'   => self::BUTTON,
+        'css'  => self::BUTTON,
+        'deps' => array( self::CONTROLS )
+      ),
+      // WPDK Ribonize
+      self::RIBBONIZE     => array(
+        'js'  => self::RIBBONIZE,
+        'css' => self::RIBBONIZE,
+      ),
+      // WPDK Popover
+      self::POPOVER       => array(
+        'js'   => self::POPOVER,
+        'css'  => self::POPOVER,
+        'deps' => array( self::CONTROLS, self::TOOLTIP )
+      ),
+      // WPDK Modal
+      self::MODAL         => array(
+        'js'   => self::MODAL,
+        'css'  => self::MODAL,
+        'deps' => array( self::CONTROLS, self::BUTTON, self::TRANSITION )
+      ),
+      // WPDK Page
+      self::PAGE         => array(
+        'js'  => self::PAGE,
+        'css' => self::PAGE,
+      ),
+      // WPDK Progress
+      self::PROGRESS      => array(
+        'css' => self::PROGRESS,
+      ),
+      // WPDK Preferences
+      self::PROGRESS      => array(
+        'js'   => self::PROGRESS,
+        'deps' => array( self::CONTROLS )
+      ),
 
-        self::CONTROLS      => array(
-          'has_js'  => array(),
-          'has_css' => array()
-        ),
-        self::ALERT         => array(
-          'has_js'  => array( self::CONTROLS, self::TRANSITION ),
-          'has_css' => array( self::CONTROLS )
-        ),
-        self::DYNAMIC_TABLE => array(
-          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
-          'has_css' => array( self::CONTROLS, self::TOOLTIP )
-        ),
-        self::LIST_TABLE => array(
-          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
-        ),
-        self::TABLE => array(
-          'has_css'  => array( self::CONTROLS, self::TOOLTIP ),
-        ),
-        self::TOOLTIP       => array(
-          'has_js'  => array( self::TRANSITION ),
-          'has_css' => array()
-        ),
-        self::TRANSITION    => array(
-          'has_js' => array(),
-        ),
-        self::BUTTON        => array(
-          'has_js'  => array( self::CONTROLS ),
-          'has_css' => array( self::CONTROLS )
-        ),
-        self::RIBBONIZE     => array(
-          'has_js'  => array(),
-          'has_css' => array()
-        ),
-        self::POPOVER       => array(
-          'has_js'  => array( self::CONTROLS, self::TOOLTIP ),
-          'has_css' => array( self::CONTROLS, self::TOOLTIP )
-        ),
-        self::MODAL         => array(
-          'has_js'  => array( self::CONTROLS, self::BUTTON, self::TRANSITION ),
-          'has_css' => array( self::CONTROLS, self::BUTTON )
-        ),
-        self::PAGE         => array(
-          'has_js'  => array(),
-          'has_css' => array()
-        ),
-        self::PROGRESS      => array(
-          'has_css' => array(),
-        ),
-        // Internal - without css
-        self::PREFERENCES   => array(
-          'has_js' => array( self::CONTROLS ),
-        ),
-      )
     );
 
     return $components;
+  }
+
+  /**
+   * Register a new component that will be load by `wpdk-load-scripts.php` and `wpdk-load-styles.php`.
+   *
+   * @since 1.5.18
+   *
+   * @param string $handle  A unique handle id for this component.
+   * @param string $js_src  Optional. Complete URI path for script Javascript.
+   * @param string $css_src Optional. Complete URI path for CSS style.
+   * @param array  $deps    Optional. A list of dependences components handles.
+   *
+   */
+  public function register( $handle, $js_src = '', $css_src = '', $deps = array() )
+  {
+    if ( empty( $js_src ) && empty( $css_src ) && empty( $deps ) ) {
+      return;
+    }
+
+    if ( ! empty( $js_src ) ) {
+      $this->components[ $handle ]['js'] = $js_src;
+    }
+
+    if ( ! empty( $css_src ) ) {
+      $this->components[ $handle ]['css'] = $css_src;
+    }
+
+    if ( ! empty( $deps ) ) {
+      $this->components[ $handle ]['deps'] = $deps;
+    }
+
   }
 
   /**
@@ -225,11 +353,6 @@ class WPDKUIComponents {
    */
   public function enqueue( $component_handles )
   {
-    // Get components list
-    $component_info = $this->components();
-
-    // Get components list
-    $components = $component_info['components'];
 
     // Handles, one or more
     $handles = (array)$component_handles;
@@ -239,42 +362,45 @@ class WPDKUIComponents {
       $handles = func_get_args();
     }
 
-    // Loop
-    foreach( $handles as $handle ) {
+    foreach ( $handles as $handle ) {
 
-      // Exists this component?
-      if ( in_array( $handle, array_keys( $components ) ) ) {
+      // Javascript part
+      if ( isset( $this->components[ $handle ]['js'] ) ) {
 
-        // Get scripts and styles
-        $component = $components[$handle];
+        // Check for dependences
+        if ( isset( $this->components[ $handle ]['deps'] ) ) {
 
-        // Load scripts?
-        if ( isset( $component['has_js'] ) ) {
-          wp_enqueue_script( $handle );
+          // Recursive into the dependence and check if register
+          $this->enqueue( $this->components[ $handle ]['deps'] );
         }
-        // Check if other deps components have css
-        else {
-          foreach ( $component['has_css'] as $dep ) {
-            if ( isset( $components[ $dep ]['has_js'] ) ) {
-              wp_enqueue_script( $dep );
-            }
-          }
-        }
+        $this->enqueue_scripts[] = $handle;
+      }
+      // Enqueue extenal
+      else {
+        wp_enqueue_script( $handle );
+      }
 
-        // Load styles?
-        if ( isset( $component['has_css'] ) ) {
-          wp_enqueue_style( $handle );
+      // CSS style part
+      if ( isset( $this->components[ $handle ]['css'] ) ) {
+
+        // Check dependences
+        if ( isset( $this->components[ $handle ]['deps'] ) ) {
+
+          // Recursive into the dependence and check if register
+          $this->enqueue( $this->components[ $handle ]['deps'] );
         }
-        // Check if other deps components have css
-        else {
-          foreach ( $component['has_js'] as $dep ) {
-            if ( isset( $components[ $dep ]['has_css'] ) ) {
-              wp_enqueue_style( $dep );
-            }
-          }
-        }
+        $this->enqueue_styles[] = $handle;
+      }
+      // Enqueue extenal
+      else {
+        wp_enqueue_style( $handle );
       }
     }
+
+    // Makes unique
+    $this->enqueue_scripts = array_unique( $this->enqueue_scripts );
+    $this->enqueue_styles  = array_unique( $this->enqueue_styles );
+
   }
 
 }

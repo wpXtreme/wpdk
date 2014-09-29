@@ -551,36 +551,8 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function admin_enqueue_scripts( $hook_suffix )
     {
-      // Styles
-      $deps = array( 'thickbox' );
-
-      wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
-      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
-
-      // Scripts
-      $deps = array(
-        'jquery',
-        'jquery-ui-core',
-        'jquery-ui-tabs',
-        'jquery-ui-dialog',
-        'jquery-ui-datepicker',
-        'jquery-ui-autocomplete',
-        'jquery-ui-slider',
-        'jquery-ui-sortable',
-        'jquery-ui-draggable',
-        'jquery-ui-droppable',
-        'jquery-ui-resizable',
-        'thickbox'
-      );
-
-      // Own
-      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-
-      // Main wpdk
-      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
-
       // Localize wpdk_i18n
-      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
     }
 
     /**
@@ -590,36 +562,8 @@ if ( !class_exists( 'WPDK' ) ) {
    	 */
     public function wp_enqueue_scripts()
     {
-      // Styles
-      $deps = array( 'thickbox' );
-
-      wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
-      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
-
-      // Scripts
-      $deps = array(
-        'jquery',
-        'jquery-ui-core',
-        'jquery-ui-tabs',
-        'jquery-ui-dialog',
-        'jquery-ui-datepicker',
-        'jquery-ui-autocomplete',
-        'jquery-ui-slider',
-        'jquery-ui-sortable',
-        'jquery-ui-draggable',
-        'jquery-ui-droppable',
-        'jquery-ui-resizable',
-        'thickbox'
-      );
-
-      // Own
-      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-
-      // Main wpdk
-      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
-
       // Localize wpdk_i18n
-      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
     }
 
     /**
