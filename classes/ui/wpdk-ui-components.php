@@ -11,7 +11,7 @@
  * @version         1.0.5
  *
  */
-class WPDKUIComponents {
+final class WPDKUIComponents {
 
   // Main core
   const WPDK = 'wpdk';
@@ -300,37 +300,6 @@ class WPDKUIComponents {
     );
 
     return $components;
-  }
-
-  /**
-   * Register a new component that will be load by `wpdk-load-scripts.php` and `wpdk-load-styles.php`.
-   *
-   * @since 1.6.0
-   *
-   * @param string $handle  A unique handle id for this component.
-   * @param string $js_src  Optional. Complete URI path for script Javascript.
-   * @param string $css_src Optional. Complete URI path for CSS style.
-   * @param array  $deps    Optional. A list of dependences components handles.
-   *
-   */
-  public function register( $handle, $js_src = '', $css_src = '', $deps = array() )
-  {
-    if ( empty( $js_src ) && empty( $css_src ) && empty( $deps ) ) {
-      return;
-    }
-
-    if ( ! empty( $js_src ) ) {
-      $this->components[ $handle ]['js'] = $js_src;
-    }
-
-    if ( ! empty( $css_src ) ) {
-      $this->components[ $handle ]['css'] = $css_src;
-    }
-
-    if ( ! empty( $deps ) ) {
-      $this->components[ $handle ]['deps'] = $deps;
-    }
-
   }
 
   /**
