@@ -106,13 +106,13 @@ class WPDKUIComponents {
  	 *
  	 * @param bool $print Whether to print the footer scripts. Default true.
  	 */
-  public function load_scripts( $true ) {
+  public function load_scripts( $print ) {
 
     global $wp_scripts, $compress_scripts;
 
         // If no scripts exit
     if ( empty( $this->enqueue_scripts ) ) {
-      return $true;
+      return $print;
     }
 
     $zip = $compress_scripts ? 1 : 0;
@@ -127,7 +127,7 @@ class WPDKUIComponents {
     $src = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
     $wp_scripts->print_html = "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n" . $wp_scripts->print_html;
 
-    return $true;
+    return $print;
   }
 
   /**

@@ -20,9 +20,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.5.18
+## Version 1.6.0
 ### 2014-09-??
 
+* Added `wpdk-load-scripts.php` and `wpdk-load-styles.php` in order to concatenate WPDK components
 * Fixed potential `__PHP_Incomplete_Class` in object delta
 * Added `WPDKGeo` class
 * Added `WPDKUserAgents` class
