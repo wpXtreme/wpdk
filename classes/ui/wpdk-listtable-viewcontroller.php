@@ -13,10 +13,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-09-19
- * @version            1.2.1
+ * @date               2014-09-30
+ * @version            1.2.2
  *
  * @history            1.2.1 - Several refactor, improvements and removed old and deprecated methods
+ * @history            1.2.2 - Added method `print_styles` to conform interface
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -351,6 +352,17 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function load()
   {
+  }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @since WP 2.6.0
+   * @since 1.6.0
+   */
+  public function print_styles()
+  {
+    // To override
   }
 
   /**
