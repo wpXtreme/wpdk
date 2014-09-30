@@ -115,7 +115,7 @@ class WPDKViewController extends WPDKObject {
    *
    * @since WP 2.6.0
    */
-  public function print_styles()
+  public function admin_print_styles()
   {
     // To override
   }
