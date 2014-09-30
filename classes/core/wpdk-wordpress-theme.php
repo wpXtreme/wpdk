@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manage the frontend theme area
  *
@@ -12,11 +13,11 @@
  *
  * @class              WPDKWordPressTheme
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-08
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-09-30
  * @version            0.9.1
+ * @history            0.9.2 - Minor alignments
  */
-
 class WPDKWordPressTheme extends WPDKObject {
 
   /**
@@ -26,7 +27,7 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '0.9.1';
+  public $__version = '0.9.2';
 
   /**
    * Your main plugin instance
@@ -46,31 +47,32 @@ class WPDKWordPressTheme extends WPDKObject {
    *
    * @return WPDKWordPressTheme
    */
-  public function __construct( WPDKWordPressPlugin $plugin = null ) {
+  public function __construct( WPDKWordPressPlugin $plugin = null )
+  {
     $this->plugin = $plugin;
 
-    /* Before init */
+    // Before init
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
-    /* Core actions */
+    // Core actions
     add_action( 'wp', array( $this, 'wp' ) );
     add_action( 'wp_head', array( $this, 'wp_head' ) );
     add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
-    /* Add classes to body class. */
+    // Add classes to body class.
     add_filter( 'body_class', array( $this, '_body_class' ) );
 
-    /* Scripts and styles. */
+    // Scripts and styles. */
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-    /* Template loader */
+    // Template loader
     add_action( 'template_redirect', array( $this, 'template_redirect' ) );
     add_filter( 'template_include', array( $this, 'template_include' ) );
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // WordPress Hook
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Called when WordPress makes the class attribute of `body` tag
@@ -83,16 +85,17 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function _body_class( $classes )
   {
-    /* Auto insert the plugin slug in body class */
-    if ( !is_null( $this->plugin ) ) {
+    // Auto insert the plugin slug in body class
+    if ( ! is_null( $this->plugin ) ) {
       $classes[] = sprintf( ' %s-body', $this->plugin->slug );
     }
+
     return $classes;
   }
 
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
   // Override
-  // -----------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------------
 
   /**
    * Called by after_setup_theme action
@@ -101,7 +104,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function after_setup_theme()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -111,7 +114,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function template_redirect()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -125,7 +128,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function template_include( $template )
   {
-    /* To override */
+    // To override
     return $template;
   }
 
@@ -136,7 +139,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function wp()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -147,7 +150,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function wp_head()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -158,7 +161,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function wp_footer()
   {
-    /* To override */
+    // To override
   }
 
   /**
@@ -168,7 +171,7 @@ class WPDKWordPressTheme extends WPDKObject {
    */
   public function wp_enqueue_scripts()
   {
-    /* To override */
+    // To override
   }
 
 }
@@ -304,7 +307,8 @@ class WPDKTheme extends WPDKObject {
    *
    * @return WPDKTheme
    */
-  public function __construct( $file, $setup = false ) {
+  public function __construct( $file, $setup = false )
+  {
 
     if ( false == $setup ) {
       $this->setup = $setup = new WPDKThemeSetup();
@@ -330,8 +334,8 @@ class WPDKTheme extends WPDKObject {
     $theme_key         = basename( dirname( $file ) );
     $theme_directories = search_theme_directories();
 
-    $theme_file = $theme_directories[$theme_key]['theme_file'];
-    $theme_root = $theme_directories[$theme_key]['theme_root'];
+    $theme_file = $theme_directories[ $theme_key ]['theme_file'];
+    $theme_root = $theme_directories[ $theme_key ]['theme_root'];
 
     // WP_Theme is a final class, so I must create a part object
     $this->theme = new WP_Theme( $theme_key, $theme_root );
@@ -368,10 +372,13 @@ class WPDKTheme extends WPDKObject {
     add_action( 'after_setup_theme', array( $this, '_after_setup_theme' ) );
     add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
-    // Add script and styles
+    // Fires when scripts and styles are enqueued.
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-    // Head
+    // Fires before styles in the $handles queue are printed.
+    add_action( 'wp_print_styles', array( $this, 'wp_print_styles' ) );
+
+    // Print scripts or data in the head tag on the front end.
     add_action( 'wp_head', array( $this, '_wp_head' ), 0 );
     add_action( 'wp_head', array( $this, 'wp_head' ) );
 
@@ -394,8 +401,9 @@ class WPDKTheme extends WPDKObject {
   public function _init()
   {
     /* Text Domain */
-    if( $this->setup->autoload_text_domain ) {
-      load_theme_textdomain( $this->theme->get( 'TextDomain' ), trailingslashit( TEMPLATEPATH ) . $this->theme->get( 'DomainPath' ) );
+    if ( $this->setup->autoload_text_domain ) {
+      load_theme_textdomain( $this->theme->get( 'TextDomain' ), trailingslashit( TEMPLATEPATH ) .
+                                                                $this->theme->get( 'DomainPath' ) );
     }
 
     /* Clean up wp_head */
@@ -420,15 +428,15 @@ class WPDKTheme extends WPDKObject {
   public function _after_setup_theme()
   {
     // Admin bar
-    if ( !is_admin() && $this->setup->hide_admin_bar ) {
+    if ( ! is_admin() && $this->setup->hide_admin_bar ) {
       show_admin_bar( false );
     }
 
     // Theme support
-    if ( !empty( $this->setup->theme_support ) ) {
-      $theme_supports = (array)$this->setup->theme_support;
+    if ( ! empty( $this->setup->theme_support ) ) {
+      $theme_supports = (array) $this->setup->theme_support;
       foreach ( $theme_supports as $args => $theme_support ) {
-        if ( !is_numeric( $args ) && is_array( $theme_support ) ) {
+        if ( ! is_numeric( $args ) && is_array( $theme_support ) ) {
           add_theme_support( $args, $theme_support );
         }
         else {
@@ -438,7 +446,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     // Images size
-    if ( !empty( $this->setup->image_sizes ) ) {
+    if ( ! empty( $this->setup->image_sizes ) ) {
       foreach ( $this->setup->image_sizes as $key => $size ) {
         $size = array_merge( $size, array( 0, 0, false ) );
         list( $w, $h, $crop ) = $size;
@@ -447,18 +455,18 @@ class WPDKTheme extends WPDKObject {
     }
 
     // Set post thumbnail size
-    if ( !empty( $this->setup->post_thumbnail_size ) ) {
+    if ( ! empty( $this->setup->post_thumbnail_size ) ) {
       list( $w, $h, $crop ) = $this->setup->post_thumbnail_size;
       set_post_thumbnail_size( $w, $h, is_null( $crop ) ? false : $crop );
     }
 
     // Navigation menus
-    if ( !empty( $this->setup->nav_menus ) ) {
+    if ( ! empty( $this->setup->nav_menus ) ) {
       register_nav_menus( $this->setup->nav_menus );
     }
 
     // Sidebars
-    if ( !empty( $this->setup->sidebars ) ) {
+    if ( ! empty( $this->setup->sidebars ) ) {
       foreach ( $this->setup->sidebars as $sidebar ) {
         if ( is_array( $sidebar ) ) {
           register_sidebar( $sidebar );
@@ -467,7 +475,7 @@ class WPDKTheme extends WPDKObject {
     }
 
     // Editor style
-    if ( !empty( $this->setup->editor_styles ) ) {
+    if ( ! empty( $this->setup->editor_styles ) ) {
       add_editor_style( $this->setup->editor_styles );
     }
   }
@@ -484,30 +492,30 @@ class WPDKTheme extends WPDKObject {
       return;
     }
 
-    if ( !is_user_logged_in() ) {
+    if ( ! is_user_logged_in() ) {
       return;
     }
 
     /* Check for roles */
-    if ( !empty( $this->setup->disable_admin_for_roles ) ) {
+    if ( ! empty( $this->setup->disable_admin_for_roles ) ) {
       // Not implement
     }
 
     /* Check for capabilies */
-    if ( !empty( $this->setup->disable_admin_if_user_has_not_caps ) ) {
-      $pass = false;
+    if ( ! empty( $this->setup->disable_admin_if_user_has_not_caps ) ) {
+      $pass  = false;
       $roles = $this->setup->disable_admin_if_user_has_not_caps;
-      if ( !empty( $roles ) && is_array( $roles ) ) {
+      if ( ! empty( $roles ) && is_array( $roles ) ) {
         foreach ( $roles as $role ) {
           if ( ( $pass = current_user_can( $role ) ) ) {
             break;
           }
         }
       }
-      elseif ( !empty( $roles ) && is_string( $roles ) ) {
+      elseif ( ! empty( $roles ) && is_string( $roles ) ) {
         $pass = current_user_can( $roles );
       }
-      if ( !$pass ) {
+      if ( ! $pass ) {
         die();
       }
     }
@@ -518,7 +526,8 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Set Up
    */
-  public function init_theme() {
+  public function init_theme()
+  {
     /* You can override in your subclass. */
   }
 
@@ -527,7 +536,8 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Init shortcodes
    */
-  public function init_shortcode() {
+  public function init_shortcode()
+  {
     /* You can override in your subclass. */
   }
 
@@ -536,7 +546,8 @@ class WPDKTheme extends WPDKObject {
    *
    * @brief Your main init
    */
-  public function ajax() {
+  public function ajax()
+  {
     /* You can override in your subclass. */
   }
 
@@ -544,43 +555,55 @@ class WPDKTheme extends WPDKObject {
    * Setup theme
    *
    * @brief Setup theme
-   * @note To override
+   * @note  To override
    *
    */
-  public function after_setup_theme() {
+  public function after_setup_theme()
+  {
     die( __METHOD__ . ' must be override in your subclass' );
   }
 
   /**
-   * Description
-   *
-   * @brief Script and styles
-   */
-  public function wp_enqueue_scripts() {
-    /* You can override in your subclass */
+ 	 * Fires before styles in the $handles queue are printed.
+ 	 *
+ 	 * @since WP 2.6.0
+ 	 */
+  public function wp_print_styles()
+  {
+    // To override
   }
 
   /**
-   * Include standard WPDK Theme styles and script
-   *
-   * @brief WPDK Theme
-   */
+ 	 * Fires when scripts and styles are enqueued.
+ 	 *
+ 	 * @since WP 2.8.0
+ 	 */
+  public function wp_enqueue_scripts()
+  {
+    // To override
+  }
+
+  /**
+ 	 * Print scripts or data in the head tag on the front end.
+ 	 *
+ 	 * @since WP 1.5.0
+ 	 */
   public function _wp_head()
   {
-    if ( !empty( $this->setup->normalize_css ) ) {
+    if ( ! empty( $this->setup->normalize_css ) ) {
       wp_enqueue_style( 'normalize', WPDK_URI_CSS . 'normalize.css', array(), WPDK_VERSION );
     }
 
-    if ( !empty( $this->setup->theme_js ) ) {
-      wp_enqueue_script( 'wpdk-theme', WPDK_URI_JAVASCRIPT . 'wpdk-theme.js', array(), WPDK_VERSION );
+    if ( ! empty( $this->setup->theme_js ) ) {
+      wp_enqueue_script( 'wpdk-theme', WPDK_URI_JAVASCRIPT . 'wpdk-theme.js', array(), WPDK_VERSION, true );
     }
   }
 
   /**
-   * Subclass to insert output in head
-   *
-   * @brief wp_head
-   */
+ 	 * Print scripts or data in the head tag on the front end.
+ 	 *
+ 	 * @since WP 1.5.0
+ 	 */
   public function wp_head()
   {
     /* You can override in your subclass. */
@@ -603,7 +626,7 @@ class WPDKTheme extends WPDKObject {
    */
   public function _body_classes( $classes )
   {
-    if ( !empty( $this->setup->body_classes ) ) {
+    if ( ! empty( $this->setup->body_classes ) ) {
       if ( is_string( $this->setup->body_classes ) ) {
         $classes[] = $this->setup->body_classes;
       }
@@ -611,6 +634,7 @@ class WPDKTheme extends WPDKObject {
         $classes = array_merge( $classes, $this->setup->body_classes );
       }
     }
+
     return array_unique( $classes );
   }
 
@@ -625,13 +649,14 @@ class WPDKTheme extends WPDKObject {
    */
   public function image_size_names_choose( $sizes )
   {
-    if ( !empty( $this->setup->image_sizes ) ) {
+    if ( ! empty( $this->setup->image_sizes ) ) {
       foreach ( $this->setup->image_sizes as $key => $size ) {
         $size = array_merge( $size, array( 0, 0, 0, 0 ) );
         list( $w, $h, $crop, $label ) = $size;
-        $sizes[$key] = empty( $label ) ? $key : $label;
+        $sizes[ $key ] = empty( $label ) ? $key : $label;
       }
     }
+
     return $sizes;
   }
 
@@ -652,27 +677,28 @@ class WPDKTheme extends WPDKObject {
    * @param string|array $sLoadingPath Path of class when $mClassName is a string
    * @param string       $mClassName   Optional. The single class name or key value pairs array with path => classes
    */
-  public function registerAutoloadClass( $sLoadingPath, $mClassName = '' ) {
+  public function registerAutoloadClass( $sLoadingPath, $mClassName = '' )
+  {
 
     // 1
-    if ( is_string( $sLoadingPath ) && is_string( $mClassName ) && !empty( $mClassName ) ) {
-      $sClassNameLowerCased                                   = strtolower( $mClassName );
-      $this->_wpxThemeClassLoadingPath[$sClassNameLowerCased] = $sLoadingPath;
+    if ( is_string( $sLoadingPath ) && is_string( $mClassName ) && ! empty( $mClassName ) ) {
+      $sClassNameLowerCased                                     = strtolower( $mClassName );
+      $this->_wpxThemeClassLoadingPath[ $sClassNameLowerCased ] = $sLoadingPath;
     }
 
     // 2.
     elseif ( is_array( $sLoadingPath ) ) {
       foreach ( $sLoadingPath as $path => $classes ) {
         if ( is_string( $classes ) ) {
-          $class_name                                   = strtolower( $classes );
-          $this->_wpxThemeClassLoadingPath[$class_name] = $path;
+          $class_name                                     = strtolower( $classes );
+          $this->_wpxThemeClassLoadingPath[ $class_name ] = $path;
         }
 
         // 3.
         elseif ( is_array( $classes ) ) {
           foreach ( $classes as $class_name ) {
-            $class_name                                   = strtolower( $class_name );
-            $this->_wpxThemeClassLoadingPath[$class_name] = $path;
+            $class_name                                     = strtolower( $class_name );
+            $this->_wpxThemeClassLoadingPath[ $class_name ] = $path;
           }
         }
       }
@@ -908,7 +934,7 @@ class WPDKThemeSetup {
   /**
    * Include standard WPDK Theme (reset) styles
    *
-   * @brief Theme CSS
+   * @brief      Theme CSS
    * @deprecated since 1.4.21 - use normalize
    *
    * @var bool $theme_css
