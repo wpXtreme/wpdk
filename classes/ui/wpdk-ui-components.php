@@ -90,13 +90,46 @@ final class WPDKUIComponents {
     // Store the components
     $this->components = $this->components();
 
-    // Prints any scripts and data queued for the footer admin and frontned.
-    add_filter( 'print_footer_scripts', array( $this, 'load_scripts') );
-
     // Fires in <head> for all admin pages.
-    add_action( 'admin_head', array( $this, 'load_styles' ) );
+    // Use priority 100 in order to load all registered CSS from view controller.
+    add_action( 'admin_head', array( $this, 'load_styles' ), 100 );
+
+    // Fires before styles in the $handles queue are printed.
+    // Use priority 100 in order to load all registered CSS from view controller.
     add_action( 'wp_head', array( $this, 'load_styles' ), 100 );
 
+    // Prints any scripts and data queued for the footer admin and frontned.
+    add_filter( 'print_footer_scripts', array( $this, 'load_scripts' ) );
+  }
+
+  /**
+   * Fires in <head> for all admin pages.
+   *
+   * @since WP 2.1.0
+   */
+  public function load_styles()
+  {
+    global $compress_css;
+    global $wp_scripts, $wp_styles, $concatenate_scripts;
+
+    $wp_styles->do_concat = $wp_scripts->do_concat = $concatenate_scripts = true;
+
+    // If no scripts exit
+    if ( empty( $this->enqueue_styles ) ) {
+      return;
+    }
+
+    $zip = $compress_css ? 1 : 0;
+    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
+      $zip = 'gzip';
+    }
+
+    $concat = implode( ',', $this->enqueue_styles );
+    $concat = str_split( $concat, 128 );
+    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
+
+    $src = WPDK_URI . "wpdk-load-styles.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    echo "<link rel='stylesheet' id='wpdk-css-loader' type='text/css' href='" . esc_attr( $src ) . "'/>\n";
   }
 
   /**
@@ -128,60 +161,6 @@ final class WPDKUIComponents {
     $wp_scripts->print_html = "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n" . $wp_scripts->print_html;
 
     return $print;
-  }
-
-  /**
-   * Fires in <head> for all admin pages.
-   *
-   * @since WP 2.1.0
-   */
-  public function load_styles()
-  {
-    global $compress_css;
-
-    // If no scripts exit
-    if ( empty( $this->enqueue_styles ) ) {
-      return;
-    }
-
-    $zip = $compress_css ? 1 : 0;
-    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
-      $zip = 'gzip';
-    }
-
-    $concat = implode( ',', $this->enqueue_styles );
-    $concat = str_split( $concat, 128 );
-    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
-
-    $src = WPDK_URI . "wpdk-load-styles.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
-    echo "<link rel='stylesheet' type='text/css' href='" . esc_attr( $src ) . "'/>\n";
-  }
-
-  /**
- 	 * Fires when footer scripts are printed.
- 	 *
- 	 * @since WP 2.8.0
- 	 */
-  public function wp_print_footer_scripts()
-  {
-    global $compress_scripts;
-
-    // If no scripts exit
-    if ( empty( $this->enqueue_scripts ) ) {
-      return;
-    }
-
-    $zip = $compress_scripts ? 1 : 0;
-    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
-      $zip = 'gzip';
-    }
-
-    $concat = implode( ',', $this->enqueue_scripts );
-    $concat = str_split( $concat, 128 );
-    $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
-
-    $src = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
-    echo "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n";
   }
 
   /**
