@@ -138,14 +138,13 @@ class WPDKPreferences {
    *       return parent::init( self::PREFERENCES_NAME, __CLASS__, LAST_VERSION, $user_id );
    *     }
    *
-   * @internal string      $name       A string used as name for options. Make it unique more possible.
-   * @internal string      $class_name The subclass class name
-   * @internal bool|string $version    Optional. Version compare
-   * @internal bool|int    $user_id    Optional. User ID
+   * @params string      $name       A string used as name for options. Make it unique more possible.
+   * @params string      $class_name The subclass class name
+   * @params bool|string $version    Optional. Version compare
+   * @params bool|int    $user_id    Optional. User ID
    *
    * @return WPDKPreferences
    */
-  //public static function init( $name, $class_name, $version = false, $user_id = false )
   public static function init()
   {
     /*
