@@ -114,6 +114,7 @@ class WPDKViewController extends WPDKObject {
    * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
    * @since WP 2.6.0
+   * @since 1.6.0
    */
   public function admin_print_styles()
   {
