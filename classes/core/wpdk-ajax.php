@@ -21,7 +21,6 @@ if ( wpdk_is_ajax() ) {
    * @date               2013-11-15
    * @version            1.0.3
    * @since              0.7.5
-   *
    */
   class WPDKAjax {
 
@@ -98,10 +97,11 @@ if ( wpdk_is_ajax() ) {
    * @class           WPDKAjaxResponse
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
-   * @date            2014-05-004
-   * @version         1.0.4
+   * @date            2014-10-03
+   * @version         1.0.5
    * @since           1.4.0
    *
+   * @history         1.0.5 - Improves json result response.
    */
   class WPDKAjaxResponse extends WPDKObject {
 
@@ -161,14 +161,7 @@ if ( wpdk_is_ajax() ) {
       @header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
       @header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
 
-      echo json_encode( $this );
-
-      if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-        wp_die();
-      }
-      else {
-        die();
-      }
+      wp_die( json_encode( $this ) );
     }
 
   }
