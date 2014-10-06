@@ -1297,7 +1297,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
     $action = $this->current_action();
 
     // Avoid redirect for these actions
-    $actions = array( WPDKDBListTableModel::ACTION_NEW );
+    $actions = array( WPDKDBListTableModel::ACTION_NEW, WPDKDBListTableModel::ACTION_EDIT );
 
     // TODO think to filter
 
@@ -1319,37 +1319,6 @@ class WPDKListTableModel implements IWPDKListTableModel {
       wp_safe_redirect( $reditect );
     }
 
-
-//    if ( $action ) {
-//      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-//        $args = array(
-//          '_action_result' => $this->action_result,
-//          '_action'        => $action,
-//          'action'         => false,
-//          'action2'        => false,
-//          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-//        );
-//
-//        // Previous selected filters
-//        $filters     = $this->get_filters();
-//        $filter_args = array();
-//        foreach ( $filters as $key => $value ) {
-//          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
-//            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-//          }
-//        }
-//
-//        //  merge standard args with filters args
-//        $args = array_merge( $args, $filter_args );
-//
-//        // New referrer
-//        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-//
-//        //WPXtreme::log( $uri, "redirect" );
-//
-//        wp_safe_redirect( $uri );
-//      }
-//    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------

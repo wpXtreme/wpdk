@@ -196,7 +196,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     $action = $this->current_action();
 
     // Avoid redirect for these actions
-    $actions = array( WPDKDBListTableModel::ACTION_NEW );
+    $actions = array( WPDKDBListTableModel::ACTION_NEW, WPDKDBListTableModel::ACTION_EDIT );
 
     // TODO think to filter
 
