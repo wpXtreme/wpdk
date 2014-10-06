@@ -36,6 +36,11 @@ class WPDKUIModalDialogTour extends WPDKUIModalDialog {
     // Permanent dismiss
     $this->permanent_dismiss = true;
 
+    if( false === $this->is_dismissed() && 0 === did_action( 'wpxm_open_tour' ) ) {
+      // Enqueue page view
+      WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
+    }
+
   }
 
   /**
@@ -62,9 +67,6 @@ class WPDKUIModalDialogTour extends WPDKUIModalDialog {
 
     // Check if dismissed
     if( false === $this->is_dismissed() && 0 === did_action( 'wpxm_open_tour' ) ) {
-
-      // Enqueue page view
-      WPDKUIComponents::init()->enqueue( WPDKUIComponents::PAGE );
 
       // Display the page view
       $this->page_view = WPDKUIPageView::initWithHTML( $this->pages() );
