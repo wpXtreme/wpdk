@@ -13,10 +13,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * @class              WPDKListTableViewController
  * @author             =undo= <<info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-09-19
- * @version            1.2.1
+ * @date               2014-09-30
+ * @version            1.2.2
  *
  * @history            1.2.1 - Several refactor, improvements and removed old and deprecated methods
+ * @history            1.2.2 - Added method `print_styles` to conform interface
  *
  */
 class WPDKListTableViewController extends WP_List_Table {
@@ -351,6 +352,17 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function load()
   {
+  }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @since WP 2.6.0
+   * @since 1.6.0
+   */
+  public function admin_print_styles()
+  {
+    // To override
   }
 
   /**
@@ -1285,7 +1297,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
     $action = $this->current_action();
 
     // Avoid redirect for these actions
-    $actions = array( WPDKDBListTableModel::ACTION_NEW );
+    $actions = array( WPDKDBListTableModel::ACTION_NEW, WPDKDBListTableModel::ACTION_EDIT );
 
     // TODO think to filter
 
@@ -1307,37 +1319,6 @@ class WPDKListTableModel implements IWPDKListTableModel {
       wp_safe_redirect( $reditect );
     }
 
-
-//    if ( $action ) {
-//      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-//        $args = array(
-//          '_action_result' => $this->action_result,
-//          '_action'        => $action,
-//          'action'         => false,
-//          'action2'        => false,
-//          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-//        );
-//
-//        // Previous selected filters
-//        $filters     = $this->get_filters();
-//        $filter_args = array();
-//        foreach ( $filters as $key => $value ) {
-//          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
-//            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-//          }
-//        }
-//
-//        //  merge standard args with filters args
-//        $args = array_merge( $args, $filter_args );
-//
-//        // New referrer
-//        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-//
-//        //WPXtreme::log( $uri, "redirect" );
-//
-//        wp_safe_redirect( $uri );
-//      }
-//    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------

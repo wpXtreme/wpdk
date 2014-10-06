@@ -24,12 +24,10 @@
  * @date               2014-01-09
  * @version            1.0.1
  */
-class WPDKServiceShortcodes extends WPDKShortcodes {
+final class WPDKServiceShortcodes extends WPDKShortcodes {
 
   /**
    * Alias of getInstance();
-   *
-   * @brief Init the shortcode register
    *
    * @return WPDKServiceShortcodes
    */
@@ -40,8 +38,6 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
 
   /**
    * Create or return a singleton instance of WPDKServiceShortcodes
-   *
-   * @brief Create or return a singleton instance of WPDKServiceShortcodes
    *
    * @return WPDKServiceShortcodes
    */
@@ -163,8 +159,6 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
    *     [wpdk_is_user_logged_in emails='a.agima@commodore.com' caps="adv_perm, adv_read"]
    *     [wpdk_is_user_logged_in ids='134']
    *
-   * @brief Display a content for user logged in
-   *
    * @param array  $atts     Attribute into the shortcode
    * @param string $content  Optional. $content HTML content
    *
@@ -174,7 +168,7 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
   {
     if ( is_user_logged_in() && !is_null( $content ) ) {
 
-      /* Set default attributes. */
+      // Set default attributes. 
       $defaults = array(
         'roles'  => '',
         'caps'   => '',
@@ -182,10 +176,10 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
         'ids'    => ''
       );
 
-      /* Merge with shortcode. */
+      // Merge with shortcode. 
       $args = shortcode_atts( $defaults, $atts, 'wpdk_is_user_logged_in' );
 
-      /* Check for role. */
+      // Check for role. 
       if ( !empty( $args['roles'] ) ) {
         $found = false;
         $roles = explode( ',', $args['roles'] );
@@ -202,7 +196,7 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
         }
       }
 
-      /* Check for caps. */
+      // Check for caps. 
       if ( !empty( $args['caps'] ) ) {
         $found = false;
         $caps = explode( ',', $args['caps'] );
@@ -219,7 +213,7 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
         }
       }
 
-      /* Check for emails. */
+      // Check for emails. 
       if ( !empty( $args['emails'] ) ) {
         $emails  = explode( ',', $args['emails'] );
         $user_id = get_current_user_id();
@@ -229,7 +223,7 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
         }
       }
 
-      /* Check for ids. */
+      // Check for ids. 
       if ( !empty( $args['ids'] ) ) {
         $ids     = explode( ',', $args['ids'] );
         $user_id = get_current_user_id();
@@ -244,8 +238,6 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
 
   /**
    * Display a content of shortcode only if the user is NOT logged in.
-   *
-   * @brief Display a content for NOT user logged in
    *
    * @param array  $attrs     Attribute into the shortcode
    * @param string $content   Optional. $content HTML content
@@ -262,8 +254,6 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
   /**
    * Return the GitHub include script Gist. Use [wpdk_gist id="762771662"]
    *
-   * @brief GitHub Gist
-   *
    * @param array  $atts      Attribute into the shortcode
    * @param string $content   Optional. $content HTML content
    *
@@ -276,8 +266,6 @@ class WPDKServiceShortcodes extends WPDKShortcodes {
 
   /**
    * Return a Key value pairs array with key as shortcode name and value TRUE/FALSE for turn on/off the shortcode.
-   *
-   * @brief List of allowed shorcode
    *
    * @return array Shortcode array
    */

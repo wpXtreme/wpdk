@@ -9,16 +9,14 @@ if ( wpdk_is_ajax() ) {
    * @class              WPDKServiceAjax
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
-   * @date               2014-03-03
+   * @date               2014-10-03
    * @version            1.0.0
    *
    */
-  class WPDKServiceAjax extends WPDKAjax {
+  final class WPDKServiceAjax extends WPDKAjax {
 
     /**
      * Create or return a singleton instance of WPDKServiceAjax
-     *
-     * @brief Create or return a singleton instance of WPDKServiceAjax
      *
      * @return WPDKServiceAjax
      */
@@ -26,15 +24,13 @@ if ( wpdk_is_ajax() ) {
     {
       static $instance = null;
       if ( is_null( $instance ) ) {
-        $instance = new WPDKServiceAjax();
+        $instance = new self();
       }
       return $instance;
     }
 
     /**
      * Alias of getInstance();
-     *
-     * @brief Init the ajax register
      *
      * @return WPDKServiceAjax
      */
@@ -46,8 +42,6 @@ if ( wpdk_is_ajax() ) {
     /**
      * Return the array list with allowed method. This is a Key value pairs array with value for not signin user ajax
      * method allowed.
-     *
-     * @brief Ajax actions list
      *
      * @return array
      */
@@ -70,9 +64,8 @@ if ( wpdk_is_ajax() ) {
     }
 
     /**
-     * Return the autocomplete for users
+     * Return the autocomplete for users.
      *
-     * @brief Autocomplete for users
      * @since 1.5.1
      */
     public function wpdk_action_autocomplete_users()
@@ -143,9 +136,7 @@ if ( wpdk_is_ajax() ) {
     /**
      * Display the autocomplete for input tag. List all user by term.
      *
-     * @brief    Do autocomplete
-     *
-     * @internal string $_POST['term'] Term to searching for
+     * @use string $_POST['term'] Term to searching for
      *
      * @return string JSON encode with search results
      */
@@ -166,19 +157,18 @@ if ( wpdk_is_ajax() ) {
               'value' => sprintf( '%s (%s)', $user->display_name, $user->user_email )
             );
           }
-          echo json_encode( $result );
+          wp_die( json_encode( $result ) );
         }
       }
-      die();
+      wp_die();
     }
 
     /**
      * This method is such `wpdk_action_user_by` but used for custom autocomplete.
      *
-     * @brief      Custom autocomplete
      * @deprecated Since 1.0.0.b4
      *
-     * @internal   string $_POST['term'] Term to searching for
+     * @use   string $_POST['term'] Term to searching for
      *
      * @return string JSON encode with search results
      */
@@ -188,19 +178,20 @@ if ( wpdk_is_ajax() ) {
       $autocomplete_id = esc_attr( $_POST['autocomplete_id'] );
 
       $result = apply_filters( 'wpdk_autocomplete', array(), $pattern, $autocomplete_id );
-      echo json_encode( $result );
-      die();
+
+      wp_die( json_encode( $result ) );
     }
 
     /**
      * Return a posts list for type and status
      *
-     * @brief Autocomplete posts
-     *
      * @return string
      */
     public function wpdk_action_autocomplete_posts()
     {
+      /**
+       * @var wpdb $wpdb
+       */
       global $wpdb;
 
       // Get params
@@ -255,8 +246,6 @@ SQL;
 
     /**
      * Dismiss a WPDK pointer for an user
-     *
-     * @brief Dismiss pointer
      */
     public function wpdk_action_dismiss_wp_pointer()
     {
@@ -265,13 +254,12 @@ SQL;
       $dismissed           = unserialize( get_user_meta( $id_user, 'wpdk_dismissed_wp_pointer', true ) );
       $dismissed[$pointer] = true;
       update_user_meta( $id_user, 'wpdk_dismissed_wp_pointer', serialize( $dismissed ) );
-      die();
+      wp_die();
     }
 
     /**
      * Permanent alert dismiss by user logged in
      *
-     * @brief Permanent alert dismiss
      * @since 1.4.21
      */
     public function wpdk_action_alert_dismiss()
@@ -319,7 +307,6 @@ SQL;
     /**
      * Permanent modal dismiss by user logged in.
      *
-     * @brief Permanent modal dismiss
      * @since 1.5.6
      */
     public function wpdk_action_modal_dismiss()

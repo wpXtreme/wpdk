@@ -20,8 +20,19 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.5.17
+## Version 1.6.0
 ### 2014-09-??
+
+* Added `wpdk-load-scripts.php` and `wpdk-load-styles.php` in order to concatenate WPDK components
+* Fixed potential `__PHP_Incomplete_Class` in object delta
+* Added `WPDKGeo` class
+* Added `WPDKUserAgents` class
+* Improved performance
+* Removed deprecated
+* Improvements users class/filename organization
+
+## Version 1.5.17
+### 2014-09-24
 
 * Several improved and fixed on list table view controller
 * Improved action filter and post data processing in list table model and view controller

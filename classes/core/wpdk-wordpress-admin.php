@@ -71,7 +71,6 @@ class WPDKWordPressAdmin extends WPDKObject {
     // Fires before the administration menu loads in the admin.
     add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
 
-
     // Register this plugin in body.
     add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
@@ -114,6 +113,7 @@ class WPDKWordPressAdmin extends WPDKObject {
     }
     return $classes;
   }
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // Methods to override

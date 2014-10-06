@@ -129,11 +129,11 @@ div.wpdk-loader
 
 @font-face {
   font-family: 'wpdk-fonts';
-  src: url('../fonts/wpdk-fonts.eot?37456097');
-  src: url('../fonts/wpdk-fonts.eot?37456097#iefix') format('embedded-opentype'),
-       url('../fonts/wpdk-fonts.woff?37456097') format('woff'),
-       url('../fonts/wpdk-fonts.ttf?37456097') format('truetype'),
-       url('../fonts/wpdk-fonts.svg?37456097#wpdk-fonts') format('svg');
+  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?37456097');
+  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?37456097#iefix') format('embedded-opentype'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.woff?37456097') format('woff'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.ttf?37456097') format('truetype'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.svg?37456097#wpdk-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }

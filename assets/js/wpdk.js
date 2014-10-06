@@ -875,49 +875,6 @@ jQuery( function ( $ )
             $( 'input[name="' + name + '"]' ).val( '' );
           } );
 
-          // TODO Prototype
-          window.WPDKUIControlDateTime = {
-            // TODO
-            mySQLDateTime : function ( $e ) {},
-
-            // TODO
-            mySQLDate : function ( $e )
-            {
-              var d = $e.val();
-              var date = new Date( d );
-
-              var result = date.getFullYear() + '-' +
-                date.getMonth() + '-' +
-                date.getDate();
-
-              return result;
-
-            },
-
-            /**
-             * Set the right date and time in input hidden field and surrogate.
-             *
-             * @param object $e Element.
-             * @param int    d  Date in timestamp: PHP time().
-             */
-            setDate : function ( $e, d )
-            {
-
-              // Get the surrogate
-              var $surrogate = $( 'input[name="' + $e.attr( 'name' ) + '-surrogate' + '"]' );
-
-              if ( empty( d ) ) {
-                $surrogate.val( '' );
-                $e.val( '' );
-              }
-              else {
-                var date = new Date( ( d * 1000 ) );
-                $surrogate.datepicker( 'setDate', date );
-                $e.val( d );
-              }
-            }
-          };
-
           // TODO - Check for minimal date #not used becaues doesn't work
           //$( 'input.wpdk-form-date[data-date_type="start"], input.wpdk-form-datetime[data-date_type="start"]' ).each( function ()
           //{
@@ -1429,6 +1386,52 @@ jQuery( function ( $ )
 
     };
   }
+
+  if ( 'undefined' == typeof window.WPDKUIControlDateTime ) {
+    // TODO Prototype
+    window.WPDKUIControlDateTime = {
+      // TODO
+      mySQLDateTime : function ( $e ) {},
+
+      // TODO
+      mySQLDate     : function ( $e )
+      {
+        var d = $e.val();
+        var date = new Date( d );
+
+        var result = date.getFullYear() + '-' +
+          date.getMonth() + '-' +
+          date.getDate();
+
+        return result;
+
+      },
+
+      /**
+       * Set the right date and time in input hidden field and surrogate.
+       *
+       * @param object $e Element.
+       * @param int    d  Date in timestamp: PHP time().
+       */
+      setDate : function ( $e, d )
+      {
+
+        // Get the surrogate
+        var $surrogate = $( 'input[name="' + $e.attr( 'name' ) + '-surrogate' + '"]' );
+
+        if ( empty( d ) ) {
+          $surrogate.val( '' );
+          $e.val( '' );
+        }
+        else {
+          var date = new Date( ( d * 1000 ) );
+          $surrogate.datepicker( 'setDate', date );
+          $e.val( d );
+        }
+      }
+    };
+  }
+
 
   /**
    * The main WPDK (core) class

@@ -6,10 +6,11 @@
  * @class           WPDKWidget
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-04-07
- * @version         1.0.1
+ * @date            2014-09-30
+ * @version         1.0.2
  * @since           1.4.0
  *
+ * @history         1.0.2 - Minor improves
  */
 class WPDKWidget extends WP_Widget {
 
@@ -36,10 +37,13 @@ class WPDKWidget extends WP_Widget {
   {
     $this->id_base = $id_base;
 
-    // Load scripts and styles for admin page
+    // Fires when styles are printed for a specific admin page based on $hook_suffix.
+    add_action( 'admin_print_styles-widgets.php', array( $this, '_admin_print_styles' ) );
+
+    // Fires when styles are printed for a specific admin page based on $hook_suffix.
     add_action( 'admin_print_styles-widgets.php', array( $this, 'admin_print_styles' ) );
 
-    // Load scripts and styles for admin page
+    // LFires in <head> for a specific admin page based on $hook_suffix.
     add_action( 'admin_head-widgets.php', array( $this, 'admin_head' ) );
 
     // Fires before the Widgets administration page content loads.
@@ -50,11 +54,23 @@ class WPDKWidget extends WP_Widget {
   }
 
   /**
-   * Admin widget head page
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
-   * @brief Admin widget head page
+   * @since WP 2.6.0
+   * @ignore
    */
   public function admin_print_styles( )
+  {
+    // To override
+  }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @since WP 2.6.0
+   * @access private
+   */
+  public function _admin_print_styles( )
   {
     $logo    = isset( $this->control_options['wpdk_icon'] ) ? $this->control_options['wpdk_icon'] : '';
     $version = isset( $this->control_options['wpdk_version'] ) ? $this->control_options['wpdk_version'] : '';
@@ -102,9 +118,9 @@ class WPDKWidget extends WP_Widget {
   }
 
   /**
-   * Fires before the Widgets administration page content loads
+   * Fires before the Widgets administration page content loads.
    *
-   * @brief Widgets admin page
+   * @since WP 3.0.0
    */
   public function widgets_admin_page()
   {

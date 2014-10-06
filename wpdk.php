@@ -164,6 +164,10 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function autoloadWPDKEnvironment( $sClassName )
     {
+      if( class_exists( $sClassName, false ) ) {
+        return;
+      }
+
       // For backward compatibility and for better matching
       $sClassNameLowerCased = strtolower( $sClassName );
       if ( isset( $this->_wpdkClassLoadingPath[$sClassNameLowerCased] ) ) {
@@ -283,9 +287,11 @@ if ( !class_exists( 'WPDK' ) ) {
         $sPathPrefix . 'classes/helper/wpdk-crypt.php'                     => 'WPDKCrypt',
         $sPathPrefix . 'classes/helper/wpdk-datetime.php'                  => 'WPDKDateTime',
         $sPathPrefix . 'classes/helper/wpdk-filesystem.php'                => 'WPDKFilesystem',
+        $sPathPrefix . 'classes/helper/wpdk-geo.php'                       => 'WPDKGeo',
         $sPathPrefix . 'classes/helper/wpdk-http.php'                      => array(
           'WPDKHTTPRequest',
-          'WPDKHTTPVerbs'
+          'WPDKHTTPVerbs',
+          'WPDKUserAgents',
         ),
         $sPathPrefix . 'classes/helper/wpdk-math.php'                      => 'WPDKMath',
         $sPathPrefix . 'classes/helper/wpdk-screen-help.php'               => 'WPDKScreenHelp',
@@ -445,18 +451,28 @@ if ( !class_exists( 'WPDK' ) ) {
         ),
 
         // -------------------------------------------------------------------------------------------------------------
-        // USERS
+        // USERS, ROLES & CAPABILITIES
         // -------------------------------------------------------------------------------------------------------------
 
-        $sPathPrefix . 'classes/users/wpdk-user.php'                    => array(
-          'WPDKCapabilities',
-          'WPDKCapability',
-          'WPDKRole',
-          'WPDKRoles',
+        $sPathPrefix . 'classes/users/wpdk-users.php'                    => array(
           'WPDKUser',
           'WPDKUserMeta',
           'WPDKUsers',
           'WPDKUserStatus',
+        ),
+
+        $sPathPrefix . 'classes/users/wpdk-user-capabilities.php'                    => array(
+          'WPDKUserCapabilities',
+          'WPDKUserCapability',
+          'WPDKCapabilities',
+          'WPDKCapability',
+        ),
+
+        $sPathPrefix . 'classes/users/wpdk-user-roles.php'                    => array(
+          'WPDKUserRole',
+          'WPDKUserRoles',
+          'WPDKRole',
+          'WPDKRoles',
         ),
 
         // -------------------------------------------------------------------------------------------------------------
@@ -535,36 +551,8 @@ if ( !class_exists( 'WPDK' ) ) {
      */
     public function admin_enqueue_scripts( $hook_suffix )
     {
-      // Styles
-      $deps = array( 'thickbox' );
-
-      wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
-      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
-
-      // Scripts
-      $deps = array(
-        'jquery',
-        'jquery-ui-core',
-        'jquery-ui-tabs',
-        'jquery-ui-dialog',
-        'jquery-ui-datepicker',
-        'jquery-ui-autocomplete',
-        'jquery-ui-slider',
-        'jquery-ui-sortable',
-        'jquery-ui-draggable',
-        'jquery-ui-droppable',
-        'jquery-ui-resizable',
-        'thickbox'
-      );
-
-      // Own
-      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-
-      // Main wpdk
-      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
-
       // Localize wpdk_i18n
-      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
     }
 
     /**
@@ -574,36 +562,8 @@ if ( !class_exists( 'WPDK' ) ) {
    	 */
     public function wp_enqueue_scripts()
     {
-      // Styles
-      $deps = array( 'thickbox' );
-
-      wp_enqueue_style( 'wpdk-jquery-ui', WPDK_URI_CSS . 'jquery-ui/jquery-ui.custom.css', $deps, WPDK_VERSION );
-      wp_enqueue_style( 'wpdk', WPDK_URI_CSS . 'wpdk.css', $deps, WPDK_VERSION );
-
-      // Scripts
-      $deps = array(
-        'jquery',
-        'jquery-ui-core',
-        'jquery-ui-tabs',
-        'jquery-ui-dialog',
-        'jquery-ui-datepicker',
-        'jquery-ui-autocomplete',
-        'jquery-ui-slider',
-        'jquery-ui-sortable',
-        'jquery-ui-draggable',
-        'jquery-ui-droppable',
-        'jquery-ui-resizable',
-        'thickbox'
-      );
-
-      // Own
-      wp_enqueue_script( 'wpdk-jquery-ui-timepicker', WPDK_URI_JAVASCRIPT . 'timepicker/jquery.timepicker.js', $deps, WPDK_VERSION, true );
-
-      // Main wpdk
-      wp_enqueue_script( 'wpdk', WPDK_URI_JAVASCRIPT . 'wpdk.js', $deps, WPDK_VERSION, true );
-
       // Localize wpdk_i18n
-      wp_localize_script( 'wpdk', 'wpdk_i18n', $this->scriptLocalization() );
+      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
     }
 
     /**

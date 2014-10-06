@@ -4,30 +4,36 @@
  *
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-09-11
- * @version            1.0.4
+ * @date               2014-09-28
+ * @version            1.0.5
+ *
+ * @history            1.0.5 - Renamed defines and add defines for components
  *
  */
 
 // WPDK version
-define( 'WPDK_VERSION', '1.5.17' );
+define( 'WPDK_VERSION', '1.6.0' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Path unix: /var/
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Path unix wpdk forlder
-define( 'WPDK_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'WPDK_PATH', trailingslashit( dirname( __FILE__ ) ) );
 
 // Path unix wpdk classes folder
-define( 'WPDK_DIR_CLASS', WPDK_DIR . 'classes/' );
+define( 'WPDK_PATH_CLASS', WPDK_PATH . 'classes/' );
+
+// Path unix wpdk javascript and styles folder for components
+define( 'WPDK_PATH_JAVASCRIPT', WPDK_PATH . 'assets/js/' );
+define( 'WPDK_PATH_CSS', WPDK_PATH . 'assets/css/' );
 
 // ---------------------------------------------------------------------------------------------------------------------
 // URI
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Set constant path: plugin URL
-define( 'WPDK_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'WPDK_URI', plugin_dir_url( __FILE__ ) );
 
 // Set constant path: assets
 define( 'WPDK_URI_ASSETS', WPDK_URI . 'assets/' );

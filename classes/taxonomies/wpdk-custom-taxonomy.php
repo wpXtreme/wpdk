@@ -14,10 +14,12 @@
  *
  * @class           WPDKCustomTaxonomy
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date            2014-01-08
- * @version         1.0.1
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-09-30
+ * @version         1.0.2
  * @since           1.4.0
+ *
+ * @history         1.0.2 - Renamed `admin_print_styles_edit_tags_php`
  *
  */
 class WPDKCustomTaxonomy extends WPDKObject {
@@ -29,7 +31,7 @@ class WPDKCustomTaxonomy extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.1';
+  public $__version = '1.0.2';
 
   /**
    * Custom Taxonomy ID
@@ -47,31 +49,30 @@ class WPDKCustomTaxonomy extends WPDKObject {
    *
    * @var array|string $object_type
    */
-  public $object_type;
+  public $object_type = '';
 
   /**
    * Create an instance of WPDKCustomTaxonomy class
    *
-   * @brief Construct
-   *
-   * @param string        $id          taxonomy ID
-   * @param array|string  $object_type Name of the object type for the taxonomy object.
-   * @param  array|string $args        See optional args in `register_taxonomy()` function.
+   * @param string       $id          taxonomy ID
+   * @param array|string $object_type Name of the object type for the taxonomy object.
+   * @param array|string $args        See optional args in `register_taxonomy()` function.
    *
    * @return WPDKCustomTaxonomy
    */
   public function __construct( $id, $object_type, $args )
   {
-    /* Save useful properties */
-    $this->id = $id;
+
+    // Save useful properties
+    $this->id          = $id;
     $this->object_type = $object_type;
 
-    /* @todo Do a several control check in the input $args array */
+    // @todo Do a several control check in the input $args array
 
-    /* Register the taxonomy. */
+    // Register the taxonomy.
     register_taxonomy( $id, $object_type, $args );
 
-    /* Init admin hook */
+    // Init admin hook
     $this->initAdminHook();
   }
 
@@ -83,10 +84,14 @@ class WPDKCustomTaxonomy extends WPDKObject {
   private function initAdminHook()
   {
     if ( is_admin() ) {
-      /* Admin backend head area */
+
+      // @deprecated 1.6.0
       add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles' ) );
 
-      /* Current screen */
+      // Fires when styles are printed for a specific admin page based on $hook_suffix.
+      add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles_edit_tags_php' ) );
+
+      // Current screen
       add_action( 'current_screen', array( $this, '_current_screen' ) );
 
       // do_action('after-' . $taxonomy . '-table', $taxonomy);
@@ -98,11 +103,21 @@ class WPDKCustomTaxonomy extends WPDKObject {
   /**
    * Fire when edit view is loaded
    *
-   * @brief Edit view
+   * @deprecated since 1.6.0 - use `admin_print_styles_edit_tags_php` instead
    */
   public function admin_print_styles()
   {
-    /* Override */
+    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.6.0', 'admin_print_styles_edit_tags_php' );
+  }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @since WP 2.6.0
+   */
+  public function admin_print_styles_edit_tags_php()
+  {
+    // To override
   }
 
   /**
@@ -114,8 +129,8 @@ class WPDKCustomTaxonomy extends WPDKObject {
    */
   public function _current_screen( $screen )
   {
-    if ( !empty( $screen->taxonomy ) && $screen->taxonomy == $this->id ) {
-      $this->admin_print_styles();
+    if ( ! empty( $screen->taxonomy ) && $screen->taxonomy == $this->id ) {
+      $this->admin_print_styles_edit_tags_php();
     }
   }
 
