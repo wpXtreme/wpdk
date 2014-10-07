@@ -8,18 +8,18 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-02-04
  * @version         1.0.0
- * @since 1.4.20
+ * @since           1.4.20
  *
  */
 class WPDKCronSchedules {
 
   // standard WordPress predefined
-  const HOURLY = 'hourly';
+  const HOURLY     = 'hourly';
   const TWICEDAILY = 'twicedaily';
-  const DAILY = 'daily';
+  const DAILY      = 'daily';
 
   // WPDK Custom
-  const HALF_HOUR = 'wpdk_half_hour';
+  const HALF_HOUR   = 'wpdk_half_hour';
   const TWO_MINUTES = 'wpdk_two_minutes';
 
   /**
@@ -35,6 +35,7 @@ class WPDKCronSchedules {
     if ( is_null( $instance ) ) {
       $instance = new self();
     }
+
     return $instance;
   }
 
@@ -185,14 +186,14 @@ class WPDKCron {
     add_action( $this->name, array( $this, 'cron' ) );
 
     // If this cron jobs is not scheduled then add to the WP list
-    if ( !wp_next_scheduled( $this->name ) ) {
+    if ( ! wp_next_scheduled( $this->name ) ) {
 
       // Recurring
-      if ( empty( $timestamp ) && !empty( $recurrence ) ) {
+      if ( empty( $timestamp ) && ! empty( $recurrence ) ) {
         wp_schedule_event( time(), $recurrence, $this->name );
       }
       // Single event
-      elseif ( !empty( $timestamp ) ) {
+      elseif ( ! empty( $timestamp ) ) {
         wp_schedule_single_event( $timestamp, $this->name );
       }
     }
@@ -201,10 +202,9 @@ class WPDKCron {
   /**
    * Override with your schedule cron process
    *
-   * @brief Cron
-   *
+   * @brief Do Cron
    */
-  public function cron( )
+  public function cron()
   {
     // Override
   }
