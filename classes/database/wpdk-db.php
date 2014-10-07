@@ -178,9 +178,9 @@ SQL;
    *
    * @brief    Insert
    *
-   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @internal array  $values Array keys values
-   * @internal array  $format Optional. Array keys values for format null values
+   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @param array  $values Array keys values
+   * @param array  $format Optional. Array keys values for format null values
    *
    * @return int|bool
    */
@@ -247,10 +247,10 @@ SQL;
    *
    * @brief    Update
    *
-   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @internal array  $values Array keys values
-   * @internal array  $where  Array keys values for where update
-   * @internal array  $format Optional. Array keys values for format null values
+   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @param array  $values Array keys values
+   * @param array  $where  Array keys values for where update
+   * @param array  $format Optional. Array keys values for format null values
    *
    * @return array|bool
    */
@@ -668,9 +668,9 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    *
    * @brief    Insert
    *
-   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @internal array  $values Array keys values
-   * @internal array  $format Optional. Array keys values for format null values
+   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @param array  $values Array keys values
+   * @param array  $format Optional. Array keys values for format null values
    *
    * @sa       WPDKDBTableModel::insert()
    *
@@ -706,10 +706,10 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    *
    * @brief    Update
    *
-   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @internal array  $values Array keys values
-   * @internal array  $where  Array keys values for where update
-   * @internal array  $format Optional. Array keys values for format null values
+   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @param array  $values Array keys values
+   * @param array  $where  Array keys values for where update
+   * @param array  $format Optional. Array keys values for format null values
    *
    * @sa       WPDKDBTableModel::update()
    *
@@ -766,8 +766,8 @@ class WPDKDBListTableModel extends WPDKListTableModel {
    *
    * @brief    Count
    *
-   * @internal string       $distinct Optional. Name of field to distinct group by
-   * @internal array|string $status   Optional. Key value paier for where condiction on field: key = fields, vallue = value
+   * @param string       $distinct Optional. Name of field to distinct group by
+   * @param array|string $status   Optional. Key value paier for where condiction on field: key = fields, vallue = value
    *
    * @return int|array
    */
