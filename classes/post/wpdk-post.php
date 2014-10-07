@@ -702,6 +702,8 @@ class WPDKPost extends WPDKObject {
     if ( 'post.php' != $pagenow ) {
       return wp_update_post( $this, true );
     }
+
+    return false;
   }
 
   /**
@@ -709,6 +711,8 @@ class WPDKPost extends WPDKObject {
    *
    * @brief Update meta
    * @since 1.4.20
+   *
+   * @param array $args
    */
   public function updateMeta( $args = array() )
   {
@@ -741,7 +745,7 @@ class WPDKPost extends WPDKObject {
    *
    * @param string $meta_key Meta key
    *
-   * @internal mixed $value Optional. If set is the value to store
+   * @var  mixed   $value    Optional. If set is the value to store
    *
    * @return bool|mixed
    */
@@ -767,7 +771,7 @@ class WPDKPost extends WPDKObject {
    *
    * @param string $meta_key Meta key
    *
-   * @internal mixed $value Optional. If set is the value to store
+   * @var mixed    $value    Optional. If set is the value to store
    *
    * @return bool|mixed
    */
@@ -792,13 +796,19 @@ class WPDKPost extends WPDKObject {
    * @brief Get thumbnail image
    * @since 1.3.1
    *
-   * @param string $size Optional. Default 'full'
+   * @param string $size Optional. Default 'full'.
    *
    * @return bool|WPDKHTMLTagImg
    */
   public function thumbnail( $size = 'full' )
   {
-    return self::thumbnailWithID( $this->ID, $size );
+    $thumbnail = self::thumbnailWithID( $this->ID, $size );
+
+    if( empty( $thumbnail ) ) {
+      trigger_error( 'Thumbnail not found for product ID = ' . $this->ID . ' and size = ' . $size );
+    }
+
+    return $thumbnail;
   }
 
   /**
@@ -1266,10 +1276,11 @@ class WPDKPostMeta {
       if ( property_exists( $this->post, $property ) ) {
 
         // Update
-        update_post_meta( $post_id, $meta_key, $this->post->$property );
+        return update_post_meta( $post_id, $meta_key, $this->post->$property );
       }
     }
 
+    return false;
   }
 
   /**
