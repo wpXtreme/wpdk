@@ -188,6 +188,24 @@ class WPDKCustomPostType extends WPDKObject {
       // Filter the admin <body> CSS classes.
       add_filter( 'admin_body_class', array( $this, '_admin_body_class' ) );
 
+      // Fires when styles are printed for a specific admin page based on $hook_suffix.
+      add_action( 'admin_print_styles-post-new.php', array( $this, '_admin_print_styles_post_new_php') );
+
+      // Fires when styles are printed for a specific admin page based on $hook_suffix.
+      add_action( 'admin_print_styles-post.php', array( $this, '_admin_print_styles_post_php') );
+
+      // Fires when styles are printed for a specific admin page based on $hook_suffix.
+      add_action( 'admin_print_styles-edit.php', array( $this, '_admin_print_styles_edit_php') );
+
+      // Fires in <head> for a specific admin page based on $hook_suffix.
+      add_action( 'admin_head-post.php', array( $this, '_admin_head_post_php' ) );
+
+      // Fires in <head> for a specific admin page based on $hook_suffix.
+      add_action( 'admin_head-edit.php', array( $this, '_admin_head_edit_php' ) );
+
+      // Fires in <head> for a specific admin page based on $hook_suffix.
+      add_action( 'admin_head-post-new.php', array( $this, '_admin_head_post_new_php' ) );
+
       // Manage column
       add_action( 'manage_' . $this->id . '_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
       add_filter( 'manage_edit-' . $this->id . '_columns', array( $this, 'manage_edit_columns') );
@@ -195,15 +213,6 @@ class WPDKCustomPostType extends WPDKObject {
 
       // Hook save post
       add_action( 'save_post_' . $this->id, array( $this, 'save_post' ), 10, 2 );
-
-      /*
-       * DEPRECATED below
-       */
-
-      // Will loaded... Action when cpt list o cpt edit are invokes
-      add_action( 'admin_head-post.php', array( $this, '_will_load_post_list_edit' ) );
-      add_action( 'admin_head-edit.php', array( $this, '_will_load_post_list_edit' ) );
-      add_action( 'admin_head-post-new.php', array( $this, '_will_load_post_new' ) );
 
     }
   }
@@ -228,7 +237,16 @@ class WPDKCustomPostType extends WPDKObject {
 
     $classes .= ' wpdk-post-type-' . $this->id;
 
-    return $classes;
+    /**
+     * Filter the admin <body> CSS classes.
+     *
+     * The dynamic portion of the hook name, $id, refers to the custom post type id.
+     *
+     * @sincw 1.6.0
+     *
+     * @param string $classes Space-separated string of CSS classes.
+     */
+    return apply_filters( 'admin_body_class-' . $this->id, $classes );
   }
 
   /**
@@ -412,109 +430,118 @@ class WPDKCustomPostType extends WPDKObject {
   }
 
   /**
-   * This hook is called when a post list or edit did loaded
+   * Fires in <head> for a specific admin page based on $hook_suffix.
    *
-   * @brief List or edit
-   *
-   * @deprecated
+   * @brief Post
+   * @since 1.6.0
    */
-  public function _will_load_post_list_edit()
+  public function _admin_head_post_php()
   {
-    global $post_type;
+    if ( $this->is() ) {
 
-    if ( $post_type == $this->id ) {
-      $this->willLoadAdminPost();
-
-      if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
-
-        /**
-         * Fires when this custom post type is edit.
-         *
-         * The dynamic portion of the hook name, $d, refers to the custom post type id.
-         */
-        do_action( 'admin_head_post_edit-' . $this->id );
-
-        $this->willLoadEditPost();
-      } else {
-
-        /**
-         * Fires when this custom post type is listed.
-         *
-         * The dynamic portion of the hook name, $d, refers to the custom post type id.
-         */
-        do_action( 'admin_head_post_list-' . $this->id );
-
-        $this->willLoadListPost();
-      }
+      /**
+       * Fires when this custom post type is list.
+       *
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
+       */
+      do_action( 'admin_head_post-' . $this->id );
     }
   }
 
   /**
-   * This hook is called when your CPT edit view is loaded
+   * Fires in <head> for a specific admin page based on $hook_suffix.
    *
-   * @brief      Edit
-   * @deprecated since 1.5.6 Use admin_head_post_edit-{custom_post_type_id} instead
+   * @brief Post edit
+   * @since 1.6.0
    */
-  public function willLoadEditPost()
+  public function _admin_head_edit_php()
   {
-    // You can override this delegate method
+    if ( $this->is() ) {
+
+      /**
+       * Fires when this custom post type is edit.
+       *
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
+       */
+      do_action( 'admin_head_edit-' . $this->id );
+    }
   }
 
   /**
-   * This hook is called when your CPT list view is loaded
+   * Fires in <head> for a specific admin page based on $hook_suffix.
    *
-   * @brief      List
-   * @deprecated since 1.5.6 Use admin_head_post_list-{custom_post_type_id} instead
+   * @brief Post New
+   * @since 1.6.0
    */
-  public function willLoadListPost()
+  public function _admin_head_post_new_php()
   {
-    // You can override this delegate method
-  }
-
-  /**
-   * This hook is called when a new CPT is loaded
-   *
-   * @brief New
-   * @deprecated
-   */
-  public function _will_load_post_new()
-  {
-    global $post_type;
-
-    if ( $this->id == $post_type ) {
+    if ( $this->is() ) {
 
       /**
        * Fires when this custom post type is new.
        *
-       * The dynamic portion of the hook name, $d, refers to the custom post type id.
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
        */
       do_action( 'admin_head_post_new-' . $this->id );
+    }
+  }
 
-      $this->willLoadAdminPost();
-      $this->willLoadPostNew();
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   *
+   * @brief Post
+   * @since 1.6.0
+   */
+  public function _admin_print_styles_post_php()
+  {
+    if ( $this->is() ) {
+
+      /**
+       * Fires when this custom post type is list.
+       *
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
+       */
+      do_action( 'admin_print_styles_post-' . $this->id );
     }
   }
 
   /**
-   * This hook is called when your CPT new view is loaded
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
-   * @brief      New
-   * @deprecated since 1.5.6 Use admin_head_post_new-{custom_post_type_id} instead
+   * @brief Post edit
+   * @since 1.6.0
    */
-  public function willLoadPostNew()
+  public function _admin_print_styles_edit_php()
   {
-    // You can override this delegate method
+    if ( $this->is() ) {
+
+      /**
+       * Fires when this custom post type is edit.
+       *
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
+       */
+      do_action( 'admin_print_styles_edit-' . $this->id );
+    }
   }
 
   /**
-   * This hook is called when your CPT views are loaded in admin
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
-   * @brief Admin head
-   * @deprecated
+   * @brief Post New
+   * @since 1.6.0
    */
-  public function willLoadAdminPost()
+  public function _admin_print_styles_post_new_php()
   {
-    // You can override this delegate method
+    if ( $this->is() ) {
+
+      /**
+       * Fires when this custom post type is new.
+       *
+       * The dynamic portion of the hook name, $id, refers to the custom post type id.
+       */
+      do_action( 'admin_print_styles_post_new-' . $this->id );
+    }
   }
 
 }

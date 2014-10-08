@@ -1381,7 +1381,8 @@ class WPDKUIControlHidden extends WPDKUIControl {
  *         'type'           => WPDKUIControlType::LABEL,
  *         'id'             => 'id',
  *         'for'            => '',
- *         'value'          => 'Label Text',
+ *         'label'          => 'Label Text',
+ *         'value'          => 'Content to append',
  *         'attrs'          => array(),
  *         'data'           => array(),
  *         'class'          => array(),
@@ -1394,8 +1395,8 @@ class WPDKUIControlHidden extends WPDKUIControl {
  * @class              WPDKUIControlLabel
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-03-20
- * @version            1.0.0
+ * @date               2014-10-07
+ * @version            1.0.1
  *
  */
 class WPDKUIControlLabel extends WPDKUIControl {
@@ -1425,7 +1426,7 @@ class WPDKUIControlLabel extends WPDKUIControl {
   {
     echo $this->contentWithKey( 'prepend' );
 
-    $value = isset( $this->item['value'] ) ? $this->item['value'] : '';
+    $value = isset( $this->item['label'] ) ? $this->item['label'] : '';
 
     $label          = new WPDKHTMLTagLabel( $value, $this->name, $this->id );
     $label->class   = $this->class;
@@ -1436,8 +1437,11 @@ class WPDKUIControlLabel extends WPDKUIControl {
 
     $label->display();
 
+    echo isset( $this->item['value'] ) ? '<span class="wpdk-ui-control wpdk-ui-control-label">' . $this->item['value'] . '</span>' : '';
+
     echo $this->contentWithKey( 'append' );
   }
+
 
 }
 
