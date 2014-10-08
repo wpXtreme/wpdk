@@ -220,6 +220,11 @@ textarea.wpdk-ui-control
   transition            : box-shadow linear 0.2s;
 }
 
+input.wpdk-ui-control[type="number"]
+{
+  padding: 3px;
+}
+
 @media (max-width : 780px )
 {
   input.wpdk-ui-control[type="text"],
@@ -240,7 +245,7 @@ input.wpdk-ui-control[readonly]
   background-color : #f1f1fa;
 }
 
-input.wpdk-ui-control[type=checkbox]
+input.wpdk-ui-control[type="checkbox"]
 {
   vertical-align : middle !important;
 }
@@ -847,7 +852,19 @@ label.wpdk-form-label-inline
   display   : inline !important;
   width     : auto !important;
   min-width : auto !important;
-  margin    : 0;
+  margin    : 0 0 0 32px;
+}
+
+.wpdk-form-row label.wpdk-form-label-inline:first-child
+{
+  margin: 0;
+}
+
+span.wpdk-ui-control.wpdk-ui-control-label
+{
+  margin         : 0 0 0 8px;
+  line-height    : 100%;
+  vertical-align : middle;
 }
 
 label.wpdk-form-checkbox
