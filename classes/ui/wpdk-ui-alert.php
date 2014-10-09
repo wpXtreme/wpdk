@@ -179,19 +179,24 @@ class WPDKUIAlert extends WPDKHTMLTag {
   protected $dismissed = array();
 
   /**
-   * Create an instance of WPDKUIAlert class
+   * Create an instance of WPDKUIAlert class.
    *
    * @brief Construct
    *
-   * @param string $id      This alert id
+   * @param string $id      Optional. This alert id. If FALSE a unique id is create in order to avoid potential alert
+   *                        display missing.
    * @param string $content Optional. An HTML content for this alert
    * @param string $type    Optional. See WPDKUIAlertType. Default WPDKUIAlertType::INFORMATION
    * @param string $title   Optional. Title of alert
    *
    * @return WPDKUIAlert
    */
-  public function __construct( $id, $content = '', $type = WPDKUIAlertType::INFORMATION, $title = '' )
+  public function __construct( $id = false, $content = '', $type = WPDKUIAlertType::INFORMATION, $title = '' )
   {
+    // since 1.6.0 - create a unique id
+    if ( false === $id ) {
+      $id = md5( uniqid() . time() );
+    }
     $this->id      = sanitize_title( $id );
     $this->content = $content;
     $this->type    = $type;
