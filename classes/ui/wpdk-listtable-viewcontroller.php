@@ -911,7 +911,19 @@ class WPDKListTableViewController extends WP_List_Table {
     $action_result = $this->action_result();
 
     if ( is_object( $action_result ) ) {
-      $alert = new WPDKUIAlert( false, $action_result->data, WPDKUIAlertType::WARNING, $action_result->message );
+
+      // Get content
+      $content = $action_result->data;
+
+      // Sanitize content
+      if( ! is_string( $content ) ) {
+        WPDKHTML::startCompress();
+        var_dump( $action_result->data );
+        $content = WPDKHTML::endCompress();
+      }
+
+      // Alert
+      $alert = new WPDKUIAlert( false, $content, WPDKUIAlertType::WARNING, $action_result->message );
       $alert->display();
     }
     elseif ( ! empty( $action_result ) ) {
@@ -969,6 +981,7 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Action
    * @since 1.5.1
+   * @deprecated - not used
    *
    * @return string|bool
    */

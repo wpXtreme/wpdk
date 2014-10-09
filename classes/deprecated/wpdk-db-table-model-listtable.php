@@ -262,7 +262,7 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    * @internal array  $values Array keys values
    * @internal array  $format Optional. Array keys values for format null values
    *
-   * @return int|bool
+   * @return int|WP_Error
    */
   //public function insert( $prefix, $values, $format = array() )
   public function insert()
@@ -292,6 +292,10 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     // Insert
     $result = $wpdb->insert( $this->table_name, $values, $format );
 
+    if ( false === $result ) {
+      return new WP_Error( $prefix . '-insert', __( 'Error while insert' ), array( $this->table_name, $values, $format ) );
+    }
+
     // Get the id
     $id = $wpdb->insert_id;
 
@@ -302,10 +306,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
      * @param array $values Array with values of insert
      */
     do_action( $prefix . '_inserted', $result, $values );
-
-    if ( false == $result ) {
-      return false;
-    }
 
     // Return the id
     return $id;
@@ -332,11 +332,14 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
    * @internal array  $where  Array keys values for where update
    * @internal array  $format Optional. Array keys values for format null values
    *
-   * @return array|bool
+   * @return int|WP_Error
    */
   //public function update( $prefix, $values, $where, $format = array() )
   public function update()
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
 
     /*
@@ -359,6 +362,10 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
     // Update
     $result = $wpdb->update( $this->table_name, $values, $where, $format );
 
+    if ( false === $result ) {
+      return new WP_Error( $prefix . '-update', __( 'Error while update' ), array( $values, $where, $format ) );
+    }
+
     /**
      * Fires when a record is updated
      *
@@ -367,10 +374,6 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
      * @param array    $where  Array with values of where condiction.
      */
     do_action( $prefix . '_updated', $result, $values, $where );
-
-    if ( false == $result ) {
-      return false;
-    }
 
     // Get the id
     return $where;
@@ -465,7 +468,11 @@ SQL;
    */
   public function status( $id, $status = WPDKDBTableRowStatuses::PUBLISH )
   {
+    /**
+     * @var wpdb $wpdb
+     */
     global $wpdb;
+
 
     // Stability
     if ( !empty( $id ) && !empty( $status ) ) {
@@ -481,9 +488,13 @@ SQL;
 
       $num_rows = $wpdb->query( $sql );
 
+      if( false === $num_rows ) {
+        return new WP_Error( 'deprecated-status', __( 'Error while update status' ), $sql );
+      }
+
       return ( $num_rows > 0 );
     }
-    return false;
+    return new WP_Error( 'deprecated-status', __( 'Wrong params in change status' ), array( $id, $status ) );
   }
 
 }

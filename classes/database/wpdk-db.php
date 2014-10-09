@@ -174,15 +174,19 @@ SQL;
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Insert a record by values. Return FALSE if error or id of record if successfully.
+   * Insert a record by values and return the id on successfull, otherwise return WP_Error.
    *
-   * @brief    Insert
+   * The insert result is store in `$this->crud_results`.
    *
-   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @internal array  $values Array keys values
-   * @internal array  $format Optional. Array keys values for format null values
+   * @brief Insert
    *
-   * @return int|bool
+   * @use $this->crud_results
+   *
+   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @param array  $values Array keys values
+   * @param array  $format Optional. Array keys values for format null values
+   *
+   * @return int|WP_Error
    */
   public function insert()
   {
@@ -211,6 +215,10 @@ SQL;
     // Insert
     $this->crud_results = $wpdb->insert( $this->table_name, $values, $format );
 
+    if ( false === $this->crud_results ) {
+      return new WP_Error( $prefix . '-insert', __( 'Error while insert' ), array( $this->table_name, $values, $format ) );
+    }
+
     // Get the id
     $id = $wpdb->insert_id;
 
@@ -221,10 +229,6 @@ SQL;
      * @param array $values Array with values of insert.
      */
     do_action( $prefix . '_inserted', $this->crud_results, $values );
-
-    if ( false == $this->crud_results ) {
-      return false;
-    }
 
     // Return the id
     return $id;
@@ -242,17 +246,20 @@ SQL;
   }
 
   /**
-   * Update a record by values. Return FALSE if error or the $where condiction if successfully.
-   * You can use the $where condiction returned to get again the record ID.
+   * Update a record by values and retrun TRUE onsuccessfully, otherwise return a WP_Error.
    *
-   * @brief    Update
+   * The update result is store in `$this->crud_results`.
+   *
+   * @brief Update
+   *
+   * @use $this->crud_results
    *
    * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
    * @param array  $values Array keys values
    * @param array  $where  Array keys values for where update
    * @param array  $format Optional. Array keys values for format null values
    *
-   * @return array|bool
+   * @return int|WP_Error
    */
   public function update()
   {
@@ -281,6 +288,10 @@ SQL;
     // Update
     $this->crud_results = $wpdb->update( $this->table_name, $values, $where, $format );
 
+    if ( false === $this->crud_results ) {
+      return new WP_Error( $prefix . '-update', __( 'Error while update' ), array( $values, $where, $format ) );
+    }
+
     /**
      * Fires when a record is updated.
      *
@@ -290,19 +301,19 @@ SQL;
      */
     do_action( $prefix . '_updated', $this->crud_results, $values, $where );
 
-    if ( false == $this->crud_results ) {
-      return false;
-    }
-
-    // Get the id
-    return $where;
+    // Successfully
+    return true;
   }
 
   /**
-   * Delete one or more record from table. Return the number of rows affected/selected or false on error.
+   * Delete one or more record from table. Return the number of rows affected/selected or WP_Error.
    * Use the primaryKey.
    *
+   * The delete result is store in `$this->crud_results`.
+   *
    * @brief Delete
+   *
+   * @use $this->crud_results
    *
    * @param int|array $id Any single int or array list of primary keys
    *
@@ -339,9 +350,13 @@ DELETE FROM {$this->table_name}
 WHERE {$this->primary_key} IN( {$ids} )
 SQL;
 
-    $result = $wpdb->query( $sql );
+    $this->crud_results = $wpdb->query( $sql );
 
-    return $result;
+    if( false === $this->crud_results ) {
+      return new WP_Error( 'delete', __( 'Error while delete' ), $sql );
+    }
+
+    return $this->crud_results;
   }
 
   /**
