@@ -49,6 +49,8 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
 
     // Add action to get the post data
     $action = get_class( $this ) . '-listtable-viewcontroller';
+
+    // This action is documented in classes/ui/wpdk-listtable-viewcontroller.php
     add_action( $action, array( $this, 'process_bulk_action' ) );
   }
 
@@ -184,6 +186,28 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
   }
 
   /**
+   * Set the action result.
+   *
+   * @since 1.6.0
+   *
+   * @param bool|WP_Error $result A result from an "action".
+   */
+  public function action_result( $result )
+  {
+    if ( is_wp_error( $result ) ) {
+      $error               = array(
+        'message' => $result->get_error_message(),
+        'data'    => $result->get_error_data()
+      );
+      $this->action_result = urlencode( json_encode( $error ) );
+
+    }
+    else {
+      $this->action_result = 1;
+    }
+  }
+
+  /**
    * Process actions
    *
    * @brief Process actions
@@ -211,50 +235,18 @@ class WPDKDBTableModelListTable extends WPDKDBTableModel {
      *
      * @param array $args Optional. Default query args to remove. Default `array()`
      */
-    $args     = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+    $args = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+
+    // Set the action result
+    $args['_action_result'] = $this->action_result;
+
     $reditect = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
     if ( $action ) {
       wp_safe_redirect( $reditect );
+      exit();
     }
 
-    // http://beta.wpxtre.me/wp-admin/admin.php
-    // ?listtable_client_id=fd6f996c8e56b127b06851f48ddc3b4e
-    // &listtable_list_id=adaead0c9fa84c293f161b2d54acc622
-    // &segment_id=
-    // &_wpnonce=e489cbe211
-    // &_wp_http_referer=%2Fwp-admin%2Fadmin.php%3Fpage%3Dwpxcm_main-submenu-2%26listtable_list_id%3D9d2553e9b671dd8044a17efca324adf6&paged=1
-
-//    if ( $action ) {
-//      if ( isset( $_REQUEST['_wp_http_referer'] ) ) {
-//        $args = array(
-//          '_action_result' => $this->action_result,
-//          '_action'        => $action,
-//          'action'         => false,
-//          'action2'        => false,
-//          'page'           => isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false,
-//        );
-//
-//        // Previous selected filters
-//        $filters     = $this->get_filters();
-//        $filter_args = array();
-//        foreach ( $filters as $key => $value ) {
-//          if ( isset( $_REQUEST[ $key ] ) && ! empty( $_REQUEST[ $key ] ) ) {
-//            $filter_args[ $key ] = urlencode( $_REQUEST[ $key ] );
-//          }
-//        }
-//
-//        //  merge standard args with filters args
-//        $args = array_merge( $args, $filter_args );
-//
-//        // New referrer
-//        $uri = add_query_arg( $args, $_REQUEST['_wp_http_referer'] );
-//
-//        //WPXtreme::log( $uri, "redirect" );
-//
-//        wp_safe_redirect( $uri );
-//      }
-//    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------

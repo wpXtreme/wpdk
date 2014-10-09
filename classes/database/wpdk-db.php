@@ -178,9 +178,9 @@ SQL;
    *
    * @brief    Insert
    *
-   * @param string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
-   * @param array  $values Array keys values
-   * @param array  $format Optional. Array keys values for format null values
+   * @internal string $prefix A prefix used for filter/action hook, eg: carrier, stat, ...
+   * @internal array  $values Array keys values
+   * @internal array  $format Optional. Array keys values for format null values
    *
    * @return int|bool
    */
