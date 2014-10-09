@@ -162,6 +162,7 @@ class WPDKListTableViewController extends WP_List_Table {
       $this->args['singular'] => false,
       $this->args['plural']   => false,
       'paged'                 => false,
+      '_action_result'        => false,
     );
 
     $args = array_merge( $args, $remove );
@@ -482,7 +483,7 @@ class WPDKListTableViewController extends WP_List_Table {
 
       <?php
       // Standard input hidden
-      $input_hidden = array( 'page', 'post_type', 'orderby', 'order', );
+      $input_hidden = array( 'page', 'post_type', 'orderby', 'order', '_action_result' );
 
       // TODO think to a filter
 
@@ -614,32 +615,14 @@ class WPDKListTableViewController extends WP_List_Table {
 
         $current = ( $current_status == $key ) ? 'class="current"' : '';
 
-//        // Clear URI
-//        $_SERVER['REQUEST_URI'] = remove_query_arg( array(
-//          '_action',
-//          '_action_result'
-//        ), wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] );
-//
-//        $args = array(
-//          $this->args['wpdk_request_status'] => $key,
-//          'paged'                            => false,
-//          'action'                           => false,
-//          '_action'                          => false,
-//          '_action_result'                   => false,
-//          $this->_args['singular']           => false
-//        );
-//
-//        $href = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
-
         // Get referer
         $referer = wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'];
 
-        // NO filter
+        // Avoid some params
         $args = $this->wpdk_list_table_remove_query_args_redirect( array( $this->args['wpdk_request_status'] => $key ) );
 
         // href
         $href = add_query_arg( $args, $referer );
-
 
         $views[ $key ] = sprintf( '<a %s href="%s">%s <span class="count">(%s)</span></a>', $current, $href, $status, $count );
       }
@@ -821,6 +804,9 @@ class WPDKListTableViewController extends WP_List_Table {
         // Get referer
         $referer = wpdk_is_ajax() ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'];
 
+        // Remove
+        $referer = remove_query_arg( '_action_result', $referer );
+
         $args = array(
           'action'                => $action,
           $this->args['singular'] => $item[ $this->args['singular'] ],
@@ -909,17 +895,43 @@ class WPDKListTableViewController extends WP_List_Table {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * This method is to override and you can use it to processed the action request sent from list table.
-   * You can processed bulk and single action. This method must return a boolean in order to re-processed the items
+   * Return TRUE to stop the display of list item table, FALSE otherwise. Default return FALSE if you do not override.
+   *
+   * You can override this method to process the action request sent from list table.
+   * You can processing bulk and single action. This method must return a boolean in order to re-processed the items
    * list view.
    *
    * @brief Process the bulk actions and standard actions
    *
-   * @return bool TRUE to stop display the list view, FALSE to display the list.
+   * @return bool
    */
   public function process_bulk_action()
   {
-    die( __METHOD__ . ' must be over-ridden in a sub-class.' );
+    // Process the action result
+    $action_result = $this->action_result();
+
+    if ( is_object( $action_result ) ) {
+
+      // Get content
+      $content = $action_result->data;
+
+      // Sanitize content
+      if( ! is_string( $content ) ) {
+        WPDKHTML::startCompress();
+        var_dump( $action_result->data );
+        $content = WPDKHTML::endCompress();
+      }
+
+      // Alert
+      $alert = new WPDKUIAlert( false, $content, WPDKUIAlertType::WARNING, $action_result->message );
+      $alert->display();
+    }
+    elseif ( ! empty( $action_result ) ) {
+      $alert = new WPDKUIAlert( false, __( 'Operation successfully!', WPDK_TEXTDOMAIN ), WPDKUIAlertType::SUCCESS, __( 'Information', WPDK_TEXTDOMAIN ) );
+      $alert->display();
+    }
+
+    return false;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -969,6 +981,7 @@ class WPDKListTableViewController extends WP_List_Table {
    *
    * @brief Action
    * @since 1.5.1
+   * @deprecated - not used
    *
    * @return string|bool
    */
@@ -978,23 +991,29 @@ class WPDKListTableViewController extends WP_List_Table {
   }
 
   /**
-   * Return the action result
+   * Return the action result.
    *
    * @brief Action result
    *
-   * @return bool
+   * @return bool|WP_Error
    */
   public function action_result()
   {
-    return isset( $_REQUEST['_action_result'] ) ? $_REQUEST['_action_result'] : true;
+    $action_result = isset( $_REQUEST['_action_result'] ) ? $_REQUEST['_action_result'] : false;
+
+    if( empty( $action_result ) || "1" === $action_result ) {
+      return (bool)$action_result;
+    }
+
+    return json_decode( stripslashes( urldecode( $action_result ) ) );
   }
 
   /**
-   * Return the action result
+   * Return the current action or FALSE if no action defined.
    *
-   * @brief Action result
+   * @brief Current action
    *
-   * @return bool
+   * @return bool|string
    */
   public function action()
   {
@@ -1135,7 +1154,7 @@ interface IWPDKListTableModel {
 class WPDKListTableModel implements IWPDKListTableModel {
 
   /**
-   * Used for check the action and bulk action results
+   * Used for check the action and bulk action results.
    *
    * @brief Action result
    *
@@ -1154,6 +1173,8 @@ class WPDKListTableModel implements IWPDKListTableModel {
   {
     // Add action to get the post data
     $action = get_class( $this ) . '-listtable-viewcontroller';
+
+    // This action is documented in classes/ui/wpdk-listtable-viewcontroller.php
     add_action( $action, array( $this, 'process_bulk_action' ) );
 
   }
@@ -1285,6 +1306,28 @@ class WPDKListTableModel implements IWPDKListTableModel {
   }
 
   /**
+   * Set the action result.
+   *
+   * @since 1.6.0
+   *
+   * @param bool|WP_Error $result A result from an "action".
+   */
+  public function action_result( $result )
+  {
+    if ( is_wp_error( $result ) ) {
+      $error               = array(
+        'message' => $result->get_error_message(),
+        'data'    => $result->get_error_data()
+      );
+      $this->action_result = urlencode( json_encode( $error ) );
+
+    }
+    else {
+      $this->action_result = 1;
+    }
+  }
+
+  /**
    * Process actions. Override when you need to process actions before wp is loaded.
    *
    * @brief Process actions
@@ -1312,11 +1355,16 @@ class WPDKListTableModel implements IWPDKListTableModel {
      *
      * @param array $args Optional. Default query args to remove. Default `array()`
      */
-    $args     = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+    $args = apply_filters( 'wpdk_list_table_remove_query_args_redirect', array() );
+
+    // Set the action result
+    $args['_action_result'] = $this->action_result;
+
     $reditect = add_query_arg( $args, $_SERVER['REQUEST_URI'] );
 
     if ( $action ) {
       wp_safe_redirect( $reditect );
+      exit();
     }
 
   }
