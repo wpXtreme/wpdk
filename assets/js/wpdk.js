@@ -54,15 +54,20 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         arg.push( arguments[i] );
       }
 
-      // has handler
+      // document handlers
       var handlers = jQuery._data( document, 'events' );
 
-      // If there is an handler
-      if ( typeof handlers[tag] === 'object' ) {
-        return jQuery( document ).triggerHandler( tag, arg );
-      }
-      else if ( typeof handlers[tag] === 'undefined' && typeof arguments[1] !== 'undefined' ) {
-        return arguments[1];
+      // Check for any handlers
+      if( typeof handlers !== 'undefined' ) {
+
+        // Check if 'tag' handler exists
+        if ( tag in handlers ) {
+           return jQuery( document ).triggerHandler( tag, arg );
+        }
+        // If 'tag' handler doesn't exist but the first argument is set
+        else if ( ! ( tag in handlers ) && typeof arguments[1] !== 'undefined' ) {
+          return arguments[1];
+        }
       }
     }
   }
