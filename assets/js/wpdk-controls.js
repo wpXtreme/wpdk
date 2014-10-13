@@ -31,32 +31,57 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
           var $control = $( this );
 
           // Get sub-elements
-          var knob = $control.children( 'span' ).eq( 0 );
-          var input = $control.children( 'input[type=hidden]' ).eq( 0 );
+          var knob   = $control.children( 'span' ).eq( 0 );
+          var input  = $control.children( 'input[type=hidden]' ).eq( 0 );
+          var status = wpdk_is_bool( v ) ? 'on' : 'off';
 
-          if ( false === $control.triggerHandler( WPDKUIComponentEvents.SWIPE_CHANGE, [ $control, wpdk_is_bool( v ) ? 'on' : 'off'] ) ) {
+          /**
+           * Fires before change the swipe.
+           *
+           * Return FALSE to stop the change, otherwise return TRUE to continue.
+           *
+           * @param {object} $control The swipe control.
+           * @param {string} status The swipe status 'on' or 'off'.
+           *
+           * @return {boolean}
+           */
+          var result = wpdk_do_action( WPDKUIComponentEvents.SWIPE_CHANGE, $control, status );
+
+          if ( false === result ) {
             return input.val();
           }
 
           // On
           if ( wpdk_is_bool( v ) ) {
-            //$control.trigger( 'change', [ $control, 'on'] );
             input.val( 'on' );
             knob.animate( { marginLeft : '23px' }, 100, function ()
             {
               $control.addClass( 'wpdk-form-swipe-on' );
             } );
+
+            /**
+             * Fires when a swipe is turn on.
+             *
+             * @param {object} $control The swipe control.
+             * @param {string} status The swipe status 'on'.
+             */
             $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'on'] );
           }
 
           // Off
           else {
-            //$control.trigger( 'change', [ $control, 'off'] );
             input.val( 'off' );
             knob.animate( { marginLeft : '0' }, 100, function ()
             {
               $control.removeClass( 'wpdk-form-swipe-on' );
             } );
+
+            /**
+             * Fires when a swipe is turn off.
+             *
+             * @param {object} $control The swipe control.
+             * @param {string} status The swipe status 'off'.
+             */
             $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'off'] );
           }
         } );

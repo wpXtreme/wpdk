@@ -643,7 +643,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
         REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
         REFRESH_SWIPE               : 'refresh.wpdk.swipe',
-        REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+        REFRESH_JQUERY_DATEPICKER   : 'refresh.wpdk.jquery.datepicker',
         REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
         REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
@@ -666,7 +666,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
       REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
       REFRESH_SWIPE               : 'refresh.wpdk.swipe',
-      REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+      REFRESH_JQUERY_DATEPICKER   : 'refresh.wpdk.jquery.datepicker',
       REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
       REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs',
 
@@ -882,8 +882,8 @@ jQuery( function ( $ )
        */
       function _initDatePicker()
       {
-        // Attach event for refresh
-        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER, _initDatePicker );
+        // Fires to request the jQuery date picker refresh.
+        wpdk_add_action( WPDKUIComponents.REFRESH_JQUERY_DATEPICKER, _initDatePicker );
 
         // Enable Date Picker on wpdk input class
         $( 'input.wpdk-form-date' ).datepicker();
@@ -1661,7 +1661,9 @@ jQuery( function ( $ )
     $.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
   }();
 
-  // Fire when WPDK is loaded
-  $( document ).trigger( 'WPDK' );
+  /**
+   * Fires when WPDK is loaded.
+   */
+  wpdk_do_action( 'WPDK' );
 
 });
