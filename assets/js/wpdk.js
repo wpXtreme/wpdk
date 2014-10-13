@@ -37,12 +37,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
   if ( typeof window.wpdk_do_action === 'undefined' ) {
 
     /**
-     * Execute functions hooked on a specific action hook.
+     * Execute functions hooked on a specific action hook and return the hooks value of and handler is attach or the
+     * first argument if set.
      *
      * @since 1.6.0
      *
      * @param {string} tag The name of the action to be executed.
      * @param {...*} arguments List of arguments.
+     *
+     * @return {*}
      */
     window.wpdk_do_action = function ( tag )
     {
@@ -51,7 +54,16 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         arg.push( arguments[i] );
       }
 
-      jQuery( document ).triggerHandler( tag, arg );
+      // has handler
+      var handlers = jQuery._data( document, 'events' );
+
+      // If there is an handler
+      if ( typeof handlers[tag] === 'object' ) {
+        return jQuery( document ).triggerHandler( tag, arg );
+      }
+      else if ( typeof handlers[tag] === 'undefined' && typeof arguments[1] !== 'undefined' ) {
+        return arguments[1];
+      }
     }
   }
 
