@@ -18,16 +18,66 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
 {
   "use strict";
 
-  /**
-   * Like PHP empty()
-   *
-   * @since 1.0.0.b3
-   *
-   * @param {*} mixed_var
-   *
-   * @return {Boolean}
-   */
+  if ( typeof window.wpdk_add_action === 'undefined' ) {
+
+    /**
+     * Hooks a function on to a specific action.
+     *
+     * @since 1.6.0
+     *
+     * @param {string} tag The name of the action to which the $function_to_add is hooked.
+     * @param {callback} function_to_add The name of the function you wish to be called.
+     */
+    window.wpdk_add_action = function ( tag, function_to_add )
+    {
+      jQuery( document ).on( tag, function_to_add );
+    }
+  }
+
+  if ( typeof window.wpdk_do_action === 'undefined' ) {
+
+    /**
+     * Execute functions hooked on a specific action hook and return the hooks value of and handler is attach or the
+     * first argument if set.
+     *
+     * @since 1.6.0
+     *
+     * @param {string} tag The name of the action to be executed.
+     * @param {...*} arguments List of arguments.
+     *
+     * @return {*}
+     */
+    window.wpdk_do_action = function ( tag )
+    {
+      var i, arg = [];
+      for ( i = 1; i < arguments.length; i++ ) {
+        arg.push( arguments[i] );
+      }
+
+      // has handler
+      var handlers = jQuery._data( document, 'events' );
+
+      // If there is an handler
+      if ( typeof handlers[tag] === 'object' ) {
+        return jQuery( document ).triggerHandler( tag, arg );
+      }
+      else if ( typeof handlers[tag] === 'undefined' && typeof arguments[1] !== 'undefined' ) {
+        return arguments[1];
+      }
+    }
+  }
+
   if ( typeof( window.empty ) === 'undefined' ) {
+
+    /**
+     * Like PHP empty()
+     *
+     * @since 1.0.0.b3
+     *
+     * @param {*} mixed_var
+     *
+     * @return {Boolean}
+     */
     window.empty = function ( mixed_var )
     {
       // Checks if the argument variable is empty
@@ -82,14 +132,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-  /**
-   * Like PHP isset()
-   *
-   * @since 1.0.0.b3
-   *
-   * @return {Boolean}
-   */
   if ( typeof( window.isset ) === 'undefined' ) {
+
+    /**
+     * Like PHP isset()
+     *
+     * @since 1.0.0.b3
+     *
+     * @return {Boolean}
+     */
     window.isset = function ()
     {
       // http://kevin.vanzonneveld.net
@@ -119,14 +170,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-  /**
-   * Do a sprintf()
-   *
-   * @since 1.0.0.b3
-   *
-   * @return {*|void}
-   */
   if ( typeof( window.sprintf ) === 'undefined' ) {
+
+    /**
+     * Do a sprintf()
+     *
+     * @since 1.0.0.b3
+     *
+     * @return {*|void}
+     */
     window.sprintf = function ()
     {
       // http://kevin.vanzonneveld.net
@@ -328,14 +380,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-  /**
-   * Porting of PHP join function
-   *
-   * @param {string} glue
-   * @param {array} pieces
-   * @return {*}
-   */
   if ( typeof( window.join ) === 'undefined' ) {
+
+    /**
+     * Porting of PHP join function
+     *
+     * @param {string} glue
+     * @param {Array} pieces
+     * @return {*}
+     */
     window.join = function ( glue, pieces )
     {
       // http://kevin.vanzonneveld.net
@@ -347,14 +400,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-  /**
-   * Porting of PHP implode
-   *
-   * @param {string} glue
-   * @param {array} pieces
-   * @return {*}
-   */
   if ( typeof( window.implode ) === 'undefined' ) {
+
+    /**
+     * Porting of PHP implode
+     *
+     * @param {string} glue
+     * @param {Array} pieces
+     * @return {*}
+     */
     window.implode = function ( glue, pieces )
     {
       // http://kevin.vanzonneveld.net
@@ -387,18 +441,19 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-  /**
-   * Return TRUE if the string NOT contains '', 'false', '0', 'no', 'n', 'off', null.
-   *
-   * @since 1.0.0.b4
-   *
-   * @note This is a porting of homonymous php function to check if a param is TRUE.
-   *
-   * @param {*} mixed
-   *
-   * @return {Boolean}
-   */
-  if ( typeof( window.wpdk_is_bool ) === 'undefined' ) {
+  if ( typeof window.wpdk_is_bool === 'undefined' ) {
+
+    /**
+     * Return TRUE if the string NOT contains '', 'false', '0', 'no', 'n', 'off', null.
+     *
+     * @since 1.0.0.b4
+     *
+     * @note This is a porting of homonymous php function to check if a param is TRUE.
+     *
+     * @param {*} mixed
+     *
+     * @return {Boolean}
+     */
     window.wpdk_is_bool = function ( mixed )
     {
       // Stability
@@ -417,14 +472,18 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
+  if ( typeof window.WPDKGlyphIcons === 'undefined' ) {
 
-  /**
-   * Manage the Glyph Icon
-   */
-  if ( 'undefined' === typeof( window.WPDKGlyphIcons ) ) {
+    /**
+     * Manage the Glyph Icon
+     */
     window.WPDKGlyphIcons = (function ()
     {
-      var $t = {
+      /**
+       * @type {object}
+       * @private
+       */
+      var _WPDKGlyphIcons = {
         version         : '1.0.2',
         display         : _display,
         html            : _html,
@@ -563,15 +622,16 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         return sprintf( '<%s %s class="%s"></%s>', d.tag, style, glypho, d.tag );
       }
 
-      return $t;
+      return _WPDKGlyphIcons;
 
     })();
   }
 
-  /*
-   * Manage the Components
-   */
-  if ( 'undefined' === typeof( window.WPDKUIComponents ) ) {
+  if ( typeof window.WPDKUIComponents === 'undefined' ) {
+
+    /**
+     * Manage the Components
+     */
     window.WPDKUIComponents = (function(){
 
       var _WPDKUIComponents = {
@@ -595,7 +655,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
         REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
         REFRESH_SWIPE               : 'refresh.wpdk.swipe',
-        REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+        REFRESH_JQUERY_DATEPICKER   : 'refresh.wpdk.jquery.datepicker',
         REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
         REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs'
       };
@@ -605,10 +665,11 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     })();
   }
 
-  /*
-   * Manage the Components Events
-   */
-  if ( 'undefined' === typeof( window.WPDKUIComponentEvents ) ) {
+  if ( typeof window.WPDKUIComponentEvents === 'undefined' ) {
+
+    /**
+     * @type {object}
+     */
     window.WPDKUIComponentEvents = {
       version                     : '1.0.0',
 
@@ -617,7 +678,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       REFRESH_POPOVER             : 'refresh.wpdk.wpdkPopover',
       REFRESH_TOOLTIP             : 'refresh.wpdk.wpdkTooltip',
       REFRESH_SWIPE               : 'refresh.wpdk.swipe',
-      REFRESH_JQUERY_DATAPICKER   : 'refresh.wpdk.jquery.datapicker',
+      REFRESH_JQUERY_DATEPICKER   : 'refresh.wpdk.jquery.datepicker',
       REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
       REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs',
 
@@ -788,11 +849,16 @@ jQuery( function ( $ )
    * @date            2014-03-02
    * @version         1.2.1
    */
-  if ( 'undefined' === typeof( window.WPDKjQuery ) ) {
+  if ( typeof window.WPDKjQuery === 'undefined' ) {
     window.WPDKjQuery = (function ()
     {
 
-      // This object
+      /**
+       * This object
+       *
+       * @type {{version: string, jQueryVersion: _jQueryVersion, jQueryUIVersion: _jQueryUIVersion, init: _init}}
+       * @private
+       */
       var _WPDKjQuery = {
         version         : '1.2.1',
         jQueryVersion   : _jQueryVersion,
@@ -801,7 +867,10 @@ jQuery( function ( $ )
       };
 
       /**
-       * Init this class
+       * Init
+       *
+       * @returns {{version: string, jQueryVersion: _jQueryVersion, jQueryUIVersion: _jQueryUIVersion, init: _init}}
+       * @private
        */
       function _init ()
       {
@@ -816,7 +885,7 @@ jQuery( function ( $ )
         __initAutocomplete();
 
         return _WPDKjQuery;
-      };
+      }
 
       /**
        * Initialize the Date Picker
@@ -825,8 +894,8 @@ jQuery( function ( $ )
        */
       function _initDatePicker()
       {
-        // Attach event for refresh
-        $( document ).on( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER, _initDatePicker );
+        // Fires to request the jQuery date picker refresh.
+        wpdk_add_action( WPDKUIComponents.REFRESH_JQUERY_DATEPICKER, _initDatePicker );
 
         // Enable Date Picker on wpdk input class
         $( 'input.wpdk-form-date' ).datepicker();
@@ -849,8 +918,10 @@ jQuery( function ( $ )
             dateFormat    : wpdk_i18n.dateFormat
           } );
 
+          var $date_controls = $( 'input.wpdk-form-datetime, input.wpdk-form-date' );
+
           // Init surrogate for Date and Datetime controls.
-          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( 'change', function ()
+          $date_controls.on( 'change', function ()
           {
 
             var timestamp = $( this ).datepicker( 'getDate' );
@@ -869,7 +940,7 @@ jQuery( function ( $ )
           } );
 
           // Init surrogate clear
-          $( 'input.wpdk-form-datetime, input.wpdk-form-date' ).on( WPDKUIComponentEvents.CLEAR_INPUT, function ()
+          $date_controls.on( WPDKUIComponentEvents.CLEAR_INPUT, function ()
           {
             var name = $( this ).data( 'surrogate_name' );
             $( 'input[name="' + name + '"]' ).val( '' );
@@ -1011,7 +1082,7 @@ jQuery( function ( $ )
 
           // Source
           source : function( request, response ) {
-            $.post( ajaxurl,
+            $.post( wpdk_i18n.ajaxURL,
               {
                 action      : 'wpdk_action_autocomplete_users',
                 avatar      : $( element ).data( 'avatar' ) || true,
@@ -1357,7 +1428,7 @@ jQuery( function ( $ )
    * @param {string} response JSON response
    * @constructor
    */
-  if ( 'undefined' === typeof( window.WPDKAjaxResponse ) ) {
+  if ( typeof window.WPDKAjaxResponse === 'undefined' ) {
     window.WPDKAjaxResponse = function ( response ) {
 
       //console.log( 'WPDKAjaxResponse construct' );
@@ -1387,7 +1458,7 @@ jQuery( function ( $ )
     };
   }
 
-  if ( 'undefined' == typeof window.WPDKUIControlDateTime ) {
+  if ( typeof window.WPDKUIControlDateTime === 'undefined' ) {
     // TODO Prototype
     window.WPDKUIControlDateTime = {
       // TODO
@@ -1410,8 +1481,8 @@ jQuery( function ( $ )
       /**
        * Set the right date and time in input hidden field and surrogate.
        *
-       * @param object $e Element.
-       * @param int    d  Date in timestamp: PHP time().
+       * @param {object} $e Element.
+       * @param {int}    d  Date in timestamp: PHP time().
        */
       setDate : function ( $e, d )
       {
@@ -1432,7 +1503,6 @@ jQuery( function ( $ )
     };
   }
 
-
   /**
    * The main WPDK (core) class
    *
@@ -1443,31 +1513,36 @@ jQuery( function ( $ )
    * @version         1.0.0
    *
    */
-  if ( 'undefined' === typeof( window.WPDK ) ) {
+  if ( typeof window.WPDK === 'undefined' ) {
     window.WPDK = (function () {
 
-      // This object
-      var $t = {
+      /**
+       * This object
+       *
+       * @type {{version: string, init: _init, loading: _loading, reloadDocument: _reloadDocument, refresh: *}}
+       * @private
+       */
+      var _WPDK = {
         version        : '1.0.0',
         init           : _init,
         loading        : _loading,
-        reloadDocument : _reloadDocument,
-
-        // Deprecated
-        refresh        : _refresh
+        reloadDocument : _reloadDocument
       };
 
       /**
        * Initialize all Javascript hook.
-       * If you modify the DOM you can call this method to refresh hooks.
+       * Initialize all Javascript hook.
+       *
+       * @returns {{version: string, init: _init, loading: _loading, reloadDocument: _reloadDocument, refresh: *}}
+       * @private
        */
       function _init ()
       {
         // Hack WordPress 3.8 menu
         _hackMenu();
 
-        return $t;
-      };
+        return _WPDK;
+      }
 
       /**
        * Enabled/Disabled loading on the screen top most
@@ -1483,14 +1558,14 @@ jQuery( function ( $ )
         else {
           $( 'div.wpdk-loader' ).fadeOut( function () { $( this ).remove() } );
         }
-      };
+      }
 
       /**
        * Reload current document with clear and waiting effects
        *
        * @since 1.0.0.b3
        *
-       * @param {bool} Optional. FALSE to avoid mask
+       * @return {Boolean}
        */
       function _reloadDocument ()
       {
@@ -1498,7 +1573,7 @@ jQuery( function ( $ )
           $( '<div id="wpdk-mask" />' ).appendTo( 'body' );
         }
         document.location.reload( true );
-      };
+      }
 
       /**
        * Remove the A tag to create a separator item for wpXtreme menu.
@@ -1544,7 +1619,7 @@ jQuery( function ( $ )
        *
        * @since 1.4.8
        *
-       * @param rgbString
+       * @param {string} rgbString
        * @returns {string}
        * @private
        */
@@ -1570,22 +1645,7 @@ jQuery( function ( $ )
         return rgb;
       }
 
-      // ---------------------------------------------------------------------------------------------------------------
-      // DEPRECATED
-      // ---------------------------------------------------------------------------------------------------------------
-
-      /**
-       * See WPDK.init();
-       *
-       * @deprecated Use WPDK.init() instead
-       */
-      function _refresh ()
-      {
-        $t.init();
-      };
-
-
-      return $t.init();
+      return _init();
 
     })();
   }
@@ -1613,7 +1673,9 @@ jQuery( function ( $ )
     $.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
   }();
 
-  // Fire when WPDK is loaded
-  $( document ).trigger( 'WPDK' );
+  /**
+   * Fires when WPDK is loaded.
+   */
+  wpdk_do_action( 'WPDK' );
 
 });

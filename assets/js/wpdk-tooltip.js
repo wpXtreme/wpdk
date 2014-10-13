@@ -421,15 +421,8 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
     // Auto init
     $( '.wpdk-has-tooltip' ).wpdkTooltip();
 
-    // Refresh by event
-    $( document ).on( WPDKUIComponents.REFRESH_TOOLTIP, function() {
-      $( '.wpdk-has-tooltip' ).wpdkTooltip();
-    } );
-
-    // @deprecated since 1.5.2 use WPDKUIComponents.REFRESH_TOOLTIP ('refresh.wpdk.wpdkTooltip') instead
-    $( document ).on( 'wpdk-tooltip', function() {
-      $( '.wpdk-has-tooltip' ).wpdkTooltip();
-    } );
+    // Fires to request a tooltip refresh.
+    wpdk_add_action( WPDKUIComponents.REFRESH_TOOLTIP, function() { $( '.wpdk-has-tooltip' ).wpdkTooltip(); })
 
   }(jQuery);
 

@@ -16,16 +16,22 @@ jQuery( function ( $ )
     window.WPDKDynamicTable = (function ()
     {
 
-      // Internal object
-      var $t = {
+      /**
+       * This object
+       *
+       * @type {{version: string, init: _init}}
+       * @private
+       */
+      var _WPDKDynamicTable = {
         version : '1.0.2',
         init    : _init
       };
 
       /**
-       * Return a singleton instance of WPDKDynamicTable class
+       * Init
        *
-       * @returns {{}}
+       * @returns {{version: string, init: _init}}
+       * @private
        */
       function _init()
       {
@@ -43,8 +49,9 @@ jQuery( function ( $ )
           } );
         }
 
-        return $t;
+        return _WPDKDynamicTable;
       }
+      
       /**
        * Add a row to the dynamic table
        *
@@ -57,8 +64,11 @@ jQuery( function ( $ )
         clone.removeClass( 'wpdk-dt-clone' ).appendTo( table );
         $( this ).hide().siblings( '.wpdk-dt-clone' ).removeClass( 'wpdk-dt-clone' ).show( function ()
         {
-          // Ask to WPDKjQuery class to refresh all data picker controls
-          $( document ).trigger( WPDKUIComponents.REFRESH_JQUERY_DATAPICKER );
+          /**
+           * Fires to request a jQuery date picker refresh.
+           */
+          wpdk_do_action( WPDKUIComponents.REFRESH_JQUERY_DATEPICKER );
+
         } );
         return false;
       }
@@ -75,7 +85,7 @@ jQuery( function ( $ )
         return false;
       }
 
-      return $t.init();
+      return _WPDKDynamicTable.init();
 
     })();
   }
