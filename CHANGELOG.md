@@ -21,15 +21,25 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.6.0
-### 2014-09-??
+### 2014-10-??
+
+#### Enhancements
 
 * Added `wpdk-load-scripts.php` and `wpdk-load-styles.php` in order to concatenate WPDK components
-* Fixed potential `__PHP_Incomplete_Class` in object delta
 * Added `WPDKGeo` class
 * Added `WPDKUserAgents` class
+
+#### Improved
+
+* Improved Javascript with `wpdk_add_action()` & `wpdk_do_action()`
+* Improved & fix Javascript docs
 * Improved performance
 * Removed deprecated
 * Improvements users class/filename organization
+
+#### Bugs
+
+* Fixed potential `__PHP_Incomplete_Class` in object delta
 
 ## Version 1.5.17
 ### 2014-09-24
