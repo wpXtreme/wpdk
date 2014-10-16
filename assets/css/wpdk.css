@@ -89,7 +89,7 @@
 div.wpdk-loader
 {
   display               : none;
-  background-image      : url(assets/css/images/ajax-loader-32x32.gif);
+  background-image      : url({WPDK_URI_ASSETS}css/images/ajax-loader-32x32.gif);
   background-repeat     : no-repeat;
   background-position   : center center;
   background-color      : #000;
@@ -511,7 +511,7 @@ pre.wpdk-monitor span.wpdk-monitor-cursor
 
 i.mce-i-wpdk-mce-button
 {
-  background-image  : url(images/wpdk-shortcodes.png);
+  background-image  : url({WPDK_URI_ASSETS}css/images/wpdk-shortcodes.png);
   background-repeat : no-repeat;
 }
 
