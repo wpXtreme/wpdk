@@ -1,21 +1,17 @@
 <?php
+
 /**
  * Math utility and fix
  *
  * @class              WPDKMath
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-06-10
- * @version            1.0.4
+ * @date               2014-10-16
+ * @version            1.0.5
  */
-
 class WPDKMath extends WPDKObject {
 
-  /**
-   * Infinity const for set a value as never ending
-   *
-   * @brief Infinity constant
-   */
+  // Infinity const for set a value as never ending
   const INFINITY = 'infinity';
 
   /**
@@ -25,19 +21,18 @@ class WPDKMath extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.0.4';
+  public $__version = '1.0.5';
 
   /**
    * Mimic the math function modules like Ruby, Python & TLC
    *
-   * @brief      Do a modules
-   *
    * @author     =stid= <s.furiosi@wpxtre.me>
+   * @brief      Do a modules
    *
    * @param number $a Number a
    * @param number $n Module b of a
    *
-   * @return integer
+   * @return int
    */
   public static function rModulus( $a, $n )
   {
@@ -72,19 +67,49 @@ class WPDKMath extends WPDKObject {
   }
 
   /**
-   * Check if infinity
+   * Return TRUE if $value is equal to INF (php) or WPDKMath::INFINITY
    *
-   * @brief Infinity
+   * @brief Check if infinity
    * @since 1.2.0
    *
-   * @param float|string $value Check value
+   * @param float|string $value Value to check.
    *
-   * @return bool true if $value is equal to INF (php) or WPDKMath::INFINITY
-   *
+   * @return bool
    */
   public static function isInfinity( $value )
   {
     return ( is_infinite( floatval( $value ) ) || ( is_string( $value ) && $value == self::INFINITY ) );
+  }
+
+  /**
+   * Return the string value (byte) well formatted.
+   *
+   * @brief Display bytes.
+   * @since 1.6.1
+   *
+   * @param int $value     The bytes value.
+   * @param int $precision Optional. Precision after comma.
+   *
+   * @return string
+   */
+  public static function bytes( $value, $precision = 2 )
+  {
+    static $units = array(
+      'Bytes',
+      'KB',
+      'MB',
+      'G',
+      'T',
+      'P',
+      'E',
+      'Z',
+      'Y'
+    );
+
+    // hardcoded maximum number of units @ 9 for minor speed increase
+    $e = floor( log( $value ) / log( 1024 ) );
+
+    return sprintf( '%.' . $precision . 'f ' . $units[ $e ], ( $value / pow( 1024, floor( $e ) ) ) );
   }
 
 }
