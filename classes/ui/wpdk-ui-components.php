@@ -133,23 +133,24 @@ final class WPDKUIComponents {
   }
 
   /**
- 	 * Filter whether to print the footer scripts.
- 	 *
- 	 * @since WP 2.8.0
- 	 *
- 	 * @param bool $print Whether to print the footer scripts. Default true.
- 	 */
-  public function load_scripts( $print ) {
+   * Filter whether to print the footer scripts.
+   *
+   * @since WP 2.8.0
+   *
+   * @param bool $print Whether to print the footer scripts. Default true.
+   */
+  public function load_scripts( $print )
+  {
 
     global $wp_scripts, $compress_scripts;
 
-        // If no scripts exit
-    if ( empty( $this->enqueue_scripts ) ) {
+    // If no scripts exit
+    if( empty( $this->enqueue_scripts ) ) {
       return $print;
     }
 
     $zip = $compress_scripts ? 1 : 0;
-    if ( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
+    if( $zip && defined( 'ENFORCE_GZIP' ) && ENFORCE_GZIP ) {
       $zip = 'gzip';
     }
 
@@ -157,7 +158,7 @@ final class WPDKUIComponents {
     $concat = str_split( $concat, 128 );
     $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
 
-    $src = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    $src                    = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
     $wp_scripts->print_html = "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n" . $wp_scripts->print_html;
 
     return $print;
