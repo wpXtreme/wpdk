@@ -522,7 +522,7 @@ class WPDKListTableViewController extends WP_List_Table {
    */
   public function wpdk_header_view_inner_title( $header_view )
   {
-    if ( WPDKDBListTableModel::ACTION_NEW != $this->current_action() ) {
+    if ( WPDKDBListTableModel::ACTION_NEW != $this->action() ) {
 
       $args = array(
         'action' => WPDKDBListTableModel::ACTION_NEW,

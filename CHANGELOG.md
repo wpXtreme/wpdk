@@ -20,8 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.6.0
+## Version 1.6.1
 ### 2014-10-??
+
+* Fixed potential 'division by zero' in `WPDKFilesystem::fileSize()` method
+* Added `WPDKMath::bytes()`
+* Minor fixes
+
+## Version 1.6.0
+### 2014-10-14
 
 #### Enhancements
 
