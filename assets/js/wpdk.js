@@ -31,7 +31,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     window.wpdk_add_action = function ( tag, function_to_add )
     {
       jQuery( document ).on( tag, function_to_add );
-    }
+    };
   }
 
   if ( typeof window.wpdk_do_action === 'undefined' ) {
@@ -64,12 +64,12 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         if ( tag in handlers ) {
            return jQuery( document ).triggerHandler( tag, arg );
         }
-        // If 'tag' handler doesn't exist but the first argument is set
-        else if ( ! ( tag in handlers ) && typeof arguments[1] !== 'undefined' ) {
-          return arguments[1];
-        }
       }
-    }
+      // If 'tag' handler doesn't exist but the first argument is set
+      if ( typeof arguments[1] !== 'undefined' ) {
+        return arguments[1];
+      }
+    };
   }
 
   if ( typeof( window.empty ) === 'undefined' ) {
