@@ -107,7 +107,7 @@ class WPDKMath extends WPDKObject {
     );
 
     // hardcoded maximum number of units @ 9 for minor speed increase
-    $e = floor( log( $value ) / log( 1024 ) );
+    $e = empty( $value ) ? 0 : floor( log( $value ) / log( 1024 ) );
 
     return sprintf( '%.' . $precision . 'f ' . $units[ $e ], ( $value / pow( 1024, floor( $e ) ) ) );
   }
