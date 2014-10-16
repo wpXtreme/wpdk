@@ -45,7 +45,7 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
            *
            * @return {boolean}
            */
-          var result = wpdk_do_action( WPDKUIComponentEvents.SWIPE_CHANGE, $control, status );
+          var result = $control.triggerHandler( WPDKUIComponentEvents.SWIPE_CHANGE, [ $control, status ] );
 
           if ( false === result ) {
             return input.val();
