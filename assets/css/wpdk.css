@@ -89,7 +89,7 @@
 div.wpdk-loader
 {
   display               : none;
-  background-image      : url(images/ajax-loader-32x32.gif);
+  background-image      : url(assets/css/images/ajax-loader-32x32.gif);
   background-repeat     : no-repeat;
   background-position   : center center;
   background-color      : #000;
