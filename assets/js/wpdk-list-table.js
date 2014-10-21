@@ -98,7 +98,7 @@ jQuery( function( $ )
         } );
 
         // Select all tag a under the row actions
-        $( document ).on( 'click', '.row-actions span a', function( e )
+        $( document ).on( 'click', '.row-actions span a', function( )
         {
           // The span class contains the 'action'
           var action = $( this ).parent( 'span' ).attr( 'class' );
