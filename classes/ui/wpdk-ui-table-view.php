@@ -140,7 +140,7 @@ class WPDKUITableView extends WPDKView {
   }
 
   /**
-   * Return the content of column.
+   * Return the content of column. You can override this method to customize your column content.
    *
    * @brief Single column
    *
@@ -149,7 +149,7 @@ class WPDKUITableView extends WPDKView {
    */
   public function column( $item, $column_key )
   {
-    die( __METHOD__ . ' must be override in your subclass' );
+    return $item[ $column_key ];
   }
 
   /**

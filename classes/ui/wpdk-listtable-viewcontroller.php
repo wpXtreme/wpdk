@@ -922,8 +922,11 @@ class WPDKListTableViewController extends WP_List_Table {
         $content = WPDKHTML::endCompress();
       }
 
+      // Get type
+      $type = $action_result->type;
+
       // Alert
-      $alert = new WPDKUIAlert( false, $content, WPDKUIAlertType::WARNING, $action_result->message );
+      $alert = new WPDKUIAlert( false, $content, $type, $action_result->message );
       $alert->display();
     }
     elseif ( ! empty( $action_result ) ) {
@@ -1005,7 +1008,10 @@ class WPDKListTableViewController extends WP_List_Table {
       return (bool)$action_result;
     }
 
-    return json_decode( stripslashes( urldecode( $action_result ) ) );
+    // Get the transient
+    $error = get_site_transient( $action_result );
+
+    return (object)$error;
   }
 
   /**
@@ -1316,10 +1322,17 @@ class WPDKListTableModel implements IWPDKListTableModel {
   {
     if ( is_wp_error( $result ) ) {
       $error               = array(
+        'type'    => $result->get_error_code(),
         'message' => $result->get_error_message(),
         'data'    => $result->get_error_data()
       );
-      $this->action_result = urlencode( json_encode( $error ) );
+
+      // since 1.6.1 - use a tasient instead inline
+      $transient_name = 'wpdk-lt-status' . md5( json_encode( $error ) );
+      set_site_transient( $transient_name, $error, 10 );
+
+      // Return the transient name
+      $this->action_result = $transient_name;
 
     }
     else {
