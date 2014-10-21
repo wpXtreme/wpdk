@@ -132,6 +132,9 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         return args[ 1 ];
       }
 
+      // Remove the first argument
+      [].shift.apply( args );
+
       for( var pri in lists[ tag ] ) {
 
         hook = lists[ tag ][ pri ];
@@ -144,7 +147,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
             if( typeof func === "function" ) {
 
               if( 'filter' === type ) {
-                args[ 1 ] = func.apply( null, args );
+                args[ 0 ] = func.apply( null, args );
               }
               else {
                 func.apply( null, args );
@@ -155,7 +158,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       }
 
       if( 'filter' === type ) {
-        return args[ 1 ];
+        return args[ 0 ];
       }
 
     };
@@ -193,12 +196,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      */
     window.wpdk_apply_filters = function( tag )
     {
-      var i, args = [];
-      for( i = 0; i < arguments.length; i++ ) {
-        args.push( arguments[ i ] );
-      }
-
-      return _wpdk_do( 'filter', args );
+      return _wpdk_do( 'filter', arguments );
     };
 
     /**
@@ -218,12 +216,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      */
     window.wpdk_do_action = function( tag )
     {
-      var i, args = [];
-      for( i = 0; i < arguments.length; i++ ) {
-        args.push( arguments[ i ] );
-      }
-
-      _wpdk_do( 'action', args );
+      _wpdk_do( 'action', arguments );
     };
   }
 
