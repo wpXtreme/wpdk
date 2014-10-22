@@ -29,32 +29,31 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     /**
      * Used to add an action or filter. Internal use only.
      *
-     * @param {string}   type  Type of hook, 'action' or 'filter'.
-     * @param {string}   tag   Name of action or filter.
-     * @param {Function} func  Function hook.
-     * @param {integer}  pri   Priority.
+     * @param {string}   type             Type of hook, 'action' or 'filter'.
+     * @param {string}   tag              Name of action or filter.
+     * @param {Function} function_to_add  Function hook.
+     * @param {integer}  priority         Priority.
      *
-     * @private
      * @since 1.6.1
      */
-    window._wpdk_add = function( type, tag, func, pri )
+    window._wpdk_add = function( type, tag, function_to_add, priority )
     {
       var lists = ( 'filter' == type ) ? WPDK_FILTERS : WPDK_ACTIONS;
 
       // Defaults
-      pri = ( pri || 10 );
+      priority = ( priority || 10 );
 
       if( !( tag in lists ) ) {
         lists[ tag ] = [];
       }
 
-      if( !( pri in lists[ tag ] ) ) {
-        lists[ tag ][ pri ] = [];
+      if( !( priority in lists[ tag ] ) ) {
+        lists[ tag ][ priority ] = [];
       }
 
-      lists[ tag ][ pri ].push( {
-        func : func,
-        pri  : pri
+      lists[ tag ][ priority ].push( {
+        func : function_to_add,
+        pri  : priority
       } );
 
     };
@@ -110,9 +109,9 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      *
      * @return bool Will always return true.
      */
-    window.wpdk_add_action = function( tag, func, pri )
+    window.wpdk_add_action = function( tag, function_to_add, priority )
     {
-      _wpdk_add( 'action', tag, func, pri );
+      _wpdk_add( 'action', tag, function_to_add, priority );
     };
 
     /**
@@ -121,7 +120,6 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      * @param {string} type Type of "do" to do 'action' or 'filter'.
      * @param {Array} args Optional. Original list of arguments. This array could be empty for 'action'.
      * @returns {*}
-     * @private
      */
     window._wpdk_do = function( type, args )
     {
@@ -131,6 +129,9 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       if( !( tag in lists ) ) {
         return args[ 1 ];
       }
+
+      // Remove the first argument
+      [].shift.apply( args );
 
       for( var pri in lists[ tag ] ) {
 
@@ -144,7 +145,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
             if( typeof func === "function" ) {
 
               if( 'filter' === type ) {
-                args[ 1 ] = func.apply( null, args );
+                args[ 0 ] = func.apply( null, args );
               }
               else {
                 func.apply( null, args );
@@ -155,7 +156,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       }
 
       if( 'filter' === type ) {
-        return args[ 1 ];
+        return args[ 0 ];
       }
 
     };
@@ -185,20 +186,15 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      * var value = wpdk_apply_filters( 'example_filter', 'filter me', arg1, arg2 );
      * </code>
      *
-     * @param {string} tag   The name of the filter hook.
-     * @param {*}      value The value on which the filters hooked to <tt>tag</tt> are applied on.
-     * @param {...*}   var   Additional variables passed to the functions hooked to <tt>tag</tt>.
+     * @param {string} tag     The name of the filter hook.
+     * @param {*}      value   The value on which the filters hooked to <tt>tag</tt> are applied on.
+     * @param {...*}   varargs Optional. Additional variables passed to the functions hooked to <tt>tag</tt>.
      *
      * @return {*}
      */
-    window.wpdk_apply_filters = function( tag )
+    window.wpdk_apply_filters = function( tag, value, varargs )
     {
-      var i, args = [];
-      for( i = 0; i < arguments.length; i++ ) {
-        args.push( arguments[ i ] );
-      }
-
-      return _wpdk_do( 'filter', args );
+      return _wpdk_do( 'filter', arguments );
     };
 
     /**
@@ -211,19 +207,14 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
      *
      * @since 1.6.1
      *
-     * @param {string} tag The name of the action to be executed.
-     * @param {*}      arg Optional. Additional arguments which are passed on to the functions hooked to the action.
-     *                     Default empty.
+     * @param {string} tag  The name of the action to be executed.
+     * @param {...*}   args Optional. Additional arguments which are passed on to the functions hooked to the action.
+     *                      Default empty.
      *
      */
-    window.wpdk_do_action = function( tag )
+    window.wpdk_do_action = function( tag, args )
     {
-      var i, args = [];
-      for( i = 0; i < arguments.length; i++ ) {
-        args.push( arguments[ i ] );
-      }
-
-      _wpdk_do( 'action', args );
+      _wpdk_do( 'action', arguments );
     };
   }
 

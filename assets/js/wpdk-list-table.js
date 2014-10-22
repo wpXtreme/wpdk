@@ -80,8 +80,17 @@ jQuery( function( $ )
            * The dynamic portion of the hook name, action, refers to the bulk action select combo value.
            *
            * @param {string} confirm_message Confirm message, default empty.
+           * @param {string} action          The action.
            */
-          var confirm_message = wpdk_apply_filters( 'wpdk_list_table_bulk_action_confirm_message-' + action, '' );
+          var confirm_message = wpdk_apply_filters( 'wpdk_list_table_bulk_action_confirm_message-' + action, '', action );
+
+          /**
+           * Filter the confirm message for bulk actions.
+           *
+           * @param {string} confirm_message Confirm message, default empty.
+           * @param {string} action          The action.
+           */
+          confirm_message = wpdk_apply_filters( 'wpdk_list_table_bulk_action_confirm_message', confirm_message, action );
 
           if( '' !== confirm_message ) {
             return confirm( confirm_message );
@@ -89,7 +98,7 @@ jQuery( function( $ )
         } );
 
         // Select all tag a under the row actions
-        $( document ).on( 'click', '.row-actions span a', function( e )
+        $( document ).on( 'click', '.row-actions span a', function( )
         {
           // The span class contains the 'action'
           var action = $( this ).parent( 'span' ).attr( 'class' );
@@ -100,8 +109,17 @@ jQuery( function( $ )
            * The dynamic portion of the hook name, action, refers to the row action class name.
            *
            * @param {string} confirm_message Confirm message, default empty.
+           * @param {string} action          The action.
            */
-          var confirm_message = wpdk_apply_filters( 'wpdk_list_table_row_action_confirm_message-' + action, '' );
+          var confirm_message = wpdk_apply_filters( 'wpdk_list_table_row_action_confirm_message-' + action, '', action );
+
+          /**
+           * Filter the confirm message for row actions.
+           *
+           * @param {string} confirm_message Confirm message, default empty.
+           * @param {string} action          The action.
+           */
+          confirm_message = wpdk_apply_filters( 'wpdk_list_table_row_action_confirm_message', confirm_message, action );
 
           if( '' !== confirm_message ) {
             return confirm( confirm_message );
