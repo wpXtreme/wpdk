@@ -85,9 +85,6 @@ class WPDKCustomTaxonomy extends WPDKObject {
   {
     if ( is_admin() ) {
 
-      // @deprecated 1.6.0
-      add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles' ) );
-
       // Fires when styles are printed for a specific admin page based on $hook_suffix.
       add_action( 'admin_print_styles-edit-tags.php', array( $this, 'admin_print_styles_edit_tags_php' ) );
 
@@ -98,16 +95,6 @@ class WPDKCustomTaxonomy extends WPDKObject {
       // do_action($taxonomy . '_pre_add_form', $taxonomy);
 
     }
-  }
-
-  /**
-   * Fire when edit view is loaded
-   *
-   * @deprecated since 1.6.0 - use `admin_print_styles_edit_tags_php` instead
-   */
-  public function admin_print_styles()
-  {
-    _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.6.0', 'admin_print_styles_edit_tags_php' );
   }
 
   /**

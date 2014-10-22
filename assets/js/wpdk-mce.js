@@ -17,8 +17,6 @@ jQuery( function ( $ )
     window.WPDKMCE = (function ()
     {
 
-      console.log( 'WPDKMCE' );
-
       var _WPDKMCE = {
         openDialog     : _openDialog
       };

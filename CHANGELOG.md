@@ -20,6 +20,20 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.6.1
+### 2014-10-22
+
+#### Enhancements
+
+* Added Javascript `wpdk_add_filter()` and `wpdk_apply_filter()`
+* Improved Javascript `wpdk_add_action()` and `wpdk_do_action()` in order to support "priority" features and avoid document trigger handler events.
+* Added `WPDKMath::bytes()`
+
+#### Bugs
+
+* Fixed potential 'division by zero' in `WPDKFilesystem::fileSize()` method
+* Minor fixes
+
 ## Version 1.6.0
 ### 2014-10-14
 

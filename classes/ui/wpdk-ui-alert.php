@@ -98,7 +98,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
    * @var bool $dismissButton
    */
   public $dismissButton = true;
-  
+
   /**
    * If TRUE this alert is permanent dismiss by a logged in user
    *
@@ -179,6 +179,15 @@ class WPDKUIAlert extends WPDKHTMLTag {
   protected $dismissed = array();
 
   /**
+   * If TRUE the WordPress `wpautop()` on content.
+   *
+   * @since 1.6.1
+   *
+   * @var bool $wpautop
+   */
+  public $wpautop = true;
+
+  /**
    * Create an instance of WPDKUIAlert class.
    *
    * @brief Construct
@@ -194,7 +203,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public function __construct( $id = false, $content = '', $type = WPDKUIAlertType::INFORMATION, $title = '' )
   {
     // since 1.6.0 - create a unique id
-    if ( false === $id ) {
+    if( false === $id ) {
       $id = md5( uniqid() . time() );
     }
     $this->id      = sanitize_title( $id );
@@ -203,7 +212,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
     $this->title   = $title;
 
     // Used for permanent dismiss
-    if ( is_user_logged_in() ) {
+    if( is_user_logged_in() ) {
       $user_id         = get_current_user_id();
       $this->dismissed = get_user_meta( $user_id, self::USER_META_KEY_PERMANENT_DISMISS, true );
     }
@@ -227,18 +236,18 @@ class WPDKUIAlert extends WPDKHTMLTag {
     $classes = array( 'close' );
 
     // Custom title/tooltip in button close
-    if ( !empty( $this->dismissToolTip ) ) {
-      $classes[] = 'wpdk-has-tooltip';
-      $title     = sprintf( 'title="%s"', $this->dismissToolTip );
+    if( !empty( $this->dismissToolTip ) ) {
+      $classes[ ] = 'wpdk-has-tooltip';
+      $title      = sprintf( 'title="%s"', $this->dismissToolTip );
     }
 
     // Permanent dismiss by user logged in
     if( true === $this->dismissPermanent ) {
-      $classes[] = 'wpdk-alert-permanent-dismiss';
-      $title     = sprintf( 'title="%s"', __( 'By clicking on the X button, this alert won\'t appear' ) );
+      $classes[ ] = 'wpdk-alert-permanent-dismiss';
+      $title      = sprintf( 'title="%s"', __( 'By clicking on the X button, this alert won\'t appear' ) );
     }
 
-    if ( $this->dismissButton ) {
+    if( $this->dismissButton ) {
       WPDKHTML::startCompress(); ?>
       <button
         type="button"
@@ -261,7 +270,11 @@ class WPDKUIAlert extends WPDKHTMLTag {
    */
   private function _content()
   {
-    return empty( $this->content ) ? wpautop( $this->content() ) : wpautop( $this->content );
+    if( $this->wpautop ) {
+      return empty( $this->content ) ? wpautop( $this->content() ) : wpautop( $this->content );
+    }
+
+    return empty( $this->content ) ? $this->content() : $this->content;
   }
 
   /**
@@ -285,7 +298,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
    */
   private function _title()
   {
-    if ( empty( $this->title ) ) {
+    if( empty( $this->title ) ) {
       $this->title = $this->title();
     }
 
@@ -315,7 +328,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public function html()
   {
     // Permanent dismiss
-    if ( !empty( $this->dismissed ) && !empty( $this->id ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
+    if( !empty( $this->dismissed ) && !empty( $this->id ) && in_array( md5( $this->id ), array_keys( $this->dismissed ) ) ) {
       return;
     }
 
@@ -351,13 +364,15 @@ class WPDKUIAlert extends WPDKHTMLTag {
   public function toControl()
   {
     $item = array(
-      'type'           => WPDKUIControlType::ALERT,
-      'id'             => $this->id,
-      'alert_type'     => $this->type,
-      'dismiss_button' => $this->dismissButton,
-      'value'          => $this->content,
-      'title'          => $this->title,
+      'type'              => WPDKUIControlType::ALERT,
+      'id'                => $this->id,
+      'alert_type'        => $this->type,
+      'dismiss_button'    => $this->dismissButton,
+      'dismiss_permanent' => $this->dismissPermanent,
+      'value'             => $this->content,
+      'title'             => $this->title,
     );
+
     return array( $item );
   }
 
@@ -375,6 +390,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
   private function alert_block()
   {
     _deprecated_function( __CLASS__ . '::' . __FUNCTION__, '1.3.1 and Bootstrap 3.0.0', '' );
+
     return $this->block ? 'alert-block' : '';
   }
 
@@ -383,7 +399,7 @@ class WPDKUIAlert extends WPDKHTMLTag {
    */
   function alert( $echo = true )
   {
-    if ( $echo ) {
+    if( $echo ) {
       $this->display();
     }
     else {
