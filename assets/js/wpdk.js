@@ -218,61 +218,6 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
     };
   }
 
-
-  if ( typeof window.old_wpdk_add_action === 'undefined' ) {
-
-    /**
-     * Hooks a function on to a specific action.
-     *
-     * @since 1.6.0
-     *
-     * @param {string} tag The name of the action to which the $function_to_add is hooked.
-     * @param {callback} function_to_add The name of the function you wish to be called.
-     */
-    window.old_wpdk_add_action = function ( tag, function_to_add )
-    {
-      jQuery( document ).on( tag, function_to_add );
-    };
-  }
-
-  if ( typeof window.old_wpdk_do_action === 'undefined' ) {
-
-    /**
-     * Execute functions hooked on a specific action hook and return the hooks value of and handler is attach or the
-     * first argument if set.
-     *
-     * @since 1.6.0
-     *
-     * @param {string} tag The name of the action to be executed.
-     * @param {...*} arguments List of arguments.
-     *
-     * @return {*}
-     */
-    window.old_wpdk_do_action = function ( tag )
-    {
-      var i, arg = [];
-      for ( i = 1; i < arguments.length; i++ ) {
-        arg.push( arguments[i] );
-      }
-
-      // document handlers
-      var handlers = jQuery._data( document, 'events' );
-
-      // Check for any handlers
-      if( typeof handlers !== 'undefined' ) {
-
-        // Check if 'tag' handler exists
-        if ( tag in handlers ) {
-           return jQuery( document ).triggerHandler( tag, arg );
-        }
-      }
-      // If 'tag' handler doesn't exist but the first argument is set
-      if ( typeof arguments[1] !== 'undefined' ) {
-        return arguments[1];
-      }
-    };
-  }
-
   if ( typeof( window.empty ) === 'undefined' ) {
 
     /**
