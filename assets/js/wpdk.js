@@ -47,7 +47,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         lists[ tag ] = [];
       }
 
-      if( !( pri in lists[ tag ] ) ) {
+      if( !( priority in lists[ tag ] ) ) {
         lists[ tag ][ priority ] = [];
       }
 
