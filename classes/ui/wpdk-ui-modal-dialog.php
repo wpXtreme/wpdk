@@ -470,14 +470,41 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
    */
   public function show()
   {
+    if( is_admin() ) {
+
+      // Prints any scripts and data queued for the footer.
+      add_action( 'admin_print_footer_scripts', array( $this, 'print_footer_scripts' ), 999 );
+    }
+    else {
+      // Fires when footer scripts are printed.
+      add_action( 'wp_print_footer_scripts', array( $this, 'print_footer_scripts' ), 999 );
+    }
+  }
+
+  /**
+   * Prints any scripts and data queued for the footer.
+   */
+  public function print_footer_scripts()
+  {
     WPDKHTML::startCompress(); ?>
     <script type="text/javascript">
       jQuery( function ( $ )
       {
         "use strict";
         $( '#<?php echo $this->id ?>' ).wpdkModal( 'show' );
-        <?php do_action( 'wpdk_tbs_dialog_javascript_show' ) ?>
-        <?php do_action( 'wpdk_tbs_dialog_javascript_show-' . $this->id ) ?>
+
+        <?php
+
+        /**
+         * Fires when a modal dialog is show.
+         *
+         * The dynamic portion of the hook name, $id, refers to the modal dialod id.
+         *
+         * @since 1.6.2
+         */
+        do_action( 'wpdk_ui_modal_dialog_javascript_show-' . $this->id );
+
+        ?>
       } );
     </script>
     <?php echo WPDKHTML::endJavascriptCompress();
@@ -495,6 +522,19 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
       jQuery( function ( $ )
       {
         $( '#<?php echo $this->id ?>' ).wpdkModal( 'toggle' );
+
+        <?php
+
+        /**
+         * Fires when a modal dialog is toggle.
+         *
+         * The dynamic portion of the hook name, $id, refers to the modal dialod id.
+         *
+         * @since 1.6.2
+         */
+        do_action( 'wpdk_ui_modal_dialog_javascript_toogle-' . $this->id );
+
+        ?>
       } );
     </script>
     <?php echo WPDKHTML::endJavascriptCompress();
