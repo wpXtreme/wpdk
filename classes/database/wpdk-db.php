@@ -1,6 +1,322 @@
 <?php
 
 /**
+ * Manage the entire Database with usefule methods like:
+ *
+ * 1. Export
+ *
+ * @class           WPDKDB
+ * @author          =undo= <info@wpxtre.me>
+ * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2014-10-24
+ * @version         1.0.0
+ * @since 1.6.2
+ *
+ */
+class WPDKDB extends wpdb {
+
+  // Default chanck size when dump a SQL export on filesystem.
+  const DUMP_SQL_FILE_CHUNCK_SIZE = 100;
+
+  /**
+ 	 * Whether to use mysqli over mysql.
+ 	 *
+ 	 * @var bool $mysqli
+ 	 */
+ 	public $mysqli = false;
+
+  /**
+   * Return a singleton instance of WPDKDB class
+   *
+   * @brief Singleton
+   *
+   * @return WPDKDB
+   */
+  public static function init()
+  {
+    static $instance = null;
+    if( is_null( $instance ) ) {
+      $instance = new self();
+    }
+
+    return $instance;
+  }
+
+  /**
+   * Create an instance of WPDKDB class
+   *
+   * @brief Construct
+   *
+   * @return WPDKDB
+   */
+  public function __construct()
+  {
+    // Extends WordPress Database class
+    parent::__construct( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+
+    /*
+     * Remake check for MySQLi extension because WordPress keep this flag as private.
+     *
+     * Use ext/mysqli if it exists and:
+     *
+     *  - WP_USE_EXT_MYSQL is defined as false, or
+     *  - We are a development version of WordPress, or
+     *  - We are running PHP 5.5 or greater, or
+     *  - ext/mysql is not loaded.
+     */
+    if( function_exists( 'mysqli_connect' ) ) {
+      if( defined( 'WP_USE_EXT_MYSQL' ) ) {
+        $this->mysqli = !WP_USE_EXT_MYSQL;
+      }
+      elseif( version_compare( phpversion(), '5.5', '>=' ) || !function_exists( 'mysql_connect' ) ) {
+        $this->mysqli = true;
+      }
+      elseif( false !== strpos( $GLOBALS[ 'wp_version' ], '-' ) ) {
+        $this->mysqli = true;
+      }
+    }
+
+
+  }
+
+  /**
+   * Reads the Database table in $table and creates SQL Statements for recreating structure and data then return the
+   * DUMP SQL. If you set the $filename params then the dump is store on filesystem too.
+   *
+   * Taken partially from phpMyAdmin and partially from Alain Wolf, Zurich - Switzerland
+   *
+   * Website: http://restkultur.ch/personal/wolf/scripts/db_backup/
+   *
+   * @brief Dump
+   *
+   * @param string $table    Table name.
+   * @param string $filename Optional. Complete path of a filename where store the dump.
+   *
+   * @return string
+   */
+  public function dumpWithTable( $table, $filename = '' )
+  {
+    // Prepare dump
+    $dump = '';
+
+    // Add SQL statement to drop existing table
+    $dump .= "\n";
+    $dump .= "\n";
+    $dump .= "#\n";
+    $dump .= "# Delete any existing table " .self::backquote( $table ) . "\n";
+    $dump .= "#\n";
+    $dump .= "\n";
+    $dump .= "DROP TABLE IF EXISTS " .self::backquote( $table ) . ";\n";
+
+    // Comment in SQL-file
+    $dump .= "\n";
+    $dump .= "\n";
+    $dump .= "#\n";
+    $dump .= "# Table structure of table " .self::backquote( $table ) . "\n";
+    $dump .= "#\n";
+    $dump .= "\n";
+
+    // Get table structure
+    $query  = 'SHOW CREATE TABLE ' .self::backquote( $table );
+    $result = $this->mysqli ? mysqli_query( $this->dbh, $query ) : mysql_query( $query, $this->dbh );
+
+    if( $result ) {
+
+      // Get num rows
+      $num_rows = $this->mysqli ? mysqli_num_rows( $result ) : mysql_num_rows( $result );
+
+      if( $num_rows > 0 ) {
+        $sql_create_arr = $this->mysqli ? mysqli_fetch_array( $result ) : mysql_fetch_array( $result );
+        $dump .= $sql_create_arr[ 1 ];
+      }
+
+      if( $this->mysqli ) {
+        mysqli_free_result( $result );
+      }
+      else {
+        mysql_free_result( $result );
+      }
+      $dump .= ' ;';
+
+    }
+
+    // Get table contents
+    $query  = 'SELECT * FROM ' . self::backquote( $table );
+    $result = $this->mysqli ? mysqli_query( $this->dbh, $query ) : mysql_query( $query, $this->dbh );
+
+    $fields_cnt = 0;
+    $rows_cnt   = 0;
+
+    if( $result ) {
+      $fields_cnt = $this->mysqli ? mysqli_num_fields( $result ) : mysql_num_fields( $result );
+      $rows_cnt   = $this->mysqli ? mysqli_num_rows( $result ) : mysql_num_rows( $result );
+    }
+
+    // Comment in SQL-file
+    $dump .= "\n";
+    $dump .= "\n";
+    $dump .= "#\n";
+    $dump .= "# Data contents of table " . $table . " (" . $rows_cnt . " records)\n";
+    $dump .= "#\n";
+
+    // Checks whether the field is an integer or not
+    for( $j = 0; $j < $fields_cnt; $j++ ) {
+
+      if( $this->mysqli ) {
+        $object          = mysqli_fetch_field_direct( $result, $j );
+        $field_set[ $j ] = $object->name;
+        $type            = $object->type;
+      }
+      else {
+        $field_set[ $j ] = self::backquote( mysql_field_name( $result, $j ) );
+        $type            = mysql_field_type( $result, $j );
+      }
+
+      // Is number?
+      $field_num[ $j ] = in_array( $type, array( 'tinyint', 'smallint', 'mediumint', 'int', 'bigint' ) );
+    }
+
+    // Sets the scheme
+    $entries     = 'INSERT INTO ' . self::backquote( $table ) . ' VALUES (';
+    $search      = array( '\x00', '\x0a', '\x0d', '\x1a' ); //\x08\\x09, not required
+    $replace     = array( '\0', '\n', '\r', '\Z' );
+    $current_row = 0;
+    $batch_write = 0;
+
+    while( $row = $this->mysqli ? mysqli_fetch_row( $result ) : mysql_fetch_row( $result ) ) {
+
+      $current_row++;
+
+      // build the statement
+      for( $j = 0; $j < $fields_cnt; $j++ ) {
+
+        if( !isset( $row[ $j ] ) ) {
+          $values[ ] = 'NULL';
+
+        }
+        elseif( $row[ $j ] === '0' || $row[ $j ] !== '' ) {
+
+          // a number
+          if( $field_num[ $j ] ) {
+            $values[ ] = $row[ $j ];
+          }
+
+          else {
+            $values[ ] = "'" . str_replace( $search, $replace, self::addslashes( $row[ $j ] ) ) . "'";
+          }
+
+        }
+        else {
+          $values[ ] = "''";
+        }
+
+      }
+
+      $dump .= " \n" . $entries . implode( ', ', $values ) . ") ;";
+
+      // write the rows in batches of 100
+      if( $batch_write === self::DUMP_SQL_FILE_CHUNCK_SIZE ) {
+        $batch_write = 0;
+
+        // Write on disk
+        if( !empty( $filename ) ) {
+          $result = WPDKFilesystem::append( $dump, $filename );
+
+          // TODO Fires an error or filters to stop the execution
+
+          $dump = '';
+        }
+      }
+
+      $batch_write++;
+
+      unset( $values );
+
+    }
+
+    if( $this->mysqli ) {
+      mysqli_free_result( $result );
+    }
+    else {
+      mysql_free_result( $result );
+    }
+
+    // Create footer/closing comment in SQL-file
+    $dump .= "\n";
+    $dump .= "#\n";
+    $dump .= "# End of data contents of table " . $table . "\n";
+    $dump .= "# --------------------------------------------------------\n";
+    $dump .= "\n";
+
+    // Write on disk
+    if( !empty( $filename ) ) {
+      $result = WPDKFilesystem::append( $dump, $filename );
+
+      // TODO Fires an error
+    }
+
+    return $dump;
+
+
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // STATIC UTILITIES HELPER METHODS
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Add backquotes to string or array group. Return a string if input param is a string, otherwise return an array if
+   * the input params is an array.
+   *
+   * @param string|array $value Table or list of table.
+   *
+   * @return array|string
+   */
+  public static function backquote( $value )
+  {
+
+    if( !empty( $value ) && is_string( $value ) && '*' == $value ) {
+      return $value;
+    }
+
+    if( is_array( $value ) ) {
+      return array_map( create_function( '$a', 'return "`" . $a . "`";' ), $value );
+    }
+
+    return sprintf( '`%s`',  $value );
+
+  }
+
+  /**
+   * Better addslashes for SQL queries.
+   * Taken from phpMyAdmin.
+   *
+   * @param string $value   Optional. Default empty.
+   * @param bool   $is_like Optional. Default FALSE.
+   *
+   * @return mixed
+   */
+  public static function addslashes( $value = '', $is_like = false )
+  {
+
+    if( $is_like ) {
+      $value = str_replace( '\\', '\\\\\\\\', $value );
+    }
+
+    else {
+      $value = str_replace( '\\', '\\\\', $value );
+    }
+
+    $value = str_replace( '\'', '\\\'', $value );
+
+    return $value;
+  }
+
+
+}
+
+
+/**
  * Manage the common status of a row in database.
  * You can override this class for own extensions.
  *
@@ -605,7 +921,6 @@ SQL;
 
     return false;
   }
-
 
 }
 
