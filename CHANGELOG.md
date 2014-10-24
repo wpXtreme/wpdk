@@ -20,6 +20,23 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.6.2
+### 2014-10-??
+
+* TODO Database class
+* TODO Database table export/import
+* TODO Database export/import
+
+#### Bugs
+
+* Fixed potential error when open a modal dialog
+
+#### Enhancements
+
+* Added `wpdk_ui_modal_dialog_javascript_show-{$id}` action
+* Added `wpdk_ui_modal_dialog_javascript_toogle-{$id}` action
+
+
 ## Version 1.6.1
 ### 2014-10-22
 
