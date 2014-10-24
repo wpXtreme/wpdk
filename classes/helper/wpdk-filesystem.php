@@ -6,8 +6,10 @@
  * @class              WPDKFilesystem
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-10-16
- * @version            1.1.4
+ * @date               2014-10-24
+ * @version            1.1.5
+ *
+ * @history            1.1.5 - Added `append()`
  */
 class WPDKFilesystem extends WPDKObject {
 
@@ -18,14 +20,14 @@ class WPDKFilesystem extends WPDKObject {
    *
    * @var string $__version
    */
-  public $__version = '1.1.4';
+  public $__version = '1.1.5';
 
   /**
    * Return the file size (B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB) well formatted. Return FALSE if file doesn't
    * exists or `filesize()` failure.
    *
    * @brief Get the file size
-   * @uses `WPDKMath::bytes()`
+   * @uses  `WPDKMath::bytes()`
    *
    * @param string $filename  File name or path to a file
    * @param int    $precision Digits to display after decimal
@@ -176,6 +178,39 @@ class WPDKFilesystem extends WPDKObject {
     else {
       return current( $parts );
     }
+  }
+
+  /**
+   * Append data to a file and return TRUE on successfully, FALSE otherwise.
+   *
+   * @brief Append
+   * @since 1.6.2
+   *
+   * @param string $data     Data to append.
+   * @param string $filename Complete path filename.
+   *
+   * @return bool
+   */
+  public static function append( $data, $filename )
+  {
+
+    // Check if filename is writable
+    if( is_writable( $filename ) || !file_exists( $filename ) ) {
+
+      if( !$handle = @fopen( $filename, 'a' ) ) {
+        return false;
+      }
+
+      if( !fwrite( $handle, $data ) ) {
+        return false;
+      }
+
+      fclose( $handle );
+
+      return true;
+
+    }
+
   }
 
 }
