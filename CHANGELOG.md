@@ -33,6 +33,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKFilesystem::append()` method
 * Added `wpdk_ui_modal_dialog_javascript_show-{$id}` action
 * Added `wpdk_ui_modal_dialog_javascript_toogle-{$id}` action
 
