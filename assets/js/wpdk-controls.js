@@ -237,11 +237,40 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         // Bind click on right span
         $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function ()
         {
-          var control = $( this ).parent();
-          var status = wpdk_is_bool( control.wpdkSwipe() );
+          var $control = $( this ).parent();
+          var status = wpdk_is_bool( $control.wpdkSwipe() );
           var enabled = status ? 'off' : 'on';
-          control.trigger( WPDKUIComponentEvents.SWIPE, [ control, enabled ] );
-          control.wpdkSwipe( enabled );
+          $control.trigger( WPDKUIComponentEvents.SWIPE, [ $control, enabled ] );
+          $control.wpdkSwipe( enabled );
+
+          // since 1.6.2 - get the on swipe
+          var on_swipe = $control.data( 'on_swipe' );
+
+          if( typeof on_swipe !== 'undefined' ) {
+
+            // Ajax
+            $.post( wpdk_i18n.ajaxURL, {
+                action      : 'wpdk_action_on_swipe',
+                on_swipe    : on_swipe,
+                enabled     : enabled
+              }, function ( data )
+              {
+                var response = new WPDKAjaxResponse( data );
+
+                if ( empty( response.error ) ) {
+
+                  // Process response
+
+                }
+
+                // An error return
+                else {
+                  alert( response.error );
+                }
+              }
+            );
+          }
+
         } );
 
         // Refreshing
