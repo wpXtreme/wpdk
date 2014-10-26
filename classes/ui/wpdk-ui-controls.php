@@ -2113,6 +2113,11 @@ class WPDKUIControlSwipe extends WPDKUIControl {
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
 
+    // since 1.6.2
+    if( isset( $this->item[ 'on_swipe' ] ) ) {
+      $swipe->data[ 'on_swipe' ] = $this->item[ 'on_swipe' ];
+    }
+
     if ( isset( $this->item['userdata'] ) ) {
       $swipe->data['userdata'] = esc_attr( $this->item['userdata'] );
     }
