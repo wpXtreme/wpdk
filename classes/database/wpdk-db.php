@@ -99,8 +99,14 @@ class WPDKDB extends wpdb {
     // Prepare dump
     $dump = '';
 
+    // Main information on dump
+    $dump .= "# --------------------------------------------------------\n";
+    $dump .= "# Date:      " . date( 'j F, Y H:i:s') ."\n";
+    $dump .= "# Database:  " . DB_NAME ."\n";
+    $dump .= "# Table:     " . $table ."\n";
+    $dump .= "# --------------------------------------------------------\n";
+
     // Add SQL statement to drop existing table
-    $dump .= "\n";
     $dump .= "\n";
     $dump .= "#\n";
     $dump .= "# Delete any existing table " .self::backquote( $table ) . "\n";
@@ -109,7 +115,6 @@ class WPDKDB extends wpdb {
     $dump .= "DROP TABLE IF EXISTS " .self::backquote( $table ) . ";\n";
 
     // Comment in SQL-file
-    $dump .= "\n";
     $dump .= "\n";
     $dump .= "#\n";
     $dump .= "# Table structure of table " .self::backquote( $table ) . "\n";
@@ -142,6 +147,16 @@ class WPDKDB extends wpdb {
 
     // Get table contents
     $query  = 'SELECT * FROM ' . self::backquote( $table );
+
+    /**
+     * Filter the query used to select the rows to dump.
+     *
+     * The dynamic portion of the hook name, $table, refers to the database table name.
+     *
+     * @param string $query The SQL query.
+     */
+    $query = apply_filters( 'wpdk_db_dump_query-' . $table, $query );
+
     $result = $this->mysqli ? mysqli_query( $this->dbh, $query ) : mysql_query( $query, $this->dbh );
 
     $fields_cnt = 0;
@@ -158,6 +173,16 @@ class WPDKDB extends wpdb {
     $dump .= "#\n";
     $dump .= "# Data contents of table " . $table . " (" . $rows_cnt . " records)\n";
     $dump .= "#\n";
+    $dump .= "\n";
+
+    /**
+     * Filter the addition SQL comment before printing the INSERT rows.
+     *
+     * The dynamic portion of the hook name, $table, refers to the database table name.
+     *
+     * @param string $comment Default empty.
+     */
+    $dump .= apply_filters( 'wpdk_db_dump_info_before_inserts-' . $table, '' );
 
     // Checks whether the field is an integer or not
     for( $j = 0; $j < $fields_cnt; $j++ ) {
@@ -243,9 +268,11 @@ class WPDKDB extends wpdb {
 
     // Create footer/closing comment in SQL-file
     $dump .= "\n";
+    $dump .= "\n";
     $dump .= "#\n";
     $dump .= "# End of data contents of table " . $table . "\n";
     $dump .= "# --------------------------------------------------------\n";
+    $dump .= "\n";
     $dump .= "\n";
 
     // Write on disk
