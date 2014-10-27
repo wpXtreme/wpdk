@@ -237,7 +237,7 @@ class WPDKDB extends wpdb {
 
       }
 
-      $dump .= " \n" . $entries . implode( ', ', $values ) . ") ;";
+      $dump .= "\n" . $entries . implode( ', ', $values ) . ") ;";
 
       // write the rows in batches of 100
       if( $batch_write === self::DUMP_SQL_FILE_CHUNCK_SIZE ) {
@@ -284,6 +284,73 @@ class WPDKDB extends wpdb {
 
     return $dump;
 
+
+  }
+
+  /**
+   * Utility method to import a SQL (pure) file usually an export.
+   *
+   * @brief Import from a file.
+   *
+   * @param string $filename Path of file.
+   *
+   * @return bool|mysqli_result|resource|\WPDKError
+   */
+  public function importWithFilename( $filename )
+  {
+    // Load
+    $sql = file_get_contents( $filename );
+
+    // Stability
+    if( empty( $sql ) ) {
+      return new WPDKError( 'wpxdbm-import-sql-file-empty', __( 'SQL file empty' ), $filename );
+    }
+
+    $result = $this->executeQuery( $sql );
+
+    //WPXtreme::log( $result, 'executeQuery' );
+
+    if( false === $result ) {
+      return new WPDKError( 'wpdk-db-import-query', __( 'Error while import:'  ) . ' ' . $this->last_error, array( $filename, $sql ) );
+    }
+
+    return $result;
+  }
+
+  /**
+   * Utility to execute a pure query in MySQL or MySQLi extension.
+   *
+   * @brief Execute SQL statement
+   *
+   * @param string $query SQL statement.
+   *
+   * @return bool|mysqli_result|resource
+   */
+  public function executeQuery( $query )
+  {
+    // Remove comments
+    $query = self::removeComments( $query );
+
+    //WPXtreme::log( $query, '$query' );
+
+    // Explode for statement
+    $stack = preg_split( '/[$;]\s+\n/m', $query );
+
+    //WPXtreme::log( $stack, '$stack' );
+
+    // Loop into the statements
+    foreach( $stack as $sql ) {
+      $sql_line = trim( $sql );
+      if( !empty( $sql_line ) ) {
+        $sql_line .= ';';
+
+        //WPXtreme::log( $sql_line, 'EXECUTE' );
+
+        $result = $this->mysqli ? mysqli_query( $this->dbh, $sql_line ) : mysql_query( $sql_line, $this->dbh );
+      }
+    }
+
+    return $result;
 
   }
 
@@ -337,6 +404,24 @@ class WPDKDB extends wpdb {
     $value = str_replace( '\'', '\\\'', $value );
 
     return $value;
+  }
+
+  /**
+   * Return a SQL statement without comments.
+   *
+   * @brief Remove commnets.
+   *
+   * @param string $query SQL statement.
+   *
+   * @return string
+   */
+  public static function removeComments( $query )
+  {
+    // Remove comments
+    $pattern = '/^-{2,}.*|^#\s.*/m';
+    $query = trim( preg_replace( $pattern, '', $query ) );
+
+    return $query;
   }
 
 
@@ -766,9 +851,7 @@ SQL;
       $sql = str_replace( '%s', $this->table_name, $content );
 
       // Remove comments
-      $pattern = '/-{2,}.*/';
-
-      $sql_sanitize = trim( preg_replace( $pattern, '', $sql ) );
+      $sql_sanitize = WPDKDB::removeComments( $sql );
 
       //WPXtreme::log( $sql_sanitize );
 
