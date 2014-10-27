@@ -109,7 +109,7 @@ class WPDKDB extends wpdb {
     // Add SQL statement to drop existing table
     $dump .= "\n";
     $dump .= "#\n";
-    $dump .= "# Delete any existing table " .self::backquote( $table ) . "\n";
+    $dump .= "# Delete any existing table `{$table}`\n";
     $dump .= "#\n";
     $dump .= "\n";
     $dump .= "DROP TABLE IF EXISTS " .self::backquote( $table ) . ";\n";
@@ -117,7 +117,7 @@ class WPDKDB extends wpdb {
     // Comment in SQL-file
     $dump .= "\n";
     $dump .= "#\n";
-    $dump .= "# Table structure of table " .self::backquote( $table ) . "\n";
+    $dump .= "# Table structure of table `{$table}`\n";
     $dump .= "#\n";
     $dump .= "\n";
 
@@ -171,9 +171,12 @@ class WPDKDB extends wpdb {
     $dump .= "\n";
     $dump .= "\n";
     $dump .= "#\n";
-    $dump .= "# Data contents of table " . $table . " (" . $rows_cnt . " records)\n";
+    $dump .= "# Data contents of table `{$table}` ({$rows_cnt} records)\n";
     $dump .= "#\n";
     $dump .= "\n";
+
+    // Lock table if insert available
+    $dump .= empty( $rows_cnt ) ? '' : "\nLOCK TABLES `{$table}` WRITE;\n";
 
     /**
      * Filter the addition SQL comment before printing the INSERT rows.
@@ -266,6 +269,9 @@ class WPDKDB extends wpdb {
       mysql_free_result( $result );
     }
 
+    // Unlock tables
+    $dump .= empty( $rows_cnt ) ? '' : "\nUNLOCK TABLES;\n";
+
     // Create footer/closing comment in SQL-file
     $dump .= "\n";
     $dump .= "\n";
@@ -308,7 +314,7 @@ class WPDKDB extends wpdb {
 
     $result = $this->executeQuery( $sql );
 
-    //WPXtreme::log( $result, 'executeQuery' );
+    WPXtreme::log( $result, 'executeQuery' );
 
     if( false === $result ) {
       return new WPDKError( 'wpdk-db-import-query', __( 'Error while import:'  ) . ' ' . $this->last_error, array( $filename, $sql ) );
@@ -334,7 +340,7 @@ class WPDKDB extends wpdb {
     //WPXtreme::log( $query, '$query' );
 
     // Explode for statement
-    $stack = preg_split( '/[$;]\s+\n/m', $query );
+    $stack = preg_split( '/[$;]\s*\n/', $query );
 
     //WPXtreme::log( $stack, '$stack' );
 
@@ -342,11 +348,13 @@ class WPDKDB extends wpdb {
     foreach( $stack as $sql ) {
       $sql_line = trim( $sql );
       if( !empty( $sql_line ) ) {
-        $sql_line .= ';';
+        $sql_line = rtrim( $sql_line, ';' ) . ';';
 
         //WPXtreme::log( $sql_line, 'EXECUTE' );
 
         $result = $this->mysqli ? mysqli_query( $this->dbh, $sql_line ) : mysql_query( $sql_line, $this->dbh );
+
+        //WPXtreme::log( $result, '$result' );
       }
     }
 
