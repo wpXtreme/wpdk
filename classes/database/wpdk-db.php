@@ -76,6 +76,9 @@ class WPDKDB extends wpdb {
       }
     }
 
+    // Raise the memory limit and max_execution time
+		@ini_set( 'memory_limit', apply_filters( 'admin_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+		@set_time_limit( 0 );
 
   }
 
@@ -270,7 +273,7 @@ class WPDKDB extends wpdb {
     }
 
     // Unlock tables
-    $dump .= empty( $rows_cnt ) ? '' : "\nUNLOCK TABLES;\n";
+    $dump .= empty( $rows_cnt ) ? '' : "\n\nUNLOCK TABLES;\n";
 
     // Create footer/closing comment in SQL-file
     $dump .= "\n";
