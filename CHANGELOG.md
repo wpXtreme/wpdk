@@ -20,7 +20,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.6.2
+## Version 1.7.0
 ### 2014-10-??
 
 #### Bugs
@@ -29,6 +29,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `WPDKGeo::reverseGeocoding()` mathod
+* Added `wpdk_geo` shortcode
 * Added `WPDKDB` as extension of WordPress wpdb class
 * Added `add_clear` property for all input WPDK UI Control in order to display the icon clear
 * Added `WPDKFilesystem::append()` method
