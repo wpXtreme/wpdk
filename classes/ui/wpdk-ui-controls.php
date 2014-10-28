@@ -418,13 +418,22 @@ class WPDKUIControl {
       $input->readonly = 'readonly';
     }
 
-    // Add a clear field button only
-    if ( in_array( $this->item['type'], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) ) ) {
+    // Add a clear button icon for this types
+    $add_clear_default_for_types = in_array( $this->item[ 'type' ], array( WPDKUIControlType::DATE, WPDKUIControlType::DATETIME ) );
+
+    // And add the clear button if "add_clear" is set
+    if( $add_clear_default_for_types || isset( $this->item[ 'add_clear' ] ) ) {
+
+      // Add special class
+      $input->class[] = 'wpdk-form-has-button-clear-left';
+
+      // Create icon clear
       $span_clear = new WPDKHTMLTagSpan();
-      $span_clear->class[] = 'wpdk-form-clear-left';
+      $span_clear->class[ ] = 'wpdk-form-clear-left';
       $span_clear->content = $input->html() . WPDKGlyphIcons::html( WPDKGlyphIcons::CANCEL_CIRCLED );
       $span_clear->display();
-    } else {
+    }
+    else {
       $input->display();
     }
 
@@ -1123,7 +1132,7 @@ class WPDKUIControlDate extends WPDKUIControl {
     // Added reference
     $this->item['data']['surrogate_name'] = $original_name;
 
-    $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-date wpdk-form-has-button-clear-left ' );
+    $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-date ' );
 
     // Create the input hidden
     ?>
@@ -1178,8 +1187,9 @@ class WPDKUIControlDateTime extends WPDKUIControl {
    *
    * @return WPDKUIControlDateTime
    */
-  public function __construct( $item ) {
-    $item['type'] = WPDKUIControlType::DATETIME;
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::DATETIME;
     parent::__construct( $item );
   }
 
@@ -1204,7 +1214,7 @@ class WPDKUIControlDateTime extends WPDKUIControl {
     // Added reference
     $this->item['data']['surrogate_name'] = $original_name;
 
-    $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-datetime wpdk-form-has-button-clear-left ' );
+    $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-datetime ' );
 
     // Create the input hidden
     ?>
@@ -2112,6 +2122,11 @@ class WPDKUIControlSwipe extends WPDKUIControl {
     $swipe->class   = WPDKHTMLTag::mergeClasses( $class,  'wpdk-form-swipe wpdk-ui-control ' . $status );
     $swipe->id      = $this->id;
     $swipe->data    = isset( $this->item['data'] ) ? $this->item['data'] : array();
+
+    // since 1.7.0
+    if( isset( $this->item[ 'on_swipe' ] ) ) {
+      $swipe->data[ 'on_swipe' ] = $this->item[ 'on_swipe' ];
+    }
 
     if ( isset( $this->item['userdata'] ) ) {
       $swipe->data['userdata'] = esc_attr( $this->item['userdata'] );

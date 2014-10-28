@@ -533,7 +533,7 @@ class WPDKListTableViewController extends WP_List_Table {
       $add_new = sprintf( '<a class="wpdk-add-new button button-primary" href="%s">%s</a>', $href, __( 'Add New', WPDK_TEXTDOMAIN ) );
 
       /**
-       * Filter the HTML markup for button 'Add New'
+       * Filter the HTML markup for button 'Add New'.
        *
        * @param string                      $add_new The HTML markup for button 'Add New'.
        * @param WPDKListTableViewController $vc      An instance of WPDKListTableViewController class.
@@ -1355,7 +1355,17 @@ class WPDKListTableModel implements IWPDKListTableModel {
     // Avoid redirect for these actions
     $actions = array( WPDKDBListTableModel::ACTION_NEW, WPDKDBListTableModel::ACTION_EDIT );
 
-    // TODO think to filter
+    /**
+     * Filter the list of actions used to avoid redirect.
+     *
+     * @since 1.7.0
+     *
+     * @param array $actions List of actions.
+     */
+    $actions = apply_filters( 'wpdk_list_table_model_avoid_redirect_actions', $actions );
+
+    // Sanitize
+    $actions = array_unique( array_filter( $actions ) );
 
     if( $action && in_array( $action, $actions ) ) {
       return;

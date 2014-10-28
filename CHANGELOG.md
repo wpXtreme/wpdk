@@ -20,13 +20,36 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.6.1
+## Version 1.7.0
 ### 2014-10-??
+
+#### Bugs
+
+* Fixed potential error when open a modal dialog
+
+#### Enhancements
+
+* Added `WPDKGeo::reverseGeocoding()` mathod
+* Added `wpdk_geo` shortcode
+* Added `WPDKDB` as extension of WordPress wpdb class
+* Added `add_clear` property for all input WPDK UI Control in order to display the icon clear
+* Added `WPDKFilesystem::append()` method
+* Added `wpdk_ui_modal_dialog_javascript_show-{$id}` action
+* Added `wpdk_ui_modal_dialog_javascript_toogle-{$id}` action
+
+
+## Version 1.6.1
+### 2014-10-22
+
+#### Enhancements
 
 * Added Javascript `wpdk_add_filter()` and `wpdk_apply_filter()`
 * Improved Javascript `wpdk_add_action()` and `wpdk_do_action()` in order to support "priority" features and avoid document trigger handler events.
-* Fixed potential 'division by zero' in `WPDKFilesystem::fileSize()` method
 * Added `WPDKMath::bytes()`
+
+#### Bugs
+
+* Fixed potential 'division by zero' in `WPDKFilesystem::fileSize()` method
 * Minor fixes
 
 ## Version 1.6.0

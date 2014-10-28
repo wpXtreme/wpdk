@@ -17,9 +17,11 @@ if ( !class_exists( 'WPDK' ) ) {
    *
    * @class              WPDK
    * @author             =undo= <info@wpxtre.me>
-   * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date               2013-11-08
-   * @version            0.10.5
+   * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date               2014-10-24
+   * @version            0.10.6
+   *
+   * @history            0.10.6 - Added `WPDKDB` class.
    */
   final class WPDK {
 
@@ -45,7 +47,7 @@ if ( !class_exists( 'WPDK' ) ) {
     {
       static $instance = null;
       if ( is_null( $instance ) ) {
-        $instance = new WPDK();
+        $instance = new self();
       }
       return $instance;
     }
@@ -272,6 +274,7 @@ if ( !class_exists( 'WPDK' ) ) {
         // -------------------------------------------------------------------------------------------------------------
 
         $sPathPrefix . 'classes/database/wpdk-db.php'                      => array(
+          'WPDKDB',
           'WPDKDBTableModel',
           'WPDKDBListTableModel',
           'WPDKDBTableRowStatuses',

@@ -55,12 +55,51 @@ if ( wpdk_is_ajax() ) {
         'wpdk_action_autocomplete_users' => true,
         'wpdk_action_dismiss_wp_pointer' => true,
 
+        // since 1.7.0
+        'wpdk_action_on_swipe'           => true,
+
         // since 1.4.21
         'wpdk_action_alert_dismiss'      => false,
         'wpdk_action_modal_dismiss'      => false,
       );
 
       return $actionsMethods;
+    }
+
+    /**
+     * This action will fires if 'on_swipe' data attribute is set on the swipe control.
+     *
+     * @since 1.7.0
+     *
+     */
+    public function wpdk_action_on_swipe()
+    {
+      $response = new WPDKAjaxResponse();
+
+      // Status
+      $enabled = isset( $_POST[ 'enabled' ] ) ? $_POST[ 'enabled' ] : false;
+
+      // Get action
+      $on_swipe = isset( $_POST[ 'on_swipe' ] ) ? $_POST[ 'on_swipe' ] : false;
+
+      // Stability
+      if( empty( $on_swipe ) ) {
+        $response->error = __( 'Wrong parameter' );
+        $response->json();
+      }
+
+      //WPXtreme::log( $enabled, 'before do' );
+
+      /**
+       * Fires the ajax action.
+       *
+       * The dynamic portion of the hook name, $on_swipe, refers to the custom ajax action.
+       *
+       * @param bool $enabled The swipe status enabled.
+       */
+      do_action( 'wp_ajax_' . $on_swipe, $enabled );
+
+      $response->json();
     }
 
     /**

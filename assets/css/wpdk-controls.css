@@ -13,6 +13,13 @@
  * =====================================================================================================================
  */
 
+.wpdk-column
+{
+  -moz-column-gap      : 32px;
+  -webkit-column-gap   : 32px;
+  column-gap           : 32px;
+}
+
 .wpdk-column-2
 {
   margin               : 0 0 0 8px;
@@ -509,7 +516,7 @@ option.wpdk-form-option[selected]
 
 input.wpdk-form-has-button-clear-left
 {
-  padding-right : 22px !important;
+  padding-right : 26px !important;
 }
 
 /* =====================================================================================================================

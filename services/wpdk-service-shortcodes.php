@@ -21,8 +21,10 @@
  * @class              WPDKServiceShortcodes
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-01-09
- * @version            1.0.1
+ * @date               2014-10-28
+ * @version            1.0.2
+ *
+ * @version            1.0.2 - Added `[wpdk_geo]` shortcode
  */
 final class WPDKServiceShortcodes extends WPDKShortcodes {
 
@@ -265,6 +267,83 @@ final class WPDKServiceShortcodes extends WPDKShortcodes {
   }
 
   /**
+   * Display a content of shortcode only if the user geo localization info rispect the shortcodes params.
+   *
+   *     [wpdk_geo city="Rome"]
+   *       Only for Rome
+   *     [/wpdk_geo]
+   *
+   *     [wpdk_geo city="rome"]
+   *       Only for Rome
+   *     [/wpdk_geo]
+   *
+   *     [wpdk_geo city="rome,london"]
+   *       Only for Rome and Landon
+   *     [/wpdk_geo]
+   *
+   *     [wpdk_geo region="lazio"]
+   *       Only for region (Italy) Lazio
+   *     [/wpdk_geo]
+   *
+   *     [wpdk_geo country_code="IT"]
+   *       Italian only
+   *     [/wpdk_geo]
+   *
+   *     [wpdk_geo country="italy"]
+   *       Italian only
+   *     [/wpdk_geo]
+   *
+   * @param array  $atts      Attribute into the shortcode
+   * @param string $content   Optional. $content HTML content
+   *
+   * @return bool|string
+   */
+  public function wpdk_geo( $atts, $content = null )
+  {
+    // Defaults
+    $defaults = array(
+      'city'         => '',
+      'region'       => '',
+      'country_code' => '',
+      'country'      => '',
+    );
+
+    // Merge with shortcode.
+    $args = shortcode_atts( $defaults, $atts, 'wpdk_geo' );
+
+    // Check for empty
+    if( empty( $args['city'] ) && empty( $args['region'] ) && empty( $args['country_code'] ) && empty( $args['country'] ) ) {
+      return !is_null( $content ) ? $content : '';
+    }
+
+    // Get GEO info
+    $geo = WPDKGeo::init()->geoIP();
+
+    // Turn all geo info in lowercase
+    $geo = array_map( create_function( '$a', 'return strtolower($a);'), $geo );
+
+    // Turn all args in lowercase
+    $args = array_map( create_function( '$a', 'return strtolower($a);'), $args );
+
+    // Sanitize
+    $cities        = explode( ',', $args[ 'city' ] );
+    $regions       = explode( ',', $args[ 'region' ] );
+    $country_codes = explode( ',', $args[ 'country_code' ] );
+    $countries     = explode( ',', $args[ 'country' ] );
+
+    // Flags in OR
+    $city_bool         = in_array( $geo[ 'city' ], $cities );
+    $region_bool       = in_array( $geo[ 'region' ], $regions );
+    $country_code_bool = in_array( $geo[ 'country_code' ], $country_codes );
+    $country_bool      = in_array( $geo[ 'country' ], $countries );
+
+    // Check pass
+    if( $city_bool || $region_bool || $country_code_bool || $country_bool ) {
+      return !is_null( $content ) ? $content : '';
+    }
+  }
+
+  /**
    * Return a Key value pairs array with key as shortcode name and value TRUE/FALSE for turn on/off the shortcode.
    *
    * @return array Shortcode array
@@ -275,6 +354,8 @@ final class WPDKServiceShortcodes extends WPDKShortcodes {
       'wpdk_is_user_logged_in'     => true,
       'wpdk_is_user_not_logged_in' => true,
       'wpdk_gist'                  => true,
+      // @since 1.7.0
+      'wpdk_geo'                   => true
     );
     return $shortcodes;
   }
