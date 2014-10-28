@@ -10,7 +10,7 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-10-24
  * @version         1.0.0
- * @since 1.6.2
+ * @since           1.7.0
  *
  */
 class WPDKDB extends wpdb {

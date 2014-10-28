@@ -500,7 +500,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
          *
          * The dynamic portion of the hook name, $id, refers to the modal dialod id.
          *
-         * @since 1.6.2
+         * @since 1.7.0
          */
         do_action( 'wpdk_ui_modal_dialog_javascript_show-' . $this->id );
 
@@ -530,7 +530,7 @@ class WPDKUIModalDialog extends WPDKHTMLTag {
          *
          * The dynamic portion of the hook name, $id, refers to the modal dialod id.
          *
-         * @since 1.6.2
+         * @since 1.7.0
          */
         do_action( 'wpdk_ui_modal_dialog_javascript_toogle-' . $this->id );
 

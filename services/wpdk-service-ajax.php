@@ -55,7 +55,7 @@ if ( wpdk_is_ajax() ) {
         'wpdk_action_autocomplete_users' => true,
         'wpdk_action_dismiss_wp_pointer' => true,
 
-        // since 1.6.2
+        // since 1.7.0
         'wpdk_action_on_swipe'           => true,
 
         // since 1.4.21
@@ -69,7 +69,7 @@ if ( wpdk_is_ajax() ) {
     /**
      * This action will fires if 'on_swipe' data attribute is set on the swipe control.
      *
-     * @since 1.6.2
+     * @since 1.7.0
      *
      */
     public function wpdk_action_on_swipe()

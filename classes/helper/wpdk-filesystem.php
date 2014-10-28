@@ -184,7 +184,7 @@ class WPDKFilesystem extends WPDKObject {
    * Append data to a file and return TRUE on successfully, FALSE otherwise.
    *
    * @brief Append
-   * @since 1.6.2
+   * @since 1.7.0
    *
    * @param string $data     Data to append.
    * @param string $filename Complete path filename.

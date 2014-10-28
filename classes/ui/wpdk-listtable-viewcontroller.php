@@ -1358,7 +1358,7 @@ class WPDKListTableModel implements IWPDKListTableModel {
     /**
      * Filter the list of actions used to avoid redirect.
      *
-     * @since 1.6.2
+     * @since 1.7.0
      *
      * @param array $actions List of actions.
      */
