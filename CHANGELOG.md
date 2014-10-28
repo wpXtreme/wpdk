@@ -23,16 +23,14 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.6.2
 ### 2014-10-??
 
-* TODO Database class
-* TODO Database table export/import
-* TODO Database export/import
-
 #### Bugs
 
 * Fixed potential error when open a modal dialog
 
 #### Enhancements
 
+* Added `WPDKDB` as extension of WordPress wpdb class
+* Added `add_clear` property for all input WPDK UI Control in order to display the icon clear
 * Added `WPDKFilesystem::append()` method
 * Added `wpdk_ui_modal_dialog_javascript_show-{$id}` action
 * Added `wpdk_ui_modal_dialog_javascript_toogle-{$id}` action
