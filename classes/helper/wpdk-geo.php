@@ -102,8 +102,29 @@ class WPDKGeo {
 
   }
 
+
   /**
    * Return an array with reverse geocoding information.
+   *
+   * @brief Reverse Geocoding
+   *
+   * @param array $geo Optional. Array retuned by `self::geoIP()` method. If empty `self::geoIP()` without ip is called.
+   *
+   * @return array
+   */
+  public function reverseGeocoding( $geo = false )
+  {
+    // Sanitize
+    $geo = empty( $geo ) ? $this->geoIP() : $geo;
+
+    return $this->reverseGeocodingWithLatLng( $geo['latitude'], $geo['longitude'] );
+  }
+
+
+  /**
+   * Return an array with reverse geocoding information.
+   *
+   * @brief Reverse Geocoding
    *
    * @param float $lat Latitude value.
    * @param float $lng Longitude value.
@@ -133,6 +154,9 @@ class WPDKGeo {
   /**
    * Return a single property/type.
    *
+   * @brief  Get property with type.
+   * @access private
+   *
    * @param array  $reverse_geocoding The array with reverse geocoding information retuned by
    *                                  `reverseGeocodingWithLatLng()`
    * @param string $type              The type.
@@ -157,6 +181,8 @@ class WPDKGeo {
   /**
    * Return the route.
    *
+   * @brief Route
+   *
    * @param array $reverse_geocoding The array with reverse geocoding information retuned by
    *                                 `reverseGeocodingWithLatLng()`
    *
@@ -169,6 +195,8 @@ class WPDKGeo {
 
   /**
    * Return the street number.
+   *
+   * @brief Street number
    *
    * @param array $reverse_geocoding The array with reverse geocoding information retuned by
    *                                 `reverseGeocodingWithLatLng()`
