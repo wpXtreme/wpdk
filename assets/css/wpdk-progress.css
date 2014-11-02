@@ -3,9 +3,9 @@
  *
  * @author        wpXtreme, Inc.
  * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date	        2014-02-08
- * @version       3.1.0
- * @note          Base on bootstrap.css v3.1.0
+ * @date	        2014-10-31
+ * @version       3.3.0
+ * @note          Base on bootstrap.css v3.3.0
  *
  */
 
@@ -21,39 +21,15 @@
   }
 }
 
-@-moz-keyframes wpdk-progress-bar-stripes
-{
-  from
-  {
-    background-position : 40px 0;
-  }
-  to
-  {
-    background-position : 0 0;
-  }
-}
-
-@-ms-keyframes wpdk-progress-bar-stripes
-{
-  from
-  {
-    background-position : 40px 0;
-  }
-  to
-  {
-    background-position : 0 0;
-  }
-}
-
 @-o-keyframes wpdk-progress-bar-stripes
 {
   from
   {
-    background-position : 0 0;
+    background-position : 40px 0;
   }
   to
   {
-    background-position : 40px 0;
+    background-position : 0 0;
   }
 }
 
@@ -93,19 +69,25 @@
   -webkit-box-shadow : inset 0 -1px 0 rgba(0, 0, 0, .15);
   box-shadow         : inset 0 -1px 0 rgba(0, 0, 0, .15);
   -webkit-transition : width .6s ease;
+  -o-transition      : width .6s ease;
   transition         : width .6s ease;
 }
 
-.wpdk-progress-striped .wpdk-progress-bar
+.wpdk-progress-striped .wpdk-progress-bar,
+.wpdk-progress-bar-striped
 {
-  background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-  background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-  background-size  : 40px 40px;
+  background-image        : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image        : -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image        : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  -webkit-background-size : 40px 40px;
+  background-size         : 40px 40px;
 }
 
-.wpdk-progress.active .wpdk-progress-bar
+.wpdk-progress.active .wpdk-progress-bar,
+.wpdk-progress-bar.active
 {
   -webkit-animation : wpdk-progress-bar-stripes 2s linear infinite;
+  -o-animation      : wpdk-progress-bar-stripes 2s linear infinite;
   animation         : wpdk-progress-bar-stripes 2s linear infinite;
 }
 
@@ -117,6 +99,7 @@
 .wpdk-progress-striped .wpdk-progress-bar-success
 {
   background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 
@@ -128,6 +111,7 @@
 .wpdk-progress-striped .wpdk-progress-bar-info
 {
   background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 
@@ -139,6 +123,7 @@
 .wpdk-progress-striped .wpdk-progress-bar-warning
 {
   background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 
@@ -150,5 +135,6 @@
 .wpdk-progress-striped .wpdk-progress-bar-danger
 {
   background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }

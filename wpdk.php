@@ -444,6 +444,12 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIPopoverPlacement',
         ),
 
+        $sPathPrefix . 'classes/ui/wpdk-ui-progress.php'                 => array(
+          'WPDKUIProgress',
+          'WPDKUIProgressBar',
+          'WPDKUIProgressBarType',
+        ),
+
         $sPathPrefix . 'classes/ui/wpdk-ui-table-view.php'              => 'WPDKUITableView',
 
         $sPathPrefix . 'classes/ui/wpdk-view.php'                       => 'WPDKView',
