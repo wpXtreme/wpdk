@@ -27,6 +27,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 * Fixed wrong enqueue components for preferences
 
+#### Enhancements
+
+* Added `WPDKUIProgress`
+* Update WPDK UI Progress styles with Bootstrap v3.3.0
+
 ## Version 1.7.0
 ### 2014-10-29
 
