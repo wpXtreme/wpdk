@@ -106,9 +106,6 @@ if( typeof( jQuery.fn.wpdkButtonToggle ) === 'undefined' ) {
       // Loop into the controls
       return this.each( function()
       {
-
-        console.log( 'wpdkButtonToggle' );
-
         // Control
         var $control = $( this );
 
