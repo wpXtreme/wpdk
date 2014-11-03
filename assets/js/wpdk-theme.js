@@ -15,8 +15,8 @@ jQuery( function ( $ )
    *
    * @class           WPDKTheme
    * @author          =undo= <info@wpxtre.me>
-   * @copyright       Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
-   * @date            2013-12-09
+   * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+   * @date            2014-11-03
    * @version         1.0.0
    *
    */
@@ -24,11 +24,12 @@ jQuery( function ( $ )
   {
 
     /**
-     * This Object
+     * This object
      *
-     * @type {{}}
+     * @type {{version: string, init: _init}}
+     * @private
      */
-    var $t = {
+    var _WPDKTheme = {
       version : '1.0.0',
       init    : _init
     };
@@ -216,11 +217,10 @@ jQuery( function ( $ )
     }
 
     /**
-     * Return an instance of WPDKTheme object
+     * Init
      *
+     * @returns {{version: string, init: _init}}
      * @private
-     *
-     * @return {}
      */
     function _init()
     {
@@ -232,10 +232,9 @@ jQuery( function ( $ )
       //_modernizrSVG();
       _initConsole();
 
-      return $t;
-    };
-
-    return $t.init();
+      return _WPDKTheme;
+    }
+    return _init();
 
   })();
 

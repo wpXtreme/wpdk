@@ -6,7 +6,7 @@
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
  * @date            2014-03-20
  * @version         3.1.1
- * @note            Base on bootstrap: tootip.js v3.1.0
+ * @note            Base on bootstrap: tooltip.js v3.1.0
  */
 
 // One time
