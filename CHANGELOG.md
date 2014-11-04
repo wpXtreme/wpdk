@@ -29,6 +29,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Added `wpdkProgressBars()` methods to manage the progress bar
 * Added `WPDKUIProgress`
 * Update WPDK UI Progress styles with Bootstrap v3.3.0
 
