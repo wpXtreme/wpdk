@@ -117,6 +117,7 @@ if( typeof( jQuery.fn.wpdkButtonToggle ) === 'undefined' ) {
 
         // FALSE label
         var false_label = $control.data( '_wpdk_toggle_label' ) || $control.html();
+        $control.data( '_wpdk_toggle_label', false_label );
 
         // TRUE label
         var true_label = $( this ).data( 'toggle' );
