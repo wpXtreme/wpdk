@@ -226,9 +226,11 @@ class WPDKUIProgressBar extends WPDKHTMLTag {
          aria-valuemax="100"
          style="width: <?php echo $this->percentage ?>%">
 
-      <?php if( $this->displayPercentage ) : ?>
-        <span class="sr-only"><?php echo $this->percentage ?>%</span>
-      <?php endif; ?>
+        <span class="sr-only">
+          <?php if( $this->displayPercentage ) : ?>
+            <?php echo $this->percentage ?>%
+          <?php endif; ?>
+        </span>
 
     </div>
 
