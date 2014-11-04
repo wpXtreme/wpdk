@@ -181,6 +181,13 @@ class WPDKUIProgressBar extends WPDKHTMLTag {
   public $striped = false;
 
   /**
+   * The label used instead the percentage.
+   *
+   * @var string $label
+   */
+  public $label = '';
+
+  /**
    * Create an instance of WPDKUIProgress class
    *
    * @param string $id        ID attribute
@@ -220,6 +227,7 @@ class WPDKUIProgressBar extends WPDKHTMLTag {
 
     <div class="wpdk-progress-bar <?php echo $type ?> <?php echo $animated ?> <?php echo $striped ?>"
          id="<?php echo $this->id ?>"
+         data-label="<?php echo $this->label ?>"
          role="wpdk-progressbar"
          aria-valuenow="<?php echo $this->percentage ?>"
          aria-valuemin="0"
@@ -228,7 +236,7 @@ class WPDKUIProgressBar extends WPDKHTMLTag {
 
         <span class="sr-only">
           <?php if( $this->displayPercentage ) : ?>
-            <?php echo $this->percentage ?>%
+            <?php echo empty( $this->label ) ? $this->percentage . '%' : $this->label ?>
           <?php endif; ?>
         </span>
 

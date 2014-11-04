@@ -51,6 +51,7 @@ if( typeof( jQuery.fn.wpdkProgress ) === 'undefined' ) {
         // Defaults
         var options = $.extend( {}, {
           percentage         : null,
+          label              : $control.data( 'label' ),
           animated           : null,
           striped            : null,
           display_percentage : true
@@ -99,7 +100,12 @@ if( typeof( jQuery.fn.wpdkProgress ) === 'undefined' ) {
 
         // Display percentage
         if( true === options.display_percentage ) {
-          $control.find( 'span.sr-only' ).html( percentage + '%' );
+          if( options.label == null ) {
+            $control.find( 'span.sr-only' ).html( percentage + '%' );
+          }
+          else {
+            $control.find( 'span.sr-only' ).html( options.label );
+          }
         }
         else {
           $control.find( 'span.sr-only' ).html( '' );
