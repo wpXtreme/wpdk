@@ -110,31 +110,31 @@ if( typeof( jQuery.fn.wpdkButtonToggle ) === 'undefined' ) {
         var $control = $( this );
 
         // Current state
-        var current_state = $control.data( '_wpdk_toggle_state' ) || 'false';
+        var current_state = $control.data( 'current_state' ) || 'false';
 
-        // Toggle state
-        var toggle_state = ( 'false' == current_state ) ? 'true' : 'false';
+        // Alternate state (inverter)
+        var alternate_state = ( 'false' == current_state ) ? 'true' : 'false';
 
-        // FALSE label
-        var false_label = $control.data( '_wpdk_toggle_label' ) || $control.html();
-        $control.data( '_wpdk_toggle_label', false_label );
+        // Current label
+        var current_label = $control.html();
 
-        // TRUE label
-        var true_label = $( this ).data( 'toggle' );
+        // Alternate label
+        var alternate_label = $control.data( 'alternate_label' );
 
-        // Set state
-        $control.data( '_wpdk_toggle_state', toggle_state );
+        // Set alternate state
+        $control.data( 'current_state', alternate_state );
 
-        // Set new label
-        $control.html( ( 'false' == toggle_state ) ? false_label : true_label );
+        // Set alternate label
+        $control.html( alternate_label );
+        $control.data( 'alternate_label', current_label );
 
         // Set class
         $control
           .removeClass( 'wpdk-ui-button-toggle-false wpdk-ui-button-toggle-true' )
-          .addClass( 'wpdk-ui-button-toggle-' + toggle_state );
+          .addClass( 'wpdk-ui-button-toggle-' + alternate_state );
 
         // Trigger event
-        $control.trigger( 'toggle.wpdk.button', [ $control, toggle_state ] );
+        $control.trigger( WPDKUIComponentEvents.TOGGLE_BUTTON, [ $control, alternate_state ] );
 
       } );
     };

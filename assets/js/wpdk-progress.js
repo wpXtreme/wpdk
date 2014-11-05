@@ -100,7 +100,7 @@ if( typeof( jQuery.fn.wpdkProgress ) === 'undefined' ) {
 
         // Display percentage
         if( true === options.display_percentage ) {
-          if( options.label == null ) {
+          if( options.label == '' ) {
             $control.find( 'span.sr-only' ).html( percentage + '%' );
           }
           else {
