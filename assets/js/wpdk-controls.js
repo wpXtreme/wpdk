@@ -21,7 +21,7 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
       if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
 
         if ( null == v ) {
-          return $( this ).children( 'input[type=hidden]' ).eq( 0 ).val();
+          return $( this ).children( 'input[type="hidden"]' ).eq( 0 ).val();
         }
 
         return this.each( function ()
@@ -32,7 +32,7 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
 
           // Get sub-elements
           var knob   = $control.children( 'span' ).eq( 0 );
-          var input  = $control.children( 'input[type=hidden]' ).eq( 0 );
+          var input  = $control.children( 'input[type="hidden"]' ).eq( 0 );
           var status = wpdk_is_bool( v ) ? 'on' : 'off';
 
           /**
@@ -87,6 +87,65 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
         } );
       }
     };
+
+  }( jQuery );
+
+}
+
+/**
+ * WPDK Button Toggle extends.
+ */
+if( typeof( jQuery.fn.wpdkButtonToggle ) === 'undefined' ) {
+
+  +function( $ )
+  {
+    'use strict';
+
+    $.fn.wpdkButtonToggle = function()
+    {
+      // Loop into the controls
+      return this.each( function()
+      {
+        // Control
+        var $control = $( this );
+
+        // Current state
+        var current_state = $control.data( 'current_state' ) || 'false';
+
+        // Alternate state (inverter)
+        var alternate_state = ( 'false' == current_state ) ? 'true' : 'false';
+
+        // Current label
+        var current_label = $control.html();
+
+        // Alternate label
+        var alternate_label = $control.data( 'alternate_label' );
+
+        // Set alternate state
+        $control.data( 'current_state', alternate_state );
+
+        // Set alternate label
+        $control.html( alternate_label );
+        $control.data( 'alternate_label', current_label );
+
+        // Set class
+        $control
+          .removeClass( 'wpdk-ui-button-toggle-false wpdk-ui-button-toggle-true' )
+          .addClass( 'wpdk-ui-button-toggle-' + alternate_state );
+
+        // Trigger event
+        $control.trigger( WPDKUIComponentEvents.TOGGLE_BUTTON, [ $control, alternate_state ] );
+
+      } );
+    };
+
+    // Init
+    $( document ).on( 'click', 'button.wpdk-ui-button-toggle', function( e )
+    {
+      e.preventDefault();
+      $( this ).wpdkButtonToggle();
+      return false;
+    } );
 
   }( jQuery );
 

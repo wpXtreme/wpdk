@@ -269,11 +269,13 @@ final class WPDKUIComponents {
       ),
       // WPDK Progress
       self::PROGRESS      => array(
-        'css' => self::PROGRESS,
+        'js'   => self::PROGRESS,
+        'css'  => self::PROGRESS,
+        'deps' => array( self::CONTROLS )
       ),
       // WPDK Preferences
-      self::PROGRESS      => array(
-        'js'   => self::PROGRESS,
+      self::PREFERENCES      => array(
+        'js'   => self::PREFERENCES,
         'deps' => array( self::CONTROLS )
       ),
 
