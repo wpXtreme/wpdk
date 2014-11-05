@@ -29,7 +29,8 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
-* Added `wpdkProgressBars()` methods to manage the progress bar
+* Improved `WPDKUIControlButton` class with toggle feature (see https://github.com/wpXtreme/wpdk/wiki/Button-Toggle-UI-Control)
+* Added `wpdkProgressBars()` methods to manage the progress bar (see https://github.com/wpXtreme/wpdk/wiki/WPDKUIProgress)
 * Added `WPDKUIProgress`
 * Update WPDK UI Progress styles with Bootstrap v3.3.0
 

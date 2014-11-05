@@ -841,6 +841,9 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       // INPUT CLEAR
       CLEAR_INPUT                 : 'clear.wpdk.input',
 
+      // Toggle Button
+      TOGGLE_BUTTON               : 'toggle.wpdk.button',
+
       // Popover
       SHOW_POPOVER                : 'show.wpdk.wpdkPopover'
     };

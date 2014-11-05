@@ -690,16 +690,31 @@ class WPDKUIControlAlert extends WPDKUIControl {
  *         'title'          => 'This title is a tooltip',
  *         'prepend'        => '',
  *         'append'         => '',
+ *         'toggle'         => array( 'true', 'alternate_label' ),
  *     );
  *
  * @class              WPDKUIControlButton
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-05
+ * @version            1.0.0
  *
  */
 class WPDKUIControlButton extends WPDKUIControl {
+
+  /**
+   * Return a singleton instance of WPDKUIControlButton class
+   *
+   * @brief Singleton
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlButton
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
 
   /**
    * Create an instance of WPDKUIControlButton class
@@ -748,6 +763,16 @@ class WPDKUIControlButton extends WPDKUIControl {
       $button->value = isset( $this->item['value'] ) ? $this->item['value'] : '';
       $button->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
     }
+
+    // @since 1.7.1 - Toggle feature
+    if( isset( $this->item[ 'toggle' ] ) ) {
+      list( $current_state, $alternate_label ) = $this->item[ 'toggle' ];
+      $button->data[ 'current_state' ]   = $current_state;
+      $button->data[ 'alternate_label' ] = $alternate_label;
+      $button->class[ ]                  = 'wpdk-ui-button-toggle';
+      $button->class[ ]                  = 'wpdk-ui-button-toggle-' . $current_state;
+    }
+
     $button->display();
 
     echo $this->contentWithKey( 'append' );
