@@ -29,15 +29,13 @@
   },
   "support": {
     "email": "support@wpxtre.me",
-    "forum": "https://wpxtre.me/forums"
+    "forum": "https://wpxtre.me/forums",
+    "issues" : "https://github.com/wpXtreme/wpdk/issues"
   },
-  "bugs": {
-    "url": "https://github.com/wpXtreme/wpdk/issues"
-  },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "autoload": {
     "psr-0": {
-    "wpdk": "src"
+    "wpdk": "src/"
     }
   },
   "require": {
