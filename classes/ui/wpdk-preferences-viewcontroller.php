@@ -26,16 +26,17 @@ class WPDKPreferencesViewController extends WPDKjQueryTabsViewController {
    *
    * @brief Construct
    *
-   * @param WPDKPreferences $preferences    An instance of WPDKPreferences class
-   * @param string          $title          The title of view controller
-   * @param array           $tabs           Tabs array
+   * @param WPDKPreferences $preferences An instance of WPDKPreferences class
+   * @param string          $title       The title of view controller
+   * @param array           $tabs        Tabs array
+   * @param bool            $vertical    Optional. Set to TRUE in order to display vertical tab. Default is FALSE.
    *
    * @return WPDKPreferencesViewController
    */
-  public function __construct( $preferences, $title, $tabs )
+  public function __construct( $preferences, $title, $tabs, $vertical = false )
   {
     $this->preferences = $preferences;
-    $view = new WPDKjQueryTabsView( $preferences->name, $tabs );
+    $view              = new WPDKjQueryTabsView( $preferences->name, $tabs, $vertical );
     parent::__construct( $preferences->name, $title, $view );
 
     // Fires after the the title.
