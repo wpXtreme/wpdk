@@ -5,7 +5,12 @@
   "license": "GPL",
   "type": "framework",
   "description": "Awesome WordPress Development Kit framework",
-  "keywords": [ "wordpress", "wpxtreme", "plugin", "theme"],
+  "keywords": [
+    "wordpress",
+    "wpxtreme",
+    "plugin",
+    "theme"
+  ],
   "author": {
     "name": "wpXtreme, Inc.",
     "email": "info@wpxtre.me"
@@ -14,10 +19,13 @@
     "type": "git",
     "url": "https://github.com/wpXtreme/wpdk.git"
   },
+  "support": {
+    "email": "support@wpxtre.me",
+    "forum": "https://wpxtre.me/forums"
+  },
   "bugs": {
     "url": "https://github.com/wpXtreme/wpdk/issues"
   },
-  "minimum-stability": "dev",
   "require": {
     "php": ">=5.2.4"
   }
