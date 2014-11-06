@@ -26,9 +26,10 @@
   "bugs": {
     "url": "https://github.com/wpXtreme/wpdk/issues"
   },
+  "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
-    "wpXtreme\\wpdk": "src"
+    "wpdk": "src"
     }
   },
   "require": {
