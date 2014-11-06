@@ -26,6 +26,11 @@
   "bugs": {
     "url": "https://github.com/wpXtreme/wpdk/issues"
   },
+  "autoload": {
+        "psr-0": {
+            "wpXtreme\\wpdk": "src"
+        }
+    },
   "require": {
     "php": ">=5.2.4"
   }
