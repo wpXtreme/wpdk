@@ -11,10 +11,12 @@
     "plugin",
     "theme"
   ],
-  "authors": {
+  "authors": [
+    {
     "name": "wpXtreme, Inc.",
     "email": "info@wpxtre.me"
-  },
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wpXtreme/wpdk.git"
