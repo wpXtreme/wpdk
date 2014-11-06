@@ -862,7 +862,7 @@ jQuery( function ( $ )
 {
   "use strict";
 
-  /*!
+  /**
    * jQuery Cookie Plugin v1.4.1
    * https://github.com/carhartl/jquery-cookie
    *

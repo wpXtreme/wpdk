@@ -576,7 +576,7 @@
     -moz-border-radius    : 0 !important;
     -webkit-border-radius : 0 !important;
     border-radius         : 0 !important;
-    padding               : 0 1px 0 0;
+    padding               : 4px 1px 0 0;
     float                 : left;
     width                 : 160px;
     margin                : 16px 0 -180px 0;
@@ -598,6 +598,8 @@
 .wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav li a
 {
     display : block;
+    float   : none;
+    padding : 10px 0 12px 10px;
 }
 
 .wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active
@@ -612,7 +614,6 @@
 .wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-panel
 {
     padding : 4px 4px 4px 180px;
-    float   : left;
     width   : 100%;
 }
 
