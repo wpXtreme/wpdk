@@ -14,8 +14,14 @@
   "authors": [
     {
     "name": "wpXtreme, Inc.",
-    "email": "info@wpxtre.me"
-    }
+    "email": "info@wpxtre.me",
+    "homepage" : "https://wpxtre.me"
+    },
+    {
+    "name": "Giovambattista Fazioli",
+    "email": "g.fazioli@wpxtre.me",
+    "homepage" : "http://undolog.com"
+    }    
   ],
   "repository": {
     "type": "git",
