@@ -121,8 +121,9 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @brief Construct
    *
-   * @param string $id   The view ID
-   * @param array  $tabs Optional. A tabs list. Instances of WPDKjQueryTab class
+   * @param string $id       The view ID
+   * @param array  $tabs     Optional. A tabs list. Instances of WPDKjQueryTab class
+   * @param bool   $vertical Optional. Set to TRUE in order to display vertical tab. Default is FALSE.
    *
    * @return WPDKjQueryTabsView
    */
