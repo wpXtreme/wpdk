@@ -1,0 +1,24 @@
+{
+  "name": "wpXtreme/wpdk",
+  "version": "1.7.2",
+  "homepage": "https://wpdk.io",
+  "license": "GPL",
+  "type": "framework",
+  "description": "Awesome WordPress Development Kit framework",
+  "keywords": [ "wordpress", "wpxtreme", "plugin", "theme"],
+  "author": {
+    "name": "wpXtreme, Inc.",
+    "email": "info@wpxtre.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpXtreme/wpdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wpXtreme/wpdk/issues"
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.2.4"
+  }
+}

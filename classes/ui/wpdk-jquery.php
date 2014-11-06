@@ -5,9 +5,9 @@
  *
  * @class              WPDKjQuery
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-05
+ * @version            1.0.0
  */
 
 class WPDKjQuery {
@@ -15,13 +15,13 @@ class WPDKjQuery {
 }
 
 /**
- * This is the model of a single jQuery tab
+ * This is the model of a single jQuery tab.
  *
  * @class              WPDKjQueryTab
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-05
+ * @version            1.0.0
  *
  */
 class WPDKjQueryTab {
@@ -33,7 +33,8 @@ class WPDKjQueryTab {
    *
    * @var string $content
    */
-  public $content;
+  public $content = '';
+
   /**
    * The jQuery tab ID
    *
@@ -41,7 +42,8 @@ class WPDKjQueryTab {
    *
    * @var string $id
    */
-  public $id;
+  public $id = '';
+
   /**
    * The tab title
    *
@@ -49,7 +51,7 @@ class WPDKjQueryTab {
    *
    * @var string $title
    */
-  public $title;
+  public $title = '';
 
   /**
    * Create an instance of WPDKjQueryTab class
@@ -76,13 +78,13 @@ class WPDKjQueryTab {
 }
 
 /**
- * This is a sub class of standard WPDKView specified design for jQuery tabs
+ * This is a sub class of standard WPDKView specified design for jQuery tabs.
  *
  * @class              WPDKjQueryTabsView
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-05
+ * @version            1.0.0
  *
  */
 class WPDKjQueryTabsView extends WPDKView {
@@ -106,6 +108,15 @@ class WPDKjQueryTabsView extends WPDKView {
   public $border = true;
 
   /**
+   * Makes jQuery tabs vertical.
+   *
+   * @since 1.7.1
+   *
+   * @var bool $vertical
+   */
+  public $vertical = false;
+
+  /**
    * Create an instance of WPDKjQueryTabsView class
    *
    * @brief Construct
@@ -115,15 +126,12 @@ class WPDKjQueryTabsView extends WPDKView {
    *
    * @return WPDKjQueryTabsView
    */
-  public function __construct( $id, $tabs = array() )
+  public function __construct( $id, $tabs = array(), $vertical = false )
   {
     parent::__construct( $id, 'wpdk-jquery-ui' );
 
-    $this->tabs = $tabs;
-
-    // Enqueue components
-    wp_enqueue_script( 'jquery-ui-tabs' );
-    wp_enqueue_style( 'jquery-ui-tabs' );
+    $this->tabs     = $tabs;
+    $this->vertical = $vertical;
   }
 
   /**
@@ -177,13 +185,20 @@ class WPDKjQueryTabsView extends WPDKView {
     $html_titles  = '';
     $html_content = '';
 
+    // Vertical
+    $vertical = $this->vertical ? 'data-layout="vertical"' : '';
+
+
     foreach ( $this->tabs as $tab ) {
       $html_titles .= sprintf( '<li class="%s"><a href="#%s">%s</a></li>', $tab->id, $tab->id, $tab->title );
       $html_content .= sprintf( '%s', $tab->content );
     }
+
     ?>
     <div class="<?php echo $this->border ? 'wpdk-border-container' : '' ?>">
-      <div id="<?php echo $this->id . '-tabs-view' ?>" class="wpdk-tabs">
+      <div id="<?php echo $this->id . '-tabs-view' ?>"
+           <?php echo $vertical ?>
+           class="wpdk-tabs">
         <ul>
           <?php echo $html_titles ?>
         </ul>
@@ -201,9 +216,9 @@ class WPDKjQueryTabsView extends WPDKView {
  *
  * @class              WPDKjQueryTabsViewController
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2012-11-28
- * @version            0.8.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-05
+ * @version            1.0.0
  *
  */
 class WPDKjQueryTabsViewController extends WPDKViewController {
@@ -224,4 +239,24 @@ class WPDKjQueryTabsViewController extends WPDKViewController {
     parent::__construct( $id, $title );
     $this->view->addSubview( $view );
   }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   */
+  public function admin_print_styles()
+  {
+    wp_enqueue_style( 'jquery-ui-tabs' );
+  }
+
+  /**
+   * This method is called when the head of this view controller is loaded by WordPress.
+   * It is used by WPDKMenu for example, as 'admin_head-' action.
+   *
+   * @brief Head
+   */
+  public function admin_head()
+  {
+    wp_enqueue_script( 'jquery-ui-tabs' );
+  }
+
 }

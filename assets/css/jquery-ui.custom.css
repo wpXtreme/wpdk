@@ -539,7 +539,7 @@
 .wpdk-jquery-ui .ui-tabs .ui-tabs-hide { display: none !important; }
 /* override */
 .wpdk-jquery-ui .wpdk-tabs.ui-tabs.ui-widget-content { border: none; background: none !important; }
-.wpdk-jquery-ui .ui-tabs .ui-tabs-panel.ui-widget-content { background: none; border-top: 1px solid #ddd; }
+.wpdk-jquery-ui .ui-tabs .ui-tabs-panel.ui-widget-content { background: none; border-top: 1px solid #aaa; }
 .wpdk-jquery-ui .ui-tabs .ui-widget-header { border: none; background: none !important; }
 .wpdk-jquery-ui .ui-tabs .ui-tabs-selected,
 .wpdk-jquery-ui .ui-tabs .ui-state-active
@@ -553,6 +553,69 @@
 {
   background-color: rgb(250,250,250);
 }
+
+/* Vertical */
+.wpdk-jquery-ui .ui-tabs.ui-tabs-vertical
+{
+    width   : auto;
+    padding : 0 180px 0 0;
+}
+
+.wpdk-jquery-ui .ui-tabs.ui-tabs-vertical .ui-tabs-panel.ui-widget-content
+{
+    background : none;
+    border-top : none;
+}
+
+.wpdk-jquery-ui .ui-tabs-vertical
+{ }
+
+/* UL */
+.wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav
+{
+    -moz-border-radius    : 0 !important;
+    -webkit-border-radius : 0 !important;
+    border-radius         : 0 !important;
+    padding               : 0 1px 0 0;
+    float                 : left;
+    width                 : 160px;
+    margin                : 16px 0 -180px 0;
+    border-right          : 1px solid #aaa !important;
+}
+
+.wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav li
+{
+    width                 : 156px;
+    clear                 : left;
+    border                : 1px solid #d3d3d3 !important;
+    border-right          : 1px solid #aaa !important;
+    margin                : 0 0 4px 4px;
+    -moz-border-radius    : 3px 0 0 3px;
+    -webkit-border-radius : 3px 0 0 3px;
+    border-radius         : 3px 0 0 3px;
+}
+
+.wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav li a
+{
+    display : block;
+}
+
+.wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active
+{
+    border-color  : #aaa !important;
+    width         : 100%;
+    padding-right : 1px;
+    border-right  : none !important;
+    margin-left   : 0
+}
+
+.wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-panel
+{
+    padding : 4px 4px 4px 180px;
+    float   : left;
+    width   : 100%;
+}
+
 
 /*
  * jQuery UI Datepicker 1.8.18
