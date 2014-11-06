@@ -1,5 +1,7 @@
 # :pill: WPDK (WordPress Development Kit)
 
+[![Latest Stable Version](https://poser.pugx.org/wpxtreme/wpdk/v/stable.svg)](https://packagist.org/packages/wpxtreme/wpdk) [![Total Downloads](https://poser.pugx.org/wpxtreme/wpdk/downloads.svg)](https://packagist.org/packages/wpxtreme/wpdk) [![Latest Unstable Version](https://poser.pugx.org/wpxtreme/wpdk/v/unstable.svg)](https://packagist.org/packages/wpxtreme/wpdk) [![License](https://poser.pugx.org/wpxtreme/wpdk/license.svg)](https://packagist.org/packages/wpxtreme/wpdk)
+
 Awesome WordPress Development Kit framework
 
 ## CHANGELOG
