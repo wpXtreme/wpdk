@@ -579,7 +579,7 @@
     padding               : 4px 1px 0 0;
     float                 : left;
     width                 : 160px;
-    margin                : 16px 0 -180px 0;
+    margin                : 16px -180px 0 0;
     border-right          : 1px solid #aaa !important;
 }
 
@@ -611,10 +611,12 @@
     margin-left   : 0
 }
 
+/* DIV */
 .wpdk-jquery-ui .ui-tabs-vertical .ui-tabs-panel
 {
     padding : 4px 4px 4px 180px;
     width   : 100%;
+    float   : left;
 }
 
 

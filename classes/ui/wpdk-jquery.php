@@ -195,7 +195,7 @@ class WPDKjQueryTabsView extends WPDKView {
     }
 
     ?>
-    <div class="<?php echo $this->border ? 'wpdk-border-container' : '' ?>">
+    <div class="<?php echo $this->border ? 'wpdk-border-container clearfix' : '' ?>">
       <div id="<?php echo $this->id . '-tabs-view' ?>"
            <?php echo $vertical ?>
            class="wpdk-tabs">
