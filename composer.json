@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:wpXtreme/wpdk.git"
+    "url": "https://github.com/wpXtreme/wpdk.git"
   },
   "support": {
     "email": "support@wpxtre.me",
@@ -27,10 +27,10 @@
     "url": "https://github.com/wpXtreme/wpdk/issues"
   },
   "autoload": {
-        "psr-0": {
-            "wpXtreme\\wpdk": "src"
-        }
-    },
+    "psr-0": {
+    "wpXtreme\\wpdk": "src"
+    }
+  },
   "require": {
     "php": ">=5.2.4"
   }
