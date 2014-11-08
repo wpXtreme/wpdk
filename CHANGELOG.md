@@ -23,8 +23,15 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.7.2
 ### 2014-11-??
 
+#### Enhancements
+
+* Added `WPDKUIControlURL`
 * Added `composer.json`
 * Added jQuery tabs vertical support
+
+#### Improvements
+
+* Improved style sheets
 
 ## Version 1.7.1
 ### 2014-11-05

@@ -5,9 +5,11 @@
  *
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-11-11
- * @version            0.8.3
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-08
+ * @version            1.0.0
+ *
+ * @history            1.0.0 - Added `WPDKUIControlURL`
  *
  */
 class WPDKUIControlType {
@@ -37,6 +39,7 @@ class WPDKUIControlType {
   const SWITCHBOX   = 'WPDKUIControlSwitch';
   const TEXT        = 'WPDKUIControlText';
   const TEXTAREA    = 'WPDKUIControlTextarea';
+  const URL         = 'WPDKUIControlURL';
 }
 
 /**
@@ -2412,6 +2415,63 @@ class WPDKUIControlTextarea extends WPDKUIControl {
 
     echo $this->contentWithKey( 'append' );
   }
+}
+
+/**
+ * URL control.
+ *
+ *     $item = array(
+ *         'type'           => WPDKUIControlType::URL,
+ *         'label'          => 'Left label',
+ *         'id'             => 'id',
+ *         'name'           => 'name',
+ *         'beforelabel'    => '',
+ *         'afterlabel'     => ':',
+ *         'value'          => 'Button Text',
+ *         'attrs'          => array(),
+ *         'data'           => array(),
+ *         'class'          => array(),
+ *         'style'          => '',
+ *         'title'          => 'This title is a tooltip',
+ *         'prepend'        => '',
+ *         'append'         => '',
+ *     );
+ *
+ * @class              WPDKUIControlURL
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-08
+ * @version            1.0.0
+ *
+ */
+class WPDKUIControlURL extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlURL class
+   *
+   * @brief Construct
+   * @since 1.7.2
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlURL
+   */
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::URL;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    $this->inputType( WPDKHTMLTagInputType::URL );
+  }
+
 }
 
 /**
