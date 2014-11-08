@@ -1370,6 +1370,12 @@ class WPDKUsers {
       $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
 
+      /**
+       * Filter the user status description.
+       *
+       * @param string $description User stats description.
+       * @param int    $user_id     The user id.
+       */
       $status_description = apply_filters( 'wpdk_users_status_description', '', $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS_DESCRIPTION, $status_description );
     }
