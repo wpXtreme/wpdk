@@ -121,8 +121,8 @@ div.meta-box-sortables div.wpdk-border-container
  * =====================================================================================================================
  */
 
-form#wpdk-preferences input[name=wpdk_preferences_export],
-form#wpdk-preferences input[name=wpdk_preferences_reset_all]
+form#wpdk-preferences input[name="wpdk_preferences_export"],
+form#wpdk-preferences input[name="wpdk_preferences_reset_all"]
 {
   margin : 0 0 0 8px;
 }
@@ -201,7 +201,19 @@ textarea.wpdk-form-textarea:focus
  * =====================================================================================================================
  */
 
+input.wpdk-ui-control[type="date"],
+input.wpdk-ui-control[type="datetime"],
+input.wpdk-ui-control[type="datetime-local"],
+input.wpdk-ui-control[type="email"],
+input.wpdk-ui-control[type="month"],
+input.wpdk-ui-control[type="number"],
+input.wpdk-ui-control[type="password"],
+input.wpdk-ui-control[type="search"],
+input.wpdk-ui-control[type="tel"],
 input.wpdk-ui-control[type="text"],
+input.wpdk-ui-control[type="time"],
+input.wpdk-ui-control[type="url"],
+input.wpdk-ui-control[type="week"],
 select.wpdk-ui-control,
 textarea.wpdk-ui-control
 {
@@ -227,16 +239,17 @@ textarea.wpdk-ui-control
   transition            : box-shadow linear 0.2s;
 }
 
-input.wpdk-ui-control[type="number"]
+textarea.wpdk-ui-control
 {
-  padding: 3px;
+  width: -webkit-calc(100% - 160px);
+  width: calc(100% - 160px);
 }
 
 @media (max-width : 780px )
 {
   input.wpdk-ui-control[type="text"],
   select.wpdk-ui-control,
-  textarea.wpdk-ui-contr
+  textarea.wpdk-ui-control
   {
     line-height : 22px;
   }
@@ -364,10 +377,10 @@ input.wpdk-form-input,
 textarea.wpdk-form-textarea,
 select.wpdk-form-select
 {
-  width                 : auto;
+  /*width                 : auto;*/
   border                : 1px solid #dfdfdf;
   background-color      : #fff;
-  padding               : 6px;
+  /*padding               : 6px;*/
   margin                : 0 4px 0 2px;
   color                 : #444;
   outline               : none;

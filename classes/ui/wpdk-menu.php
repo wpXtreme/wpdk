@@ -528,12 +528,12 @@ class WPDKSubMenu {
    */
   const DEFAULT_CAPABILITY = 'read';
 
-  public $capability = self::DEFAULT_CAPABILITY;
-  public $hookName = '';
-  public $id = '';
-  public $menuTitle = '';
-  public $pageTitle = '';
-  public $parent = '';
+  public $capability     = self::DEFAULT_CAPABILITY;
+  public $hookName       = '';
+  public $id             = '';
+  public $menuTitle      = '';
+  public $pageTitle      = '';
+  public $parent         = '';
   public $viewController = '';
 
   /**
@@ -813,7 +813,8 @@ class WPDKSubMenuDivider extends WPDKSubMenu {
    *
    * @return WPDKSubMenuDivider
    */
-  public function __construct( $parent, $title = '' ) {
+  public function __construct( $parent, $title = '' )
+  {
     static $index = 1;
     $id = sprintf( '%s-%s', self::DIVIDER, $index++ );
     parent::__construct( $parent, $id, $title );
