@@ -726,7 +726,7 @@ label.wpdk-form-label
 {
   line-height    : 100%;
   vertical-align : middle;
-  margin         : 0 6px 0 6px;
+  margin         : 0 6px 0 12px;
 }
 
 label.wpdk-form-label.wpdk-form-label-on-top
