@@ -25,6 +25,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Enhancements
 
+* Renamed `wpdk_post_placeholders_array` filter in `wpdk_post_placeholders_replace`
 * Added `WPDKUIControlURL`
 * Added `composer.json`
 * Added jQuery tabs vertical support

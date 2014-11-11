@@ -153,17 +153,57 @@ class WPDKMail extends WPDKPost {
       $subject = apply_filters( 'the_title', $this->post_title );
     }
 
-    // Apply standard filter
-    $placeholders = apply_filters( 'wpdk_post_placeholders_array', $placeholders, $user_id );
+    /**
+     * Filter the key value pairs array with placeholder and value.
+     *
+     * @param array    $placeholders The array with placeholders.
+     * @param int      $user_id      Optional. User id or FALSE for current user logged in. This param could be set
+     *                               to -1, in this case the original to email is an external address: no WordPress user.
+     * @param WPDKMail $mail         An instance of WPDKMail class.
+     */
+    $placeholders = apply_filters( 'wpdk_post_placeholders_replace', $placeholders, $user_id, $this );
+
+    /**
+     * Filter the key value pairs array with placeholder and value.
+     *
+     * The dynamic portion of the hook name, $mail_id, refers to the mail id.
+     *
+     * @since 1.7.2
+     *
+     * @param array    $placeholders The array with placeholders.
+     * @param int      $user_id      Optional. User id or FALSE for current user logged in. This param could be set
+     *                               to -1, in this case the original to email is an external address: no WordPress user.
+     * @param WPDKMail $mail         An instance of WPDKMail class.
+     */
+    $placeholders = apply_filters( 'wpdk_post_placeholders_replace-' . $this->ID, $placeholders, $user_id, $this );
+
+    // Apply filter
+    $content = apply_filters( 'the_content', $this->post_content );
 
     /**
      * Filter the content of mail.
      *
-     * @param string $content      The content of mail.
-     * @param int    $user_id      The user ID.
-     * @param array  $placeholders The array of placeholders.
+     * @param string $content        The content of mail.
+     * @param int    $user_id        Optional. User id or FALSE for current user logged in. This param could be set
+     *                               to -1, in this case the original to email is an external address: no WordPress user.
+     * @param array  $placeholders   The array of placeholders.
      */
-    $body = apply_filters( 'wpdk_post_placeholders_content', $this->post_content, $user_id, $placeholders );
+    $body = apply_filters( 'wpdk_post_placeholders_content', $content, $user_id, $placeholders );
+
+    /**
+     * Filter the content of mail.
+     *
+     * The dynamic portion of the hook name, $mail_id, refers to the mail id.
+     *
+     * @since 1.7.2
+     *
+     * @param string   $content      The content of mail.
+     * @param int      $user_id      Optional. User id or FALSE for current user logged in. This param could be set
+     *                               to -1, in this case the original to email is an external address: no WordPress user.
+     * @param array    $placeholders The array of placeholders.
+     * @param WPDKMail $mail         An instance of WPDKMail class.
+     */
+    $body = apply_filters( 'wpdk_post_placeholders_content-' . $this->ID, $body, $user_id, $placeholders, $this );
 
     try {
       $result = wp_mail( $to, $subject, $body, $this->headers() );
