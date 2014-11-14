@@ -15,9 +15,9 @@
 
 .wpdk-column
 {
-  -moz-column-gap      : 32px;
-  -webkit-column-gap   : 32px;
-  column-gap           : 32px;
+  -moz-column-gap    : 32px;
+  -webkit-column-gap : 32px;
+  column-gap         : 32px;
 }
 
 .wpdk-column-2
@@ -239,12 +239,6 @@ textarea.wpdk-ui-control
   transition            : box-shadow linear 0.2s;
 }
 
-textarea.wpdk-ui-control
-{
-  width: -webkit-calc(100% - 160px);
-  width: calc(100% - 160px);
-}
-
 @media (max-width : 780px )
 {
   input.wpdk-ui-control[type="text"],
@@ -325,6 +319,8 @@ select.wpdk-ui-control + .wpdk-form-append
 
 textarea.wpdk-ui-control
 {
+  width              : -webkit-calc(100% - 160px);
+  width              : calc(100% - 160px);
   -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -726,7 +722,7 @@ label.wpdk-form-label
 {
   line-height    : 100%;
   vertical-align : middle;
-  margin         : 0 6px 0 6px;
+  margin         : 0 6px 0 12px;
 }
 
 label.wpdk-form-label.wpdk-form-label-on-top
@@ -769,7 +765,7 @@ label.inline
   display : inline;
 }
 
-/* validation */
+/* Validation */
 
 .wpdk-form-ok
 {
@@ -802,7 +798,7 @@ div.wpdk-form-description
   border-top            : none;
   color                 : #666;
   font-size             : 12px;
-  line-height           : 150%;
+  line-height           : 200%;
   text-align            : left;
   -moz-border-radius    : 0 0 2px 2px;
   -webkit-border-radius : 0 0 2px 2px;
@@ -877,7 +873,7 @@ label.wpdk-form-label-inline
 
 .wpdk-form-row label.wpdk-form-label-inline:first-child
 {
-  margin: 0;
+  margin : 0;
 }
 
 span.wpdk-ui-control.wpdk-ui-control-label

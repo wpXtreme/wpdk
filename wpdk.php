@@ -18,17 +18,16 @@ if ( !class_exists( 'WPDK' ) ) {
    * @class              WPDK
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
-   * @date               2014-10-24
-   * @version            0.10.6
+   * @date               2014-11-11
+   * @version            0.10.7
    *
    * @history            0.10.6 - Added `WPDKDB` class.
+   * @history            0.10.7 - Cleanup code.
    */
   final class WPDK {
 
     /**
      * The array of loading path related to any WPDK class.
-     *
-     * @brief The array of loading path related to any WPDK class.
      *
      * @var array $_wpdkClassLoadingPath
      *
@@ -38,8 +37,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Init the framework in singleton mode to avoid double include, action and inits.
-     *
-     * @brief This init method
      *
      * @return WPDK
      */
@@ -54,8 +51,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Create an instance of WPDK class and init the franework
-     *
-     * @brief Construct
      *
      * @return WPDK
      */
@@ -157,8 +152,6 @@ if ( !class_exists( 'WPDK' ) ) {
      * This function performs runtime autoloading of all WPDK classes, based on previous class registering executed
      * in includes method.
      *
-     * @brief Runtime autoloading of WPDK classes.
-     *
      * @since 0.10.0
      *
      * @param string $sClassName - The class that has to be loaded right now
@@ -179,8 +172,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Include external defines
-     *
-     * @brief Dynamic define
      */
     private function defines()
     {
@@ -190,8 +181,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Register all autoload classes and include all framework class files through SPL autoload logic
-     *
-     * @brief Autoload classes
      */
     private function registerClasses()
     {
@@ -544,8 +533,6 @@ if ( !class_exists( 'WPDK' ) ) {
     /**
      * Load a text domain for WPDK, like a plugin. In this relase WPDK has an own text domain. This feature could
      * miss in future release
-     *
-     * @brief Load WPDK text domain
      */
     public function load_plugin_textdomain()
     {
@@ -578,8 +565,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Return a Key values pairs array to localize Javascript
-     *
-     * @brief Localize string
      *
      * @return array
      */

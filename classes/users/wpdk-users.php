@@ -991,6 +991,17 @@ class WPDKUsers {
     // Fires after the 'About the User' settings table on the 'Edit User' screen.
     add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ) );
 
+    // Fires when styles are printed for a specific admin page based on $hook_suffix.
+    add_action( 'admin_print_styles-user-edit.php', array( $this, 'admin_print_styles_users_php') );
+    add_action( 'admin_print_styles-profile.php', array( $this, 'admin_print_styles_users_php') );
+
+    // Fires in <head> for a specific admin page based on $hook_suffix.
+    /*
+    add_action( 'admin_head-users.php', array( $this, 'admin_head_users_php' ) );
+    add_action( 'admin_head-user-edit.php', array( $this, 'admin_head_users_php' ) );
+    add_action( 'admin_head-profile.php', array( $this, 'admin_head_users_php' ) );
+    */
+
     // Fires before the page loads on the 'Edit User' screen.
     add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ) );
 
@@ -1002,6 +1013,24 @@ class WPDKUsers {
     // Filter the user contact methods.
     //add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
   }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   */
+  public function admin_print_styles_users_php()
+  {
+    wp_enqueue_style( 'wpdk-user-profile', WPDK_URI_CSS . 'wpdk-user-profile.css', false, WPDK_VERSION );
+  }
+
+  /**
+   * Fires in <head> for a specific admin page based on $hook_suffix.
+   *
+   * @note Not uset yet
+  public function admin_head_users_php()
+  {
+
+  }
+   */
 
   /**
    * Force an user logout when disabled or if in GET you pass wpdk_logout.
@@ -1499,16 +1528,36 @@ class WPDKUsers {
     $fields = apply_filters( 'wpdk_users_fields_profile', $fields, $profileuser );
 
     $layout = new WPDKUIControlsLayout( $fields );
-    $layout->display();
 
     /**
      * Fires after display the layout controls.
      *
      * You can use this action or `wpdk_users_fields_profile` filter to modify the default layout control array.
      *
+     * @deprecated since 1.7.2 - Use `wpdk_user_profile_tabs` filter instead
+     *
      * @param WP_User $profileuser The current WP_User object.
      */
     do_action( 'wpdk_users_show_user_profile', $profileuser );
+
+    // WPDK tabs
+    $tabs = array(
+      new WPDKjQueryTab( 'wpdk-user-profile', __( 'WPDK' ), '<div id="wpdk-user-profile">' . $layout->html() . '</div>' ),
+    );
+
+    /**
+     * Filter the tabs list used to extends user profile edit.
+     *
+     * @since 1.7.2
+     *
+     * @param array   $tabs        The array tabs list.
+     * @param WP_User $profileuser The current WP_User object.
+     */
+    $tabs = apply_filters( 'wpdk_user_profile_tabs', $tabs, $profileuser );
+
+    $jquery_tabs = new WPDKjQueryTabsView( 'wpdk-users', $tabs, true );
+    $jquery_tabs->display();
+
   }
 
   /**
