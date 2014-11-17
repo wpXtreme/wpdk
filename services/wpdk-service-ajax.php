@@ -168,7 +168,7 @@ if ( wpdk_is_ajax() ) {
         );
       }
 
-     	wp_die( json_encode( $return ) );
+      wp_send_json( $return );
 
     }
 
