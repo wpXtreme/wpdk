@@ -36,6 +36,10 @@ For more information on SemVer, please visit http://semver.org/.
 * Added `composer.json`
 * Added jQuery tabs vertical support
 
+#### Bugs
+
+* Fixed potential wrong json type in some autocomplete engine
+
 ## Version 1.7.1
 ### 2014-11-05
 
