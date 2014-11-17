@@ -19,8 +19,8 @@
  * In addition to initializing and recording, WPDKWordPressPlugin class performs for us a whole series of standard
  * procedures in the writing of Plugin, in addition to providing a lot of properties and methods really comfortable.
  *
- *     * Gets directly from standard WordPress comments prior information as to the description of the Plugin: plugin name,
- *       version, the text and the text domain domain path
+ *     * Gets directly from standard WordPress comments prior information as to the description of the Plugin: plugin
+ *     name, version, the text and the text domain domain path
  *     * Prepare a set of standard properties with paths and urls most commonly used
  *     * Provides a lot of hook to wrap (filters and actions) of most used WordPress
  *     * Prepare an instance of `WPDKWatchDog` object for own log
@@ -36,8 +36,8 @@
  *
  * @class              WPDKWordPressPlugin
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-08-19
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-14
  * @version            0.10.1
  *
  * @history            0.10.1 - Improved stability
@@ -262,20 +262,20 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     add_action( 'init', array( $this, 'preferences' ) );
 
     // Ajax
-    if ( wpdk_is_ajax() ) {
+    if( wpdk_is_ajax() ) {
       add_action( 'init', array( $this, 'ajax' ) );
     }
 
     // Admin backend area
-    if ( is_admin() ) {
+    if( is_admin() ) {
       add_action( 'init', array( $this, 'admin' ) );
       add_action( 'admin_init', array( $this, 'admin_init' ) );
     }
     // Improve since v1.4.13 - Frontnend
-    elseif ( ! isset( $GLOBALS['pagenow'] ) || isset( $GLOBALS['pagenow'] ) && ! in_array( $GLOBALS['pagenow'], array(
-          'wp-login.php',
-          'wp-register.php'
-        ) )
+    elseif( !isset( $GLOBALS[ 'pagenow' ] ) || isset( $GLOBALS[ 'pagenow' ] ) && !in_array( $GLOBALS[ 'pagenow' ], array(
+        'wp-login.php',
+        'wp-register.php'
+      ) )
     ) {
       add_action( 'init', array( $this, 'theme' ) );
     }
@@ -310,7 +310,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public static function protocol()
   {
-    return ( isset( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+    return ( isset( $_SERVER[ 'HTTPS' ] ) && 'on' == $_SERVER[ 'HTTPS' ] ) ? 'https://' : 'http://';
   }
 
   /**
@@ -335,27 +335,27 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   public static function currentURL()
   {
     $protocol = self::protocol();
-    $port     = ( '80' != $_SERVER['SERVER_PORT'] ) ? ':' . $_SERVER['SERVER_PORT'] : '';
+    $port     = ( '80' != $_SERVER[ 'SERVER_PORT' ] ) ? ':' . $_SERVER[ 'SERVER_PORT' ] : '';
 
     // Get host by HTTP_X_FORWARDED_HOST. This is available from PHP 5.1+ and in a proxy server
-    if ( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
-      $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-      if ( ! empty( $host ) ) {
+    if( isset( $_SERVER[ 'HTTP_X_FORWARDED_HOST' ] ) ) {
+      $host = $_SERVER[ 'HTTP_X_FORWARDED_HOST' ];
+      if( !empty( $host ) ) {
         $elements = explode( ',', $host );
         $host     = trim( end( $elements ) );
       }
     }
     else {
-      $host = $_SERVER['HTTP_HOST'];
-      if ( empty( $host ) ) {
-        $host = $_SERVER['SERVER_NAME'];
-        if ( empty( $host ) ) {
-          $host = ! empty( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : '';
+      $host = $_SERVER[ 'HTTP_HOST' ];
+      if( empty( $host ) ) {
+        $host = $_SERVER[ 'SERVER_NAME' ];
+        if( empty( $host ) ) {
+          $host = !empty( $_SERVER[ 'SERVER_ADDR' ] ) ? $_SERVER[ 'SERVER_ADDR' ] : '';
         }
       }
     }
 
-    return sprintf( '%s%s%s%s', $protocol, $host, $port, $_SERVER['REQUEST_URI'] );
+    return sprintf( '%s%s%s%s', $protocol, $host, $port, $_SERVER[ 'REQUEST_URI' ] );
   }
 
   /**
@@ -380,22 +380,22 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   {
 
     // 1.
-    if ( is_string( $sLoadingPath ) && is_string( $mClassName ) && ! empty( $mClassName ) ) {
+    if( is_string( $sLoadingPath ) && is_string( $mClassName ) && !empty( $mClassName ) ) {
       $sClassNameLowerCased                                      = strtolower( $mClassName );
       $this->_wpxPluginClassLoadingPath[ $sClassNameLowerCased ] = $sLoadingPath;
     }
 
     // 2.
-    elseif ( is_array( $sLoadingPath ) ) {
-      foreach ( $sLoadingPath as $path => $classes ) {
-        if ( is_string( $classes ) ) {
+    elseif( is_array( $sLoadingPath ) ) {
+      foreach( $sLoadingPath as $path => $classes ) {
+        if( is_string( $classes ) ) {
           $class_name                                      = strtolower( $classes );
           $this->_wpxPluginClassLoadingPath[ $class_name ] = $path;
         }
 
         // 3.
-        elseif ( is_array( $classes ) ) {
-          foreach ( $classes as $class_name ) {
+        elseif( is_array( $classes ) ) {
+          foreach( $classes as $class_name ) {
             $class_name                                      = strtolower( $class_name );
             $this->_wpxPluginClassLoadingPath[ $class_name ] = $path;
           }
@@ -420,14 +420,14 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function autoloadEnvironment( $sClassName )
   {
-    if ( class_exists( $sClassName, false ) ) {
+    if( class_exists( $sClassName, false ) ) {
       return;
     }
 
     // For backward compatibility and for better matching
     $sClassNameLowerCased = strtolower( $sClassName );
 
-    if ( isset( $this->_wpxPluginClassLoadingPath[ $sClassNameLowerCased ] ) ) {
+    if( isset( $this->_wpxPluginClassLoadingPath[ $sClassNameLowerCased ] ) ) {
       require_once( $this->_wpxPluginClassLoadingPath[ $sClassNameLowerCased ] );
     }
   }
@@ -547,10 +547,11 @@ class WPDKWordPressPlugin extends WPDKPlugin {
  * @class              WPDKPlugin
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-09-24
- * @version            1.0.1
+ * @date               2014-11-14
+ * @version            1.0.2
  *
  * @history            1.0.1 - Removed deprecated
+ * @history            1.0.2 - Added `activeForNetwork` property to check whether the plugin is active for the entire network.
  *
  */
 class WPDKPlugin {
@@ -639,7 +640,10 @@ class WPDKPlugin {
   public $name = '';
 
   /**
-   * The Network activation get from `get_plugin_data()`, 'Network' parameter
+   * The Network activation get from `get_plugin_data()`, 'Network' parameter.
+   *
+   * Checks for "Network: true" in the plugin header to see if this should be activated only as a network wide plugin.
+   * The plugin would also work when Multisite is not enabled.
    *
    * @brief Network
    *
@@ -693,6 +697,15 @@ class WPDKPlugin {
   public $version = '';
 
   /**
+   * TRUE whether the plugin is active for the entire network.
+   *
+   * @since 1.7.2
+   *
+   * @var bool $activeForNetwork
+   */
+  public $activeForNetwork = false;
+
+  /**
    * Create an instance of WPDKPlugin class
    *
    * @brief Construct
@@ -706,29 +719,31 @@ class WPDKPlugin {
 
     $this->file = $file;
 
-    if ( ! is_null( $this->file ) ) {
+    if( !is_null( $this->file ) ) {
 
       // Use WordPress get_plugin_data() function for auto retrive plugin information.
-      if ( ! function_exists( 'get_plugin_data' ) ) {
+      if( !function_exists( 'get_plugin_data' ) ) {
         require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
       }
       $result = get_plugin_data( $this->file, false );
 
       $this->id             = plugin_basename( $this->file );
-      $this->author         = $result['Author'];
-      $this->authorURI      = $result['AuthorURI'];
-      $this->authorName     = $result['AuthorName'];
-      $this->description    = $result['Description'];
+      $this->author         = $result[ 'Author' ];
+      $this->authorURI      = $result[ 'AuthorURI' ];
+      $this->authorName     = $result[ 'AuthorName' ];
+      $this->description    = $result[ 'Description' ];
       $this->icon           = sprintf( '%s%s%s', WPDKWordPressPaths::pluginsURL(), trailingslashit( basename( dirname( $this->file ) ) ), 'assets/css/images/logo-64x64.png' );
-      $this->name           = $result['Name'];
-      $this->network        = $result['Network'];
-      $this->pluginURI      = $result['PluginURI'];
-      $this->textDomain     = $result['TextDomain'];
-      $this->textDomainPath = trailingslashit( basename( dirname( $this->file ) ) ) . $result['DomainPath'];
-      $this->title          = $result['Title'];
-      $this->version        = $result['Version'];
+      $this->name           = $result[ 'Name' ];
+      $this->network        = $result[ 'Network' ];
+      $this->pluginURI      = $result[ 'PluginURI' ];
+      $this->textDomain     = $result[ 'TextDomain' ];
+      $this->textDomainPath = trailingslashit( basename( dirname( $this->file ) ) ) . $result[ 'DomainPath' ];
+      $this->title          = $result[ 'Title' ];
+      $this->version        = $result[ 'Version' ];
       $this->active         = is_plugin_active( $this->id );
 
+      // @since 1.7.2 - Check whether the plugin is active for the entire network.
+      $this->activeForNetwork = is_plugin_active_for_network( $this->id );
     }
   }
 }
@@ -808,7 +823,7 @@ class WPDKPlugins {
   private function _initPluginsLists()
   {
 
-    if ( empty( $this->plugins ) ) {
+    if( empty( $this->plugins ) ) {
 
       // Get all installed plugins
       $all_plugins = get_plugins();
@@ -816,12 +831,12 @@ class WPDKPlugins {
       // Get all active plugins
       $this->_activePlugins = get_option( 'active_plugins' );
 
-      foreach ( $all_plugins as $key => $value ) {
+      foreach( $all_plugins as $key => $value ) {
         $file   = sprintf( '%s%s', trailingslashit( WP_PLUGIN_DIR ), $key );
         $plugin = new WPDKPlugin( $file );
 
         // Put this WPDKPlugin in wpXtreme list
-        if ( 'https://wpxtre.me' == $value['PluginURI'] ) {
+        if( 'https://wpxtre.me' == $value[ 'PluginURI' ] ) {
           $this->wpxPlugins[ $key ] = $plugin;
         }
 
@@ -841,7 +856,7 @@ class WPDKPlugins {
   static function getInstance()
   {
     static $instance = null;
-    if ( is_null( $instance ) ) {
+    if( is_null( $instance ) ) {
       $instance = new WPDKPlugins();
     }
 
