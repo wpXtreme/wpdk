@@ -297,7 +297,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
 
     // register_uninstall_hook( $file, array( $this, 'uninstall' ) );
 
-    // Widgets init
+    // Fires after all default WordPress widgets have been registered.
     add_action( 'widgets_init', array( $this, 'widgets' ) );
   }
 
@@ -525,7 +525,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   }
 
   /**
-   * Called by action hook `widget_init`
+   * Fires after all default WordPress widgets have been registered.
    *
    * @brief Widget init
    *
