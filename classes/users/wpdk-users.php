@@ -229,6 +229,16 @@ class WPDKUser extends WP_User {
   public $nice_name;
 
   /**
+   * WordPress user login.
+   *
+   * @brief User login
+   * @since 1.7.2
+   *
+   * @var string $user_login
+   */
+  public $user_login;
+
+  /**
    * Compose first name and last name
    *
    * @brief Full name
@@ -338,6 +348,7 @@ class WPDKUser extends WP_User {
       $this->first_name        = $this->get( 'first_name' );
       $this->last_name         = $this->get( 'last_name' );
       $this->nice_name         = $this->data->user_nicename;
+      $this->user_login        = $this->data->user_login;
       $this->full_name         = $this->full_name( $this->first_name, $this->last_name );
       $this->display_name      = $this->data->display_name;
       $this->email             = sanitize_email( $this->data->user_email );
@@ -1191,7 +1202,7 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Do a WordPress Sign in and call filters and action
+   * Do a WordPress Sign in and call filters and action. Return TRUE if success, FALSE for access denied.
    *
    * @brief Signin
    *
@@ -1199,7 +1210,7 @@ class WPDKUsers {
    * @param string     $password Password
    * @param bool       $remember Optional. TRUE for set a cookie for next login
    *
-   * @return bool TRUE if success, FALSE for access denied
+   * @return bool
    */
   public function signIn( $user, $password, $remember = false )
   {

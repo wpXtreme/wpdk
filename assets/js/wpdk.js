@@ -1253,7 +1253,7 @@ jQuery( function ( $ )
                 query       : $( element ).data( 'query' ) || ["user_login","user_nicename","user_email"],
                 term        : request.term
               }, function( data ) {
-                response( $.parseJSON( data ) );
+                response( data );
               });
           },
 
@@ -1351,7 +1351,7 @@ jQuery( function ( $ )
                 },
                 function ( data )
                 {
-                  response( $.parseJSON( data ) );
+                  response( data );
                 } );
             },
             select    : function ( event, ui )
