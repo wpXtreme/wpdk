@@ -1202,7 +1202,7 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Do a WordPress Sign in and call filters and action
+   * Do a WordPress Sign in and call filters and action. Return TRUE if success, FALSE for access denied.
    *
    * @brief Signin
    *
@@ -1210,7 +1210,7 @@ class WPDKUsers {
    * @param string     $password Password
    * @param bool       $remember Optional. TRUE for set a cookie for next login
    *
-   * @return bool TRUE if success, FALSE for access denied
+   * @return bool
    */
   public function signIn( $user, $password, $remember = false )
   {

@@ -90,10 +90,10 @@ if ( !class_exists( 'WPDK' ) ) {
       }
 
       // Enqueue scripts for all admin pages.
-      add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 1 );
+      add_action( 'admin_enqueue_scripts', array( $this, 'localize_scripts' ), 1 );
 
       // Fires when scripts and styles are enqueued.
-      add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+      add_action( 'wp_head', array( $this, 'localize_scripts' ), 1  );
 
       /**
        * Fires when WPDK is loaded.
@@ -540,24 +540,9 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * Enqueue scripts for all admin pages.
-     *
-     * @since WP 2.8.0
-     *
-     * @param string $hook_suffix The current admin page.
+     * Localize WPDK for back and frontend.
      */
-    public function admin_enqueue_scripts( $hook_suffix )
-    {
-      // Localize wpdk_i18n
-      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
-    }
-
-    /**
-   	 * Fires when scripts and styles are enqueued.
-   	 *
-   	 * @since WP 2.8.0
-   	 */
-    public function wp_enqueue_scripts()
+    public function localize_scripts( $hook_suffix )
     {
       // Localize wpdk_i18n
       wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );

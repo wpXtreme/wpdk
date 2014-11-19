@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.7.2
-### 2014-11-??
+### 2014-11-19
 
 #### Improvements
 
@@ -38,6 +38,7 @@ For more information on SemVer, please visit http://semver.org/.
 
 #### Bugs
 
+* Fixed potential Javascript warning in localize script when no user logged in
 * Fixed potential wrong json type in some autocomplete engine
 
 ## Version 1.7.1
