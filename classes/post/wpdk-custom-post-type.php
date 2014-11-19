@@ -432,7 +432,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * Fires in <head> for a specific admin page based on $hook_suffix.
    *
-   * @brief Post
+   * @brief Post Edit
+   *
    * @since 1.6.0
    */
   public function _admin_head_post_php()
@@ -440,7 +441,7 @@ class WPDKCustomPostType extends WPDKObject {
     if ( $this->is() ) {
 
       /**
-       * Fires when this custom post type is list.
+       * Fires when this custom post type is edit.
        *
        * The dynamic portion of the hook name, $id, refers to the custom post type id.
        */
@@ -451,7 +452,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * Fires in <head> for a specific admin page based on $hook_suffix.
    *
-   * @brief Post edit
+   * @brief Posts list view
+   *
    * @since 1.6.0
    */
   public function _admin_head_edit_php()
@@ -459,7 +461,7 @@ class WPDKCustomPostType extends WPDKObject {
     if ( $this->is() ) {
 
       /**
-       * Fires when this custom post type is edit.
+       * Fires when this custom post type is list in table view.
        *
        * The dynamic portion of the hook name, $id, refers to the custom post type id.
        */
@@ -490,7 +492,8 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
-   * @brief Post
+   * @brief Post Edit
+   *
    * @since 1.6.0
    */
   public function _admin_print_styles_post_php()
@@ -498,7 +501,7 @@ class WPDKCustomPostType extends WPDKObject {
     if ( $this->is() ) {
 
       /**
-       * Fires when this custom post type is list.
+       * Fires when this custom post type is edit.
        *
        * The dynamic portion of the hook name, $id, refers to the custom post type id.
        */
@@ -509,7 +512,7 @@ class WPDKCustomPostType extends WPDKObject {
   /**
    * Fires when styles are printed for a specific admin page based on $hook_suffix.
    *
-   * @brief Post edit
+   * @brief Posts list view
    * @since 1.6.0
    */
   public function _admin_print_styles_edit_php()
@@ -517,7 +520,7 @@ class WPDKCustomPostType extends WPDKObject {
     if ( $this->is() ) {
 
       /**
-       * Fires when this custom post type is edit.
+       * Fires when this custom post type is list in table view.
        *
        * The dynamic portion of the hook name, $id, refers to the custom post type id.
        */

@@ -862,7 +862,7 @@ jQuery( function ( $ )
 {
   "use strict";
 
-  /*!
+  /**
    * jQuery Cookie Plugin v1.4.1
    * https://github.com/carhartl/jquery-cookie
    *
@@ -1140,17 +1140,26 @@ jQuery( function ( $ )
         $( document ).on( WPDKUIComponents.REFRESH_JQUERY_TABS, _initTabs );
 
         // Get tabs
-        var tabs = $( '.wpdk-tabs' );
+        var $tabs = $( '.wpdk-tabs' );
 
-        // Init
-        tabs.tabs();
+        // Get layout
+        var layout = $tabs.data( 'layout' ) || 'horizontal';
+
+        // Build layout
+        if( 'vertical' == layout ) {
+          $tabs.tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+          $tabs.find( 'li').removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+        }
+        else {
+          $tabs.tabs();
+        }
 
         if ( document.location.href.indexOf( '#' ) > 0 ) {
           // OoO
         }
         // Enable cookie tabs remember
         else {
-          tabs.each( function ()
+          $tabs.each( function ()
           {
             var id = $( this ).attr( "id" );
             if ( 'undefined' !== typeof(id) ) {
@@ -1244,7 +1253,7 @@ jQuery( function ( $ )
                 query       : $( element ).data( 'query' ) || ["user_login","user_nicename","user_email"],
                 term        : request.term
               }, function( data ) {
-                response( $.parseJSON( data ) );
+                response( data );
               });
           },
 
@@ -1342,7 +1351,7 @@ jQuery( function ( $ )
                 },
                 function ( data )
                 {
-                  response( $.parseJSON( data ) );
+                  response( data );
                 } );
             },
             select    : function ( event, ui )

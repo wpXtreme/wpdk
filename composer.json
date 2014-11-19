@@ -1,0 +1,44 @@
+{
+  "name": "wpxtreme/wpdk",
+  "version": "1.7.2",
+  "homepage": "https://wpdk.io",
+  "license": "GPL",
+  "type": "framework",
+  "description": "Awesome WordPress Development Kit framework",
+  "keywords": [
+    "wordpress",
+    "wpxtreme",
+    "plugin",
+    "theme"
+  ],
+  "authors": [
+    {
+    "name": "wpXtreme, Inc.",
+    "email": "info@wpxtre.me",
+    "homepage" : "https://wpxtre.me"
+    },
+    {
+    "name": "Giovambattista Fazioli",
+    "email": "g.fazioli@wpxtre.me",
+    "homepage" : "http://undolog.com"
+    }    
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpXtreme/wpdk.git"
+  },
+  "support": {
+    "email": "support@wpxtre.me",
+    "forum": "https://wpxtre.me/forums",
+    "issues" : "https://github.com/wpXtreme/wpdk/issues"
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-0": {
+    "wpdk": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.2.4"
+  }
+}

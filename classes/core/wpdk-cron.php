@@ -6,9 +6,11 @@
  * @class           WPDKCronSchedules
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-02-04
- * @version         1.0.0
+ * @date            2014-11-10
+ * @version         1.0.1
  * @since           1.4.20
+ *
+ * @history         1.0.1 - Added four times to daily
  *
  */
 class WPDKCronSchedules {
@@ -21,6 +23,7 @@ class WPDKCronSchedules {
   // WPDK Custom
   const HALF_HOUR   = 'wpdk_half_hour';
   const TWO_MINUTES = 'wpdk_two_minutes';
+  const FOURDAILY   = 'wpdk_fourdaily';
 
   /**
    * Return a singleton instance of WPDKCronSchedules class
@@ -71,6 +74,10 @@ class WPDKCronSchedules {
       self::TWO_MINUTES => array(
         'interval' => MINUTE_IN_SECONDS * 2,
         'display'  => __( 'Two minutes', WPDK_TEXTDOMAIN )
+      ),
+      self::FOURDAILY => array(
+        'interval' => HOUR_IN_SECONDS * 8,
+        'display'  => __( 'Four times daily', WPDK_TEXTDOMAIN )
       ),
     );
 

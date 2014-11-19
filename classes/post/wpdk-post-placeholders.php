@@ -56,22 +56,21 @@ class WPDKPostPlaceholders {
     // Filter the content with standard placeholder
     add_filter( 'wpdk_post_placeholders_content', array( $this, 'wpdk_post_placeholders_content' ), 10, 4 );
 
-    // Filter the standard WPDK (Core) array
-    add_filter( 'wpdk_post_placeholders_array', array( $this, 'wpdk_post_placeholders_array' ), 10, 2 );
+    // Filter the key value pairs array with placeholder and value.
+    add_filter( 'wpdk_post_placeholders_replace', array( $this, 'wpdk_post_placeholders_replace' ), 10, 2 );
   }
 
   /**
-   * Return a standard array with user placeholder and values.
+   * Filter the key value pairs array with placeholder and value.
    *
-   * @since 1.5.8
-   *
-   * @param array $array   Optional. A custom key value array.
-   * @param bool  $user_id Optional. User id or FALSE for current user logged in. This param could be set to -1, in this
-   *                       case the original to email is an external address: no WordPress user.
+   * @param array    $placeholders The array with placeholders.
+   * @param int      $user_id      Optional. User id or FALSE for current user logged in. This param could be set
+   *                               to -1, in this case the original to email is an external address: no WordPress user.
+   * @param WPDKMail $mail         An instance of WPDKMail class.
    *
    * @return array
    */
-  public function wpdk_post_placeholders_array( $array = array(), $user_id = false )
+  public function wpdk_post_placeholders_replace( $array = array(), $user_id = false )
   {
     // If user id is empty but nobody is logged in exit
     if ( ( empty( $user_id ) && ! is_user_logged_in() ) || $user_id < 0 ) {
@@ -109,7 +108,7 @@ class WPDKPostPlaceholders {
   public function wpdk_post_placeholders_content( $content, $user_id = false, $replace_pairs = array(), $args = array() )
   {
     // Merge
-    $replaces = apply_filters( 'wpdk_post_placeholders_array', $replace_pairs, $user_id );
+    $replaces = apply_filters( 'wpdk_post_placeholders_replace', $replace_pairs, $user_id );
 
     return strtr( $content, $replaces );
   }

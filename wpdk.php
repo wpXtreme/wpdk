@@ -18,17 +18,16 @@ if ( !class_exists( 'WPDK' ) ) {
    * @class              WPDK
    * @author             =undo= <info@wpxtre.me>
    * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
-   * @date               2014-10-24
-   * @version            0.10.6
+   * @date               2014-11-11
+   * @version            0.10.7
    *
    * @history            0.10.6 - Added `WPDKDB` class.
+   * @history            0.10.7 - Cleanup code.
    */
   final class WPDK {
 
     /**
      * The array of loading path related to any WPDK class.
-     *
-     * @brief The array of loading path related to any WPDK class.
      *
      * @var array $_wpdkClassLoadingPath
      *
@@ -38,8 +37,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Init the framework in singleton mode to avoid double include, action and inits.
-     *
-     * @brief This init method
      *
      * @return WPDK
      */
@@ -54,8 +51,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Create an instance of WPDK class and init the franework
-     *
-     * @brief Construct
      *
      * @return WPDK
      */
@@ -95,10 +90,10 @@ if ( !class_exists( 'WPDK' ) ) {
       }
 
       // Enqueue scripts for all admin pages.
-      add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 1 );
+      add_action( 'admin_enqueue_scripts', array( $this, 'localize_scripts' ), 1 );
 
       // Fires when scripts and styles are enqueued.
-      add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+      add_action( 'wp_head', array( $this, 'localize_scripts' ), 1  );
 
       /**
        * Fires when WPDK is loaded.
@@ -157,8 +152,6 @@ if ( !class_exists( 'WPDK' ) ) {
      * This function performs runtime autoloading of all WPDK classes, based on previous class registering executed
      * in includes method.
      *
-     * @brief Runtime autoloading of WPDK classes.
-     *
      * @since 0.10.0
      *
      * @param string $sClassName - The class that has to be loaded right now
@@ -179,8 +172,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Include external defines
-     *
-     * @brief Dynamic define
      */
     private function defines()
     {
@@ -190,8 +181,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Register all autoload classes and include all framework class files through SPL autoload logic
-     *
-     * @brief Autoload classes
      */
     private function registerClasses()
     {
@@ -432,10 +421,11 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIControlText',
           'WPDKUIControlTextarea',
           'WPDKUIControlType',
+          'WPDKUIControlURL',
         ),
 
         $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog.php'            => 'WPDKUIModalDialog',
-        $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog-tour.php'            => 'WPDKUIModalDialogTour',
+        $sPathPrefix . 'classes/ui/wpdk-ui-modal-dialog-tour.php'       => 'WPDKUIModalDialogTour',
 
         $sPathPrefix . 'classes/ui/wpdk-ui-page-view.php'               => 'WPDKUIPageView',
 
@@ -543,8 +533,6 @@ if ( !class_exists( 'WPDK' ) ) {
     /**
      * Load a text domain for WPDK, like a plugin. In this relase WPDK has an own text domain. This feature could
      * miss in future release
-     *
-     * @brief Load WPDK text domain
      */
     public function load_plugin_textdomain()
     {
@@ -552,24 +540,9 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * Enqueue scripts for all admin pages.
-     *
-     * @since WP 2.8.0
-     *
-     * @param string $hook_suffix The current admin page.
+     * Localize WPDK for back and frontend.
      */
-    public function admin_enqueue_scripts( $hook_suffix )
-    {
-      // Localize wpdk_i18n
-      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
-    }
-
-    /**
-   	 * Fires when scripts and styles are enqueued.
-   	 *
-   	 * @since WP 2.8.0
-   	 */
-    public function wp_enqueue_scripts()
+    public function localize_scripts( $hook_suffix )
     {
       // Localize wpdk_i18n
       wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
@@ -577,8 +550,6 @@ if ( !class_exists( 'WPDK' ) ) {
 
     /**
      * Return a Key values pairs array to localize Javascript
-     *
-     * @brief Localize string
      *
      * @return array
      */

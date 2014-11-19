@@ -20,6 +20,27 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.7.2
+### 2014-11-19
+
+#### Improvements
+
+* Improved WPDK user profile UI
+* Minor CSS styles fixes and improvements
+* Improved style sheets
+
+#### Enhancements
+
+* Renamed `wpdk_post_placeholders_array` filter in `wpdk_post_placeholders_replace`
+* Added `WPDKUIControlURL`
+* Added `composer.json`
+* Added jQuery tabs vertical support
+
+#### Bugs
+
+* Fixed potential Javascript warning in localize script when no user logged in
+* Fixed potential wrong json type in some autocomplete engine
+
 ## Version 1.7.1
 ### 2014-11-05
 

@@ -229,6 +229,16 @@ class WPDKUser extends WP_User {
   public $nice_name;
 
   /**
+   * WordPress user login.
+   *
+   * @brief User login
+   * @since 1.7.2
+   *
+   * @var string $user_login
+   */
+  public $user_login;
+
+  /**
    * Compose first name and last name
    *
    * @brief Full name
@@ -338,6 +348,7 @@ class WPDKUser extends WP_User {
       $this->first_name        = $this->get( 'first_name' );
       $this->last_name         = $this->get( 'last_name' );
       $this->nice_name         = $this->data->user_nicename;
+      $this->user_login        = $this->data->user_login;
       $this->full_name         = $this->full_name( $this->first_name, $this->last_name );
       $this->display_name      = $this->data->display_name;
       $this->email             = sanitize_email( $this->data->user_email );
@@ -991,6 +1002,17 @@ class WPDKUsers {
     // Fires after the 'About the User' settings table on the 'Edit User' screen.
     add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ) );
 
+    // Fires when styles are printed for a specific admin page based on $hook_suffix.
+    add_action( 'admin_print_styles-user-edit.php', array( $this, 'admin_print_styles_users_php') );
+    add_action( 'admin_print_styles-profile.php', array( $this, 'admin_print_styles_users_php') );
+
+    // Fires in <head> for a specific admin page based on $hook_suffix.
+    /*
+    add_action( 'admin_head-users.php', array( $this, 'admin_head_users_php' ) );
+    add_action( 'admin_head-user-edit.php', array( $this, 'admin_head_users_php' ) );
+    add_action( 'admin_head-profile.php', array( $this, 'admin_head_users_php' ) );
+    */
+
     // Fires before the page loads on the 'Edit User' screen.
     add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ) );
 
@@ -1002,6 +1024,24 @@ class WPDKUsers {
     // Filter the user contact methods.
     //add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
   }
+
+  /**
+   * Fires when styles are printed for a specific admin page based on $hook_suffix.
+   */
+  public function admin_print_styles_users_php()
+  {
+    wp_enqueue_style( 'wpdk-user-profile', WPDK_URI_CSS . 'wpdk-user-profile.css', false, WPDK_VERSION );
+  }
+
+  /**
+   * Fires in <head> for a specific admin page based on $hook_suffix.
+   *
+   * @note Not uset yet
+  public function admin_head_users_php()
+  {
+
+  }
+   */
 
   /**
    * Force an user logout when disabled or if in GET you pass wpdk_logout.
@@ -1162,7 +1202,7 @@ class WPDKUsers {
   // -------------------------------------------------------------------------------------------------------------------
 
   /**
-   * Do a WordPress Sign in and call filters and action
+   * Do a WordPress Sign in and call filters and action. Return TRUE if success, FALSE for access denied.
    *
    * @brief Signin
    *
@@ -1170,7 +1210,7 @@ class WPDKUsers {
    * @param string     $password Password
    * @param bool       $remember Optional. TRUE for set a cookie for next login
    *
-   * @return bool TRUE if success, FALSE for access denied
+   * @return bool
    */
   public function signIn( $user, $password, $remember = false )
   {
@@ -1370,6 +1410,12 @@ class WPDKUsers {
       $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
 
+      /**
+       * Filter the user status description.
+       *
+       * @param string $description User stats description.
+       * @param int    $user_id     The user id.
+       */
       $status_description = apply_filters( 'wpdk_users_status_description', '', $user_id );
       update_user_meta( $user_id, WPDKUserMeta::STATUS_DESCRIPTION, $status_description );
     }
@@ -1493,16 +1539,36 @@ class WPDKUsers {
     $fields = apply_filters( 'wpdk_users_fields_profile', $fields, $profileuser );
 
     $layout = new WPDKUIControlsLayout( $fields );
-    $layout->display();
 
     /**
      * Fires after display the layout controls.
      *
      * You can use this action or `wpdk_users_fields_profile` filter to modify the default layout control array.
      *
+     * @deprecated since 1.7.2 - Use `wpdk_user_profile_tabs` filter instead
+     *
      * @param WP_User $profileuser The current WP_User object.
      */
     do_action( 'wpdk_users_show_user_profile', $profileuser );
+
+    // WPDK tabs
+    $tabs = array(
+      new WPDKjQueryTab( 'wpdk-user-profile', __( 'WPDK' ), '<div id="wpdk-user-profile">' . $layout->html() . '</div>' ),
+    );
+
+    /**
+     * Filter the tabs list used to extends user profile edit.
+     *
+     * @since 1.7.2
+     *
+     * @param array   $tabs        The array tabs list.
+     * @param WP_User $profileuser The current WP_User object.
+     */
+    $tabs = apply_filters( 'wpdk_user_profile_tabs', $tabs, $profileuser );
+
+    $jquery_tabs = new WPDKjQueryTabsView( 'wpdk-users', $tabs, true );
+    $jquery_tabs->display();
+
   }
 
   /**
