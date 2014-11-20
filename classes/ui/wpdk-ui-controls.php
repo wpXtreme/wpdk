@@ -6,10 +6,11 @@
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-11-08
- * @version            1.0.0
+ * @date               2014-11-20
+ * @version            1.0.2
  *
- * @history            1.0.0 - Added `WPDKUIControlURL`
+ * @history            1.0.1 - Added `WPDKUIControlURL`
+ * @history            1.0.2 - Added `inputTypeWithClass` public static method.
  *
  */
 class WPDKUIControlType {
@@ -40,6 +41,21 @@ class WPDKUIControlType {
   const TEXT        = 'WPDKUIControlText';
   const TEXTAREA    = 'WPDKUIControlTextarea';
   const URL         = 'WPDKUIControlURL';
+
+  /**
+   * Return the input type by WPDK control class name.
+   *
+   * @since 1.7.3
+   *
+   * @param string $class_name WPDK control class name.
+   *
+   * @return string
+   */
+  public static function inputTypeWithClass( $class_name )
+  {
+    return strtolower( str_replace( 'WPDKUIControl', '', $class_name ) );
+  }
+  
 }
 
 /**

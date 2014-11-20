@@ -196,12 +196,25 @@ class WPDKPreferences {
           // Reset to default a specified branch
           if ( isset( $_POST['reset-to-default-preferences'] ) ) {
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
+
             $preferences->$branch->defaults();
             $preferences->update();
+
+            /**
+             * Fires when preferences branch are reset to default.
+             *
+             * @since 1.7.3
+             *
+             * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
+             */
+            do_action( 'wpdk_preferences_reset_to_default_branch-' . $branch, $preferences->$branch );
           }
 
           // Update a specified branch
           elseif ( isset( $_POST['update-preferences'] ) ) {
+            
+            // TODO Replace (asap) with
+            //do_action( 'wpdk_flush_cache_third_parties_plugins' );
 
             // Since 1.5.2 - WP SuperCache patch
             if ( function_exists( 'wp_cache_clear_cache' ) ) {
@@ -215,15 +228,17 @@ class WPDKPreferences {
 
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
 
+            $preferences->$branch->update();
+            $preferences->update();
+
             /**
-             * Fires when preferences branch update will updated.
+             * Fires when preferences branch are updated.
+             *
+             * @since 1.7.3
              *
              * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
              */
-             //do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
-
-            $preferences->$branch->update();
-            $preferences->update();
+            do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
           }
         }
 

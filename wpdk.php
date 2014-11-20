@@ -69,6 +69,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // WPDK Cron schedules
       WPDKCronSchedules::init();
 
+      // Fires to flush (clear) the third parties plugins.
+      add_action( 'wpdk_flush_cache_third_parties_plugins', array( $this, 'wpdk_flush_cache_third_parties_plugins') );
+
       // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
@@ -99,6 +102,24 @@ if ( !class_exists( 'WPDK' ) ) {
        * Fires when WPDK is loaded.
        */
       do_action( 'WPDK' );
+    }
+
+    /**
+     * Fires to flush (clear) the third parties plugins.
+     *
+     * @since 1.7.3
+     */
+    public function wpdk_flush_cache_third_parties_plugins()
+    {
+      // WP SuperCache patch
+      if( function_exists( 'wp_cache_clear_cache' ) ) {
+        wp_cache_clear_cache();
+      }
+
+      // W3 Total Cache Plugin
+      if( function_exists( 'w3tc_pgcache_flush' ) ) {
+        w3tc_pgcache_flush();
+      }
     }
 
     /**
