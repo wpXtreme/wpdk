@@ -166,11 +166,30 @@ class WPDKPreferences {
      */
     $preferences = null;
 
-    $name        = sanitize_title( $name );
-    $preferences = isset( $instance[$name] ) ? $instance[$name] : ( empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true ) );
+    // Sanitize name
+    $name = sanitize_title( $name );
+
+    // Flag to store
+    $do_update = false;
+
+    // Check if static
+    if( isset( $instance[$name] ) ) {
+      $preferences = $instance[$name];
+    }
+    // From database
+    else {
+      $preferences = empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true );
+      $do_update = true;
+    }
 
     if ( !is_object( $preferences ) || !is_a( $preferences, $class_name ) ) {
-      $preferences = new $class_name( $name, $user_id );
+      $init = create_function( '$name,$user_id', 'return new ' . $class_name . '( $name, $user_id );' );
+      $preferences = $init( $name, $user_id );
+
+      // Do update?
+      if( $do_update ) {
+        $preferences->update();
+      }
     }
 
     if ( !empty( $version ) ) {
@@ -274,7 +293,7 @@ class WPDKPreferences {
    * @param string   $name    A string used as name for options. Make it unique more possible.
    * @param bool|int $user_id Optional. User ID
    */
-  protected function __construct( $name, $user_id = false )
+  public function __construct( $name, $user_id = false )
   {
     $this->name    = sanitize_title( $name );
     $this->user_id = $user_id;
@@ -352,7 +371,7 @@ class WPDKPreferences {
       // In rare case could happen that the stored class is different from onfly class
       if ( !is_a( $store_version, $subclass_name ) ) {
         $this->delete();
-        $instance->update();
+        call_user_func( array( $instance, 'update' ) );
       }
 
       // Do delta
