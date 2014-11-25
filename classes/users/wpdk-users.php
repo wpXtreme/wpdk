@@ -1367,6 +1367,8 @@ class WPDKUsers {
   /**
    * Create a WordPress user and return the user id on success, WP_Error otherwise.
    *
+   * @deprecated since 1.7.3 - Use `createWithArgs` instead
+   *
    * @param string      $first_name First name
    * @param string      $last_name  Last name
    * @param string      $email      Email address
@@ -1419,6 +1421,100 @@ class WPDKUsers {
 
     // Disable user if required
     if ( false === $enabled ) {
+
+      /**
+       * Filter the user status before update.
+       *
+       * @param string $status  The status id. Default `WPDKUserStatus::DISABLED`.
+       * @param int    $user_id The user id.
+       */
+      $status = apply_filters( 'wpdk_users_status', WPDKUserStatus::DISABLED, $user_id );
+      update_user_meta( $user_id, WPDKUserMeta::STATUS, $status );
+
+      /**
+       * Filter the user status description.
+       *
+       * @param string $description User stats description.
+       * @param int    $user_id     The user id.
+       */
+      $status_description = apply_filters( 'wpdk_users_status_description', '', $user_id );
+      update_user_meta( $user_id, WPDKUserMeta::STATUS_DESCRIPTION, $status_description );
+    }
+
+    return $user_id;
+  }
+
+  /**
+   * Create a WordPress user and return the user id on success, WP_Error otherwise.
+   *
+   * @since 1.7.3
+   *
+   * @param array $args {
+   *     An array user data arguments.
+   *
+   *     @type int         $ID              User ID. If supplied, the user will be updated.
+   *     @type string      $user_pass       The plain-text user password.
+   *     @type string      $user_login      The user's login username.
+   *     @type string      $user_nicename   The URL-friendly user name.
+   *     @type string      $user_url        The user URL.
+   *     @type string      $user_email      The user email address.
+   *     @type string      $display_name    The user's display name.
+   *                                        Default is the the user's username.
+   *     @type string              The user's nickname. Default
+   *                      $nickname                  Default is the the user's username.
+   *     @type string      $first_name      The user's first name. For new users, will be used
+   *                                        to build $display_name if unspecified.
+   *     @type stirng      $last_name       The user's last name. For new users, will be used
+   *                                        to build $display_name if unspecified.
+   *     @type string|bool $rich_editing    Whether to enable the rich-editor for the user. False
+   *                                        if not empty.
+   *     @type string      $date_registered Date the user registered. Format is 'Y-m-d H:i:s'.
+   *     @type string      $role            User's role.
+   *     @type string      $jabber          User's Jabber account username.
+   *     @type string      $aim             User's AIM account username.
+   *     @type string      $yim             User's Yahoo! messenger username.
+   *     @type bool        $enabled         Set TRUE to enable user. Default FALSE.
+   * }
+   *
+   * @return int|WP_Error
+   */
+  public function createWithArgs( $args )
+  {
+    // For security reason an user must have a password
+    if( empty( $args[ 'user_pass' ] ) ) {
+      $args[ 'user_pass' ] = WPDKCrypt::randomAlphaNumber();
+
+      /**
+       * Filter the auto generate user password.
+       *
+       * @param string $password A random alpha number password.
+       */
+      $args[ 'user_pass' ] = apply_filters( 'wpdk_users_random_password', $args[ 'user_pass' ] );
+    }
+
+    // Preset display name
+    if( empty( $args[ 'display_name' ] ) ) {
+      $args[ 'display_name' ] = WPDKUser::full_name( $args[ 'first_name' ], $args[ 'last_name' ] );
+    }
+
+    // Preset user role
+    if( empty( $args[ 'role' ] ) ) {
+      $args[ 'role' ] = 'subscriber';
+    }
+
+    $user_id = wp_insert_user( $args );
+
+    if( is_wp_error( $user_id ) ) {
+      return $user_id;
+    }
+
+    // Store IP Address
+    if( isset( $_SERVER[ 'REMOTE_ADDR' ] ) && !empty( $_SERVER[ 'REMOTE_ADDR' ] ) ) {
+      update_user_meta( $user_id, WPDKUserMeta::REMOTE_ADDR, $_SERVER[ 'REMOTE_ADDR' ] );
+    }
+
+    // Disable user if required
+    if( false === $args[ 'enabled' ] ) {
 
       /**
        * Filter the user status before update.
