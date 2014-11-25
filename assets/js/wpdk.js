@@ -1822,9 +1822,9 @@ jQuery( function ( $ )
       version,
       versions =
     {
-      'jQuery'                    : WPDKjQuery.jQueryVersion(),
-      'jQuery UI'                 : WPDKjQuery.jQueryUIVersion(),
-      'WPDK'                      : WPDK.version
+      'jQuery'    : WPDKjQuery.jQueryVersion(),
+      'jQuery UI' : WPDKjQuery.jQueryUIVersion(),
+      'WPDK'      : WPDK.version
     };
 
     for ( version in versions ) {
@@ -1833,7 +1833,7 @@ jQuery( function ( $ )
 
     var json = sprintf( '{%s}', cookie.join(',') );
 
-    $.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
+    jQuery.cookie( 'wpdk_javascript_library_versions', json, { path : '/' } );
   }();
 
   /**
