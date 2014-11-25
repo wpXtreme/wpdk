@@ -194,9 +194,11 @@ class WPDKUserStatus {
  *
  * @class              WPDKUser
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-02-11
- * @version            1.0.1
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-11-25
+ * @version            1.0.2
+ *
+ * @history            1.0.2 - Minor improves.
  *
  */
 class WPDKUser extends WP_User {
@@ -362,9 +364,11 @@ class WPDKUser extends WP_User {
   }
 
   /**
-   * Compose the first letter of first name and append last name, Eg. John Gold -> J.Gold
+   * Return a nice name by vompose the first letter of first name and append last name, Eg. John Gold -> J.Gold.
+   * If the first and last name are empty, return an empty string.
+   * If the firstname is empty, return last name and viceversa.
    *
-   * @brief Sanitize a nice name
+   * @brief Return a nice name by first and last name.
    *
    * @param string $firstName First name
    * @param string $lastName  Last name
@@ -373,32 +377,47 @@ class WPDKUser extends WP_User {
    */
   public static function nice_name( $firstName, $lastName )
   {
+    $result = '';
+
+    if( empty( $firstName ) && empty( $lastName ) ) {
+      return $result;
+    }
+
+    if( empty( $firstName ) ) {
+      return $lastName;
+    }
+
+    if( empty( $lastName ) ) {
+      return $firstName;
+    }
+
     $result = sprintf( '%s.%s', strtoupper( substr( $firstName, 0, 1 ) ), ucfirst( $lastName ) );
 
     return $result;
   }
 
   /**
-   * Merge first name and last name.
+   * Return a full name by first and last name.
    *
-   * @brief Sanitize a full name
+   * @brief Return a full name by first and last name.
    *
-   * @param string $firstName First name
-   * @param string $lastName  Last name
-   * @param bool   $nameFirst Optional. Default to TRUE [firstname lastname]. Set to FALSE to invert order
+   * @param string $firstName First name.
+   * @param string $lastName  Last name.
+   * @param bool   $nameFirst Optional. Default to TRUE [firstname lastname]. Set to FALSE to reverse order.
    *
    * @return string
    */
   public static function full_name( $firstName, $lastName, $nameFirst = true )
   {
-    if ( $nameFirst ) {
-      $result = sprintf( '%s %s', $firstName, $lastName );
-    }
-    else {
-      $result = sprintf( '%s %s', $lastName, $firstName );
+    // Stack
+    $stack = array( $firstName, $lastName );
+
+    // Reverse
+    if( $nameFirst ) {
+      $stack = array_reverse( $stack );
     }
 
-    return $result;
+    return implode( ' ', $stack );
   }
 
   /**
