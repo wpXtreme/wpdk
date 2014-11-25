@@ -203,17 +203,31 @@ class WPDKPreferences {
       }
     }
 
-    // Check for post data
-    if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
-      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) &&
-        $_POST['wpdk_preferences_class'] == get_class( $preferences )
-      ) {
+    // Check for post data and no ajax
+    if( !isset( $instance[ $name ] ) && !wpdk_is_ajax() ) {
+
+      // Get preferences class name
+      $preferences_class = isset( $_POST[ 'wpdk_preferences_class' ] ) ? $_POST[ 'wpdk_preferences_class' ] : false;
+
+      // Is it this preferences ?
+      if( false === $busy && !empty( $preferences_class ) && $preferences_class == get_class( $preferences ) ) {
+
+        // Avoid twice
         $busy = true;
-        if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
-          $branch = $_POST['wpdk_preferences_branch'];
+
+        // Get branch
+        $branch = isset( $_POST['wpdk_preferences_branch'] ) ? $_POST['wpdk_preferences_branch'] : false;
+
+        if ( !empty( $branch ) ) {
+
+          // Actions
+          $reset_to_default   = isset( $_POST[ 'reset-to-default-preferences' ] );
+          $update_preferences = isset( $_POST[ 'update-preferences' ] );
 
           // Reset to default a specified branch
-          if ( isset( $_POST['reset-to-default-preferences'] ) ) {
+          if ( $reset_to_default ) {
+
+            // Fires before display the view. You can add your custome feedback message.
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
 
             $preferences->$branch->defaults();
@@ -221,6 +235,8 @@ class WPDKPreferences {
 
             /**
              * Fires when preferences branch are reset to default.
+             *
+             * TODO This action is incomplete due missing preferences name. We could have more brabch with the same name!!!
              *
              * @since 1.7.3
              *
@@ -230,7 +246,7 @@ class WPDKPreferences {
           }
 
           // Update a specified branch
-          elseif ( isset( $_POST['update-preferences'] ) ) {
+          elseif ( $update_preferences ) {
             
             // TODO Replace (asap) with
             //do_action( 'wpdk_flush_cache_third_parties_plugins' );
