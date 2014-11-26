@@ -23,6 +23,7 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.7.3
 ### 2014-11-??
 
+* Added 14 news font icons
 * Improved WPDK Preferences with `wpdk_preferences_reset_to_default_branch-{$branch}`.
 * Improved WPDK Preferences with `wpdk_preferences_update_branch-{$branch}`.
 * Added `wpdk_flush_cache_third_parties_plugins` action in order to flush third parties plugins.

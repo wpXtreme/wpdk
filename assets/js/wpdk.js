@@ -635,7 +635,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
        * @private
        */
       var _WPDKGlyphIcons = {
-        version         : '1.0.2',
+        version         : '1.0.3',
         display         : _display,
         html            : _html,
 
@@ -717,7 +717,23 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
 
         // since 1.5.0
         HELP_CIRCLED    : 'wpdk-icon-help-circled',
-        INFO_CIRCLED    : 'wpdk-icon-info-circled'
+        INFO_CIRCLED    : 'wpdk-icon-info-circled',
+
+        // since 1.7.3
+        CALENDAR_EMPTY    : 'wpdk-icon-calendar-empty',
+        CALENDAR          : 'wpdk-icon-calendar',
+        CANCEL            : 'wpdk-icon-cancel',
+        DOC               : 'wpdk-icon-doc',
+        FILE_IMAGE        : 'wpdk-icon-file-image',
+        FOLDER_EMPTY      : 'wpdk-icon-folder-empty',
+        FOLDER_OPEN_EMPTY : 'wpdk-icon-folder-open-empty',
+        FOLDER_OPEN       : 'wpdk-icon-folder-open',
+        FOLDER            : 'wpdk-icon-folder',
+        MINUS_CIRCLED     : 'wpdk-icon-minus-circled',
+        OK_CIRCLED2       : 'wpdk-icon-ok-circled2',
+        OK_SQUARED        : 'wpdk-icon-ok-squared',
+        PIN               : 'wpdk-icon-pin',
+        PLUS_CIRCLED      : 'wpdk-icon-plus-circled'
 
       };
 
@@ -1686,7 +1702,7 @@ jQuery( function ( $ )
        * @private
        */
       var _WPDK = {
-        version        : '1.0.0',
+        version        : '1.7.3',
         init           : _init,
         loading        : _loading,
         reloadDocument : _reloadDocument
