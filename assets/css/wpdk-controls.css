@@ -798,7 +798,7 @@ div.wpdk-form-description
   border-top            : none;
   color                 : #666;
   font-size             : 12px;
-  line-height           : 200%;
+  line-height           : 150%;
   text-align            : left;
   -moz-border-radius    : 0 0 2px 2px;
   -webkit-border-radius : 0 0 2px 2px;
@@ -831,32 +831,32 @@ div.wpdk-form-description .code
  * GLYPH ICONS INTO THE CONTROL LAYOUT ARRAY
  * =====================================================================================================================
  */
-.wpdk-form-description .wpdk-icon-info-circled
+
+.wpdk-form-description > i[class^="wpdk-icon"],
+.wpdk-form-description > i[class*="wpdk-icon"]
 {
   font-size      : 24px;
+  vertical-align : text-bottom;
+}
+
+.wpdk-form-description .wpdk-icon-info-circled
+{
   color          : #6696e8;
-  vertical-align : middle;
 }
 
 .wpdk-form-description .wpdk-icon-attention
 {
-  font-size      : 24px;
   color          : #ef5456;
-  vertical-align : middle;
 }
 
 .wpdk-form-description .wpdk-icon-tag
 {
-  font-size      : 24px;
   color          : #70b46a;
-  vertical-align : middle;
 }
 
 .wpdk-form-description .wpdk-icon-ok
 {
-  font-size      : 24px;
   color          : #76a071;
-  vertical-align : middle;
 }
 
 /* =====================================================================================================================

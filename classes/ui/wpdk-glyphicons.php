@@ -14,7 +14,6 @@
 final class WPDKGlyphIcons extends WPDKObject {
 
   const ANGLE_DOWN      = 'wpdk-icon-angle-down';
-  const UPDOWN_CIRCLE   = 'wpdk-icon-updown-circle';
   const ANGLE_LEFT      = 'wpdk-icon-angle-left';
   const ANGLE_RIGHT     = 'wpdk-icon-angle-right';
   const ANGLE_UP        = 'wpdk-icon-angle-up';
@@ -57,40 +56,57 @@ final class WPDKGlyphIcons extends WPDKObject {
   const STAR_HALF       = 'wpdk-icon-star-half';
   const STAR_HALF_ALT   = 'wpdk-icon-star-half-alt';
   const TRASH           = 'wpdk-icon-trash';
+  const UPDOWN_CIRCLE   = 'wpdk-icon-updown-circle';
   const UP_OPEN         = 'wpdk-icon-up-open';
 
   // since 1.4.5
+  const APPLE           = 'wpdk-icon-apple';
+  const CANCEL_CIRCLED  = 'wpdk-icon-cancel-circled';
+  const COG             = 'wpdk-icon-cog';
   const EMO_HAPPY       = 'wpdk-icon-emo-happy';
   const EMO_UNHAPPY     = 'wpdk-icon-emo-unhappy';
-  const CANCEL_CIRCLED  = 'wpdk-icon-cancel-circled';
-  const THUMBS_UP_ALT   = 'wpdk-icon-thumbs-up-alt';
+  const FACEBOOK        = 'wpdk-icon-facebook';
+  const LEFT_BIG        = 'wpdk-icon-left-big';
+  const OFF             = 'wpdk-icon-off';
+  const RIGHT_BIG       = 'wpdk-icon-right-big';
+  const THUMBS_DOWN     = 'wpdk-icon-thumbs-down';
   const THUMBS_DOWN_ALT = 'wpdk-icon-thumbs-down-alt';
   const THUMBS_UP       = 'wpdk-icon-thumbs-up';
-  const THUMBS_DOWN     = 'wpdk-icon-thumbs-down';
-  const COG             = 'wpdk-icon-cog';
-  const UP_BIG          = 'wpdk-icon-up-big';
-  const LEFT_BIG        = 'wpdk-icon-left-big';
-  const RIGHT_BIG       = 'wpdk-icon-right-big';
-  const OFF             = 'wpdk-icon-off';
-  const FACEBOOK        = 'wpdk-icon-facebook';
-  const APPLE           = 'wpdk-icon-apple';
+  const THUMBS_UP_ALT   = 'wpdk-icon-thumbs-up-alt';
   const TWITTER         = 'wpdk-icon-twitter';
+  const UP_BIG          = 'wpdk-icon-up-big';
 
   // since 1.4.7
   const GOOGLE_PLUS     = 'wpdk-icon-gplus';
 
   // since 1.4.21
-  const FIREFOX         = 'wpdk-icon-firefox';
   const CHROME          = 'wpdk-icon-chrome';
-  const OPERA           = 'wpdk-icon-opera';
+  const DOC_INV         = 'wpdk-icon-doc-inv';
+  const FIREFOX         = 'wpdk-icon-firefox';
   const IE              = 'wpdk-icon-ie';
+  const OPERA           = 'wpdk-icon-opera';
   const TAG             = 'wpdk-icon-tag';
   const TAGS            = 'wpdk-icon-tags';
-  const DOC_INV         = 'wpdk-icon-doc-inv';
 
   // since 1.5.0
   const HELP_CIRCLED    = 'wpdk-icon-help-circled';
   const INFO_CIRCLED    = 'wpdk-icon-info-circled';
+
+  // since 1.7.3
+  const CALENDAR_EMPTY    = 'wpdk-icon-calendar-empty';
+  const CALENDAR          = 'wpdk-icon-calendar';
+  const CANCEL            = 'wpdk-icon-cancel';
+  const DOC               = 'wpdk-icon-doc';
+  const FILE_IMAGE        = 'wpdk-icon-file-image';
+  const FOLDER_EMPTY      = 'wpdk-icon-folder-empty';
+  const FOLDER_OPEN_EMPTY = 'wpdk-icon-folder-open-empty';
+  const FOLDER_OPEN       = 'wpdk-icon-folder-open';
+  const FOLDER            = 'wpdk-icon-folder';
+  const MINUS_CIRCLED     = 'wpdk-icon-minus-circled';
+  const OK_CIRCLED2       = 'wpdk-icon-ok-circled2';
+  const OK_SQUARED        = 'wpdk-icon-ok-squared';
+  const PIN               = 'wpdk-icon-pin';
+  const PLUS_CIRCLED      = 'wpdk-icon-plus-circled';
 
   /**
    * Override version

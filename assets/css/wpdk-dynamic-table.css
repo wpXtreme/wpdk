@@ -101,7 +101,6 @@ table.wpdk-dynamic-table .wpdk-dt-highlight .delete td
 table.wpdk-dynamic-table tbody td:first-child
 {
   border-left  : 1px solid #e5e5e5;
-  border-right : none;
 }
 
 table.wpdk-dynamic-table tbody td:last-child

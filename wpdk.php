@@ -69,6 +69,9 @@ if ( !class_exists( 'WPDK' ) ) {
       // WPDK Cron schedules
       WPDKCronSchedules::init();
 
+      // Fires to flush (clear) the third parties plugins.
+      add_action( 'wpdk_flush_cache_third_parties_plugins', array( $this, 'wpdk_flush_cache_third_parties_plugins') );
+
       // Load the translation of WPDK
       add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
@@ -89,16 +92,34 @@ if ( !class_exists( 'WPDK' ) ) {
         add_action( 'wp_loaded', array( 'WPDKServiceAjax', 'init' ) );
       }
 
-      // Enqueue scripts for all admin pages.
-      add_action( 'admin_enqueue_scripts', array( $this, 'localize_scripts' ), 1 );
+      // Fires when scripts are printed for all admin pages.
+      add_action( 'admin_print_scripts', array( $this, 'admin_print_scripts' ), 1 );
 
-      // Fires when scripts and styles are enqueued.
-      add_action( 'wp_head', array( $this, 'localize_scripts' ), 1  );
+      // Print scripts or data in the head tag on the front end.
+      add_action( 'wp_head', array( $this, 'wp_head' ), 1  );
 
       /**
        * Fires when WPDK is loaded.
        */
       do_action( 'WPDK' );
+    }
+
+    /**
+     * Fires to flush (clear) the third parties plugins.
+     *
+     * @since 1.7.3
+     */
+    public function wpdk_flush_cache_third_parties_plugins()
+    {
+      // WP SuperCache patch
+      if( function_exists( 'wp_cache_clear_cache' ) ) {
+        wp_cache_clear_cache();
+      }
+
+      // W3 Total Cache Plugin
+      if( function_exists( 'w3tc_pgcache_flush' ) ) {
+        w3tc_pgcache_flush();
+      }
     }
 
     /**
@@ -540,12 +561,33 @@ if ( !class_exists( 'WPDK' ) ) {
     }
 
     /**
-     * Localize WPDK for back and frontend.
+     * Fires when scripts are printed for all admin pages.
      */
-    public function localize_scripts( $hook_suffix )
+    public function admin_print_scripts()
     {
       // Localize wpdk_i18n
-      wp_localize_script( 'jquery', 'wpdk_i18n', $this->scriptLocalization() );
+      $this->wp_head();
+    }
+
+    /**
+     * Print scripts or data in the head tag on the front end.
+     */
+    public function wp_head()
+    {
+      $loc   = $this->scriptLocalization();
+      $stack = array();
+
+      foreach( $loc as $key => $value ) {
+        if( !is_scalar( $value ) ) {
+          continue;
+        }
+        $stack[ $key ] = html_entity_decode( (string)$value, ENT_QUOTES, 'UTF-8' );
+      }
+      ?>
+      <script type='text/javascript'>
+        var wpdk_i18n = <?php echo json_encode( $stack ) ?>;
+      </script>
+    <?php
     }
 
     /**
