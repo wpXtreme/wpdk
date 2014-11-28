@@ -20,6 +20,18 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.7.3
+### 2014-11-28
+
+* Added 14 news font icons
+* Improved WPDK Preferences with `wpdk_preferences_reset_to_default_branch-{$branch}`.
+* Improved WPDK Preferences with `wpdk_preferences_update_branch-{$branch}`.
+* Added `wpdk_flush_cache_third_parties_plugins` action in order to flush third parties plugins.
+* Added `WPDKUIControlType::inputTypeWithClass()` helper static method in order to retrive the HTML control type string.
+* Fixed dynamic table css styles.
+* Fixed potential Javascript warning in localize script on jQuery
+* Minor stability fixes
+
 ## Version 1.7.2
 ### 2014-11-19
 

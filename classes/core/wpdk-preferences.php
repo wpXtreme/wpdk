@@ -166,11 +166,30 @@ class WPDKPreferences {
      */
     $preferences = null;
 
-    $name        = sanitize_title( $name );
-    $preferences = isset( $instance[$name] ) ? $instance[$name] : ( empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true ) );
+    // Sanitize name
+    $name = sanitize_title( $name );
+
+    // Flag to store
+    $do_update = false;
+
+    // Check if static
+    if( isset( $instance[$name] ) ) {
+      $preferences = $instance[$name];
+    }
+    // From database
+    else {
+      $preferences = empty( $user_id ) ? get_option( $name ) : get_user_meta( $user_id, $name, true );
+      $do_update = true;
+    }
 
     if ( !is_object( $preferences ) || !is_a( $preferences, $class_name ) ) {
-      $preferences = new $class_name( $name, $user_id );
+      $init = create_function( '$name,$user_id', 'return new ' . $class_name . '( $name, $user_id );' );
+      $preferences = $init( $name, $user_id );
+
+      // Do update?
+      if( $do_update ) {
+        $preferences->update();
+      }
     }
 
     if ( !empty( $version ) ) {
@@ -184,24 +203,53 @@ class WPDKPreferences {
       }
     }
 
-    // Check for post data
-    if ( !isset( $instance[$name] ) && !wpdk_is_ajax() ) {
-      if ( false === $busy && isset( $_POST['wpdk_preferences_class'] ) && !empty( $_POST['wpdk_preferences_class'] ) &&
-        $_POST['wpdk_preferences_class'] == get_class( $preferences )
-      ) {
+    // Check for post data and no ajax
+    if( !isset( $instance[ $name ] ) && !wpdk_is_ajax() ) {
+
+      // Get preferences class name
+      $preferences_class = isset( $_POST[ 'wpdk_preferences_class' ] ) ? $_POST[ 'wpdk_preferences_class' ] : false;
+
+      // Is it this preferences ?
+      if( false === $busy && !empty( $preferences_class ) && $preferences_class == get_class( $preferences ) ) {
+
+        // Avoid twice
         $busy = true;
-        if ( isset( $_POST['wpdk_preferences_branch'] ) && !empty( $_POST['wpdk_preferences_branch'] ) ) {
-          $branch = $_POST['wpdk_preferences_branch'];
+
+        // Get branch
+        $branch = isset( $_POST['wpdk_preferences_branch'] ) ? $_POST['wpdk_preferences_branch'] : false;
+
+        if ( !empty( $branch ) ) {
+
+          // Actions
+          $reset_to_default   = isset( $_POST[ 'reset-to-default-preferences' ] );
+          $update_preferences = isset( $_POST[ 'update-preferences' ] );
 
           // Reset to default a specified branch
-          if ( isset( $_POST['reset-to-default-preferences'] ) ) {
+          if ( $reset_to_default ) {
+
+            // Fires before display the view. You can add your custome feedback message.
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_reset' ) );
+
             $preferences->$branch->defaults();
             $preferences->update();
+
+            /**
+             * Fires when preferences branch are reset to default.
+             *
+             * TODO This action is incomplete due missing preferences name. We could have more brabch with the same name!!!
+             *
+             * @since 1.7.3
+             *
+             * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
+             */
+            do_action( 'wpdk_preferences_reset_to_default_branch-' . $branch, $preferences->$branch );
           }
 
           // Update a specified branch
-          elseif ( isset( $_POST['update-preferences'] ) ) {
+          elseif ( $update_preferences ) {
+            
+            // TODO Replace (asap) with
+            //do_action( 'wpdk_flush_cache_third_parties_plugins' );
 
             // Since 1.5.2 - WP SuperCache patch
             if ( function_exists( 'wp_cache_clear_cache' ) ) {
@@ -215,15 +263,17 @@ class WPDKPreferences {
 
             add_action( 'wpdk_preferences_feedback-' . $branch, array( $preferences, 'wpdk_preferences_feedback_update' ) );
 
+            $preferences->$branch->update();
+            $preferences->update();
+
             /**
-             * Fires when preferences branch update will updated.
+             * Fires when preferences branch are updated.
+             *
+             * @since 1.7.3
              *
              * @param WPDKPreferencesBranch $branch An instance of WPDKPreferencesBranch class.
              */
-             //do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
-
-            $preferences->$branch->update();
-            $preferences->update();
+            do_action( 'wpdk_preferences_update_branch-' . $branch, $preferences->$branch );
           }
         }
 
@@ -259,7 +309,7 @@ class WPDKPreferences {
    * @param string   $name    A string used as name for options. Make it unique more possible.
    * @param bool|int $user_id Optional. User ID
    */
-  protected function __construct( $name, $user_id = false )
+  public function __construct( $name, $user_id = false )
   {
     $this->name    = sanitize_title( $name );
     $this->user_id = $user_id;
@@ -337,7 +387,7 @@ class WPDKPreferences {
       // In rare case could happen that the stored class is different from onfly class
       if ( !is_a( $store_version, $subclass_name ) ) {
         $this->delete();
-        $instance->update();
+        call_user_func( array( $instance, 'update' ) );
       }
 
       // Do delta
