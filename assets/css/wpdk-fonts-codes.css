@@ -83,3 +83,7 @@
 .wpdk-icon-file-image:before { content: '\e851'; } /* '' */
 .wpdk-icon-calendar:before { content: '\e852'; } /* '' */
 .wpdk-icon-calendar-empty:before { content: '\e853'; } /* '' */
+.wpdk-icon-link:before { content: '\e854'; } /* '' */
+.wpdk-icon-share:before { content: '\e855'; } /* '' */
+.wpdk-icon-user:before { content: '\e856'; } /* '' */
+.wpdk-icon-menu:before { content: '\e858'; } /* '' */
