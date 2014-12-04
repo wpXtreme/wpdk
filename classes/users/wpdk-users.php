@@ -1383,7 +1383,7 @@ class WPDKUsers {
 
     // For security reason an user must have a password
     if ( false === $password ) {
-      $password = WPDKCrypt::randomAlphaNumber();
+      $password = wp_generate_password( 20, false );
 
       /**
        * Fires when a random password is generated.
@@ -1482,7 +1482,7 @@ class WPDKUsers {
   {
     // For security reason an user must have a password
     if( empty( $args[ 'user_pass' ] ) ) {
-      $args[ 'user_pass' ] = WPDKCrypt::randomAlphaNumber();
+      $args[ 'user_pass' ] = wp_generate_password( 20, false );
 
       /**
        * Filter the auto generate user password.
