@@ -305,7 +305,7 @@ function wpdk_permalink_page_with_slug( $slug, $post_type = 'page' )
 
     // Check WPML
     if ( function_exists( 'icl_object_id' ) ) {
-      $sql = <<< SQL
+      $sql = <<<SQL
 SELECT ID FROM {$wpdb->posts}
 WHERE post_name = '{$slug}'
 AND post_type = '{$post_type}'
