@@ -222,7 +222,7 @@ function wpdk_selected( $haystack, $current, $echo = true )
  *
  * @param string $slug             Post slug
  * @param string $post_type        Post type
- * @param string $alternative_slug Alternative slug if post not found
+ * @param string $alternative_slug Optional. Alternative slug if post not found.
  *
  * @note WPML compatible
  * @sa   get_page_by_path()
@@ -231,17 +231,27 @@ function wpdk_selected( $haystack, $current, $echo = true )
  */
 function wpdk_content_page_with_slug( $slug, $post_type, $alternative_slug = '' )
 {
+  /**
+   * @var wpdb $wpdb
+   */
   global $wpdb;
 
+  // Stability
+  if( empty( $slug ) ) {
+    return false;
+  }
+
+  // Get object
   $page = get_page_by_path( $slug, OBJECT, $post_type );
 
   if ( is_null( $page ) ) {
     $page = get_page_by_path( $alternative_slug, OBJECT, $post_type );
 
     if ( is_null( $page ) ) {
-      /* WPML? */
+
+      // Check WPML
       if ( function_exists( 'icl_object_id' ) ) {
-        $sql = <<< SQL
+        $sql = <<<SQL
 SELECT ID FROM {$wpdb->posts}
 WHERE post_name = '{$slug}'
 AND post_type = '{$post_type}'
@@ -282,13 +292,18 @@ function wpdk_permalink_page_with_slug( $slug, $post_type = 'page' )
    */
   global $wpdb;
 
+  // Stability
+  if( empty( $slug ) ) {
+    return false;
+  }
+
   // Try
   $page = get_page_by_path( $slug, OBJECT, $post_type );
 
   // If no exists che for WPML compatibility (patch)
   if ( is_null( $page ) ) {
 
-    // WPML exists?
+    // Check WPML
     if ( function_exists( 'icl_object_id' ) ) {
       $sql = <<< SQL
 SELECT ID FROM {$wpdb->posts}
