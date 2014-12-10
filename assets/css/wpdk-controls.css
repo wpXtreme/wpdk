@@ -835,28 +835,29 @@ div.wpdk-form-description .code
 .wpdk-form-description > i[class^="wpdk-icon"],
 .wpdk-form-description > i[class*="wpdk-icon"]
 {
-  font-size      : 24px;
-  vertical-align : text-bottom;
+  font-size : 24px;
+  float     : left;
+  margin    : 1px 4px 4px 0;
 }
 
 .wpdk-form-description .wpdk-icon-info-circled
 {
-  color          : #6696e8;
+  color : #6696e8;
 }
 
 .wpdk-form-description .wpdk-icon-attention
 {
-  color          : #ef5456;
+  color : #ef5456;
 }
 
 .wpdk-form-description .wpdk-icon-tag
 {
-  color          : #70b46a;
+  color : #70b46a;
 }
 
 .wpdk-form-description .wpdk-icon-ok
 {
-  color          : #76a071;
+  color : #76a071;
 }
 
 /* =====================================================================================================================

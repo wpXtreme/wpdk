@@ -129,11 +129,11 @@ div.wpdk-loader
 
 @font-face {
   font-family: 'wpdk-fonts';
-  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?80385089');
-  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?80385089#iefix') format('embedded-opentype'),
-       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.woff?80385089') format('woff'),
-       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.ttf?80385089') format('truetype'),
-       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.svg?80385089#wpdk-fonts') format('svg');
+  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?37311962');
+  src: url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.eot?37311962#iefix') format('embedded-opentype'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.woff?37311962') format('woff'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.ttf?37311962') format('truetype'),
+       url('{WPDK_URI_ASSETS}fonts/wpdk-fonts.svg?37311962#wpdk-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -262,6 +262,10 @@ div.wpdk-loader
 .wpdk-icon-up-big:before { content: '\e835'; } /* '' */
 .wpdk-icon-up-open:before { content: '\e822'; } /* '' */
 .wpdk-icon-updown-circle:before { content: '\e830'; } /* '' */
+.wpdk-icon-link:before { content: '\e854'; } /* '' */
+.wpdk-icon-share:before { content: '\e855'; } /* '' */
+.wpdk-icon-user:before { content: '\e856'; } /* '' */
+.wpdk-icon-menu:before { content: '\e858'; } /* '' */
 
 /*
    Animation example, for spinners

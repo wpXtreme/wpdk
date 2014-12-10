@@ -210,7 +210,8 @@ class WPDKView extends WPDKObject {
     <div data-type="wpdk-view"
          style="<?php echo $style ?>"
          id="<?php echo $this->id ?>"
-         class="<?php echo $classes ?>" <?php echo $data ?> >
+         <?php echo $data ?>
+         class="<?php echo $classes ?>">
 
     <?php
     /**

@@ -635,7 +635,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
        * @private
        */
       var _WPDKGlyphIcons = {
-        version         : '1.0.3',
+        version         : '1.0.4',
         display         : _display,
         html            : _html,
 
@@ -733,7 +733,13 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
         OK_CIRCLED2       : 'wpdk-icon-ok-circled2',
         OK_SQUARED        : 'wpdk-icon-ok-squared',
         PIN               : 'wpdk-icon-pin',
-        PLUS_CIRCLED      : 'wpdk-icon-plus-circled'
+        PLUS_CIRCLED      : 'wpdk-icon-plus-circled',
+
+        // Since 1.7.4
+        LINK  : 'wpdk-icon-link',
+        MENU  : 'wpdk-icon-menu',
+        SHARE : 'wpdk-icon-share',
+        USER  : 'wpdk-icon-user'
 
       };
 

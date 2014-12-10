@@ -145,7 +145,7 @@ table.wpdk-dynamic-table-sortable tbody td
   cursor : move;
 }
 
-table.wpdk-dynamic-table-sortable tbody td:first-child .wpdk-icon-updown-circle
+table.wpdk-dynamic-table-sortable tbody td:first-child .wpdk-icon-menu
 {
   color          : #888;
   cursor         : move;

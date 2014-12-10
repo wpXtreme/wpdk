@@ -108,6 +108,12 @@ final class WPDKGlyphIcons extends WPDKObject {
   const PIN               = 'wpdk-icon-pin';
   const PLUS_CIRCLED      = 'wpdk-icon-plus-circled';
 
+  // Since 1.7.4
+  const LINK              = 'wpdk-icon-link';
+  const MENU              = 'wpdk-icon-menu';
+  const SHARE             = 'wpdk-icon-share';
+  const USER              = 'wpdk-icon-user';
+
   /**
    * Override version
    *

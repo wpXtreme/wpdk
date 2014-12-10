@@ -222,7 +222,7 @@ function wpdk_selected( $haystack, $current, $echo = true )
  *
  * @param string $slug             Post slug
  * @param string $post_type        Post type
- * @param string $alternative_slug Alternative slug if post not found
+ * @param string $alternative_slug Optional. Alternative slug if post not found.
  *
  * @note WPML compatible
  * @sa   get_page_by_path()
@@ -231,17 +231,27 @@ function wpdk_selected( $haystack, $current, $echo = true )
  */
 function wpdk_content_page_with_slug( $slug, $post_type, $alternative_slug = '' )
 {
+  /**
+   * @var wpdb $wpdb
+   */
   global $wpdb;
 
+  // Stability
+  if( empty( $slug ) ) {
+    return false;
+  }
+
+  // Get object
   $page = get_page_by_path( $slug, OBJECT, $post_type );
 
   if ( is_null( $page ) ) {
     $page = get_page_by_path( $alternative_slug, OBJECT, $post_type );
 
     if ( is_null( $page ) ) {
-      /* WPML? */
+
+      // Check WPML
       if ( function_exists( 'icl_object_id' ) ) {
-        $sql = <<< SQL
+        $sql = <<<SQL
 SELECT ID FROM {$wpdb->posts}
 WHERE post_name = '{$slug}'
 AND post_type = '{$post_type}'
@@ -265,46 +275,54 @@ SQL;
 }
 
 /**
- * Get the post permalink from the slug.
+ * Return the permalink (url) of a post type by the slug. Return FALSE if not found.
  *
- * @param string $slug      Post slug
- * @param string $post_type Post type. Default 'page'
+ * @param string       $slug       Post slug
+ * @param string|array $post_type Optional. Post type. Default 'page'.
  *
  * @note WPML compatible
  * @sa   get_page_by_path()
  *
- * @return mixed|string Return the post permalink trailed. FLASE if not found
+ * @return string|bool
  */
 function wpdk_permalink_page_with_slug( $slug, $post_type = 'page' )
 {
+  /**
+   * @var wpdb $wpdb
+   */
   global $wpdb;
 
-  // Get the page
+  // Stability
+  if( empty( $slug ) ) {
+    return false;
+  }
+
+  // Try
   $page = get_page_by_path( $slug, OBJECT, $post_type );
 
   // If no exists che for WPML compatibility (patch)
   if ( is_null( $page ) ) {
 
-    // WPML exists?
+    // Check WPML
     if ( function_exists( 'icl_object_id' ) ) {
-      $sql = <<< SQL
+      $sql = <<<SQL
 SELECT ID FROM {$wpdb->posts}
 WHERE post_name = '{$slug}'
 AND post_type = '{$post_type}'
 AND post_status = 'publish'
 SQL;
-      $id  = $wpdb->get_var( $sql );
-      $id  = icl_object_id( $id, $post_type, true );
+      $post_id  = $wpdb->get_var( $sql );
+      $post_id  = icl_object_id( $post_id, $post_type, true );
     }
     else {
       return false;
     }
   }
   else {
-    $id = $page->ID;
+    $post_id = $page->ID;
   }
 
-  $permalink = get_permalink( $id );
+  $permalink = get_permalink( $post_id );
 
   // Append slash
   return trailingslashit( $permalink );

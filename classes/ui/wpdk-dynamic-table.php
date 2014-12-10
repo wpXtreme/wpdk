@@ -522,7 +522,7 @@ class WPDKDynamicTableView extends WPDKView {
                 </td>
               <?php else : ?>
                 <?php if( $this->sortable && empty( $index ) ) : ?>
-                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::MENU ) ?></td>
                 <?php endif; ?>
                 <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
                   <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
@@ -543,7 +543,7 @@ class WPDKDynamicTableView extends WPDKView {
                   </td>
                 <?php else : ?>
                   <?php if( $this->sortable && empty( $index ) ) : ?>
-                    <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                    <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::MENU ) ?></td>
                   <?php endif; ?>
                   <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
                     <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>
@@ -565,7 +565,7 @@ class WPDKDynamicTableView extends WPDKView {
                 </td>
               <?php else : ?>
                 <?php if( $this->sortable && empty( $index ) ) : ?>
-                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::UPDOWN_CIRCLE ) ?></td>
+                  <td><?php WPDKGlyphIcons::display( WPDKGlyphIcons::MENU ) ?></td>
                 <?php endif; ?>
                 <td class="wpdk-dynamic-table-cel-<?php echo $column_key ?>">
                   <?php echo WPDKUIControlsLayout::item( $column ); $index++ ?>

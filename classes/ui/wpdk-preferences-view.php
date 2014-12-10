@@ -6,8 +6,10 @@
  * @class           WPDKPreferencesView
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-05-21
- * @version         1.1.0
+ * @date            2014-12-02
+ * @version         1.2.0
+ *
+ * @history         1.1.0 - Added utility method `buttonPage()`
  *
  */
 class WPDKPreferencesView extends WPDKView {
@@ -184,6 +186,63 @@ class WPDKPreferencesView extends WPDKView {
     }
 
     return sprintf( '<p>%s</p>', implode( '', $buttons ) );
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // UTILITIES
+  // -------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Return the HTML markup for a button Create/Edit for a post of type page.
+   *
+   * @param string $slug         The page slug from preference. May be empty.
+   * @param string $referrer     Optional. A string used as get params whe edit post in order to display a button
+   *                             "Back to...". If youo set this params you have to manage the relative hook in edit
+   *                             post.
+   * @param string $post_type    Optional. Post type. Default 'page'.
+   * @param string $combo_select Optional. ID of select combo from which get the selected post type. Default empty.
+   *
+   * @return string
+   */
+  public function buttonPage( $slug, $referrer = '', $post_type = 'page', $combo_select = '' )
+  {
+    // Create or Edit?
+    if( empty( $slug ) ) {
+      $url        = admin_url( 'post-new.php' );
+      $label      = __( 'Create new' );
+      $query_args = array( 'post_type' => $post_type );
+    }
+    else {
+      $page = get_page_by_path( $slug );
+
+      // Stability
+      if( is_null( $page ) ) {
+        return;
+      }
+      $url        = admin_url( 'post.php' );
+      $label      = __( 'Edit' );
+      $query_args = array( 'post' => $page->ID, 'action' => 'edit' );
+    }
+
+    // Added referrer
+    if( !empty( $referrer ) && !empty( $_REQUEST[ 'page' ] ) ) {
+      $query_args[ $referrer ] = $_REQUEST[ 'page' ];
+    }
+
+    // Complete url
+    $url = add_query_arg( $query_args, $url );
+
+    // Defaul result
+    $result = sprintf( '<a class="button" href="%s">%s</a>', $url, $label );
+
+    // Combo select for dynamic post type
+    if( !empty( $combo_select ) && empty( $slug ) ) {
+      $url = remove_query_arg( 'post_type', $url );
+      $result = sprintf( '<a data-post_type="#%s" data-url="%s" class="button wpdk-preferences-create-edit-post-button" href="#">%s</a>', ltrim( $combo_select, '#' ), $url, $label );
+    }
+
+    return $result;
+
   }
 
 }

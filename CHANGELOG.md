@@ -20,6 +20,14 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.7.4
+### 2014-12-10
+
+* Added 4 news font icons
+* Added IP address core placeholder
+* Minor fixes stability
+* Performance improves
+
 ## Version 1.7.3
 ### 2014-11-28
 
