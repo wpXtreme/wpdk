@@ -256,7 +256,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
     $this->urlAjax  = self::urlAjax();
 
     // Load text domain
-    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
+    load_plugin_textdomain( $this->textDomain, false, $this->textDomainPath );
 
     // Preferences
     add_action( 'init', array( $this, 'preferences' ) );
@@ -440,7 +440,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
    */
   public function reloadTextDomain()
   {
-    load_plugin_textDomain( $this->textDomain, false, $this->textDomainPath );
+    load_plugin_textdomain( $this->textDomain, false, $this->textDomainPath );
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -458,7 +458,7 @@ class WPDKWordPressPlugin extends WPDKPlugin {
   }
 
   /**
-   * Called after `load_plugin_textDomain()` in `_init`
+   * Called after `load_plugin_textdomain()` in `_init`
    *
    * @brief Init Preferences
    */

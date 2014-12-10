@@ -7,10 +7,11 @@
  * @class           WPDKPostPlaceholders
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-07-22
- * @version         1.0.1
+ * @date            2014-11-30
+ * @version         1.0.2
  * @since           1.5.6
  *
+ * @history         1.0.2 - Added IP address placeholder
  */
 class WPDKPostPlaceholders {
 
@@ -21,10 +22,11 @@ class WPDKPostPlaceholders {
   const USER_FIRST_NAME   = '${USER_FIRST_NAME}';
   const USER_LAST_NAME    = '${USER_LAST_NAME}';
 
+  // Since 1.7.4
+  const IP_ADDRESS = '${IP_ADDRESS}';
+
   /**
    * Return a singleton instance of WPDKPostPlaceholders class
-   *
-   * @brief Singleton
    *
    * @return WPDKPostPlaceholders
    */
@@ -40,8 +42,6 @@ class WPDKPostPlaceholders {
 
   /**
    * Create an instance of WPDKPostPlaceholders class
-   *
-   * @brief Construct
    *
    * @return WPDKPostPlaceholders
    */
@@ -86,7 +86,8 @@ class WPDKPostPlaceholders {
       self::USER_DISPLAY_NAME => $user->display_name,
       self::USER_FIRST_NAME   => $user->first_name,
       self::USER_LAST_NAME    => $user->last_name,
-      self::USER_EMAIL        => $user->email
+      self::USER_EMAIL        => $user->email,
+      self::IP_ADDRESS        => $_SERVER['REMOTE_ADDR'],
     );
 
     //WPXtreme::log( $defaults );
@@ -97,8 +98,6 @@ class WPDKPostPlaceholders {
 
   /**
    * Filter the content with standard placeholder.
-   *
-   * @brief Placeholder content
    *
    * @param string $content       The content.
    * @param int    $user_id       Optional. User id or null for current user.
@@ -158,6 +157,7 @@ class WPDKPostPlaceholders {
       self::USER_LAST_NAME    => array( __( 'User Last name', WPDK_TEXTDOMAIN ), 'Core' ),
       self::USER_DISPLAY_NAME => array( __( 'User Display name', WPDK_TEXTDOMAIN ), 'Core' ),
       self::USER_EMAIL        => array( __( 'User email', WPDK_TEXTDOMAIN ), 'Core' ),
+      self::IP_ADDRESS        => array( __( 'IP Address', WPDK_TEXTDOMAIN ), 'Core' ),
     );
 
     return array_merge( $placeholders, $wpdk_mail_placeholders );
@@ -182,8 +182,6 @@ class WPDKPostPlaceholdersMetaBoxView extends WPDKMetaBoxView {
   /**
    * Return a singleton instance of WPDKPostPlaceholdersMetaBoxView class
    *
-   * @brief Singleton
-   *
    * @return WPDKPostPlaceholdersMetaBoxView
    */
   public static function init()
@@ -199,8 +197,6 @@ class WPDKPostPlaceholdersMetaBoxView extends WPDKMetaBoxView {
   /**
    * Create an instance of WPDKPostPlaceholdersMetaBoxView class
    *
-   * @brief Construct
-   *
    * @return WPDKPostPlaceholdersMetaBoxView
    */
   public function __construct()
@@ -210,8 +206,6 @@ class WPDKPostPlaceholdersMetaBoxView extends WPDKMetaBoxView {
 
   /**
    * Display the HTML markup content for this view.
-   *
-   * @brief Display view content
    *
    * @return string
    */
@@ -312,8 +306,6 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialogTour {
   /**
    * Return a singleton instance of WPDKPostPlaceholdersTourModalDialog class
    *
-   * @brief Singleton
-   *
    * @return WPDKPostPlaceholdersTourModalDialog
    */
   public static function init()
@@ -329,8 +321,6 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialogTour {
   /**
    * Create an instance of WPDKPostPlaceholdersTourModalDialog class
    *
-   * @brief Construct
-   *
    * @return WPDKPostPlaceholdersTourModalDialog
    */
   public function __construct()
@@ -342,8 +332,6 @@ class WPDKPostPlaceholdersTourModalDialog extends WPDKUIModalDialogTour {
 
   /**
    * Return the complete HTML mark with the pages to display.
-   *
-   * @brief Pages
    *
    * @return string
    */
