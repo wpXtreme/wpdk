@@ -109,7 +109,9 @@ class WPDKPostPlaceholders {
     // Merge
     $replaces = apply_filters( 'wpdk_post_placeholders_replace', $replace_pairs, $user_id );
 
-    return strtr( $content, $replaces );
+    $content = strtr( $content, $replaces );
+
+    return $content;
   }
 
   /**

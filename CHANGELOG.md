@@ -20,6 +20,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.7.5
+### 2014-12-??
+
+* Minor fixes
+
 ## Version 1.7.4
 ### 2014-12-10
 
