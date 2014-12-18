@@ -20,9 +20,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.7.5
+## Version 1.8.0
 ### 2014-12-??
 
+* Improved and cosmetic on file `classes/core/wpdk-functions.php`
+* Added `wpdk_page_with_slug()` function
 * Minor fixes
 
 ## Version 1.7.4
