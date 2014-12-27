@@ -43,7 +43,7 @@ class WPDKWidget extends WP_Widget {
     // Fires when styles are printed for a specific admin page based on $hook_suffix.
     add_action( 'admin_print_styles-widgets.php', array( $this, 'admin_print_styles' ) );
 
-    // LFires in <head> for a specific admin page based on $hook_suffix.
+    // Fires in <head> for a specific admin page based on $hook_suffix.
     add_action( 'admin_head-widgets.php', array( $this, 'admin_head' ) );
 
     // Fires before the Widgets administration page content loads.
