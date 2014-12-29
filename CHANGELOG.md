@@ -23,6 +23,7 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.8.0
 ### 2014-12-??
 
+* Added "fonts" component
 * Improved and cosmetic on file `classes/core/wpdk-functions.php`
 * Added `wpdk_page_with_slug()` function
 * Minor fixes
