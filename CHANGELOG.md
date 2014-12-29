@@ -23,9 +23,12 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.8.0
 ### 2014-12-??
 
+* Added collapsable filedset in Controls Layout
 * Added "fonts" component
-* Improved and cosmetic on file `classes/core/wpdk-functions.php`
 * Added `wpdk_page_with_slug()` function
+* Improved compatibility with "costomize.php" page
+* Improved and cosmetic on file `classes/core/wpdk-functions.php`
+* Fixed several Javascript events - add "off" where needed 
 * Minor fixes
 
 ## Version 1.7.4

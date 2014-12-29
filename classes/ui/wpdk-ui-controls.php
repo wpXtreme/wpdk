@@ -2513,9 +2513,11 @@ class WPDKUIControlURL extends WPDKUIControl {
  *
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-12-29
- * @version            0.9.0
+ * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date               2014-12-29
+ * @version            0.9.5
+ *
+ * @history            0.9.5 - TODO improved legend with open/close
  *
  */
 class WPDKUIControlsLayout {
@@ -2525,7 +2527,7 @@ class WPDKUIControlsLayout {
    *
    * @var array $_cla;
    */
-  private $_cla;
+  private $_cla = array();
 
   /**
    * Create an instance of WPDKUIControlsLayout class
@@ -2613,7 +2615,20 @@ class WPDKUIControlsLayout {
 
       <?php if( empty( $key ) || empty( $value ) ) continue; ?>
 
-      <fieldset class="wpdk-form-fieldset wpdk-ui-control">
+      <?php
+      // Check for collapse fieldset
+      $collpase_class = '';
+      if( '+' == substr( $key, 0, 1 ) ) {
+        $collpase_class = 'wpdk-fieldset-collapse wpdk-fieldset-collapse-open';
+        $key            = ltrim( $key, '+' );
+      }
+      elseif( '-' == substr( $key, 0, 1 ) ) {
+        $collpase_class = 'wpdk-fieldset-collapse wpdk-fieldset-collapse-close';
+        $key            = ltrim( $key, '-' );
+      }
+      ?>
+
+      <fieldset class="wpdk-form-fieldset wpdk-ui-control <?php echo $collpase_class ?>">
         <legend><?php echo $key ?></legend>
         <div class="wpdk-fieldset-container">
           <?php $this->_processRows( $value ) ?>

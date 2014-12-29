@@ -695,12 +695,70 @@ fieldset.wpdk-form-fieldset legend
   padding     : 2px 4px;
   width       : auto;
   border      : none;
+  position    : relative;
+}
+
+/* Collapse */
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend
+{
+  padding-right : 24px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend:after
+{
+  font-family     : "wpdk-fonts";
+  font-style      : normal;
+  font-weight     : normal;
+  speak           : none;
+  display         : inline-block;
+  text-decoration : inherit;
+  width           : 1em;
+  margin-right    : .2em;
+  text-align      : center;
+  font-variant    : normal;
+  text-transform  : none;
+  line-height     : 1em;
+  margin-left     : .2em;
+  cursor          : pointer;
+  position        : absolute;
+  right           : 0;
+  top             : 3px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open legend:after
+{
+  content : '\e81d';
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close legend:after
+{
+  content : '\e81c';
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse div.wpdk-fieldset-container
+{
+  -webkit-transition : max-height ease-out 0.3s;
+  -moz-transition    : max-height ease-out 0.3s;
+  -ms-transition     : max-height ease-out 0.3s;
+  -o-transition      : max-height ease-out 0.3s;
+  transition         : max-height ease-out 0.3s;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open div.wpdk-fieldset-container
+{
+  max-height : 999px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close div.wpdk-fieldset-container
+{
+  max-height : 0;
+  overflow   : hidden;
 }
 
 div.wpdk-form-row
 {
   line-height    : 100%;
-  margin         : 0 0 16px;
+  margin         : 2px 0 16px;
   padding        : 0;
   *zoom          : 1 !important;
   vertical-align : middle;
