@@ -7,8 +7,10 @@
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-09-29
- * @version         1.0.5
+ * @date            2014-12-29
+ * @version         1.0.6
+ *
+ * @history         1.0.6 - Added fonts
  *
  */
 final class WPDKUIComponents {
@@ -33,6 +35,7 @@ final class WPDKUIComponents {
   const LIST_TABLE    = 'wpdk-list-table';
   const TABLE         = 'wpdk-table';
   const PAGE          = 'wpdk-page';
+  const FONTS         = 'wpdk-fonts';
 
   // jQuery
   const JQUERY_TIMEPICKER = 'jquery.timepicker';
@@ -278,7 +281,10 @@ final class WPDKUIComponents {
         'js'   => self::PREFERENCES,
         'deps' => array( self::CONTROLS )
       ),
-
+      // WPDK Fonts
+      self::FONTS => array(
+        'css' => self::FONTS,
+      ),
     );
 
     return $components;
@@ -326,7 +332,7 @@ final class WPDKUIComponents {
         }
         $this->enqueue_scripts[] = $handle;
       }
-      // Enqueue extenal
+      // Enqueue external
       else {
         wp_enqueue_script( $handle );
       }
@@ -342,7 +348,7 @@ final class WPDKUIComponents {
         }
         $this->enqueue_styles[] = $handle;
       }
-      // Enqueue extenal
+      // Enqueue external
       else {
         wp_enqueue_style( $handle );
       }
