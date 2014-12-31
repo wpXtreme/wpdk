@@ -6,11 +6,12 @@
  * @class           WPDKWidget
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-09-30
- * @version         1.0.2
+ * @date            2014-12-31
+ * @version         1.0.3
  * @since           1.4.0
  *
  * @history         1.0.2 - Minor improves
+ * @history         1.0.3 - Improved and fixed css inline for "customize.php"
  */
 class WPDKWidget extends WP_Widget {
 
@@ -83,23 +84,32 @@ class WPDKWidget extends WP_Widget {
     WPDKHTML::startCompress();
     ?>
   <style id="wpdk-inline-styles-<?php echo $this->id_base ?>" type="text/css">
-      <?php if( !empty( $logo ) ) : ?>
-  div[id*=<?php echo $this->id_base ?>] .widget-title h4
-  {
-    padding-left        : 28px;
-    line-height         : 150%;
-    background-image    : url(<?php echo $logo ?>) !important;
-    background-repeat   : no-repeat;
-    background-position : 6px center;
-  }
+    <?php if( !empty( $logo ) ) : ?>
+    div[id*=<?php echo $this->id_base ?>] .widget-title {position:relative;padding-left:28px}
+    div[id*=<?php echo $this->id_base ?>] .widget-title:before
+    {
+      content           : '';
+      position          : absolute;
+      display           : block;
+      width             : 16px;
+      height            : 16px;
+      left              : 16px;
+      top               : 14px;
+      background-image  : url(<?php echo $logo ?>) !important;
+      background-repeat : no-repeat;
+    }
+    #available-widgets div[id*=<?php echo $this->id_base ?>] .widget-title {padding:0}
+    #available-widgets div[id*=<?php echo $this->id_base ?>] .widget-title:before
+    {
+      content  : '' !important;
+      position : absolute !important;
+      display  : block;
+      left     : -40px;
+      top      : 0;
+    }
+    div[id*=<?php echo $this->id_base ?>] .widget-title h4 span.in-widget-title:before {content:' <?php echo $version ?>'}
     <?php endif ?>
 
-    <?php if( !empty( $logo ) ) : ?>
-  div[id*=<?php echo $this->id_base ?>] .widget-title h4 span.in-widget-title:before
-  {
-    content : ' <?php echo $version ?>';
-  }
-      <?php endif ?>
   </style>
     <?php
     echo WPDKHTML::endCSSCompress();
