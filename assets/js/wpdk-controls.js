@@ -7,32 +7,32 @@
  *
  * @returns {string} Return the current state
  */
-if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
 
-  +function ( $ )
+  +function( $ )
   {
     'use strict';
 
-    $.fn.wpdkSwipe = function ()
+    $.fn.wpdkSwipe = function()
     {
 
-      var v = ( arguments.length > 0 ) ? arguments[0] : null;
+      var v = ( arguments.length > 0 ) ? arguments[ 0 ] : null;
 
-      if ( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
+      if( $( this ).hasClass( 'wpdk-form-swipe' ) ) {
 
-        if ( null == v ) {
+        if( null == v ) {
           return $( this ).children( 'input[type="hidden"]' ).eq( 0 ).val();
         }
 
-        return this.each( function ()
+        return this.each( function()
         {
 
           // Get main control
           var $control = $( this );
 
           // Get sub-elements
-          var knob   = $control.children( 'span' ).eq( 0 );
-          var input  = $control.children( 'input[type="hidden"]' ).eq( 0 );
+          var $knob = $control.children( 'span' ).eq( 0 );
+          var $input = $control.children( 'input[type="hidden"]' ).eq( 0 );
           var status = wpdk_is_bool( v ) ? 'on' : 'off';
 
           /**
@@ -47,14 +47,14 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
            */
           var result = $control.triggerHandler( WPDKUIComponentEvents.SWIPE_CHANGE, [ $control, status ] );
 
-          if ( false === result ) {
-            return input.val();
+          if( false === result ) {
+            return $input.val();
           }
 
           // On
-          if ( wpdk_is_bool( v ) ) {
-            input.val( 'on' );
-            knob.animate( { marginLeft : '23px' }, 100, function ()
+          if( wpdk_is_bool( v ) ) {
+            $input.val( 'on' );
+            $knob.animate( { marginLeft : '23px' }, 100, function()
             {
               $control.addClass( 'wpdk-form-swipe-on' );
             } );
@@ -65,13 +65,13 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
              * @param {object} $control The swipe control.
              * @param {string} status The swipe status 'on'.
              */
-            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'on'] );
+            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'on' ] );
           }
 
           // Off
           else {
-            input.val( 'off' );
-            knob.animate( { marginLeft : '0' }, 100, function ()
+            $input.val( 'off' );
+            $knob.animate( { marginLeft : '0' }, 100, function()
             {
               $control.removeClass( 'wpdk-form-swipe-on' );
             } );
@@ -82,8 +82,12 @@ if ( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
              * @param {object} $control The swipe control.
              * @param {string} status The swipe status 'off'.
              */
-            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'off'] );
+            $control.trigger( WPDKUIComponentEvents.SWIPE_CHANGED, [ $control, 'off' ] );
           }
+
+          // @since 1.8.0 - Fires for "customize.php"
+          $input.trigger( 'change' );
+
         } );
       }
     };
@@ -158,24 +162,24 @@ if( typeof( jQuery.fn.wpdkButtonToggle ) === 'undefined' ) {
  * replace input[type="checkbox"] with the selector to match your list of checkboxes
  *
  */
-if ( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
-  +function ( $ )
+if( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
+  +function( $ )
   {
 
     'use strict';
 
-    $.fn.wpdkShiftSelectableCheckbox = function ()
+    $.fn.wpdkShiftSelectableCheckbox = function()
     {
       var lastChecked, $boxes = this;
 
-      $boxes.click( function ( evt )
+      $boxes.click( function( evt )
       {
-        if ( !lastChecked ) {
+        if( !lastChecked ) {
           lastChecked = this;
           return;
         }
 
-        if ( evt.shiftKey ) {
+        if( evt.shiftKey ) {
           var start = $boxes.index( this ), end = $boxes.index( lastChecked );
           $boxes.slice( Math.min( start, end ), Math.max( start, end ) + 1 )
             .attr( 'checked', lastChecked.checked )
@@ -194,22 +198,23 @@ if ( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-09-01
- * @version         1.1.2
- * 
+ * @date            2014-12-29
+ * @version         1.1.3
+ *
  * @history         1.1.2 - Renamed internal _WPDKControls in in _WPDKControls
+ * @history         1.1.3 - Added collapsable fieldset
  *
  */
 
 // One time
-if ( typeof( window.WPDKControls ) === 'undefined' ) {
+if( typeof( window.WPDKControls ) === 'undefined' ) {
 
   // On document ready
-  jQuery( function ( $ )
+  jQuery( function( $ )
   {
     "use strict";
 
-    window.WPDKControls = (function ()
+    window.WPDKControls = (function()
     {
 
       // This object
@@ -231,12 +236,46 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
         _initInput();
         _initSwipe();
         _initScrollable();
+        _initCollapsableFieldset();
 
         // Experimental
         _initAccordion();
         _initGuide();
 
         return _WPDKControls;
+      }
+
+      /**
+       * Init the collapsable fieldset.
+       * @private
+       */
+      function _initCollapsableFieldset()
+      {
+        // Remove all previous bind event
+        $( document ).off( 'click', 'fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend' );
+
+        $( document ).on( 'click', 'fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend', function( e )
+        {
+          // Get current fieldset (parent)
+          var $fieldset = $( this ).parents( 'fieldset' );
+
+          // Default classes
+          var remove_class = $fieldset.hasClass( 'wpdk-fieldset-collapse-open' ) ? 'wpdk-fieldset-collapse-open' : 'wpdk-fieldset-collapse-close';
+          var add_class = $fieldset.hasClass( 'wpdk-fieldset-collapse-open' ) ? 'wpdk-fieldset-collapse-close' : 'wpdk-fieldset-collapse-open';
+
+          // Check for special key
+          if( e.altKey ) {
+
+            // Get the parent view
+            var $view = $( this ).parents( 'div[data-type="wpdk-view"]' );
+
+            // Set all in this view
+            $view.find( 'fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse' ).removeClass( remove_class ).addClass( add_class );
+          }
+          else {
+            $fieldset.removeClass( remove_class ).addClass( add_class );
+          }
+        } );
       }
 
       /**
@@ -250,27 +289,32 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
        */
       function _initInput()
       {
+        // Remove all previous bind event
+        $( document ).off( 'click', 'span.wpdk-form-clear-left i' );
+        $( document ).off( 'click', '.wpdk-disable-after-click' );
+        $( document ).off( 'click', '.wpdk-form-locked' );
+
         // Init with clear
-        $( document ).on( 'click', 'span.wpdk-form-clear-left i', false, function ()
+        $( document ).on( 'click', 'span.wpdk-form-clear-left i', false, function()
         {
           $( this ).prev( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
         } );
 
         // Init with disable after click
-        $( document ).on( 'click', '.wpdk-disable-after-click', false, function ()
+        $( document ).on( 'click', '.wpdk-disable-after-click', false, function()
         {
           $( this ).addClass( 'disabled' );
         } );
 
         // Init locked
-        $( document ).on( 'click', '.wpdk-form-locked', false, function ()
+        $( document ).on( 'click', '.wpdk-form-locked', false, function()
         {
           // Check for custom data confirm
           var message = $( this ).data( 'confirm' );
 
           // TODO Add event
 
-          if ( confirm( empty( message ) ? wpdk_i18n.messageUnLockField : message ) ) {
+          if( confirm( empty( message ) ? wpdk_i18n.messageUnLockField : message ) ) {
             $( this )
               .attr( 'class', 'wpdk-form-unlocked' )
               .prev( 'input' )
@@ -292,9 +336,10 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
       {
         // Remove all previous bind event
         $( document ).off( 'click', 'span.wpdk-form-swipe span' );
+        $( document ).off( WPDKUIComponents.REFRESH_SWIPE );
 
         // Bind click on right span
-        $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function ()
+        $( document ).on( 'click', 'span.wpdk-form-swipe span', false, function()
         {
           var $control = $( this ).parent();
           var status = wpdk_is_bool( $control.wpdkSwipe() );
@@ -309,19 +354,16 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
 
             // Ajax
             $.post( wpdk_i18n.ajaxURL, {
-                action      : 'wpdk_action_on_swipe',
-                on_swipe    : on_swipe,
-                enabled     : enabled
-              }, function ( data )
+                action   : 'wpdk_action_on_swipe',
+                on_swipe : on_swipe,
+                enabled  : enabled
+              }, function( data )
               {
                 var response = new WPDKAjaxResponse( data );
 
-                if ( empty( response.error ) ) {
-
+                if( empty( response.error ) ) {
                   // Process response
-
                 }
-
                 // An error return
                 else {
                   alert( response.error );
@@ -345,13 +387,13 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
        */
       function _initScrollable()
       {
-        var scrollable = $( '.wpdk-form-scrollable' );
-        if ( scrollable.length ) {
-          $( document ).on( 'click', '.wpdk-form-scrollable img', false, function ()
-          {
-            $( this ).toggleClass( 'wpdk-selected' );
-          } );
-        }
+        // Remove all previous bind event
+        $( document ).off( 'click', '.wpdk-form-scrollable img' );
+
+        $( document ).on( 'click', '.wpdk-form-scrollable img', false, function()
+        {
+          $( this ).toggleClass( 'wpdk-selected' );
+        } );
       }
 
       // ---------------------------------------------------------------------------------------------------------------
@@ -367,12 +409,12 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
       function _initAccordion()
       {
         var accordion = $( 'i.wpdk-openclose-accordion' );
-        if ( accordion.length ) {
+        if( accordion.length ) {
           /* Memorizzo altezza */
-          accordion.parent().next( 'div.wpdk-accordion' ).each( function ( i, e )
+          accordion.parent().next( 'div.wpdk-accordion' ).each( function( i, e )
           {
             $( this ).addClass( 'wpdk-accordion-open' ).data( 'height', $( this ).height() );
-            if ( i > 0 ) {
+            if( i > 0 ) {
               $( this ).removeClass( 'wpdk-accordion-open' );
             }
             else {
@@ -380,7 +422,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
             }
           } );
 
-          accordion.click( function ()
+          accordion.click( function()
           {
             /* Chiudo tutti gli altri - solo i fieldsset del form parent */
             var form = $( this ).parents( 'form' );
@@ -408,7 +450,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
        */
       function _initGuide()
       {
-        $( 'a.wpdk-guide' ).click( function ()
+        $( 'a.wpdk-guide' ).click( function()
         {
           var title, content, url;
 
@@ -416,7 +458,7 @@ if ( typeof( window.WPDKControls ) === 'undefined' ) {
           title = $( this ).data( 'title' );
 
           // If guide content is directly into data-content attribute
-          if ( typeof $( this ).data( 'content' ) != 'undefined' && $( this ).data( 'content' ).length > 0 ) {
+          if( typeof $( this ).data( 'content' ) != 'undefined' && $( this ).data( 'content' ).length > 0 ) {
             content = $( this ).data( 'content' );
           }
           // If guide is in Developer Center

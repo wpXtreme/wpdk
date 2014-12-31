@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'wpdk-fonts';
-  src: url('../font/wpdk-fonts.eot?37311962');
-  src: url('../font/wpdk-fonts.eot?37311962#iefix') format('embedded-opentype'),
-       url('../font/wpdk-fonts.woff?37311962') format('woff'),
-       url('../font/wpdk-fonts.ttf?37311962') format('truetype'),
-       url('../font/wpdk-fonts.svg?37311962#wpdk-fonts') format('svg');
+  src: url('../fonts/wpdk-fonts.eot?37311962');
+  src: url('../fonts/wpdk-fonts.eot?37311962#iefix') format('embedded-opentype'),
+       url('../fonts/wpdk-fonts.woff?37311962') format('woff'),
+       url('../fonts/wpdk-fonts.ttf?37311962') format('truetype'),
+       url('../fonts/wpdk-fonts.svg?37311962#wpdk-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }
