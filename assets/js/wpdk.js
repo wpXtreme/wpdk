@@ -855,7 +855,7 @@ if (typeof jQuery === 'undefined') { throw new Error('jQuery is not loaded or mi
       REFRESH_JQUERY_AUTOCOMPLETE : 'refresh.wpdk.jquery.autocomplete',
       REFRESH_JQUERY_TABS         : 'refresh.wpdk.jquery.tabs',
 
-      // Swipe
+      // Swipe - deprecated
       SWIPE                       : 'swipe.wpdk',
       SWIPE_CHANGE                : 'change.wpdk.swipe',
       SWIPE_CHANGED               : 'changed.wpdk.swipe',

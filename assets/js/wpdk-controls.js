@@ -5,6 +5,8 @@
  *
  * @internal {string} Optional. Set the current state
  *
+ * @deprecated since 1.9.0
+ *
  * @returns {string} Return the current state
  */
 if( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
@@ -13,6 +15,7 @@ if( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
   {
     'use strict';
 
+    // @deprecated since 1.9.0 - Use Switch UI Control instead
     $.fn.wpdkSwipe = function()
     {
 
@@ -95,6 +98,156 @@ if( typeof( jQuery.fn.wpdkSwipe ) === 'undefined' ) {
   }( jQuery );
 
 }
+
+/**
+ * WPDK Switch Control extend.
+ */
+if( typeof( window.wpdkSwitches ) === 'undefined' ) {
+
+  +function( $ )
+  {
+    'use strict';
+
+    /**
+     * Return all switches on document.
+     *
+     * @returns {*|HTMLElement}
+     */
+    window.wpdkSwitches = function()
+    {
+      return $( '.wpdk-ui-switch' );
+    }
+
+    /**
+     * Extends jQuery in order to get all swicthes.
+     *
+     * @returns {*}
+     */
+    $.fn.wpdkSwitches = function()
+    {
+      return $( this ).find( '.wpdk-ui-switch' );
+    };
+
+  }( jQuery );
+}
+
+/**
+ * WPDK Switch Control extend.
+ */
+if( typeof( jQuery.fn.wpdkSwitch ) === 'undefined' ) {
+
+  +function( $ )
+  {
+    'use strict';
+
+    /**
+     * WPDK Switch Control extend.
+     *
+     * @param {string} method Current method.
+     * @param {string} oprions Options method.
+     *
+     * @returns {string} Return the current state
+     */
+    $.fn.wpdkSwitch = function()
+    {
+
+      // Get method
+      var method = ( arguments.length > 0 ) ? arguments[ 0 ] : null;
+
+      // Get options
+      var options = ( arguments.length > 1 ) ? arguments[ 1 ] : null;
+
+      // Check if the selected control is a switch
+      if( !$( this ).hasClass( 'wpdk-ui-switch' ) && !$( this ).hasClass( 'wpdk-ui-switch-input' ) ) {
+        return $( this );
+      }
+
+      var $this, $input_checkbox;
+
+      // Get input checkbox
+      if( $( this ).hasClass( 'wpdk-ui-switch-input' ) ) {
+        $input_checkbox = $( this );
+        $this = $input_checkbox.parent( 'div.wpdk-ui-switch' );
+      }
+      else {
+        $input_checkbox = $( this ).find( 'input[type="checkbox"]' );
+        $this = $( this );
+      }
+
+      if( null == options && 'state' == method ) {
+        return _state();
+      }
+
+      /**
+       * Return or change the state of a switch control.
+       *
+       * @private
+       */
+      function _state()
+      {
+        /**
+         * Filter the switch state before change.
+         *
+         * @param {boolean} state The switch state.
+         * @param {*} control The switch control.
+         */
+        var _options = wpdk_apply_filters( 'wpdk_ui_switch_state', options, $this );
+
+        // Return switch state if options is null
+        if( null === _options ) {
+          return $input_checkbox.is( ':checked' );
+        }
+
+        if( true === _options ) {
+          $input_checkbox.attr( 'checked', 'checked' ).change();
+        }
+        else {
+          $input_checkbox.removeAttr( 'checked' ).change();
+        }
+
+        /**
+         * Fires when a swipe is changed.
+         *
+         * @param {object} $control The swipe control.
+         * @param {string} status The swipe status 'on'.
+         */
+        wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+
+        return $this;
+      }
+
+      return this.each( function()
+      {
+
+        // Get input checkbox
+        if( $( this ).hasClass( 'wpdk-ui-switch-input' ) ) {
+          $input_checkbox = $( this );
+          $this = $input_checkbox.parent( 'div.wpdk-ui-switch' );
+        }
+        else {
+          $input_checkbox = $( this ).find( 'input[type="checkbox"]' );
+          $this = $( this );
+        }
+
+        switch( method ) {
+          case 'state':
+            return _state();
+            break;
+
+          case 'toggle':
+            options = !$input_checkbox.is( ':checked' );
+            return _state();
+            break;
+        }
+
+      } );
+
+    };
+
+  }( jQuery );
+
+}
+
 
 /**
  * WPDK Button Toggle extends.
@@ -235,6 +388,7 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
       {
         _initInput();
         _initSwipe();
+        _initSwitches();
         _initScrollable();
         _initCollapsableFieldset();
 
@@ -243,6 +397,66 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         _initGuide();
 
         return _WPDKControls;
+      }
+
+      /**
+       * Init the default event for switch ui control button.
+       * @private
+       */
+      function _initSwitches()
+      {
+        // Get all switches on page
+        wpdkSwitches().each(
+          function()
+          {
+            // Get switch
+            var $control = $( this );
+
+            // Check for Ajax action
+            var on_switch = $control.data( 'on_switch' );
+
+            if( typeof on_switch !== 'undefined' ) {
+
+              // Ajax
+              $.post( wpdk_i18n.ajaxURL, {
+                  action    : 'wpdk_action_on_switch',
+                  on_switch : on_switch,
+                  state     : $control.is( ':checked' )
+                }, function( data )
+                {
+                  var response = new WPDKAjaxResponse( data );
+
+                  if( empty( response.error ) ) {
+
+                    /**
+                     * Fires when a switch ui button ajax is successfully returned.
+                     *
+                     * The dynamic portion of the hook name, on_switch, refers to the action name in data attribute.
+                     *
+                     * @param {*} response The JSON response object.
+                     * @param {*} $control The switch ui control.
+                     */
+                    wpdk_do_action( 'wpdk_on_switch-' + on_switch, response, $control );
+
+                  }
+                  // An error return
+                  else {
+                    /**
+                     * Fires when a switch ui button ajax has error occurs.
+                     *
+                     * The dynamic portion of the hook name, on_switch, refers to the action name in data attribute.
+                     *
+                     * @param {*} response The JSON response object.
+                     * @param {*} $control The switch ui control.
+                     */
+                    wpdk_do_action( 'wpdk_on_switch_error-' + on_switch, response, $control );
+                  }
+                }
+              );
+            }
+          }
+        );
+
       }
 
       /**
@@ -331,6 +545,7 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
        *     $('.wpdk-form-swipe').on( WPDKUIComponentEvents.SWIPE, function(a, swipeButton, status ) {});
        *
        * @private
+       * @deprecated since 1.9.0
        */
       function _initSwipe()
       {

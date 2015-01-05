@@ -994,96 +994,6 @@ div.wpdk-accordion.wpdk-accordion-open
 }
 
 /* =====================================================================================================================
- * SWITCH CONTROL
- * TODO Experimental
- * =====================================================================================================================
- */
-
-input.wpdk-form-switch
-{
-  /*visibility: hidden;*/
-  display : none;
-}
-
-input.wpdk-form-switch + label
-{
-  position     : relative;
-  padding-left : 50px;
-  line-height  : 150%;
-  margin       : 0;
-}
-
-input.wpdk-form-switch + label.wpdk-form-switch-left
-{
-  padding-right : 50px;
-  padding-left  : inherit;
-}
-
-input.wpdk-form-switch + label:before
-{
-  content               : "";
-  position              : absolute;
-  top                   : -2px;
-  left                  : 0;
-  width                 : 40px;
-  height                : 20px;
-  background-color      : #e12c1f;
-  -moz-border-radius    : 32px;
-  -webkit-border-radius : 32px;
-  border-radius         : 32px;
-  -moz-box-shadow       : inset 0 1px 2px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow    : inset 0 1px 2px rgba(0, 0, 0, 0.4);
-  box-shadow            : inset 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-input.wpdk-form-switch + label.wpdk-form-switch-left:before
-{
-  right : 0;
-  left  : inherit;
-}
-
-input.wpdk-form-switch:checked + label:before
-{
-  background-color : #8fc33b;
-}
-
-input.wpdk-form-switch + label:after
-{
-  content               : '';
-  background-color      : #fff;
-  position              : absolute;
-  left                  : 2px;
-  top                   : 0;
-  width                 : 16px;
-  height                : 16px;
-  -moz-border-radius    : 100px;
-  -webkit-border-radius : 100px;
-  border-radius         : 100px;
-  -webkit-transition    : all linear 0.2s;
-  -moz-transition       : all linear 0.2s;
-  -ms-transition        : all linear 0.2s;
-  -o-transition         : all linear 0.2s;
-  transition            : all linear 0.2s;
-}
-
-input.wpdk-form-switch + label.wpdk-form-switch-left:after
-{
-  right : 22px;
-  left  : inherit;
-}
-
-input.wpdk-form-switch:checked + label:after
-{
-  left : 22px;
-}
-
-input.wpdk-form-switch:checked + label.wpdk-form-switch-left:after
-{
-  right : 2px;
-  left  : inherit;
-}
-
-/* =====================================================================================================================
  * CHOOSE CONTROL
  * TODO Experimental
  * =====================================================================================================================
@@ -1118,4 +1028,214 @@ span.wpdk-form-choose .wpdk-form-choose-label.hide
 span.wpdk-form-choose .wpdk-form-choose-button
 {
   cursor : pointer;
+}
+
+/* =====================================================================================================================
+ * UI SWITCH CONTROL
+ * =====================================================================================================================
+ */
+
+/* Common */
+#wpadminbar .wpdk-ui-switch,
+.wpdk-ui-switch
+{
+  position           : relative;
+  line-height        : 100%;
+  display            : inline-block;
+  vertical-align     : middle;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  box-sizing         : border-box;
+}
+
+#wpadminbar .wpdk-ui-switch input[type="checkbox"],
+.wpdk-ui-switch input[type="checkbox"]
+{
+  position    : absolute;
+  margin-left : -9999px;
+  visibility  : hidden;
+}
+
+/* Default left label */
+.wpdk-ui-switch > label:first-child
+{
+  display    : inline-block;
+  min-width  : 140px;
+  text-align : right;
+  margin     : 0px 6px 0px 12px;
+}
+
+/* Right label */
+.wpdk-ui-switch label + label
+{
+  margin-left : 6px;
+}
+
+#wpadminbar .wpdk-ui-switch input[type="checkbox"] + label,
+.wpdk-ui-switch input[type="checkbox"] + label
+{
+  display             : inline-block;
+  position            : relative;
+  cursor              : pointer;
+  outline             : none;
+  -webkit-user-select : none;
+  -moz-user-select    : none;
+  -ms-user-select     : none;
+  user-select         : none;
+  -webkit-box-sizing  : border-box;
+  -moz-box-sizing     : border-box;
+  box-sizing          : border-box;
+}
+
+/* Flat */
+#wpadminbar .wpdk-ui-switch-flat input[type="checkbox"] + label,
+.wpdk-ui-switch-flat input[type="checkbox"] + label
+{
+  padding               : 2px;
+  width                 : 48px;
+  height                : 24px;
+  background-color      : #ddd;
+  -webkit-border-radius : 60px;
+  -moz-border-radius    : 60px;
+  -ms-border-radius     : 60px;
+  -o-border-radius      : 60px;
+  border-radius         : 60px;
+}
+
+.wpdk-ui-switch-flat input[type="checkbox"] + label:before,
+.wpdk-ui-switch-flat input[type="checkbox"] + label:after
+{
+  display  : inline-block;
+  position : absolute;
+  top      : 1px;
+  left     : 1px;
+  bottom   : 1px;
+  content  : "";
+}
+
+.wpdk-ui-switch-flat input[type="checkbox"] + label:before
+{
+  right                 : 1px;
+  background-color      : #f1f1f1;
+  -webkit-border-radius : 60px;
+  -moz-border-radius    : 60px;
+  -ms-border-radius     : 60px;
+  -o-border-radius      : 60px;
+  border-radius         : 60px;
+  -webkit-transition    : background 0.4s;
+  -moz-transition       : background 0.4s;
+  -o-transition         : background 0.4s;
+  transition            : background 0.4s;
+}
+
+.wpdk-ui-switch-flat input[type="checkbox"] + label:after
+{
+  width                 : 16px;
+  height                : 16px;
+  top                   : 4px;
+  left                  : 4px;
+  background-color      : #fff;
+  -webkit-border-radius : 100%;
+  -moz-border-radius    : 100%;
+  -ms-border-radius     : 100%;
+  -o-border-radius      : 100%;
+  border-radius         : 100%;
+  -webkit-box-shadow    : 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow       : 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow            : 0 2px 5px rgba(0, 0, 0, 0.3);
+  -webkit-transition    : margin 0.4s;
+  -moz-transition       : margin 0.4s;
+  -o-transition         : margin 0.4s;
+  transition            : margin 0.4s;
+}
+
+.wpdk-ui-switch-flat input[type="checkbox"]:checked + label:before
+{
+  background-color : #8ab485;
+}
+
+.wpdk-ui-switch-flat input[type="checkbox"]:checked + label:after
+{
+  margin-left : 24px;
+}
+
+/* Flat Round */
+#wpadminbar .wpdk-ui-switch-flat-round input[type="checkbox"] + label,
+.wpdk-ui-switch-flat-round input[type="checkbox"] + label
+{
+  padding               : 2px;
+  width                 : 48px;
+  height                : 24px;
+  background-color      : #ddd;
+  -webkit-border-radius : 60px;
+  -moz-border-radius    : 60px;
+  -ms-border-radius     : 60px;
+  -o-border-radius      : 60px;
+  border-radius         : 60px;
+  -webkit-transition    : background 0.4s;
+  -moz-transition       : background 0.4s;
+  -o-transition         : background 0.4s;
+  transition            : background 0.4s;
+}
+
+#wpadminbar .wpdk-ui-switch-flat-round:hover input[type="checkbox"] + label,
+.wpdk-ui-switch-flat-round:hover input[type="checkbox"] + label
+{
+  background-color : #aaa;
+}
+
+.wpdk-ui-switch-flat-round input[type="checkbox"] + label:before,
+.wpdk-ui-switch-flat-round input[type="checkbox"] + label:after
+{
+  display  : inline-block;
+  position : absolute;
+  content  : "";
+}
+
+.wpdk-ui-switch-flat-round input[type="checkbox"] + label:before
+{
+  top                   : 2px;
+  left                  : 2px;
+  bottom                : 2px;
+  right                 : 2px;
+  background-color      : #fff;
+  -webkit-border-radius : 60px;
+  -moz-border-radius    : 60px;
+  -ms-border-radius     : 60px;
+  -o-border-radius      : 60px;
+  border-radius         : 60px;
+  -webkit-transition    : background 0.4s;
+  -moz-transition       : background 0.4s;
+  -o-transition         : background 0.4s;
+  transition            : background 0.4s;
+}
+
+.wpdk-ui-switch-flat-round input[type="checkbox"] + label:after
+{
+  top                   : 4px;
+  left                  : 4px;
+  bottom                : 4px;
+  width                 : 16px;
+  background-color      : #ddd;
+  -webkit-border-radius : 52px;
+  -moz-border-radius    : 52px;
+  -ms-border-radius     : 52px;
+  -o-border-radius      : 52px;
+  border-radius         : 52px;
+  -webkit-transition    : margin 0.4s, background 0.4s;
+  -moz-transition       : margin 0.4s, background 0.4s;
+  -o-transition         : margin 0.4s, background 0.4s;
+  transition            : margin 0.4s, background 0.4s;
+}
+
+#wpadminbar .wpdk-ui-switch-flat-round input[type="checkbox"]:checked + label,
+.wpdk-ui-switch-flat-round input[type="checkbox"]:checked + label
+{
+  background-color : #8ab485;
+}
+
+.wpdk-ui-switch-flat-round input[type="checkbox"]:checked + label:after
+{
+  margin-left      : 24px;
+  background-color : #8ab485;
 }
