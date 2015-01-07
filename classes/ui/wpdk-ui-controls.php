@@ -2284,6 +2284,7 @@ class WPDKUIControlSwitch extends WPDKUIControl {
       $this->item[ 'data' ][ 'on_switch' ] = $this->item[ 'on_switch' ];
     }
 
+    // TODO This params is deprecated, use data instead
     if ( isset( $this->item['userdata'] ) ) {
       $this->item[ 'data' ]['userdata'] = esc_attr( $this->item['userdata'] );
     }
