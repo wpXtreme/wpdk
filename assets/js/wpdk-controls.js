@@ -115,7 +115,7 @@ if( typeof( window.wpdkSwitches ) === 'undefined' ) {
      */
     window.wpdkSwitches = function()
     {
-      return $( '.wpdk-ui-switch' );
+      return $( '.wpdk-ui-switch input[type="checkbox"]' );
     }
 
     /**
@@ -125,7 +125,7 @@ if( typeof( window.wpdkSwitches ) === 'undefined' ) {
      */
     $.fn.wpdkSwitches = function()
     {
-      return $( this ).find( '.wpdk-ui-switch' );
+      return $( this ).find( '.wpdk-ui-switch input[type="checkbox"]' );
     };
 
   }( jQuery );
