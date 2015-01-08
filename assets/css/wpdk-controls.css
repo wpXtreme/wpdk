@@ -776,6 +776,11 @@ div.wpdk-form-row:after
   clear : both !important;
 }
 
+div.wpdk-form-row .wp-picker-container
+{
+  vertical-align: middle;
+}
+
 label.wpdk-form-label
 {
   line-height    : 100%;
