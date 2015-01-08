@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.9.0
-### 2015-01-??
+### 2015-01-08
 
 * Added `SWITCH_BUTTON` constant and `WPDKUIControlSwitch` class
 * Added Javascript extends `wpdkSwitch()` and `wpdkSwitches()` for `WPDKUIControlSwitch`
