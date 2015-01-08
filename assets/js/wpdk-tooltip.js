@@ -422,7 +422,7 @@ if( typeof( jQuery.fn.wpdkTooltip ) === 'undefined' ) {
     $( '.wpdk-has-tooltip' ).wpdkTooltip();
 
     // Fires to request a tooltip refresh.
-    wpdk_add_action( WPDKUIComponents.REFRESH_TOOLTIP, function() { $( '.wpdk-has-tooltip' ).wpdkTooltip(); } )
+    wpdk_add_action( WPDKUIComponents.REFRESH_TOOLTIP, function() { $( '.wpdk-has-tooltip' ).wpdkTooltip(); } );
 
   }(jQuery);
 

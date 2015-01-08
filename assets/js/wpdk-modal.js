@@ -16,7 +16,7 @@
  */
 
 // One time
-if( typeof( jQuery.fn.wpdkPopover ) === 'undefined' ) {
+if( typeof( jQuery.fn.wpdkModal ) === 'undefined' ) {
 
 /* ========================================================================
  * Bootstrap: modal.js v3.1.0

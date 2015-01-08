@@ -1571,6 +1571,7 @@ class WPDKUsers {
     $last_time_logout        = $profileuser->get( WPDKUserMeta::LAST_TIME_LOGOUT );
     $status_description      = $profileuser->get( WPDKUserMeta::STATUS_DESCRIPTION );
 
+    // Display WPDK user extends information
     $fields = array(
       __( 'Login information', WPDK_TEXTDOMAIN )  => array(
         array(
@@ -1666,10 +1667,15 @@ class WPDKUsers {
      */
     do_action( 'wpdk_users_show_user_profile', $profileuser );
 
-    // WPDK tabs
-    $tabs = array(
-      new WPDKjQueryTab( 'wpdk-user-profile', __( 'WPDK' ), '<div id="wpdk-user-profile">' . $layout->html() . '</div>' ),
-    );
+    // Defaults
+    $tabs = array();
+
+    if( current_user_can( 'edit_users') ) {
+      // WPDK tabs
+      $tabs = array(
+        new WPDKjQueryTab( 'wpdk-user-profile', __( 'WPDK' ), '<div id="wpdk-user-profile">' . $layout->html() . '</div>' ),
+      );
+    }
 
     /**
      * Filter the tabs list used to extends user profile edit.

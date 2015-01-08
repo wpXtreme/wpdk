@@ -6,41 +6,42 @@
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2014-11-20
- * @version            1.0.2
+ * @date               2015-01-05
+ * @version            1.0.3
  *
  * @history            1.0.1 - Added `WPDKUIControlURL`
  * @history            1.0.2 - Added `inputTypeWithClass` public static method.
+ * @history            1.0.3 - Added `SWITCH_BUTTON` constant and `WPDKUIControlSwitch` class.
  *
  */
-class WPDKUIControlType {
+final class WPDKUIControlType {
 
-  const ALERT       = 'WPDKUIControlAlert';
-  const BUTTON      = 'WPDKUIControlButton';
-  const CHECKBOX    = 'WPDKUIControlCheckbox';
-  const CHECKBOXES  = 'WPDKUIControlCheckboxes';
-  const CHOOSE      = 'WPDKUIControlChoose';
-  const CUSTOM      = 'WPDKUIControlCustom';
-  const DATE        = 'WPDKUIControlDate';
-  const DATETIME    = 'WPDKUIControlDateTime';
-  const EMAIL       = 'WPDKUIControlEmail';
-  const FILE        = 'WPDKUIControlFile';
-  const HIDDEN      = 'WPDKUIControlHidden';
-  const LABEL       = 'WPDKUIControlLabel';
-  const NUMBER      = 'WPDKUIControlNumber';
-  const PASSWORD    = 'WPDKUIControlPassword';
-  const PARAGRAPH   = 'paragraph';
-  const PHONE       = 'WPDKUIControlPhone';
-  const RADIO       = 'WPDKUIControlRadio';
-  const SECTION     = 'WPDKUIControlSection';
-  const SELECT      = 'WPDKUIControlSelect';
-  const SELECT_LIST = 'WPDKUIControlSelectList';
-  const SUBMIT      = 'WPDKUIControlSubmit';
-  const SWIPE       = 'WPDKUIControlSwipe';
-  const SWITCHBOX   = 'WPDKUIControlSwitch';
-  const TEXT        = 'WPDKUIControlText';
-  const TEXTAREA    = 'WPDKUIControlTextarea';
-  const URL         = 'WPDKUIControlURL';
+  const ALERT         = 'WPDKUIControlAlert';
+  const BUTTON        = 'WPDKUIControlButton';
+  const CHECKBOX      = 'WPDKUIControlCheckbox';
+  const CHECKBOXES    = 'WPDKUIControlCheckboxes';
+  const CHOOSE        = 'WPDKUIControlChoose';
+  const CUSTOM        = 'WPDKUIControlCustom';
+  const DATE          = 'WPDKUIControlDate';
+  const DATETIME      = 'WPDKUIControlDateTime';
+  const EMAIL         = 'WPDKUIControlEmail';
+  const FILE          = 'WPDKUIControlFile';
+  const HIDDEN        = 'WPDKUIControlHidden';
+  const LABEL         = 'WPDKUIControlLabel';
+  const NUMBER        = 'WPDKUIControlNumber';
+  const PASSWORD      = 'WPDKUIControlPassword';
+  const PARAGRAPH     = 'paragraph';
+  const PHONE         = 'WPDKUIControlPhone';
+  const RADIO         = 'WPDKUIControlRadio';
+  const SECTION       = 'WPDKUIControlSection';
+  const SELECT        = 'WPDKUIControlSelect';
+  const SELECT_LIST   = 'WPDKUIControlSelectList';
+  const SUBMIT        = 'WPDKUIControlSubmit';
+  const SWIPE         = 'WPDKUIControlSwipe';
+  const SWITCH_BUTTON = 'WPDKUIControlSwitch';
+  const TEXT          = 'WPDKUIControlText';
+  const TEXTAREA      = 'WPDKUIControlTextarea';
+  const URL           = 'WPDKUIControlURL';
 
   /**
    * Return the input type by WPDK control class name.
@@ -532,13 +533,6 @@ class WPDKUIControl {
       case WPDKUIControlType::CHECKBOX:
         $label->class[] = 'wpdk-form-checkbox';
         $label->class[] = 'wpdk-ui-control';
-        break;
-
-      case WPDKUIControlType::SWITCHBOX:
-        if ( !isset( $this->item['label_placement'] ) || 'left' == $this->item['label_placement'] ) {
-          $label->class[] = 'wpdk-form-switch-left';
-        }
-        $label->data = $this->item['data'];
         break;
 
       case WPDKUIControlType::SWIPE:
@@ -2082,6 +2076,7 @@ class WPDKUIControlSubmit extends WPDKUIControl {
  * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
  * @date               2014-06-10
  * @version            0.9.1
+ * @deprecated         since 1.9.0
  *
  */
 class WPDKUIControlSwipe extends WPDKUIControl {
@@ -2117,8 +2112,6 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 
   /**
    * Drawing control
-   *
-   * @brief Draw
    */
   public function draw()
   {
@@ -2200,17 +2193,16 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 }
 
 /**
- * SwitchBox control.
- * Experimental for override a standard checkbox
+ * Switch control button. This control replace the deprecated swipe control.
  *
  *     $item = array(
- *         'type'            => WPDKUIControlType::SWITCHBOX,
+ *         'type'            => WPDKUIControlType::SWITCH_,
  *         'label'           => 'label',
- *         'label_placement' => 'left|right',
+ *         'label_right'     => 'label',
  *         'id'              => 'id',
  *         'name'            => 'name',
- *         'value'           => 'on',
- *         'checked'         => 'on',
+ *         'appearance'      => '',             // 'raund'
+ *         'value'           => 'off',          // 'on', 'off', true, false, 0, 1
  *         'attrs'           => '',
  *         'data'            => '',
  *         'class'           => '',
@@ -2218,14 +2210,15 @@ class WPDKUIControlSwipe extends WPDKUIControl {
  *         'title'           => 'This title is a tooltip',
  *         'prepend'         => '',
  *         'append'          => '',
+ *         'popover'         => instance of WPDKUIPopover
  *     );
  *
  * @class              WPDKUIControlSwitch
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2013-10-28
+ * @copyright          Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date               2015-01-04
  * @version            1.0.0
- * @since              1.3.1
+ * @since              1.9.0
  *
  */
 class WPDKUIControlSwitch extends WPDKUIControl {
@@ -2233,53 +2226,104 @@ class WPDKUIControlSwitch extends WPDKUIControl {
   /**
    * Create an instance of WPDKUIControlSwipe class
    *
-   * @brief Construct
-   * @since 1.0.0.b3
-   *
    * @param array $item Key value pairs with control info
    *
    * @return WPDKUIControlSwitch
    */
   public function __construct( $item )
   {
-    $item['type'] = WPDKUIControlType::SWITCHBOX;
+    $item[ 'type' ] = WPDKUIControlType::SWITCH_BUTTON;
     parent::__construct( $item );
   }
 
   /**
    * Drawing control
-   *
-   * @brief Draw
    */
   public function draw()
   {
+    // Prepare popover
+
+    /**
+      * @var WPDKUIPopover $popover
+     */
+    $popover = null;
+
+    // since 1.5.0 - check for popover
+    if ( isset( $this->item['popover'] ) && is_a( $this->item['popover'], 'WPDKUIPopover' ) ) :
+
+      $popover = $this->item['popover']; ?>
+
+      <div class='wpdk-has-popover wpdk-popover-container'
+      data-title='<?php echo $popover->title() ?>'
+      data-content='<?php echo esc_attr( $popover->content() ) ?>'
+      data-placement='<?php echo $popover->placement ?>'
+      data-trigger='<?php echo $popover->trigger ?>'
+      data-html='<?php echo $popover->html ? 'true' : 'false' ?>'
+      data-animation='<?php echo $popover->animation ? 'true' : 'false' ?>'
+      data-container='<?php echo $popover->container ?>'
+      data-delay='<?php echo empty( $popover->delay ) ? 0 : json_encode( $popover->delay ) ?>'>
+    <?php endif;
+
     echo $this->contentWithKey( 'prepend' );
 
-    $input          = new WPDKHTMLTagInput( '', $this->name, $this->id );
-    $input->type    = WPDKHTMLTagInputType::CHECKBOX;
-    $input->class   = $this->class;
-    $input->class[] = 'wpdk-form-switch';
-    $input->class[] = 'wpdk-ui-control';
-    $input->data    = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value   = isset( $this->item['value'] ) ? $this->item['value'] : '';
-    $input->title   = isset( $this->item['title'] ) ? $this->item['title'] : '';
-    $input->setPropertiesByArray( isset( $this->item['attrs'] ) ? $this->item['attrs'] : '' );
+    // Prepare values
+    $name        = isset( $this->item[ 'name' ] ) ? $this->item[ 'name' ] : 'wpdk-ui-switch-' . uniqid();
+    $label       = isset( $this->item[ 'label' ] ) ? $this->item[ 'label' ] : '';
+    $label_right = isset( $this->item[ 'label_right' ] ) ? $this->item[ 'label_right' ] : '';
+    $id          = isset( $this->item[ 'id' ] ) ? $this->item[ 'id' ] : $name;
+    $value       = isset( $this->item[ 'value' ] ) ? $this->item[ 'value' ] : false;
+    $checked     = wpdk_is_bool( $value ) ? 'checked="checked"' : '';
+    $title       = isset( $this->item[ 'title' ] ) ? $this->item[ 'title' ] : '';
 
-    if ( isset( $this->item['checked'] ) ) {
-      if ( $input->value === $this->item['checked'] ) {
-        $input->checked = 'checked';
-      }
+    // Prevent unset data
+    if( !isset( $this->item[ 'data' ] ) ) {
+      $this->item[ 'data' ] = array();
     }
 
-    $input->display();
+    if( isset( $this->item[ 'on_switch' ] ) ) {
+      $this->item[ 'data' ][ 'on_switch' ] = $this->item[ 'on_switch' ];
+    }
 
-    /* Create the label. */
-    $label = $this->label();
-    $label->display();
+    // TODO This params is deprecated, use data instead
+    if ( isset( $this->item['userdata'] ) ) {
+      $this->item[ 'data' ]['userdata'] = esc_attr( $this->item['userdata'] );
+    }
+
+    $data  = isset( $this->item[ 'data' ] ) ? $this->data( $this->item[ 'data' ] ) : '';
+    $attrs = isset( $this->item[ 'attrs' ] ) ? $this->attrs( $this->item[ 'attrs' ] ) : '';
+
+    // TODO not implmenet yet
+    $appearance  = isset( $this->item[ 'appearance' ] ) ? '-' . $this->item[ 'appearance' ] : '';
+
+    ?>
+    <div title="<?php echo $title ?>"
+         class="<?php echo empty( $title ) ? '' : 'wpdk-has-tooltip' ?> wpdk-ui-switch wpdk-ui-switch-flat-round">
+      <?php if( !empty( $label ) ) : ?>
+      <label for="<?php echo $id ?>"><?php echo $label ?></label>
+      <?php endif ?>
+      <input id="<?php echo $id ?>"
+             name="<?php echo $name ?>"
+             <?php echo $data ?>
+             <?php echo $attrs ?>
+             class="wpdk-ui-switch-input"
+             value="on"
+             <?php echo $checked ?>
+             type="checkbox"/>
+      <label for="<?php echo $id ?>"></label>
+      <?php if( !empty( $label_right ) ) : ?>
+      <label for="<?php echo $id ?>"><?php echo $label_right ?></label>
+      <?php endif ?>
+    </div>
+    <?php
 
     echo $this->contentWithKey( 'append' );
 
     echo ' ' . $this->guide();
+
+    if( ! empty( $popover ) ) {
+      echo '</div>';
+    }
+
   }
 }
 

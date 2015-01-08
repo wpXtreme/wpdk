@@ -58,6 +58,9 @@ if ( wpdk_is_ajax() ) {
         // since 1.7.0
         'wpdk_action_on_swipe'           => true,
 
+        // since 1.9.0
+        'wpdk_action_on_switch'          => true,
+
         // since 1.4.21
         'wpdk_action_alert_dismiss'      => false,
         'wpdk_action_modal_dismiss'      => false,
@@ -70,7 +73,7 @@ if ( wpdk_is_ajax() ) {
      * This action will fires if 'on_swipe' data attribute is set on the swipe control.
      *
      * @since 1.7.0
-     *
+     * @deprecated since 1.9.0
      */
     public function wpdk_action_on_swipe()
     {
@@ -98,6 +101,40 @@ if ( wpdk_is_ajax() ) {
        * @param bool $enabled The swipe status enabled.
        */
       do_action( 'wp_ajax_' . $on_swipe, $enabled );
+
+      $response->json();
+    }
+
+    /**
+     * This action will fires if 'on_switch' data attribute is set on the switch ui button control.
+     *
+     * @since 1.9.0
+     *
+     */
+    public function wpdk_action_on_switch()
+    {
+      $response = new WPDKAjaxResponse();
+
+      // $state
+      $state = isset( $_POST[ 'state' ] ) ? $_POST[ 'state' ] : false;
+
+      // Get action
+      $on_switch = isset( $_POST[ 'on_switch' ] ) ? $_POST[ 'on_switch' ] : false;
+
+      // Stability
+      if( empty( $on_switch ) ) {
+        $response->error = __( 'Wrong parameter' );
+        $response->json();
+      }
+
+      /**
+       * Fires the ajax action.
+       *
+       * The dynamic portion of the hook name, $on_switch, refers to the custom ajax action.
+       *
+       * @param bool $state The switch state on/off (true/false).
+       */
+      do_action( 'wp_ajax_' . $on_switch, $state );
 
       $response->json();
     }
