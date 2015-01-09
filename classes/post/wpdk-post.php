@@ -805,7 +805,7 @@ class WPDKPost extends WPDKObject {
     $thumbnail = self::thumbnailWithID( $this->ID, $size );
 
     if( empty( $thumbnail ) ) {
-      trigger_error( 'Thumbnail not found for product ID = ' . $this->ID . ' and size = ' . $size );
+      trigger_error( 'Thumbnail not found for post ID = ' . $this->ID . ' and size = ' . $size );
     }
 
     return $thumbnail;
