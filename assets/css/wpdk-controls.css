@@ -2,10 +2,11 @@
  * WPDK Controls
  *
  * @author        wpXtreme, Inc.
- * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date	        2014-02-25
- * @version       1.0.1
+ * @copyright     Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date	        2015-01-09
+ * @version       1.0.2
  *
+ * @history       1.0.2 - Added file media styles.
  */
 
 /* =====================================================================================================================
@@ -778,10 +779,11 @@ div.wpdk-form-row:after
 
 div.wpdk-form-row .wp-picker-container
 {
-  vertical-align: middle;
+  vertical-align : middle;
 }
 
-label.wpdk-form-label
+label.wpdk-form-label,
+div.wpdk-form-row > .wpdk-ui-upload-media label
 {
   line-height    : 100%;
   vertical-align : middle;
@@ -793,7 +795,7 @@ label.wpdk-form-label.wpdk-form-label-on-top
   display    : block;
   text-align : left;
   margin     : 0 0 10px 0;
-  min-width  : auto;
+  min-width  : 0;
 }
 
 label.wpdk-form-label.wpdk-form-label-top
@@ -801,7 +803,8 @@ label.wpdk-form-label.wpdk-form-label-top
   vertical-align : top;
 }
 
-div.wpdk-form-row > label.wpdk-form-label:first-child
+div.wpdk-form-row > label.wpdk-form-label:first-child,
+div.wpdk-form-row > .wpdk-ui-file-media label
 {
   display    : inline-block;
   *display   : inline;

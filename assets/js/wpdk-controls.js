@@ -350,12 +350,13 @@ if( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
  *
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-12-29
- * @version         1.1.3
+ * @copyright       Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date            2015-01-09
+ * @version         1.1.4
  *
  * @history         1.1.2 - Renamed internal _WPDKControls in in _WPDKControls
  * @history         1.1.3 - Added collapsable fieldset
+ * @history         1.1.4 - Added file media init.
  *
  */
 
@@ -372,7 +373,7 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
 
       // This object
       var _WPDKControls = {
-        version : '1.1.2',
+        version : '1.1.4',
         init    : _init,
 
         preferencesForm : _preferencesForm
@@ -389,6 +390,7 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         _initInput();
         _initSwipe();
         _initSwitches();
+        _initFileMedia();
         _initScrollable();
         _initCollapsableFieldset();
 
@@ -397,6 +399,70 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         _initGuide();
 
         return _WPDKControls;
+      }
+
+      /**
+       * Init file media control.
+       * @since WPDK 1.10.0
+       *
+       * @private
+       */
+      function _initFileMedia()
+      {
+        var wpdk_file_frame, wpdk_attachment;
+
+        $( document ).on( 'click', '.wpdk-ui-file-media button[type="reset"]', false, function( event )
+        {
+          event.preventDefault();
+          var $control = $( this ).parent( '.wpdk-ui-file-media' ).find( 'input[type="hidden"]' );
+          var $visible = $( this ).parent( '.wpdk-ui-file-media' ).find( 'input[type="text"]' );
+
+          $control.val( '' );
+          $visible.val( '' );
+
+          return false;
+
+        } );
+
+        $( document ).on( 'click', '.wpdk-ui-file-media button[type="button"],.wpdk-ui-file-media input[type="text"]', false, function( event )
+        {
+          event.preventDefault();
+
+          // If the media frame already exists, reopen it.
+          if( wpdk_file_frame ) {
+            wpdk_file_frame.open();
+            return;
+          }
+
+          var $control = $( this ).parent( '.wpdk-ui-file-media' ).find( 'input[type="hidden"]' );
+          var $visible = $( this ).parent( '.wpdk-ui-file-media' ).find( 'input[type="text"]' );
+          var title = $control.data( 'title' );
+          var button_text = $control.data( 'button_text' );
+
+          // Create the media frame.
+          wpdk_file_frame = wp.media.frames.file_frame = wp.media( {
+            title    : title,
+            button   : {
+              text : button_text
+            },
+            multiple : false  // Set to true to allow multiple files to be selected
+          } );
+
+          // When an image is selected, run a callback.
+          wpdk_file_frame.on( 'select', function()
+          {
+            // We set multiple to false so only get one image from the uploader
+            wpdk_attachment = wpdk_file_frame.state().get( 'selection' ).first().toJSON();
+
+            // Do something with attachment.id and/or attachment.url here
+            $control.val( wpdk_attachment.url );
+            $visible.val( wpdk_attachment.url );
+
+          } );
+
+          // Finally, open the modal
+          wpdk_file_frame.open();
+        } );
       }
 
       /**

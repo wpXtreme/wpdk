@@ -5,13 +5,14 @@
  *
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date               2015-01-05
- * @version            1.0.3
+ * @copyright          Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date               2015-01-09
+ * @version            1.0.4
  *
  * @history            1.0.1 - Added `WPDKUIControlURL`
  * @history            1.0.2 - Added `inputTypeWithClass` public static method.
  * @history            1.0.3 - Added `SWITCH_BUTTON` constant and `WPDKUIControlSwitch` class.
+ * @history            1.0.4 - Added `FILE_MEDIA` constant and `WPDKUIControlFile` class.
  *
  */
 final class WPDKUIControlType {
@@ -26,6 +27,7 @@ final class WPDKUIControlType {
   const DATETIME      = 'WPDKUIControlDateTime';
   const EMAIL         = 'WPDKUIControlEmail';
   const FILE          = 'WPDKUIControlFile';
+  const FILE_MEDIA    = 'WPDKUIControlFileMedia';
   const HIDDEN        = 'WPDKUIControlHidden';
   const LABEL         = 'WPDKUIControlLabel';
   const NUMBER        = 'WPDKUIControlNumber';
@@ -1372,6 +1374,113 @@ class WPDKUIControlFile extends WPDKUIControl {
    */
   public function draw() {
     $this->inputType( WPDKHTMLTagInputType::FILE, 'wpdk-form-file' );
+  }
+
+}
+/**
+ * File Media control.
+ *
+ *     $item = array(
+ *         'type'           => WPDKUIControlType::FILE_MEDIA,
+ *         'label'          => 'Select Media',
+ *         'id'             => 'id',
+ *         'name'           => 'name',
+ *         'beforelabel'    => '',
+ *         'afterlabel'     => ':',
+ *         'value'          => 'http://domain.com/sample.jpg',
+ *         'attrs'          => array(),
+ *         'data'           => array(),
+ *         'class'          => array(),
+ *         'style'          => '',
+ *         'title'          => 'This title is a tooltip',
+ *         'prepend'        => '',
+ *         'append'         => '',
+ *         'media_title'    => 'Select Media',
+ *         'media_button'   => 'Select',
+ *         'button_select'  => 'Select',
+ *         'button_change'  => 'Change',
+ *         'button_remove'  => 'Remove',
+ *     );
+ *
+ * @class              WPDKUIControlFile
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
+ * @date               2012-11-28
+ * @version            0.8.1
+ *
+ */
+class WPDKUIControlFileMedia extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlFileMedia class
+   *
+   * @brief Construct
+   * @since 1.10.0
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlFile
+   */
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::FILE_MEDIA;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    // Get properties
+    $name         = isset( $this->item[ 'name' ] ) ? $this->item[ 'name' ] : '';
+    $id           = isset( $this->item[ 'id' ] ) ? $this->item[ 'id' ] : $name;
+    $value        = isset( $this->item[ 'value' ] ) ? $this->item[ 'value' ] : '';
+    $label        = isset( $this->item[ 'label' ] ) ? $this->item[ 'label' ] : __( 'Select Media', WPDK_TEXTDOMAIN );
+    $media_title  = isset( $this->item[ 'media_title' ] ) ? $this->item[ 'media_title' ] : __( 'Select Media', WPDK_TEXTDOMAIN );
+    $media_button = isset( $this->item[ 'media_button' ] ) ? $this->item[ 'media_button' ] : __( 'Select', WPDK_TEXTDOMAIN );
+    $button_select = isset( $this->item[ 'button_select' ] ) ? $this->item[ 'button_select' ] : __( 'Select', WPDK_TEXTDOMAIN );
+    $button_change = isset( $this->item[ 'button_change' ] ) ? $this->item[ 'button_change' ] : __( 'Change', WPDK_TEXTDOMAIN );
+    $button_remove = isset( $this->item[ 'button_remove' ] ) ? $this->item[ 'button_remove' ] : __( 'Remove', WPDK_TEXTDOMAIN );
+    ?>
+    <div class="wpdk-ui-file-media">
+
+      <label class="wpdk-ui-control wpdk-form-label"
+             for="visible-<?php echo $id ?>">
+        <?php echo $label ?></label><input id="visible-<?php echo $id ?>"
+             readonly="readonly"
+             value="<?php echo $value ?>"
+             type="text"/>
+
+      <input id="<?php echo $id ?>"
+             name="<?php echo $name ?>"
+             class="wpdk-ui-control"
+             data-title="<?php echo $media_title ?>"
+             data-button_text="<?php echo $media_button ?>"
+             value="<?php echo $value ?>"
+             type="hidden"/>
+
+      <?php if( empty( $value ) ) : ?>
+        <button class="button button-primary"
+                type="button">
+          <?php echo $button_select ?>
+        </button>
+
+      <?php else : ?>
+
+        <button class="button button-secondary"
+                type="reset">
+          <?php echo $button_remove ?>
+        </button>
+        <button class="button button-primary"
+                type="button">
+          <?php echo $button_change ?>
+        </button>
+      <?php endif; ?>
+    </div>
+    <?php
   }
 
 }

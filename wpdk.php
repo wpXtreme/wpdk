@@ -426,6 +426,7 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIControlDateTime',
           'WPDKUIControlEmail',
           'WPDKUIControlFile',
+          'WPDKUIControlFileMedia',
           'WPDKUIControlHidden',
           'WPDKUIControlLabel',
           'WPDKUIControlNumber',

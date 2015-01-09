@@ -20,9 +20,10 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.9.1
+## Version 1.10.0
 ### 2015-01-??
 
+* Added `FILE_MEDIA` constant and `WPDKUIControlFileMedia` class for file media ui control
 * Minor improvements to style sheet
 
 ## Version 1.9.0
