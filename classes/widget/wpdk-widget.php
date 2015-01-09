@@ -5,13 +5,14 @@
  *
  * @class           WPDKWidget
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-12-31
- * @version         1.0.3
+ * @copyright       Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date            2015-01-09
+ * @version         1.0.4
  * @since           1.4.0
  *
  * @history         1.0.2 - Minor improves
  * @history         1.0.3 - Improved and fixed css inline for "customize.php"
+ * @history         1.0.4 - Fixed style for widget image.
  */
 class WPDKWidget extends WP_Widget {
 
@@ -104,9 +105,8 @@ class WPDKWidget extends WP_Widget {
       content  : '' !important;
       position : absolute !important;
       display  : block;
-      left     : -40px;
-      top      : 0;
     }
+    #available-widgets div[id*=<?php echo $this->id_base ?>] .widget-title h4 {padding-left:38px}
     div[id*=<?php echo $this->id_base ?>] .widget-title h4 span.in-widget-title:before {content:' <?php echo $version ?>'}
     <?php endif ?>
 
