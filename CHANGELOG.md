@@ -20,6 +20,11 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.9.1
+### 2015-01-??
+
+* Minor improvements to style sheet
+
 ## Version 1.9.0
 ### 2015-01-08
 

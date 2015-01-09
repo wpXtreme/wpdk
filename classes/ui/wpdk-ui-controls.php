@@ -413,7 +413,7 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input wpdk-ui-control wpdk-has-tooltip' );
+    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input wpdk-ui-control ' . is_null( $label ) ? 'wpdk-has-tooltip' : '' );
     $input->style        = WPDKHTMLTag::styleInline( isset( $this->item['style'] ) ? $this->item['style'] : '' );
     $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
     $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
@@ -428,7 +428,7 @@ class WPDKUIControl {
 
     if ( WPDKHTMLTagInputType::HIDDEN != $type ) {
       $input->size        = isset( $this->item['size'] ) ? $this->item['size'] : $this->sizeForType( $this->item['type'] );
-      $input->title       = isset( $this->item['title'] ) ? $this->item['title'] : '';
+      $input->title       = is_null( $label ) ? (isset( $this->item['title'] ) ? $this->item['title'] : '') : '';
       $input->placeholder = isset( $this->item['placeholder'] ) ? $this->item['placeholder'] : '';
     }
 

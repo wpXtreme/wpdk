@@ -1159,7 +1159,7 @@ class WPDKPostMeta {
    * @brief Map
    *
    * @param bool $create_property Optional. Default TRUE when in the target object the property doesn't exists then it
-   *                              is create dynamically. Set FALSE to map only the exists properties.
+   *                              is dynamically created. Set FALSE to map only the existing properties.
    *
    * @return WPDKPost
    */
