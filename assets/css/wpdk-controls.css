@@ -934,7 +934,7 @@ label.wpdk-form-label-inline
 {
   display   : inline !important;
   width     : auto !important;
-  min-width : auto !important;
+  min-width : 0 !important;
   margin    : 0 0 0 32px;
 }
 
@@ -1070,7 +1070,7 @@ span.wpdk-form-choose .wpdk-form-choose-button
   display    : inline-block;
   min-width  : 140px;
   text-align : right;
-  margin     : 0px 6px 0px 12px;
+  margin     : 0 6px 0 12px;
 }
 
 /* Right label */
