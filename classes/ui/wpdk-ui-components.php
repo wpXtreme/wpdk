@@ -176,10 +176,10 @@ final class WPDKUIComponents {
   private function components()
   {
     // Browser detect
-    global $is_chrome, $is_gecko;
+    global $is_chrome, $is_gecko, $is_opera;
 
     // Firefox and Chrome supports a native color picker input field. Others browsers will be use the WordPress Color Picker
-    $wp_color_picker = ( $is_chrome || $is_gecko ) ? '' : 'wp-color-picker';
+    $wp_color_picker = ( $is_chrome || $is_gecko || $is_opera ) ? '' : 'wp-color-picker';
 
     $components = array(
 

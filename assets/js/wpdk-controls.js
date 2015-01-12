@@ -411,8 +411,9 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
       {
         var is_chrome = ( window.navigator.userAgent.indexOf( "Chrome" ) != -1 );
         var is_firefox = ( window.navigator.userAgent.indexOf( "Firefox" ) != -1 );
+        var is_opera = ( window.navigator.userAgent.indexOf( "Opera" ) != -1 );
 
-        if( is_chrome || is_firefox ) {
+        if( is_chrome || is_firefox || is_opera ) {
           return;
         }
 
