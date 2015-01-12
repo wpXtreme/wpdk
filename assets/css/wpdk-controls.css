@@ -228,6 +228,11 @@ textarea.wpdk-ui-control
   transition            : box-shadow linear 0.2s;
 }
 
+input.wpdk-ui-control[type="color"]
+{
+  vertical-align : middle;
+}
+
 @media (max-width : 780px )
 {
   input.wpdk-ui-control[type="text"],
@@ -783,7 +788,8 @@ div.wpdk-form-row:after
   clear : both !important;
 }
 
-div.wpdk-form-row .wp-picker-container
+div.wpdk-form-row .wp-picker-container,
+label + .wp-picker-container
 {
   vertical-align : middle;
 }
