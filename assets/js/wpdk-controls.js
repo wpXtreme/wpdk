@@ -413,12 +413,38 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         var is_firefox = ( window.navigator.userAgent.indexOf( "Firefox" ) != -1 );
         var is_opera = ( window.navigator.userAgent.indexOf( "Opera" ) != -1 );
 
+        // Firefox, Opera and Chrome supports a native input type color
         if( is_chrome || is_firefox || is_opera ) {
           return;
         }
 
-        // Firefox and Chrome supports a native input type color
-        $( '.wpdk-ui-color-picker' ).wpColorPicker( {} );
+        // Loop into each color picker control in order to set the right options
+        $( '.wpdk-ui-color-picker' ).each( function()
+        {
+          // Get current control
+          var $control = $( this );
+
+          // Default options
+          var options = {
+            defaultColor : $control.data( 'defaultColor' ) || '#ffffff',
+            hide         : $control.data( 'hide' ) || true,
+            palettes     : $control.data( 'palettes' ) || true,
+            change       : function( event, ui )
+            {
+              $control.trigger( 'input' );
+            },
+            clear        : function()
+            {
+              $control.trigger( 'clear' );
+            }
+          };
+
+          // Engage
+          $control.wpColorPicker( options );
+
+        } );
+
+
       }
 
       /**
