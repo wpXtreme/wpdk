@@ -417,14 +417,15 @@ class WPDKUIControl {
 
     $input               = new WPDKHTMLTagInput( '', $this->name, $this->id );
     $input->type         = $type;
-    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, 'wpdk-form-input wpdk-ui-control ' . is_null( $label ) ? 'wpdk-has-tooltip' : '' );
-    $input->style        = WPDKHTMLTag::styleInline( isset( $this->item['style'] ) ? $this->item['style'] : '' );
-    $input->data         = isset( $this->item['data'] ) ? $this->item['data'] : '';
-    $input->value        = isset( $this->item['value'] ) ? $this->item['value'] : '';
-    $input->autocomplete = isset( $this->item['autocomplete'] ) ? $this->item['autocomplete'] : null;
-    $input->disabled     = isset( $this->item['disabled'] ) ? $this->item['disabled'] ? 'disabled' : null : null;
-    $input->readonly     = isset( $this->item['readonly'] ) ? $this->item['readonly'] ? 'readonly' : null : null;
-    $input->required     = isset( $this->item['required'] ) ? $this->item['required'] ? 'required' : null : null;
+
+    $input->class        = WPDKHTMLTag::mergeClasses( $this->class, $class, trim( 'wpdk-form-input wpdk-ui-control ' . ( is_null( $label ) ? 'wpdk-has-tooltip' : '' ) ) );
+    $input->style        = WPDKHTMLTag::styleInline( isset( $this->item[ 'style' ] ) ? $this->item[ 'style' ] : '' );
+    $input->data         = isset( $this->item[ 'data' ] ) ? $this->item[ 'data' ] : '';
+    $input->value        = isset( $this->item[ 'value' ] ) ? $this->item[ 'value' ] : '';
+    $input->autocomplete = isset( $this->item[ 'autocomplete' ] ) ? $this->item[ 'autocomplete' ] : null;
+    $input->disabled     = isset( $this->item[ 'disabled' ] ) ? $this->item[ 'disabled' ] ? 'disabled' : null : null;
+    $input->readonly     = isset( $this->item[ 'readonly' ] ) ? $this->item[ 'readonly' ] ? 'readonly' : null : null;
+    $input->required     = isset( $this->item[ 'required' ] ) ? $this->item[ 'required' ] ? 'required' : null : null;
 
     $input->min  = isset( $this->item['min'] ) ? $this->item['min'] : '';
     $input->max  = isset( $this->item['max'] ) ? $this->item['max'] : '';
@@ -1091,7 +1092,13 @@ class WPDKUIControlColorPicker extends WPDKUIControl {
    */
   public function draw()
   {
-    $this->inputType( WPDKHTMLTagInputType::COLOR, 'wpdk-ui-color-picker' );
+    // Browser detect
+    global $is_chrome, $is_gecko, $is_opera;
+
+    // Firefox and Chrome supports a native color picker input field. Others browsers will be use the WordPress Color Picker
+    $type = ( $is_chrome || $is_gecko || $is_opera ) ? WPDKHTMLTagInputType::COLOR : WPDKHTMLTagInputType::TEXT;
+
+    $this->inputType( $type, 'wpdk-ui-color-picker' );
   }
 }
 
