@@ -6,13 +6,14 @@
  * @class              WPDKUIControlType
  * @author             =undo= <info@wpxtre.me>
  * @copyright          Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
- * @date               2015-01-09
- * @version            1.0.4
+ * @date               2015-01-12
+ * @version            1.0.5
  *
  * @history            1.0.1 - Added `WPDKUIControlURL`
  * @history            1.0.2 - Added `inputTypeWithClass` public static method.
  * @history            1.0.3 - Added `SWITCH_BUTTON` constant and `WPDKUIControlSwitch` class.
- * @history            1.0.4 - Added `FILE_MEDIA` constant and `WPDKUIControlFile` class.
+ * @history            1.0.4 - Added `FILE_MEDIA` constant and `WPDKUIControlFileMedia` class.
+ * @history            1.0.5 - Added `COLOR_PICKER` constant and `WPDKUIControlColorPicker` class.
  *
  */
 final class WPDKUIControlType {
@@ -22,6 +23,7 @@ final class WPDKUIControlType {
   const CHECKBOX      = 'WPDKUIControlCheckbox';
   const CHECKBOXES    = 'WPDKUIControlCheckboxes';
   const CHOOSE        = 'WPDKUIControlChoose';
+  const COLOR_PICKER  = 'WPDKUIControlColorPicker';
   const CUSTOM        = 'WPDKUIControlCustom';
   const DATE          = 'WPDKUIControlDate';
   const DATETIME      = 'WPDKUIControlDateTime';
@@ -1050,6 +1052,50 @@ class WPDKUIControlChoose extends WPDKUIControl {
 }
 
 /**
+ * Color Picker control. Based on WordPress color picker.
+ *
+ *     $item = array(
+ *         'type'           => WPDKUIControlType::COLOR_PICKER,
+ *         'label'          => 'Color',
+ *     );
+ *
+ * @class              WPDKUIControlColorPicker
+ * @author             =undo= <info@wpxtre.me>
+ * @copyright          Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date               2015-01-12
+ * @version            1.0.0
+ * @since              1.10.0
+ *
+ */
+class WPDKUIControlColorPicker extends WPDKUIControl {
+
+  /**
+   * Create an instance of WPDKUIControlColorPicker class
+   *
+   * @brief Construct
+   *
+   * @param array $item Key value pairs with control info
+   *
+   * @return WPDKUIControlColorPicker
+   */
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::COLOR_PICKER;
+    parent::__construct( $item );
+  }
+
+  /**
+   * Drawing control
+   *
+   * @brief Draw
+   */
+  public function draw()
+  {
+    $this->inputType( WPDKHTMLTagInputType::COLOR, 'wpdk-ui-color-picker' );
+  }
+}
+
+/**
  * Custom control.
  *
  *     $item = array(
@@ -1146,8 +1192,9 @@ class WPDKUIControlDate extends WPDKUIControl {
    *
    * @return WPDKUIControlDate
    */
-  public function __construct( $item ) {
-    $item['type'] = WPDKUIControlType::DATE;
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::DATE;
     parent::__construct( $item );
   }
 
@@ -1307,8 +1354,9 @@ class WPDKUIControlEmail extends WPDKUIControl {
    *
    * @return WPDKUIControlEmail
    */
-  public function __construct( $item ) {
-    $item['type'] = WPDKUIControlType::EMAIL;
+  public function __construct( $item )
+  {
+    $item[ 'type' ] = WPDKUIControlType::EMAIL;
     parent::__construct( $item );
   }
 
@@ -1317,8 +1365,9 @@ class WPDKUIControlEmail extends WPDKUIControl {
    *
    * @brief Draw
    */
-  public function draw() {
-    $this->inputType( WPDKHTMLTagInputType::TEXT, 'wpdk-form-email' );
+  public function draw()
+  {
+    $this->inputType( WPDKHTMLTagInputType::EMAIL, 'wpdk-form-email' );
   }
 
 }

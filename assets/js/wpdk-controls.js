@@ -351,12 +351,13 @@ if( typeof jQuery.fn.wpdkShiftSelectableCheckbox === 'undefined' ) {
  * @class           WPDKControls
  * @author          =undo= <info@wpxtre.me>
  * @copyright       Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
- * @date            2015-01-09
- * @version         1.1.4
+ * @date            2015-01-12
+ * @version         1.1.5
  *
  * @history         1.1.2 - Renamed internal _WPDKControls in in _WPDKControls
  * @history         1.1.3 - Added collapsable fieldset
  * @history         1.1.4 - Added file media init.
+ * @history         1.1.5 - Added color picker init.
  *
  */
 
@@ -390,6 +391,7 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         _initInput();
         _initSwipe();
         _initSwitches();
+        _initColorPicker();
         _initFileMedia();
         _initScrollable();
         _initCollapsableFieldset();
@@ -399,6 +401,23 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         _initGuide();
 
         return _WPDKControls;
+      }
+
+      /**
+       * Init the color picker ui control. Based on WordPress color picker.
+       * @private
+       */
+      function _initColorPicker()
+      {
+        var is_chrome = ( window.navigator.userAgent.indexOf( "Chrome" ) != -1 );
+        var is_firefox = ( window.navigator.userAgent.indexOf( "Firefox" ) != -1 );
+
+        if( is_chrome || is_firefox ) {
+          return;
+        }
+
+        // Firefox and Chrome supports a native input type color
+        $( '.wpdk-ui-color-picker' ).wpColorPicker( {} );
       }
 
       /**

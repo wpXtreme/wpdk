@@ -421,6 +421,7 @@ if ( !class_exists( 'WPDK' ) ) {
           'WPDKUIControlCheckbox',
           'WPDKUIControlCheckboxes',
           'WPDKUIControlChoose',
+          'WPDKUIControlColorPicker',
           'WPDKUIControlCustom',
           'WPDKUIControlDate',
           'WPDKUIControlDateTime',
