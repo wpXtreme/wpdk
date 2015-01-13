@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPDK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 09:12+0100\n"
-"PO-Revision-Date: 2014-10-22 09:12+0100\n"
+"POT-Creation-Date: 2015-01-08 10:42+0100\n"
+"PO-Revision-Date: 2015-01-08 10:42+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language: en_US\n"
@@ -13,90 +13,102 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.7.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../classes/core/wpdk-cron.php:69
+#: ../classes/core/wpdk-cron.php:72
 msgid "Half hour"
 msgstr ""
 
-#: ../classes/core/wpdk-cron.php:73
+#: ../classes/core/wpdk-cron.php:76
 msgid "Two minutes"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:276
+#: ../classes/core/wpdk-cron.php:80
+msgid "Four times daily"
+msgstr ""
+
+#: ../classes/core/wpdk-preferences.php:326
 msgid "Your preferences were successfully restored to defaults values!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:277
-#: ../classes/core/wpdk-preferences.php:289
+#: ../classes/core/wpdk-preferences.php:327
+#: ../classes/core/wpdk-preferences.php:339
 #: ../classes/ui/wpdk-listtable-viewcontroller.php:933
 msgid "Information"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:288
+#: ../classes/core/wpdk-preferences.php:338
 msgid "Your preferences values were successfully updated!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:611
+#: ../classes/core/wpdk-preferences.php:661
 msgid "Warning!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:618
+#: ../classes/core/wpdk-preferences.php:668
 msgid "Successfully!"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:619
+#: ../classes/core/wpdk-preferences.php:669
 msgid "Import complete."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:624
+#: ../classes/core/wpdk-preferences.php:674
 msgid "Error while read file! Error code:"
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:629
+#: ../classes/core/wpdk-preferences.php:679
 msgid "Malformed file."
 msgstr ""
 
-#: ../classes/core/wpdk-preferences.php:634
+#: ../classes/core/wpdk-preferences.php:684
 msgid ""
 "Wrong file version! You are try to import a most recent of export file. "
 "Please update your plugin before continue."
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:33
+#: ../classes/database/wpdk-db.php:315
+msgid "SQL file empty"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:323
+msgid "Error while import:"
+msgstr ""
+
+#: ../classes/database/wpdk-db.php:472
 #: ../classes/deprecated/wpdk-db-table.php:52
-#: ../classes/post/wpdk-post-placeholders.php:248
+#: ../classes/post/wpdk-post-placeholders.php:243
 msgid "All"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:34
+#: ../classes/database/wpdk-db.php:473
 #: ../classes/deprecated/wpdk-db-table.php:53
 msgid "Draft"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:35
+#: ../classes/database/wpdk-db.php:474
 #: ../classes/deprecated/wpdk-db-table.php:54
 msgid "Publish"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:36
+#: ../classes/database/wpdk-db.php:475
 #: ../classes/deprecated/wpdk-db-table.php:55
 msgid "Trash"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:219
+#: ../classes/database/wpdk-db.php:658
 #: ../classes/deprecated/wpdk-db-table-model-listtable.php:296
 msgid "Error while insert"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:292
+#: ../classes/database/wpdk-db.php:731
 #: ../classes/deprecated/wpdk-db-table-model-listtable.php:366
 msgid "Error while update"
 msgstr ""
 
-#: ../classes/database/wpdk-db.php:356
+#: ../classes/database/wpdk-db.php:795
 msgid "Error while delete"
 msgstr ""
 
@@ -273,7 +285,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:179 ../wpdk.php:585
+#: ../classes/helper/wpdk-datetime.php:179 ../wpdk.php:607
 msgid "Hour"
 msgstr ""
 
@@ -281,7 +293,7 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:180 ../wpdk.php:586
+#: ../classes/helper/wpdk-datetime.php:180 ../wpdk.php:608
 msgid "Minute"
 msgstr ""
 
@@ -293,7 +305,7 @@ msgstr ""
 msgid "Second"
 msgstr ""
 
-#: ../classes/helper/wpdk-datetime.php:181 ../wpdk.php:587
+#: ../classes/helper/wpdk-datetime.php:181 ../wpdk.php:609
 msgid "Seconds"
 msgstr ""
 
@@ -321,19 +333,23 @@ msgstr ""
 msgid "User email"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:209
+#: ../classes/post/wpdk-post-placeholders.php:162
+msgid "IP Address"
+msgstr ""
+
+#: ../classes/post/wpdk-post-placeholders.php:206
 msgid "Placeholders"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:233
+#: ../classes/post/wpdk-post-placeholders.php:228
 msgid "No PLaceholders registered/found"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:247
+#: ../classes/post/wpdk-post-placeholders.php:242
 msgid "Filter by Owner"
 msgstr ""
 
-#: ../classes/post/wpdk-post-placeholders.php:340
+#: ../classes/post/wpdk-post-placeholders.php:331
 msgid "New Placeholders Metabox"
 msgstr ""
 
@@ -370,7 +386,7 @@ msgid "The post is in trashbin"
 msgstr ""
 
 #: ../classes/ui/wpdk-dynamic-table.php:206
-#: ../classes/ui/wpdk-ui-controls.php:347
+#: ../classes/ui/wpdk-ui-controls.php:367
 msgid "Add"
 msgstr ""
 
@@ -411,41 +427,49 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-view.php:137 ../classes/ui/wpdk-ui.php:95
+#: ../classes/ui/wpdk-preferences-view.php:139 ../classes/ui/wpdk-ui.php:95
 msgid "Update"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-view.php:149
+#: ../classes/ui/wpdk-preferences-view.php:151
 msgid ""
 "Are you sure to reset this preferences to default values?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-view.php:163 ../classes/ui/wpdk-ui.php:30
+#: ../classes/ui/wpdk-preferences-view.php:165 ../classes/ui/wpdk-ui.php:30
 msgid "Reset to default"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-viewcontroller.php:66
+#: ../classes/ui/wpdk-preferences-view.php:212
+msgid "Create new"
+msgstr ""
+
+#: ../classes/ui/wpdk-preferences-view.php:223
+msgid "Edit"
+msgstr ""
+
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:67
 msgid ""
 "Are you sure to reset All preferences to default value?\n"
 "\n"
 "This operation is not reversible!"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-viewcontroller.php:81
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:82
 msgid "Import"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-viewcontroller.php:86
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:87
 msgid "Export"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-viewcontroller.php:92
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:93
 msgid "Reset All"
 msgstr ""
 
-#: ../classes/ui/wpdk-preferences-viewcontroller.php:98
+#: ../classes/ui/wpdk-preferences-viewcontroller.php:99
 msgid "Repair"
 msgstr ""
 
@@ -453,22 +477,22 @@ msgstr ""
 msgid "By clicking on the X button, this alert won't appear"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui-controls.php:339
+#: ../classes/ui/wpdk-ui-controls.php:359
 msgid "Remove"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui-controls.php:432
+#: ../classes/ui/wpdk-ui-controls.php:461
 msgid ""
 "This field is locked for your security. However you can unlock just by click "
 "here."
 msgstr ""
 
-#: ../classes/ui/wpdk-ui-controls.php:563
-#: ../classes/ui/wpdk-ui-controls.php:566
+#: ../classes/ui/wpdk-ui-controls.php:585
+#: ../classes/ui/wpdk-ui-controls.php:588
 msgid "Guide"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui-controls.php:569
+#: ../classes/ui/wpdk-ui-controls.php:591
 msgid "Open the guide"
 msgstr ""
 
@@ -737,104 +761,112 @@ msgstr ""
 msgid "Canceled"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1399
+#: ../classes/users/wpdk-users.php:1560
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, have a look below for additional information."
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1414
+#: ../classes/users/wpdk-users.php:1576
 msgid "Login information"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1419
+#: ../classes/users/wpdk-users.php:1581
 msgid "Last success login"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1426
+#: ../classes/users/wpdk-users.php:1588
 msgid "# success login"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1435
+#: ../classes/users/wpdk-users.php:1597
 msgid "Last wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1442
+#: ../classes/users/wpdk-users.php:1604
 msgid "# wrong login"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1448
+#: ../classes/users/wpdk-users.php:1610
 msgid "Logout information"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1453
+#: ../classes/users/wpdk-users.php:1615
 msgid "Last logout"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1459 ../classes/users/wpdk-users.php:1464
+#: ../classes/users/wpdk-users.php:1621 ../classes/users/wpdk-users.php:1626
 msgid "Status"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1476
+#: ../classes/users/wpdk-users.php:1638
 msgid "Description"
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1477
+#: ../classes/users/wpdk-users.php:1639
 msgid "eg: this user is disabled because..."
 msgstr ""
 
-#: ../classes/users/wpdk-users.php:1532
+#: ../classes/users/wpdk-users.php:1676
+msgid "WPDK"
+msgstr ""
+
+#: ../classes/users/wpdk-users.php:1719
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
 "additional information."
 msgstr ""
 
-#: ../services/wpdk-service-ajax.php:274
+#: ../services/wpdk-service-ajax.php:90 ../services/wpdk-service-ajax.php:126
+msgid "Wrong parameter"
+msgstr ""
+
+#: ../services/wpdk-service-ajax.php:350
 msgid "Malformed data sending: no alert id found!"
 msgstr ""
 
-#: ../services/wpdk-service-ajax.php:280 ../services/wpdk-service-ajax.php:327
+#: ../services/wpdk-service-ajax.php:356 ../services/wpdk-service-ajax.php:403
 msgid "Severe error: no user logged in!"
 msgstr ""
 
-#: ../services/wpdk-service-ajax.php:321
+#: ../services/wpdk-service-ajax.php:397
 msgid "Malformed data sedning: no alert id found!"
 msgstr ""
 
-#: ../wpdk.php:581
+#: ../wpdk.php:603
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
 msgstr ""
 
-#: ../wpdk.php:583
+#: ../wpdk.php:605
 msgid "Choose Time"
 msgstr ""
 
-#: ../wpdk.php:584
+#: ../wpdk.php:606
 msgid "Time"
 msgstr ""
 
-#: ../wpdk.php:588
+#: ../wpdk.php:610
 msgid "Now"
 msgstr ""
 
-#: ../wpdk.php:589
+#: ../wpdk.php:611
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr ""
 
-#: ../wpdk.php:590
+#: ../wpdk.php:612
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
 msgstr ""
 
-#: ../wpdk.php:591
+#: ../wpdk.php:613
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr ""
 
-#: ../wpdk.php:592
+#: ../wpdk.php:614
 msgid "Close"
 msgstr ""
 
