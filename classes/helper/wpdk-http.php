@@ -153,7 +153,7 @@ class WPDKUserAgents {
   /**
    * Return TRUE if an user agent or current user agent is a Crawler.
    *
-   * @param string $user_agent Optional. User agent string oro empty for current user agent.
+   * @param string $user_agent Optional. User agent string or blank for current user agent.
    *
    * @return bool
    */

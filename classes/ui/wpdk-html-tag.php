@@ -409,6 +409,7 @@ class WPDKHTMLTag extends WPDKObject {
    */
   public static function sanitizeClasses( $classes )
   {
+
     if( empty( $classes) || is_null( $classes ) ) {
       return array();
     }
@@ -633,11 +634,13 @@ class WPDKHTMLTag extends WPDKObject {
 
     for ( $i = 1; $i < func_num_args(); $i++ ) {
       $arg = func_get_arg( $i );
+
       if ( !is_null( $arg ) ) {
         $s     = self::sanitizeClasses( $arg );
         $class = array_merge( $class, $s );
       }
     }
+
     return self::sanitizeClasses( $class );
   }
 

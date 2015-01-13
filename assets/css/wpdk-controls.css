@@ -2,14 +2,45 @@
  * WPDK Controls
  *
  * @author        wpXtreme, Inc.
- * @copyright     Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date	        2014-02-25
- * @version       1.0.1
+ * @copyright     Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date	        2015-01-12
+ * @version       1.0.3
  *
+ * @history       1.0.2 - Added file media styles.
+ * @history       1.0.3 - Restyling code.
  */
 
+/*
+1.0 - Columns
+2.0 - Views and View Controller
+3.0 - Preferences
+4.0 - UI Controls
+  4.1 - Inputs
+  4.2 - Inputs Disabled
+  4.3 - Inputs Readonly
+  4.4 - Focus, Active, Hover
+  4.5 - Select
+  4.6 - Textarea
+  4.7 - Lock
+  4.8 - Scrollable
+  4.9 - Switch
+  4.10 - File Media
+
+5.0 - Forms
+
+8.0 - Utilities
+  8.1 - Clear
+
+9.0 - Deprecated
+  9.1 - Swipe
+  9.2 - Fieldset accordion
+  9.3 - Choose
+
+*/
+
+
 /* =====================================================================================================================
- * COLUMN
+ * 1.0 - Columns
  * =====================================================================================================================
  */
 
@@ -52,7 +83,7 @@
 }
 
 /* =====================================================================================================================
- * VIEWS & VIEW CONTROLLER
+ * 2.0 - Views and View Controller
  * =====================================================================================================================
  */
 
@@ -116,7 +147,7 @@ div.meta-box-sortables div.wpdk-border-container
 }
 
 /* =====================================================================================================================
- * PREFERENCES
+ * 3.0 - Preferences
  * TODO This declaration could be insert in missing `wpdk-preferences.css` file
  * =====================================================================================================================
  */
@@ -128,7 +159,7 @@ form#wpdk-preferences input[name="wpdk_preferences_reset_all"]
 }
 
 /* =====================================================================================================================
- * WPDK UI CONTROLS
+ * 4.0 - UI Controls
  * =====================================================================================================================
  */
 
@@ -141,7 +172,7 @@ form#wpdk-preferences input[name="wpdk_preferences_reset_all"]
 }
 
 /* =====================================================================================================================
- * INPUT POINTER WPDK UI CONTROL
+ * 4.1 - Inputs
  * =====================================================================================================================
  */
 
@@ -154,52 +185,10 @@ input.wpdk-ui-control[type="submit"]
   cursor : pointer;
 }
 
-/* =====================================================================================================================
- * DISABLED WPDK UI CONTROL
- * =====================================================================================================================
- */
-
-input.wpdk-ui-control[disabled],
-select.wpdk-ui-control[disabled],
-textarea.wpdk-ui-control[disabled],
-input.wpdk-ui-control[readonly],
-select.wpdk-ui-control[readonly],
-textarea.wpdk-ui-control[readonly]
+input.wpdk-ui-control[type="checkbox"]
 {
-  cursor           : not-allowed;
-  background-color : #eee !important;
-  color            : #999 !important;
+  vertical-align : middle !important;
 }
-
-input.wpdk-ui-control[type="radio"][disabled],
-input.wpdk-ui-control[type="checkbox"][disabled],
-input.wpdk-ui-control[type="radio"][readonly],
-input.wpdk-ui-control[type="checkbox"][readonly]
-{
-  background-color : transparent !important;
-}
-
-/* =====================================================================================================================
- * FOCUS, ACTIVE, HOVER, ... WPDK UI CONTROL
- * =====================================================================================================================
- */
-
-input.wpdk-form-input:focus,
-textarea.wpdk-form-textarea:focus
-{
-  border-color       : rgba(82, 168, 236, 0.8);
-  outline            : 0;
-  outline            : thin dotted \9;
-  /* IE6-9 */
-  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-}
-
-/* =====================================================================================================================
- * COMMON WPDK UI CONTROL
- * =====================================================================================================================
- */
 
 input.wpdk-ui-control[type="date"],
 input.wpdk-ui-control[type="datetime"],
@@ -239,6 +228,11 @@ textarea.wpdk-ui-control
   transition            : box-shadow linear 0.2s;
 }
 
+input.wpdk-ui-control[type="color"]
+{
+  vertical-align : middle;
+}
+
 @media (max-width : 780px )
 {
   input.wpdk-ui-control[type="text"],
@@ -250,7 +244,32 @@ textarea.wpdk-ui-control
 }
 
 /* =====================================================================================================================
- * INPUT WPDK UI CONTROL
+ * 4.2 - Inputs Disabled
+ * =====================================================================================================================
+ */
+
+input.wpdk-ui-control[disabled],
+select.wpdk-ui-control[disabled],
+textarea.wpdk-ui-control[disabled],
+input.wpdk-ui-control[readonly],
+select.wpdk-ui-control[readonly],
+textarea.wpdk-ui-control[readonly]
+{
+  cursor           : not-allowed;
+  background-color : #eee !important;
+  color            : #999 !important;
+}
+
+input.wpdk-ui-control[type="radio"][disabled],
+input.wpdk-ui-control[type="checkbox"][disabled],
+input.wpdk-ui-control[type="radio"][readonly],
+input.wpdk-ui-control[type="checkbox"][readonly]
+{
+  background-color : transparent !important;
+}
+
+/* =====================================================================================================================
+ * 4.3 - Inputs Readonly
  * =====================================================================================================================
  */
 
@@ -259,13 +278,25 @@ input.wpdk-ui-control[readonly]
   background-color : #f1f1fa;
 }
 
-input.wpdk-ui-control[type="checkbox"]
+/* =====================================================================================================================
+ * 4.4 - Focus, Active, Hover
+ * =====================================================================================================================
+ */
+
+input.wpdk-form-input:focus,
+textarea.wpdk-form-textarea:focus
 {
-  vertical-align : middle !important;
+  border-color       : rgba(82, 168, 236, 0.8);
+  outline            : 0;
+  outline            : thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
 }
 
 /* =====================================================================================================================
- * SELECT WPDK UI CONTROL
+ * 4.5 - Select
  * =====================================================================================================================
  */
 
@@ -313,7 +344,7 @@ select.wpdk-ui-control + .wpdk-form-append
 }
 
 /* =====================================================================================================================
- * TEXTAREA WPDK UI CONTROL
+ * 4.6 - Textarea
  * =====================================================================================================================
  */
 
@@ -335,201 +366,7 @@ textarea.wpdk-ui-control
 }
 
 /* =====================================================================================================================
- * UTILITIES WPDK UI CONTROL
- * =====================================================================================================================
- */
-
-.wpdk-ui-uppercase
-{
-  text-transform : uppercase;
-}
-
-.wpdk-ui-lowercase
-{
-  text-transform : lowercase;
-}
-
-.wpdk-ui-capitalize
-{
-  text-transform : capitalize;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------
- *
- * since 1.5.10 all css styles below are deprecated.
- *
- * They will be replace with prefix `wpdk-ui-`
- *
- * ---------------------------------------------------------------------------------------------------------------------
- */
-
-/* =====================================================================================================================
- * INPUT
- * @deprecated since 1.5.10
- * =====================================================================================================================
- */
-
-input.wpdk-form-input,
-textarea.wpdk-form-textarea,
-select.wpdk-form-select
-{
-  /*width                 : auto;*/
-  border                : 1px solid #dfdfdf;
-  background-color      : #fff;
-  /*padding               : 6px;*/
-  margin                : 0 4px 0 2px;
-  color                 : #444;
-  outline               : none;
-  vertical-align        : middle;
-  -moz-box-shadow       : inset 0 2px 3px #eee, 0 1px 0 #fff;
-  -webkit-box-shadow    : inset 0 2px 3px #eee, 0 1px 0 #fff;
-  box-shadow            : inset 0 2px 3px #eee, 0 1px 0 #fff;
-  -moz-border-radius    : 3px;
-  -webkit-border-radius : 3px;
-  border-radius         : 3px;
-  -webkit-transition    : box-shadow linear 0.2s;
-  -moz-transition       : box-shadow linear 0.2s;
-  -ms-transition        : box-shadow linear 0.2s;
-  -o-transition         : box-shadow linear 0.2s;
-  transition            : box-shadow linear 0.2s;
-}
-
-textarea.wpdk-form-textarea
-{
-  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition : border linear 0.2s, box-shadow linear 0.2s;
-  -moz-transition    : border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition     : border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition      : border linear 0.2s, box-shadow linear 0.2s;
-  transition         : border linear 0.2s, box-shadow linear 0.2s;
-  -webkit-box-sizing : border-box;
-  -moz-box-sizing    : border-box;
-  box-sizing         : border-box;
-}
-
-input.wpdk-form-input:focus,
-textarea.wpdk-form-textarea:focus
-{
-  border-color       : rgba(82, 168, 236, 0.8);
-  outline            : 0;
-  outline            : thin dotted \9;
-  /* IE6-9 */
-  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-}
-
-input.wpdk-form-input[readonly]
-{
-  background-color : #f1f1fa;
-}
-
-select.wpdk-form-select.wpdk-form-select-size
-{
-  height                : auto !important;
-  min-width             : 200px !important;
-  -moz-border-radius    : 4px !important;
-  -webkit-border-radius : 4px !important;
-  border-radius         : 4px !important;
-}
-
-select.wpdk-form-select + .wpdk-form-append
-{
-  vertical-align : middle;
-}
-
-/* =====================================================================================================================
- * INPUT TYPE
- * @deprecated since 1.5.10
- * =====================================================================================================================
- */
-
-.wpdk-form-number,
-.wpdk-form-phone,
-.wpdk-form-date,
-.wpdk-form-datetime
-{
-  text-align : right;
-}
-
-input.wpdk-form-uppercase
-{
-  text-transform : uppercase;
-}
-
-input.wpdk-form-lowercase
-{
-  text-transform : lowercase;
-}
-
-input.wpdk-form-capitalize
-{
-  text-transform : capitalize;
-}
-
-input.wpdk-form-checkbox
-{
-  vertical-align : middle !important;
-}
-
-option.wpdk-form-option
-{
-  padding : 2px;
-  margin  : 2px 0;
-}
-
-option.wpdk-form-option:hover,
-option.wpdk-form-option:focus,
-option.wpdk-form-option:active,
-option.wpdk-form-option:selection,
-option.wpdk-form-option:checked
-{
-  background-color : #a1bc35 !important;
-}
-
-[selected],
-option.wpdk-form-option[selected]
-{
-  background-color : #dedede !important;
-}
-
-/* =====================================================================================================================
- * CLEAR
- * =====================================================================================================================
- */
-
-.wpdk-form-clear-left
-{
-  /* zoom       : 1 !important; */
-  cursor      : pointer;
-  display     : inline;
-  position    : relative;
-  line-height : 100%;
-}
-
-.wpdk-form-clear-left i
-{
-  color     : #ff664b;
-  font-size : 16px;
-  position  : absolute;
-  right     : 8px;
-  top       : 3px;
-}
-
-.wpdk-form-clear-left i:hover
-{
-  color : #d1593e;
-}
-
-input.wpdk-form-has-button-clear-left
-{
-  padding-right : 26px !important;
-}
-
-/* =====================================================================================================================
- * LOCKED FIELD
+ * 4.7 - Lock
  * TODO Replace locked image with glyph
  * =====================================================================================================================
  */
@@ -555,7 +392,7 @@ input.wpdk-form-has-button-clear-left
 }
 
 /* =====================================================================================================================
- * SCROLLABLE CONTROL
+ * 4.8 - Scrollable
  * since 1.4.7
  * =====================================================================================================================
  */
@@ -618,425 +455,7 @@ input.wpdk-form-has-button-clear-left
 }
 
 /* =====================================================================================================================
- * SWIPE CONTROL
- * =====================================================================================================================
- */
-span.wpdk-form-swipe
-{
-  cursor                : pointer;
-  display               : inline-block;
-  *display              : inline;
-  position              : relative;
-  zoom                  : 1;
-  width                 : 44px;
-  height                : 20px;
-  padding               : 2px;
-  margin                : 0 8px 0 2px;
-  vertical-align        : middle;
-  background-color      : #ed5a61;
-  -moz-box-shadow       : inset 0 1px 1px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.5);
-  box-shadow            : inset 0 1px 1px rgba(0, 0, 0, 0.5);
-  -moz-border-radius    : 32px;
-  -webkit-border-radius : 32px;
-  border-radius         : 32px;
-}
-
-span.wpdk-form-swipe span
-{
-  display               : block;
-  width                 : 16px;
-  height                : 16px;
-  background-color      : #fff;
-  -moz-border-radius    : 100%;
-  -webkit-border-radius : 100%;
-  border-radius         : 100%;
-}
-
-span.wpdk-form-swipe.wpdk-form-swipe-on
-{
-  background : #8ab485;
-}
-
-span.wpdk-form-swipe.wpdk-form-swipe-on span
-{
-  margin-left : 23px;
-}
-
-/* =====================================================================================================================
- * FORM
- * =====================================================================================================================
- */
-fieldset.wpdk-form-fieldset
-{
-  padding               : 6px;
-  background-color      : #fcfcfc;
-  border                : 1px solid #aaa;
-  margin-bottom         : 16px;
-  -moz-border-radius    : 4px;
-  -webkit-border-radius : 4px;
-  border-radius         : 4px;
-}
-
-fieldset.wpdk-form-fieldset fieldset.wpdk-form-fieldset
-{
-  margin-left  : 10px;
-  margin-right : 10px;
-}
-
-fieldset.wpdk-form-fieldset legend
-{
-  color       : #09d;
-  font-family : inherit !important;
-  font-size   : 18px !important;
-  font-style  : inherit;
-  font-weight : inherit;
-  margin      : 0 16px 4px;
-  padding     : 2px 4px;
-  width       : auto;
-  border      : none;
-  position    : relative;
-}
-
-/* Collapse */
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend
-{
-  padding-right : 24px;
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend:after
-{
-  font-family     : "wpdk-fonts";
-  font-style      : normal;
-  font-weight     : normal;
-  speak           : none;
-  display         : inline-block;
-  text-decoration : inherit;
-  width           : 1em;
-  margin-right    : .2em;
-  text-align      : center;
-  font-variant    : normal;
-  text-transform  : none;
-  line-height     : 1em;
-  margin-left     : .2em;
-  cursor          : pointer;
-  position        : absolute;
-  right           : 0;
-  top             : 3px;
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open legend:after
-{
-  content : '\e81d';
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close legend:after
-{
-  content : '\e81c';
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse div.wpdk-fieldset-container
-{
-  -webkit-transition : max-height ease-out 0.3s;
-  -moz-transition    : max-height ease-out 0.3s;
-  -ms-transition     : max-height ease-out 0.3s;
-  -o-transition      : max-height ease-out 0.3s;
-  transition         : max-height ease-out 0.3s;
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open div.wpdk-fieldset-container
-{
-  max-height : 999px;
-}
-
-fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close div.wpdk-fieldset-container
-{
-  max-height : 0;
-  overflow   : hidden;
-}
-
-div.wpdk-form-row
-{
-  line-height    : 100%;
-  margin         : 2px 0 16px;
-  padding        : 0;
-  *zoom          : 1 !important;
-  vertical-align : middle;
-}
-
-div.wpdk-form-row:before,
-div.wpdk-form-row:after
-{
-  display : table !important;
-  content : "" !important;
-}
-
-div.wpdk-form-row:after
-{
-  clear : both !important;
-}
-
-div.wpdk-form-row .wp-picker-container
-{
-  vertical-align: middle;
-}
-
-label.wpdk-form-label
-{
-  line-height    : 100%;
-  vertical-align : middle;
-  margin         : 0 6px 0 12px;
-}
-
-label.wpdk-form-label.wpdk-form-label-on-top
-{
-  display    : block;
-  text-align : left;
-  margin     : 0 0 10px 0;
-  min-width  : auto;
-}
-
-label.wpdk-form-label.wpdk-form-label-top
-{
-  vertical-align : top;
-}
-
-div.wpdk-form-row > label.wpdk-form-label:first-child
-{
-  display    : inline-block;
-  *display   : inline;
-  zoom       : 1;
-  text-align : right;
-  min-width  : 140px;
-}
-
-div.wpdk-form-row .alignright
-{
-  margin-right : 10px;
-}
-
-div.wpdk-form-row .alignleft
-{
-  margin-left : 10px;
-}
-
-/* TODO Rename in wpdk-inline */
-
-label.inline
-{
-  width   : auto;
-  display : inline;
-}
-
-/* Validation */
-
-.wpdk-form-ok
-{
-  -moz-box-shadow    : inset 0 0 1px 0 green !important;
-  -webkit-box-shadow : inset 0 0 1px 0 green !important;
-  box-shadow         : inset 0 0 1px 0 green !important;
-  border             : 1px solid green !important;
-}
-
-.wpdk-form-wrong
-{
-  -moz-box-shadow    : inset 0 0 1px 0 red !important;
-  -webkit-box-shadow : inset 0 0 1px 0 red !important;
-  box-shadow         : inset 0 0 1px 0 red !important;
-  border             : 1px solid red !important;
-}
-
-/* =====================================================================================================================
- * SUBTITLE INTO FIELDSET
- * =====================================================================================================================
- */
-
-div.wpdk-form-description
-{
-  display               : block;
-  padding               : 12px;
-  margin                : 0 8px 16px;
-  background-color      : #fff;
-  border                : 1px solid rgba(0, 0, 0, 0.08);
-  border-top            : none;
-  color                 : #666;
-  font-size             : 12px;
-  line-height           : 24px;
-  text-align            : left;
-  -moz-border-radius    : 0 0 2px 2px;
-  -webkit-border-radius : 0 0 2px 2px;
-  border-radius         : 0 0 2px 2px;
-}
-
-div.wpdk-form-description:before
-{
-  content          : "";
-  display          : block;
-  height           : 3px;
-  margin           : -12px -12px 12px -12px;
-  background-color : rgba(0, 100, 200, 0.3);
-}
-
-div.wpdk-form-description code,
-div.wpdk-form-description .code
-{
-  background-color      : #f6f6f6;
-  border                : 1px solid rgba(0, 0, 0, 0.2);
-  font-size             : 12px;
-  margin                : 0 1px;
-  padding               : 2px 6px;
-  -moz-border-radius    : 4px;
-  -webkit-border-radius : 4px;
-  border-radius         : 4px;
-}
-
-/* =====================================================================================================================
- * GLYPH ICONS INTO THE CONTROL LAYOUT ARRAY
- * =====================================================================================================================
- */
-
-.wpdk-form-description > i[class^="wpdk-icon"],
-.wpdk-form-description > i[class*="wpdk-icon"]
-{
-  font-size : 24px;
-  float     : left;
-  margin    : 1px 4px 4px 0;
-}
-
-.wpdk-form-description .wpdk-icon-info-circled
-{
-  color : #6696e8;
-}
-
-.wpdk-form-description .wpdk-icon-attention
-{
-  color : #ef5456;
-}
-
-.wpdk-form-description .wpdk-icon-tag
-{
-  color : #70b46a;
-}
-
-.wpdk-form-description .wpdk-icon-ok
-{
-  color : #76a071;
-}
-
-/* =====================================================================================================================
- * FIELD REQUIRES (APPLY TO LABEL TOO)
- * =====================================================================================================================
- */
-label.wpdk-form-label-inline
-{
-  display   : inline !important;
-  width     : auto !important;
-  min-width : auto !important;
-  margin    : 0 0 0 32px;
-}
-
-.wpdk-form-row label.wpdk-form-label-inline:first-child
-{
-  margin : 0;
-}
-
-span.wpdk-ui-control.wpdk-ui-control-label
-{
-  margin         : 0 0 0 8px;
-  line-height    : 100%;
-  vertical-align : middle;
-}
-
-label.wpdk-form-checkbox
-{
-  text-align  : left;
-  margin-left : 4px;
-  display     : inline;
-}
-
-p.wpdk-form-paragraph
-{
-  font-size : 13px !important;
-  margin    : 0 16px;
-}
-
-/* =====================================================================================================================
- * FIELDSET ACCORDION
- * TODO Experimental
- * =====================================================================================================================
- */
-i.wpdk-openclose-accordion
-{
-  display          : block;
-  float            : right;
-  width            : 20px;
-  height           : 20px;
-  margin-left      : 8px;
-  cursor           : pointer;
-  background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFJREFUeNqEVUtPU0EYndsHVVvBUiSEQmmLCYtC4g78CYbIwkBwrYlxpQt3rl1pXEgoGhJxY0wMsMC1jxgNUMDEYKpppEAppYVAWwq37/b6nXGm3BKjk5zMdOb7znyPc6cKo6FpGtMPRVEMNBkJDQQzwSSOyoQSoUiokF9V2Nf5c0JBqgiCpg8f5yfD4ch+MpmqVKtVDcAaeziDjbA9xUaDjDEhqrMTz14Ora7+jBeLRa1SqWjlcrkO2MMZbGALH+FbNwTZ1HAsFs/DsVAo/BOwgS189KSKLk1H8Eco2O3tslMU+nrWaqQrDR9Go5FRCZI+X4+PfiZFfTnzhZnZt6+z2ayWTqfrkMlktGtD1zmwPn0On+mZuVfgAJdJdLDR4+m6msvlZD1rw2QyMZfLzdeInFKtO8ded7dnkJYPCFmTkEZj60VHExWbp4QUkY5Mt9PVxfTygA2IpG2Lw46ONxIOFBFqTyKRWMzn89zBbDazu/fus7a2duZ2e/iMkUjssM3NDT6PPX3CSqXSnyzIvsPpHKBlSKZsARkilAMkiAyz3d58kqIoCchgjwhFo/gHIL8AdniY0RoazApqiHQeP3pYS/nd+wVuMzI8WOt0JBLh9TYYDOxYVTUpcBBCI4VodFt1u102mUYoFOKz1WplqVSSr7e2tpiqqnVNQXmi0ZgqPseyQWhHDSwtB3AzughSCRIxi+1sc2CtP5MdX1n+uggOECqiy22Evunp2Tder9sKRylgdNvn8/F1MBhkUvQohcViYb/W1tUboyOjtPUdfcOLIqVvPEimcn29vf02m82ACKTu4vE4B9ZSp0h1d3evPO73j21srM/T1i4hZ5TvA0AHe+HwZtre7OhzdXZY5MMBSM1B6CALLK0c+ccn/F8+f5ojs21CBv1QdI8DCKAPqPjSzVu371wZ6L/sdLafaWlxcLv9/QN6EHbyC4uBb1MvJp/T1hohIr7jAu7nhugcdVOSQvGthA5RW1xyTlycFc4JEdWeiKwgsmQ1QiERRUgJBOfFI2oTFzHheAzZEo7EBWVdH/7y2p6U4L9/ATIq/fgtwADGGBWAwP/Q5AAAAABJRU5ErkJggg==);
-}
-
-div.wpdk-accordion
-{
-  position           : relative;
-  height             : 0;
-  overflow           : hidden;
-  overflow           : visible \9;
-  -webkit-transition : height 0.35s ease;
-  -moz-transition    : height 0.35s ease;
-  -o-transition      : height 0.35s ease;
-  transition         : height 0.35s ease;
-}
-
-fieldset.wpdk-accordion-open i.wpdk-openclose-accordion
-{
-  background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAs9JREFUeNqUVU1PE1EUfTOd6USGkiDQTIipBRXRBleGxMSN/4KwdmPUGDe6YlF0JVHRxJ0mfgSi/gGVWCUmGNHEz4iMAnEqIaUNlLaUdjrTjvfU95KWVFJucsLw3rnn3Xvfva8Ka2wywUfwE1SCwtddgkMoEcqESiPHWpO4QODZ89iFpSXr/fr6xkqlUkkB+MYa9sDhXIntENWeS5dHjn/5+v1DqVTyyuWy57puHbCGPXDAhU+DwP6JjYxcObmykkjB0bbtHQEOuPCpFZVq0uyYm5uf7u0N91EUrBnz+XxscfH3fCTSf4r+XUd9ZS7Y8vDR5NlwONRXLBaZ4zhNAdyenlD//QcTZ6ABLYXfYFvk6JGhQqHAqPhsN4Zsjg1EhunzHmFL4a3RFgx2hajYzPM8JklSNR38bWTgQEhwOzs7QtAgrIkIdVVVVKQAU1WVnTt/kQUCAfrW6sQcx2a5XI7dvnW9mjZMUVUEpcNVCGoQQ4TCDKObdXUFma7rdYL5fJ6lUsmqGPiIEJGKARATwDKZrOv3qwpqiHTGrl3dMWXLsqr1lmWZbW7mHdHgCh8h27LiSWqZbpGGaZpNXQrKY8XjST6OrsxnMx+LvYrhZGrYptsGXNj06+kYNCAo8Vs2CAOPnzy9e+jgAYMmQdTlv4ZyaJpGmfxKDA8Pnaalb4QEXhTh6TPNn2uDg4MnAoFWPyJALVGn7RCpJhKr+Wg0OpZMrn6ipVVCwcfFwKrQRu7d7OwfwzAOh8P726obXET0nEL3CLGZmbfL0dHRm6b54w3RlglZ3IcQ9PhbZ2+k0xtTUy8+ZzI5mfqwQ9dbtPb2dhnpZbNZd2FhcW1iYvLl+PiNO8T9SD4WIc3vwpO2vTga7/ggYR+v7V4+p7At/ggkeFRJHpktHlulRhALRR5pkZ8aJ7Tygxh33ETbEnL8ALfmHuoERepODTm925+AvwIMAP+m3zk+OxbzAAAAAElFTkSuQmCC);
-}
-
-div.wpdk-accordion.wpdk-accordion-open
-{
-  height : auto;
-}
-
-/* =====================================================================================================================
- * CHOOSE CONTROL
- * TODO Experimental
- * =====================================================================================================================
- */
-
-span.wpdk-form-choose .wpdk-form-choose-label
-{
-  padding               : 6px 8px;
-  border                : 1px inset #aaa;
-  display               : inline-block;
-  *display              : inline;
-  zoom                  : 1;
-  max-width             : 250px;
-  min-width             : 250px;
-  width                 : 250px;
-  background            : #eee;
-  text-shadow           : 1px 1px 0 #fff;
-  white-space           : nowrap;
-  overflow              : hidden;
-  text-overflow         : ellipsis;
-  vertical-align        : middle;
-  -moz-border-radius    : 3px;
-  -webkit-border-radius : 3px;
-  border-radius         : 3px;
-}
-
-span.wpdk-form-choose .wpdk-form-choose-label.hide
-{
-  display : none;
-}
-
-span.wpdk-form-choose .wpdk-form-choose-button
-{
-  cursor : pointer;
-}
-
-/* =====================================================================================================================
- * UI SWITCH CONTROL
+ * 4.9 - Switch
  * =====================================================================================================================
  */
 
@@ -1067,7 +486,7 @@ span.wpdk-form-choose .wpdk-form-choose-button
   display    : inline-block;
   min-width  : 140px;
   text-align : right;
-  margin     : 0px 6px 0px 12px;
+  margin     : 0 6px 0 12px;
 }
 
 /* Right label */
@@ -1243,4 +662,609 @@ span.wpdk-form-choose .wpdk-form-choose-button
 {
   margin-left      : 24px;
   background-color : #8ab485;
+}
+
+/* =====================================================================================================================
+ * 4.10 - File Media
+ * =====================================================================================================================
+ */
+
+.wpdk-ui-file-media input[type="text"]
+{
+  color     : #aaa !important;
+  min-width : 273px;
+}
+
+/* =====================================================================================================================
+ * 5.0 - Forms
+ * =====================================================================================================================
+ */
+fieldset.wpdk-form-fieldset
+{
+  padding               : 6px;
+  background-color      : #fcfcfc;
+  border                : 1px solid #aaa;
+  margin-bottom         : 16px;
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+}
+
+fieldset.wpdk-form-fieldset fieldset.wpdk-form-fieldset
+{
+  margin-left  : 10px;
+  margin-right : 10px;
+}
+
+fieldset.wpdk-form-fieldset legend
+{
+  color       : #09d;
+  font-family : inherit !important;
+  font-size   : 18px !important;
+  font-style  : inherit;
+  font-weight : inherit;
+  margin      : 0 16px 4px;
+  padding     : 2px 4px;
+  width       : auto;
+  border      : none;
+  position    : relative;
+}
+
+/* Collapse */
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend
+{
+  padding-right : 24px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse legend:after
+{
+  font-family     : "wpdk-fonts";
+  font-style      : normal;
+  font-weight     : normal;
+  speak           : none;
+  display         : inline-block;
+  text-decoration : inherit;
+  width           : 1em;
+  margin-right    : .2em;
+  text-align      : center;
+  font-variant    : normal;
+  text-transform  : none;
+  line-height     : 1em;
+  margin-left     : .2em;
+  cursor          : pointer;
+  position        : absolute;
+  right           : 0;
+  top             : 3px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open legend:after
+{
+  content : '\e81d';
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close legend:after
+{
+  content : '\e81c';
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse div.wpdk-fieldset-container
+{
+  -webkit-transition : max-height ease-out 0.3s;
+  -moz-transition    : max-height ease-out 0.3s;
+  -ms-transition     : max-height ease-out 0.3s;
+  -o-transition      : max-height ease-out 0.3s;
+  transition         : max-height ease-out 0.3s;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-open div.wpdk-fieldset-container
+{
+  max-height : 999px;
+}
+
+fieldset.wpdk-form-fieldset.wpdk-fieldset-collapse-close div.wpdk-fieldset-container
+{
+  max-height : 0;
+  overflow   : hidden;
+}
+
+div.wpdk-form-row
+{
+  line-height    : 100%;
+  margin         : 2px 0 16px;
+  padding        : 0;
+  *zoom          : 1 !important;
+  vertical-align : middle;
+}
+
+div.wpdk-form-row:before,
+div.wpdk-form-row:after
+{
+  display : table !important;
+  content : "" !important;
+}
+
+div.wpdk-form-row:after
+{
+  clear : both !important;
+}
+
+div.wpdk-form-row .wp-picker-container,
+label + .wp-picker-container
+{
+  vertical-align : middle;
+}
+
+label.wpdk-form-label,
+div.wpdk-form-row > .wpdk-ui-upload-media label
+{
+  line-height    : 100%;
+  vertical-align : middle;
+  margin         : 0 6px 0 12px;
+}
+
+label.wpdk-form-label.wpdk-form-label-on-top
+{
+  display    : block;
+  text-align : left;
+  margin     : 0 0 10px 0;
+  min-width  : 0;
+}
+
+label.wpdk-form-label.wpdk-form-label-top
+{
+  vertical-align : top;
+}
+
+div.wpdk-form-row > label.wpdk-form-label:first-child,
+div.wpdk-form-row > .wpdk-ui-file-media label
+{
+  display    : inline-block;
+  *display   : inline;
+  zoom       : 1;
+  text-align : right;
+  min-width  : 140px;
+}
+
+div.wpdk-form-row .alignright
+{
+  margin-right : 10px;
+}
+
+div.wpdk-form-row .alignleft
+{
+  margin-left : 10px;
+}
+
+/* TODO Rename in wpdk-inline */
+
+label.inline
+{
+  width   : auto;
+  display : inline;
+}
+
+/* Validation */
+
+.wpdk-form-ok
+{
+  -moz-box-shadow    : inset 0 0 1px 0 green !important;
+  -webkit-box-shadow : inset 0 0 1px 0 green !important;
+  box-shadow         : inset 0 0 1px 0 green !important;
+  border             : 1px solid green !important;
+}
+
+.wpdk-form-wrong
+{
+  -moz-box-shadow    : inset 0 0 1px 0 red !important;
+  -webkit-box-shadow : inset 0 0 1px 0 red !important;
+  box-shadow         : inset 0 0 1px 0 red !important;
+  border             : 1px solid red !important;
+}
+
+div.wpdk-form-description
+{
+  display               : block;
+  padding               : 12px;
+  margin                : 0 8px 16px;
+  background-color      : #fff;
+  border                : 1px solid rgba(0, 0, 0, 0.08);
+  border-top            : none;
+  color                 : #666;
+  font-size             : 12px;
+  line-height           : 24px;
+  text-align            : left;
+  -moz-border-radius    : 0 0 2px 2px;
+  -webkit-border-radius : 0 0 2px 2px;
+  border-radius         : 0 0 2px 2px;
+}
+
+div.wpdk-form-description:before
+{
+  content          : "";
+  display          : block;
+  height           : 3px;
+  margin           : -12px -12px 12px -12px;
+  background-color : rgba(0, 100, 200, 0.3);
+}
+
+div.wpdk-form-description code,
+div.wpdk-form-description .code
+{
+  background-color      : #f6f6f6;
+  border                : 1px solid rgba(0, 0, 0, 0.2);
+  font-size             : 12px;
+  margin                : 0 1px;
+  padding               : 2px 6px;
+  -moz-border-radius    : 4px;
+  -webkit-border-radius : 4px;
+  border-radius         : 4px;
+}
+
+.wpdk-form-description > i[class^="wpdk-icon"],
+.wpdk-form-description > i[class*="wpdk-icon"]
+{
+  font-size : 24px;
+  float     : left;
+  margin    : 1px 4px 4px 0;
+}
+
+.wpdk-form-description .wpdk-icon-info-circled
+{
+  color : #6696e8;
+}
+
+.wpdk-form-description .wpdk-icon-attention
+{
+  color : #ef5456;
+}
+
+.wpdk-form-description .wpdk-icon-tag
+{
+  color : #70b46a;
+}
+
+.wpdk-form-description .wpdk-icon-ok
+{
+  color : #76a071;
+}
+
+label.wpdk-form-label-inline
+{
+  display   : inline !important;
+  width     : auto !important;
+  min-width : 0 !important;
+  margin    : 0 0 0 32px;
+}
+
+.wpdk-form-row label.wpdk-form-label-inline:first-child
+{
+  margin : 0;
+}
+
+span.wpdk-ui-control.wpdk-ui-control-label
+{
+  margin         : 0 0 0 8px;
+  line-height    : 100%;
+  vertical-align : middle;
+}
+
+label.wpdk-form-checkbox
+{
+  text-align  : left;
+  margin-left : 4px;
+  display     : inline;
+}
+
+p.wpdk-form-paragraph
+{
+  font-size : 13px !important;
+  margin    : 0 16px;
+}
+
+/* =====================================================================================================================
+ * 8.0 - Utilities
+ * =====================================================================================================================
+ */
+
+.wpdk-ui-uppercase
+{
+  text-transform : uppercase;
+}
+
+.wpdk-ui-lowercase
+{
+  text-transform : lowercase;
+}
+
+.wpdk-ui-capitalize
+{
+  text-transform : capitalize;
+}
+
+/* =====================================================================================================================
+ * 8.1 - Clear
+ * =====================================================================================================================
+ */
+
+.wpdk-form-clear-left
+{
+  /* zoom       : 1 !important; */
+  cursor      : pointer;
+  display     : inline;
+  position    : relative;
+  line-height : 100%;
+}
+
+.wpdk-form-clear-left i
+{
+  color     : #ff664b;
+  font-size : 16px;
+  position  : absolute;
+  right     : 8px;
+  top       : 3px;
+}
+
+.wpdk-form-clear-left i:hover
+{
+  color : #d1593e;
+}
+
+input.wpdk-form-has-button-clear-left
+{
+  padding-right : 26px !important;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+ *
+ * since 1.5.10 all css styles below are deprecated.
+ *
+ * They will be replace with prefix `wpdk-ui-`
+ *
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
+
+/* =====================================================================================================================
+ * 9.0 - Deprecated
+ * @deprecated since 1.5.10
+ * =====================================================================================================================
+ */
+
+input.wpdk-form-input,
+textarea.wpdk-form-textarea,
+select.wpdk-form-select
+{
+  /*width                 : auto;*/
+  border                : 1px solid #dfdfdf;
+  background-color      : #fff;
+  /*padding               : 6px;*/
+  margin                : 0 4px 0 2px;
+  color                 : #444;
+  outline               : none;
+  vertical-align        : middle;
+  -moz-box-shadow       : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  -webkit-box-shadow    : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  box-shadow            : inset 0 2px 3px #eee, 0 1px 0 #fff;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+  -webkit-transition    : box-shadow linear 0.2s;
+  -moz-transition       : box-shadow linear 0.2s;
+  -ms-transition        : box-shadow linear 0.2s;
+  -o-transition         : box-shadow linear 0.2s;
+  transition            : box-shadow linear 0.2s;
+}
+
+textarea.wpdk-form-textarea
+{
+  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition : border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition    : border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition     : border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition      : border linear 0.2s, box-shadow linear 0.2s;
+  transition         : border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  box-sizing         : border-box;
+}
+
+input.wpdk-form-input:focus,
+textarea.wpdk-form-textarea:focus
+{
+  border-color       : rgba(82, 168, 236, 0.8);
+  outline            : 0;
+  outline            : thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  box-shadow         : inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+}
+
+input.wpdk-form-input[readonly]
+{
+  background-color : #f1f1fa;
+}
+
+select.wpdk-form-select.wpdk-form-select-size
+{
+  height                : auto !important;
+  min-width             : 200px !important;
+  -moz-border-radius    : 4px !important;
+  -webkit-border-radius : 4px !important;
+  border-radius         : 4px !important;
+}
+
+select.wpdk-form-select + .wpdk-form-append
+{
+  vertical-align : middle;
+}
+
+.wpdk-form-number,
+.wpdk-form-phone,
+.wpdk-form-date,
+.wpdk-form-datetime
+{
+  text-align : right;
+}
+
+input.wpdk-form-uppercase
+{
+  text-transform : uppercase;
+}
+
+input.wpdk-form-lowercase
+{
+  text-transform : lowercase;
+}
+
+input.wpdk-form-capitalize
+{
+  text-transform : capitalize;
+}
+
+input.wpdk-form-checkbox
+{
+  vertical-align : middle !important;
+}
+
+option.wpdk-form-option
+{
+  padding : 2px;
+  margin  : 2px 0;
+}
+
+option.wpdk-form-option:hover,
+option.wpdk-form-option:focus,
+option.wpdk-form-option:active,
+option.wpdk-form-option:selection,
+option.wpdk-form-option:checked
+{
+  background-color : #a1bc35 !important;
+}
+
+[selected],
+option.wpdk-form-option[selected]
+{
+  background-color : #dedede !important;
+}
+
+
+/* =====================================================================================================================
+ * 9.1 - Swipe
+ * =====================================================================================================================
+ */
+span.wpdk-form-swipe
+{
+  cursor                : pointer;
+  display               : inline-block;
+  *display              : inline;
+  position              : relative;
+  zoom                  : 1;
+  width                 : 44px;
+  height                : 20px;
+  padding               : 2px;
+  margin                : 0 8px 0 2px;
+  vertical-align        : middle;
+  background-color      : #ed5a61;
+  -moz-box-shadow       : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow            : inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  -moz-border-radius    : 32px;
+  -webkit-border-radius : 32px;
+  border-radius         : 32px;
+}
+
+span.wpdk-form-swipe span
+{
+  display               : block;
+  width                 : 16px;
+  height                : 16px;
+  background-color      : #fff;
+  -moz-border-radius    : 100%;
+  -webkit-border-radius : 100%;
+  border-radius         : 100%;
+}
+
+span.wpdk-form-swipe.wpdk-form-swipe-on
+{
+  background : #8ab485;
+}
+
+span.wpdk-form-swipe.wpdk-form-swipe-on span
+{
+  margin-left : 23px;
+}
+
+/* =====================================================================================================================
+ * 9.2 - Fieldset accordion
+ * =====================================================================================================================
+ */
+i.wpdk-openclose-accordion
+{
+  display          : block;
+  float            : right;
+  width            : 20px;
+  height           : 20px;
+  margin-left      : 8px;
+  cursor           : pointer;
+  background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFJREFUeNqEVUtPU0EYndsHVVvBUiSEQmmLCYtC4g78CYbIwkBwrYlxpQt3rl1pXEgoGhJxY0wMsMC1jxgNUMDEYKpppEAppYVAWwq37/b6nXGm3BKjk5zMdOb7znyPc6cKo6FpGtMPRVEMNBkJDQQzwSSOyoQSoUiokF9V2Nf5c0JBqgiCpg8f5yfD4ch+MpmqVKtVDcAaeziDjbA9xUaDjDEhqrMTz14Ora7+jBeLRa1SqWjlcrkO2MMZbGALH+FbNwTZ1HAsFs/DsVAo/BOwgS189KSKLk1H8Eco2O3tslMU+nrWaqQrDR9Go5FRCZI+X4+PfiZFfTnzhZnZt6+z2ayWTqfrkMlktGtD1zmwPn0On+mZuVfgAJdJdLDR4+m6msvlZD1rw2QyMZfLzdeInFKtO8ded7dnkJYPCFmTkEZj60VHExWbp4QUkY5Mt9PVxfTygA2IpG2Lw46ONxIOFBFqTyKRWMzn89zBbDazu/fus7a2duZ2e/iMkUjssM3NDT6PPX3CSqXSnyzIvsPpHKBlSKZsARkilAMkiAyz3d58kqIoCchgjwhFo/gHIL8AdniY0RoazApqiHQeP3pYS/nd+wVuMzI8WOt0JBLh9TYYDOxYVTUpcBBCI4VodFt1u102mUYoFOKz1WplqVSSr7e2tpiqqnVNQXmi0ZgqPseyQWhHDSwtB3AzughSCRIxi+1sc2CtP5MdX1n+uggOECqiy22Evunp2Tder9sKRylgdNvn8/F1MBhkUvQohcViYb/W1tUboyOjtPUdfcOLIqVvPEimcn29vf02m82ACKTu4vE4B9ZSp0h1d3evPO73j21srM/T1i4hZ5TvA0AHe+HwZtre7OhzdXZY5MMBSM1B6CALLK0c+ccn/F8+f5ojs21CBv1QdI8DCKAPqPjSzVu371wZ6L/sdLafaWlxcLv9/QN6EHbyC4uBb1MvJp/T1hohIr7jAu7nhugcdVOSQvGthA5RW1xyTlycFc4JEdWeiKwgsmQ1QiERRUgJBOfFI2oTFzHheAzZEo7EBWVdH/7y2p6U4L9/ATIq/fgtwADGGBWAwP/Q5AAAAABJRU5ErkJggg==);
+}
+
+div.wpdk-accordion
+{
+  position           : relative;
+  height             : 0;
+  overflow           : hidden;
+  overflow           : visible \9;
+  -webkit-transition : height 0.35s ease;
+  -moz-transition    : height 0.35s ease;
+  -o-transition      : height 0.35s ease;
+  transition         : height 0.35s ease;
+}
+
+fieldset.wpdk-accordion-open i.wpdk-openclose-accordion
+{
+  background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAs9JREFUeNqUVU1PE1EUfTOd6USGkiDQTIipBRXRBleGxMSN/4KwdmPUGDe6YlF0JVHRxJ0mfgSi/gGVWCUmGNHEz4iMAnEqIaUNlLaUdjrTjvfU95KWVFJucsLw3rnn3Xvfva8Ka2wywUfwE1SCwtddgkMoEcqESiPHWpO4QODZ89iFpSXr/fr6xkqlUkkB+MYa9sDhXIntENWeS5dHjn/5+v1DqVTyyuWy57puHbCGPXDAhU+DwP6JjYxcObmykkjB0bbtHQEOuPCpFZVq0uyYm5uf7u0N91EUrBnz+XxscfH3fCTSf4r+XUd9ZS7Y8vDR5NlwONRXLBaZ4zhNAdyenlD//QcTZ6ABLYXfYFvk6JGhQqHAqPhsN4Zsjg1EhunzHmFL4a3RFgx2hajYzPM8JklSNR38bWTgQEhwOzs7QtAgrIkIdVVVVKQAU1WVnTt/kQUCAfrW6sQcx2a5XI7dvnW9mjZMUVUEpcNVCGoQQ4TCDKObdXUFma7rdYL5fJ6lUsmqGPiIEJGKARATwDKZrOv3qwpqiHTGrl3dMWXLsqr1lmWZbW7mHdHgCh8h27LiSWqZbpGGaZpNXQrKY8XjST6OrsxnMx+LvYrhZGrYptsGXNj06+kYNCAo8Vs2CAOPnzy9e+jgAYMmQdTlv4ZyaJpGmfxKDA8Pnaalb4QEXhTh6TPNn2uDg4MnAoFWPyJALVGn7RCpJhKr+Wg0OpZMrn6ipVVCwcfFwKrQRu7d7OwfwzAOh8P726obXET0nEL3CLGZmbfL0dHRm6b54w3RlglZ3IcQ9PhbZ2+k0xtTUy8+ZzI5mfqwQ9dbtPb2dhnpZbNZd2FhcW1iYvLl+PiNO8T9SD4WIc3vwpO2vTga7/ggYR+v7V4+p7At/ggkeFRJHpktHlulRhALRR5pkZ8aJ7Tygxh33ETbEnL8ALfmHuoERepODTm925+AvwIMAP+m3zk+OxbzAAAAAElFTkSuQmCC);
+}
+
+div.wpdk-accordion.wpdk-accordion-open
+{
+  height : auto;
+}
+
+/* =====================================================================================================================
+ * 9.3 - Choose
+ * =====================================================================================================================
+ */
+
+span.wpdk-form-choose .wpdk-form-choose-label
+{
+  padding               : 6px 8px;
+  border                : 1px inset #aaa;
+  display               : inline-block;
+  *display              : inline;
+  zoom                  : 1;
+  max-width             : 250px;
+  min-width             : 250px;
+  width                 : 250px;
+  background            : #eee;
+  text-shadow           : 1px 1px 0 #fff;
+  white-space           : nowrap;
+  overflow              : hidden;
+  text-overflow         : ellipsis;
+  vertical-align        : middle;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+}
+
+span.wpdk-form-choose .wpdk-form-choose-label.hide
+{
+  display : none;
+}
+
+span.wpdk-form-choose .wpdk-form-choose-button
+{
+  cursor : pointer;
 }

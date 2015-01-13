@@ -6,11 +6,12 @@
  *
  * @class           WPDKUIComponents
  * @author          =undo= <info@wpxtre.me>
- * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
- * @date            2014-12-29
- * @version         1.0.6
+ * @copyright       Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date            2015-01-12
+ * @version         1.0.7
  *
  * @history         1.0.6 - Added fonts
+ * @history         1.0.7 - Added browser detect for `wp-color-picker` support.
  *
  */
 final class WPDKUIComponents {
@@ -174,6 +175,12 @@ final class WPDKUIComponents {
    */
   private function components()
   {
+    // Browser detect
+    global $is_chrome, $is_gecko, $is_opera;
+
+    // Firefox and Chrome supports a native color picker input field. Others browsers will be use the WordPress Color Picker
+    $wp_color_picker = ( $is_chrome || $is_gecko || $is_opera ) ? '' : 'wp-color-picker';
+
     $components = array(
 
       self::JQUERY_TIMEPICKER => array(
@@ -208,7 +215,7 @@ final class WPDKUIComponents {
       self::CONTROLS      => array(
         'js'   => self::CONTROLS,
         'css'  => self::CONTROLS,
-        'deps' => array( self::WPDK )
+        'deps' => array( self::WPDK, $wp_color_picker )
       ),
       // WPDK Alert
       self::ALERT         => array(
