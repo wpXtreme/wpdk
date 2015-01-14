@@ -21,7 +21,7 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.10.0
-### 2015-01-??
+### 2015-01-14
 
 * Added `COLOR_PICKER` constant and `WPDKUIControlColorPicker` class for file media ui control
 * Added `FILE_MEDIA` constant and `WPDKUIControlFileMedia` class for file media ui control
