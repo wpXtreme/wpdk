@@ -200,18 +200,26 @@ if( typeof( jQuery.fn.wpdkSwitch ) === 'undefined' ) {
 
         if( true === _options && !$input_checkbox.is( ':checked' ) ) {
           $input_checkbox.attr( 'checked', 'checked' ).change();
+
+          /**
+           * Fires when a swipe is changed.
+           *
+           * @param {object} $control The swipe control.
+           * @param {string} status The swipe status 'on'.
+           */
+          wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
         }
         else if( $input_checkbox.is( ':checked' ) ) {
           $input_checkbox.removeAttr( 'checked' ).change();
-        }
 
-        /**
-         * Fires when a swipe is changed.
-         *
-         * @param {object} $control The swipe control.
-         * @param {string} status The swipe status 'on'.
-         */
-        wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+          /**
+           * Fires when a swipe is changed.
+           *
+           * @param {object} $control The swipe control.
+           * @param {string} status The swipe status 'on'.
+           */
+          wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+        }
 
         return $this;
       }
