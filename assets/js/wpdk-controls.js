@@ -198,10 +198,10 @@ if( typeof( jQuery.fn.wpdkSwitch ) === 'undefined' ) {
           return $input_checkbox.is( ':checked' );
         }
 
-        if( true === _options ) {
+        if( true === _options && !$input_checkbox.is( ':checked' ) ) {
           $input_checkbox.attr( 'checked', 'checked' ).change();
         }
-        else {
+        else if( $input_checkbox.is( ':checked' ) ) {
           $input_checkbox.removeAttr( 'checked' ).change();
         }
 
