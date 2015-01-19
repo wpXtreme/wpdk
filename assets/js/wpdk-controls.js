@@ -635,6 +635,8 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
           var $control = $( this ).prev( 'input' );
           var prev_value = $control.val();
 
+          // TODO add filter for clean value
+
           // Clear
           $control.val( '' )
             .trigger( 'change' )
