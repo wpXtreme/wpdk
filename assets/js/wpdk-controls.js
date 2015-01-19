@@ -631,7 +631,26 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         // Init with clear
         $( document ).on( 'click', 'span.wpdk-form-clear-left i', false, function()
         {
-          $( this ).prev( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          // Get input control
+          var $control = $( this ).prev( 'input' );
+          var prev_value = $control.val();
+
+          // Clear
+          $control.val( '' )
+            .trigger( 'change' )
+            .trigger( 'keyup' )
+            .trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+
+          /**
+           * Fires when a input text is cleaned.
+           *
+           * @since 1.10.1
+           *
+           * @param {{}} $control The input type control.
+           * @param {string} The previous value before clear.
+           */
+          wpdk_do_action( WPDKUIComponentEvents.CLEAR_INPUT, $control, prev_value );
+
         } );
 
         // Init with disable after click
