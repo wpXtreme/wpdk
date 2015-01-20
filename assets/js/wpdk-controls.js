@@ -635,13 +635,26 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
           var $control = $( this ).prev( 'input' );
           var prev_value = $control.val();
 
-          // TODO add filter for clean value
+          /**
+           * Filter the default clear value used when you click clear icon on an input control.
+           *
+           * @since 1.10.1
+           *
+           * @param {string} clear_value The clear value. Default blank.
+           * @param {{}} $control The input ui control.
+           */
+          var clear_value = wpdk_apply_filters( 'wpdk_ui_control_clear_value', '', $control );
 
-          // Clear
-          $control.val( '' )
-            .trigger( 'change' )
-            .trigger( 'keyup' )
-            .trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          // Fire right event
+          if( empty( prev_value ) ) {
+            $control.trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          }
+          else {
+            // Clear - fired also the keyup event because often the event handler are attach on it
+            $control.val( '' )
+              .trigger( WPDKUIComponentEvents.CLEAR_INPUT )
+              .trigger( 'keyup' )
+          }
 
           /**
            * Fires when a input text is cleaned.
