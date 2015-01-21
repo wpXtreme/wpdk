@@ -20,8 +20,15 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
-## Version 1.10.0
+## Version 1.10.1
 ### 2015-01-??
+
+* Improved the handler of clear input text field
+* Minor fixes in css
+* Minor fixes in docs
+
+## Version 1.10.0
+### 2015-01-14
 
 * Added `COLOR_PICKER` constant and `WPDKUIControlColorPicker` class for file media ui control
 * Added `FILE_MEDIA` constant and `WPDKUIControlFileMedia` class for file media ui control

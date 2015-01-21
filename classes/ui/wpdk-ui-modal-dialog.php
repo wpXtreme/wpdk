@@ -53,7 +53,7 @@
  */
 class WPDKUIModalDialog extends WPDKHTMLTag {
 
-  // Used to store for each user the dismiss alert
+  // Used to store for each user the dismiss dialog
   const USER_META_KEY_PERMANENT_DISMISS = '_wpdk_modal_dismiss';
 
   /**
