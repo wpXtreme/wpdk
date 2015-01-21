@@ -269,7 +269,7 @@ if( !function_exists( 'wpdk_page_with_slug' ) ) {
 
     // Stability
     if( empty( $slug ) ) {
-      return false;
+      return null;
     }
 
     // Get object
@@ -292,7 +292,7 @@ SQL;
           $id  = icl_object_id( $id, $post_type, true );
         }
         else {
-          return false;
+          return null;
         }
       }
       else {
