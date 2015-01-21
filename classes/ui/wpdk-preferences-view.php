@@ -213,7 +213,7 @@ class WPDKPreferencesView extends WPDKView {
       $query_args = array( 'post_type' => $post_type );
     }
     else {
-      $page = get_page_by_path( $slug );
+      $page = get_page_by_path( $slug, OBJECT, $post_type );
 
       // Stability
       if( is_null( $page ) ) {

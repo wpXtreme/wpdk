@@ -23,6 +23,7 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.10.2
 ### 2015-01-21
 
+* Fixed preferences button edit for custom post types
 * Fixed potential double login count in `WPDKUsers`
 * Fixed potential property access in function `wpdk_page_with_slug`
 
