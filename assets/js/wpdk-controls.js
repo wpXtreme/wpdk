@@ -198,20 +198,28 @@ if( typeof( jQuery.fn.wpdkSwitch ) === 'undefined' ) {
           return $input_checkbox.is( ':checked' );
         }
 
-        if( true === _options ) {
+        if( true === _options && !$input_checkbox.is( ':checked' ) ) {
           $input_checkbox.attr( 'checked', 'checked' ).change();
-        }
-        else {
-          $input_checkbox.removeAttr( 'checked' ).change();
-        }
 
-        /**
-         * Fires when a swipe is changed.
-         *
-         * @param {object} $control The swipe control.
-         * @param {string} status The swipe status 'on'.
-         */
-        wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+          /**
+           * Fires when a swipe is changed.
+           *
+           * @param {object} $control The swipe control.
+           * @param {string} status The swipe status 'on'.
+           */
+          wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+        }
+        else if( $input_checkbox.is( ':checked' ) ) {
+          $input_checkbox.removeAttr( 'checked' ).change();
+
+          /**
+           * Fires when a swipe is changed.
+           *
+           * @param {object} $control The swipe control.
+           * @param {string} status The swipe status 'on'.
+           */
+          wpdk_do_action( 'wpdk_ui_switch_changed', options, $this );
+        }
 
         return $this;
       }
@@ -623,7 +631,41 @@ if( typeof( window.WPDKControls ) === 'undefined' ) {
         // Init with clear
         $( document ).on( 'click', 'span.wpdk-form-clear-left i', false, function()
         {
-          $( this ).prev( 'input' ).val( '' ).trigger( 'change' ).trigger( 'keyup' ).trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          // Get input control
+          var $control = $( this ).prev( 'input' );
+          var prev_value = $control.val();
+
+          /**
+           * Filter the default clear value used when you click clear icon on an input control.
+           *
+           * @since 1.10.1
+           *
+           * @param {string} clear_value The clear value. Default blank.
+           * @param {{}} $control The input ui control.
+           */
+          var clear_value = wpdk_apply_filters( 'wpdk_ui_control_clear_value', '', $control );
+
+          // Fire right event
+          if( empty( prev_value ) ) {
+            $control.trigger( WPDKUIComponentEvents.CLEAR_INPUT );
+          }
+          else {
+            // Clear - fired also the keyup event because often the event handler are attach on it
+            $control.val( '' )
+              .trigger( WPDKUIComponentEvents.CLEAR_INPUT )
+              .trigger( 'keyup' )
+          }
+
+          /**
+           * Fires when a input text is cleaned.
+           *
+           * @since 1.10.1
+           *
+           * @param {{}} $control The input type control.
+           * @param {string} The previous value before clear.
+           */
+          wpdk_do_action( WPDKUIComponentEvents.CLEAR_INPUT, $control, prev_value );
+
         } );
 
         // Init with disable after click

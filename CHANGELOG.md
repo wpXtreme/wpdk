@@ -20,6 +20,13 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.10.1
+### 2015-01-21
+
+* Improved the handler of clear input text field
+* Minor fixes in css
+* Minor fixes in docs
+
 ## Version 1.10.0
 ### 2015-01-14
 
