@@ -413,7 +413,6 @@ SQL;
 
       // Add this alert id and make array unique - avoid duplicate
       $dismissed[ md5( $modal_id ) ] = time();
-
       update_user_meta( $user_id, WPDKUIModalDialog::USER_META_KEY_PERMANENT_DISMISS, $dismissed );
 
       /**
