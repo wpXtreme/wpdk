@@ -2389,6 +2389,19 @@ class WPDKUIControlSwipe extends WPDKUIControl {
 class WPDKUIControlSwitch extends WPDKUIControl {
 
   /**
+   * Useful static method to instance class.
+   *
+   * @param array $item Key value pairs with control info
+   * @since 1.10.2
+   *
+   * @return WPDKUIControlSwitch
+   */
+  public static function init( $item )
+  {
+    return new self( $item );
+  }
+
+  /**
    * Create an instance of WPDKUIControlSwipe class
    *
    * @param array $item Key value pairs with control info
