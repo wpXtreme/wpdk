@@ -809,7 +809,7 @@ if( !function_exists( 'wpdk_is_lock' ) ) {
   /**
    * Return TRUE (or the calculate hash) if the hash has been locked.
    *
-   * @since 1.10.2
+   * @since 1.11.0
    *
    * @param array|string $hash       Optional. Any string or array used to generate an unique hash. If no hash is set, then
    *                                 this function provides to generate one for you and return the first time as string.
