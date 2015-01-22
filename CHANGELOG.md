@@ -23,6 +23,7 @@ For more information on SemVer, please visit http://semver.org/.
 ## Version 1.10.2
 ### 2015-01-??
 
+* Extends data property and minor fixes in `WPDKAjaxResponse`
 * Added useful static `init` method in `WPDKUIControlSwitch`
 * Fixed preferences button edit for custom post types
 * Fixed potential double login count in `WPDKUsers`
