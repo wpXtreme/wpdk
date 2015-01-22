@@ -98,10 +98,12 @@ if ( wpdk_is_ajax() ) {
    * @author          =undo= <info@wpxtre.me>
    * @copyright       Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
    * @date            2014-10-03
-   * @version         1.0.5
+   * @version         1.0.6
+   *
    * @since           1.4.0
    *
    * @history         1.0.5 - Improves json result response.
+   * @history         1.0.6 - Extends data property and minor fixes.
    */
   class WPDKAjaxResponse extends WPDKObject {
 
@@ -112,7 +114,7 @@ if ( wpdk_is_ajax() ) {
      *
      * @var string $__version
      */
-    public $__version = '1.0.4';
+    public $__version = '1.0.6';
 
     /**
      * User define error code or string
@@ -134,10 +136,11 @@ if ( wpdk_is_ajax() ) {
 
     /**
      * Use this property to set any your own data to return.
+     * This property can be a string or - usually - an array.
      *
-     * @brief Data
+     * @brief Back data
      *
-     * @var string $data
+     * @var mixed $data
      */
     public $data = '';
 
