@@ -2392,7 +2392,7 @@ class WPDKUIControlSwitch extends WPDKUIControl {
    * Useful static method to instance class.
    *
    * @param array $item Key value pairs with control info
-   * @since 1.10.2
+   * @since 1.11.0
    *
    * @return WPDKUIControlSwitch
    */

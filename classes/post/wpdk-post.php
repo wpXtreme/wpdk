@@ -361,14 +361,13 @@ class WPDKPost extends WPDKObject {
    * @since 1.5.16
    *
    * @param string|int|object $post       Post ID, post object, post slug.
-   * @param array             $args       {
-   *                                      Optional. Additional args.
+   * @param array             $args       Optional. Additional args.
+   *                                      {
    *
    * @type string             $status     The post status. Default 'draft'.
    * @type bool               $taxonomies Whether to duplicate taxonomies. Default TRUE.
    * @type bool               $post_meta  Whether to duplicate post meta. Default TRUE.
-   *
-   * }
+   *        }
    *
    * @return WPDKPost
    */

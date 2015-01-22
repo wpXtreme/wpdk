@@ -10,9 +10,11 @@
  *
  * @brief              Very useful functions for common cases.
  * @author             =undo= <info@wpxtre.me>
- * @copyright          Copyright (C) 2012-2013 wpXtreme Inc. All Rights Reserved.
- * @date               2014-12-18
- * @version            1.0.0
+ * @copyright          Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date               2015-01-22
+ * @version            1.0.1
+ *
+ * @history            1.0.1 - Added `wpdk_is_lock()` function.
  */
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -795,5 +797,48 @@ if( !function_exists( 'wpdk_is_request_post' ) ) {
   function wpdk_is_request_post()
   {
     return wpdk_is_request( 'post' );
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Lock down
+// ---------------------------------------------------------------------------------------------------------------------
+
+if( !function_exists( 'wpdk_is_lock' ) ) {
+
+  /**
+   * Return TRUE (or the calculate hash) if the hash has been locked.
+   *
+   * @since 1.11.0
+   *
+   * @param array|string $hash       Optional. Any string or array used to generate an unique hash. If no hash is set, then
+   *                                 this function provides to generate one for you and return the first time as string.
+   * @param int          $expiration Optional. Expiratin in seconds. Default 5.
+   *
+   * @return array|bool
+   */
+  function wpdk_is_lock( $hash = array(), $expiration = 5 )
+  {
+    // Prepare result
+    $result = true;
+
+    // If no hash we create onfly for you
+    if( empty( $hash ) ) {
+      $hash = $result = array( time() );
+    }
+
+    // Hash
+    $hash_name = '_wpdk_lock-' . md5( serialize( $hash ) );
+
+    // Check exists
+    if( 'lock' === get_transient( $hash_name ) ) {
+      return $result;
+    }
+
+    // Set transient
+    set_transient( $hash_name, 'lock', $expiration );
+
+    return false;
+
   }
 }
