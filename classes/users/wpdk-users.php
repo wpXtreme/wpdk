@@ -1277,9 +1277,6 @@ class WPDKUsers {
           wp_set_auth_cookie( $user->ID, $remember );
           do_action( 'wp_login', $user->user_login, $user );
 
-          // Internal counter
-          $this->wp_login( $user->user_login, $user );
-
           // Authenticate! You are
           wp_set_current_user( $user->ID );
 

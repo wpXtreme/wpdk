@@ -20,6 +20,16 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.11.0
+### 2015-01-24
+
+* Added `wpdk_is_lock()` function
+* Added useful static `init` method in `WPDKUIControlSwitch`
+* Extends data property and minor fixes in `WPDKAjaxResponse`
+* Fixed preferences button edit for custom post types
+* Fixed potential double login count in `WPDKUsers`
+* Fixed potential property access in function `wpdk_page_with_slug`
+
 ## Version 1.10.1
 ### 2015-01-21
 

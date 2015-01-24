@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The WPDKResultType defines the available WPDK result type.
  *
@@ -27,7 +28,6 @@ class WPDKResultType {
  * @date               2012-11-28
  * @version            0.8.1
  */
-
 class WPDKResult extends WP_Error {
 
   /**
@@ -55,8 +55,8 @@ class WPDKResult extends WP_Error {
    *
    * @brief Display ot return output
    *
-   * @param bool         $echo  TRUE to display or FALSE to get output
-   * @param WPDKWatchDog $log   A WPDKWatchDog object to log the display
+   * @param bool         $echo TRUE to display or FALSE to get output
+   * @param WPDKWatchDog $log  A WPDKWatchDog object to log the display
    *
    * @return string|void Formatted output if $echo is FALSE
    */
@@ -64,12 +64,12 @@ class WPDKResult extends WP_Error {
   {
     $content = '<div class="wpdk-watchdog-wp-error">';
 
-    foreach ( $this->errors as $code => $single ) {
-      $content .= sprintf( '<code>Code: 0x%x, Description: %s</code>', $code, $single[0] );
+    foreach( $this->errors as $code => $single ) {
+      $content .= sprintf( '<code>Code: 0x%x, Description: %s</code>', $code, $single[ 0 ] );
       $error_data = $this->get_error_data( $code );
-      if ( !empty( $error_data ) ) {
-        if ( is_array( $error_data ) ) {
-          foreach ( $error_data as $key => $data ) {
+      if( !empty( $error_data ) ) {
+        if( is_array( $error_data ) ) {
+          foreach( $error_data as $key => $data ) {
             $content .= sprintf( '<code>Key: %s, Data: %s</code>', $key, urldecode( $data ) );
           }
         }
@@ -80,16 +80,18 @@ class WPDKResult extends WP_Error {
     }
 
     // log to file if enabled
-    if ( !is_null( $log ) ) {
+    if( !is_null( $log ) ) {
       $log->log( esc_attr( wp_strip_all_tags( $content ) ) );
     }
 
     $content .= '</div>';
 
-    if ( $echo ) {
+    if( $echo ) {
       echo $content;
+
       return true;
     }
+
     return $content;
   }
 
@@ -109,6 +111,7 @@ class WPDKResult extends WP_Error {
     <pre><?php var_dump( $content ) ?></pre><?php
     $content = ob_get_contents();
     ob_end_clean();
+
     return $content;
   }
 
@@ -128,6 +131,7 @@ class WPDKResult extends WP_Error {
       '-' => '_'
     );
     $code    = strtr( $code, $replace );
+
     return strtolower( $code );
   }
 
@@ -144,15 +148,16 @@ class WPDKResult extends WP_Error {
    */
   protected static function _is( $thing, $class = 'WPDKError' )
   {
-    if ( is_object( $thing ) && is_a( $thing, $class ) ) {
+    if( is_object( $thing ) && is_a( $thing, $class ) ) {
       return true;
     }
+
     return false;
   }
 
   /**
-   * Looks at the object and if a WPDKError class. Does not check to see if the parent is also WPDKError or a WPDKResult,
-   * so can't inherit both the classes and still use this function.
+   * Looks at the object and if a WPDKError class. Does not check to see if the parent is also WPDKError or a
+   * WPDKResult, so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result error.
    * @since 1.2.0
@@ -167,8 +172,8 @@ class WPDKResult extends WP_Error {
   }
 
   /**
-   * Looks at the object and if a WPDKWarning class. Does not check to see if the parent is also WPDKWarning or a WPDKResult,
-   * so can't inherit both the classes and still use this function.
+   * Looks at the object and if a WPDKWarning class. Does not check to see if the parent is also WPDKWarning or a
+   * WPDKResult, so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result warning.
    * @since 1.2.0
@@ -183,8 +188,8 @@ class WPDKResult extends WP_Error {
   }
 
   /**
-   * Looks at the object and if a WPDKStatus class. Does not check to see if the parent is also WPDKStatus or a WPDKResult,
-   * so can't inherit both the classes and still use this function.
+   * Looks at the object and if a WPDKStatus class. Does not check to see if the parent is also WPDKStatus or a
+   * WPDKResult, so can't inherit both the classes and still use this function.
    *
    * @brief Check whether variable is a WPDK result status.
    * @since 1.2.0
@@ -241,7 +246,6 @@ class WPDKError extends WPDKResult {
  * @version            0.8.1
  *
  */
-
 class WPDKWarning extends WPDKResult {
 
   /**
@@ -271,7 +275,6 @@ class WPDKWarning extends WPDKResult {
  * @date               2012-11-28
  * @version            0.8.1
  */
-
 class WPDKStatus extends WPDKResult {
 
   /**

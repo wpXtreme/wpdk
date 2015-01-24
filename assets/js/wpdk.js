@@ -1667,7 +1667,7 @@ jQuery( function ( $ )
        * Set the right date and time in input hidden field and surrogate.
        *
        * @param {object} $e Element.
-       * @param {int}    d  Date in timestamp: PHP time().
+       * @param {*}      d  Date in timestamp: PHP time().
        */
       setDate : function ( $e, d )
       {

@@ -406,13 +406,13 @@ div.wpdk-watchdog-wp-error
  */
 
 pre.wpdk-monitor,
-/* TODO remove the `wpdk-form-textarea-code` selector in next future */
+  /* TODO remove the `wpdk-form-textarea-code` selector in next future */
 textarea.wpdk-form-textarea-code,
-textarea.wpdk-ui-textarea-code,
+textarea.wpdk-ui-textarea-code
 {
   background-color      : #3f3f3f !important;
   color                 : #b3d38d !important;
-  margin                : 10px 0 0 !important;
+  margin                : 16px 16px 0 0 !important;
   padding               : 8px !important;
   text-shadow           : 0 0 3px #b3d38d !important;
   -moz-border-radius    : 3px !important;
