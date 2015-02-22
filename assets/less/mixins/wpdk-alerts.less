@@ -1,0 +1,35 @@
+/**
+ * WPDK Alert Mixins
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date	      2015-02-22
+ * @version       1.0.0
+ * @note          Base on bootstrap.css v3.1.0
+ */
+
+.wpdk-alert-variant(@background; @border; @text-color) {
+  color            : @text-color;
+
+  &:before
+  {
+    background-color : @background;
+  }
+
+  hr
+  {
+    border-top-color : darken(@border, 5%);
+  }
+
+  .alert-link
+  {
+    color : darken(@text-color, 10%);
+  }
+}
+
+.wpdk-alert-glyph( @text-color )
+{
+  font-size      : 24px;
+  color          : @text-color;
+  vertical-align : middle;
+}
