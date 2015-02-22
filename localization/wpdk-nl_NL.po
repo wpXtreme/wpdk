@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wpXtreme v1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-08 10:42+0100\n"
-"PO-Revision-Date: 2015-01-08 10:42+0100\n"
+"POT-Creation-Date: 2015-02-21 14:05+0100\n"
+"PO-Revision-Date: 2015-02-21 14:05+0100\n"
 "Last-Translator: wpXtreme, Inc. <info@wpxtre.me>\n"
 "Language-Team: FRANS PRONK <beheer@ifra.nl>\n"
 "Language: nl_NL\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -336,7 +336,7 @@ msgid "Days"
 msgstr ""
 
 # @ wpdk
-#: ../classes/helper/wpdk-datetime.php:179 ../wpdk.php:607
+#: ../classes/helper/wpdk-datetime.php:179 ../wpdk.php:609
 msgid "Hour"
 msgstr "Uur"
 
@@ -347,7 +347,7 @@ msgid "Hours"
 msgstr "Uur"
 
 # @ wpdk
-#: ../classes/helper/wpdk-datetime.php:180 ../wpdk.php:608
+#: ../classes/helper/wpdk-datetime.php:180 ../wpdk.php:610
 msgid "Minute"
 msgstr "Minuut"
 
@@ -364,7 +364,7 @@ msgid "Second"
 msgstr "Seconden"
 
 # @ wpdk
-#: ../classes/helper/wpdk-datetime.php:181 ../wpdk.php:609
+#: ../classes/helper/wpdk-datetime.php:181 ../wpdk.php:611
 msgid "Seconds"
 msgstr "Seconden"
 
@@ -417,48 +417,48 @@ msgid "New Placeholders Metabox"
 msgstr ""
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1026
+#: ../classes/post/wpdk-post.php:1025
 msgid "A newly created post, with no content"
 msgstr "Een nieuw gecreëerd bericht, zonder inhoud"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1027
+#: ../classes/post/wpdk-post.php:1026
 msgid "The post is draft"
 msgstr "Het bericht is ontwerp"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1028
+#: ../classes/post/wpdk-post.php:1027
 msgid "The post to publish in the future"
 msgstr "Om het bericht in de toekomst te publiceren"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1029
+#: ../classes/post/wpdk-post.php:1028
 msgid "The post is a revision"
 msgstr "Het bericht is een herziening"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1030
+#: ../classes/post/wpdk-post.php:1029
 msgid "The post is pending review"
 msgstr "Het bericht wacht op een review"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1031
+#: ../classes/post/wpdk-post.php:1030
 msgid "Not visible to users who are not logged in"
 msgstr "Niet zichtbaar voor gebruikers die niet zijn ingelogd"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1032
+#: ../classes/post/wpdk-post.php:1031
 msgid "A published post or page"
 msgstr "Een gepubliceerd bericht of pagina"
 
 # @ wpdk
-#: ../classes/post/wpdk-post.php:1033
+#: ../classes/post/wpdk-post.php:1032
 msgid "The post is in trashbin"
 msgstr "Het bericht is in de prullenbak"
 
 # @ wpdk
 #: ../classes/ui/wpdk-dynamic-table.php:206
-#: ../classes/ui/wpdk-ui-controls.php:367
+#: ../classes/ui/wpdk-ui-controls.php:371
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -573,12 +573,13 @@ msgstr ""
 msgid "By clicking on the X button, this alert won't appear"
 msgstr ""
 
-#: ../classes/ui/wpdk-ui-controls.php:359
+#: ../classes/ui/wpdk-ui-controls.php:363
+#: ../classes/ui/wpdk-ui-controls.php:1502
 msgid "Remove"
 msgstr ""
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui-controls.php:461
+#: ../classes/ui/wpdk-ui-controls.php:466
 msgid ""
 "This field is locked for your security. However you can unlock just by click "
 "here."
@@ -587,15 +588,29 @@ msgstr ""
 "hier te klikken."
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui-controls.php:585
-#: ../classes/ui/wpdk-ui-controls.php:588
+#: ../classes/ui/wpdk-ui-controls.php:590
+#: ../classes/ui/wpdk-ui-controls.php:593
 msgid "Guide"
 msgstr "Gids"
 
 # @ wpdk
-#: ../classes/ui/wpdk-ui-controls.php:591
+#: ../classes/ui/wpdk-ui-controls.php:596
 msgid "Open the guide"
 msgstr "Open de gids"
+
+#: ../classes/ui/wpdk-ui-controls.php:1497
+#: ../classes/ui/wpdk-ui-controls.php:1498
+msgid "Select Media"
+msgstr ""
+
+#: ../classes/ui/wpdk-ui-controls.php:1499
+#: ../classes/ui/wpdk-ui-controls.php:1500
+msgid "Select"
+msgstr ""
+
+#: ../classes/ui/wpdk-ui-controls.php:1501
+msgid "Change"
+msgstr ""
 
 #: ../classes/ui/wpdk-ui-modal-dialog.php:259
 msgid "By clicking on the X button, this dialog won't appear"
@@ -955,7 +970,7 @@ msgid "Canceled"
 msgstr ""
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1560
+#: ../classes/users/wpdk-users.php:1557
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, have a look below for additional information."
@@ -964,61 +979,61 @@ msgstr ""
 "Alstublieft, neem hieronder een kijkje voor meer informatie."
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1576
+#: ../classes/users/wpdk-users.php:1573
 msgid "Login information"
 msgstr "Login-gegevens"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1581
+#: ../classes/users/wpdk-users.php:1578
 msgid "Last success login"
 msgstr "Laatste succesvolle login"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1588
+#: ../classes/users/wpdk-users.php:1585
 msgid "# success login"
 msgstr "# succes ingelogd"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1597
+#: ../classes/users/wpdk-users.php:1594
 msgid "Last wrong login"
 msgstr "Laatste verkeerde login"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1604
+#: ../classes/users/wpdk-users.php:1601
 msgid "# wrong login"
 msgstr "# verkeerde logins"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1610
+#: ../classes/users/wpdk-users.php:1607
 msgid "Logout information"
 msgstr "Logout informatie"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1615
+#: ../classes/users/wpdk-users.php:1612
 msgid "Last logout"
 msgstr "Laatste keer uitgelogd"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1621 ../classes/users/wpdk-users.php:1626
+#: ../classes/users/wpdk-users.php:1618 ../classes/users/wpdk-users.php:1623
 msgid "Status"
 msgstr "Status"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1638
+#: ../classes/users/wpdk-users.php:1635
 msgid "Description"
 msgstr "Beschrijving"
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1639
+#: ../classes/users/wpdk-users.php:1636
 msgid "eg: this user is disabled because..."
 msgstr "bijvoorbeeld: deze gebruiker is uitgeschakeld omdat..."
 
-#: ../classes/users/wpdk-users.php:1676
+#: ../classes/users/wpdk-users.php:1673
 msgid "WPDK"
 msgstr ""
 
 # @ wpdk
-#: ../classes/users/wpdk-users.php:1719
+#: ../classes/users/wpdk-users.php:1716
 msgid ""
 "This view <strong>is enhanced</strong> by wpXtreme and WPDK framework. "
 "Please, <strong><a href=\"#wpdk\">have a look below</a></strong> for "
@@ -1045,7 +1060,7 @@ msgid "Malformed data sedning: no alert id found!"
 msgstr ""
 
 # @ wpdk
-#: ../wpdk.php:603
+#: ../wpdk.php:605
 msgid ""
 "Please confirm before unlock this form field.\n"
 "Do you want unlock this form field?"
@@ -1054,27 +1069,27 @@ msgstr ""
 " Wilt u dit veld op het formulier ontgrendelen?"
 
 # @ wpdk
-#: ../wpdk.php:605
+#: ../wpdk.php:607
 msgid "Choose Time"
 msgstr "Kies tijd"
 
 # @ wpdk
-#: ../wpdk.php:606
+#: ../wpdk.php:608
 msgid "Time"
 msgstr "Tijd"
 
 # @ wpdk
-#: ../wpdk.php:610
+#: ../wpdk.php:612
 msgid "Now"
 msgstr "Nu"
 
 # @ wpdk
-#: ../wpdk.php:611
+#: ../wpdk.php:613
 msgid "Su,Mo,Tu,We,Th,Fr,Sa"
 msgstr "Zo,Ma,Di,Wo,Do,Vr,Za"
 
 # @ wpdk
-#: ../wpdk.php:612
+#: ../wpdk.php:614
 msgid ""
 "January,February,March,April,May,June,July,August,September,October,November,"
 "December"
@@ -1083,12 +1098,12 @@ msgstr ""
 "oktober, November, December"
 
 # @ wpdk
-#: ../wpdk.php:613
+#: ../wpdk.php:615
 msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 msgstr "Jan, Feb, mrt, Apr, mei, Jun, Jul, Aug, Sep, okt, Nov, Dec"
 
 # @ wpdk
-#: ../wpdk.php:614
+#: ../wpdk.php:616
 msgid "Close"
 msgstr "Sluiten"
 
