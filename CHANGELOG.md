@@ -21,8 +21,9 @@ For more information on SemVer, please visit http://semver.org/.
 ---
 
 ## Version 1.12.0
-### 2015-02-??
+### 2015-03-06
 
+* Fixed potential wrong field name when changed database prefix
 * Introducing LESS
 
 ## Version 1.11.0
