@@ -1,0 +1,25 @@
+{
+  "name": "wpdk",
+  "version": "1.11.0",
+  "description": "WordPress Development Kit",
+  "main": "wpdk.php",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpXtreme/wpdk.git"
+  },
+  "keywords": [
+    "wordpress",
+    "framework",
+    "plugin",
+    "theme"
+  ],
+  "author": "gfazioli",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/wpXtreme/wpdk/issues"
+  },
+  "homepage": "https://github.com/wpXtreme/wpdk"
+}

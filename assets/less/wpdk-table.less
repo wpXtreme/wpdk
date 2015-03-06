@@ -1,0 +1,79 @@
+/**
+ * WPDK Table CSS styles.
+ *
+ * @author 			=undo= <info@wpxtre.me>
+ * @copyright 		Copyright (C) 2012-2014 wpXtreme Inc. All Rights Reserved.
+ * @date            2015-02-21
+ * @version         1.0.0
+ */
+@import (reference) "wpdk-main";
+
+// Main
+.wpdk-ui-table-view
+{
+  margin : 0 8px;
+  border : 1px solid #ccc;
+  .border-radius(3px);
+
+  thead
+  {
+    th
+    {
+      background-color : @wpdk-color-light-grey;
+    }
+  }
+
+  tbody
+  {
+    tr:last-child
+    {
+      td
+      {
+        border-bottom : none;
+      }
+    }
+  }
+
+  tr:hover
+  {
+    td, th
+    {
+      background-color : rgba(0, 0, 0, 0.01);
+    }
+  }
+
+  td
+  {
+    border-bottom : 1px solid @wpdk-color-light-grey;
+    border-right  : 1px solid @wpdk-color-light-grey;
+    padding       : 10px;
+
+    &:last-child
+    {
+      border-right : none;
+    }
+  }
+
+  th
+  {
+    border-bottom : 1px solid @wpdk-color-light-grey;
+    border-right  : 1px solid @wpdk-color-light-grey;
+    padding       : 10px;
+    text-align    : left;
+    border-right  : 1px solid #ccc;
+    border-bottom : 1px solid #ccc;
+
+    &:first-child
+    {
+      .border-radius(3px 0 0 0);
+    }
+
+    &:last-child
+    {
+      .border-radius(0 3px 0 0);
+      border-right : none;
+    }
+
+  }
+
+}

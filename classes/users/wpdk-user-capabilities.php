@@ -492,7 +492,7 @@ class WPDKUserCapabilities {
     $capabilities = ''; // cache off for debug
 
     if ( empty( $capabilities ) ) {
-      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities'";
+      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = '{$wpdb->prefix}capabilities'";
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
@@ -610,7 +610,7 @@ class WPDKUserCapabilities {
     //$user_caps = get_transient( '_wpdk_users_caps' );
     $user_caps = false; // cache off for debug
     if ( empty( $user_caps ) ) {
-      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities'";
+      $sql    = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = '{$wpdb->prefix}capabilities'";
       $result = $wpdb->get_results( $sql, ARRAY_A );
 
       foreach ( $result as $user_cap ) {
@@ -706,7 +706,7 @@ class WPDKUserCapabilities {
     $likes_str = implode( ' OR ', $likes );
 
     // Prepare select
-    $sql = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'wp_capabilities' AND ( $likes_str )";
+    $sql = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = '{$wpdb->prefix}capabilities' AND ( $likes_str )";
 
     // Gets users
     return array_keys( $wpdb->get_results( $sql, OBJECT_K ) );

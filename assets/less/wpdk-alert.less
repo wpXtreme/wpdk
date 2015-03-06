@@ -1,0 +1,163 @@
+/**
+ * WPDK Alert
+ *
+ * @author        wpXtreme, Inc.
+ * @copyright     Copyright (C) 2012-2015 wpXtreme Inc. All Rights Reserved.
+ * @date	      2015-02-22
+ * @version       1.0.0
+ * @note          Base on bootstrap.css v3.1.0
+ */
+/**
+ * Bootstrap v3.1.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+@import (reference) "wpdk-main";
+
+/*
+ * When use an alert info control layout
+ * TODO remove the `wpdk-form-fieldset` selector in next future
+ */
+
+fieldset.wpdk-form-fieldset .wpdk-alert,
+fieldset.wpdk-ui-control .wpdk-alert
+{
+  margin : 2px 8px 16px !important;
+}
+
+.wpdk-alert
+{
+  padding          : 16px 16px 16px 24px;
+  margin           : 0 0 20px 0 !important;
+  border           : 1px solid @wpdk-color-light-grey;
+  border-left      : none;
+  position         : relative;
+  background-color : #fff;
+  .border-radius(0 2px 2px 0);
+
+  &.fade
+  {
+    .opacity(0);
+    .transition(opacity 0.15s linear);
+
+    &.in, &.error, &.information, &.warning, &.updated
+    {
+      .opacity(1);
+    }
+  }
+
+  &:before
+  {
+    content  : "";
+    display  : block !important;
+    height   : 100%;
+    width    : 4px;
+    position : absolute;
+    top      : 0;
+    left     : 0;
+  }
+
+  h4
+  {
+    margin-top : 0;
+    font-size  : 16px;
+    color      : inherit;
+  }
+
+  button.close
+  {
+    padding            : 0;
+    cursor             : pointer;
+    background         : transparent;
+    border             : 0;
+    -webkit-appearance : none;
+  }
+
+  .close
+  {
+    float       : right;
+    font-size   : 21px;
+    font-weight : bold;
+    line-height : 1;
+    color       : #000;
+    text-shadow : 0 1px 0 #fff;
+    .opacity(0.2);
+
+    &:hover, &:focus
+    {
+      color           : #000;
+      text-decoration : none;
+      cursor          : pointer;
+      .opacity(0.5);
+    }
+  }
+
+  .alert-link
+  {
+    font-weight : bold;
+  }
+
+  > p,
+  > ul
+  {
+    margin-bottom : 0;
+    margin-top    : 0;
+    font-size     : 14px;
+    line-height   : 150%
+  }
+
+  > p + p
+  {
+    margin-top : 5px;
+  }
+
+  &.alert-dismissable
+  {
+    padding-right : 35px;
+
+    .close
+    {
+      position : relative;
+      top      : -2px;
+      right    : -21px;
+      color    : inherit;
+    }
+  }
+
+  &.alert-success
+  {
+    .wpdk-alert-variant(@wpdk-alert-success-bg; @wpdk-alert-success-border; @wpdk-alert-success-text);
+  }
+
+  &.alert-info
+  {
+    .wpdk-alert-variant(@wpdk-alert-info-bg; @wpdk-alert-info-border; @wpdk-alert-info-text);
+  }
+
+  &.alert-warning
+  {
+    .wpdk-alert-variant(@wpdk-alert-warning-bg; @wpdk-alert-warning-border; @wpdk-alert-warning-text);
+  }
+
+  &.alert-danger
+  {
+    .wpdk-alert-variant(@wpdk-alert-danger-bg; @wpdk-alert-danger-border; @wpdk-alert-danger-text);
+  }
+
+  &.alert-white
+  {
+    .wpdk-alert-variant(@wpdk-alert-white-bg; @wpdk-alert-white-border; @wpdk-alert-white-text);
+  }
+
+  // Glyph
+  .wpdk-icon-info-circled
+  {
+    .wpdk-alert-glyph(#3f8efe);
+  }
+
+  .wpdk-icon-attention
+  {
+    .wpdk-alert-glyph(#ef5456);
+  }
+
+}
