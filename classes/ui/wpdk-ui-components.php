@@ -132,7 +132,7 @@ final class WPDKUIComponents {
     $concat = str_split( $concat, 128 );
     $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
 
-    $src = WPDK_URI . "wpdk-load-styles.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    $src = WPDK_URI . "wpdk-load-styles.php?" . $concat . '&ver=' . WPDK_VERSION;
     echo "<link rel='stylesheet' id='wpdk-css-loader' type='text/css' href='" . esc_attr( $src ) . "'/>\n";
   }
 
@@ -162,7 +162,7 @@ final class WPDKUIComponents {
     $concat = str_split( $concat, 128 );
     $concat = 'load%5B%5D=' . implode( '&load%5B%5D=', $concat );
 
-    $src                    = WPDK_URI . "wpdk-load-scripts.php?c={$zip}&" . $concat . '&ver=' . WPDK_VERSION;
+    $src                    = WPDK_URI . "wpdk-load-scripts.php?" . $concat . '&ver=' . WPDK_VERSION;
     $wp_scripts->print_html = "<script type='text/javascript' src='" . esc_attr( $src ) . "'></script>\n" . $wp_scripts->print_html;
 
     return $print;
