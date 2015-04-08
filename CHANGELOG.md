@@ -20,6 +20,12 @@ For more information on SemVer, please visit http://semver.org/.
 
 ---
 
+## Version 1.12.1
+### 2015-04-08
+
+* Minor fixes
+
+
 ## Version 1.12.0
 ### 2015-03-06
 
